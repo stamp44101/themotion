@@ -23,6 +23,9 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
 - 3D (Three.js via @remotion/three) needs `--gl=angle`; it renders in software: ~35 min for 1800 frames
   at concurrency 4. 2D SVG versions render in ~3–7 min.
 - Python audio needs `pip install numpy scipy`.
+- Never render test stills while a full render runs: they steal CPU (Korat took ~55 min instead of ~35).
+- Review cuts at half resolution first (`--scale=0.5`); full-res render only once the story is approved.
+- A GPU machine (`npm run render:<city>` locally) renders the 3D versions many times faster.
 
 ## Look & feel lessons
 - The 3D "isometric diorama" look = the whole city on a floating square tile with a soil cross-section,

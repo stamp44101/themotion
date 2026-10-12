@@ -26,6 +26,10 @@ Sound (all synthesized, synced to the picture): D-major pentatonic Lanna-flavour
 
 [`renders/chiangmai-iso.mp4`](renders/chiangmai-iso.mp4) — the same story and soundtrack as a Three.js diorama: Chiang Mai on a floating tile of land with a soil cross-section, low-poly trees, real shadows, a scripted drone camera and tilt-shift blur. Source in `src/iso/` (composition `ChiangMaiIso`, render with `npm run render:iso`).
 
+## Nakhon Ratchasima (Korat)
+
+[`renders/korat.mp4`](renders/korat.mp4) — built with the reusable diorama engine (`src/engine/`) from `src/cities/korat/`: dinosaurs, Ban Prasat, Sema and Phimai, King Narai's walled city, the 1826 Thao Suranari story, the first railway (1900), the monument (1934), Mittraphap Highway (1958), fireworks finale. Isan-flavoured score from `scripts/soundtrack_korat.py`.
+
 ## Develop
 
 ```bash
