@@ -34,6 +34,10 @@ Sound (all synthesized, synced to the picture): D-major pentatonic Lanna-flavour
 
 [`renders/ayutthaya.mp4`](renders/ayutthaya.mp4) — 75 s, island city ringed by three rivers, with drone dives into street life (riverside, the international port, today): 1350 founding, Wat Phra Si Sanphet, 1569, the 1592 elephant duel, Wat Chaiwatthanaram (1630), the fall on 7 April 1767, ruins, World Heritage 1991. Score in central-Thai classical colours (`scripts/soundtrack_ayutthaya.py`).
 
+## Sukhothai
+
+[`renders/sukhothai.mp4`](renders/sukhothai.mp4) — 75 s: Khmer Wat Phra Phai Luang, founding c. 1249, a market drone dive, Thai script per Inscription 1, Wat Mahathat's lotus-bud chedi, the triple walls, a Sangkhalok kiln dive, Wat Si Chum, the 1438 merger with Ayutthaya, ruins, historical park, World Heritage 1991, a cycling dive and a Loy Krathong night finale (krathongs on the moat, lanterns, fireworks). Score with khlui flute (`scripts/soundtrack_sukhothai.py`).
+
 ## Develop
 
 ```bash
