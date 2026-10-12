@@ -8,7 +8,9 @@
     "render": "remotion render ChiangMaiTimelapse out/chiangmai-timelapse.mp4 --audio-codec=aac --audio-bitrate=256k",
     "still": "remotion still ChiangMaiTimelapse out/still.png",
     "audio": "node scripts/export_timeline.mjs && python3 scripts/make_soundtrack.py",
-    "render:iso": "remotion render ChiangMaiIso out/chiangmai-iso.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k"
+    "render:iso": "remotion render ChiangMaiIso out/chiangmai-iso.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
+    "audio:korat": "node scripts/export_timeline.mjs src/cities/korat/timeline.ts out/timeline_korat.json && python3 scripts/soundtrack_korat.py",
+    "render:korat": "remotion render Korat out/korat.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k"
   },
   "dependencies": {
     "@fontsource/kanit": "^5.1.0",

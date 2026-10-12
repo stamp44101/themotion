@@ -1,16 +1,23 @@
-// Exports per-frame year + lighting (from src/lib.ts) so the soundtrack syncs to the picture.
+// Exports per-frame year + night amount for a city so the soundtrack syncs to the picture.
+// Usage: node scripts/export_timeline.mjs [src/cities/<city>/timeline.ts] [out/timeline_<city>.json]
+// With no args it exports the original Chiang Mai timeline (src/lib.ts) to out/timeline.json.
 import fs from 'node:fs';
-import ts from 'typescript';
+import path from 'node:path';
+import {buildSync} from 'esbuild';
 
-const src = fs.readFileSync(new URL('../src/lib.ts', import.meta.url), 'utf8');
-const js = ts.transpileModule(src, {compilerOptions: {module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2020}}).outputText;
-const mod = await import('data:text/javascript;base64,' + Buffer.from(js).toString('base64'));
+const [cityPath, outPath = 'out/timeline.json'] = process.argv.slice(2);
+const lib = path.resolve('src/lib.ts');
+const entry = cityPath
+  ? `import {lighting, FPS, SECONDS} from ${JSON.stringify(lib)};\nexport * from ${JSON.stringify(path.resolve(cityPath))};\nexport {lighting, FPS, SECONDS};`
+  : `export {lighting, FPS, SECONDS, yearAt} from ${JSON.stringify(lib)};`;
+fs.mkdirSync('out', {recursive: true});
+const tmp = path.resolve('out/.timeline_bundle.mjs');
+buildSync({stdin: {contents: entry, resolveDir: process.cwd(), loader: 'ts'}, bundle: true, format: 'esm', platform: 'node', outfile: tmp, logLevel: 'error'});
+const mod = await import(tmp + '?' + Date.now());
 const frames = [];
 for (let f = 0; f < mod.SECONDS * mod.FPS; f++) {
   const t = f / mod.FPS;
-  const l = mod.lighting(t);
-  frames.push([+mod.yearAt(t).toFixed(3), +l.night.toFixed(3)]);
+  frames.push([+mod.yearAt(t).toFixed(3), +mod.lighting(t).night.toFixed(3)]);
 }
-fs.mkdirSync('out', {recursive: true});
-fs.writeFileSync('out/timeline.json', JSON.stringify({fps: mod.FPS, frames}));
-console.log('frames', frames.length);
+fs.writeFileSync(outPath, JSON.stringify({fps: mod.FPS, frames, events: mod.SOUND_EVENTS ?? {}}));
+console.log('wrote', outPath, frames.length, 'frames');

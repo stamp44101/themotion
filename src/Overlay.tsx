@@ -1,7 +1,7 @@
 import React from 'react';
 import {Img, staticFile, useCurrentFrame} from 'remotion';
 import {proj} from './geometry';
-import {CAPTIONS, Callout, ERAS, FPS, SECONDS, bump, camPoint, camera, sstep, yearAt} from './lib';
+import {CAPTIONS, Callout, Caption, ERAS, FPS, SECONDS, bump, camPoint, camera, sstep, yearAt} from './lib';
 
 const FONT = "'Kanit', sans-serif";
 const shadow = '0 3px 14px rgba(0,0,0,0.55), 0 1px 3px rgba(0,0,0,0.6)';
@@ -42,11 +42,40 @@ const FLAT_CALLOUTS: ScreenCallout[] = CALLOUTS.map((c) => ({
   at: (t: number) => camPoint(camera(t), c.p ?? 1, c.x, c.y),
 }));
 
-export const Overlay: React.FC<{callouts?: ScreenCallout[]}> = ({callouts = FLAT_CALLOUTS}) => {
+export type Story = {
+  captions: Caption[];
+  eras: {t: number; label: string}[];
+  yearAt: (t: number) => number;
+  intro: {kicker: string; title: string; sub: string};
+  finale: {kicker: string; title: string; sub: string};
+  /** Years before this are shown with "ราว" (approximate). */
+  approxBefore: number;
+};
+
+export const CHIANG_MAI_STORY: Story = {
+  captions: CAPTIONS,
+  eras: ERAS,
+  yearAt,
+  intro: {kicker: 'ไทม์แลปส์ประวัติศาสตร์', title: 'เชียงใหม่', sub: 'จากผืนป่า สู่นครแห่งล้านนา'},
+  finale: {kicker: 'พ.ศ. 1839 – 2569', title: 'เชียงใหม่', sub: '730 ปี นครพิงค์ ยังคงเปล่งแสง'},
+  approxBefore: 1290,
+};
+
+const NOW = 2026;
+const fmt = (n: number) => n.toLocaleString('en-US');
+
+export const Overlay: React.FC<{callouts?: ScreenCallout[]; story?: Story}> = ({
+  callouts = FLAT_CALLOUTS,
+  story = CHIANG_MAI_STORY,
+}) => {
   const frame = useCurrentFrame();
   const t = frame / FPS;
-  const Y = yearAt(t);
+  const Y = story.yearAt(t);
   const be = Math.round(Y) + 543;
+  const deep = Y < -100000; // geological time: millions of years ago
+  const ago = !deep && Y < 300; // prehistory: years ago
+  const CAPTIONS = story.captions;
+  const ERAS = story.eras;
 
   const introOp = 1 - sstep(2.3, 3.0, t);
   const counterOp = sstep(2.7, 3.4, t) * (1 - sstep(55.4, 56.2, t));
@@ -111,14 +140,17 @@ export const Overlay: React.FC<{callouts?: ScreenCallout[]}> = ({callouts = FLAT
         }}
       >
         <div style={{display: 'flex', alignItems: 'baseline', gap: 18}}>
-          {Y < 1290 && <span style={{fontSize: 44, fontWeight: 500, opacity: 0.9}}>ราว</span>}
-          <span style={{fontSize: 52, fontWeight: 600, color: '#f6cf73'}}>พ.ศ.</span>
+          {(ago || deep || Y < story.approxBefore) && <span style={{fontSize: 44, fontWeight: 500, opacity: 0.9}}>ราว</span>}
+          {!ago && !deep && <span style={{fontSize: 52, fontWeight: 600, color: '#f6cf73'}}>พ.ศ.</span>}
           <span style={{fontSize: 156, fontWeight: 700, lineHeight: 1, fontVariantNumeric: 'tabular-nums'}}>
-            {be}
+            {deep ? Math.max(1, Math.round(-Y / 1e6)) : ago ? fmt(Math.round((NOW - Y) / 100) * 100) : be}
           </span>
+          {(deep || ago) && (
+            <span style={{fontSize: 52, fontWeight: 600, color: '#f6cf73'}}>{deep ? 'ล้านปีก่อน' : 'ปีก่อน'}</span>
+          )}
         </div>
         <div style={{fontSize: 38, fontWeight: 400, opacity: 0.85, marginTop: 4, letterSpacing: 1}}>
-          ค.ศ. {Math.round(Y)}
+          {deep ? 'ยุคครีเทเชียส' : ago ? 'ยุคก่อนประวัติศาสตร์' : `ค.ศ. ${Math.round(Y)}`}
         </div>
       </div>
 
@@ -250,9 +282,9 @@ export const Overlay: React.FC<{callouts?: ScreenCallout[]}> = ({callouts = FLAT
             transform: `scale(${1 + t * 0.02})`,
           }}
         >
-          <div style={{fontSize: 40, fontWeight: 500, letterSpacing: 6, color: '#f6cf73'}}>ไทม์แลปส์ประวัติศาสตร์</div>
-          <div style={{fontSize: 190, fontWeight: 700, lineHeight: 1.15}}>เชียงใหม่</div>
-          <div style={{fontSize: 50, fontWeight: 400}}>จากผืนป่า สู่นครแห่งล้านนา</div>
+          <div style={{fontSize: 40, fontWeight: 500, letterSpacing: 6, color: '#f6cf73'}}>{story.intro.kicker}</div>
+          <div style={{fontSize: story.intro.title.length > 8 ? 150 : 190, fontWeight: 700, lineHeight: 1.15}}>{story.intro.title}</div>
+          <div style={{fontSize: 50, fontWeight: 400}}>{story.intro.sub}</div>
         </div>
       )}
 
@@ -272,9 +304,9 @@ export const Overlay: React.FC<{callouts?: ScreenCallout[]}> = ({callouts = FLAT
             textShadow: '0 0 30px rgba(255,170,70,0.65), 0 3px 12px rgba(0,0,0,0.6)',
           }}
         >
-          <div style={{fontSize: 44, fontWeight: 500, letterSpacing: 4, color: '#f6cf73'}}>พ.ศ. 1839 – 2569</div>
-          <div style={{fontSize: 200, fontWeight: 700, lineHeight: 1.15}}>เชียงใหม่</div>
-          <div style={{fontSize: 58, fontWeight: 500}}>730 ปี นครพิงค์ ยังคงเปล่งแสง</div>
+          <div style={{fontSize: 44, fontWeight: 500, letterSpacing: 4, color: '#f6cf73'}}>{story.finale.kicker}</div>
+          <div style={{fontSize: story.finale.title.length > 8 ? 160 : 200, fontWeight: 700, lineHeight: 1.15}}>{story.finale.title}</div>
+          <div style={{fontSize: 52, fontWeight: 500, padding: '0 60px'}}>{story.finale.sub}</div>
         </div>
       )}
     </>
