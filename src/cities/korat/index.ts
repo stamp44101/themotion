@@ -24,7 +24,7 @@ export const KORAT: CityConfig = {
       [-49, 36, 9, 9],
       [-40, -46, 7, 8],
     ],
-    river: {axis: 'x', pos: -13, width: 3.4}, // Lam Takhong, just north of the walls
+    rivers: [{axis: 'x', pos: -13, width: 3.4}], // Lam Takhong, just north of the walls
     bridges: [
       {at: 0, year: 1900, modernYear: 1960},
       {at: -26, year: 1958, modernYear: 1958},

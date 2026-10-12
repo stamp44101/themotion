@@ -15,9 +15,10 @@ const tmp = path.resolve('out/.timeline_bundle.mjs');
 buildSync({stdin: {contents: entry, resolveDir: process.cwd(), loader: 'ts'}, bundle: true, format: 'esm', platform: 'node', outfile: tmp, logLevel: 'error'});
 const mod = await import(tmp + '?' + Date.now());
 const frames = [];
-for (let f = 0; f < mod.SECONDS * mod.FPS; f++) {
+const dur = mod.DURATION ?? mod.SECONDS;
+for (let f = 0; f < dur * mod.FPS; f++) {
   const t = f / mod.FPS;
-  frames.push([+mod.yearAt(t).toFixed(3), +mod.lighting(t).night.toFixed(3)]);
+  frames.push([+mod.yearAt(t).toFixed(3), +mod.lighting(t, dur).night.toFixed(3)]);
 }
-fs.writeFileSync(outPath, JSON.stringify({fps: mod.FPS, frames, events: mod.SOUND_EVENTS ?? {}}));
+fs.writeFileSync(outPath, JSON.stringify({fps: mod.FPS, duration: dur, frames, events: mod.SOUND_EVENTS ?? {}}));
 console.log('wrote', outPath, frames.length, 'frames');

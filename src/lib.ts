@@ -251,10 +251,10 @@ export const camPoint = (c: Cam, p: number, x: number, y: number) => {
 };
 
 // Day/night: a 5 s cycle sells the timelapse; the finale settles into night.
-export const lighting = (t: number) => {
+export const lighting = (t: number, dur: number = SECONDS) => {
   const intro = t < 3;
   const cyc = (Math.max(0, t - 3) % 5) / 5;
-  const finale = sstep(54.6, 56.2, t);
+  const finale = sstep(dur - 5.4, dur - 3.8, t);
   let night = intro ? 0.5 * (1 - sstep(0, 2.6, t)) : sstep(0.7, 0.82, cyc) * (1 - sstep(0.93, 1, cyc)) * 0.62;
   let dusk = intro ? 0 : sstep(0.5, 0.68, cyc) * (1 - sstep(0.8, 0.88, cyc));
   night = Math.max(night * (1 - finale), finale * 0.92);

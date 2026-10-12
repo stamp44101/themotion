@@ -17,6 +17,14 @@ SR = 44100
 DUR = 60.0
 N = int(SR * DUR)
 T = np.arange(N) / SR
+
+
+def init(duration):
+    """Set the clip length. Call before `from synth import *` in a city script."""
+    global DUR, N, T
+    DUR = float(duration)
+    N = int(SR * DUR)
+    T = np.arange(N) / SR
 rng = np.random.default_rng(1296)
 
 
@@ -299,3 +307,55 @@ def firework_pop():
         i = rng.integers(int(0.1 * SR), n - 300)
         sizzle[i : i + 300] += filt(noise(300), "high", 4000) * np.exp(-np.arange(300) / 50) * rng.uniform(0.1, 0.4)
     return boom + sizzle * np.exp(-t * 1.5)
+
+
+# ---------------------------------------------------------------- central-Thai classical colours
+def ranat(m, dur=0.9):
+    """Ranat ek (wooden xylophone): bright, fast-decaying inharmonic bar."""
+    n = int(dur * SR)
+    t = np.arange(n) / SR
+    f = mtof(m)
+    out = np.zeros(n)
+    for r, a, d in ((1, 1.0, 7), (3.93, 0.35, 16), (9.2, 0.12, 30)):
+        out += a * np.sin(2 * np.pi * f * r * t) * np.exp(-t * d)
+    out += filt(noise(n), "band", (1500, 5000)) * np.exp(-t * 120) * 0.15
+    return out * 0.45
+
+
+def pi_reed(m, dur, vib=5.5):
+    """Pi nai (Thai oboe): nasal double-reed tone with expressive vibrato."""
+    n = int(dur * SR)
+    t = np.arange(n) / SR
+    f = mtof(m) * (1 + 0.012 * np.sin(2 * np.pi * vib * t) * np.minimum(1, t / 0.4))
+    ph = 2 * np.pi * np.cumsum(f) / SR
+    saw = sum(np.sin(k * ph) / k for k in range(1, 18))
+    tone = filt(saw, "band", (500, 2600)) + 0.4 * filt(saw, "band", (2600, 4200))
+    return tone * env_ar(n, 0.08, min(0.3, dur / 3)) * 0.22
+
+
+def trumpet_elephant(dur=1.2):
+    n = int(dur * SR)
+    t = np.arange(n) / SR
+    f = 380 + 260 * np.minimum(1, t / 0.25) - 120 * np.maximum(0, t - 0.6)
+    f = f * (1 + 0.03 * np.sin(2 * np.pi * 18 * t))
+    ph = 2 * np.pi * np.cumsum(f) / SR
+    saw = sum(np.sin(k * ph) / k for k in range(1, 25))
+    return (filt(saw, "band", (500, 3000)) + filt(noise(n), "band", (800, 3000)) * 0.3) * env_ar(n, 0.05, 0.4) * 0.3
+
+
+def splash():
+    n = int(0.35 * SR)
+    t = np.arange(n) / SR
+    return filt(noise(n), "band", (400, 3000)) * np.exp(-t * 14) * 0.25
+
+
+def creak(dur=0.6):
+    n = int(dur * SR)
+    t = np.arange(n) / SR
+    f = 180 + 90 * np.sin(2 * np.pi * 0.8 * t)
+    pulse = (np.sin(2 * np.pi * np.cumsum(f) / SR) > 0.7).astype(float)
+    return filt(pulse, "band", (300, 1500)) * env_ar(n, 0.05, 0.2) * 0.12
+
+
+def bicycle_bell():
+    return bell(3400, 0.6, ratios=(1, 1.52, 2.1), decay=5) * 0.35

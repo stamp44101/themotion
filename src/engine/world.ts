@@ -14,7 +14,8 @@ export const getWorld = (L: CityLayout) => {
 };
 
 const buildWorld = (L: CityLayout) => {
-  const {tile, city, river} = L;
+  const {tile, city} = L;
+  const river = L.rivers[0];
   const S = tile.x1 - tile.x0;
   const C: [number, number] = [(tile.x0 + tile.x1) / 2, (tile.z0 + tile.z1) / 2];
   const peak = (x: number, z: number, cx: number, cz: number, h: number, r: number) =>
@@ -28,8 +29,13 @@ const buildWorld = (L: CityLayout) => {
   const inTile = (x: number, z: number, m = 1) => x > tile.x0 + m && x < tile.x1 - m && z > tile.z0 + m && z < tile.z1 - m;
   const inCity = (x: number, z: number, pad = 2.2) => Math.abs(x) < city.hx + pad && Math.abs(z) < city.hz + pad;
   const cityDist = (x: number, z: number) => Math.max(Math.abs(x) - city.hx, Math.abs(z) - city.hz, 0);
-  const cross = (x: number, z: number) => (river.axis === 'z' ? x : z);
-  const inRiver = (x: number, z: number) => Math.abs(cross(x, z) - river.pos) < river.width / 2 + 0.8;
+  const inRiver = (x: number, z: number) =>
+    L.rivers.some((r) => {
+      const c = r.axis === 'z' ? x : z;
+      const a = r.axis === 'z' ? z : x;
+      const [s0, s1] = r.span ?? [-1e9, 1e9];
+      return Math.abs(c - r.pos) < r.width / 2 + 0.8 && a > s0 - r.width && a < s1 + r.width;
+    });
   const onRail = (x: number, z: number) => !!L.rail && Math.abs((L.rail.axis === 'z' ? x : z) - L.rail.pos) < 2;
   const onRoad = (x: number, z: number) =>
     L.roads.some(({from: [ax, az], to: [bx, bz], width}) => {
@@ -53,7 +59,7 @@ const buildWorld = (L: CityLayout) => {
     else if (inCity(x, z, 0.8)) {
       clear = L.forestCity + r * 1.2;
       if (L.regrowCity && r < 0.45) regrow = [L.regrowCity[0] + random(`tg${i}`) * 40, L.regrowCity[1] + r * 10];
-    } else if (inCity(x, z, 2.4)) clear = city.moat[0] + r;
+    } else if (inCity(x, z, 2.4)) clear = (L.noMoat ? city.wall[0] : city.moat[0]) + r;
     else if (r < 0.14) clear = Infinity;
     else if (r < 0.4) clear = L.paddies[0] + random(`tc${i}`) * (L.paddies[1] - L.paddies[0]);
     else clear = L.urban.from - 25 + cityDist(x, z) * L.urban.rate * 1.5 + random(`tc${i}`) * 45;

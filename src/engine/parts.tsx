@@ -146,3 +146,53 @@ export const Prang: React.FC<{pos: [number, number, number]; k: number; scale?: 
     </group>
   );
 };
+
+/** Low-poly elephant (~2.6 units long), optional golden howdah. `step` animates the legs. */
+export const Elephant: React.FC<{step: number; howdah?: boolean; color?: string}> = ({step, howdah, color = '#7d7a76'}) => {
+  const m = <meshStandardMaterial color={color} flatShading roughness={0.95} />;
+  return (
+    <group>
+      <mesh position={[0, 1.35, 0]} scale={[0.8, 0.75, 1.25]} castShadow>
+        <icosahedronGeometry args={[1, 1]} />
+        {m}
+      </mesh>
+      <mesh position={[0, 1.6, 1.25]} scale={[0.55, 0.55, 0.5]} castShadow>
+        <icosahedronGeometry args={[1, 0]} />
+        {m}
+      </mesh>
+      {[-1, 1].map((s) => (
+        <mesh key={s} position={[s * 0.5, 1.65, 1.15]} rotation-y={s * 0.4} scale={[0.08, 0.5, 0.4]} castShadow>
+          <boxGeometry args={[1, 1, 1]} />
+          {m}
+        </mesh>
+      ))}
+      <mesh position={[0, 0.95, 1.65]} rotation-x={0.25} castShadow>
+        <cylinderGeometry args={[0.1, 0.17, 1.0, 6]} />
+        {m}
+      </mesh>
+      {[
+        [0.42, 0.7],
+        [-0.42, 0.7],
+        [0.42, -0.7],
+        [-0.42, -0.7],
+      ].map(([lx, lz], j) => (
+        <mesh key={j} position={[lx, 0.45, lz]} rotation-x={step * 0.3 * (j % 3 === 0 ? 1 : -1)} castShadow>
+          <cylinderGeometry args={[0.2, 0.18, 0.9, 6]} />
+          {m}
+        </mesh>
+      ))}
+      {howdah && (
+        <group position={[0, 2.15, -0.1]}>
+          <mesh castShadow>
+            <boxGeometry args={[0.9, 0.35, 0.9]} />
+            <meshStandardMaterial color="#d9a43a" metalness={0.6} roughness={0.35} />
+          </mesh>
+          <mesh position={[0, 0.45, 0]} castShadow>
+            <coneGeometry args={[0.55, 0.6, 4]} />
+            <meshStandardMaterial color="#b8322a" />
+          </mesh>
+        </group>
+      )}
+    </group>
+  );
+};

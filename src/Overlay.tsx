@@ -50,6 +50,8 @@ export type Story = {
   finale: {kicker: string; title: string; sub: string};
   /** Years before this are shown with "ราว" (approximate). */
   approxBefore: number;
+  /** Clip length in seconds (default 60). */
+  duration?: number;
 };
 
 export const CHIANG_MAI_STORY: Story = {
@@ -78,10 +80,11 @@ export const Overlay: React.FC<{callouts?: ScreenCallout[]; story?: Story}> = ({
   const ERAS = story.eras;
 
   const introOp = 1 - sstep(2.3, 3.0, t);
-  const counterOp = sstep(2.7, 3.4, t) * (1 - sstep(55.4, 56.2, t));
-  const finaleOp = sstep(56.0, 57.0, t);
-  const progress = t / SECONDS;
-  const leak = Math.max(0, ...ERAS.map((e) => bump(t, e.t - 0.25, e.t + 0.9, 0.4)), bump(t, 55.6, 57.2, 0.6));
+  const D = story.duration ?? SECONDS;
+  const counterOp = sstep(2.7, 3.4, t) * (1 - sstep(D - 4.6, D - 3.8, t));
+  const finaleOp = sstep(D - 4, D - 3, t);
+  const progress = t / D;
+  const leak = Math.max(0, ...ERAS.map((e) => bump(t, e.t - 0.25, e.t + 0.9, 0.4)), bump(t, D - 4.4, D - 2.8, 0.6));
 
   return (
     <>
@@ -216,7 +219,7 @@ export const Overlay: React.FC<{callouts?: ScreenCallout[]; story?: Story}> = ({
       </svg>
 
       {/* Timeline bar */}
-      <div style={{position: 'absolute', left: 70, right: 70, top: 1806, height: 90, opacity: 1 - sstep(55.6, 56.4, t)}}>
+      <div style={{position: 'absolute', left: 70, right: 70, top: 1806, height: 90, opacity: 1 - sstep(D - 4.4, D - 3.6, t)}}>
         <div style={{position: 'absolute', left: 0, right: 0, top: 38, height: 4, borderRadius: 2, background: 'rgba(255,255,255,0.28)'}} />
         <div
           style={{
@@ -236,7 +239,7 @@ export const Overlay: React.FC<{callouts?: ScreenCallout[]; story?: Story}> = ({
               key={e.label}
               style={{
                 position: 'absolute',
-                left: `${(e.t / SECONDS) * 100}%`,
+                left: `${(e.t / D) * 100}%`,
                 top: i % 2 ? 50 : -8,
                 transform: 'translateX(-50%)',
                 fontFamily: FONT,

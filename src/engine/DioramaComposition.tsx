@@ -20,7 +20,7 @@ export const DioramaComposition: React.FC<{city: CityConfig}> = ({city: c}) => {
   const frame = useCurrentFrame();
   const t = frame / FPS;
   const Y = c.story.yearAt(t);
-  const {night, dusk, finale} = lighting(t);
+  const {night, dusk, finale} = lighting(t, c.story.duration ?? 60);
   const [handle] = useState(() => delayRender('Loading Kanit'));
   useEffect(() => {
     Promise.all(['400', '500', '600', '700'].map((w) => document.fonts.load(`${w} 40px Kanit`, 'ไทย 0123'))).then(() =>

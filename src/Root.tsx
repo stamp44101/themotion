@@ -6,9 +6,11 @@ import {Composition} from 'remotion';
 import {ChiangMaiTimelapse} from './ChiangMaiTimelapse';
 import {ChiangMaiIso} from './iso/IsoComposition';
 import {KORAT} from './cities/korat';
+import {AYUTTHAYA} from './cities/ayutthaya';
 import {DioramaComposition} from './engine/DioramaComposition';
 
 const Korat: React.FC = () => <DioramaComposition city={KORAT} />;
+const Ayutthaya: React.FC = () => <DioramaComposition city={AYUTTHAYA} />;
 import {FPS, H, SECONDS, W} from './lib';
 
 export const RemotionRoot: React.FC = () => (
@@ -21,7 +23,8 @@ export const RemotionRoot: React.FC = () => (
       width={W}
       height={H}
     />
-    <Composition id="Korat" component={Korat} durationInFrames={SECONDS * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="Ayutthaya" component={Ayutthaya} durationInFrames={(AYUTTHAYA.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="Korat" component={Korat} durationInFrames={(KORAT.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition
       id="ChiangMaiIso"
       component={ChiangMaiIso}

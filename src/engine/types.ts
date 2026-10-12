@@ -13,10 +13,13 @@ export type CityLayout = {
   peaks: Peak[];
   /** Mountain slope color (vertex tint). */
   forest?: string;
-  /** River runs along `axis` at cross-axis position `pos`. */
-  river: {axis: Axis; pos: number; width: number};
-  /** Bridges across the river: `at` = position along the river axis. */
-  bridges: {at: number; year: number; modernYear: number}[];
+  /** Rivers run along `axis` at cross-axis position `pos`; `span` limits their extent along the axis
+   *  (defaults to the whole tile). The first river carries the boats. */
+  rivers: {axis: Axis; pos: number; width: number; span?: [number, number]}[];
+  /** Bridges across river `river` (index, default 0): `at` = position along that river's axis. */
+  bridges: {at: number; year: number; modernYear: number; river?: number}[];
+  /** Walled city has its own moat (false when rivers form the moat). */
+  noMoat?: boolean;
   rail?: {axis: Axis; pos: number; open: [number, number]; station: [number, number]; stationYear: number};
   trains: {t0: number; dur: number; dir: 1 | -1; modern: boolean}[];
   /** Walled old city: a rectangle of half-sizes hx × hz centred on the origin. */
@@ -51,6 +54,15 @@ export type CityLayout = {
   cars: [number, number];
   boats: [number, number];
   finale: 'lanterns' | 'fireworks';
+  /** Street life for the drone dives. Each group is visible from `from` to `to` (years). */
+  life?: {
+    people?: {x: number; z: number; r: number; count: number; from: number; to: number; colors?: string[]; monks?: boolean}[];
+    stalls?: {x: number; z: number; r: number; count: number; from: number; to: number}[];
+    ships?: {river: number; count: number; from: number; to: number; offset?: number}[];
+    houseboats?: {river: number; count: number; from: number; to: number}[];
+    elephants?: {x: number; z: number; r: number; count: number; from: number; to: number; howdah?: boolean}[];
+    buffalo?: {x: number; z: number; r: number; count: number; from: number; to: number}[];
+  };
   plane?: [number, number];
   cameraKeys: CamKey[];
 };

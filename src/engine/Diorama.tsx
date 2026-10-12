@@ -8,18 +8,19 @@ import {applyCamera, droneCamera} from './camera';
 import {col, glowTexture, prism, updateInstances, windowTexture} from './parts';
 import type {CityConfig, CityLayout} from './types';
 import {World, getWorld} from './world';
+import {LifeLayer} from './Life';
 
 type P = {c: CityConfig; w: World};
 
 const useT = (c: CityConfig) => {
   const frame = useCurrentFrame();
   const t = frame / FPS;
-  return {frame, t, Y: c.story.yearAt(t)};
+  return {frame, t, Y: c.story.yearAt(t), dur: c.story.duration ?? 60};
 };
 
 // ------------------------------------------------------------------ camera, lights, sync
 const CameraRig: React.FC<P> = ({c}) => {
-  const {t} = useT(c);
+  const {t, dur} = useT(c);
   const camera = useThree((s) => s.camera) as THREE.PerspectiveCamera;
   useLayoutEffect(() => {
     applyCamera(camera, droneCamera(c.layout.cameraKeys)(t));
@@ -36,8 +37,8 @@ const FrameSync: React.FC = () => {
   return null;
 };
 
-export const sunState = (t: number) => {
-  const {cyc, night, intro, finale} = lighting(t);
+export const sunState = (t: number, dur = 60) => {
+  const {cyc, night, intro, finale} = lighting(t, dur);
   const day = intro ? 0.25 + (t / 3) * 0.25 : cyc / 0.72;
   const th = Math.PI * Math.min(1, Math.max(0, day));
   const elev = Math.sin(th);
@@ -47,8 +48,8 @@ export const sunState = (t: number) => {
 };
 
 const Lights: React.FC<P> = ({c, w}) => {
-  const {t} = useT(c);
-  const {dir, elev, vis, night} = sunState(t);
+  const {t, dur} = useT(c);
+  const {dir, elev, vis, night} = sunState(t, dur);
   const sun = useRef<THREE.DirectionalLight>(null);
   const tgt = useMemo(() => new THREE.Object3D(), []);
   useLayoutEffect(() => {
@@ -85,7 +86,7 @@ const Lights: React.FC<P> = ({c, w}) => {
 
 // ------------------------------------------------------------------ land
 const Ground: React.FC<P> = ({c, w}) => {
-  const {Y} = useT(c);
+  const {Y, dur} = useT(c);
   const g = c.gloom(Y);
   const ground = mix(keyColor(c.sky.ground, Y), '#8c8a70', g * 0.4);
   const {tile} = c.layout;
@@ -150,7 +151,7 @@ const Ground: React.FC<P> = ({c, w}) => {
 };
 
 const Paddies: React.FC<P> = ({c, w}) => {
-  const {Y} = useT(c);
+  const {Y, dur} = useT(c);
   const ref = useRef<THREE.InstancedMesh>(null);
   useLayoutEffect(() => {
     const m = ref.current;
@@ -181,12 +182,15 @@ const Paddies: React.FC<P> = ({c, w}) => {
 const along = (L: CityLayout, axis: 'x' | 'z', a: number, crossPos: number, y: number): [number, number, number] =>
   axis === 'z' ? [crossPos, y, a] : [a, y, crossPos];
 
-const Water: React.FC<P> = ({c, w}) => {
+const riverSpan = (L: CityLayout, r: CityLayout['rivers'][number]) =>
+  r.span ?? (r.axis === 'z' ? [L.tile.z0, L.tile.z1] : [L.tile.x0, L.tile.x1]);
+
+const Water: React.FC<P> = ({c}) => {
   const {Y, frame} = useT(c);
   const L = c.layout;
-  const {river, city, tile} = L;
+  const {city} = L;
   const water = mix('#3f8fc0', '#617a86', c.gloom(Y) * 0.6);
-  const p = ramp(Y, city.moat[0], city.moat[1]) * 4;
+  const p = L.noMoat ? 0 : ramp(Y, city.moat[0], city.moat[1]) * 4;
   const mx = city.hx + 1.4;
   const mz = city.hz + 1.4;
   // east, north, west, south — dug in sequence
@@ -196,29 +200,35 @@ const Water: React.FC<P> = ({c, w}) => {
     [-mx, 0, 0, 2 * mz + 2.8, 2],
     [0, mz, Math.PI / 2, 2 * mx + 1.4, 3],
   ];
-  const span = river.axis === 'z' ? [tile.z0, tile.z1] : [tile.x0, tile.x1];
-  const mid = (span[0] + span[1]) / 2;
-  const len = span[1] - span[0];
-  const rot = river.axis === 'z' ? 0 : Math.PI / 2;
   return (
     <>
-      <mesh position={along(L, river.axis, mid, river.pos, -0.6)} rotation-y={rot} receiveShadow>
-        <boxGeometry args={[river.width, 1.4, len + 0.08]} />
-        <meshStandardMaterial color={water} roughness={0.12} metalness={0.25} />
-      </mesh>
-      {[-1, 1].map((s) => (
-        <mesh key={s} position={along(L, river.axis, mid, river.pos + (s * river.width) / 2, 0.08)} rotation-y={rot}>
-          <boxGeometry args={[0.35, 0.1, len]} />
-          <meshStandardMaterial color="#b9a77c" roughness={1} />
-        </mesh>
-      ))}
-      {new Array(40).fill(0).map((_, i) => {
-        const a = span[0] + 1 + ((i * 23.7 + frame * 0.12) % (len - 2));
+      {L.rivers.map((river, ri) => {
+        const span = riverSpan(L, river);
+        const mid = (span[0] + span[1]) / 2;
+        const len = span[1] - span[0];
+        const rot = river.axis === 'z' ? 0 : Math.PI / 2;
         return (
-          <mesh key={`fl${i}`} position={along(L, river.axis, a, river.pos - river.width * 0.36 + ((i * 1.37) % (river.width * 0.72)), 0.1)} rotation-y={rot}>
-            <boxGeometry args={[0.06, 0.01, 1.2]} />
-            <meshBasicMaterial color="#d9f0ff" transparent opacity={0.45} />
-          </mesh>
+          <group key={ri}>
+            <mesh position={along(L, river.axis, mid, river.pos, -0.6)} rotation-y={rot} receiveShadow>
+              <boxGeometry args={[river.width, 1.4, len + 0.08]} />
+              <meshStandardMaterial color={water} roughness={0.12} metalness={0.25} />
+            </mesh>
+            {[-1, 1].map((s) => (
+              <mesh key={s} position={along(L, river.axis, mid, river.pos + (s * river.width) / 2, 0.08)} rotation-y={rot}>
+                <boxGeometry args={[0.35, 0.1, len]} />
+                <meshStandardMaterial color="#b9a77c" roughness={1} />
+              </mesh>
+            ))}
+            {new Array(Math.round(len / 2.4)).fill(0).map((_, i) => {
+              const a = span[0] + 1 + ((i * 23.7 + frame * 0.12) % (len - 2));
+              return (
+                <mesh key={`fl${i}`} position={along(L, river.axis, a, river.pos - river.width * 0.36 + ((i * 1.37) % (river.width * 0.72)), 0.1)} rotation-y={rot}>
+                  <boxGeometry args={[0.06, 0.01, 1.2]} />
+                  <meshBasicMaterial color="#d9f0ff" transparent opacity={0.45} />
+                </mesh>
+              );
+            })}
+          </group>
         );
       })}
       {sides.map(([x, z, r, l, i]) => {
@@ -236,7 +246,7 @@ const Water: React.FC<P> = ({c, w}) => {
 };
 
 const Trees: React.FC<P> = ({c, w}) => {
-  const {Y} = useT(c);
+  const {Y, dur} = useT(c);
   const trunk = useRef<THREE.InstancedMesh>(null);
   const crown = useRef<THREE.InstancedMesh>(null);
   const crown2 = useRef<THREE.InstancedMesh>(null);
@@ -334,11 +344,11 @@ const HouseSet: React.FC<{items: {x: number; z: number; rot: number}[]; k: (i: n
 };
 
 const Houses: React.FC<P> = ({c, w}) => {
-  const {Y, t} = useT(c);
+  const {Y, t, dur} = useT(c);
   const H = w.houses;
   const modern = useRef<THREE.InstancedMesh>(null);
   const {map, emap} = useMemo(windowTexture, []);
-  const {night} = lighting(t);
+  const {night} = lighting(t, dur);
   const trad = (i: number) => {
     const h = H[i];
     if (smooth(ramp(Y, h.modern, h.modern + 5)) > 0.02) return 0;
@@ -376,7 +386,7 @@ const Houses: React.FC<P> = ({c, w}) => {
 };
 
 const Village: React.FC<P> = ({c, w}) => {
-  const {Y} = useT(c);
+  const {Y, dur} = useT(c);
   const V = w.village;
   const ab = c.layout.houses.abandon;
   const k = (i: number) =>
@@ -387,11 +397,11 @@ const Village: React.FC<P> = ({c, w}) => {
 };
 
 const Buildings: React.FC<P> = ({c, w}) => {
-  const {Y, t} = useT(c);
+  const {Y, t, dur} = useT(c);
   const B = w.buildings;
   const ref = useRef<THREE.InstancedMesh>(null);
   const {map, emap} = useMemo(windowTexture, []);
-  const {night} = lighting(t);
+  const {night} = lighting(t, dur);
   useLayoutEffect(() => {
     updateInstances(ref.current, B.length, (i, o) => {
       const b = B[i];
@@ -416,7 +426,7 @@ const Buildings: React.FC<P> = ({c, w}) => {
 };
 
 const Walls: React.FC<P> = ({c}) => {
-  const {Y} = useT(c);
+  const {Y, dur} = useT(c);
   const {city, gates} = c.layout;
   const d = city.decay;
   const decay = d ? ramp(Y, d[0], d[1]) * (1 - ramp(Y, d[2], d[3])) : 0;
@@ -512,11 +522,10 @@ const Walls: React.FC<P> = ({c}) => {
 const RING = (c: CityConfig) => [c.layout.city.hx + 3.1, c.layout.city.hz + 3.1] as const;
 
 const Infrastructure: React.FC<P> = ({c, w}) => {
-  const {Y, t} = useT(c);
-  const {night} = lighting(t);
+  const {Y, t, dur} = useT(c);
+  const {night} = lighting(t, dur);
   const L = c.layout;
-  const {river, rail, tile} = L;
-  const rot = river.axis === 'z' ? 0 : Math.PI / 2;
+  const {rail, tile} = L;
   const sleepers = useRef<THREE.InstancedMesh>(null);
   const railK = rail ? ramp(Y, rail.open[0], rail.open[1]) : 0;
   const railSpan = rail ? (rail.axis === 'z' ? [tile.z0, tile.z1] : [tile.x0, tile.x1]) : [0, 0];
@@ -540,6 +549,8 @@ const Infrastructure: React.FC<P> = ({c, w}) => {
       {L.bridges.map((b, i) => {
         const k = ramp(Y, b.year, b.year + 3);
         if (k <= 0) return null;
+        const river = L.rivers[b.river ?? 0];
+        const rot = river.axis === 'z' ? 0 : Math.PI / 2;
         return (
           <group key={i} position={along(L, river.axis, b.at, river.pos, 0)} rotation-y={rot} scale={[k, 1, 1]}>
             <mesh position={[0, 0.45, 0]} castShadow receiveShadow>
@@ -618,7 +629,7 @@ const Infrastructure: React.FC<P> = ({c, w}) => {
 };
 
 const Train: React.FC<P & {i: number}> = ({c, i}) => {
-  const {t} = useT(c);
+  const {t, dur} = useT(c);
   const L = c.layout;
   const tr = L.trains[i];
   const rail = L.rail;
@@ -654,7 +665,7 @@ const Train: React.FC<P & {i: number}> = ({c, i}) => {
 };
 
 const Cars: React.FC<P> = ({c}) => {
-  const {Y, frame} = useT(c);
+  const {Y, frame, dur} = useT(c);
   const ref = useRef<THREE.InstancedMesh>(null);
   const L = c.layout;
   const n = Math.floor(ramp(Y, L.cars[0], L.cars[1]) * 48);
@@ -693,18 +704,19 @@ const Cars: React.FC<P> = ({c}) => {
 };
 
 const Boats: React.FC<P> = ({c, w}) => {
-  const {Y, t} = useT(c);
+  const {Y, t, dur} = useT(c);
   const L = c.layout;
   const k = ramp(Y, L.boats[0], L.boats[0] + 100) * (1 - ramp(Y, L.boats[1], L.boats[1] + 20));
   if (k <= 0.02) return null;
-  const span = L.river.axis === 'z' ? [L.tile.z0, L.tile.z1] : [L.tile.x0, L.tile.x1];
+  const R = L.rivers[0];
+  const span = riverSpan(L, R);
   const len = span[1] - span[0];
   return (
     <>
       {w.boats.map((b, i) => {
         const a = span[0] + 2 + ((((b.at + t * b.sp * 4) % (len - 4)) + len - 4) % (len - 4));
         return (
-          <mesh key={i} position={along(L, L.river.axis, a, L.river.pos + b.off, 0.15)} rotation-y={L.river.axis === 'z' ? 0 : Math.PI / 2} scale={k} castShadow>
+          <mesh key={i} position={along(L, R.axis, a, R.pos + b.off, 0.15)} rotation-y={R.axis === 'z' ? 0 : Math.PI / 2} scale={k} castShadow>
             <boxGeometry args={[0.45, 0.2, 1.6]} />
             <meshStandardMaterial color="#6a4a2e" />
           </mesh>
@@ -715,7 +727,7 @@ const Boats: React.FC<P> = ({c, w}) => {
 };
 
 const Plane: React.FC<P> = ({c}) => {
-  const {t, frame} = useT(c);
+  const {t, frame, dur} = useT(c);
   const pl = c.layout.plane;
   if (!pl || t < pl[0] || t > pl[1]) return null;
   const p = (t - pl[0]) / (pl[1] - pl[0]);
@@ -765,10 +777,11 @@ const SPARK_DIRS = new Array(SPARKS).fill(0).map((_, j) => {
 });
 
 const Finale: React.FC<P> = ({c}) => {
-  const {t} = useT(c);
+  const {t: tAbs, dur} = useT(c);
+  const t = tAbs - (dur - 60); // lantern/firework schedules are authored for a 60 s clip
   const lantern = useMemo(() => glowTexture('rgba(255,236,190,1)', 'rgba(255,150,50,0.55)'), []);
   const spark = useMemo(() => glowTexture('rgba(255,255,255,1)', 'rgba(255,255,255,0.5)'), []);
-  const {dir, vis, elev} = sunState(t);
+  const {dir, vis, elev} = sunState(tAbs, dur);
   const fireworks = c.layout.finale === 'fireworks';
   const geo = useMemo(() => {
     const g = new THREE.BufferGeometry();
@@ -833,8 +846,8 @@ const Finale: React.FC<P> = ({c}) => {
 };
 
 const LandmarkLayer: React.FC<P> = ({c, w}) => {
-  const {Y, t, frame} = useT(c);
-  const {night} = lighting(t);
+  const {Y, t, frame, dur} = useT(c);
+  const {night} = lighting(t, dur);
   const Landmarks = c.Landmarks;
   return <Landmarks Y={Y} t={t} frame={frame} night={night} terrainH={w.terrainH} />;
 };
@@ -855,6 +868,7 @@ export const Diorama: React.FC<{c: CityConfig}> = ({c}) => {
       <Buildings {...p} />
       <Walls {...p} />
       <LandmarkLayer {...p} />
+      <LifeLayer c={c} />
       <Infrastructure {...p} />
       {c.layout.trains.map((_, i) => (
         <Train key={i} {...p} i={i} />
