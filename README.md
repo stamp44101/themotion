@@ -22,6 +22,10 @@ Sound (all synthesized, synced to the picture): D-major pentatonic Lanna-flavour
 | 50–56 s | Modern city | Sprawl, Nimman, airport, traffic |
 | 56–60 s | Today | Yi Peng lanterns — 730 years |
 
+## 3D isometric diorama version
+
+[`renders/chiangmai-iso.mp4`](renders/chiangmai-iso.mp4) — the same story and soundtrack as a Three.js diorama: Chiang Mai on a floating tile of land with a soil cross-section, low-poly trees, real shadows, a scripted drone camera and tilt-shift blur. Source in `src/iso/` (composition `ChiangMaiIso`, render with `npm run render:iso`).
+
 ## Develop
 
 ```bash

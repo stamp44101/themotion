@@ -7,7 +7,8 @@
     "studio": "remotion studio",
     "render": "remotion render ChiangMaiTimelapse out/chiangmai-timelapse.mp4 --audio-codec=aac --audio-bitrate=256k",
     "still": "remotion still ChiangMaiTimelapse out/still.png",
-    "audio": "node scripts/export_timeline.mjs && python3 scripts/make_soundtrack.py"
+    "audio": "node scripts/export_timeline.mjs && python3 scripts/make_soundtrack.py",
+    "render:iso": "remotion render ChiangMaiIso out/chiangmai-iso.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k"
   },
   "dependencies": {
     "@fontsource/kanit": "^5.1.0",
