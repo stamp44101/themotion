@@ -21,7 +21,7 @@ import {FPS, bump, camera, keyColor, layerTransform, lerp, lighting, mix, ramp, 
 
 type Shade = (c: string) => string;
 
-const SKY_TOP: [number, string][] = [
+export const SKY_TOP: [number, string][] = [
   [400, '#6fa8cf'],
   [1290, '#6fa8cf'],
   [1400, '#5b98cf'],
@@ -32,7 +32,7 @@ const SKY_TOP: [number, string][] = [
   [1930, '#68a2d0'],
   [2026, '#4a8ed6'],
 ];
-const SKY_BOTTOM: [number, string][] = [
+export const SKY_BOTTOM: [number, string][] = [
   [400, '#d6ecee'],
   [1290, '#e2eed9'],
   [1400, '#ffdcaa'],
@@ -43,7 +43,7 @@ const SKY_BOTTOM: [number, string][] = [
   [1930, '#e6eddd'],
   [2026, '#d3e8f7'],
 ];
-const GROUND: [number, string][] = [
+export const GROUND: [number, string][] = [
   [400, '#5c8d47'],
   [1250, '#6c9649'],
   [1560, '#6c9649'],
@@ -59,7 +59,7 @@ const BANK: [number, string][] = [
   [2026, '#6f7068'],
 ];
 
-const BUILD_PALETTES = [
+export const BUILD_PALETTES = [
   ['#e9e4da', '#c7c0b2', '#b3ab9c'],
   ['#d9d2c4', '#b4ab9a', '#a0978a'],
   ['#c8d3dc', '#a2afba', '#8f9ca7'],

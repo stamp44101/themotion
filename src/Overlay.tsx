@@ -28,7 +28,21 @@ const CALLOUTS: (Callout & {p?: number})[] = [
 
 const pillWidth = (s: string) => s.replace(/[ัิ-ฺ็-๎]/g, '').length * 17 + 44;
 
-export const Overlay: React.FC = () => {
+export type ScreenCallout = {
+  t0: number;
+  t1: number;
+  label: string;
+  dx: number;
+  dy: number;
+  at: (t: number) => {x: number; y: number};
+};
+
+const FLAT_CALLOUTS: ScreenCallout[] = CALLOUTS.map((c) => ({
+  ...c,
+  at: (t: number) => camPoint(camera(t), c.p ?? 1, c.x, c.y),
+}));
+
+export const Overlay: React.FC<{callouts?: ScreenCallout[]}> = ({callouts = FLAT_CALLOUTS}) => {
   const frame = useCurrentFrame();
   const t = frame / FPS;
   const Y = yearAt(t);
@@ -38,7 +52,6 @@ export const Overlay: React.FC = () => {
   const counterOp = sstep(2.7, 3.4, t) * (1 - sstep(55.4, 56.2, t));
   const finaleOp = sstep(56.0, 57.0, t);
   const progress = t / SECONDS;
-  const cam = camera(t);
   const leak = Math.max(0, ...ERAS.map((e) => bump(t, e.t - 0.25, e.t + 0.9, 0.4)), bump(t, 55.6, 57.2, 0.6));
 
   return (
@@ -139,10 +152,10 @@ export const Overlay: React.FC = () => {
 
       {/* Callouts */}
       <svg viewBox="0 0 1080 1920" width={1080} height={1920} style={{position: 'absolute', inset: 0}}>
-        {CALLOUTS.map((c) => {
+        {callouts.map((c) => {
           const op = bump(t, c.t0, c.t1, 0.35);
           if (op <= 0.001) return null;
-          const a = camPoint(cam, c.p ?? 1, c.x, c.y);
+          const a = c.at(t);
           const lx = a.x + c.dx;
           const ly = a.y + c.dy;
           const w = pillWidth(c.label);
