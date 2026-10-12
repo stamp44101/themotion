@@ -48,12 +48,16 @@ export type CityLayout = {
   paddies: [number, number];
   /** Modern sprawl: cells urbanize from `from`, `rate` years per unit distance from the walls. */
   urban: {from: number; rate: number};
+  /** If set, modern buildings only appear inside this box (e.g. a new town away from a historic park). */
+  urbanBox?: {x0: number; x1: number; z0: number; z1: number};
   towers: {x0: number; x1: number; z0: number; z1: number; extra: number}[];
   roads: {from: [number, number]; to: [number, number]; width: number; year: number}[];
   ringRoadYear: number;
   cars: [number, number];
   boats: [number, number];
-  finale: 'lanterns' | 'fireworks';
+  /** 'loykrathong' = lanterns + fireworks + candle krathongs drifting on the moat and `krathongPonds`. */
+  finale: 'lanterns' | 'fireworks' | 'loykrathong';
+  krathongPonds?: [number, number, number][];
   /** Street life for the drone dives. Each group is visible from `from` to `to` (years). */
   life?: {
     people?: {x: number; z: number; r: number; count: number; from: number; to: number; colors?: string[]; monks?: boolean}[];

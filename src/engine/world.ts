@@ -79,11 +79,13 @@ const buildWorld = (L: CityLayout) => {
       const cz = z + 2;
       if (!inTile(cx, cz, 2.2) || inCity(cx, cz, 3) || inRiver(cx, cz) || terrainH(cx, cz) > 0.6) continue;
       const d = cityDist(cx, cz);
-      const urban = L.urban.from + d * L.urban.rate + random(`pu${k}`) * 30;
+      const ub = L.urbanBox;
+      const inUrban = !ub || (cx > ub.x0 && cx < ub.x1 && cz > ub.z0 && cz < ub.z1);
+      const urban = inUrban ? L.urban.from + d * L.urban.rate + random(`pu${k}`) * 30 : Infinity;
       if (random(`p${k}`) < 0.7) {
         paddies.push({x: cx, z: cz, appear: L.paddies[0] + random(`pa${k}`) * (L.paddies[1] - L.paddies[0]), urban, tone: random(`pt${k}`)});
       }
-      if (onRail(cx, cz) || onRoad(cx, cz)) continue;
+      if (onRail(cx, cz) || onRoad(cx, cz) || !inUrban) continue;
       const tower = L.towers.find((tw) => cx > tw.x0 && cx < tw.x1 && cz > tw.z0 && cz < tw.z1);
       const n = random(`bc${k}`) < 0.6 ? 2 : 1;
       for (let j = 0; j < n; j++) {

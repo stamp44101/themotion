@@ -359,3 +359,19 @@ def creak(dur=0.6):
 
 def bicycle_bell():
     return bell(3400, 0.6, ratios=(1, 1.52, 2.1), decay=5) * 0.35
+
+
+def khlui(m, dur):
+    """Khlui (Thai bamboo flute): soft sine-rich tone with breath and gentle vibrato."""
+    n = int(dur * SR)
+    t = np.arange(n) / SR
+    f = mtof(m) * (1 + 0.006 * np.sin(2 * np.pi * 5 * t) * np.minimum(1, t / 0.3))
+    ph = 2 * np.pi * np.cumsum(f) / SR
+    tone = np.sin(ph) + 0.25 * np.sin(2 * ph) + 0.08 * np.sin(3 * ph)
+    breath = filt(noise(n), "band", (1200, 4000)) * 0.08
+    return (tone + breath) * env_ar(n, 0.12, min(0.4, dur / 3)) * 0.22
+
+
+def clink():
+    """Ceramic pot clink."""
+    return bell(rng.uniform(2200, 3400), 0.4, ratios=(1, 2.32, 4.25), decay=10) * 0.4

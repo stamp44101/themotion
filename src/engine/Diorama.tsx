@@ -776,65 +776,122 @@ const SPARK_DIRS = new Array(SPARKS).fill(0).map((_, j) => {
   return [r * Math.cos(a), u, r * Math.sin(a)];
 });
 
+/** One additive point cloud whose positions/colors are rewritten every frame. */
+const GlowPoints: React.FC<{n: number; tex: THREE.Texture; size: number; fill: (a: THREE.BufferAttribute, cl: THREE.BufferAttribute) => void}> = ({
+  n,
+  tex,
+  size,
+  fill,
+}) => {
+  const geo = useMemo(() => {
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.Float32BufferAttribute(new Float32Array(n * 3), 3));
+    g.setAttribute('color', new THREE.Float32BufferAttribute(new Float32Array(n * 3), 3));
+    return g;
+  }, [n]);
+  useLayoutEffect(() => {
+    const a = geo.attributes.position as THREE.BufferAttribute;
+    const cl = geo.attributes.color as THREE.BufferAttribute;
+    fill(a, cl);
+    a.needsUpdate = true;
+    cl.needsUpdate = true;
+  });
+  return (
+    <points geometry={geo}>
+      <pointsMaterial map={tex} vertexColors size={size} sizeAttenuation transparent depthWrite={false} blending={THREE.AdditiveBlending} />
+    </points>
+  );
+};
+
+const KRATHONGS = new Array(180).fill(0).map((_, i) => ({s: random(`ks${i}`), sp: 0.002 + random(`kv${i}`) * 0.004, side: random(`kd${i}`) - 0.5, t0: random(`kt${i}`) * 3}));
+
 const Finale: React.FC<P> = ({c}) => {
   const {t: tAbs, dur} = useT(c);
   const t = tAbs - (dur - 60); // lantern/firework schedules are authored for a 60 s clip
   const lantern = useMemo(() => glowTexture('rgba(255,236,190,1)', 'rgba(255,150,50,0.55)'), []);
   const spark = useMemo(() => glowTexture('rgba(255,255,255,1)', 'rgba(255,255,255,0.5)'), []);
   const {dir, vis, elev} = sunState(tAbs, dur);
-  const fireworks = c.layout.finale === 'fireworks';
-  const geo = useMemo(() => {
-    const g = new THREE.BufferGeometry();
-    const n = fireworks ? BURSTS.length * SPARKS : LANTERNS.length;
-    g.setAttribute('position', new THREE.Float32BufferAttribute(new Float32Array(n * 3), 3));
-    g.setAttribute('color', new THREE.Float32BufferAttribute(new Float32Array(n * 3), 3));
-    return g;
-  }, [fireworks]);
-  useLayoutEffect(() => {
-    const a = geo.attributes.position as THREE.BufferAttribute;
-    const cl = geo.attributes.color as THREE.BufferAttribute;
-    if (fireworks) {
-      BURSTS.forEach((b, i) => {
-        const age = t - b.t0;
-        col.set(b.color);
-        for (let j = 0; j < SPARKS; j++) {
-          const idx = i * SPARKS + j;
-          if (age < 0 || age > 2.2) {
-            a.setXYZ(idx, 0, -80, 0);
-            continue;
-          }
-          const r = 11 * (1 - Math.exp(-age * 3));
-          const [dx, dy, dz] = SPARK_DIRS[j];
-          a.setXYZ(idx, b.x + dx * r, b.y + dy * r - age * age * 1.6, b.z + dz * r);
-          const f = Math.max(0, 1 - age / 2.2);
-          cl.setXYZ(idx, col.r * f, col.g * f, col.b * f);
-        }
-      });
-    } else {
-      LANTERNS.forEach((l, i) => {
-        const age = t - l.t0;
-        if (age < 0) a.setXYZ(i, 0, -80, 0);
-        else a.setXYZ(i, l.x + Math.sin(age * 1.4 + l.wob) * 0.8 + age * 0.6, 0.8 + age * l.speed, l.z - age * 0.4);
-        cl.setXYZ(i, 1, 0.85, 0.6);
-      });
-    }
-    a.needsUpdate = true;
-    cl.needsUpdate = true;
-  });
+  const mode = c.layout.finale;
+  const loy = mode === 'loykrathong';
+  const tl = t + (loy ? 6 : 0); // Loy Krathong: lanterns start earlier
+  const {city} = c.layout;
+  // krathongs drift around the moat ring (and any extra ponds)
+  const ponds = c.layout.krathongPonds ?? [];
+  const krathongStart = dur - 12;
   return (
     <>
-      {t > 54.9 && (
-        <points geometry={geo}>
-          <pointsMaterial
-            map={fireworks ? spark : lantern}
-            vertexColors
-            size={fireworks ? 4.2 : 3.4}
-            sizeAttenuation
-            transparent
-            depthWrite={false}
-            blending={THREE.AdditiveBlending}
-          />
-        </points>
+      {(mode === 'lanterns' || loy) && tl > 54.9 && (
+        <GlowPoints
+          n={LANTERNS.length}
+          tex={lantern}
+          size={3.4}
+          fill={(a, cl) =>
+            LANTERNS.forEach((l, i) => {
+              const age = tl - l.t0;
+              if (age < 0) a.setXYZ(i, 0, -80, 0);
+              else a.setXYZ(i, l.x + Math.sin(age * 1.4 + l.wob) * 0.8 + age * 0.6, 0.8 + age * l.speed, l.z - age * 0.4);
+              cl.setXYZ(i, 1, 0.85, 0.6);
+            })
+          }
+        />
+      )}
+      {(mode === 'fireworks' || loy) && t > 54.9 && (
+        <GlowPoints
+          n={BURSTS.length * SPARKS}
+          tex={spark}
+          size={4.2}
+          fill={(a, cl) =>
+            BURSTS.forEach((b, i) => {
+              const age = t - b.t0;
+              col.set(b.color);
+              for (let j = 0; j < SPARKS; j++) {
+                const idx = i * SPARKS + j;
+                if (age < 0 || age > 2.2 || (loy && i % 2)) {
+                  a.setXYZ(idx, 0, -80, 0);
+                  continue;
+                }
+                const r = 11 * (1 - Math.exp(-age * 3));
+                const [dx, dy, dz] = SPARK_DIRS[j];
+                a.setXYZ(idx, b.x + dx * r, b.y + dy * r - age * age * 1.6, b.z + dz * r);
+                const f = Math.max(0, 1 - age / 2.2);
+                cl.setXYZ(idx, col.r * f, col.g * f, col.b * f);
+              }
+            })
+          }
+        />
+      )}
+      {loy && tAbs > krathongStart && (
+        <GlowPoints
+          n={KRATHONGS.length}
+          tex={lantern}
+          size={1.5}
+          fill={(a, cl) => {
+            const mx = city.hx + 1.4;
+            const mz = city.hz + 1.4;
+            const per = 4 * mx + 4 * mz;
+            KRATHONGS.forEach((k, i) => {
+              const on = Math.min(1, Math.max(0, (tAbs - krathongStart - k.t0) / 1.2));
+              const pond = ponds.length && i % 3 === 0 ? ponds[i % ponds.length] : null;
+              let x: number;
+              let z: number;
+              if (pond) {
+                const ang = k.s * Math.PI * 2 + tAbs * k.sp * 20;
+                x = pond[0] + Math.cos(ang) * pond[2] * (0.3 + 0.6 * Math.abs(k.side) * 2);
+                z = pond[1] + Math.sin(ang) * pond[2] * (0.3 + 0.6 * Math.abs(k.side) * 2);
+              } else {
+                const u = (((k.s + tAbs * k.sp) % 1) + 1) % 1 * per;
+                const o = k.side * 0.9;
+                if (u < 2 * mx) [x, z] = [-mx + u, -mz + o];
+                else if (u < 2 * mx + 2 * mz) [x, z] = [mx + o, -mz + (u - 2 * mx)];
+                else if (u < 4 * mx + 2 * mz) [x, z] = [mx - (u - 2 * mx - 2 * mz), mz + o];
+                else [x, z] = [-mx + o, mz - (u - 4 * mx - 2 * mz)];
+              }
+              a.setXYZ(i, x, on > 0 ? 0.18 : -80, z);
+              const fl = 0.8 + 0.2 * Math.sin(tAbs * 9 + i);
+              cl.setXYZ(i, on * fl, on * 0.75 * fl, on * 0.35 * fl);
+            });
+          }}
+        />
       )}
       {vis > 0 && elev > -0.05 && (
         <sprite position={[dir.x * 420, dir.y * 420, dir.z * 420]} scale={[150, 150, 1]}>

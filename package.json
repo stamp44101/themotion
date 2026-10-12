@@ -13,7 +13,9 @@
     "render:korat": "remotion render Korat out/korat.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
     "audio:ayutthaya": "node scripts/export_timeline.mjs src/cities/ayutthaya/timeline.ts out/timeline_ayutthaya.json && python3 scripts/soundtrack_ayutthaya.py",
     "render:ayutthaya": "remotion render Ayutthaya out/ayutthaya.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
-    "draft:ayutthaya": "remotion render Ayutthaya out/ayutthaya-draft.mp4 --gl=angle --scale=0.5 --audio-codec=aac"
+    "draft:ayutthaya": "remotion render Ayutthaya out/ayutthaya-draft.mp4 --gl=angle --scale=0.5 --audio-codec=aac",
+    "audio:sukhothai": "node scripts/export_timeline.mjs src/cities/sukhothai/timeline.ts out/timeline_sukhothai.json && python3 scripts/soundtrack_sukhothai.py",
+    "render:sukhothai": "remotion render Sukhothai out/sukhothai.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k"
   },
   "dependencies": {
     "@fontsource/kanit": "^5.1.0",
