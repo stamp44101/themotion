@@ -1,0 +1,234 @@
+import React from 'react';
+import {useCurrentFrame} from 'remotion';
+import {proj} from './geometry';
+import {CAPTIONS, Callout, ERAS, FPS, SECONDS, bump, sstep, yearAt} from './lib';
+
+const FONT = "'Kanit', sans-serif";
+const shadow = '0 3px 14px rgba(0,0,0,0.55), 0 1px 3px rgba(0,0,0,0.6)';
+
+const chedi = proj(0, 0.02);
+const gate = proj(0, 1.05);
+const moat = proj(1.12, 0.5);
+const chetYot = proj(1.35, -1.55);
+const nimman = proj(1.7, -1.5);
+
+const CALLOUTS: Callout[] = [
+  {t0: 4, t1: 8.6, x: 330, y: 650, dx: 110, dy: -40, label: 'ดอยสุเทพ'},
+  {t0: 4.4, t1: 8.6, x: 820, y: 1482, dx: -30, dy: 120, label: 'แม่น้ำปิง'},
+  {t0: 9.6, t1: 13.8, x: 95, y: 1100, dx: 60, dy: -120, label: 'ลำพูน'},
+  {t0: 16, t1: 19.2, x: moat.x, y: moat.y, dx: 20, dy: 110, label: 'คูเมือง'},
+  {t0: 19.6, t1: 23.6, x: gate.x, y: gate.y - 30, dx: 150, dy: 160, label: 'ประตูท่าแพ'},
+  {t0: 24.3, t1: 27.6, x: 560, y: 752, dx: 170, dy: -50, label: 'พระธาตุดอยสุเทพ'},
+  {t0: 25.6, t1: 29.2, x: chedi.x, y: chedi.y - 160 * chedi.s * 0.95, dx: -190, dy: -110, label: 'เจดีย์หลวง'},
+  {t0: 27.2, t1: 29.2, x: chetYot.x, y: chetYot.y - 40, dx: 60, dy: -120, label: 'วัดเจ็ดยอด'},
+  {t0: 29.6, t1: 31.8, x: chedi.x, y: chedi.y - 100 * chedi.s * 0.95, dx: -190, dy: -150, label: 'พ.ศ. 2088'},
+  {t0: 45.7, t1: 48, x: 880, y: 1590, dx: -40, dy: -110, label: 'สถานีรถไฟเชียงใหม่'},
+  {t0: 51, t1: 55, x: nimman.x, y: nimman.y - 100, dx: -60, dy: -110, label: 'นิมมานเหมินท์'},
+];
+
+const pillWidth = (s: string) => s.replace(/[ัิ-ฺ็-๎]/g, '').length * 17 + 44;
+
+export const Overlay: React.FC = () => {
+  const frame = useCurrentFrame();
+  const t = frame / FPS;
+  const Y = yearAt(t);
+  const be = Math.round(Y) + 543;
+
+  const introOp = 1 - sstep(2.3, 3.0, t);
+  const counterOp = sstep(2.7, 3.4, t) * (1 - sstep(55.4, 56.2, t));
+  const finaleOp = sstep(56.0, 57.0, t);
+  const progress = t / SECONDS;
+
+  return (
+    <>
+      {/* legibility gradients */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background:
+            'linear-gradient(180deg, rgba(5,10,25,0.55) 0%, rgba(5,10,25,0.25) 22%, rgba(5,10,25,0) 34%, rgba(5,10,25,0) 84%, rgba(5,10,25,0.6) 100%)',
+        }}
+      />
+
+      {/* Year counter */}
+      <div
+        style={{
+          position: 'absolute',
+          left: 72,
+          top: 86,
+          opacity: counterOp,
+          fontFamily: FONT,
+          color: '#fff',
+          textShadow: shadow,
+        }}
+      >
+        <div style={{display: 'flex', alignItems: 'baseline', gap: 18}}>
+          {Y < 1290 && <span style={{fontSize: 44, fontWeight: 500, opacity: 0.9}}>ราว</span>}
+          <span style={{fontSize: 52, fontWeight: 600, color: '#f6cf73'}}>พ.ศ.</span>
+          <span style={{fontSize: 156, fontWeight: 700, lineHeight: 1, fontVariantNumeric: 'tabular-nums'}}>
+            {be}
+          </span>
+        </div>
+        <div style={{fontSize: 38, fontWeight: 400, opacity: 0.85, marginTop: 4, letterSpacing: 1}}>
+          ค.ศ. {Math.round(Y)}
+        </div>
+      </div>
+
+      {/* Captions */}
+      {CAPTIONS.map((c) => {
+        const inn = sstep(c.t0, c.t0 + 0.45, t);
+        const out = 1 - sstep(c.t1 - 0.35, c.t1, t);
+        const op = inn * out;
+        if (op <= 0.001) return null;
+        return (
+          <div
+            key={c.t0}
+            style={{
+              position: 'absolute',
+              left: 72,
+              right: 72,
+              top: 350,
+              opacity: op,
+              transform: `translateY(${(1 - inn) * 26}px)`,
+              fontFamily: FONT,
+              color: '#fff',
+              textShadow: shadow,
+            }}
+          >
+            <div style={{width: 84, height: 6, borderRadius: 3, background: '#f6cf73', marginBottom: 18}} />
+            <div style={{fontSize: 74, fontWeight: 600, lineHeight: 1.15}}>{c.title}</div>
+            <div style={{fontSize: 40, fontWeight: 400, lineHeight: 1.4, marginTop: 12, opacity: 0.95}}>{c.sub}</div>
+          </div>
+        );
+      })}
+
+      {/* Callouts */}
+      <svg viewBox="0 0 1080 1920" width={1080} height={1920} style={{position: 'absolute', inset: 0}}>
+        {CALLOUTS.map((c) => {
+          const op = bump(t, c.t0, c.t1, 0.35);
+          if (op <= 0.001) return null;
+          const lx = c.x + c.dx;
+          const ly = c.y + c.dy;
+          const w = pillWidth(c.label);
+          const grow = sstep(c.t0, c.t0 + 0.5, t);
+          return (
+            <g key={c.label} opacity={op}>
+              <circle cx={c.x} cy={c.y} r={7} fill="#f6cf73" stroke="#1a1a1a" strokeWidth={2} />
+              <circle cx={c.x} cy={c.y} r={7 + 14 * ((t * 1.2) % 1)} fill="none" stroke="#f6cf73" strokeWidth={2} opacity={1 - ((t * 1.2) % 1)} />
+              <line
+                x1={c.x}
+                y1={c.y}
+                x2={c.x + c.dx * grow}
+                y2={c.y + c.dy * grow}
+                stroke="#f6cf73"
+                strokeWidth={2.5}
+              />
+              <g opacity={grow}>
+                <rect x={lx - w / 2} y={ly - 27} width={w} height={54} rx={27} fill="rgba(12,16,32,0.78)" stroke="#f6cf73" strokeWidth={2} />
+                <text x={lx} y={ly + 11} textAnchor="middle" fontFamily={FONT} fontSize={31} fontWeight={500} fill="#fff">
+                  {c.label}
+                </text>
+              </g>
+            </g>
+          );
+        })}
+      </svg>
+
+      {/* Timeline bar */}
+      <div style={{position: 'absolute', left: 70, right: 70, top: 1806, height: 90, opacity: 1 - sstep(55.6, 56.4, t)}}>
+        <div style={{position: 'absolute', left: 0, right: 0, top: 38, height: 4, borderRadius: 2, background: 'rgba(255,255,255,0.28)'}} />
+        <div
+          style={{
+            position: 'absolute',
+            left: 0,
+            width: `${progress * 100}%`,
+            top: 38,
+            height: 4,
+            borderRadius: 2,
+            background: '#f6cf73',
+          }}
+        />
+        {ERAS.map((e, i) => {
+          const active = t >= e.t;
+          return (
+            <div
+              key={e.label}
+              style={{
+                position: 'absolute',
+                left: `${(e.t / SECONDS) * 100}%`,
+                top: i % 2 ? 50 : -8,
+                transform: 'translateX(-50%)',
+                fontFamily: FONT,
+                fontSize: 25,
+                fontWeight: active ? 600 : 400,
+                color: active ? '#f6cf73' : 'rgba(255,255,255,0.6)',
+                textShadow: shadow,
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {e.label}
+            </div>
+          );
+        })}
+        <div
+          style={{
+            position: 'absolute',
+            left: `${progress * 100}%`,
+            top: 30,
+            width: 20,
+            height: 20,
+            marginLeft: -10,
+            borderRadius: 10,
+            background: '#fff',
+            boxShadow: '0 0 14px #f6cf73',
+          }}
+        />
+      </div>
+
+      {/* Intro title */}
+      {introOp > 0 && (
+        <div
+          style={{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            top: 420,
+            textAlign: 'center',
+            fontFamily: FONT,
+            color: '#fff',
+            textShadow: shadow,
+            opacity: introOp * sstep(0, 0.6, t),
+            transform: `scale(${1 + t * 0.02})`,
+          }}
+        >
+          <div style={{fontSize: 40, fontWeight: 500, letterSpacing: 6, color: '#f6cf73'}}>ไทม์แลปส์ประวัติศาสตร์</div>
+          <div style={{fontSize: 190, fontWeight: 700, lineHeight: 1.15}}>เชียงใหม่</div>
+          <div style={{fontSize: 50, fontWeight: 400}}>จากผืนป่า สู่นครแห่งล้านนา</div>
+        </div>
+      )}
+
+      {/* Finale */}
+      {finaleOp > 0 && (
+        <div
+          style={{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            top: 300,
+            textAlign: 'center',
+            fontFamily: FONT,
+            color: '#fff',
+            opacity: finaleOp,
+            transform: `translateY(${(1 - finaleOp) * 30}px)`,
+            textShadow: '0 0 30px rgba(255,170,70,0.65), 0 3px 12px rgba(0,0,0,0.6)',
+          }}
+        >
+          <div style={{fontSize: 44, fontWeight: 500, letterSpacing: 4, color: '#f6cf73'}}>พ.ศ. 1839 – 2569</div>
+          <div style={{fontSize: 200, fontWeight: 700, lineHeight: 1.15}}>เชียงใหม่</div>
+          <div style={{fontSize: 58, fontWeight: 500}}>730 ปี นครพิงค์ ยังคงเปล่งแสง</div>
+        </div>
+      )}
+    </>
+  );
+};

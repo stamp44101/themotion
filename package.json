@@ -1,0 +1,20 @@
+{
+  "name": "chiangmai-timelapse",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Motion-graphics hybrid timelapse of Chiang Mai history (9:16, Thai)",
+  "scripts": {
+    "studio": "remotion studio",
+    "render": "remotion render ChiangMaiTimelapse out/chiangmai-timelapse.mp4",
+    "still": "remotion still ChiangMaiTimelapse out/still.png"
+  },
+  "dependencies": {
+    "@fontsource/kanit": "^5.1.0",
+    "@remotion/cli": "^4.0.242",
+    "@types/react": "^18.3.12",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.242",
+    "typescript": "^5.6.3"
+  }
+}
