@@ -28,6 +28,17 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   way); review with still contact sheets instead, then render full-res once. Shadow map 2048 is enough.
 - Never `pkill -f` with a pattern that also appears in your own command line; kill by PID.
 - A GPU machine (`npm run render:<city>` locally) renders the 3D versions many times faster.
+  Measured on a Windows RTX 4070 (ANGLE -> D3D11, not SwiftShader): **1 m 15 s for 1800 frames**,
+  ~28x faster than the container figure above. Iterating on full renders is fine there.
+- `scripts/export_timeline.mjs` needs `pathToFileURL()` for the dynamic import — a bare Windows
+  absolute path ('G:\...') is not a valid ESM specifier.
+
+## Three.js gotcha
+- Fire/glow FX built from `meshStandardMaterial` + `emissive` get washed out by ACES tone mapping in
+  daylight — they render, but pale enough to look like they are missing. Use `meshBasicMaterial`
+  with `toneMapped={false}` for anything that must read as self-lit.
+- Put landmark interiors (a Buddha image inside a viharn) *outside* the building, or the drone dive
+  only ever sees roof.
 
 ## Look & feel lessons
 - The 3D "isometric diorama" look = the whole city on a floating square tile with a soil cross-section,

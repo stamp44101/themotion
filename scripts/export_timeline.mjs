@@ -3,6 +3,7 @@
 // With no args it exports the original Chiang Mai timeline (src/lib.ts) to out/timeline.json.
 import fs from 'node:fs';
 import path from 'node:path';
+import {pathToFileURL} from 'node:url';
 import {buildSync} from 'esbuild';
 
 const [cityPath, outPath = 'out/timeline.json'] = process.argv.slice(2);
@@ -13,7 +14,9 @@ const entry = cityPath
 fs.mkdirSync('out', {recursive: true});
 const tmp = path.resolve('out/.timeline_bundle.mjs');
 buildSync({stdin: {contents: entry, resolveDir: process.cwd(), loader: 'ts'}, bundle: true, format: 'esm', platform: 'node', outfile: tmp, logLevel: 'error'});
-const mod = await import(tmp + '?' + Date.now());
+// Windows absolute paths ('G:\...') are not valid ESM specifiers -- the loader
+// needs a file:// URL, so convert before importing.
+const mod = await import(pathToFileURL(tmp).href + '?' + Date.now());
 const frames = [];
 const dur = mod.DURATION ?? mod.SECONDS;
 for (let f = 0; f < dur * mod.FPS; f++) {
