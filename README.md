@@ -30,6 +30,10 @@ Sound (all synthesized, synced to the picture): D-major pentatonic Lanna-flavour
 
 [`renders/korat.mp4`](renders/korat.mp4) — built with the reusable diorama engine (`src/engine/`) from `src/cities/korat/`: dinosaurs, Ban Prasat, Sema and Phimai, King Narai's walled city, the 1826 Thao Suranari story, the first railway (1900), the monument (1934), Mittraphap Highway (1958), fireworks finale. Isan-flavoured score from `scripts/soundtrack_korat.py`.
 
+## Ayutthaya
+
+[`renders/ayutthaya.mp4`](renders/ayutthaya.mp4) — 75 s, island city ringed by three rivers, with drone dives into street life (riverside, the international port, today): 1350 founding, Wat Phra Si Sanphet, 1569, the 1592 elephant duel, Wat Chaiwatthanaram (1630), the fall on 7 April 1767, ruins, World Heritage 1991. Score in central-Thai classical colours (`scripts/soundtrack_ayutthaya.py`).
+
 ## Develop
 
 ```bash
