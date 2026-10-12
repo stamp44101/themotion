@@ -69,8 +69,8 @@ const Lights: React.FC<P> = ({c, w}) => {
         intensity={vis * Math.max(0, elev) ** 0.6 * 3.0 * (1 - night)}
         color={mix('#fff4e0', '#ff9a4a', warm)}
         castShadow
-        shadow-mapSize-width={4096}
-        shadow-mapSize-height={4096}
+        shadow-mapSize-width={2048}
+        shadow-mapSize-height={2048}
         shadow-camera-left={-half}
         shadow-camera-right={half}
         shadow-camera-top={half}

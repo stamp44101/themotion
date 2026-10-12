@@ -24,7 +24,9 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   at concurrency 4. 2D SVG versions render in ~3–7 min.
 - Python audio needs `pip install numpy scipy`.
 - Never render test stills while a full render runs: they steal CPU (Korat took ~55 min instead of ~35).
-- Review cuts at half resolution first (`--scale=0.5`); full-res render only once the story is approved.
+- `--scale=0.5` drafts are NOT much faster for 3D (bottleneck is shadows + draw calls, ~38 frames/min either
+  way); review with still contact sheets instead, then render full-res once. Shadow map 2048 is enough.
+- Never `pkill -f` with a pattern that also appears in your own command line; kill by PID.
 - A GPU machine (`npm run render:<city>` locally) renders the 3D versions many times faster.
 
 ## Look & feel lessons
