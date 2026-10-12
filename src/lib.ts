@@ -154,3 +154,110 @@ export const ERAS: {t: number; label: string}[] = [
 ];
 
 export type Callout = {t0: number; t1: number; x: number; y: number; dx: number; dy: number; label: string};
+
+// Generic monotone-cubic curve over [time, value] keys.
+export const makeCurve = (keys: [number, number][]) => {
+  const kx = keys.map((k) => k[0]);
+  const ky = keys.map((k) => k[1]);
+  const n = kx.length;
+  const d: number[] = [];
+  for (let i = 0; i < n - 1; i++) d.push((ky[i + 1] - ky[i]) / (kx[i + 1] - kx[i]));
+  const m = new Array<number>(n).fill(0);
+  m[0] = d[0];
+  m[n - 1] = d[n - 2];
+  for (let i = 1; i < n - 1; i++) m[i] = d[i - 1] * d[i] <= 0 ? 0 : (d[i - 1] + d[i]) / 2;
+  for (let i = 0; i < n - 1; i++) {
+    if (d[i] === 0) {
+      m[i] = 0;
+      m[i + 1] = 0;
+      continue;
+    }
+    const a = m[i] / d[i];
+    const b = m[i + 1] / d[i];
+    const s = a * a + b * b;
+    if (s > 9) {
+      const tau = 3 / Math.sqrt(s);
+      m[i] = tau * a * d[i];
+      m[i + 1] = tau * b * d[i];
+    }
+  }
+  return (t: number) => {
+    if (t <= kx[0]) return ky[0];
+    if (t >= kx[n - 1]) return ky[n - 1];
+    let i = 0;
+    while (t > kx[i + 1]) i++;
+    const h = kx[i + 1] - kx[i];
+    const u = (t - kx[i]) / h;
+    const u2 = u * u;
+    const u3 = u2 * u;
+    return (
+      (2 * u3 - 3 * u2 + 1) * ky[i] +
+      (u3 - 2 * u2 + u) * h * m[i] +
+      (-2 * u3 + 3 * u2) * ky[i + 1] +
+      (u3 - u2) * h * m[i + 1]
+    );
+  };
+};
+
+// Camera: [seconds, zoom, focusX, focusY] in plain-layer coordinates.
+const CAM: [number, number, number, number][] = [
+  [0, 1.0, 540, 960],
+  [3, 1.05, 540, 960],
+  [8.5, 1.1, 470, 980],
+  [13.5, 1.08, 420, 1000],
+  [16, 1.32, 540, 1160],
+  [21, 1.42, 540, 1180],
+  [24.2, 1.22, 560, 860],
+  [27.2, 1.25, 600, 1000],
+  [29.8, 1.5, 540, 1120],
+  [31.2, 1.45, 540, 1110],
+  [34.5, 1.12, 540, 1040],
+  [38, 1.15, 520, 1060],
+  [42.5, 1.18, 560, 1100],
+  [45.5, 1.35, 650, 1350],
+  [47.2, 1.32, 640, 1300],
+  [48.4, 1.25, 620, 880],
+  [50.5, 1.1, 600, 980],
+  [55, 1.2, 620, 1060],
+  [60, 1.02, 540, 960],
+];
+const camZ = makeCurve(CAM.map((c) => [c[0], c[1]]));
+const camX = makeCurve(CAM.map((c) => [c[0], c[2]]));
+const camY = makeCurve(CAM.map((c) => [c[0], c[3]]));
+export type Cam = {z: number; x: number; y: number};
+export const camera = (t: number): Cam => {
+  const z = camZ(t);
+  const hw = W / 2 / z;
+  const hh = H / 2 / z;
+  return {
+    z,
+    x: Math.min(W - hw, Math.max(hw, camX(t))),
+    y: Math.min(H - hh, Math.max(hh, camY(t))),
+  };
+};
+// Parallax: depth p = 1 is the city plain; smaller p moves less (sky, mountains).
+const layerCam = (c: Cam, p: number) => ({
+  z: 1 + (c.z - 1) * p,
+  x: W / 2 + (c.x - W / 2) * p,
+  y: H / 2 + (c.y - H / 2) * p,
+});
+export const layerTransform = (c: Cam, p: number) => {
+  const l = layerCam(c, p);
+  return `translate(${W / 2},${H / 2}) scale(${l.z}) translate(${-l.x},${-l.y})`;
+};
+export const camPoint = (c: Cam, p: number, x: number, y: number) => {
+  const l = layerCam(c, p);
+  return {x: W / 2 + (x - l.x) * l.z, y: H / 2 + (y - l.y) * l.z};
+};
+
+// Day/night: a 5 s cycle sells the timelapse; the finale settles into night.
+export const lighting = (t: number) => {
+  const intro = t < 3;
+  const cyc = (Math.max(0, t - 3) % 5) / 5;
+  const finale = sstep(54.6, 56.2, t);
+  let night = intro ? 0.5 * (1 - sstep(0, 2.6, t)) : sstep(0.7, 0.82, cyc) * (1 - sstep(0.93, 1, cyc)) * 0.62;
+  let dusk = intro ? 0 : sstep(0.5, 0.68, cyc) * (1 - sstep(0.8, 0.88, cyc));
+  night = Math.max(night * (1 - finale), finale * 0.92);
+  dusk *= 1 - finale;
+  return {intro, cyc, finale, night, dusk};
+};

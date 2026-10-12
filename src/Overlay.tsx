@@ -1,28 +1,28 @@
 import React from 'react';
-import {useCurrentFrame} from 'remotion';
+import {Img, staticFile, useCurrentFrame} from 'remotion';
 import {proj} from './geometry';
-import {CAPTIONS, Callout, ERAS, FPS, SECONDS, bump, sstep, yearAt} from './lib';
+import {CAPTIONS, Callout, ERAS, FPS, SECONDS, bump, camPoint, camera, sstep, yearAt} from './lib';
 
 const FONT = "'Kanit', sans-serif";
 const shadow = '0 3px 14px rgba(0,0,0,0.55), 0 1px 3px rgba(0,0,0,0.6)';
 
 const chedi = proj(0, 0.02);
 const gate = proj(0, 1.05);
-const moat = proj(1.12, 0.5);
+const moat = proj(0.45, 1.12);
 const chetYot = proj(1.35, -1.55);
 const nimman = proj(1.7, -1.5);
 
-const CALLOUTS: Callout[] = [
-  {t0: 4, t1: 8.6, x: 330, y: 650, dx: 110, dy: -40, label: 'ดอยสุเทพ'},
-  {t0: 4.4, t1: 8.6, x: 820, y: 1482, dx: -30, dy: 120, label: 'แม่น้ำปิง'},
+const CALLOUTS: (Callout & {p?: number})[] = [
+  {t0: 4, t1: 8.6, x: 330, y: 650, dx: 110, dy: -40, label: 'ดอยสุเทพ', p: 0.55},
+  {t0: 4.4, t1: 8.6, x: 820, y: 1482, dx: -30, dy: 120, label: 'แม่น้ำปิง', p: 1.2},
   {t0: 9.6, t1: 13.8, x: 95, y: 1100, dx: 60, dy: -120, label: 'ลำพูน'},
-  {t0: 16, t1: 19.2, x: moat.x, y: moat.y, dx: 20, dy: 110, label: 'คูเมือง'},
+  {t0: 16, t1: 19.2, x: moat.x, y: moat.y, dx: 90, dy: 120, label: 'คูเมือง'},
   {t0: 19.6, t1: 23.6, x: gate.x, y: gate.y - 30, dx: 150, dy: 160, label: 'ประตูท่าแพ'},
-  {t0: 24.3, t1: 27.6, x: 560, y: 752, dx: 170, dy: -50, label: 'พระธาตุดอยสุเทพ'},
+  {t0: 24.3, t1: 27.6, x: 560, y: 745, dx: 170, dy: -50, label: 'พระธาตุดอยสุเทพ', p: 0.55},
   {t0: 25.6, t1: 29.2, x: chedi.x, y: chedi.y - 160 * chedi.s * 0.95, dx: -190, dy: -110, label: 'เจดีย์หลวง'},
   {t0: 27.2, t1: 29.2, x: chetYot.x, y: chetYot.y - 40, dx: 60, dy: -120, label: 'วัดเจ็ดยอด'},
   {t0: 29.6, t1: 31.8, x: chedi.x, y: chedi.y - 100 * chedi.s * 0.95, dx: -190, dy: -150, label: 'พ.ศ. 2088'},
-  {t0: 45.7, t1: 48, x: 880, y: 1590, dx: -40, dy: -110, label: 'สถานีรถไฟเชียงใหม่'},
+  {t0: 45.7, t1: 48, x: 880, y: 1590, dx: -60, dy: -120, label: 'สถานีรถไฟเชียงใหม่', p: 1.2},
   {t0: 51, t1: 55, x: nimman.x, y: nimman.y - 100, dx: -60, dy: -110, label: 'นิมมานเหมินท์'},
 ];
 
@@ -38,9 +38,43 @@ export const Overlay: React.FC = () => {
   const counterOp = sstep(2.7, 3.4, t) * (1 - sstep(55.4, 56.2, t));
   const finaleOp = sstep(56.0, 57.0, t);
   const progress = t / SECONDS;
+  const cam = camera(t);
+  const leak = Math.max(0, ...ERAS.map((e) => bump(t, e.t - 0.25, e.t + 0.9, 0.4)), bump(t, 55.6, 57.2, 0.6));
 
   return (
     <>
+      {/* light leak on era changes */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          opacity: leak * 0.55,
+          mixBlendMode: 'screen',
+          background:
+            'radial-gradient(ellipse 70% 45% at 100% 8%, rgba(255,170,80,0.95), rgba(255,120,60,0.35) 45%, rgba(0,0,0,0) 75%)',
+        }}
+      />
+      {/* vignette */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'radial-gradient(ellipse 85% 70% at 50% 52%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.42) 100%)',
+        }}
+      />
+      {/* film grain */}
+      <div style={{position: 'absolute', inset: 0, overflow: 'hidden', opacity: 0.07, mixBlendMode: 'overlay'}}>
+        <Img src={staticFile('grain.png')} style={{display: 'none'}} />
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            backgroundImage: `url(${staticFile('grain.png')})`,
+            backgroundRepeat: 'repeat',
+            backgroundPosition: `${(frame * 137) % 512}px ${(frame * 229) % 512}px`,
+          }}
+        />
+      </div>
       {/* legibility gradients */}
       <div
         style={{
@@ -108,19 +142,20 @@ export const Overlay: React.FC = () => {
         {CALLOUTS.map((c) => {
           const op = bump(t, c.t0, c.t1, 0.35);
           if (op <= 0.001) return null;
-          const lx = c.x + c.dx;
-          const ly = c.y + c.dy;
+          const a = camPoint(cam, c.p ?? 1, c.x, c.y);
+          const lx = a.x + c.dx;
+          const ly = a.y + c.dy;
           const w = pillWidth(c.label);
           const grow = sstep(c.t0, c.t0 + 0.5, t);
           return (
             <g key={c.label} opacity={op}>
-              <circle cx={c.x} cy={c.y} r={7} fill="#f6cf73" stroke="#1a1a1a" strokeWidth={2} />
-              <circle cx={c.x} cy={c.y} r={7 + 14 * ((t * 1.2) % 1)} fill="none" stroke="#f6cf73" strokeWidth={2} opacity={1 - ((t * 1.2) % 1)} />
+              <circle cx={a.x} cy={a.y} r={7} fill="#f6cf73" stroke="#1a1a1a" strokeWidth={2} />
+              <circle cx={a.x} cy={a.y} r={7 + 14 * ((t * 1.2) % 1)} fill="none" stroke="#f6cf73" strokeWidth={2} opacity={1 - ((t * 1.2) % 1)} />
               <line
-                x1={c.x}
-                y1={c.y}
-                x2={c.x + c.dx * grow}
-                y2={c.y + c.dy * grow}
+                x1={a.x}
+                y1={a.y}
+                x2={a.x + c.dx * grow}
+                y2={a.y + c.dy * grow}
                 stroke="#f6cf73"
                 strokeWidth={2.5}
               />

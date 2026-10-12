@@ -3,7 +3,11 @@
 A 60-second, 9:16 motion-graphics "hybrid timelapse" of Chiang Mai's history, built with [Remotion](https://www.remotion.dev/).
 A fixed camera looks west across the Ping River toward Doi Suthep while the city is founded, flourishes, falls, is rebuilt and modernises.
 
-Rendered video: [`renders/chiangmai-timelapse.mp4`](renders/chiangmai-timelapse.mp4) (1080×1920, 30 fps, Thai text, no audio)
+Rendered video: [`renders/chiangmai-timelapse.mp4`](renders/chiangmai-timelapse.mp4) (1080×1920, 30 fps, Thai text, stereo ambience + score)
+
+Look: parallax camera moves (push-ins on the founding, the chedi collapse and the railway), drifting mist, sun rays, rain in the Burmese era, birds, film grain, vignette and light leaks on era changes.
+
+Sound (all synthesized, synced to the picture): D-major pentatonic Lanna-flavoured score — pads, plucked phin-style melody, khong wong, klong drum, gongs on key moments; river, wind, birds by day / crickets by night following the day–night cycle; construction, temple bells, earthquake and collapse, steam and modern trains, plane, city traffic and songthaew horns, lantern chimes.
 
 | Time | Era | Key moment |
 |---|---|---|
@@ -23,10 +27,14 @@ Rendered video: [`renders/chiangmai-timelapse.mp4`](renders/chiangmai-timelapse.
 ```bash
 npm install
 npm run studio   # live preview
+npm run audio    # regenerate public/soundtrack.wav (needs python3 + numpy + scipy)
 npm run render   # -> out/chiangmai-timelapse.mp4
 ```
+
+Re-run `npm run audio` after changing the timing in `src/lib.ts` so the sound stays in sync.
 
 - `src/lib.ts` — year curve (seconds → year), captions, era labels, colour helpers
 - `src/geometry.ts` — perspective projection and procedurally placed trees, houses, buildings
 - `src/Scene.tsx` — the landscape and city
-- `src/Overlay.tsx` — year counter, Thai captions, callouts, timeline bar, intro/finale
+- `src/Overlay.tsx` — year counter, Thai captions, callouts, timeline bar, intro/finale, grain/vignette/light leaks
+- `scripts/make_soundtrack.py` — procedural soundtrack; `scripts/export_timeline.mjs` feeds it the year/day–night timeline

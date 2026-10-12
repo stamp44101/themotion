@@ -5,8 +5,9 @@
   "description": "Motion-graphics hybrid timelapse of Chiang Mai history (9:16, Thai)",
   "scripts": {
     "studio": "remotion studio",
-    "render": "remotion render ChiangMaiTimelapse out/chiangmai-timelapse.mp4",
-    "still": "remotion still ChiangMaiTimelapse out/still.png"
+    "render": "remotion render ChiangMaiTimelapse out/chiangmai-timelapse.mp4 --audio-codec=aac --audio-bitrate=256k",
+    "still": "remotion still ChiangMaiTimelapse out/still.png",
+    "audio": "node scripts/export_timeline.mjs && python3 scripts/make_soundtrack.py"
   },
   "dependencies": {
     "@fontsource/kanit": "^5.1.0",

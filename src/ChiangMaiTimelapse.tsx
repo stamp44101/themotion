@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {AbsoluteFill, continueRender, delayRender} from 'remotion';
+import {AbsoluteFill, Audio, continueRender, delayRender, staticFile} from 'remotion';
 import {Overlay} from './Overlay';
 import {Scene} from './Scene';
 
@@ -15,6 +15,7 @@ export const ChiangMaiTimelapse: React.FC = () => {
     <AbsoluteFill style={{backgroundColor: '#0b1020'}}>
       <Scene />
       <Overlay />
+      <Audio src={staticFile('soundtrack.wav')} />
     </AbsoluteFill>
   );
 };

@@ -2,6 +2,9 @@ import React from 'react';
 import {useCurrentFrame} from 'remotion';
 import {
   BANK_TREES,
+  BIRDS,
+  MISTS,
+  RAIN,
   BUILDINGS,
   CLOUDS,
   HOUSES,
@@ -14,7 +17,7 @@ import {
   proj,
   ridgeY,
 } from './geometry';
-import {FPS, bump, keyColor, lerp, mix, ramp, smooth, sstep, yearAt} from './lib';
+import {FPS, bump, camera, keyColor, layerTransform, lerp, lighting, mix, ramp, smooth, sstep, yearAt} from './lib';
 
 type Shade = (c: string) => string;
 
@@ -105,9 +108,11 @@ const box = (
 const tree = (key: string, x: number, y: number, s: number, k: number, dark: boolean, sh: Shade) =>
   k <= 0.02 ? null : (
     <g key={key} transform={`translate(${x},${y}) scale(${s * 1.25 * k})`}>
+      <ellipse cx={5} cy={0} rx={11} ry={3} fill="#0b1a10" opacity={0.28} />
       <rect x={-1.6} y={-8} width={3.2} height={8} fill={sh('#4a3626')} />
-      <ellipse cx={0} cy={-17} rx={11} ry={13} fill={sh(dark ? '#2e5c33' : '#3c793e')} />
-      <ellipse cx={-3.5} cy={-21} rx={6} ry={7} fill={sh(dark ? '#3e7243' : '#56904e')} />
+      <ellipse cx={0} cy={-17} rx={11} ry={13} fill={sh(dark ? '#29532e' : '#356f39')} />
+      <ellipse cx={-2.5} cy={-19.5} rx={8.5} ry={10} fill={sh(dark ? '#336437' : '#45844a')} />
+      <ellipse cx={-4.5} cy={-23} rx={4.5} ry={5} fill={sh(dark ? '#4a8150' : '#6aa660')} />
     </g>
   );
 
@@ -154,22 +159,35 @@ const chediParts = (sh: Shade, gold: number) => (
   </>
 );
 
+type MistT = {x: number; y: number; rx: number; ry: number; sp: number; layer: number};
+
 export const Scene: React.FC = () => {
   const frame = useCurrentFrame();
   const t = frame / FPS;
   const Y = yearAt(t);
 
-  // --- lighting: a 5 s day/night cycle sells the timelapse; the finale settles into night.
-  const intro = t < 3;
-  const cyc = ((Math.max(0, t - 3)) % 5) / 5;
-  const finale = sstep(54.6, 56.2, t);
-  let night = intro
-    ? 0.5 * (1 - sstep(0, 2.6, t))
-    : sstep(0.7, 0.82, cyc) * (1 - sstep(0.93, 1, cyc)) * 0.62;
-  let dusk = intro ? 0 : sstep(0.5, 0.68, cyc) * (1 - sstep(0.8, 0.88, cyc));
-  night = Math.max(night * (1 - finale), finale * 0.92);
-  dusk *= 1 - finale;
+  const {intro, cyc, finale, night, dusk} = lighting(t);
+  const cam = camera(t);
+  const L = (p: number) => layerTransform(cam, p);
+  const rain = bump(t, 32.2, 37.2, 0.8);
 
+  const mistAmt =
+    (0.25 + 0.75 * Math.max(bump(cyc, -0.2, 0.25, 0.15), bump(cyc, 0.86, 1.3, 0.1))) *
+    (1 - 0.55 * ramp(Y, 1900, 2000)) *
+    (1 - finale * 0.6) +
+    rain * 0.4 +
+    (intro ? 0.5 : 0);
+  const mist = (key: string, m: MistT) => (
+    <ellipse
+      key={key}
+      cx={((m.x + t * m.sp) % 1700) - 300}
+      cy={m.y}
+      rx={m.rx}
+      ry={m.ry}
+      fill="url(#mist)"
+      opacity={Math.min(0.9, mistAmt) * 0.75}
+    />
+  );
   const sh: Shade = (c) => mix(mix(c, '#ff9a5c', dusk * 0.14), '#121836', night * 0.62);
 
   const burm = ramp(Y, 1556, 1563) * (1 - ramp(Y, 1775, 1792));
@@ -511,6 +529,32 @@ export const Scene: React.FC = () => {
           <stop offset="0.45" stopColor={bottom} stopOpacity={0.55 * (1 - night * 0.5)} />
           <stop offset="1" stopColor={bottom} stopOpacity="0" />
         </linearGradient>
+        <linearGradient id="far" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0.55" stopColor={sh(mix('#8aa3b8', bottom, 0.3))} />
+          <stop offset="0.75" stopColor={sh(mix('#8aa3b8', bottom, 0.65))} />
+        </linearGradient>
+        <linearGradient id="mtn" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stopColor={sh(mix('#4f8257', '#5f6a60', burm * 0.4))} />
+          <stop offset="0.32" stopColor={sh(mix('#447a4e', '#59645b', burm * 0.4))} />
+          <stop offset="1" stopColor={sh(mix('#2f5c3b', '#4a544c', burm * 0.4))} />
+        </linearGradient>
+        <linearGradient id="mtnShade" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0.35" stopColor={bottom} stopOpacity="0" />
+          <stop offset="0.62" stopColor={bottom} stopOpacity={0.35 * (1 - night * 0.6)} />
+        </linearGradient>
+        <linearGradient id="ray" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#fff2c4" stopOpacity="0.35" />
+          <stop offset="1" stopColor="#fff2c4" stopOpacity="0" />
+        </linearGradient>
+        <linearGradient id="riverSky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor={bottom} stopOpacity="0.9" />
+          <stop offset="0.5" stopColor={bottom} stopOpacity="0.15" />
+          <stop offset="1" stopColor={top} stopOpacity="0.3" />
+        </linearGradient>
+        <radialGradient id="mist">
+          <stop offset="0" stopColor={mix('#ffffff', '#9aa6c8', night)} stopOpacity="0.85" />
+          <stop offset="1" stopColor={mix('#ffffff', '#9aa6c8', night)} stopOpacity="0" />
+        </radialGradient>
         <radialGradient id="glow">
           <stop offset="0" stopColor="#ffcf6a" stopOpacity="0.95" />
           <stop offset="0.35" stopColor="#ff9f3a" stopOpacity="0.45" />
@@ -547,8 +591,9 @@ export const Scene: React.FC = () => {
           filter: `saturate(${1 - 0.62 * burm}) sepia(${0.32 * burm}) brightness(${1 - 0.06 * burm})`,
         }}
       >
+        <g transform={L(0.12)}>
         {/* Sky */}
-        <rect x={-40} y={-40} width={1160} height={2000} fill="url(#sky)" />
+        <rect x={-80} y={-80} width={1240} height={2100} fill="url(#sky)" />
         {STARS.map((s, i) => (
           <circle
             key={i}
@@ -577,14 +622,58 @@ export const Scene: React.FC = () => {
           );
         })}
 
+        {sunVis > 0 && cyc > 0.25 && (
+          <g opacity={sunVis * bump(cyc, 0.3, 0.74, 0.12) * 0.55 * (1 - burm * 0.6)} style={{mixBlendMode: 'screen'}}>
+            {[-34, -20, -8, 5, 17, 30, 44].map((a, i) => {
+              const ang = ((90 + a) * Math.PI) / 180;
+              const len = 1500;
+              const spread = 0.035 + (i % 3) * 0.012;
+              const x1 = sunX + Math.cos(ang - spread) * len;
+              const y1 = sunY + Math.sin(ang - spread) * len;
+              const x2 = sunX + Math.cos(ang + spread) * len;
+              const y2 = sunY + Math.sin(ang + spread) * len;
+              return <polygon key={i} points={`${sunX},${sunY} ${x1},${y1} ${x2},${y2}`} fill="url(#ray)" opacity={0.5 + 0.5 * Math.sin(frame * 0.05 + i)} />;
+            })}
+          </g>
+        )}
+        {BIRDS.map((b, i) => {
+          const vis = (bump(t, 3.5, 13.5, 0.6) + bump(t, 24, 28.8, 0.6) + bump(t, 37.5, 42.5, 0.6)) * (1 - night);
+          if (vis <= 0.02) return null;
+          const x = ((b.x + t * b.speed) % 1400) - 160;
+          const y = b.y + Math.sin(t * 0.8 + b.ph) * 20;
+          const flap = Math.sin(t * b.flap + b.ph) * 6 * b.s;
+          return (
+            <path
+              key={`bird${i}`}
+              d={`M ${x - 9 * b.s} ${y - flap} Q ${x - 4 * b.s} ${y - 3} ${x} ${y} Q ${x + 4 * b.s} ${y - 3} ${x + 9 * b.s} ${y - flap}`}
+              stroke={sh('#26303a')}
+              strokeWidth={2}
+              fill="none"
+              opacity={vis}
+            />
+          );
+        })}
+        </g>
+        <g transform={L(0.3)}>
         {/* Far range and Doi Suthep */}
         <path
-          d="M -20 960 L 120 880 L 260 900 L 420 820 L 600 860 L 760 790 L 900 830 L 1100 780 L 1100 1060 L -20 1060 Z"
-          fill={sh(mix('#8aa3b8', bottom, 0.35))}
+          d="M -60 960 L 120 880 L 260 900 L 420 820 L 600 860 L 760 790 L 900 830 L 1140 780 L 1140 1260 L -60 1260 Z"
+          fill="url(#far)"
+        />
+        </g>
+        <g transform={L(0.55)}>
+        <path
+          d={`M -80 960 L ${RIDGE.map(([x, y]) => `${x} ${y}`).join(' L ')} L 1160 980 L 1160 1260 L -80 1260 Z`}
+          fill="url(#mtn)"
         />
         <path
-          d={`M ${RIDGE.map(([x, y]) => `${x} ${y}`).join(' L ')} L 1100 1060 L -20 1060 Z`}
-          fill={sh(mix('#3d6a48', '#55625a', burm * 0.4))}
+          d={`M 330 645 L 450 690 L 560 765 L 700 845 L 850 905 L 1160 980 L 1160 1260 L 520 1260 Z`}
+          fill="#000000"
+          opacity={0.12}
+        />
+        <path
+          d={`M -80 960 L ${RIDGE.map(([x, y]) => `${x} ${y}`).join(' L ')} L 1160 980 L 1160 1260 L -80 1260 Z`}
+          fill="url(#mtnShade)"
         />
         {MOUNTAIN_FOREST.map((m, i) => {
           const yTop = ridgeY(m.x);
@@ -608,8 +697,11 @@ export const Scene: React.FC = () => {
           <polygon points="0,-26 4,-4 26,0 4,4 0,26 -4,4 -26,0 -4,-4" fill="#fff6c8" />
         </g>
 
+        {MISTS.filter((m) => m.layer === 0).map((m, i) => mist(`ma${i}`, m))}
+        </g>
+        <g transform={L(1)}>
         {/* Plain */}
-        <rect x={-40} y={1000} width={1160} height={470} fill={ground} />
+        <rect x={-80} y={1000} width={1240} height={600} fill={ground} />
         <rect x={-40} y={975} width={1160} height={70} fill="url(#haze)" />
         {PADDIES.map((p, i) => {
           const k = ramp(Y, p.appear, p.appear + 30) * (1 - ramp(Y, p.urban, p.urban + 8));
@@ -662,10 +754,21 @@ export const Scene: React.FC = () => {
         )}
 
         {objects.map((o) => o.el)}
+        {MISTS.filter((m) => m.layer === 1).map((m, i) => mist(`mb${i}`, m))}
+        </g>
 
+        <g transform={L(1.2)}>
         {/* River Ping */}
-        <rect x={-40} y={1490} width={1160} height={480} fill={sh(keyColor(BANK, Y))} />
+        <rect x={-80} y={1490} width={1240} height={560} fill={sh(keyColor(BANK, Y))} />
         <path d={riverD} fill="url(#river)" />
+        <path d={riverD} fill="url(#riverSky)" opacity={0.55} />
+        {sunVis > 0 &&
+          new Array(26).fill(0).map((_, i) => {
+            const x = sunX - 160 + ((i * 97) % 320) + Math.sin(frame * 0.2 + i) * 6;
+            const y = 1446 + ((i * 29) % 72);
+            const tw = Math.max(0, Math.sin(frame * 0.45 + i * 1.7));
+            return <rect key={`gl${i}`} x={x} y={y} width={10} height={2} rx={1} fill="#fff6d8" opacity={tw * 0.8 * sunVis * bump(cyc, 0.3, 0.72, 0.1)} />;
+          })}
         {new Array(18).fill(0).map((_, i) => {
           const x = ((i * 173 + frame * 1.3) % 1240) - 80;
           const y = 1452 + ((i * 37) % 66);
@@ -772,6 +875,8 @@ export const Scene: React.FC = () => {
           );
         })}
 
+        </g>
+        <g transform={L(0.5)}>
         {/* Plane on approach to the airport (south-west) */}
         {t > 50.2 && t < 54 && (
           <g
@@ -781,6 +886,16 @@ export const Scene: React.FC = () => {
             <polygon points="-4,0 10,0 -6,16" fill={sh('#d3d8de')} />
             <polygon points="22,-2 30,-2 30,-14" fill={sh('#7a2a8a')} />
             <circle cx={-30} cy={0} r={2.5} fill="#ff4040" opacity={frame % 20 < 6 ? 1 : 0.15} />
+          </g>
+        )}
+        </g>
+        {rain > 0.01 && (
+          <g opacity={rain}>
+            <rect x={0} y={0} width={1080} height={1920} fill="#4b5560" opacity={0.18} />
+            {RAIN.map((r, i) => {
+              const y = ((r.y + frame * r.speed) % 2100) - 120;
+              return <line key={`rn${i}`} x1={r.x} y1={y} x2={r.x - 8} y2={y + r.len} stroke="#dfe7ee" strokeWidth={1.4} opacity={0.35} />;
+            })}
           </g>
         )}
       </g>

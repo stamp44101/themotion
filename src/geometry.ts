@@ -176,3 +176,28 @@ export const BANK_TREES = new Array(44)
     return {x: random(`kx${i}`) * 1100 - 10, y, s: 1.7 + ((y - 1568) / 140) * 1.0, clear, dark: random(`kd${i}`) < 0.5};
   })
   .sort((a, b) => a.y - b.y);
+
+export const MISTS = new Array(12).fill(0).map((_, i) => ({
+  x: random(`fx${i}`) * 1700,
+  y: i < 6 ? 960 + random(`fy${i}`) * 90 : 1080 + random(`fy${i}`) * 260,
+  rx: 220 + random(`fr${i}`) * 220,
+  ry: 26 + random(`fh${i}`) * 26,
+  sp: 6 + random(`fs${i}`) * 14,
+  layer: i < 6 ? 0 : 1,
+}));
+
+export const BIRDS = new Array(9).fill(0).map((_, i) => ({
+  x: random(`bdx${i}`) * 1400 + (i < 5 ? 0 : 500),
+  y: 560 + random(`bdy${i}`) * 220,
+  speed: 70 + random(`bds${i}`) * 30,
+  s: 0.8 + random(`bdz${i}`) * 0.6,
+  flap: 9 + random(`bdf${i}`) * 4,
+  ph: random(`bdp${i}`) * 6.28,
+}));
+
+export const RAIN = new Array(160).fill(0).map((_, i) => ({
+  x: random(`rx${i}`) * 1140,
+  y: random(`ry${i}`) * 2100,
+  speed: 55 + random(`rs${i}`) * 25,
+  len: 28 + random(`rl${i}`) * 26,
+}));
