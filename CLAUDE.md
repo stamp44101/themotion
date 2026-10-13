@@ -76,6 +76,51 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
 - Use a fast/slow year curve (monotone cubic) so key events get screen time; drive every visual and
   sound from the year, not from seconds.
 
+## Starting a new city — do it in this order
+
+Learned the hard way on Phitsanulok, where doing it out of order cost three full
+re-renders and a re-tune of all 31 camera keys.
+
+1. **Trace the real footprint FIRST, before placing anything.** Download
+   `nced.onep.go.th/opendata/.../oldtown36_announce/<province>.pdf` ("โครงการ
+   กำหนดขอบเขตพื้นที่เมืองเก่า"). Its boundary map is georeferenced to a UTM
+   grid: read the vertices off the grid, convert to metres, divide by 80 for
+   world units. Render the map page with PyMuPDF at ~2.4x to read it.
+2. **Write every real dimension in metres first, then convert.** River widths,
+   wall extents, distances between landmarks. Guessing in "units" is how the Nan
+   ended up 350 m wide inside a 1,136 m city.
+3. **Verify the dates** (the repo rule) and note which are attributed vs
+   documented. Say so in the caption when a date is `สันนิษฐานว่า`.
+4. Story beats + year curve + captions → `timeline.ts`.
+5. Layout + landmarks, then **audit every hand-placed coordinate** against the
+   rivers and the city polygon — including each object's footprint radius, not
+   just its centre point. The engine only protects what it generates.
+6. Camera keys last, scaled to the footprint (see the note above).
+7. Export the timeline, synthesise the soundtrack, render once, contact-sheet it.
+
+### Physical plausibility checklist
+Run through this before calling a city done. Every item is something that
+shipped broken at least once:
+- nothing built on open water except bridges, boats and houseboats
+- the wall opens where a river crosses it, with a water gate
+- city gates are not standing in the channel
+- landmark sub-parts do not intersect each other (viharn clipping its own prang)
+- a Buddha image or anything else meant to be seen is not inside a closed building
+- roads do not run along a riverbed
+- crowds and market stalls are on land
+- hills only where the province actually has them
+
+## Model / token budget
+A whole city in one high-end session is expensive and mostly mechanical. Split it:
+- **Execution on a cheaper model** (Sonnet): scaffolding the city folder, writing
+  timeline/caption data from an agreed outline, placing landmarks to given
+  coordinates, running renders and encodes, building contact sheets.
+- **Keep on the stronger model**: reading the ONEP map and deriving the outline,
+  judging historical sources and what is disputed, composition and camera work,
+  and reviewing contact sheets against the plausibility checklist above.
+Hand over a written spec (outline coordinates, metre dimensions, beat list) so
+the execution pass does not have to re-derive any of it.
+
 ## Layout
 - `src/engine/` — reusable diorama engine (terrain tile, trees, houses, buildings, walls/moat/gates,
   water, rail/trains, roads/cars, lighting, camera, composition).
