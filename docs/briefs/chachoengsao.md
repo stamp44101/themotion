@@ -37,8 +37,8 @@ Dimensions in **metres first**, then converted:
 
 | river / canal | real width (m) | units (80 m/u) | axis | position | notes |
 |---|---|---|---|---|---|
-| Bang Pakong River (แม่น้ำบางปะกง) | ~220 m | 2.75 | Z (curves slightly) | west of fortress (x ≈ -3.2) | Wide alluvial river flowing south to the Gulf of Thailand |
-| Khlong Tha Khai (คลองท่าไข่) | ~25 m | 0.32 | X | north of fortress (z ≈ -3.8) | Historic canal connecting inland farming / Talat Ban Mai |
+| Bang Pakong River (แม่น้ำบางปะกง) | ~224 m | 2.80 | Z | x = -4.8 (channel x: [-6.2, -3.4]) | Wide alluvial river flowing south to Gulf of Thailand; leaves 1.65u dry bank before west fort wall at x = -1.75 |
+| Khlong Tha Khai (คลองท่าไข่) | ~48 m | 0.60 | X | z = -5.0, span: [-3.4, 48] | Historic canal flowing from east, terminating cleanly at Bang Pakong east bank without crossing channel |
 
 - **Does a river pass through the walls?** No. The Bang Pakong River flows immediately west of the fortress wall; the fortress was built deliberately on the river bank to interdict hostile naval flotillas.
 - **Confluences & water features:**

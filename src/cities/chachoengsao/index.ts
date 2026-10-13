@@ -109,8 +109,8 @@ export const CHACHOENGSAO: CityConfig = {
     urban: {from: 1960, rate: 1.1},
     towers: [{x0: 6, x1: 22, z0: -6, z1: 8, extra: 2}],
     roads: [
-      {from: [BANG_PAKONG_X + 1.8, -24], to: [BANG_PAKONG_X + 1.8, 24], width: 1.6, year: 1930}, // Thanon Maruphong along river
-      {from: [0, 0], to: [40, 0], width: 1.6, year: 1955},
+      {from: [-1.8, -24], to: [-1.8, 24], width: 1.2, year: 1930}, // Thanon Maruphong along river bank (dry land)
+      {from: [2.0, 0], to: [42, 0], width: 1.4, year: 1955}, // Road eastward from fort gate
     ],
     ringRoadYear: 1980,
     cars: [1960, 2026],
@@ -156,10 +156,11 @@ export const CHACHOENGSAO: CityConfig = {
       [16, WAT_SOTHON[0] + 0.4, 1.2, WAT_SOTHON[1], 26, 65, 22, 28], // Close dive on golden Luang Pho Sothon and viharn
       [18.5, WAT_SOTHON[0], 2, WAT_SOTHON[1], 48, 70, 26, 30],
 
-      // 19–27s: Rama III Citadel Fortress & Bastions built (1834)
-      [20, FORTRESS[0], 1, FORTRESS[1], 95, 45, 32, 30],
-      [23, FORTRESS[0] - 0.8, 1.2, FORTRESS[1], 42, 55, 24, 28], // Bastion & cannons facing river
-      [26, FORTRESS[0], 1.5, FORTRESS[1], 80, 50, 30, 30],
+      // 19–27s: Rama III Citadel Fortress & Bastions built (1834) -- 2-3x fortress size (distance 16-24)
+      [19.2, FORTRESS[0] - 0.6, 0.8, 0, 24, 60, 26, 30],
+      [21.5, FORTRESS[0] - 0.8, 1.0, 0, 16, 68, 22, 28], // Close dive on river bastion & cannons
+      [24.5, FORTRESS[0] - 0.6, 1.2, 0, 18, 55, 24, 28],
+      [26.5, FORTRESS[0], 1.5, FORTRESS[1], 36, 50, 28, 30],
 
       // 27–35s: Ang-Yi 1848 rebellion at the northern fort wall
       [28, FORTRESS[0], 1, -HZ - 1.0, 55, 35, 26, 28],

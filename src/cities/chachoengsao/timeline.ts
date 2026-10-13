@@ -16,19 +16,20 @@ export const DURATION = 60;
 export const YEAR_KEYS: [number, number][] = [
   [0, 1548],
   [4, 1600],
-  [8, 1700],
-  [12, 1767], // King Taksin at Pak Nam Jolo
-  [15, 1770], // Luang Pho Sothon enshrined
-  [20, 1810],
-  [24, 1834], // Rama III fortress & wall built
-  [28, 1840],
-  [31, 1848], // Ang-Yi rebellion
-  [36, 1870],
-  [40, 1897], // Rama V visit / Monthon administration
-  [44, 1908], // Eastern Railway & Talat Ban Mai boom
-  [48, 1945],
-  [52, 1996], // New marble Ubosot
-  [56, 2026],
+  [7, 1700],
+  [11, 1767], // King Taksin at Pak Nam Jolo
+  [14, 1770], // Luang Pho Sothon enshrined
+  [17.5, 1782], // Early Bangkok era
+  [19.2, 1834], // Rama III fortress & wall built (synchronous with caption at t0: 19)
+  [23.5, 1836], // Fortress complete
+  [26.5, 1845],
+  [27.5, 1848], // Ang-Yi rebellion (synchronous with caption at t0: 27)
+  [33, 1860],
+  [35.5, 1897], // Rama V visit / Monthon administration (caption at t0: 35)
+  [42.2, 1908], // Eastern Railway & Talat Ban Mai boom (caption at t0: 42)
+  [48, 1950],
+  [49.5, 1996], // New marble Ubosot (caption at t0: 49)
+  [55, 2026],
   [60, 2026],
 ];
 export const yearAt = makeCurve(YEAR_KEYS);
