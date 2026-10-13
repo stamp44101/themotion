@@ -3,6 +3,10 @@
 Vertical (1080×1920, 30 fps, 60 s) motion videos of Thai city histories, built with Remotion.
 Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesized in Python.
 
+> **Working alongside other agents?** Read [AGENTS.md](AGENTS.md) first — branch
+> rules, the one-agent-in-the-engine rule, and the review gate. This file is the
+> engineering guide; that one is the collaboration protocol.
+
 ## Ground rules
 - Never use a paid service (Higgsfield/HF, Comfy, any credit-based generator) without an explicit
   "yes" from the user for that spend. Choosing a style is not consent to spend credits.
