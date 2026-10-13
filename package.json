@@ -17,7 +17,9 @@
     "audio:sukhothai": "node scripts/export_timeline.mjs src/cities/sukhothai/timeline.ts out/timeline_sukhothai.json && python3 scripts/soundtrack_sukhothai.py",
     "render:sukhothai": "remotion render Sukhothai out/sukhothai.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
     "render:phitsanulok": "remotion render Phitsanulok out/phitsanulok.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
-    "audio:phitsanulok": "node scripts/export_timeline.mjs src/cities/phitsanulok/timeline.ts out/timeline_phitsanulok.json && python3 scripts/soundtrack_phitsanulok.py"
+    "audio:phitsanulok": "node scripts/export_timeline.mjs src/cities/phitsanulok/timeline.ts out/timeline_phitsanulok.json && python3 scripts/soundtrack_phitsanulok.py",
+    "render:chachoengsao": "remotion render Chachoengsao out/chachoengsao.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
+    "audio:chachoengsao": "node scripts/export_timeline.mjs src/cities/chachoengsao/timeline.ts out/timeline_chachoengsao.json && python3 scripts/soundtrack_chachoengsao.py"
   },
   "dependencies": {
     "@fontsource/kanit": "^5.1.0",
