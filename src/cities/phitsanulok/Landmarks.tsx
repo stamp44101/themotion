@@ -9,15 +9,16 @@ import type {LandmarkProps} from '../../engine/types';
  * Naresuan's birthplace — is on the west. The Khwae Noi joins from the
  * north-west, which is what "สองแคว" (two rivers) means. */
 
-export const WAT_YAI: [number, number] = [7, -1.5];
-export const CHANDRA: [number, number] = [-8.5, -2];
+export const WAT_YAI: [number, number] = [5, -1];
+export const CHANDRA: [number, number] = [-5.3, -9];
 /** The image stands on the viharn porch, not inside it -- a drone dive into
  *  the hall only ever sees roof. Exported so the camera keys and the callout
  *  track it instead of hard-coding the offset in three places. */
-export const CHINNARAT: [number, number] = [WAT_YAI[0] - 4.8, WAT_YAI[1]];
+export const CHINNARAT: [number, number] = [WAT_YAI[0], WAT_YAI[1] - 6.2];
 export const CHULAMANI: [number, number] = [5, 19];
-export const HX = 11;
-export const HZ = 13;
+// bounding half-extents of the traced outline (see index.ts)
+export const HX = 7.1;
+export const HZ = 18.3;
 
 const CHINNARAT_CAST = 1357;
 const WAT_YAI_BUILT = 1357;
@@ -98,11 +99,11 @@ const Chinnarat: React.FC<{pos: [number, number, number]; k: number; glow: numbe
 
 /** Chandra Palace — teak halls on a laterite platform. Burned in the siege,
  *  so after 1776 only the excavated foundations remain. */
-const ChandraPalace: React.FC<{pos: [number, number, number]; k: number; ruin: number}> = ({pos, k, ruin}) => {
+const ChandraPalace: React.FC<{pos: [number, number, number]; k: number; ruin: number; scale?: number}> = ({pos, k, ruin, scale = 1}) => {
   if (k < 0.02) return null;
   const standing = k * (1 - ruin);
   return (
-    <group position={pos}>
+    <group position={pos} scale={[scale, scale, scale]}>
       <mesh position={[0, 0.18, 0]} receiveShadow>
         <boxGeometry args={[7.4, 0.36, 5.6]} />
         <meshStandardMaterial color={mix('#b9a890', LATERITE, ruin)} roughness={1} />
@@ -204,14 +205,14 @@ export const PhitsanulokLandmarks: React.FC<LandmarkProps> = ({Y, t, night}) => 
   return (
     <group>
       {/* Wat Phra Si Rattana Mahathat: prang, viharn, and the image inside */}
-      <MainPrang pos={[WAT_YAI[0], 0, WAT_YAI[1]]} k={watYai} ruin={weather} glow={lit * 0.8} scale={1} />
-      <Viharn pos={[WAT_YAI[0] - 3, 0, WAT_YAI[1]]} k={watYai} rot={Math.PI / 2} scale={1.35} />
+      <MainPrang pos={[WAT_YAI[0], 0, WAT_YAI[1]]} k={watYai} ruin={weather} glow={lit * 0.8} scale={0.8} />
+      <Viharn pos={[WAT_YAI[0], 0, WAT_YAI[1] - 3.6]} k={watYai} scale={1.1} />
       {/* on the porch, not inside the hall -- inside, the drone only ever sees roof */}
       <Chinnarat pos={[CHINNARAT[0], 0.3, CHINNARAT[1]]} k={chinnarat} glow={glow} />
       {[-1, 1].map((s) => (
         <SmallChedi
           key={s}
-          pos={[WAT_YAI[0] + 3, 0, WAT_YAI[1] + s * 3.6]}
+          pos={[WAT_YAI[0] - 2.4, 0, WAT_YAI[1] + s * 2.6]}
           scale={0.8}
           k={watYai}
           color={mix('#e6dccb', LATERITE, weather)}
@@ -224,7 +225,7 @@ export const PhitsanulokLandmarks: React.FC<LandmarkProps> = ({Y, t, night}) => 
       <Viharn pos={[CHULAMANI[0] + 4, 0, CHULAMANI[1]]} k={khmer * 0.9} rot={Math.PI / 2} scale={0.9} />
 
       {/* Chandra Palace on the west bank */}
-      <ChandraPalace pos={[CHANDRA[0], 0, CHANDRA[1]]} k={palace} ruin={palaceRuin} />
+      <ChandraPalace pos={[CHANDRA[0], 0, CHANDRA[1]]} k={palace} ruin={palaceRuin} scale={0.48} />
 
       <GreatFire Y={Y} t={t} />
     </group>

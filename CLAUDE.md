@@ -41,6 +41,18 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   only ever sees roof.
 
 ## Look & feel lessons
+- **Real city footprints are not rectangles.** `city.outline` takes a polygon in
+  world units; walls, moat, city ground and the in-city house grid all follow it,
+  and `hx`/`hz` stay as the bounding half-extents. Cities without `outline` keep
+  the original rectangle code path untouched. Trace the shape off the ONEP
+  "ขอบเขตพื้นที่เมืองเก่า" PDF for that province — it is georeferenced to a UTM
+  grid, so vertices convert straight to metres and then to units at 80 m/unit.
+- Changing the footprint invalidates the camera keys: a long thin city needs
+  roughly 1.3-1.45x the distance of a square one, and a few degrees more
+  elevation on the wide shots.
+- When A/B-ing an engine change, compare **still vs still**. A still against a
+  frame pulled from an encoded render differs everywhere from compression alone
+  and tells you nothing.
 - **Nothing goes on open water.** The in-city house grid in `src/engine/world.ts`
   had no `inRiver()` check (trees, buildings and villages all had one). It never
   showed because Korat/Ayutthaya/Sukhothai keep their rivers outside the walls;

@@ -1,4 +1,15 @@
 import {useThree} from '@react-three/fiber';
+import {cityPoly, offsetPoly, polyEdges, polyPerimeter, polyPointAt, type Poly} from './poly';
+
+const shapeCache = new Map<Poly, THREE.Shape>();
+const polyShape = (p: Poly) => {
+  let sh = shapeCache.get(p);
+  if (!sh) {
+    sh = new THREE.Shape(p.map(([x, z]) => new THREE.Vector2(x, -z)));
+    shapeCache.set(p, sh);
+  }
+  return sh;
+};
 import React, {useLayoutEffect, useMemo, useRef} from 'react';
 import {random, useCurrentFrame} from 'remotion';
 import * as THREE from 'three';
@@ -193,13 +204,16 @@ const Water: React.FC<P> = ({c}) => {
   const p = L.noMoat ? 0 : ramp(Y, city.moat[0], city.moat[1]) * 4;
   const mx = city.hx + 1.4;
   const mz = city.hz + 1.4;
-  // east, north, west, south — dug in sequence
-  const sides: [number, number, number, number, number][] = [
-    [mx, 0, 0, 2 * mz + 2.8, 0],
-    [0, -mz, Math.PI / 2, 2 * mx + 1.4, 1],
-    [-mx, 0, 0, 2 * mz + 2.8, 2],
-    [0, mz, Math.PI / 2, 2 * mx + 1.4, 3],
-  ];
+  // east, north, west, south — dug in sequence. With a real footprint the moat
+  // follows the wall line pushed 1.4 units outward instead.
+  const sides: [number, number, number, number, number][] = city.outline
+    ? polyEdges(offsetPoly(cityPoly(city), 1.4)).map((e, i) => [e.mid[0], e.mid[1], e.angle, e.len + 1.4, i])
+    : [
+        [mx, 0, 0, 2 * mz + 2.8, 0],
+        [0, -mz, Math.PI / 2, 2 * mx + 1.4, 1],
+        [-mx, 0, 0, 2 * mz + 2.8, 2],
+        [0, mz, Math.PI / 2, 2 * mx + 1.4, 3],
+      ];
   return (
     <>
       {L.rivers.map((river, ri) => {
@@ -435,14 +449,19 @@ const Walls: React.FC<P> = ({c}) => {
   const cren = useRef<THREE.InstancedMesh>(null);
   const roofGeo = useMemo(() => prism(2.2, 1.0, 3.0), []);
   const {hx, hz} = city;
+  const poly = city.outline ? cityPoly(city) : null;
   const NX = Math.round(hx * 3.4);
   const NZ = Math.round(hz * 3.4);
-  const total = 2 * NX + 2 * NZ;
+  // a real footprint spaces merlons evenly along its perimeter instead of
+  // per-side, so angled walls get the same density as axis-aligned ones
+  const total = poly ? Math.round(polyPerimeter(poly) * 1.7) : 2 * NX + 2 * NZ;
   useLayoutEffect(() => {
     updateInstances(cren.current, total, (i, o) => {
       let x: number;
       let z: number;
-      if (i < NX) [x, z] = [-hx + ((i + 0.5) * 2 * hx) / NX, -hz];
+      if (poly) {
+        [x, z] = polyPointAt(poly, (i + 0.5) / total);
+      } else if (i < NX) [x, z] = [-hx + ((i + 0.5) * 2 * hx) / NX, -hz];
       else if (i < 2 * NX) [x, z] = [-hx + ((i - NX + 0.5) * 2 * hx) / NX, hz];
       else if (i < 2 * NX + NZ) [x, z] = [hx, -hz + ((i - 2 * NX + 0.5) * 2 * hz) / NZ];
       else [x, z] = [-hx, -hz + ((i - 2 * NX - NZ + 0.5) * 2 * hz) / NZ];
@@ -456,18 +475,20 @@ const Walls: React.FC<P> = ({c}) => {
   return (
     <>
       <mesh position={[0, 0.02, 0]} rotation-x={-Math.PI / 2} receiveShadow>
-        <planeGeometry args={[2 * hx, 2 * hz]} />
-        <meshStandardMaterial color={earth} transparent opacity={ground * 0.85} roughness={1} />
+        {poly ? <shapeGeometry args={[polyShape(poly)]} /> : <planeGeometry args={[2 * hx, 2 * hz]} />}
+        <meshStandardMaterial color={earth} transparent opacity={ground * 0.85} roughness={1} side={THREE.DoubleSide} />
       </mesh>
       {h > 0.02 && (
         <>
           {(
-            [
-              [hx, 0, 0, 2 * hz + 0.4],
-              [-hx, 0, 0, 2 * hz + 0.4],
-              [0, hz, Math.PI / 2, 2 * hx + 0.4],
-              [0, -hz, Math.PI / 2, 2 * hx + 0.4],
-            ] as const
+            poly
+              ? polyEdges(poly).map((e) => [e.mid[0], e.mid[1], e.angle, e.len + 0.5] as const)
+              : ([
+                  [hx, 0, 0, 2 * hz + 0.4],
+                  [-hx, 0, 0, 2 * hz + 0.4],
+                  [0, hz, Math.PI / 2, 2 * hx + 0.4],
+                  [0, -hz, Math.PI / 2, 2 * hx + 0.4],
+                ] as const)
           ).map(([x, z, r, l], i) => (
             <mesh key={i} position={[x, h / 2, z]} rotation-y={r} castShadow receiveShadow>
               <boxGeometry args={[0.55, h, l]} />

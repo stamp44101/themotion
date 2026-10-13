@@ -49,6 +49,10 @@ the town, the railway (1907), the great fire of 2 January 1957 that took the who
 quarter, and the modern city rebuilt around the same Buddha image. Central-Thai court score with pi
 reed and ranat (`scripts/soundtrack_phitsanulok.py`).
 
+The walled city uses a real footprint rather than the engine's default rectangle: a trapezoid traced
+off the ONEP old-town boundary map, 1,136 m x 2,921 m, long north-south along the Nan, which runs
+through the middle of it — Phitsanulok's other old nickname is "เมืองอกแตก", the city with a split chest.
+
 Dates are footnoted in `src/cities/phitsanulok/timeline.ts`. Two to be aware of: the 1357 casting is
 *attributed* ("สันนิษฐานว่า") rather than documented, and the great fire is **1957**, not the 1955
 that English Wikipedia gives — Thai sources are unanimous on 2 January 2500 BE.

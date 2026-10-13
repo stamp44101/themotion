@@ -10,7 +10,7 @@ const TODAY = ['#e8505b', '#f9d56e', '#14b1ab', '#f3ecc2', '#ff9a3c', '#6a8caf',
 /* The Nan runs north-south straight through the city — Phitsanulok grew on
  * both banks, which is the whole point of the old name สองแคว. The Khwae Noi
  * comes in from the west and stops at the confluence. */
-const NAN_X = -2;
+const NAN_X = -1.5;
 const KHWAE_Z = -30;
 
 export const PHITSANULOK: CityConfig = {
@@ -33,8 +33,8 @@ export const PHITSANULOK: CityConfig = {
       [40, 34, 7, 9],
     ],
     rivers: [
-      {axis: 'z', pos: NAN_X, width: 4.4}, // Nan
-      {axis: 'x', pos: KHWAE_Z, width: 2.6, span: [-48, NAN_X]}, // Khwae Noi, ends at the confluence
+      {axis: 'z', pos: NAN_X, width: 2.4}, // Nan -- ~190 m, in scale with a 1,136 m-wide city
+      {axis: 'x', pos: KHWAE_Z, width: 2.0, span: [-48, NAN_X]}, // Khwae Noi, ends at the confluence
     ],
     bridges: [
       {at: 0, year: 1925, modernYear: 1960},
@@ -50,6 +50,19 @@ export const PHITSANULOK: CityConfig = {
     city: {
       hx: HX,
       hz: HZ,
+      /* Traced off the ONEP "ขอบเขตพื้นที่เมืองเก่าพิษณุโลก" map (UTM grid),
+         recentred and converted at 80 m per unit. The real wall is a trapezoid,
+         not a rectangle -- the Nan eroded the north-east corner -- and the
+         footprint is long north-south along the river: 1,136 m x 2,921 m. */
+      outline: [
+        [-0.4, -18.3],
+        [-6.8, -15.1],
+        [-7.1, 15.0],
+        [-6.0, 16.5],
+        [-2.3, 18.3],
+        [6.8, 18.1],
+        [7.1, -5.6],
+      ],
       moat: [1455, 1462],
       wall: [1459, 1468],
       gates: [1464, 1470],
@@ -69,9 +82,9 @@ export const PHITSANULOK: CityConfig = {
       abandon: {prob: 0.8, from: 1776, spread: 30, rebuild: 1840, rebuildSpread: 90},
       modern: [1958, 46], // rebuilt in concrete after the fire
       keepOut: [
-        [WAT_YAI[0], WAT_YAI[1], 5.2],
-        [CHANDRA[0], CHANDRA[1], 4.6],
-        [NAN_X, 0, 3.2],
+        [WAT_YAI[0], WAT_YAI[1] - 3, 5.0],
+        [CHANDRA[0], CHANDRA[1], 3.0],
+        [NAN_X, 0, 2.4],
       ],
     },
     villages: {
@@ -129,37 +142,37 @@ export const PHITSANULOK: CityConfig = {
     plane: [1998, 2026],
     cameraKeys: [
       // [t, targetX, targetY, targetZ, distance, azimuth°, elevation°, fov°]
-      [0, 0, 2, 0, 430, 40, 30, 30],
-      [3, 0, 1, 0, 350, 44, 30, 30],
-      [6, -4, 0, -22, 90, 50, 32, 30], // the confluence — "two rivers"
-      [8, -3, 0, -16, 62, 58, 30, 30],
-      [10, CHULAMANI[0], 2, CHULAMANI[1], 46, 40, 28, 30],
-      [12, CHULAMANI[0], 2, CHULAMANI[1], 38, 70, 26, 30],
-      [14, 0, 0, 4, 60, 60, 30, 30],
-      [15.5, 2, 0, 2, 34, 50, 26, 30],
+      [0, 0, 2, 0, 470, 40, 33, 30],
+      [3, 0, 1, 0, 395, 44, 33, 30],
+      [6, -4, 0, -22, 130, 50, 36, 30], // the confluence — "two rivers"
+      [8, -3, 0, -16, 90, 58, 34, 30],
+      [10, CHULAMANI[0], 2, CHULAMANI[1], 60, 40, 28, 30],
+      [12, CHULAMANI[0], 2, CHULAMANI[1], 49, 70, 26, 30],
+      [14, 0, 0, 4, 87, 60, 34, 30],
+      [15.5, 2, 0, 2, 44, 50, 26, 30],
       [18, CHINNARAT[0], 2.4, CHINNARAT[1], 21, 274, 21, 30], // on the image, from the front
       [21, CHINNARAT[0], 2.4, CHINNARAT[1], 18, 252, 19, 28],
-      [23, WAT_YAI[0], 4, WAT_YAI[1], 34, 100, 26, 30],
-      [26, WAT_YAI[0], 4, WAT_YAI[1], 44, 60, 30, 30],
-      [29, 0, 2, 0, 105, 45, 36, 30], // the city becomes a capital
-      [32, 2.5, 0, 5, 36, 40, 26, 30], // market dive
+      [23, WAT_YAI[0], 4, WAT_YAI[1], 44, 100, 26, 30],
+      [26, WAT_YAI[0], 4, WAT_YAI[1], 57, 60, 30, 30],
+      [29, 0, 2, 0, 152, 45, 40, 30], // the city becomes a capital
+      [32, 2.5, 0, 5, 47, 40, 26, 30], // market dive
       [34, 3, 0, 5, 20, 70, 18, 28],
-      [36, 0, 2, 0, 95, 80, 34, 30],
-      [39, CHANDRA[0], 2, CHANDRA[1], 60, 20, 30, 30],
-      [42, CHANDRA[0], 2.0, CHANDRA[1], 46, 35, 34, 30], // Naresuan's birthplace
-      [45, CHANDRA[0], 2.0, CHANDRA[1], 40, 72, 31, 30],
-      [48, 0, 2, 0, 90, 55, 32, 30],
-      [52, 0, 2, 0, 120, 30, 34, 30],
-      [55, 0, 3, 0, 100, 10, 30, 30], // war
-      [58, 0, 3, 0, 86, -20, 36, 32], // the sack
-      [61, 0, 2, 0, 110, 15, 32, 30],
-      [63.5, 0, 1, 0, 70, 40, 28, 30],
-      [65.5, 1, 2, 2, 62, 55, 36, 32], // the fire
-      [67.5, 0, 2, 0, 80, 70, 30, 30],
-      [69.5, WAT_YAI[0] - 3, 0, WAT_YAI[1] + 3, 30, 60, 24, 30], // today, at the temple
-      [71.5, WAT_YAI[0], 3, WAT_YAI[1], 46, 100, 28, 30],
-      [73, 0, 2, 0, 120, 60, 30, 30],
-      [75, 0, 4, 0, 240, 50, 27, 30],
+      [36, 0, 2, 0, 138, 80, 38, 30],
+      [39, CHANDRA[0], 2, CHANDRA[1], 87, 20, 34, 30],
+      [42, CHANDRA[0], 2.0, CHANDRA[1], 60, 35, 34, 30], // Naresuan's birthplace
+      [45, CHANDRA[0], 2.0, CHANDRA[1], 52, 72, 31, 30],
+      [48, 0, 2, 0, 130, 55, 36, 30],
+      [52, 0, 2, 0, 174, 30, 38, 30],
+      [55, 0, 3, 0, 145, 10, 34, 30], // war
+      [58, 0, 3, 0, 125, -20, 40, 32], // the sack
+      [61, 0, 2, 0, 160, 15, 36, 30],
+      [63.5, 0, 1, 0, 102, 40, 32, 30],
+      [65.5, 1, 2, 2, 90, 55, 40, 32], // the fire
+      [67.5, 0, 2, 0, 116, 70, 34, 30],
+      [69.5, WAT_YAI[0] - 3, 0, WAT_YAI[1] + 3, 39, 60, 24, 30], // today, at the temple
+      [71.5, WAT_YAI[0], 3, WAT_YAI[1], 60, 100, 28, 30],
+      [73, 0, 2, 0, 174, 60, 34, 30],
+      [75, 0, 4, 0, 348, 50, 31, 30],
     ],
   },
   Landmarks: PhitsanulokLandmarks,

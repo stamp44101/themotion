@@ -1,4 +1,5 @@
 import {random} from 'remotion';
+import {cityPoly, inPoly, shrinkPoly} from './poly';
 import type {CityLayout} from './types';
 
 export type World = ReturnType<typeof buildWorld>;
@@ -27,7 +28,13 @@ const buildWorld = (L: CityLayout) => {
     return h > 1.5 ? h + n * Math.min(1, h / 8) : h;
   };
   const inTile = (x: number, z: number, m = 1) => x > tile.x0 + m && x < tile.x1 - m && z > tile.z0 + m && z < tile.z1 - m;
-  const inCity = (x: number, z: number, pad = 2.2) => Math.abs(x) < city.hx + pad && Math.abs(z) < city.hz + pad;
+  const poly = cityPoly(city);
+  // With a real (non-rectangular) footprint the padded test has to grow the
+  // polygon rather than the bounding box, or the corners leak.
+  const inCity = (x: number, z: number, pad = 2.2) =>
+    city.outline
+      ? inPoly(shrinkPoly(poly, -pad), x, z)
+      : Math.abs(x) < city.hx + pad && Math.abs(z) < city.hz + pad;
   const cityDist = (x: number, z: number) => Math.max(Math.abs(x) - city.hx, Math.abs(z) - city.hz, 0);
   const inRiver = (x: number, z: number) =>
     L.rivers.some((r) => {
@@ -115,6 +122,8 @@ const buildWorld = (L: CityLayout) => {
       k++;
       const hx = x + (random(`hx${k}`) - 0.5) * 0.4;
       const hz = z + (random(`hz${k}`) - 0.5) * 0.4;
+      // keep the grid inside the real footprint, a little clear of the wall
+      if (city.outline && !inPoly(shrinkPoly(poly, 1.1), hx, hz)) continue;
       if (L.houses.keepOut.some(([kx, kz, r]) => Math.abs(hx - kx) < r && Math.abs(hz - kz) < r)) continue;
       if (Math.abs(hz) < 0.7 || Math.abs(hx) < 0.6) continue; // main cross streets
       // Nothing is built on open water. Every other placement pass already
