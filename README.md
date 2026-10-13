@@ -38,6 +38,25 @@ Sound (all synthesized, synced to the picture): D-major pentatonic Lanna-flavour
 
 [`renders/sukhothai.mp4`](renders/sukhothai.mp4) — 75 s: Khmer Wat Phra Phai Luang, founding c. 1249, a market drone dive, Thai script per Inscription 1, Wat Mahathat's lotus-bud chedi, the triple walls, a Sangkhalok kiln dive, Wat Si Chum, the 1438 merger with Ayutthaya, ruins, historical park, World Heritage 1991, a cycling dive and a Loy Krathong night finale (krathongs on the moat, lanterns, fireworks). Score with khlui flute (`scripts/soundtrack_sukhothai.py`).
 
+## Phitsanulok
+
+[`renders/phitsanulok.mp4`](renders/phitsanulok.mp4) — 75 s: the city of two rivers. Khmer-era
+Song Khwae at the confluence of the Nan and the Khwae Noi, Wat Chulamani, the casting of Phra
+Phuttha Chinnarat (attributed to 1357) and Wat Phra Si Rattana Mahathat, Borommatrailokanat moving
+the Ayutthaya capital here for 25 years (1463–1488), Naresuan's birth at the Chandra Palace (1555)
+and his years as uparaja (1571), the fall of Ayutthaya and the Burmese sack that burned and emptied
+the town, the railway (1907), the great fire of 2 January 1957 that took the whole central market
+quarter, and the modern city rebuilt around the same Buddha image. Central-Thai court score with pi
+reed and ranat (`scripts/soundtrack_phitsanulok.py`).
+
+The walled city uses a real footprint rather than the engine's default rectangle: a trapezoid traced
+off the ONEP old-town boundary map, 1,136 m x 2,921 m, long north-south along the Nan, which runs
+through the middle of it — Phitsanulok's other old nickname is "เมืองอกแตก", the city with a split chest.
+
+Dates are footnoted in `src/cities/phitsanulok/timeline.ts`. Two to be aware of: the 1357 casting is
+*attributed* ("สันนิษฐานว่า") rather than documented, and the great fire is **1957**, not the 1955
+that English Wikipedia gives — Thai sources are unanimous on 2 January 2500 BE.
+
 ## Develop
 
 ```bash

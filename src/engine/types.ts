@@ -22,10 +22,17 @@ export type CityLayout = {
   noMoat?: boolean;
   rail?: {axis: Axis; pos: number; open: [number, number]; station: [number, number]; stationYear: number};
   trains: {t0: number; dur: number; dir: 1 | -1; modern: boolean}[];
-  /** Walled old city: a rectangle of half-sizes hx × hz centred on the origin. */
+  /** Walled old city: a rectangle of half-sizes hx × hz centred on the origin,
+   *  unless `outline` gives a real footprint. */
   city: {
     hx: number;
     hz: number;
+    /** Actual wall footprint as a closed polygon (world units, clockwise or
+     *  counter-clockwise). Real cities are rarely rectangles -- Phitsanulok's
+     *  wall is a trapezoid because the Nan eroded one corner. When set, the
+     *  walls, moat, city ground and the in-city house grid all follow this
+     *  instead of hx/hz; hx/hz stay as the bounding half-extents. */
+    outline?: [number, number][];
     moat: [number, number];
     wall: [number, number];
     gates: [number, number];

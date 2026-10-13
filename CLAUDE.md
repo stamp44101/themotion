@@ -28,8 +28,44 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   way); review with still contact sheets instead, then render full-res once. Shadow map 2048 is enough.
 - Never `pkill -f` with a pattern that also appears in your own command line; kill by PID.
 - A GPU machine (`npm run render:<city>` locally) renders the 3D versions many times faster.
+  Measured on a Windows RTX 4070 (ANGLE -> D3D11, not SwiftShader): **1 m 15 s for 1800 frames**,
+  ~28x faster than the container figure above. Iterating on full renders is fine there.
+- `scripts/export_timeline.mjs` needs `pathToFileURL()` for the dynamic import — a bare Windows
+  absolute path ('G:\...') is not a valid ESM specifier.
+
+## Three.js gotcha
+- Fire/glow FX built from `meshStandardMaterial` + `emissive` get washed out by ACES tone mapping in
+  daylight — they render, but pale enough to look like they are missing. Use `meshBasicMaterial`
+  with `toneMapped={false}` for anything that must read as self-lit.
+- Put landmark interiors (a Buddha image inside a viharn) *outside* the building, or the drone dive
+  only ever sees roof.
 
 ## Look & feel lessons
+- **A wall never runs across open water.** Where a river crosses the wall line the
+  engine now opens a gap and stands a water gate there (piers + lintel) — boats
+  had to pass. `subtractBands()` in `poly.ts` splits each wall edge around the
+  river footprint, and the merlons skip the gap too. Only bites on cities whose
+  river actually crosses the walls, so the rectangle cities are unaffected.
+- **Real city footprints are not rectangles.** `city.outline` takes a polygon in
+  world units; walls, moat, city ground and the in-city house grid all follow it,
+  and `hx`/`hz` stay as the bounding half-extents. Cities without `outline` keep
+  the original rectangle code path untouched. Trace the shape off the ONEP
+  "ขอบเขตพื้นที่เมืองเก่า" PDF for that province — it is georeferenced to a UTM
+  grid, so vertices convert straight to metres and then to units at 80 m/unit.
+- Changing the footprint invalidates the camera keys: a long thin city needs
+  roughly 1.3-1.45x the distance of a square one, and a few degrees more
+  elevation on the wide shots.
+- When A/B-ing an engine change, compare **still vs still**. A still against a
+  frame pulled from an encoded render differs everywhere from compression alone
+  and tells you nothing.
+- **Nothing goes on open water.** The in-city house grid in `src/engine/world.ts`
+  had no `inRiver()` check (trees, buildings and villages all had one). It never
+  showed because Korat/Ayutthaya/Sukhothai keep their rivers outside the walls;
+  Phitsanulok is the first city with a river running *through* the walled area.
+  Fixed in the engine. When adding a city, audit every hand-placed coordinate
+  (gates, landmark sub-parts, roads, `life` groups) against the river band —
+  `|x - pos| < width/2 + 0.8` — not just the generated ones. Bridges, boats and
+  houseboats are the only things that belong over water.
 - The 3D "isometric diorama" look = the whole city on a floating square tile with a soil cross-section,
   sky gradient behind (CSS), camera always aimed at the city; mountains only as a backdrop at the tile edge.
 - Keep the top ~30% of the frame for the year counter + caption (camera uses a view offset).
@@ -39,6 +75,74 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
 - Film grain balloons file size (110 MB); re-encode with x264 CRF 21–25 + maxrate.
 - Use a fast/slow year curve (monotone cubic) so key events get screen time; drive every visual and
   sound from the year, not from seconds.
+
+## Starting a new city — do it in this order
+
+Learned the hard way on Phitsanulok, where doing it out of order cost three full
+re-renders and a re-tune of all 31 camera keys.
+
+1. **Trace the real footprint FIRST, before placing anything.** Download
+   `nced.onep.go.th/opendata/.../oldtown36_announce/<province>.pdf` ("โครงการ
+   กำหนดขอบเขตพื้นที่เมืองเก่า"). Its boundary map is georeferenced to a UTM
+   grid: read the vertices off the grid, convert to metres, divide by 80 for
+   world units. Render the map page with PyMuPDF at ~2.4x to read it.
+2. **Write every real dimension in metres first, then convert.** River widths,
+   wall extents, distances between landmarks. Guessing in "units" is how the Nan
+   ended up 350 m wide inside a 1,136 m city.
+3. **Verify the dates** (the repo rule) and note which are attributed vs
+   documented. Say so in the caption when a date is `สันนิษฐานว่า`.
+4. Story beats + year curve + captions → `timeline.ts`.
+5. Layout + landmarks, then **audit every hand-placed coordinate** against the
+   rivers and the city polygon — including each object's footprint radius, not
+   just its centre point. The engine only protects what it generates.
+6. Camera keys last, scaled to the footprint (see the note above).
+7. Export the timeline, synthesise the soundtrack, render once, contact-sheet it.
+
+### Physical plausibility checklist
+Run through this before calling a city done. Every item is something that
+shipped broken at least once:
+- nothing built on open water except bridges, boats and houseboats
+- the wall opens where a river crosses it, with a water gate
+- city gates are not standing in the channel
+- landmark sub-parts do not intersect each other (viharn clipping its own prang)
+- a Buddha image or anything else meant to be seen is not inside a closed building
+- roads do not run along a riverbed
+- crowds and market stalls are on land
+- hills only where the province actually has them
+
+## Model / token budget
+A whole city in one high-end session is expensive and mostly mechanical. Split it:
+- **Execution on a cheaper model** (Sonnet): scaffolding the city folder, writing
+  timeline/caption data from an agreed outline, placing landmarks to given
+  coordinates, running renders and encodes, building contact sheets.
+- **Keep on the stronger model**: reading the ONEP map and deriving the outline,
+  judging historical sources and what is disputed, composition and camera work,
+  and reviewing contact sheets against the plausibility checklist above.
+Hand over a written spec (outline coordinates, metre dimensions, beat list) so
+the execution pass does not have to re-derive any of it.
+
+## Delivering a file for upload (TikTok / Reels)
+
+Remotion's own output is high bitrate (~20 Mbps) but **mis-tagged**: it comes out
+`yuvj420p`, `color_range=pc`, `color_space=bt470bg` — full range with a PAL
+matrix. Players and platform encoders assume limited-range bt709, so the upload
+can come back with shifted contrast and colour. This applies to every render in
+`renders/`, not just one city.
+
+Convert and tag explicitly for the upload copy:
+
+```bash
+ffmpeg -i out/<city>.mp4   -vf "scale=in_range=full:out_range=limited,format=yuv420p"   -c:v libx264 -preset slow -crf 17 -maxrate 20M -bufsize 40M   -profile:v high -level 4.2 -pix_fmt yuv420p   -color_range tv -colorspace bt709 -color_primaries bt709 -color_trc bt709   -x264-params "keyint=60:min-keyint=30:colorprim=bt709:transfer=bt709:colormatrix=bt709:range=tv"   -movflags +faststart -c:a aac -b:a 320k -ar 48000 out/<city>_tiktok.mp4
+```
+
+~17 Mbps, ~155 MB for 75 s. TikTok re-encodes everything to a few Mbps anyway,
+so the only thing that matters is giving its encoder a clean, high-bitrate,
+correctly-tagged source. Upload from the web rather than the phone app, which
+compresses before it ever reaches them.
+
+Keep three copies and do not confuse them: `out/<city>.mp4` is the master,
+`renders/<city>.mp4` is the repo copy (<100 MB), and the chat preview is heavily
+squeezed (~1.8 Mbps) and is **not** an upload file.
 
 ## Layout
 - `src/engine/` — reusable diorama engine (terrain tile, trees, houses, buildings, walls/moat/gates,
