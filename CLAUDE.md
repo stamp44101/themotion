@@ -41,6 +41,11 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   only ever sees roof.
 
 ## Look & feel lessons
+- **A wall never runs across open water.** Where a river crosses the wall line the
+  engine now opens a gap and stands a water gate there (piers + lintel) — boats
+  had to pass. `subtractBands()` in `poly.ts` splits each wall edge around the
+  river footprint, and the merlons skip the gap too. Only bites on cities whose
+  river actually crosses the walls, so the rectangle cities are unaffected.
 - **Real city footprints are not rectangles.** `city.outline` takes a polygon in
   world units; walls, moat, city ground and the in-city house grid all follow it,
   and `hx`/`hz` stay as the bounding half-extents. Cities without `outline` keep

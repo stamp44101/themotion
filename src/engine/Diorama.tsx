@@ -1,5 +1,5 @@
 import {useThree} from '@react-three/fiber';
-import {cityPoly, offsetPoly, polyEdges, polyPerimeter, polyPointAt, type Poly} from './poly';
+import {cityPoly, offsetPoly, polyEdges, polyPerimeter, polyPointAt, subtractBands, bandGaps, inBands, type Band, type Poly} from './poly';
 
 const shapeCache = new Map<Poly, THREE.Shape>();
 const polyShape = (p: Poly) => {
@@ -439,9 +439,19 @@ const Buildings: React.FC<P> = ({c, w}) => {
   );
 };
 
+/** Where a river crosses the wall line there has to be a gap -- boats passed
+ *  through a water gate, the wall did not run across the channel. */
+const riverBands = (L: CityLayout): Band[] =>
+  L.rivers.map((r) => {
+    const span = riverSpan(L, r);
+    const half = r.width / 2 + 0.35;
+    return {axis: r.axis === 'z' ? 'x' : 'z', lo: r.pos - half, hi: r.pos + half, s0: span[0], s1: span[1]} as Band;
+  });
+
 const Walls: React.FC<P> = ({c}) => {
   const {Y, dur} = useT(c);
   const {city, gates} = c.layout;
+  const bands = riverBands(c.layout);
   const d = city.decay;
   const decay = d ? ramp(Y, d[0], d[1]) * (1 - ramp(Y, d[2], d[3])) : 0;
   const h = 1.3 * smooth(ramp(Y, city.wall[0], city.wall[1])) * (1 - 0.4 * decay);
@@ -466,7 +476,7 @@ const Walls: React.FC<P> = ({c}) => {
       else if (i < 2 * NX + NZ) [x, z] = [hx, -hz + ((i - 2 * NX + 0.5) * 2 * hz) / NZ];
       else [x, z] = [-hx, -hz + ((i - 2 * NX - NZ + 0.5) * 2 * hz) / NZ];
       o.position.set(x, h + 0.14, z);
-      return h > 0.3;
+      return h > 0.3 && !inBands(x, z, bands);
     });
   });
   const ground = ramp(Y, city.groundFrom, city.groundFrom + 1.5);
@@ -482,7 +492,18 @@ const Walls: React.FC<P> = ({c}) => {
         <>
           {(
             poly
-              ? polyEdges(poly).map((e) => [e.mid[0], e.mid[1], e.angle, e.len + 0.5] as const)
+              ? polyEdges(poly).flatMap((e) =>
+                  subtractBands(e.a, e.b, bands).map(([p, q]) => {
+                    const dx = q[0] - p[0];
+                    const dz = q[1] - p[1];
+                    return [
+                      (p[0] + q[0]) / 2,
+                      (p[1] + q[1]) / 2,
+                      Math.atan2(dx, dz),
+                      Math.hypot(dx, dz) + 0.5,
+                    ] as const;
+                  }),
+                )
               : ([
                   [hx, 0, 0, 2 * hz + 0.4],
                   [-hx, 0, 0, 2 * hz + 0.4],
@@ -511,7 +532,29 @@ const Walls: React.FC<P> = ({c}) => {
             <meshStandardMaterial color="#c47652" roughness={0.95} />
           </instancedMesh>
           {gk > 0.02 &&
-            gates.map((g, i) => (
+            poly &&
+              polyEdges(poly).flatMap((e, ei) =>
+                bandGaps(e.a, e.b, bands).map((g, gi) => {
+                  const w = Math.hypot(g.q[0] - g.p[0], g.q[1] - g.p[1]);
+                  const mid: [number, number] = [(g.p[0] + g.q[0]) / 2, (g.p[1] + g.q[1]) / 2];
+                  return (
+                    <group key={`wg${ei}-${gi}`} position={[mid[0], 0, mid[1]]} rotation-y={g.angle}>
+                      {[-1, 1].map((sgn) => (
+                        <mesh key={sgn} position={[0, h * 0.62, (sgn * w) / 2]} castShadow receiveShadow>
+                          <boxGeometry args={[0.8, h * 1.25, 0.8]} />
+                          <meshStandardMaterial color="#9c5236" roughness={0.95} />
+                        </mesh>
+                      ))}
+                      <mesh position={[0, h * 1.32, 0]} castShadow>
+                        <boxGeometry args={[0.6, 0.34, w]} />
+                        <meshStandardMaterial color="#b0603e" roughness={0.95} />
+                      </mesh>
+                    </group>
+                  );
+                }),
+              )}
+            {gk > 0.02 &&
+              gates.map((g, i) => (
               <group key={`g${i}`} position={[g.x, 0, g.z]} rotation-y={g.rot}>
                 <mesh position={[0, (h * 1.6 * gk) / 2, 0]} castShadow>
                   <boxGeometry args={[1.1, h * 1.6 * gk, g.width]} />

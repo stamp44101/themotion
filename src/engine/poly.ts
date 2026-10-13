@@ -80,3 +80,87 @@ export const inPoly = (p: Poly, x: number, z: number) => {
 
 /** Shrink toward the centroid — used to keep houses off the wall line. */
 export const shrinkPoly = (p: Poly, d: number): Poly => offsetPoly(p, -d);
+
+/** An axis-aligned slab to keep a wall out of: the river's footprint. */
+export type Band = {axis: 'x' | 'z'; lo: number; hi: number; s0: number; s1: number};
+
+/** Split segment a->b into the pieces that fall OUTSIDE every band.
+ *
+ *  A city wall does not march across open water: where a river passes through
+ *  the line, real cities left a gap with a water gate so boats could pass. */
+export const subtractBands = (
+  a: [number, number],
+  b: [number, number],
+  bands: Band[],
+): [[number, number], [number, number]][] => {
+  const at = (t: number): [number, number] => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t];
+  // intervals of t that are inside some band
+  const cuts: [number, number][] = [];
+  for (const bd of bands) {
+    const ci = bd.axis === 'x' ? 0 : 1; // which coordinate the slab constrains
+    const si = 1 - ci;                   // the along-river coordinate
+    const a0 = a[ci];
+    const d = b[ci] - a0;
+    let t0: number;
+    let t1: number;
+    if (Math.abs(d) < 1e-6) {
+      if (a0 < bd.lo || a0 > bd.hi) continue;
+      [t0, t1] = [0, 1];
+    } else {
+      t0 = (bd.lo - a0) / d;
+      t1 = (bd.hi - a0) / d;
+      if (t0 > t1) [t0, t1] = [t1, t0];
+    }
+    t0 = Math.max(0, t0);
+    t1 = Math.min(1, t1);
+    if (t1 <= t0) continue;
+    // only cut if the crossing actually lies along the river's extent
+    const mid = at((t0 + t1) / 2)[si];
+    if (mid < bd.s0 || mid > bd.s1) continue;
+    cuts.push([t0, t1]);
+  }
+  if (!cuts.length) return [[a, b]];
+  cuts.sort((p, q) => p[0] - q[0]);
+  const out: [[number, number], [number, number]][] = [];
+  let cur = 0;
+  for (const [c0, c1] of cuts) {
+    if (c0 > cur) out.push([at(cur), at(c0)]);
+    cur = Math.max(cur, c1);
+  }
+  if (cur < 1) out.push([at(cur), at(1)]);
+  return out.filter(([p, q]) => Math.hypot(q[0] - p[0], q[1] - p[1]) > 0.25);
+};
+
+export const inBands = (x: number, z: number, bands: Band[]) =>
+  bands.some((bd) => {
+    const c = bd.axis === 'x' ? x : z;
+    const s = bd.axis === 'x' ? z : x;
+    return c >= bd.lo && c <= bd.hi && s >= bd.s0 && s <= bd.s1;
+  });
+
+/** The gap endpoints where a segment crosses a band — the piers of a water gate. */
+export const bandGaps = (
+  a: [number, number],
+  b: [number, number],
+  bands: Band[],
+): {p: [number, number]; q: [number, number]; angle: number}[] => {
+  const kept = subtractBands(a, b, bands);
+  if (kept.length <= 1 && (kept.length === 0 || (kept[0][0] === a && kept[0][1] === b))) {
+    return kept.length === 0
+      ? [{p: a, q: b, angle: Math.atan2(b[0] - a[0], b[1] - a[1])}]
+      : [];
+  }
+  const out: {p: [number, number]; q: [number, number]; angle: number}[] = [];
+  const angle = Math.atan2(b[0] - a[0], b[1] - a[1]);
+  for (let i = 0; i < kept.length - 1; i++) {
+    out.push({p: kept[i][1], q: kept[i + 1][0], angle});
+  }
+  if (kept.length && (kept[0][0][0] !== a[0] || kept[0][0][1] !== a[1])) {
+    out.push({p: a, q: kept[0][0], angle});
+  }
+  const last = kept[kept.length - 1];
+  if (kept.length && (last[1][0] !== b[0] || last[1][1] !== b[1])) {
+    out.push({p: last[1], q: b, angle});
+  }
+  return out;
+};
