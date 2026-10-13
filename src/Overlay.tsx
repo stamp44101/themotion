@@ -4,6 +4,13 @@ import {proj} from './geometry';
 import {CAPTIONS, Callout, Caption, ERAS, FPS, SECONDS, bump, camPoint, camera, sstep, yearAt} from './lib';
 
 const FONT = "'Kanit', sans-serif";
+
+/**
+ * TikTok / Reels safe area in video pixels (1080×1920). Tall phones crop ~100 px off each side,
+ * the search bar covers the top ~215 px, captions/username cover the bottom ~440 px and the
+ * action buttons sit on the right from y≈900.
+ */
+export const SAFE = {left: 130, right: 950, top: 250, bottom: 1460, rightLow: 860};
 const shadow = '0 3px 14px rgba(0,0,0,0.55), 0 1px 3px rgba(0,0,0,0.6)';
 
 const chedi = proj(0, 0.02);
@@ -134,8 +141,8 @@ export const Overlay: React.FC<{callouts?: ScreenCallout[]; story?: Story}> = ({
       <div
         style={{
           position: 'absolute',
-          left: 72,
-          top: 86,
+          left: SAFE.left,
+          top: SAFE.top,
           opacity: counterOp,
           fontFamily: FONT,
           color: '#fff',
@@ -168,9 +175,9 @@ export const Overlay: React.FC<{callouts?: ScreenCallout[]; story?: Story}> = ({
             key={c.t0}
             style={{
               position: 'absolute',
-              left: 72,
-              right: 72,
-              top: 350,
+              left: SAFE.left,
+              right: 1080 - SAFE.right,
+              top: SAFE.top + 228,
               opacity: op,
               transform: `translateY(${(1 - inn) * 26}px)`,
               fontFamily: FONT,
@@ -191,9 +198,11 @@ export const Overlay: React.FC<{callouts?: ScreenCallout[]; story?: Story}> = ({
           const op = bump(t, c.t0, c.t1, 0.35);
           if (op <= 0.001) return null;
           const a = c.at(t);
-          const lx = a.x + c.dx;
-          const ly = a.y + c.dy;
           const w = pillWidth(c.label);
+          // keep the label pill inside the safe area (and clear of the right-hand buttons)
+          const ly = Math.min(SAFE.bottom - 30, Math.max(SAFE.top + 520, a.y + c.dy));
+          const rightEdge = ly > 880 ? SAFE.rightLow : SAFE.right;
+          const lx = Math.min(rightEdge - w / 2, Math.max(SAFE.left + w / 2, a.x + c.dx));
           const grow = sstep(c.t0, c.t0 + 0.5, t);
           return (
             <g key={c.label} opacity={op}>
@@ -202,8 +211,8 @@ export const Overlay: React.FC<{callouts?: ScreenCallout[]; story?: Story}> = ({
               <line
                 x1={a.x}
                 y1={a.y}
-                x2={a.x + c.dx * grow}
-                y2={a.y + c.dy * grow}
+                x2={a.x + (lx - a.x) * grow}
+                y2={a.y + (ly - a.y) * grow}
                 stroke="#f6cf73"
                 strokeWidth={2.5}
               />
@@ -218,57 +227,7 @@ export const Overlay: React.FC<{callouts?: ScreenCallout[]; story?: Story}> = ({
         })}
       </svg>
 
-      {/* Timeline bar */}
-      <div style={{position: 'absolute', left: 70, right: 70, top: 1806, height: 90, opacity: 1 - sstep(D - 4.4, D - 3.6, t)}}>
-        <div style={{position: 'absolute', left: 0, right: 0, top: 38, height: 4, borderRadius: 2, background: 'rgba(255,255,255,0.28)'}} />
-        <div
-          style={{
-            position: 'absolute',
-            left: 0,
-            width: `${progress * 100}%`,
-            top: 38,
-            height: 4,
-            borderRadius: 2,
-            background: '#f6cf73',
-          }}
-        />
-        {ERAS.map((e, i) => {
-          const active = t >= e.t;
-          return (
-            <div
-              key={e.label}
-              style={{
-                position: 'absolute',
-                left: `${(e.t / D) * 100}%`,
-                top: i % 2 ? 50 : -8,
-                transform: 'translateX(-50%)',
-                fontFamily: FONT,
-                fontSize: 25,
-                fontWeight: active ? 600 : 400,
-                color: active ? '#f6cf73' : 'rgba(255,255,255,0.6)',
-                textShadow: shadow,
-                whiteSpace: 'nowrap',
-              }}
-            >
-              {e.label}
-            </div>
-          );
-        })}
-        <div
-          style={{
-            position: 'absolute',
-            left: `${progress * 100}%`,
-            top: 30,
-            width: 20,
-            height: 20,
-            marginLeft: -10,
-            borderRadius: 10,
-            background: '#fff',
-            boxShadow: '0 0 14px #f6cf73',
-          }}
-        />
-      </div>
-
+      {/* (era timeline bar removed: TikTok shows its own progress bar and covers the bottom) */}
       {/* Intro title */}
       {introOp > 0 && (
         <div
@@ -276,7 +235,7 @@ export const Overlay: React.FC<{callouts?: ScreenCallout[]; story?: Story}> = ({
             position: 'absolute',
             left: 0,
             right: 0,
-            top: 420,
+            top: 470,
             textAlign: 'center',
             fontFamily: FONT,
             color: '#fff',
@@ -298,7 +257,7 @@ export const Overlay: React.FC<{callouts?: ScreenCallout[]; story?: Story}> = ({
             position: 'absolute',
             left: 0,
             right: 0,
-            top: 300,
+            top: 330,
             textAlign: 'center',
             fontFamily: FONT,
             color: '#fff',

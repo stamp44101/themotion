@@ -33,6 +33,8 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
 - The 3D "isometric diorama" look = the whole city on a floating square tile with a soil cross-section,
   sky gradient behind (CSS), camera always aimed at the city; mountains only as a backdrop at the tile edge.
 - Keep the top ~30% of the frame for the year counter + caption (camera uses a view offset).
+- TikTok safe area (video px): tall phones crop ~100 px per side; search bar covers y<215; captions/username
+  cover y>1480; action buttons cover x>860 below y≈900. Overlay `SAFE` enforces this — keep text/labels inside.
 - Remove clouds near the camera path; they clutter. Boost night ambient/moon light in 3D (ACES darkens).
 - Film grain balloons file size (110 MB); re-encode with x264 CRF 21–25 + maxrate.
 - Use a fast/slow year curve (monotone cubic) so key events get screen time; drive every visual and
