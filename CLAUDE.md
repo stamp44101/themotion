@@ -121,6 +121,29 @@ A whole city in one high-end session is expensive and mostly mechanical. Split i
 Hand over a written spec (outline coordinates, metre dimensions, beat list) so
 the execution pass does not have to re-derive any of it.
 
+## Delivering a file for upload (TikTok / Reels)
+
+Remotion's own output is high bitrate (~20 Mbps) but **mis-tagged**: it comes out
+`yuvj420p`, `color_range=pc`, `color_space=bt470bg` — full range with a PAL
+matrix. Players and platform encoders assume limited-range bt709, so the upload
+can come back with shifted contrast and colour. This applies to every render in
+`renders/`, not just one city.
+
+Convert and tag explicitly for the upload copy:
+
+```bash
+ffmpeg -i out/<city>.mp4   -vf "scale=in_range=full:out_range=limited,format=yuv420p"   -c:v libx264 -preset slow -crf 17 -maxrate 20M -bufsize 40M   -profile:v high -level 4.2 -pix_fmt yuv420p   -color_range tv -colorspace bt709 -color_primaries bt709 -color_trc bt709   -x264-params "keyint=60:min-keyint=30:colorprim=bt709:transfer=bt709:colormatrix=bt709:range=tv"   -movflags +faststart -c:a aac -b:a 320k -ar 48000 out/<city>_tiktok.mp4
+```
+
+~17 Mbps, ~155 MB for 75 s. TikTok re-encodes everything to a few Mbps anyway,
+so the only thing that matters is giving its encoder a clean, high-bitrate,
+correctly-tagged source. Upload from the web rather than the phone app, which
+compresses before it ever reaches them.
+
+Keep three copies and do not confuse them: `out/<city>.mp4` is the master,
+`renders/<city>.mp4` is the repo copy (<100 MB), and the chat preview is heavily
+squeezed (~1.8 Mbps) and is **not** an upload file.
+
 ## Layout
 - `src/engine/` — reusable diorama engine (terrain tile, trees, houses, buildings, walls/moat/gates,
   water, rail/trains, roads/cars, lighting, camera, composition).
