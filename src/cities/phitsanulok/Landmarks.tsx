@@ -9,9 +9,13 @@ import type {LandmarkProps} from '../../engine/types';
  * Naresuan's birthplace — is on the west. The Khwae Noi joins from the
  * north-west, which is what "สองแคว" (two rivers) means. */
 
-export const WAT_YAI: [number, number] = [5.5, -1.5];
+export const WAT_YAI: [number, number] = [7, -1.5];
 export const CHANDRA: [number, number] = [-8.5, -2];
-export const CHULAMANI: [number, number] = [1, 19];
+/** The image stands on the viharn porch, not inside it -- a drone dive into
+ *  the hall only ever sees roof. Exported so the camera keys and the callout
+ *  track it instead of hard-coding the offset in three places. */
+export const CHINNARAT: [number, number] = [WAT_YAI[0] - 4.8, WAT_YAI[1]];
+export const CHULAMANI: [number, number] = [5, 19];
 export const HX = 11;
 export const HZ = 13;
 
@@ -62,8 +66,9 @@ const MainPrang: React.FC<{pos: [number, number, number]; k: number; ruin: numbe
 const Chinnarat: React.FC<{pos: [number, number, number]; k: number; glow: number}> = ({pos, k, glow}) => {
   if (k < 0.02) return null;
   const gold = '#d8a62e';
+  const S = 1.7 * k; // the image is the hero of this scene, not the hall behind it
   return (
-    <group position={pos} scale={[k, k, k]}>
+    <group position={pos} scale={[S, S, S]}>
       {/* flame-shaped halo behind the image */}
       {/* a 225 deg arc starts at +x, so roll it back 22.5 deg to sit the
           opening at the bottom and centre the halo over the head */}
@@ -200,13 +205,13 @@ export const PhitsanulokLandmarks: React.FC<LandmarkProps> = ({Y, t, night}) => 
     <group>
       {/* Wat Phra Si Rattana Mahathat: prang, viharn, and the image inside */}
       <MainPrang pos={[WAT_YAI[0], 0, WAT_YAI[1]]} k={watYai} ruin={weather} glow={lit * 0.8} scale={1} />
-      <Viharn pos={[WAT_YAI[0] - 4.6, 0, WAT_YAI[1]]} k={watYai} rot={Math.PI / 2} scale={1.35} />
+      <Viharn pos={[WAT_YAI[0] - 3, 0, WAT_YAI[1]]} k={watYai} rot={Math.PI / 2} scale={1.35} />
       {/* on the porch, not inside the hall -- inside, the drone only ever sees roof */}
-      <Chinnarat pos={[WAT_YAI[0] - 8.2, 0.3, WAT_YAI[1]]} k={chinnarat} glow={glow} />
+      <Chinnarat pos={[CHINNARAT[0], 0.3, CHINNARAT[1]]} k={chinnarat} glow={glow} />
       {[-1, 1].map((s) => (
         <SmallChedi
           key={s}
-          pos={[WAT_YAI[0] + 3.4, 0, WAT_YAI[1] + s * 3.6]}
+          pos={[WAT_YAI[0] + 3, 0, WAT_YAI[1] + s * 3.6]}
           scale={0.8}
           k={watYai}
           color={mix('#e6dccb', LATERITE, weather)}
@@ -216,7 +221,7 @@ export const PhitsanulokLandmarks: React.FC<LandmarkProps> = ({Y, t, night}) => 
 
       {/* Wat Chulamani: the oldest thing standing, Khmer laterite */}
       <Prang pos={[CHULAMANI[0], 0, CHULAMANI[1]]} k={khmer} scale={1.15} color={LATERITE} />
-      <Viharn pos={[CHULAMANI[0] - 3.2, 0, CHULAMANI[1]]} k={khmer * 0.9} rot={Math.PI / 2} scale={0.9} />
+      <Viharn pos={[CHULAMANI[0] + 4, 0, CHULAMANI[1]]} k={khmer * 0.9} rot={Math.PI / 2} scale={0.9} />
 
       {/* Chandra Palace on the west bank */}
       <ChandraPalace pos={[CHANDRA[0], 0, CHANDRA[1]]} k={palace} ruin={palaceRuin} />

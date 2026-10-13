@@ -1,7 +1,7 @@
 import {ramp} from '../../lib';
 import {GROUND} from '../../Scene';
 import type {CityConfig} from '../../engine/types';
-import {CHANDRA, CHULAMANI, HX, HZ, PhitsanulokLandmarks, WAT_YAI} from './Landmarks';
+import {CHANDRA, CHINNARAT, CHULAMANI, HX, HZ, PhitsanulokLandmarks, WAT_YAI} from './Landmarks';
 import {CAPTIONS, DURATION, ERAS, yearAt} from './timeline';
 
 const OLD = ['#e9e2d0', '#3f5f8f', '#a8322a', '#2f6a4a', '#d9a43a', '#7a5a3a'];
@@ -60,8 +60,8 @@ export const PHITSANULOK: CityConfig = {
     gates: [
       {x: HX, z: 0, rot: 0, width: 2.4, pavilion: true},
       {x: -HX, z: 0, rot: 0, width: 2.4},
-      {x: 0, z: HZ, rot: Math.PI / 2, width: 2.4},
-      {x: 0, z: -HZ, rot: Math.PI / 2, width: 2.4},
+      {x: 4, z: HZ, rot: Math.PI / 2, width: 2.4}, // offset east: the Nan crosses the wall at x=-2
+      {x: 4, z: -HZ, rot: Math.PI / 2, width: 2.4},
     ],
     houses: {
       built: [1150, 320],
@@ -98,7 +98,7 @@ export const PHITSANULOK: CityConfig = {
     roads: [
       {from: [-11, 0], to: [-46, 0], width: 1.8, year: 1962},
       {from: [11, 0], to: [46, 0], width: 1.8, year: 1962},
-      {from: [0, 13], to: [0, 48], width: 1.6, year: 1972},
+      {from: [5, 13], to: [5, 48], width: 1.6, year: 1972}, // east of the Nan, not in it
     ],
     ringRoadYear: 1985,
     cars: [1960, 2026],
@@ -109,13 +109,13 @@ export const PHITSANULOK: CityConfig = {
       people: [
         {x: WAT_YAI[0] - 3, z: WAT_YAI[1] + 3, r: 3.0, count: 30, from: 1360, to: 1770, colors: OLD},
         {x: WAT_YAI[0] - 4, z: WAT_YAI[1] - 1, r: 2.4, count: 8, from: 1360, to: 2100, monks: true},
-        {x: 2.5, z: 5, r: 3.6, count: 44, from: 1465, to: 1775, colors: OLD}, // the royal-capital market
-        {x: CHANDRA[0] + 2, z: CHANDRA[1] + 3, r: 2.6, count: 18, from: 1465, to: 1775, colors: OLD},
+        {x: 5.0, z: 5, r: 3.0, count: 44, from: 1465, to: 1775, colors: OLD}, // the royal-capital market, east bank
+        {x: CHANDRA[0] - 0.5, z: CHANDRA[1] + 3, r: 2.4, count: 18, from: 1465, to: 1775, colors: OLD},
         {x: WAT_YAI[0] - 3, z: WAT_YAI[1] + 3.5, r: 4.5, count: 40, from: 1975, to: 2100, colors: TODAY},
-        {x: 1, z: -7, r: 5, count: 26, from: 1990, to: 2100, colors: TODAY},
+        {x: 5.5, z: -7, r: 3.6, count: 26, from: 1990, to: 2100, colors: TODAY},
       ],
       stalls: [
-        {x: 2.5, z: 5, r: 3.0, count: 16, from: 1465, to: 1775},
+        {x: 5.0, z: 5, r: 2.6, count: 16, from: 1465, to: 1775},
         {x: WAT_YAI[0] - 2, z: WAT_YAI[1] + 5, r: 2.6, count: 12, from: 1975, to: 2100},
       ],
       ships: [{river: 0, count: 7, from: 1200, to: 1960}],
@@ -137,8 +137,8 @@ export const PHITSANULOK: CityConfig = {
       [12, CHULAMANI[0], 2, CHULAMANI[1], 38, 70, 26, 30],
       [14, 0, 0, 4, 60, 60, 30, 30],
       [15.5, 2, 0, 2, 34, 50, 26, 30],
-      [18, WAT_YAI[0] - 8.2, 1.8, WAT_YAI[1], 15, 272, 16, 30], // on the image, from the front
-      [21, WAT_YAI[0] - 8.2, 1.8, WAT_YAI[1], 13, 248, 14, 28],
+      [18, CHINNARAT[0], 2.4, CHINNARAT[1], 21, 274, 21, 30], // on the image, from the front
+      [21, CHINNARAT[0], 2.4, CHINNARAT[1], 18, 252, 19, 28],
       [23, WAT_YAI[0], 4, WAT_YAI[1], 34, 100, 26, 30],
       [26, WAT_YAI[0], 4, WAT_YAI[1], 44, 60, 30, 30],
       [29, 0, 2, 0, 105, 45, 36, 30], // the city becomes a capital
@@ -167,7 +167,7 @@ export const PHITSANULOK: CityConfig = {
     {t0: 6.2, t1: 9.4, label: 'แม่น้ำน่าน', dx: 90, dy: 130, p: [NAN_X, 0, -8]},
     {t0: 6.8, t1: 9.4, label: 'แม่น้ำแควน้อย', dx: -70, dy: -130, p: [-22, 0, KHWAE_Z]},
     {t0: 10.4, t1: 13.4, label: 'วัดจุฬามณี', dx: 70, dy: -140, p: [CHULAMANI[0], 4, CHULAMANI[1]]},
-    {t0: 19.4, t1: 22.6, label: 'พระพุทธชินราช', dx: 80, dy: -140, p: [WAT_YAI[0] - 8.2, 2.4, WAT_YAI[1]]},
+    {t0: 19.4, t1: 22.6, label: 'พระพุทธชินราช', dx: 80, dy: -140, p: [CHINNARAT[0], 2.4, CHINNARAT[1]]},
     {t0: 24, t1: 28.2, label: 'ปรางค์วัดใหญ่', dx: -90, dy: -150, p: [WAT_YAI[0], 9, WAT_YAI[1]]},
     {t0: 42.6, t1: 46.6, label: 'พระราชวังจันทน์', dx: -60, dy: -140, p: [CHANDRA[0], 2.2, CHANDRA[1]]},
     {t0: 62.6, t1: 65, label: 'สถานีรถไฟพิษณุโลก', dx: 70, dy: -130, p: [-26, 2, 2]},

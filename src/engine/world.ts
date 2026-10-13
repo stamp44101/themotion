@@ -117,6 +117,10 @@ const buildWorld = (L: CityLayout) => {
       const hz = z + (random(`hz${k}`) - 0.5) * 0.4;
       if (L.houses.keepOut.some(([kx, kz, r]) => Math.abs(hx - kx) < r && Math.abs(hz - kz) < r)) continue;
       if (Math.abs(hz) < 0.7 || Math.abs(hx) < 0.6) continue; // main cross streets
+      // Nothing is built on open water. Every other placement pass already
+      // skips the rivers; this one did not, which only showed up once a city
+      // (Phitsanulok) had a river running *through* the walled area.
+      if (inRiver(hx, hz)) continue;
       const ab = L.houses.abandon;
       const abandoned = !!ab && random(`ha${k}`) < ab.prob;
       houses.push({

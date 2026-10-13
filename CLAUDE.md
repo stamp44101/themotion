@@ -41,6 +41,14 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   only ever sees roof.
 
 ## Look & feel lessons
+- **Nothing goes on open water.** The in-city house grid in `src/engine/world.ts`
+  had no `inRiver()` check (trees, buildings and villages all had one). It never
+  showed because Korat/Ayutthaya/Sukhothai keep their rivers outside the walls;
+  Phitsanulok is the first city with a river running *through* the walled area.
+  Fixed in the engine. When adding a city, audit every hand-placed coordinate
+  (gates, landmark sub-parts, roads, `life` groups) against the river band —
+  `|x - pos| < width/2 + 0.8` — not just the generated ones. Bridges, boats and
+  houseboats are the only things that belong over water.
 - The 3D "isometric diorama" look = the whole city on a floating square tile with a soil cross-section,
   sky gradient behind (CSS), camera always aimed at the city; mountains only as a backdrop at the tile edge.
 - Keep the top ~30% of the frame for the year counter + caption (camera uses a view offset).
