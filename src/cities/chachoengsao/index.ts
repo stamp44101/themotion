@@ -36,8 +36,9 @@ export const CHACHOENGSAO: CityConfig = {
     peaks: [],
     rivers: [
       {axis: 'z', pos: BANG_PAKONG_X, width: 2.8}, // Bang Pakong River (~220 m wide)
-      {axis: 'x', pos: KHLONG_THA_KHAI_Z, width: 0.6, span: [BANG_PAKONG_X, 48]}, // Khlong Tha Khai
+      {axis: 'x', pos: KHLONG_THA_KHAI_Z, width: 0.6, span: [BANG_PAKONG_X + 1.4, 48]}, // Khlong Tha Khai stops at east river bank
     ],
+    urbanBox: {x0: 2, x1: 24, z0: -12, z1: 6}, // Modern high-rises stay in commercial core east of river, clear of Wat Sothon
     bridges: [
       {at: 0, year: 1960, modernYear: 1960}, // Maruphong modern bridge across Bang Pakong
     ],
@@ -123,11 +124,11 @@ export const CHACHOENGSAO: CityConfig = {
         {x: WAT_SOTHON[0] + 2.0, z: WAT_SOTHON[1] + 2.0, r: 3.5, count: 40, from: 1970, to: 2100, colors: TODAY},
         // Fortress garrison
         {x: 0, z: 0, r: 1.8, count: 18, from: 1834, to: 1900, colors: OLD},
-        // Talat Ban Mai riverside merchants
-        {x: BAN_MAI[0] + 1.0, z: BAN_MAI[1], r: 2.5, count: 28, from: 1880, to: 2100, colors: OLD},
+        // Talat Ban Mai riverside merchants (safely on dry bank)
+        {x: BAN_MAI[0] + 1.4, z: BAN_MAI[1], r: 1.8, count: 28, from: 1880, to: 2100, colors: OLD},
       ],
       stalls: [
-        {x: BAN_MAI[0] + 0.8, z: BAN_MAI[1], r: 2.2, count: 14, from: 1880, to: 2100},
+        {x: BAN_MAI[0] + 1.4, z: BAN_MAI[1], r: 1.6, count: 14, from: 1880, to: 2100},
         {x: WAT_SOTHON[0] + 2.2, z: WAT_SOTHON[1] + 2.5, r: 2.5, count: 12, from: 1970, to: 2100},
       ],
       ships: [{river: 0, count: 8, from: 1548, to: 1960}],
