@@ -28,7 +28,10 @@
     "render:chachoengsao": "node scripts/check_story.mjs chachoengsao && remotion render Chachoengsao out/chachoengsao.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
     "audio:chachoengsao": "node scripts/export_timeline.mjs src/cities/chachoengsao/timeline.ts out/timeline_chachoengsao.json && python3 scripts/soundtrack_chachoengsao.py",
     "render:nakhonsawan": "node scripts/check_story.mjs nakhonsawan && remotion render NakhonSawan out/nakhonsawan.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
-    "audio:nakhonsawan": "node scripts/export_timeline.mjs src/cities/nakhonsawan/timeline.ts out/timeline_nakhonsawan.json && python3 scripts/soundtrack_nakhonsawan.py"
+    "audio:nakhonsawan": "node scripts/export_timeline.mjs src/cities/nakhonsawan/timeline.ts out/timeline_nakhonsawan.json && python3 scripts/soundtrack_nakhonsawan.py",
+    "render:chonburi": "npm run audio:chonburi && node scripts/check_story.mjs chonburi && remotion render Chonburi out/chonburi.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
+    "audio:chonburi": "node scripts/export_timeline.mjs src/cities/chonburi/timeline.ts out/timeline_chonburi.json && node scripts/python_chonburi.mjs scripts/soundtrack_chonburi.py",
+    "still:chonburi": "remotion still Chonburi out/chonburi-still.png --frame=1500 --gl=angle"
   },
   "dependencies": {
     "@fontsource/kanit": "^5.1.0",

@@ -73,3 +73,21 @@ Re-run `npm run audio` after changing the timing in `src/lib.ts` so the sound st
 - `src/Scene.tsx` — the landscape and city
 - `src/Overlay.tsx` — year counter, Thai captions, callouts, timeline bar, intro/finale, grain/vignette/light leaks
 - `scripts/make_soundtrack.py` — procedural soundtrack; `scripts/export_timeline.mjs` feeds it the year/day–night timeline
+
+## Chonburi
+
+`Chonburi` is a 60-second coastal diorama following Sri Phalo and the fishing
+settlements, Ayutthaya-era Bang Pla Soi, the 1767 eastern mobilisation, Ban
+Saphan Bang Pla Soi, Ang Sila's convalescent buildings, the buffalo race and
+Bang Saen's 1943 resort development into the modern coastal city. The scene is
+in `src/cities/chonburi/`; research notes and disputed dates are in
+`docs/briefs/chonburi.md`.
+
+```bash
+npm run audio:chonburi
+npm run render:chonburi
+npm run encode -- chonburi
+```
+
+`render:chonburi` generates the procedural soundtrack before checking and
+rendering the film, so a fresh clone needs no committed audio binary.
