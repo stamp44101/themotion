@@ -102,6 +102,9 @@ export const NAKHONSAWAN: CityConfig = {
       built: [1357, 180],
     },
     forestCity: 0.15,
+    clearings: [
+      [SAN_KHU[0], SAN_KHU[1], 4.5, 1357],
+    ],
     paddies: [1357, 1970],
     urban: {from: 1950, rate: 1.1},
     urbanBox: {x0: -10.0, x1: 6.0, z0: -8.0, z1: 14.0},
@@ -159,10 +162,10 @@ export const NAKHONSAWAN: CityConfig = {
       [29.0, -2.0, 0.5, 5.0, 115, 245, 28, 30],
 
       // 30–37.5s: Dragon parade & shrine push-in then hold (Caption 5: 30.5–37s)
-      [30.5, -4.8, 1.0, 1.0, 45, 252, 22, 28], // Arrive
-      [31.5, -4.8, 1.0, 1.0, 36, 255, 20, 26], // Push-in
-      [33.5, -4.8, 1.0, 1.0, 36, 260, 20, 26], // Hold
-      [36.5, -4.8, 1.0, 1.0, 38, 265, 22, 26], // Hold
+      [30.5, -4.8, 1.0, 1.0, 45, 252, 34, 28], // Arrive
+      [31.5, -4.8, 1.0, 1.0, 36, 255, 34, 26], // Push-in
+      [33.5, -4.8, 1.0, 1.0, 36, 260, 34, 26], // Hold
+      [36.5, -4.8, 1.0, 1.0, 38, 265, 34, 26], // Hold
 
       // 38–44s: Track steam train along rail at x=18 (Caption 6: 38–43.5s)
       [38.0, 18.0, 1.0, 12.0, 58, 275, 25, 28], // Train north
