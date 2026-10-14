@@ -11,18 +11,27 @@ macOS; only the install step differs.
 ```powershell
 winget install OpenJS.NodeJS.LTS Git.Git
 # close and reopen PowerShell, then:
-git clone https://github.com/stamp44101/themotion.git
+git clone --filter=blob:none --no-checkout https://github.com/stamp44101/themotion.git
 cd themotion
+git sparse-checkout set --no-cone '/*' '!/renders/'
+git checkout claude/busy-brown-ba1fp4
 npm ci
 ```
 
 **macOS (Apple Silicon, Terminal)**
 ```bash
 brew install node git
-git clone https://github.com/stamp44101/themotion.git
+git clone --filter=blob:none --no-checkout https://github.com/stamp44101/themotion.git
 cd themotion
+git sparse-checkout set --no-cone '/*' '!/renders/'
+git checkout claude/busy-brown-ba1fp4
 npm ci
 ```
+
+The two extra flags skip the videos. A plain `git clone` downloads every
+render ever committed (over 1 GB of mp4, 20 versions) plus the current
+`renders/` (~360 MB); this way the clone is ~135 MB, almost all of it the
+soundtracks. Old versions are fetched only if you ask for them.
 
 Nothing else is needed for rendering and encoding: Remotion downloads its own
 headless Chrome on the first render and ships its own ffmpeg, which the scripts
@@ -66,7 +75,7 @@ for c in korat ayutthaya sukhothai phitsanulok chachoengsao; do npm run render:$
 
 ```bash
 git checkout -b rerender/<what>
-git add renders/*.mp4
+git add --sparse renders/<city>.mp4   # --sparse because renders/ is not checked out
 git commit -m "Re-render <cities> with <why>"
 git push -u origin rerender/<what>
 ```
