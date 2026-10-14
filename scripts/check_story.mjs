@@ -16,6 +16,7 @@ import {textWidth} from './textwidth.mjs';
 
 const lib = await load('src/lib.ts');
 const engine = {...(await load('src/engine/world.ts')), ...(await load('src/engine/camera.ts'))};
+const roads = await load('src/engine/roads.ts');
 const {INTRO_END, FINALE_LEAD, SECONDS, makeCurve} = lib;
 const MIN_CAPTION = 2.5; // seconds on screen; shorter cannot be read in Thai at this size
 const COLUMN = 820; // caption column width in px (Overlay: SAFE.left..SAFE.right)
@@ -24,6 +25,9 @@ const COLUMN = 820; // caption column width in px (Overlay: SAFE.left..SAFE.righ
 const CAM = {maxZoom: 0.65, minOrbit: 0.15, minAzSwept: 300, minMidWide: 100};
 // Cities that predate the camera rule. Re-tune their keys, then remove them here.
 const CAMERA_WAIVED = new Set(['chachoengsao']);
+// Posted before the cars-on-water rule; the owner is not re-rendering them. Its ring
+// road's west side lies in the Bang Pakong. Warn only.
+const WATER_WAIVED = new Set(['chachoengsao']);
 // Cities built before briefs existed.
 const NO_BRIEF_OK = new Set(['ayutthaya', 'korat', 'phitsanulok', 'sukhothai']);
 
@@ -118,6 +122,26 @@ for (const city of cities) {
         err(`rail runs along river ${n}'s bed; move rail.pos to dry ground.`);
     });
   }
+
+  // Cars cross water only on a bridge deck. The engine hides a car with no deck under
+  // it, so a city that trips this has cars vanishing mid-river (Nakhon Sawan's ring road
+  // crossed the Chao Phraya next to, not on, the Dechatiwong bridge; cars drove on water).
+  const wet = new Map();
+  for (let f = 0; f < D * 30; f += 2) {
+    const Y = story.yearAt(f / 30);
+    const segs = roads.driveSegments(layout, Y).filter((x) => x.k > 0.99);
+    const dk = roads.decks(layout, Y);
+    for (let i = 0; i < roads.MAX_CARS; i++) {
+      const car = roads.carAt(layout, Y, f, i, segs, dk);
+      if (!car?.wet) continue;
+      const key = `${Math.round(car.x)},${Math.round(car.z)}`;
+      if (!wet.has(key)) wet.set(key, {f, Y, x: car.x, z: car.z});
+    }
+  }
+  const wetMsg = WATER_WAIVED.has(city) ? warn : err;
+  for (const w of [...wet.values()].slice(0, 3))
+    wetMsg(`a car is on open water at (${w.x.toFixed(1)}, ${w.z.toFixed(1)}) at ${s(w.f / 30)} (year ${Math.round(w.Y)}): the road crosses a river with no bridge deck under it. Line up the bridge's \`at\` with the road, or move the road.`);
+  if (wet.size > 3) wetMsg(`... and cars on open water at ${wet.size - 3} more places.`);
 
   // Nothing sunk into a hill. Landmarks get terrainH in their props; one placed at
   // y = 0 on a slope ends up buried (Nakhon Sawan's San Khu redoubt sat 2.25 under
