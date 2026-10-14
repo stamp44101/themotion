@@ -105,6 +105,22 @@ for (const city of cities) {
   if (cam.midWide < CAM.minMidWide) camIssues.push(`no wide shot between 15s and ${s(D - 8)} (widest distance ${Math.round(cam.midWide)}, need >= ${CAM.minMidWide}): pull back at least once so the viewer sees the city grow`);
   for (const m of camIssues) (CAMERA_WAIVED.has(city) ? warn : err)(`camera: ${m}.`);
 
+  // Nothing sunk into a hill. Landmarks get terrainH in their props; one placed at
+  // y = 0 on a slope ends up buried (Nakhon Sawan's San Khu redoubt sat 2.25 under
+  // the Khao Kob foothill and its callout pointed at bare grass).
+  const world = engine.getWorld(layout);
+  for (const c of callouts) {
+    const g = world.terrainH(c.p[0], c.p[2]);
+    if (c.p[1] < g - 0.5)
+      err(`callout "${c.label}" points ${(g - c.p[1]).toFixed(1)} below the ground there (terrain ${g.toFixed(1)}): place the landmark at terrainH(x, z) and raise the callout point with it.`);
+  }
+  const lm = await load(`src/cities/${city}/Landmarks.tsx`);
+  for (const [name, v] of Object.entries(lm)) {
+    if (!Array.isArray(v) || v.length !== 2 || typeof v[0] !== 'number') continue;
+    const g = world.terrainH(v[0], v[1]);
+    if (g > 0.5) warn(`${name} stands where the terrain is ${g.toFixed(1)} high: make sure Landmarks.tsx places it at terrainH(x, z), not at y = 0.`);
+  }
+
   // the thing a callout points at must be visible, not behind a wall of trees
   for (const o of occlusion(cfg, engine)) {
     if (o.blocked > 0.5)
