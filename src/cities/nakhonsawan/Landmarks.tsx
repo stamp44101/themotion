@@ -31,32 +31,37 @@ const AncientWatNakhonSawan: React.FC<{pos: [number, number, number]; k: number}
   );
 };
 
-/** San Khu Ancient Rampart & Wooden Watchtower (Sukhothai frontier & Nine Armies War 1785). */
-const SanKhuRedoubt: React.FC<{pos: [number, number, number]; k: number}> = ({pos, k}) => {
-  if (k < 0.02) return null;
+/** San Khu Ancient Rampart (Sukhothai frontier) & Wooden Watchtower (Nine Armies War 1785). */
+const SanKhuRedoubt: React.FC<{pos: [number, number, number]; kMoat: number; kFort: number}> = ({pos, kMoat, kFort}) => {
+  if (kMoat < 0.02 && kFort < 0.02) return null;
   return (
-    <group position={pos} scale={k}>
+    <group position={pos}>
       {/* Earthen rampart mound */}
-      <mesh position={[0, 0.4, 0]} castShadow receiveShadow>
-        <boxGeometry args={[1.2, 0.8, 5.0]} />
-        <meshStandardMaterial color="#5c4a38" roughness={0.95} />
-      </mesh>
-      {/* Wooden palisade posts */}
-      <mesh position={[0.4, 0.95, 0]} castShadow>
-        <boxGeometry args={[0.15, 0.5, 4.8]} />
-        <meshStandardMaterial color="#3d2d1e" roughness={0.8} />
-      </mesh>
-      {/* Wooden watchtower */}
-      <group position={[0, 0.8, 0]}>
-        <mesh position={[0, 0.9, 0]} castShadow>
-          <boxGeometry args={[0.9, 1.8, 0.9]} />
-          <meshStandardMaterial color="#4a3525" roughness={0.85} />
+      {kMoat >= 0.02 && (
+        <mesh position={[0, 0.4 * kMoat, 0]} scale={[1, kMoat, 1]} castShadow receiveShadow>
+          <boxGeometry args={[1.2, 0.8, 5.0]} />
+          <meshStandardMaterial color="#5c4a38" roughness={0.95} />
         </mesh>
-        <mesh position={[0, 1.9, 0]} castShadow>
-          <coneGeometry args={[0.75, 0.6, 4]} />
-          <meshStandardMaterial color="#2d1f14" roughness={0.9} />
-        </mesh>
-      </group>
+      )}
+      {/* Wooden palisade posts & watchtower */}
+      {kFort >= 0.02 && (
+        <group position={[0, 0.8, 0]}>
+          <mesh position={[0.4, 0.25 * kFort, 0]} scale={[1, kFort, 1]} castShadow>
+            <boxGeometry args={[0.15, 0.5, 4.8]} />
+            <meshStandardMaterial color="#3d2d1e" roughness={0.8} />
+          </mesh>
+          <group scale={kFort}>
+            <mesh position={[0, 0.9, 0]} castShadow>
+              <boxGeometry args={[0.9, 1.8, 0.9]} />
+              <meshStandardMaterial color="#4a3525" roughness={0.85} />
+            </mesh>
+            <mesh position={[0, 1.9, 0]} castShadow>
+              <coneGeometry args={[0.75, 0.6, 4]} />
+              <meshStandardMaterial color="#2d1f14" roughness={0.9} />
+            </mesh>
+          </group>
+        </group>
+      )}
     </group>
   );
 };
@@ -285,7 +290,8 @@ const PasanLandmark: React.FC<{pos: [number, number, number]; k: number}> = ({po
 export const NakhonSawanLandmarks: React.FC<LandmarkProps> = ({Y, terrainH}) => {
   const at = (p: [number, number]) => [p[0], terrainH(p[0], p[1]), p[1]] as [number, number, number];
   const kWatNakhonSawan = ramp(Y, 1357, 1365);
-  const kSanKhu = ramp(Y, 1357, 1365);
+  const kSanKhuMoat = ramp(Y, 1357, 1365);                                // ancient ditch and bank
+  const kSanKhuFort = ramp(Y, 1780, 1785) * (1 - ramp(Y, 1835, 1855));   // Rama I's palisade and tower
   const kTeakRafts = ramp(Y, 1850, 1860);
   const kThepharak = ramp(Y, 1870, 1880);
   const kDragon = ramp(Y, 1901, 1908);
@@ -299,7 +305,7 @@ export const NakhonSawanLandmarks: React.FC<LandmarkProps> = ({Y, terrainH}) => 
       <AncientWatNakhonSawan pos={at(WAT_NAKHON_SAWAN)} k={kWatNakhonSawan} />
 
       {/* San Khu Redoubt */}
-      <SanKhuRedoubt pos={at(SAN_KHU)} k={kSanKhu} />
+      <SanKhuRedoubt pos={at(SAN_KHU)} kMoat={kSanKhuMoat} kFort={kSanKhuFort} />
 
       {/* Floating Teak Rafts along Chao Phraya */}
       <TeakRafts pos={[TEAK_RAFTS[0], 0, TEAK_RAFTS[1]]} k={kTeakRafts} />
