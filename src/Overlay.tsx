@@ -10,6 +10,8 @@ const FONT = "'Kanit', sans-serif";
  * the search bar covers the top ~215 px, captions/username cover the bottom ~440 px and the
  * action buttons sit on the right from y≈900.
  */
+const INTRO_END = 3.0; // the intro title is fully gone by this time
+
 export const SAFE = {left: 130, right: 950, top: 250, bottom: 1460, rightLow: 860};
 const shadow = '0 3px 14px rgba(0,0,0,0.55), 0 1px 3px rgba(0,0,0,0.6)';
 
@@ -86,9 +88,9 @@ export const Overlay: React.FC<{callouts?: ScreenCallout[]; story?: Story}> = ({
   const CAPTIONS = story.captions;
   const ERAS = story.eras;
 
-  const introOp = 1 - sstep(2.3, 3.0, t);
+  const introOp = 1 - sstep(INTRO_END - 0.7, INTRO_END, t);
   const D = story.duration ?? SECONDS;
-  const counterOp = sstep(2.7, 3.4, t) * (1 - sstep(D - 4.6, D - 3.8, t));
+  const counterOp = sstep(INTRO_END - 0.1, INTRO_END + 0.5, t) * (1 - sstep(D - 4.6, D - 3.8, t));
   const finaleOp = sstep(D - 4, D - 3, t);
   const progress = t / D;
   const leak = Math.max(0, ...ERAS.map((e) => bump(t, e.t - 0.25, e.t + 0.9, 0.4)), bump(t, D - 4.4, D - 2.8, 0.6));
@@ -166,7 +168,9 @@ export const Overlay: React.FC<{callouts?: ScreenCallout[]; story?: Story}> = ({
 
       {/* Captions */}
       {CAPTIONS.map((c) => {
-        const inn = sstep(c.t0, c.t0 + 0.45, t);
+        // never fade a caption in under the intro title, whatever t0 a city chose
+        const start = Math.max(c.t0, INTRO_END);
+        const inn = sstep(start, start + 0.45, t);
         const out = 1 - sstep(c.t1 - 0.35, c.t1, t);
         const op = inn * out;
         if (op <= 0.001) return null;
