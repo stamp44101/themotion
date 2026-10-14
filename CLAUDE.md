@@ -47,6 +47,22 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   only ever sees roof.
 
 ## Look & feel lessons
+- **Model a named landmark's silhouette before its icon.** Chonburi's first
+  Khao Sam Muk shot put a small red shrine on a round green mound; the label was
+  correct, but the place was not recognisable. The useful identity was the long
+  wooded promontory, pale sea-facing cliff and road curling around its foot.
+  Block those large forms first, then add the shrine and other detail.
+- **An exact-date beat needs a hold in the year curve.** Chonburi's liberation
+  caption said พ.ศ. 2310 while the counter had already advanced to พ.ศ. 2326,
+  and the fleet—whose visibility was driven by year—had begun to disappear.
+  Hold the named year through the shot, then accelerate across the gap between
+  captions. Check the counter, caption, landmark and soundtrack together.
+- **Coastal ambience is a sequence of places, not one surf loop.** Chonburi
+  became specific only after the continuous noise bed was kept quiet and
+  irregular waves, pier timber, paddles and sail, Ang Sila rock wash, buffalo
+  hooves, Bang Saen beach murmur and a distant modern boat horn were attached
+  to their matching beats. Keep ambience 8–12 dB under the score and avoid
+  evenly spaced repetitions.
 - **A railway bridges every river it crosses.** The engine (`RailBridges` in
   `Diorama.tsx`) now puts a girder bridge where the rail meets a river, found
   automatically from the layout; Nakhon Sawan's train used to run across the Nan on
