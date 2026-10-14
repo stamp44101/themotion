@@ -20,7 +20,8 @@ npm ci
 
 **macOS (Apple Silicon, Terminal)**
 ```bash
-brew install node git
+brew install node@22 git
+echo 'export PATH="$(brew --prefix node@22)/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc
 git clone --filter=blob:none --no-checkout https://github.com/stamp44101/themotion.git
 cd themotion
 git sparse-checkout set --no-cone '/*' '!/renders/'
@@ -33,6 +34,12 @@ render ever committed (over 1 GB of mp4, 20 versions) plus the current
 `renders/` (~360 MB); this way the clone is ~135 MB, almost all of it the
 soundtracks. Old versions are fetched only if you ask for them.
 
+**Use Node 22 or 24, not 26.** Node 26 breaks the unzip Remotion uses to
+unpack Chrome on the first render: it stops half-way without an error, and every
+later render fails with `spawn Unknown system error -88`. The scripts refuse to
+run on Node 26. If you already hit it, switch Node and run `rm -rf node_modules
+&& npm ci`.
+
 Nothing else is needed for rendering and encoding: Remotion downloads its own
 headless Chrome on the first render and ships its own ffmpeg, which the scripts
 use. Python is only needed to regenerate a soundtrack; the `.wav` files are
@@ -43,8 +50,9 @@ already in the repo.
 ```bash
 git pull
 npm run check                  # typecheck + caption/callout timing for every city
-npm run render:chachoengsao    # -> out/chachoengsao.mp4 (master, ~130 MB)
-npm run encode -- chachoengsao # -> renders/chachoengsao.mp4 + out/chachoengsao_tiktok.mp4, then checks them
+npm run render:chachoengsao && npm run encode -- chachoengsao
+# render -> out/chachoengsao.mp4 (master, ~130 MB)
+# encode -> renders/chachoengsao.mp4 + out/chachoengsao_tiktok.mp4, then checks them
 ```
 
 `render:<city>` refuses to start if that city's captions or callouts are
