@@ -86,6 +86,13 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   drops its last word, usually the year, onto a line of its own. `check_story.mjs` measures titles
   with Kanit's real advance widths (`scripts/textwidth.mjs`, identical to Chrome's layout) and fails
   a title that wraps. Shorten it, or put the year in the sub.
+- **The camera has to travel, not just zoom.** Nakhon Sawan's first cut dived into a landmark,
+  pulled out, dived into the next one a few hundred metres away, and never showed the whole city
+  between 7 s and 56 s: 75% zoom, 5% orbit. What reads well (Korat): wide establishing shots
+  that come back mid-story so the city visibly grows; nearby landmarks linked by an orbit or a
+  glide at constant distance; a tracking shot that follows something moving (a train, a raft);
+  a 1-1.5 s hold as each caption lands; the azimuth swinging around the city over the clip.
+  `check_story.mjs` enforces the floors (`scripts/camera_stats.mjs`).
 - **Light must never snap.** The day/night cycle in `lighting()` is continuous (no reset after the
   intro) and nights only dim to ~half. Do not add per-city light that jumps; `check_render.mjs`
   fails anything over 8 luma levels per frame or darker than 35 before the finale.

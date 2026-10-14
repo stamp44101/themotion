@@ -10,12 +10,20 @@ import path from 'node:path';
 import {pathToFileURL} from 'node:url';
 import './node_guard.mjs';
 import {buildSync} from 'esbuild';
+import {cameraStats} from './camera_stats.mjs';
 import {textWidth} from './textwidth.mjs';
 
 const lib = await load('src/lib.ts');
-const {INTRO_END, FINALE_LEAD, SECONDS} = lib;
+const {INTRO_END, FINALE_LEAD, SECONDS, makeCurve} = lib;
 const MIN_CAPTION = 2.5; // seconds on screen; shorter cannot be read in Thai at this size
 const COLUMN = 820; // caption column width in px (Overlay: SAFE.left..SAFE.right)
+// Camera rhythm floors. Every approved city clears them; see camera_stats.mjs for
+// what each number means and the review that set them.
+const CAM = {maxZoom: 0.65, minOrbit: 0.15, minAzSwept: 300, minMidWide: 100};
+// Cities that predate the camera rule. Re-tune their keys, then remove them here.
+const CAMERA_WAIVED = new Set(['chachoengsao']);
+// Cities built before briefs existed.
+const NO_BRIEF_OK = new Set(['ayutthaya', 'korat', 'phitsanulok', 'sukhothai']);
 
 const root = fs.readFileSync('src/Root.tsx', 'utf8');
 const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
@@ -85,9 +93,21 @@ for (const city of cities) {
   if (keys.at(-1)[0] < D - 0.5) warn(`last camera key is at ${s(keys.at(-1)[0])}; the camera freezes for the last ${s(D - keys.at(-1)[0])}.`);
   for (let i = 1; i < keys.length; i++) if (keys[i][0] <= keys[i - 1][0]) err(`camera keys out of order at ${s(keys[i][0])}.`);
 
+  // camera rhythm: not just zooming in and out
+  const cam = cameraStats(keys, D, makeCurve);
+  const pct = (x) => `${Math.round(x * 100)}%`;
+  const camIssues = [];
+  if (cam.share.zoom > CAM.maxZoom) camIssues.push(`zoom is the main motion ${pct(cam.share.zoom)} of the time (max ${pct(CAM.maxZoom)}): move between nearby landmarks at a constant distance instead of pulling out and diving in again`);
+  if (cam.share.orbit < CAM.minOrbit) camIssues.push(`orbit is only ${pct(cam.share.orbit)} (min ${pct(CAM.minOrbit)}): circle the subject so the diorama shows depth`);
+  if (cam.azSwept < CAM.minAzSwept) camIssues.push(`azimuth sweeps ${Math.round(cam.azSwept)} degrees in total (min ${CAM.minAzSwept}): the city is only ever seen from one side`);
+  if (cam.midWide < CAM.minMidWide) camIssues.push(`no wide shot between 15s and ${s(D - 8)} (widest distance ${Math.round(cam.midWide)}, need >= ${CAM.minMidWide}): pull back at least once so the viewer sees the city grow`);
+  for (const m of camIssues) (CAMERA_WAIVED.has(city) ? warn : err)(`camera: ${m}.`);
+
   // registration
   if (!root.includes(`./cities/${city}'`)) err(`not registered in src/Root.tsx.`);
   for (const k of [`render:${city}`, `audio:${city}`]) if (!pkg.scripts[k]) err(`package.json has no "${k}" script.`);
+  if (/(^|&&\s*)python\s/.test(pkg.scripts[`audio:${city}`] ?? '')) err(`audio:${city} calls "python"; use "python3" (macOS has no "python").`);
+  if (!NO_BRIEF_OK.has(city) && !fs.existsSync(`docs/briefs/${city}.md`)) err(`no docs/briefs/${city}.md: the dated, sourced brief is what the captions are checked against.`);
   if (!fs.existsSync(`public/${cfg.soundtrack}`)) err(`soundtrack public/${cfg.soundtrack} is missing (run npm run audio:${city}).`);
 
   errors += out.filter((l) => l.includes('ERROR')).length;
