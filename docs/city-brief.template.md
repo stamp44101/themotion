@@ -83,6 +83,16 @@ diving at an image inside a viharn sees only roof.
 - **Sky / ground colour keys:** 
 - **Gloom periods** (wars, abandonment):
 
+## 5b. Grandeur (see `docs/grandeur.md`)
+
+- **The big thing:** a real mountain (name, height in m), the modern city (real
+  extent in km², where its CBD is), or the water (river width, confluence).
+  `npm run check` fails a city that ends on neither a city covering 20% of the
+  tile nor a peak of 8+.
+- **The shape the viewer recognises:**
+- **The framing held across centuries:**
+- **The last frame:**
+
 ## 6. Sound
 
 - Regional instrument palette (`scripts/synth.py` has pad, khlui, pi reed,
