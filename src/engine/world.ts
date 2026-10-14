@@ -2,6 +2,18 @@ import {random} from 'remotion';
 import {cityPoly, inPoly, shrinkPoly} from './poly';
 import type {CityLayout} from './types';
 
+/** The station stands beside the track, never on it. A station placed on the rail
+ *  line (Nakhon Sawan, Phitsanulok) had every train drive through the building, so
+ *  it is moved to the platform side, 2.6 off the line. */
+export const stationPos = (rail: NonNullable<CityLayout['rail']>): [number, number, number] => {
+  const [sx, sz] = rail.station;
+  const cross = rail.axis === 'z' ? sx : sz;
+  const off = cross - rail.pos;
+  if (Math.abs(off) >= 2.2) return [sx, 0, sz];
+  const c = rail.pos + (off < 0 ? -2.6 : 2.6);
+  return rail.axis === 'z' ? [c, 0, sz] : [sx, 0, c];
+};
+
 export type World = ReturnType<typeof buildWorld>;
 
 const cache = new Map<CityLayout, World>();
@@ -71,6 +83,10 @@ const buildWorld = (L: CityLayout) => {
     else if (r < 0.4) clear = L.paddies[0] + random(`tc${i}`) * (L.paddies[1] - L.paddies[0]);
     else clear = L.urban.from - 25 + cityDist(x, z) * L.urban.rate * 1.5 + random(`tc${i}`) * 45;
     if (onRail(x, z) && L.rail) clear = Math.min(clear, L.rail.open[0] - 1);
+    if (L.rail) {
+      const [sx, , sz] = stationPos(L.rail);
+      if (Math.abs(x - sx) < 2.2 && Math.abs(z - sz) < 3) clear = Math.min(clear, L.rail.stationYear - 1);
+    }
     if (onRoad(x, z)) clear = Math.min(clear, Math.min(...L.roads.map((rd) => rd.year)) - 1);
     for (const [cx, cz, cr, cy] of L.clearings ?? []) if (Math.hypot(x - cx, z - cz) < cr) clear = Math.min(clear, cy);
     trees.push({x, y: h, z, s: 0.7 + random(`ts${i}`) * 0.7, clear, regrow, tint: random(`tt${i}`)});
@@ -153,7 +169,7 @@ const buildWorld = (L: CityLayout) => {
       const r = 1 + random(`vr${c}-${j}`) * 5;
       const x = cx + Math.cos(a) * r;
       const z = cz + Math.sin(a) * r;
-      if (inRiver(x, z) || inCity(x, z, 3) || !inTile(x, z, 2) || onRoad(x, z)) continue;
+      if (inRiver(x, z) || inCity(x, z, 3) || !inTile(x, z, 2) || onRoad(x, z) || onRail(x, z)) continue;
       village.push({
         x,
         z,
