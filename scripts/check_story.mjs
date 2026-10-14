@@ -28,6 +28,12 @@ const CAMERA_WAIVED = new Set(['chachoengsao']);
 // Posted before the cars-on-water rule; the owner is not re-rendering them. Its ring
 // road's west side lies in the Bang Pakong. Warn only.
 const WATER_WAIVED = new Set(['chachoengsao']);
+// Grandeur floors (docs/grandeur.md). The clip must end on something big: today's city
+// filling the tile, or a real mountain. Chiang Mai, the owner's reference, ends with
+// walls + modern city on 46% of the tile and a 20-high Doi Suthep behind; Nakhon
+// Sawan ended on 4 buildings (2%) and read as a toy. Posted before the rule, warn only:
+const GRANDEUR = {minFinaleShare: 0.2, heroPeak: 8, minOldTown: 0.03};
+const GRANDEUR_WAIVED = new Set(['chachoengsao', 'nakhonsawan']);
 // Cities built before briefs existed.
 const NO_BRIEF_OK = new Set(['ayutthaya', 'korat', 'phitsanulok', 'sukhothai']);
 
@@ -108,6 +114,27 @@ for (const city of cities) {
   if (cam.azSwept < CAM.minAzSwept) camIssues.push(`azimuth sweeps ${Math.round(cam.azSwept)} degrees in total (min ${CAM.minAzSwept}): the city is only ever seen from one side`);
   if (cam.midWide < CAM.minMidWide) camIssues.push(`no wide shot between 15s and ${s(D - 8)} (widest distance ${Math.round(cam.midWide)}, need >= ${CAM.minMidWide}): pull back at least once so the viewer sees the city grow`);
   for (const m of camIssues) (CAMERA_WAIVED.has(city) ? warn : err)(`camera: ${m}.`);
+
+  // grandeur (docs/grandeur.md)
+  {
+    const g = engine.getWorld(layout);
+    const t = layout.tile;
+    const tileA = (t.x1 - t.x0) * (t.z1 - t.z0);
+    const o = layout.city.outline;
+    const oldTown = o
+      ? Math.abs(o.reduce((a, [x, z], i) => a + x * o[(i + 1) % o.length][1] - o[(i + 1) % o.length][0] * z, 0)) / 2
+      : 4 * layout.city.hx * layout.city.hz;
+    const endYear = story.yearAt(D - 0.1);
+    const modern = g.paddies.filter((p) => p.urban < endYear).length * 16; // 4 x 4 cells
+    const share = (oldTown + modern) / tileA;
+    const peak = Math.max(0, ...layout.peaks.map((p) => p[2]));
+    if (share < GRANDEUR.minFinaleShare && peak < GRANDEUR.heroPeak)
+      (GRANDEUR_WAIVED.has(city) ? warn : err)(
+        `grandeur: at the end the city covers ${pct(share)} of the tile (min ${pct(GRANDEUR.minFinaleShare)}) and the highest peak is ${peak} (hero mountain >= ${GRANDEUR.heroPeak}): the finale has nothing big in it. Let today's city fill the tile -- widen or drop urbanBox, lower urban.rate, add towers -- as far as the real city reaches (docs/grandeur.md).`,
+      );
+    if (oldTown / tileA < GRANDEUR.minOldTown)
+      warn(`grandeur: the old town covers ${(100 * oldTown / tileA).toFixed(1)}% of the tile; it will read as a speck in a forest on wide shots. Frame the early beats tighter and keep elevation >= 30 degrees (docs/grandeur.md).`);
+  }
 
   // A rail that crosses a river gets a bridge from the engine; one that runs along a
   // river's bed cannot be bridged (Nakhon Sawan's train ran across the Nan on bare water).

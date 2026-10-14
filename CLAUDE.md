@@ -128,6 +128,12 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   y of anything near a peak, and lift the callout point with it. `check_story.mjs` fails a
   callout more than 0.5 below the ground and warns for every exported landmark position where
   the terrain is above 0.5.
+- **Grandeur is scale contrast.** Chiang Mai reads grand because thousands of small things
+  (trees, houses, lit windows) sit under one big thing (Doi Suthep, the moated square, a modern
+  city on 46% of the tile). Nakhon Sawan ended on 4 buildings and 3-high hills and read as a
+  toy garden. Grow the modern city to its real extent, use real mountains at real height, and
+  keep wide shots at >= 30 degrees. Full guide and measurements: `docs/grandeur.md`;
+  `check_story.mjs` fails a clip that ends on nothing big.
 - **Light must never snap.** The day/night cycle in `lighting()` is continuous (no reset after the
   intro) and nights only dim to ~half. Do not add per-city light that jumps; `check_render.mjs`
   fails anything over 8 luma levels per frame or darker than 35 before the finale.

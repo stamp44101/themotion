@@ -11,3 +11,6 @@ encodes every note the owner has given so far (captions, titles, light, camera
 rhythm, scripts); the table in `AGENTS.md` under "Every review becomes a rule"
 says where each came from. When you fix a new review note, add its check there
 too.
+
+Before building a new city, read `docs/grandeur.md` and fill in the Grandeur
+section of the brief: the owner judges every clip against Chiang Mai.

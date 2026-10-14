@@ -83,6 +83,7 @@ Rules already earned this way, all enforced by `npm run check` / `npm run encode
 | crowds, stalls and herds never stand in a river; stations never sit on the track (engine) | Nakhon Sawan, people on the Ping and a train through the station |
 | every road crossing a river gets a bridge; cars only on built roads (engine) | Nakhon Sawan, cars driving across the confluence |
 | no car is ever on open water: every car is simulated over the clip and must sit on a bridge deck | Nakhon Sawan, ring road crossed next to the Dechatiwong bridge, not on it |
+| the clip ends on something big: today's city on >= 20% of the tile, or a real peak >= 8 (`docs/grandeur.md`) | Nakhon Sawan vs Chiang Mai, "Chiang Mai feels far grander" |
 | audio scripts call `python3` | Nakhon Sawan, failed on macOS |
 | every new city has a sourced brief in `docs/briefs/` | Nakhon Sawan |
 | Node 18-25 only | first Mac render, Node 26 broke Chrome's unzip |
