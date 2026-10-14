@@ -11,6 +11,7 @@ import {SUKHOTHAI} from './cities/sukhothai';
 import {PHITSANULOK} from './cities/phitsanulok';
 import {CHACHOENGSAO} from './cities/chachoengsao';
 import {NAKHONSAWAN} from './cities/nakhonsawan';
+import {CHONBURI} from './cities/chonburi';
 import {DioramaComposition} from './engine/DioramaComposition';
 
 const Korat: React.FC = () => <DioramaComposition city={KORAT} />;
@@ -19,6 +20,7 @@ const Sukhothai: React.FC = () => <DioramaComposition city={SUKHOTHAI} />;
 const Phitsanulok: React.FC = () => <DioramaComposition city={PHITSANULOK} />;
 const Chachoengsao: React.FC = () => <DioramaComposition city={CHACHOENGSAO} />;
 const NakhonSawan: React.FC = () => <DioramaComposition city={NAKHONSAWAN} />;
+const Chonburi: React.FC = () => <DioramaComposition city={CHONBURI} />;
 import {FPS, H, SECONDS, W} from './lib';
 
 export const RemotionRoot: React.FC = () => (
@@ -33,6 +35,7 @@ export const RemotionRoot: React.FC = () => (
     />
     <Composition id="Chachoengsao" component={Chachoengsao} durationInFrames={(CHACHOENGSAO.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="NakhonSawan" component={NakhonSawan} durationInFrames={(NAKHONSAWAN.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="Chonburi" component={Chonburi} durationInFrames={(CHONBURI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Phitsanulok" component={Phitsanulok} durationInFrames={(PHITSANULOK.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Sukhothai" component={Sukhothai} durationInFrames={(SUKHOTHAI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Ayutthaya" component={Ayutthaya} durationInFrames={(AYUTTHAYA.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
