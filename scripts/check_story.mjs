@@ -9,10 +9,12 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {buildSync} from 'esbuild';
+import {textWidth} from './textwidth.mjs';
 
 const lib = await load('src/lib.ts');
 const {INTRO_END, FINALE_LEAD, SECONDS} = lib;
 const MIN_CAPTION = 2.5; // seconds on screen; shorter cannot be read in Thai at this size
+const COLUMN = 820; // caption column width in px (Overlay: SAFE.left..SAFE.right)
 
 const root = fs.readFileSync('src/Root.tsx', 'utf8');
 const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
@@ -46,10 +48,11 @@ for (const city of cities) {
     if (next && c.t1 > next.t0) err(`${name} (until ${s(c.t1)}) overlaps "${next.title}" (from ${s(next.t0)}).`);
     const shown = c.t1 - Math.max(c.t0, INTRO_END);
     if (shown < MIN_CAPTION) warn(`${name} is on screen ${s(shown)}; under ${MIN_CAPTION}s is hard to read.`);
-    const tl = lines(c.title, 74);
-    const sl = lines(c.sub, 40);
-    if (tl > 2) warn(`${name}: title looks like ${tl} lines; keep it to 2.`);
-    if (tl + sl > 4) warn(`${name}: title + sub look like ${tl + sl} lines; the block runs down into the diorama.`);
+    // A title that wraps drops its last word -- usually the year -- onto a line of its own.
+    const tw = textWidth(c.title, 74, 600);
+    if (tw > COLUMN) err(`${name} is ${Math.round(tw)} px wide and wraps (column ${COLUMN} px). Shorten it or move the year into the sub.`);
+    const sl = Math.ceil(textWidth(c.sub, 40, 400) / COLUMN);
+    if (sl > 3) warn(`${name}: sub runs to about ${sl} lines; the block runs down into the diorama.`);
   });
 
   // callouts
@@ -98,12 +101,4 @@ async function load(file) {
   fs.mkdirSync('out', {recursive: true});
   buildSync({entryPoints: [file], bundle: true, format: 'esm', platform: 'node', packages: 'external', jsx: 'automatic', outfile: tmp, logLevel: 'error'});
   return import(pathToFileURL(tmp).href + '?' + Date.now());
-}
-
-// Rough line count for Kanit at `px` in the 820 px caption column. Thai vowel and
-// tone marks sit above/below the line and take no width.
-function lines(text, px) {
-  const marks = /[ัิ-ฺ็-๎]/gu;
-  const n = [...text.replace(marks, '')].length;
-  return Math.ceil((n * 0.52 * px) / 820);
 }
