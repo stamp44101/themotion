@@ -105,6 +105,20 @@ for (const city of cities) {
   if (cam.midWide < CAM.minMidWide) camIssues.push(`no wide shot between 15s and ${s(D - 8)} (widest distance ${Math.round(cam.midWide)}, need >= ${CAM.minMidWide}): pull back at least once so the viewer sees the city grow`);
   for (const m of camIssues) (CAMERA_WAIVED.has(city) ? warn : err)(`camera: ${m}.`);
 
+  // A rail that crosses a river gets a bridge from the engine; one that runs along a
+  // river's bed cannot be bridged (Nakhon Sawan's train ran across the Nan on bare water).
+  if (layout.rail) {
+    const rail = layout.rail;
+    const t = layout.tile;
+    const rs = rail.axis === 'z' ? [t.z0, t.z1] : [t.x0, t.x1];
+    layout.rivers.forEach((r, n) => {
+      if (r.axis !== rail.axis) return;
+      const span = r.span ?? rs;
+      if (Math.abs(rail.pos - r.pos) < r.width / 2 + 1.0 && span[0] < rs[1] && rs[0] < span[1])
+        err(`rail runs along river ${n}'s bed; move rail.pos to dry ground.`);
+    });
+  }
+
   // Nothing sunk into a hill. Landmarks get terrainH in their props; one placed at
   // y = 0 on a slope ends up buried (Nakhon Sawan's San Khu redoubt sat 2.25 under
   // the Khao Kob foothill and its callout pointed at bare grass).
