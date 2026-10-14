@@ -18,6 +18,7 @@ import {BUILD_PALETTES} from '../Scene';
 import {applyCamera, droneCamera} from './camera';
 import {col, glowTexture, prism, updateInstances, windowTexture} from './parts';
 import type {CityConfig, CityLayout} from './types';
+import {MAX_CARS, RING, carAt, decks, driveSegments, roadCrossings, riverSpan} from './roads';
 import {World, getWorld, stationPos} from './world';
 import {LifeLayer} from './Life';
 
@@ -197,9 +198,6 @@ const Paddies: React.FC<P> = ({c, w}) => {
 
 const along = (L: CityLayout, axis: 'x' | 'z', a: number, crossPos: number, y: number): [number, number, number] =>
   axis === 'z' ? [crossPos, y, a] : [a, y, crossPos];
-
-const riverSpan = (L: CityLayout, r: CityLayout['rivers'][number]) =>
-  r.span ?? (r.axis === 'z' ? [L.tile.z0, L.tile.z1] : [L.tile.x0, L.tile.x1]);
 
 const Water: React.FC<P> = ({c}) => {
   const {Y, frame} = useT(c);
@@ -588,65 +586,6 @@ const Walls: React.FC<P> = ({c}) => {
   );
 };
 
-const RING = (c: CityConfig) => [c.layout.city.hx + 3.1, c.layout.city.hz + 3.1] as const;
-
-type Seg = {a: [number, number]; b: [number, number]; width: number; k: number};
-
-/** Every drivable segment standing in year Y: the ring road's four sides and each built road. */
-const driveSegments = (c: CityConfig, Y: number): Seg[] => {
-  const L = c.layout;
-  const out: Seg[] = [];
-  const ring = ramp(Y, L.ringRoadYear, L.ringRoadYear + 8);
-  if (ring > 0) {
-    const [rx, rz] = RING(c);
-    const sides: [[number, number], [number, number]][] = [
-      [[rx, -rz], [rx, rz]],
-      [[rx, rz], [-rx, rz]],
-      [[-rx, rz], [-rx, -rz]],
-      [[-rx, -rz], [rx, -rz]],
-    ];
-    for (const [a, b] of sides) out.push({a, b, width: 1.2, k: ring});
-  }
-  for (const r of L.roads) {
-    const k = ramp(Y, r.year - 3, r.year);
-    if (k > 0) out.push({a: r.from, b: [r.from[0] + (r.to[0] - r.from[0]) * k, r.from[1] + (r.to[1] - r.from[1]) * k], width: r.width, k: 1});
-  }
-  return out;
-};
-
-/** Where a road segment crosses a river that no explicit `bridges` entry already spans. */
-const roadCrossings = (L: CityLayout, s: Seg) => {
-  const out: {x: number; z: number; ang: number; len: number}[] = [];
-  const [ax, az] = s.a;
-  const [bx, bz] = s.b;
-  const ang = Math.atan2(bz - az, bx - ax);
-  L.rivers.forEach((river, ri) => {
-    const across = river.axis === 'z' ? bx - ax : bz - az; // motion across the band
-    if (Math.abs(across) < 1e-6) return;
-    const u = (river.pos - (river.axis === 'z' ? ax : az)) / across;
-    if (u < 0 || u > 1) return;
-    const x = ax + (bx - ax) * u;
-    const z = az + (bz - az) * u;
-    const along = river.axis === 'z' ? z : x;
-    const [s0, s1] = riverSpan(L, river);
-    if (along < s0 - river.width / 2 || along > s1 + river.width / 2) return;
-    const covered = L.bridges.some((br) => (br.river ?? 0) === ri && Math.abs(br.at - along) < river.width + 1);
-    if (covered) return;
-    const cosA = Math.abs(river.axis === 'z' ? Math.cos(ang) : Math.sin(ang));
-    out.push({x, z, ang, len: river.width / Math.max(cosA, 0.3) + 1.4});
-  });
-  return out;
-};
-
-/** On open water (bridges aside): cars here ride up onto the bridge deck. */
-const overWater = (L: CityLayout, x: number, z: number) =>
-  L.rivers.some((r) => {
-    const c = r.axis === 'z' ? x : z;
-    const a = r.axis === 'z' ? z : x;
-    const [s0, s1] = riverSpan(L, r);
-    return Math.abs(c - r.pos) < r.width / 2 + 0.2 && a > s0 - r.width / 2 && a < s1 + r.width / 2;
-  });
-
 /** A plain concrete road bridge wherever the ring road or a road crosses a river with no
  *  bridge of its own. Without it the road sank under the water at both banks and the
  *  cars drove straight across the river (Nakhon Sawan's ring road crossed the confluence). */
@@ -655,7 +594,7 @@ const RoadBridges: React.FC<P> = ({c}) => {
   const L = c.layout;
   return (
     <>
-      {driveSegments(c, Y).flatMap((s, si) =>
+      {driveSegments(L, Y).flatMap((s, si) =>
         roadCrossings(L, s).map((x, i) => (
           <group key={`${si}-${i}`} position={[x.x, 0, x.z]} rotation-y={-x.ang} scale={[1, s.k, 1]}>
             <mesh position={[0, 0.1, 0]} castShadow receiveShadow>
@@ -750,7 +689,7 @@ const Infrastructure: React.FC<P> = ({c, w}) => {
   const station = rail ? ramp(Y, rail.stationYear, rail.stationYear + 2) : 0;
   const roofGeo = useMemo(() => prism(2.6, 0.9, 4.6), []);
   const ring = ramp(Y, L.ringRoadYear, L.ringRoadYear + 8);
-  const [rx, rz] = RING(c);
+  const [rx, rz] = RING(L);
   useLayoutEffect(() => {
     if (!rail) return;
     updateInstances(sleepers.current, 140, (i, o) => {
@@ -886,41 +825,27 @@ const Cars: React.FC<P> = ({c}) => {
   const {Y, frame} = useT(c);
   const ref = useRef<THREE.InstancedMesh>(null);
   const L = c.layout;
-  const n = Math.floor(ramp(Y, L.cars[0], L.cars[1]) * 48);
   // Cars drive only on roads that exist this year: the ring road (once built) and
-  // every built road, back and forth. They used to circle the ring path even where
-  // it crossed a river with no road on it.
-  const segs = driveSegments(c, Y).filter((s) => s.k > 0.99);
+  // every built road, back and forth, and cross water only on a bridge deck.
+  const segs = driveSegments(L, Y).filter((s) => s.k > 0.99);
+  const dk = decks(L, Y);
   useLayoutEffect(() => {
-    updateInstances(ref.current, 48, (i, o) => {
-      if (i >= n || !segs.length) return false;
-      const s = segs[i % segs.length];
-      const [ax, az] = s.a;
-      const [bx, bz] = s.b;
-      const len = Math.hypot(bx - ax, bz - az);
-      if (len < 1) return false;
-      const dir = i % 2 ? 1 : -1;
-      const ph = (((i * 9.7 + frame * (0.12 + (i % 4) * 0.03)) / len) % 2 + 2) % 2; // 0..2, ping-pong
-      const u = ph < 1 ? ph : 2 - ph;
-      const back = (ph < 1) === (dir < 0);
-      const t = back ? 1 - u : u;
-      const ang = Math.atan2(bz - az, bx - ax);
-      const lane = (back ? -1 : 1) * 0.25;
-      const x = ax + (bx - ax) * t - Math.sin(ang) * lane;
-      const z = az + (bz - az) * t + Math.cos(ang) * lane;
-      o.position.set(x, overWater(L, x, z) ? 0.3 : 0.22, z);
-      o.rotation.y = -ang + Math.PI / 2;
+    updateInstances(ref.current, MAX_CARS, (i, o) => {
+      const car = carAt(L, Y, frame, i, segs, dk);
+      if (!car || car.wet) return false;
+      o.position.set(car.x, car.y, car.z);
+      o.rotation.y = -car.ang + Math.PI / 2;
       return true;
     });
   });
   useLayoutEffect(() => {
-    for (let i = 0; i < 48; i++) {
+    for (let i = 0; i < MAX_CARS; i++) {
       col.set(i % 3 === 0 ? '#c8202f' : ['#f2f2f2', '#2b2f3a', '#9aa4ad', '#e0b83a'][i % 4]);
       ref.current?.setColorAt(i, col);
     }
   }, []);
   return (
-    <instancedMesh ref={ref} args={[undefined, undefined, 48]} castShadow>
+    <instancedMesh ref={ref} args={[undefined, undefined, MAX_CARS]} castShadow>
       <boxGeometry args={[0.38, 0.32, 0.75]} />
       <meshStandardMaterial roughness={0.5} />
     </instancedMesh>
