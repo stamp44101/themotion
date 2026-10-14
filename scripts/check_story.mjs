@@ -115,8 +115,11 @@ for (const city of cities) {
       err(`callout "${c.label}" points ${(g - c.p[1]).toFixed(1)} below the ground there (terrain ${g.toFixed(1)}): place the landmark at terrainH(x, z) and raise the callout point with it.`);
   }
   const lm = await load(`src/cities/${city}/Landmarks.tsx`);
+  const lmSrc = fs.readFileSync(`src/cities/${city}/Landmarks.tsx`, 'utf8');
   for (const [name, v] of Object.entries(lm)) {
     if (!Array.isArray(v) || v.length !== 2 || typeof v[0] !== 'number') continue;
+    // already placed on the ground: at(NAME) or terrainH(NAME[0], ...)
+    if (new RegExp(`\\b(at|terrainH)\\(\\s*${name}\\b`).test(lmSrc)) continue;
     const g = world.terrainH(v[0], v[1]);
     if (g > 0.5) warn(`${name} stands where the terrain is ${g.toFixed(1)} high: make sure Landmarks.tsx places it at terrainH(x, z), not at y = 0.`);
   }

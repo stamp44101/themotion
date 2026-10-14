@@ -146,6 +146,8 @@ shipped broken at least once:
 - crowds and market stalls are on land
 - hills only where the province actually has them
 - every callout points at something you can actually see in that frame
+- nothing appears before it was built or stays after it was gone: give each landmark part its own
+  years (Nakhon Sawan's 1785 San Khu watchtower stood from 1357 to 2026, in front of later shots)
 
 ## Model / token budget
 A whole city in one high-end session is expensive and mostly mechanical. Split it:
