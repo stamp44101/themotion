@@ -18,7 +18,7 @@ import {BUILD_PALETTES} from '../Scene';
 import {applyCamera, droneCamera} from './camera';
 import {col, glowTexture, prism, updateInstances, windowTexture} from './parts';
 import type {CityConfig, CityLayout} from './types';
-import {World, getWorld} from './world';
+import {World, getWorld, stationPos} from './world';
 import {LifeLayer} from './Life';
 
 type P = {c: CityConfig; w: World};
@@ -708,7 +708,7 @@ const Infrastructure: React.FC<P> = ({c, w}) => {
         </>
       )}
       {rail && station > 0.02 && (
-        <group position={[rail.station[0], 0, rail.station[1]]} rotation-y={rail.axis === 'z' ? 0 : Math.PI / 2} scale={[1, station, 1]}>
+        <group position={stationPos(rail)} rotation-y={rail.axis === 'z' ? 0 : Math.PI / 2} scale={[1, station, 1]}>
           <mesh position={[0, 0.8, 0]} castShadow receiveShadow>
             <boxGeometry args={[2.4, 1.6, 4.4]} />
             <meshStandardMaterial color="#ece4d0" emissive="#ffcf7a" emissiveIntensity={night * 0.25} />

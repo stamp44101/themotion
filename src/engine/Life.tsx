@@ -9,15 +9,30 @@ type Life = NonNullable<CityLayout['life']>;
 const vis = (Y: number, from: number, to: number) => ramp(Y, from, from + 5) * (1 - ramp(Y, to, to + 5));
 const PEOPLE_COLORS = ['#e9e2d0', '#3f5f8f', '#a8322a', '#2f6a4a', '#d9a43a', '#6a4a8a', '#c86a3a'];
 
+/** On or right at the edge of open water: nothing on foot belongs there. */
+const wet = (L: CityLayout, x: number, z: number, margin = 0.35) =>
+  L.rivers.some((r) => {
+    const c = r.axis === 'z' ? x : z;
+    const a = r.axis === 'z' ? z : x;
+    const [s0, s1] = r.span ?? [-1e9, 1e9];
+    return Math.abs(c - r.pos) < r.width / 2 + margin && a > s0 - r.width / 2 && a < s1 + r.width / 2;
+  });
+
 type Walker = {x: number; z: number; ang: number; len: number; sp: number; ph: number; color: string; from: number; to: number};
 
-const buildWalkers = (L: Life) => {
+// A crowd disc that overlaps a river used to put people walking on the water
+// (Nakhon Sawan's riverfront shrine and market). Walkers standing in the water are
+// dropped; a walker whose stroll would reach the water walks a shorter line.
+const buildWalkers = (L: Life, layout: CityLayout) => {
   const out: Walker[] = [];
   (L.people ?? []).forEach((g, gi) => {
     for (let i = 0; i < g.count; i++) {
       const a = random(`pa${gi}-${i}`) * Math.PI * 2;
       const r = Math.sqrt(random(`pr${gi}-${i}`)) * g.r;
       const palette = g.monks ? ['#e08a2a', '#d9781f'] : g.colors ?? PEOPLE_COLORS;
+      const wx = g.x + Math.cos(a) * r;
+      const wz = g.z + Math.sin(a) * r;
+      if (!g.monks && wet(layout, wx, wz)) continue;
       out.push({
         x: g.x + Math.cos(a) * r,
         z: g.z + Math.sin(a) * r,
@@ -41,11 +56,18 @@ const buildWalkers = (L: Life) => {
       }
     }
   });
-  return out;
+  for (const w of out) {
+    if (w.len <= 0) continue;
+    const end = (s: number): [number, number] => [w.x + Math.cos(w.ang) * s, w.z + Math.sin(w.ang) * s];
+    while (w.len > 0.1 && (wet(layout, ...end(w.len)) || wet(layout, ...end(-w.len)))) w.len *= 0.5;
+    if (w.len <= 0.1) w.len = 0;
+  }
+  // a procession that would file across water does not walk
+  return out.filter((w) => w.len >= 0 || !(wet(layout, w.x, w.z) || wet(layout, w.x + 4, w.z)));
 };
 
 const People: React.FC<{c: CityConfig; Y: number; t: number}> = ({c, Y, t}) => {
-  const W = useMemo(() => buildWalkers(c.layout.life ?? {}), [c]);
+  const W = useMemo(() => buildWalkers(c.layout.life ?? {}, c.layout), [c]);
   const body = useRef<THREE.InstancedMesh>(null);
   const head = useRef<THREE.InstancedMesh>(null);
   const pos = (w: Walker): [number, number] => {
@@ -102,6 +124,7 @@ const Stalls: React.FC<{c: CityConfig; Y: number}> = ({c, Y}) => {
       for (let i = 0; i < g.count; i++) {
         const a = random(`sa${gi}-${i}`) * Math.PI * 2;
         const r = Math.sqrt(random(`sr${gi}-${i}`)) * g.r;
+        if (wet(c.layout, g.x + Math.cos(a) * r, g.z + Math.sin(a) * r, 0.6)) continue;
         out.push({x: g.x + Math.cos(a) * r, z: g.z + Math.sin(a) * r, rot: random(`so${gi}-${i}`) * 3, color: UMBRELLA[i % UMBRELLA.length], from: g.from, to: g.to});
       }
     });
@@ -243,6 +266,7 @@ const Herds: React.FC<{c: CityConfig; Y: number; t: number}> = ({c, Y, t}) => {
           const a = random(`el${gi}-${i}`) * Math.PI * 2 + t * 0.12;
           const x = g.x + Math.cos(a) * g.r;
           const z = g.z + Math.sin(a) * g.r;
+          if (wet(c.layout, x, z, 0.8)) return null;
           return (
             <group key={`e${gi}-${i}`} position={[x, 0, z]} rotation-y={-a} scale={k * 0.8}>
               <Elephant step={Math.sin(t * 4 + i)} howdah={g.howdah} />
@@ -256,6 +280,7 @@ const Herds: React.FC<{c: CityConfig; Y: number; t: number}> = ({c, Y, t}) => {
         return new Array(g.count).fill(0).map((_, i) => {
           const a = random(`bu${gi}-${i}`) * Math.PI * 2;
           const r = Math.sqrt(random(`bur${gi}-${i}`)) * g.r;
+          if (wet(c.layout, g.x + Math.cos(a) * r, g.z + Math.sin(a) * r, 0.8)) return null;
           return (
             <group key={`b${gi}-${i}`} position={[g.x + Math.cos(a) * r + Math.sin(t * 0.3 + i) * 0.4, 0, g.z + Math.sin(a) * r]} rotation-y={a} scale={k * 0.45}>
               <Elephant step={Math.sin(t * 3 + i)} color="#4a4644" />
