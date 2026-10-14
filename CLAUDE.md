@@ -52,6 +52,12 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   automatically from the layout; Nakhon Sawan's train used to run across the Nan on
   bare water. A rail *parallel* to a river must stay out of its bed -- a bridge
   cannot fix that, and `check_story.mjs` errors on it.
+- **People, stalls and animals stay on land; stations stand beside the track.** Nakhon
+  Sawan's riverfront crowds walked on the Ping, its station sat on the rail line so every
+  train drove through it, and village houses could land on the track. The engine now drops
+  or shortens any walker, stall, buffalo or elephant that would touch a river (`wet()` in
+  `Life.tsx`), moves a station that is within 2.2 of the line to 2.6 off it and clears the
+  trees there (`stationPos()` in `world.ts`), and keeps villages off the rail.
 - **A wall never runs across open water.** Where a river crosses the wall line the
   engine now opens a gap and stands a water gate there (piers + lintel) — boats
   had to pass. `subtractBands()` in `poly.ts` splits each wall edge around the
