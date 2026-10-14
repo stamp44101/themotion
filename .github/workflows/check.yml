@@ -1,0 +1,17 @@
+name: check
+on:
+  pull_request:
+  push:
+    branches: [claude/busy-brown-ba1fp4]
+jobs:
+  story:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      # typecheck (catches imports of files that were never committed) + caption/callout timing
+      - run: npm run check

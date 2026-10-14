@@ -70,6 +70,24 @@ render is GPU-bound anyway, so a bigger model buys nothing there.
 
 ## Verifying your own work
 
+Two scripts catch what used to be found only on a phone. Run both; neither is
+optional.
+
+- **Before rendering:** `npm run check` -- typecheck (an import of a file you
+  never committed fails here, not on the next agent's machine) plus caption and
+  callout timing for every city: nothing under the intro title (before
+  `INTRO_END`, 3 s) or the finale title, no two captions on screen at once, the
+  year curve never running backwards. `npm run render:<city>` runs the timing
+  check itself and will not start if it fails. CI runs `npm run check` on every PR.
+- **After rendering:** `npm run encode -- <city>` makes the repo copy and the
+  upload copy and then checks all three files: light may not jump more than 8
+  luma levels between frames or drop below 35 before the finale, the repo copy
+  must be under 100 MB and tagged limited-range bt709. A render that fails is
+  not handed over. `npm run check:render -- <file>` checks any file on its own.
+
+Both checks would have stopped Chachoengsao's first version, whose opening
+caption sat on top of the title and whose light snapped at 3 s.
+
 - **Measure, do not estimate.** Bitrates and durations come from `ffprobe`.
 - **A/B still against still.** Comparing a still to a frame pulled from an
   encoded video differs everywhere from compression alone and proves nothing.
@@ -97,4 +115,9 @@ render is GPU-bound anyway, so a bigger model buys nothing there.
   wall where a river crosses it. See `CLAUDE.md`.
 - `src/Overlay.tsx` enforces a TikTok safe area. Any render made before that
   change has the old layout baked in and needs redoing.
-- Cities built: Chiang Mai (2D and 3D), Sukhothai, Korat, Ayutthaya, Phitsanulok.
+- Captions and callouts are held back until the intro title has gone
+  (`INTRO_END` in `src/lib.ts`), and the day/night cycle is continuous with
+  shallow nights. Renders made before that change can fail `check:render`.
+- Cities built: Chiang Mai (2D and 3D), Sukhothai, Korat, Ayutthaya, Phitsanulok,
+  Chachoengsao.
+- Rendering on the owner's own GPU machine: `docs/render-locally.md`.

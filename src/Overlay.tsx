@@ -1,7 +1,7 @@
 import React from 'react';
 import {Img, staticFile, useCurrentFrame} from 'remotion';
 import {proj} from './geometry';
-import {CAPTIONS, Callout, Caption, ERAS, FPS, SECONDS, bump, camPoint, camera, sstep, yearAt} from './lib';
+import {CAPTIONS, Callout, Caption, ERAS, FINALE_LEAD, FPS, INTRO_END, SECONDS, bump, camPoint, camera, sstep, yearAt} from './lib';
 
 const FONT = "'Kanit', sans-serif";
 
@@ -10,8 +10,6 @@ const FONT = "'Kanit', sans-serif";
  * the search bar covers the top ~215 px, captions/username cover the bottom ~440 px and the
  * action buttons sit on the right from y≈900.
  */
-const INTRO_END = 3.0; // the intro title is fully gone by this time
-
 export const SAFE = {left: 130, right: 950, top: 250, bottom: 1460, rightLow: 860};
 const shadow = '0 3px 14px rgba(0,0,0,0.55), 0 1px 3px rgba(0,0,0,0.6)';
 
@@ -90,8 +88,8 @@ export const Overlay: React.FC<{callouts?: ScreenCallout[]; story?: Story}> = ({
 
   const introOp = 1 - sstep(INTRO_END - 0.7, INTRO_END, t);
   const D = story.duration ?? SECONDS;
-  const counterOp = sstep(INTRO_END - 0.1, INTRO_END + 0.5, t) * (1 - sstep(D - 4.6, D - 3.8, t));
-  const finaleOp = sstep(D - 4, D - 3, t);
+  const counterOp = sstep(INTRO_END - 0.1, INTRO_END + 0.5, t) * (1 - sstep(D - FINALE_LEAD - 0.6, D - FINALE_LEAD + 0.2, t));
+  const finaleOp = sstep(D - FINALE_LEAD, D - FINALE_LEAD + 1, t);
   const progress = t / D;
   const leak = Math.max(0, ...ERAS.map((e) => bump(t, e.t - 0.25, e.t + 0.9, 0.4)), bump(t, D - 4.4, D - 2.8, 0.6));
 
