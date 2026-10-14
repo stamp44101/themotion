@@ -6,14 +6,14 @@ Copy of `docs/city-brief.template.md` prepared for Nakhon Sawan.
 
 ## 1. Wall footprint & Old Town (เมืองพระบาง / นครสวรรค์)
 
-Traced from Fine Arts Department archaeological surveys and Nakhon Sawan provincial historical records:
+Traced from provincial historical surveys, Fine Arts Department archaeological reports (ทะเบียนโบราณสถานวัดนครสวรรค์/วัดหัวเมือง กรมศิลปากร), and ONEP Old Town Nakhon Sawan study (สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม: https://nced.onep.go.th/):
 - **Ancient Name:** เมืองพระบาง (Phra Bang) — southern frontier fortress town of the Sukhothai Kingdom, mentioned in Sukhothai Stone Inscription No. 2 (Wat Si Chum Inscription, ~1350s CE).
 - **Location & Boundary:**
   - The ancient core of Phra Bang / old Nakhon Sawan lay on the west bank of the Ping River / Upper Chao Phraya, between the foot of Khao Kob / Khao Khat and Wat Hua Mueang (now Wat Nakhon Sawan).
   - Later expanded eastward and southward towards the waterfront trading quarters of Pak Nam Pho during the Thonburi and early Rattanakosin periods.
   - In 1785 CE (พ.ศ. 2328, Nine Armies War), King Rama I's royal army fortified the ancient moat and earth ramparts (คูเมืองเชิงเทินดิน) around Ban San Khu (บ้านสันคู) / Thung San Khu west of the town to block Burmese forces marching south.
 - **Citadel / Moated Town Dimensions:**
-  - Ancient moated enclosure: ~640 m east-west × ~880 m north-south.
+  - Ancient moated enclosure: ~640 m east-west × ~880 m north-south [attributed: สันนิษฐานตามแนวคูเมืองโบราณทุ่งสันคูจรดวัดหัวเมือง].
   - In world units (1 unit = 80 m): 8.0 units (x) × 11.0 units (z).
   - Centered at `[-7.0, -1.0]` (west of the river channel on dry alluvium below the eastern slope of Khao Kob).
 - **`city.outline` in world units** (1 unit = 80 m):

@@ -135,44 +135,56 @@ export const NAKHONSAWAN: CityConfig = {
     plane: [1995, 2026],
     cameraKeys: [
       // [t, targetX, targetY, targetZ, distance, azimuth°, elevation°, fov°]
-      // 0–7s: Opening panorama of the confluence & ancient Phra Bang
-      [0, -2.0, 1.0, 0.0, 360, 45, 34, 30],
-      [3.2, -4.0, 1.0, -1.0, 260, 50, 32, 30],
-      [7.5, WAT_NAKHON_SAWAN[0], 1.0, WAT_NAKHON_SAWAN[1], 120, 55, 28, 30],
+      // 0–3s: High establishing panorama
+      [0, -2.0, 1.0, 0.0, 320, 25, 34, 30],
+      [3.0, -2.0, 1.0, 0.0, 250, 40, 32, 30],
 
-      // 8–15s: Ancient Wat Nakhon Sawan & Ayutthaya garrison era
-      [9.5, WAT_NAKHON_SAWAN[0], 0.8, WAT_NAKHON_SAWAN[1], 45, 65, 24, 28],
-      [14.5, WAT_NAKHON_SAWAN[0], 1.2, WAT_NAKHON_SAWAN[1], 75, 75, 28, 30],
+      // 3–8.5s: Descending orbit over confluence (Caption 1: 3.2–8.5s)
+      [3.5, -2.0, 1.0, 0.0, 240, 42, 32, 30], // Caption 1 hold
+      [5.5, -2.0, 1.0, 0.0, 180, 70, 30, 30],
+      [8.5, -5.0, 1.0, -0.5, 115, 100, 28, 30],
 
-      // 15–22s: Nine Armies War (1785) at San Khu redoubts
-      [16.5, SAN_KHU[0], 0.8, SAN_KHU[1], 40, 45, 25, 28],
-      [20.5, SAN_KHU[0] + 1.0, 1.0, SAN_KHU[1], 60, 50, 26, 30],
+      // 9–21.5s: Continuous low orbit/truck covering Wat & San Khu at constant dist ~48 (Caption 2: 9.5–15s, Caption 3: 16–22s)
+      [9.5, -6.5, 1.0, -1.0, 48, 110, 25, 28], // Wat Nakhon Sawan - Caption 2 hold
+      [11.0, -6.5, 1.0, -1.0, 48, 112, 25, 28], // Hold
+      [13.5, -8.5, 1.0, -1.0, 48, 140, 25, 28], // Trucking across town
+      [16.0, -11.0, 1.0, -1.0, 48, 170, 26, 28], // San Khu redoubt - Caption 3 hold
+      [17.5, -11.0, 1.0, -1.0, 48, 172, 26, 28], // Hold
+      [21.0, -10.0, 1.0, -0.5, 52, 195, 26, 28],
 
-      // 22–30s: Teak Raft depot & Pak Nam Pho river boom
-      [23.5, TEAK_RAFTS[0], 0.4, TEAK_RAFTS[1], 42, 70, 22, 28],
-      [27.0, TEAK_RAFTS[0] - 0.5, 0.5, TEAK_RAFTS[1], 32, 80, 20, 26],
-      [29.5, CHAO_PHRAYA_X, 0.8, 1.0, 85, 60, 28, 30],
+      // 22–29.5s: Wide Shot #1 (dist 120 >= 100) tracking teak rafts downstream (Caption 4: 23–29.5s)
+      [22.5, -2.0, 0.5, -1.0, 120, 205, 30, 30],
+      [23.5, -2.0, 0.5, -0.5, 120, 207, 30, 30], // Caption 4 hold
+      [26.0, -2.0, 0.5, 2.5, 118, 225, 30, 30], // Track downstream
+      [29.0, -2.0, 0.5, 5.0, 115, 245, 28, 30],
 
-      // 30–38s: Golden Dragon Parade & Thepharak Shrine (1901)
-      [31.0, THEPHARAK_SHRINE[0], 0.8, THEPHARAK_SHRINE[1], 35, 65, 22, 28],
-      [33.5, DRAGON_PARADE[0], 0.8, DRAGON_PARADE[1], 24, 55, 20, 26], // Close dive on the Golden Dragon
-      [36.5, DRAGON_PARADE[0], 1.2, DRAGON_PARADE[1], 48, 60, 26, 28],
+      // 30–37.5s: Dragon parade & shrine push-in then hold (Caption 5: 30.5–37s)
+      [30.5, -4.8, 1.0, 1.0, 45, 252, 22, 28], // Arrive
+      [31.5, -4.8, 1.0, 1.0, 36, 255, 20, 26], // Push-in
+      [33.5, -4.8, 1.0, 1.0, 36, 260, 20, 26], // Hold
+      [36.5, -4.8, 1.0, 1.0, 38, 265, 22, 26], // Hold
 
-      // 38–44s: Northern Railway station & steam train (1905)
-      [39.0, 18.0, 1.0, 8.0, 65, 40, 26, 28],
-      [42.0, 18.0, 1.2, 8.0, 50, 50, 24, 28],
+      // 38–44s: Track steam train along rail at x=18 (Caption 6: 38–43.5s)
+      [38.0, 18.0, 1.0, 12.0, 58, 275, 25, 28], // Train north
+      [39.2, 18.0, 1.0, 10.5, 58, 278, 25, 28], // Caption 6 hold
+      [41.5, 18.0, 1.0, 6.0, 56, 300, 24, 28],  // Tracking with train
+      [43.5, 18.0, 1.0, 2.0, 58, 320, 24, 28],
 
-      // 44–50s: Dechatiwong Bridge across Chao Phraya (1950)
-      [45.0, DECHATIWONG_BRIDGE[0], 0.8, DECHATIWONG_BRIDGE[1], 36, 65, 22, 28], // Close dive on steel truss
-      [48.0, DECHATIWONG_BRIDGE[0], 1.2, DECHATIWONG_BRIDGE[1], 65, 75, 26, 30],
+      // 44.5–50.5s: Wide Shot #2 (dist 130 >= 100) opposite side showing Bridge & City (Caption 7: 44.5–50s)
+      [44.5, -2.0, 1.0, 6.0, 130, 220, 32, 30], // Opposite side wide shot
+      [46.0, -2.0, 1.0, 6.0, 130, 222, 32, 30], // Caption 7 hold
+      [48.0, -2.0, 1.0, 4.0, 128, 235, 32, 30],
+      [50.5, -1.0, 1.0, 2.0, 125, 250, 30, 30],
 
-      // 50–56s: Pasan and Phra Chulamani Chedi overlooking four rivers
-      [51.5, PASAN[0], 0.8, PASAN[1], 35, 55, 22, 28], // Close dive on Pasan curved building
-      [53.5, CHULAMANI_CHEDI[0], 3.8, CHULAMANI_CHEDI[1], 42, 65, 24, 28], // Golden Chedi atop mountain
+      // 51–56s: Rising orbit over Pasan & Chulamani Chedi (Caption 8: 51–55.5s)
+      [51.0, 0.8, 1.0, 2.2, 70, 265, 26, 28], // Pasan
+      [52.0, 0.8, 1.0, 2.2, 70, 268, 26, 28], // Caption 8 hold
+      [54.0, -6.0, 2.5, -1.0, 110, 310, 38, 30], // Rising orbit revealing hill
+      [56.0, -9.0, 3.2, -3.0, 140, 350, 44, 30],
 
-      // 56–60s: Grand Finale over the entire confluence
-      [56.0, -2.0, 2.0, 0.0, 280, 50, 34, 30],
-      [60.0, -2.0, 2.5, 0.0, 360, 45, 36, 30],
+      // 56–60s: Grand Finale high aerial over confluence
+      [57.5, -2.0, 2.0, 0.0, 210, 380, 48, 28],
+      [60.0, -2.0, 2.5, 0.0, 260, 420, 50, 28],
     ],
   },
   Landmarks: NakhonSawanLandmarks,

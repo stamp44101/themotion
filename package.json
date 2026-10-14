@@ -28,7 +28,7 @@
     "render:chachoengsao": "node scripts/check_story.mjs chachoengsao && remotion render Chachoengsao out/chachoengsao.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
     "audio:chachoengsao": "node scripts/export_timeline.mjs src/cities/chachoengsao/timeline.ts out/timeline_chachoengsao.json && python3 scripts/soundtrack_chachoengsao.py",
     "render:nakhonsawan": "node scripts/check_story.mjs nakhonsawan && remotion render NakhonSawan out/nakhonsawan.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
-    "audio:nakhonsawan": "node scripts/export_timeline.mjs src/cities/nakhonsawan/timeline.ts out/timeline_nakhonsawan.json && python scripts/soundtrack_nakhonsawan.py"
+    "audio:nakhonsawan": "node scripts/export_timeline.mjs src/cities/nakhonsawan/timeline.ts out/timeline_nakhonsawan.json && python3 scripts/soundtrack_nakhonsawan.py"
   },
   "dependencies": {
     "@fontsource/kanit": "^5.1.0",
