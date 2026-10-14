@@ -67,6 +67,17 @@ mis-tagged). **Do not post a render that failed.**
 City names: `korat`, `ayutthaya`, `sukhothai`, `phitsanulok`, `chachoengsao`.
 Chiang Mai is `npm run render:iso` followed by `npm run encode -- chiangmai-iso`.
 
+## How fast is this machine?
+
+```bash
+npm run bench
+```
+Renders the first 10 s of Chachoengsao (300 frames, no audio) twice at each of
+4 concurrency levels and prints the mean time per level. Divide 300 by the
+time for frames per second; a 60 s city is 1800 frames. Use the fastest
+concurrency for real renders: `npm run render:<city> -- --concurrency=N`.
+The whole benchmark renders about as much as one full city.
+
 ## Render every city
 
 **Windows (PowerShell)**

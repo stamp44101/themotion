@@ -10,6 +10,7 @@
     "check": "tsc --noEmit && node scripts/check_story.mjs",
     "check:render": "node scripts/check_render.mjs",
     "encode": "node scripts/encode.mjs",
+    "bench": "node scripts/node_guard.mjs && remotion benchmark src/index.ts Chachoengsao --frames=0-299 --runs=2 --concurrencies=2,4,6,8 --gl=angle --muted",
     "studio": "remotion studio",
     "render": "remotion render ChiangMaiTimelapse out/chiangmai-timelapse.mp4 --audio-codec=aac --audio-bitrate=256k",
     "still": "remotion still ChiangMaiTimelapse out/still.png",
