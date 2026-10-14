@@ -11,9 +11,11 @@ import {pathToFileURL} from 'node:url';
 import './node_guard.mjs';
 import {buildSync} from 'esbuild';
 import {cameraStats} from './camera_stats.mjs';
+import {occlusion} from './occlusion.mjs';
 import {textWidth} from './textwidth.mjs';
 
 const lib = await load('src/lib.ts');
+const engine = {...(await load('src/engine/world.ts')), ...(await load('src/engine/camera.ts'))};
 const {INTRO_END, FINALE_LEAD, SECONDS, makeCurve} = lib;
 const MIN_CAPTION = 2.5; // seconds on screen; shorter cannot be read in Thai at this size
 const COLUMN = 820; // caption column width in px (Overlay: SAFE.left..SAFE.right)
@@ -102,6 +104,12 @@ for (const city of cities) {
   if (cam.azSwept < CAM.minAzSwept) camIssues.push(`azimuth sweeps ${Math.round(cam.azSwept)} degrees in total (min ${CAM.minAzSwept}): the city is only ever seen from one side`);
   if (cam.midWide < CAM.minMidWide) camIssues.push(`no wide shot between 15s and ${s(D - 8)} (widest distance ${Math.round(cam.midWide)}, need >= ${CAM.minMidWide}): pull back at least once so the viewer sees the city grow`);
   for (const m of camIssues) (CAMERA_WAIVED.has(city) ? warn : err)(`camera: ${m}.`);
+
+  // the thing a callout points at must be visible, not behind a wall of trees
+  for (const o of occlusion(cfg, engine)) {
+    if (o.blocked > 0.5)
+      err(`callout "${o.label}" (${s(o.t0)}): trees hide it ${pct(o.blocked)} of the time. Raise the camera elevation or swing the azimuth so the line of sight crosses open ground or water.`);
+  }
 
   // registration
   if (!root.includes(`./cities/${city}'`)) err(`not registered in src/Root.tsx.`);

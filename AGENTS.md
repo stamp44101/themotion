@@ -78,6 +78,7 @@ Rules already earned this way, all enforced by `npm run check` / `npm run encode
 | caption title fits on one line (measured with Kanit's real widths) | Chachoengsao, year dropped to its own line |
 | light never jumps > 8 luma per frame, nights stay > 35 | Chachoengsao, light snapped at 3 s |
 | camera: zoom <= 65%, orbit >= 15%, azimuth >= 300 deg, a wide shot mid-story | Nakhon Sawan, "it just zooms in and out" |
+| a callout's subject is not hidden behind trees (line of sight tested per tree) | Nakhon Sawan, shrine shot showed only trees |
 | audio scripts call `python3` | Nakhon Sawan, failed on macOS |
 | every new city has a sourced brief in `docs/briefs/` | Nakhon Sawan |
 | Node 18-25 only | first Mac render, Node 26 broke Chrome's unzip |
