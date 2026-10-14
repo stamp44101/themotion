@@ -193,7 +193,7 @@ export const NAKHONSAWAN: CityConfig = {
   Landmarks: NakhonSawanLandmarks,
   callouts: [
     {t0: 4.0, t1: 7.5, label: 'วัดนครสวรรค์ (วัดหัวเมือง)', dx: 80, dy: -130, p: [WAT_NAKHON_SAWAN[0], 2, WAT_NAKHON_SAWAN[1]]},
-    {t0: 17.0, t1: 20.5, label: 'คูเมืองสันคู', dx: -70, dy: -120, p: [SAN_KHU[0], 1.5, SAN_KHU[1]]},
+    {t0: 17.0, t1: 20.5, label: 'คูเมืองสันคู', dx: -70, dy: -120, p: [SAN_KHU[0], 3.8, SAN_KHU[1]]},
     {t0: 24.5, t1: 28.0, label: 'แพซุงปากน้ำโพ', dx: 80, dy: 110, p: [TEAK_RAFTS[0], 1, TEAK_RAFTS[1]]},
     {t0: 31.5, t1: 35.5, label: 'ศาลเจ้าพ่อเทพารักษ์', dx: 70, dy: -130, p: [THEPHARAK_SHRINE[0], 1.5, THEPHARAK_SHRINE[1]]},
     {t0: 39.0, t1: 42.5, label: 'สถานีรถไฟปากน้ำโพ', dx: 70, dy: -120, p: [18.0, 2, 8.0]},

@@ -282,7 +282,8 @@ const PasanLandmark: React.FC<{pos: [number, number, number]; k: number}> = ({po
   );
 };
 
-export const NakhonSawanLandmarks: React.FC<LandmarkProps> = ({Y}) => {
+export const NakhonSawanLandmarks: React.FC<LandmarkProps> = ({Y, terrainH}) => {
+  const at = (p: [number, number]) => [p[0], terrainH(p[0], p[1]), p[1]] as [number, number, number];
   const kWatNakhonSawan = ramp(Y, 1357, 1365);
   const kSanKhu = ramp(Y, 1357, 1365);
   const kTeakRafts = ramp(Y, 1850, 1860);
@@ -295,28 +296,28 @@ export const NakhonSawanLandmarks: React.FC<LandmarkProps> = ({Y}) => {
   return (
     <group>
       {/* Wat Nakhon Sawan */}
-      <AncientWatNakhonSawan pos={[WAT_NAKHON_SAWAN[0], 0, WAT_NAKHON_SAWAN[1]]} k={kWatNakhonSawan} />
+      <AncientWatNakhonSawan pos={at(WAT_NAKHON_SAWAN)} k={kWatNakhonSawan} />
 
       {/* San Khu Redoubt */}
-      <SanKhuRedoubt pos={[SAN_KHU[0], 0, SAN_KHU[1]]} k={kSanKhu} />
+      <SanKhuRedoubt pos={at(SAN_KHU)} k={kSanKhu} />
 
       {/* Floating Teak Rafts along Chao Phraya */}
       <TeakRafts pos={[TEAK_RAFTS[0], 0, TEAK_RAFTS[1]]} k={kTeakRafts} />
 
       {/* Chao Pho Thepharak Chinese Shrine */}
-      <ThepharakShrine pos={[THEPHARAK_SHRINE[0], 0, THEPHARAK_SHRINE[1]]} k={kThepharak} />
+      <ThepharakShrine pos={at(THEPHARAK_SHRINE)} k={kThepharak} />
 
       {/* Golden Dragon Parade */}
-      <GoldenDragonParade pos={[DRAGON_PARADE[0], 0, DRAGON_PARADE[1]]} k={kDragon} />
+      <GoldenDragonParade pos={at(DRAGON_PARADE)} k={kDragon} />
 
       {/* Dechatiwong Steel Bridge */}
       <DechatiwongBridge pos={[DECHATIWONG_BRIDGE[0], 0, DECHATIWONG_BRIDGE[1]]} k={kDechatiwong} />
 
-      {/* Phra Chulamani Chedi on mountain summit (y = 3.4) */}
-      <PhraChulamaniChedi pos={[CHULAMANI_CHEDI[0], 3.4, CHULAMANI_CHEDI[1]]} k={kChulamani} />
+      {/* Phra Chulamani Chedi on mountain summit */}
+      <PhraChulamaniChedi pos={at(CHULAMANI_CHEDI)} k={kChulamani} />
 
       {/* Pasan at Koh Yom Cape */}
-      <PasanLandmark pos={[PASAN[0], 0, PASAN[1]]} k={kPasan} />
+      <PasanLandmark pos={at(PASAN)} k={kPasan} />
     </group>
   );
 };
