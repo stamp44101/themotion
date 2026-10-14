@@ -535,8 +535,13 @@ const Walls: React.FC<P> = ({c}) => {
   const bands = riverBands(c.layout);
   const d = city.decay;
   const decay = d ? ramp(Y, d[0], d[1]) * (1 - ramp(Y, d[2], d[3])) : 0;
-  const h = 1.3 * smooth(ramp(Y, city.wall[0], city.wall[1])) * (1 - 0.4 * decay);
+  const ruinStrength = city.ruinStrength ?? 0.4;
+  const standing = 1 - ruinStrength * decay;
+  const h = 1.3 * smooth(ramp(Y, city.wall[0], city.wall[1])) * standing;
   const gk = smooth(ramp(Y, city.gates[0], city.gates[1]));
+  // Existing cities retain their approved gate animation pixel-for-pixel.
+  // Cities opting into deeper ruin also lose the defensive gatehouse mass.
+  const gateK = city.ruinStrength === undefined ? gk : gk * standing;
   const cren = useRef<THREE.InstancedMesh>(null);
   const roofGeo = useMemo(() => prism(2.2, 1.0, 3.0), []);
   const {hx, hz} = city;
@@ -636,19 +641,19 @@ const Walls: React.FC<P> = ({c}) => {
                   );
                 }),
               )}
-            {gk > 0.02 &&
+            {gateK > 0.02 &&
               gates.map((g, i) => (
               <group key={`g${i}`} position={[g.x, 0, g.z]} rotation-y={g.rot}>
-                <mesh position={[0, (h * 1.6 * gk) / 2, 0]} castShadow>
-                  <boxGeometry args={[1.1, h * 1.6 * gk, g.width]} />
+                <mesh position={[0, (h * 1.6 * gateK) / 2, 0]} castShadow>
+                  <boxGeometry args={[1.1, h * 1.6 * gateK, g.width]} />
                   <meshStandardMaterial color="#a9583a" roughness={0.95} />
                 </mesh>
-                <mesh position={[0, h * 0.35 * gk, 0]}>
-                  <boxGeometry args={[1.14, h * 0.7 * gk, g.width * 0.32]} />
+                <mesh position={[0, h * 0.35 * gateK, 0]}>
+                  <boxGeometry args={[1.14, h * 0.7 * gateK, g.width * 0.32]} />
                   <meshStandardMaterial color="#3b2016" roughness={1} />
                 </mesh>
                 {g.pavilion && (
-                  <group position={[0, h * 1.6 * gk, 0]} scale={[1, gk, 1]}>
+                  <group position={[0, h * 1.6 * gateK, 0]} scale={[1, gateK, 1]}>
                     <mesh position={[0, 0.45, 0]} castShadow>
                       <boxGeometry args={[1.0, 0.9, g.width * 0.8]} />
                       <meshStandardMaterial color="#7a4a2c" roughness={0.9} />
