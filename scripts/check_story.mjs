@@ -8,6 +8,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {pathToFileURL} from 'node:url';
+import './node_guard.mjs';
 import {buildSync} from 'esbuild';
 import {textWidth} from './textwidth.mjs';
 

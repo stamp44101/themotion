@@ -6,6 +6,7 @@
 //
 // Both are converted from Remotion's full-range/PAL-matrix output to the
 // limited-range bt709 that players and TikTok assume (see CLAUDE.md).
+import './node_guard.mjs';
 import fs from 'node:fs';
 import {checkRender} from './check_render.mjs';
 import {ffmpeg} from './ff.mjs';
