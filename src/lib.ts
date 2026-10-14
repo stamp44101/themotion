@@ -251,12 +251,25 @@ export const camPoint = (c: Cam, p: number, x: number, y: number) => {
 };
 
 // Day/night: a 5 s cycle sells the timelapse; the finale settles into night.
+// The day–night cycle runs continuously from the first frame. It used to restart when the intro
+// title ended, which jumped the sun from noon to the horizon in one frame; and its nights were
+// deep and switched on over ~0.4 s, which read as flicker rather than time passing.
+const CYCLE = 6; // seconds per day–night cycle
+export const DAYLIGHT = 0.8; // fraction of the cycle the sun is above the horizon
+const NIGHT_DEPTH = 0.4; // story-time nights stay readable; the finale goes fully dark
+// Raised-cosine bump on the cycle (wraps around), so light fades in and out with no corners.
+const cycleBump = (cyc: number, centre: number, half: number) => {
+  let d = Math.abs(cyc - centre);
+  d = Math.min(d, 1 - d);
+  return d >= half ? 0 : 0.5 * (1 + Math.cos((Math.PI * d) / half));
+};
+
 export const lighting = (t: number, dur: number = SECONDS) => {
   const intro = t < 3;
-  const cyc = (Math.max(0, t - 3) % 5) / 5;
+  const cyc = (t / CYCLE + 0.08) % 1; // opens just after sunrise
   const finale = sstep(dur - 5.4, dur - 3.8, t);
-  let night = intro ? 0.5 * (1 - sstep(0, 2.6, t)) : sstep(0.7, 0.82, cyc) * (1 - sstep(0.93, 1, cyc)) * 0.62;
-  let dusk = intro ? 0 : sstep(0.5, 0.68, cyc) * (1 - sstep(0.8, 0.88, cyc));
+  let night = cycleBump(cyc, 0.9, 0.2) * NIGHT_DEPTH;
+  let dusk = cycleBump(cyc, 0.74, 0.14);
   night = Math.max(night * (1 - finale), finale * 0.92);
   dusk *= 1 - finale;
   return {intro, cyc, finale, night, dusk};
