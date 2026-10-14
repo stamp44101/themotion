@@ -51,7 +51,7 @@ export const NAKHONSAWAN: CityConfig = {
     ],
     noMoat: true,
     // Northern Railway line runs north-south along the eastern bank
-    rail: {axis: 'z', pos: 18.0, open: [1903, 1905], station: [18.0, 8.0], stationYear: 1905},
+    rail: {axis: 'z', pos: 18.0, open: [1903, 1905], station: [20.6, 8.0], stationYear: 1905},
     trains: [
       {t0: 38.6, dur: 4.8, dir: -1, modern: false}, // 1905 steam train arrival
       {t0: 53.5, dur: 3.4, dir: 1, modern: true},   // modern express train
@@ -90,7 +90,7 @@ export const NAKHONSAWAN: CityConfig = {
         [DECHATIWONG_BRIDGE[0], DECHATIWONG_BRIDGE[1], 3.2],
         [PASAN[0], PASAN[1], 2.5],
         [CHULAMANI_CHEDI[0], CHULAMANI_CHEDI[1], 3.5],
-        [18.0, 8.0, 2.5], // Railway station
+        [20.6, 8.0, 2.5], // Railway station
       ],
     },
     villages: {
@@ -196,7 +196,7 @@ export const NAKHONSAWAN: CityConfig = {
     {t0: 17.0, t1: 20.5, label: 'คูเมืองสันคู', dx: -70, dy: -120, p: [SAN_KHU[0], 3.8, SAN_KHU[1]]},
     {t0: 24.5, t1: 28.0, label: 'แพซุงปากน้ำโพ', dx: 80, dy: 110, p: [TEAK_RAFTS[0], 1, TEAK_RAFTS[1]]},
     {t0: 31.5, t1: 35.5, label: 'ศาลเจ้าพ่อเทพารักษ์', dx: 70, dy: -130, p: [THEPHARAK_SHRINE[0], 1.5, THEPHARAK_SHRINE[1]]},
-    {t0: 39.0, t1: 42.5, label: 'สถานีรถไฟปากน้ำโพ', dx: 70, dy: -120, p: [18.0, 2, 8.0]},
+    {t0: 39.0, t1: 42.5, label: 'สถานีรถไฟปากน้ำโพ', dx: 70, dy: -120, p: [20.6, 2, 8.0]},
     {t0: 45.5, t1: 49.0, label: 'สะพานเดชาติวงศ์', dx: -80, dy: -130, p: [DECHATIWONG_BRIDGE[0], 1.2, DECHATIWONG_BRIDGE[1]]},
     {t0: 51.5, t1: 54.5, label: 'อาคารพาสาน (เกาะยม)', dx: 75, dy: 120, p: [PASAN[0], 1.2, PASAN[1]]},
   ],
