@@ -100,6 +100,12 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   camera-to-callout line past every standing tree (`scripts/occlusion.mjs`) and fails a
   building or monument hidden more than half its callout time; ground features (moat, road,
   hillside) are exempt, so check those on the contact sheet.
+- **Landmarks sit on the terrain, not at y = 0.** Nakhon Sawan's San Khu redoubt was placed at
+  y = 0 where the Khao Kob foothill is 2.25 high: the whole model was buried and its callout
+  pointed at grass. `Landmarks` receives `terrainH` in its props; use `terrainH(x, z)` for the
+  y of anything near a peak, and lift the callout point with it. `check_story.mjs` fails a
+  callout more than 0.5 below the ground and warns for every exported landmark position where
+  the terrain is above 0.5.
 - **Light must never snap.** The day/night cycle in `lighting()` is continuous (no reset after the
   intro) and nights only dim to ~half. Do not add per-city light that jumps; `check_render.mjs`
   fails anything over 8 luma levels per frame or darker than 35 before the finale.
