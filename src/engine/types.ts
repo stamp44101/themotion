@@ -62,6 +62,9 @@ export type CityLayout = {
     gates: [number, number];
     /** Years the walls crumble and are restored: [decayStart, decayFull, restoreStart, restoreEnd]. */
     decay?: [number, number, number, number];
+    /** Fraction of wall height lost at full decay (0..1). Omitted keeps the
+     *  legacy 40% loss and intact gatehouses for existing cities. */
+    ruinStrength?: number;
     groundFrom: number;
   };
   gates: {x: number; z: number; rot: number; width: number; pavilion?: boolean}[];

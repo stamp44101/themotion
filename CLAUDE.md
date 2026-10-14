@@ -109,6 +109,9 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
 - When A/B-ing an engine change, compare **still vs still**. A still against a
   frame pulled from an encoded render differs everywhere from compression alone
   and tells you nothing.
+- A capital destroyed without a documented wall restoration must not keep an
+  intact crenellated enclosure in modern shots; set `city.ruinStrength` high
+  enough that walls and gatehouses read as archaeological ruins (Ayutthaya v2).
 - **Nothing goes on open water.** The in-city house grid in `src/engine/world.ts`
   had no `inRiver()` check (trees, buildings and villages all had one). It never
   showed because Korat/Ayutthaya/Sukhothai keep their rivers outside the walls;

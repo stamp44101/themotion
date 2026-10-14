@@ -148,6 +148,8 @@ for (const city of cities) {
         err(`curved river ${n} repeats path point ${i - 1} at ${i}.`);
     });
   });
+  if (layout.city.ruinStrength !== undefined && (layout.city.ruinStrength < 0 || layout.city.ruinStrength > 1))
+    err(`city.ruinStrength must be between 0 and 1; got ${layout.city.ruinStrength}.`);
   layout.bridges.forEach((b, n) => {
     const r = layout.rivers[b.river ?? 0];
     if (!r) return err(`bridge ${n} refers to missing river ${b.river ?? 0}.`);
