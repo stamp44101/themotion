@@ -56,6 +56,35 @@ When reviewing someone else's city, you are looking for things that could not
 exist in the real world. Say what is wrong and where; do not fix another agent's
 city on their branch without asking.
 
+## Every review becomes a rule
+
+The owner should never have to give the same note twice. When a review --
+the owner's, a PR comment, or another model's contact-sheet check -- finds a
+problem, the agent that fixes it also makes it impossible to repeat, **in the
+same PR**:
+
+1. **If a script can detect it, add the check.** `scripts/check_story.mjs`
+   (story, captions, camera; runs before every render and in CI) or
+   `scripts/check_render.mjs` (the finished file). Prefer an error to a warning.
+2. **If it needs judgement, add one line** to the lessons in `CLAUDE.md` or the
+   plausibility checklist, saying what went wrong and in which city.
+
+A PR that fixes a review note without doing one of these is not finished.
+Rules already earned this way, all enforced by `npm run check` / `npm run encode`:
+
+| rule | from |
+|---|---|
+| nothing on screen under the intro or finale title | Chachoengsao, caption at 2 s |
+| caption title fits on one line (measured with Kanit's real widths) | Chachoengsao, year dropped to its own line |
+| light never jumps > 8 luma per frame, nights stay > 35 | Chachoengsao, light snapped at 3 s |
+| camera: zoom <= 65%, orbit >= 15%, azimuth >= 300 deg, a wide shot mid-story | Nakhon Sawan, "it just zooms in and out" |
+| audio scripts call `python3` | Nakhon Sawan, failed on macOS |
+| every new city has a sourced brief in `docs/briefs/` | Nakhon Sawan |
+| Node 18-25 only | first Mac render, Node 26 broke Chrome's unzip |
+
+Before you ask the owner to look at anything, `npm run check` passes. It is
+cheaper for you to read its errors than for the owner to find them on a phone.
+
 ## Handing work between agents
 
 Write a city brief first and put it in `docs/briefs/<city>.md` — copy
