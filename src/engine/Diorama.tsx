@@ -590,6 +590,91 @@ const Walls: React.FC<P> = ({c}) => {
 
 const RING = (c: CityConfig) => [c.layout.city.hx + 3.1, c.layout.city.hz + 3.1] as const;
 
+type Seg = {a: [number, number]; b: [number, number]; width: number; k: number};
+
+/** Every drivable segment standing in year Y: the ring road's four sides and each built road. */
+const driveSegments = (c: CityConfig, Y: number): Seg[] => {
+  const L = c.layout;
+  const out: Seg[] = [];
+  const ring = ramp(Y, L.ringRoadYear, L.ringRoadYear + 8);
+  if (ring > 0) {
+    const [rx, rz] = RING(c);
+    const sides: [[number, number], [number, number]][] = [
+      [[rx, -rz], [rx, rz]],
+      [[rx, rz], [-rx, rz]],
+      [[-rx, rz], [-rx, -rz]],
+      [[-rx, -rz], [rx, -rz]],
+    ];
+    for (const [a, b] of sides) out.push({a, b, width: 1.2, k: ring});
+  }
+  for (const r of L.roads) {
+    const k = ramp(Y, r.year - 3, r.year);
+    if (k > 0) out.push({a: r.from, b: [r.from[0] + (r.to[0] - r.from[0]) * k, r.from[1] + (r.to[1] - r.from[1]) * k], width: r.width, k: 1});
+  }
+  return out;
+};
+
+/** Where a road segment crosses a river that no explicit `bridges` entry already spans. */
+const roadCrossings = (L: CityLayout, s: Seg) => {
+  const out: {x: number; z: number; ang: number; len: number}[] = [];
+  const [ax, az] = s.a;
+  const [bx, bz] = s.b;
+  const ang = Math.atan2(bz - az, bx - ax);
+  L.rivers.forEach((river, ri) => {
+    const across = river.axis === 'z' ? bx - ax : bz - az; // motion across the band
+    if (Math.abs(across) < 1e-6) return;
+    const u = (river.pos - (river.axis === 'z' ? ax : az)) / across;
+    if (u < 0 || u > 1) return;
+    const x = ax + (bx - ax) * u;
+    const z = az + (bz - az) * u;
+    const along = river.axis === 'z' ? z : x;
+    const [s0, s1] = riverSpan(L, river);
+    if (along < s0 - river.width / 2 || along > s1 + river.width / 2) return;
+    const covered = L.bridges.some((br) => (br.river ?? 0) === ri && Math.abs(br.at - along) < river.width + 1);
+    if (covered) return;
+    const cosA = Math.abs(river.axis === 'z' ? Math.cos(ang) : Math.sin(ang));
+    out.push({x, z, ang, len: river.width / Math.max(cosA, 0.3) + 1.4});
+  });
+  return out;
+};
+
+/** On open water (bridges aside): cars here ride up onto the bridge deck. */
+const overWater = (L: CityLayout, x: number, z: number) =>
+  L.rivers.some((r) => {
+    const c = r.axis === 'z' ? x : z;
+    const a = r.axis === 'z' ? z : x;
+    const [s0, s1] = riverSpan(L, r);
+    return Math.abs(c - r.pos) < r.width / 2 + 0.2 && a > s0 - r.width / 2 && a < s1 + r.width / 2;
+  });
+
+/** A plain concrete road bridge wherever the ring road or a road crosses a river with no
+ *  bridge of its own. Without it the road sank under the water at both banks and the
+ *  cars drove straight across the river (Nakhon Sawan's ring road crossed the confluence). */
+const RoadBridges: React.FC<P> = ({c}) => {
+  const {Y} = useT(c);
+  const L = c.layout;
+  return (
+    <>
+      {driveSegments(c, Y).flatMap((s, si) =>
+        roadCrossings(L, s).map((x, i) => (
+          <group key={`${si}-${i}`} position={[x.x, 0, x.z]} rotation-y={-x.ang} scale={[1, s.k, 1]}>
+            <mesh position={[0, 0.1, 0]} castShadow receiveShadow>
+              <boxGeometry args={[x.len, 0.08, s.width + 0.3]} />
+              <meshStandardMaterial color="#9c9d9f" roughness={0.9} />
+            </mesh>
+            {[-1, 1].map((side) => (
+              <mesh key={side} position={[0, 0.22, side * (s.width / 2 + 0.12)]} castShadow>
+                <boxGeometry args={[x.len, 0.16, 0.08]} />
+                <meshStandardMaterial color="#d8d6d0" roughness={0.8} />
+              </mesh>
+            ))}
+          </group>
+        )),
+      )}
+    </>
+  );
+};
+
 /** Where the railway crosses a river: position along the rail, bridge length, river width. */
 const railCrossings = (L: CityLayout) => {
   const {rail} = L;
@@ -798,27 +883,33 @@ const Train: React.FC<P & {i: number}> = ({c, i}) => {
 };
 
 const Cars: React.FC<P> = ({c}) => {
-  const {Y, frame, dur} = useT(c);
+  const {Y, frame} = useT(c);
   const ref = useRef<THREE.InstancedMesh>(null);
   const L = c.layout;
   const n = Math.floor(ramp(Y, L.cars[0], L.cars[1]) * 48);
-  const [rx, rz] = RING(c);
-  const per = 4 * rx + 4 * rz;
-  const ringPos = (s: number): [number, number, number] => {
-    const u = ((s % per) + per) % per;
-    if (u < 2 * rz) return [rx, -rz + u, 0];
-    if (u < 2 * rz + 2 * rx) return [rx - (u - 2 * rz), rz, Math.PI / 2];
-    if (u < 4 * rz + 2 * rx) return [-rx, rz - (u - 2 * rz - 2 * rx), 0];
-    return [-rx + (u - 4 * rz - 2 * rx), -rz, Math.PI / 2];
-  };
+  // Cars drive only on roads that exist this year: the ring road (once built) and
+  // every built road, back and forth. They used to circle the ring path even where
+  // it crossed a river with no road on it.
+  const segs = driveSegments(c, Y).filter((s) => s.k > 0.99);
   useLayoutEffect(() => {
     updateInstances(ref.current, 48, (i, o) => {
-      if (i >= n) return false;
+      if (i >= n || !segs.length) return false;
+      const s = segs[i % segs.length];
+      const [ax, az] = s.a;
+      const [bx, bz] = s.b;
+      const len = Math.hypot(bx - ax, bz - az);
+      if (len < 1) return false;
       const dir = i % 2 ? 1 : -1;
-      const [x, z, r] = ringPos(i * 9.7 + dir * frame * (0.12 + (i % 4) * 0.03));
-      const lane = dir * 0.25;
-      o.position.set(x + (r === 0 ? lane : 0), 0.22, z + (r !== 0 ? lane : 0));
-      o.rotation.y = r;
+      const ph = (((i * 9.7 + frame * (0.12 + (i % 4) * 0.03)) / len) % 2 + 2) % 2; // 0..2, ping-pong
+      const u = ph < 1 ? ph : 2 - ph;
+      const back = (ph < 1) === (dir < 0);
+      const t = back ? 1 - u : u;
+      const ang = Math.atan2(bz - az, bx - ax);
+      const lane = (back ? -1 : 1) * 0.25;
+      const x = ax + (bx - ax) * t - Math.sin(ang) * lane;
+      const z = az + (bz - az) * t + Math.cos(ang) * lane;
+      o.position.set(x, overWater(L, x, z) ? 0.3 : 0.22, z);
+      o.rotation.y = -ang + Math.PI / 2;
       return true;
     });
   });
@@ -1064,6 +1155,7 @@ export const Diorama: React.FC<{c: CityConfig}> = ({c}) => {
       {c.layout.trains.map((_, i) => (
         <Train key={i} {...p} i={i} />
       ))}
+      <RoadBridges {...p} />
       <Cars {...p} />
       <Boats {...p} />
       <Plane {...p} />
