@@ -58,6 +58,11 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   across. `RoadBridges` now puts a concrete bridge wherever the ring road or a listed road
   crosses a river that no `bridges` entry already spans, and `Cars` runs on the ring and on
   every built road instead of a fixed loop.
+  An explicit `bridges` entry only carries a road whose deck it actually overlaps: the ring
+  crossed the Chao Phraya 3.4 units from the Dechatiwong bridge, an older tolerance counted
+  that as spanned, and the cars drove on bare water again. Cars now ride only on a deck
+  (`carAt()` in `src/engine/roads.ts`), and `check_story.mjs` simulates every car over the
+  whole clip and fails any that is on open water.
 - **People, stalls and animals stay on land; stations stand beside the track.** Nakhon
   Sawan's riverfront crowds walked on the Ping, its station sat on the rail line so every
   train drove through it, and village houses could land on the track. The engine now drops
