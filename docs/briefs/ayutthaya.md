@@ -1,6 +1,6 @@
 # City brief — Ayutthaya / พระนครศรีอยุธยา
 
-> **Research-only brief for Ayutthaya v2 (75 s).**  
+> **Research-only brief for Ayutthaya v2 (75 s).**
 > Reconstructs the historical island capital from primary cartography, Fine Arts Department surveys, and UNESCO World Heritage documentation. Does not modify `src/engine/`, `src/Overlay.tsx`, or existing city files.
 
 ---
@@ -55,7 +55,7 @@ outline: [
   [-21.5,  -6.5], // 14. WNW curve returning to northwest bastion
 ]
 ```
-- **Bounding Half-Extents:** `hx = 24.5`, `hz = 16.5`.
+- **Bounding Half-Extents:** `hx = 26.0`, `hz = 18.5` (safely encloses vertex extremes at x = -25.5 and z = 18.0 with buffer so ring roads and modern houses do not clip into the city).
 - **Comparison to Modern OSM Island:** Modern OSM boundary extends into open water at the southern sandbars and northeast river market embankments. The 14-vertex historical polygon keeps all defensive walls on solid ground, holds Pom Phet at the true water corner (`[21.8, 9.6]`), and keeps Wat Chaiwatthanaram (`[-27.8, 15.0]`) and the southern foreign settlements strictly outside the walled enclosure.
 
 ---
@@ -88,25 +88,25 @@ Based on the NAJUA (2026) architectural waterway reconstruction and the 1687 Fre
 
 ## 3. Story Beats (75 s Timeline)
 
-Designed for a runtime of **75 seconds** (2,250 frames at 30 fps).  
-- **Intro title window:** $0.0 \to 3.0$ s (`INTRO_END = 3.0`). No caption on screen before 3.5 s.  
-- **Finale title window:** $71.0 \to 75.0$ s (`FINALE_START = 71.0`). All captions clear by 70.0 s.  
-- **Kanit typography limit:** Every title is under 820 px at 74 px weight 600. Every subtitle is under 820 px at 40 px weight 400.  
+Designed for a runtime of **75 seconds** (2,250 frames at 30 fps).
+- **Intro title window:** $0.0 \to 3.0$ s (`INTRO_END = 3.0`). No caption on screen before 3.5 s.
+- **Finale title window:** $71.0 \to 75.0$ s (`FINALE_START = 71.0`). All captions clear by 70.6 s (before 71.0 s).
+- **Kanit typography limit:** Every title is under 820 px at 74 px weight 600. Every subtitle is under 820 px at 40 px weight 400.
 - **Exact-year hold rule:** Every exact-date beat holds its stated year steady across its camera shot.
 
 | # | time (s) | CE year | BE year | hold window | confidence | caption title | caption subtitle | source & rationale |
 |---|---:|---:|---:|---|---|---|---|---|
 | 1 | 3.8–8.8 | 1324 | 1867 | hold 1324 (4.0–7.5s) | **Confirmed** | วัดพนัญเชิง (พ.ศ. 1867) | ชุมชนการค้าโบราณก่อนสร้างพระนครศรีอยุธยา | *Royal Chronicles of Ayutthaya (Luang Prasoet)*: Phra Chao Phanan Choeng cast 26 years before U Thong. Proves established pre-1350 river settlement. |
-| 2 | 10.0–15.8 | 1350 | 1893 | hold 1350 (10.5–14.5s) | **Confirmed** | สถาปนากรุงศรีอยุธยา | สมเด็จพระรามาธิบดีที่ 1 ขุดคูขื่อหน้าสร้างเกาะเมือง | *Royal Chronicles*: Friday, 4 March 1351 CE / Chula Sakarat 712 (conventionally c. 1350 CE / BE 1893). Digging of Khu Khue Na converts peninsula into defensive island. |
+| 2 | 10.0–15.8 | c. 1350 (1350–1351) | 1893 | hold 1350 (10.5–14.5s) | **Attributed** (traditional date / calendar conversion) | สถาปนากรุงศรีอยุธยา | สมเด็จพระรามาธิบดีที่ 1 ขุดคูขื่อหน้าสร้างเกาะเมือง | UNESCO lists "founded c. 1350". *Royal Chronicles of Ayutthaya (Luang Prasoet)* records Friday, 6th waxing moon, 5th month CS 712 = 4 March 1351 CE (Julian). In traditional Siamese reckoning before Songkran/solar new year, this fell in BE 1893 (conventionally c. 1350 CE). |
 | 3 | 17.0–22.8 | 1374–1424 | 1917–1967 | hold 1424 (20.5–22.2s) | **Confirmed** | มหาธาตุและราชบูรณะ | ศูนย์กลางพุทธศาสนาและมหาปรางค์ใจกลางพระนคร | *Wat Mahathat inscription (1374 CE)* and *Royal Chronicles (1424 CE)*: King Borommarachathirat II founds Wat Ratchaburana at cremation site of brothers Chao Ai and Chao Yi. |
 | 4 | 24.0–29.6 | 1448 | 1991 | hold 1448 (24.5–28.5s) | **Confirmed** | ย้ายพระราชวังหลวง | สมเด็จพระบรมไตรโลกนาถสถาปนาวัดพระศรีสรรเพชญ์ | *Royal Chronicles*: King Trailokanat dedicates former palace grounds as royal chapel Wat Phra Si Sanphet, moving royal residence north to Lopburi riverfront. |
 | 5 | 30.8–36.6 | 1492–1550 | 2035–2093 | hold 1550 (34.0–36.0s) | **Confirmed** | สามเจดีย์และกำแพงอิฐ | เปลี่ยนกำแพงดินเป็นป้อมอิฐหนา 5 เมตรรับศึกปืนใหญ่ | *Fine Arts Dept / Chronicles*: King Ramathibodi II builds first two chedis (1492); King Maha Chakkraphat completes third chedi and encases city in 12.5 km brick fortress with Pom Phet. |
 | 6 | 37.8–43.4 | 1569–1590 | 2112–2133 | hold 1590 (41.0–43.0s) | **Confirmed** | เสียกรุงครั้งที่ 1 | สมเด็จพระนเรศวรกอบกู้อิสรภาพและขยายคูพระนคร | *Chronicles*: Fall in 1569 after 9-month siege; King Naresuan expands river defenses, digs Khlong Maha Chai, builds outer forts. *(Elephant duel omitted from island story — see note below).* |
 | 7 | 44.6–50.2 | 1630 | 2173 | hold 1630 (45.0–49.0s) | **Confirmed** | วัดไชยวัฒนาราม | พระเจ้าปราสาททองสร้างปรางค์ขอมริมโค้งเจ้าพระยา | *Royal Chronicles*: Built 1630 CE by King Prasat Thong on west riverbank as family memorial and river fortress temple. |
 | 8 | 51.4–57.0 | 1687 | 2230 | hold 1687 (52.0–56.0s) | **Confirmed** | มหานครการค้านานาชาติ | ชุมชนโปรตุเกส ฮอลันดา ญี่ปุ่น และคณะทูตฝรั่งเศส | *French Diplomatic Archives (La Loubère, Tachard, Chaumont)*: Cosmopolitan metropolis of 300,000+ residents; VOC brick factory, Portuguese church, Japanese village thriving. |
-| 9 | 58.2–63.8 | 1767 | 2310 | hold 1767 (58.5–63.0s) | **Confirmed** | การเสียกรุง พ.ศ. 2310 | 7 เมษายน 2310 กำแพงหัวรอแตก สิ้นสุดราชธานี 417 ปี | *Burmese Hmannan Yazawin / Siamese Chronicles*: Tuesday, 9th waxing moon, 5th month CS 1129 = exactly 7 April 1767. Burmese tunnel and burn Hua Ro wall; royal palaces burnt. |
-| 10 | 64.8–68.6 | 1908–1976 | 2451–2519 | hold 1976 (66.5–68.2s) | **Confirmed** | พระยาโบราณราชธานินทร์ | สำรวจขุดแต่งและอนุรักษ์โบราณสถานเกาะเมืองอยุธยา | *Royal Gazette (27 July 1976)*: Rama V & Phraya Boran protect island; 1957 gold crypt discovery at Ratchaburana; 1,810 rai gazetted as Historical Park. |
-| 11 | 69.4–73.0 | 1991–2026 | 2534–2569 | hold 1991 (69.8–71.5s) | **Confirmed** | มรดกโลกอยุธยา | ยูเนสโกประกาศขึ้นทะเบียนนครประวัติศาสตร์อยุธยา | *UNESCO World Heritage Decision (13 Dec 1991, Carthage)*: Inscribed under criterion (iii). Living heritage city with illuminated ruins. |
+| 9 | 58.0–63.4 | 1767 | 2310 | hold 1767 (58.5–62.5s) | **Confirmed** | การเสียกรุง พ.ศ. 2310 | 7 เมษายน 2310 กำแพงหัวรอแตก สิ้นสุดราชธานี 417 ปี | *Burmese Hmannan Yazawin / Siamese Chronicles*: Tuesday, 9th waxing moon, 5th month CS 1129 = exactly 7 April 1767. Burmese tunnel and burn Hua Ro wall; royal palaces burnt. |
+| 10 | 64.2–67.2 | 1908–1976 | 2451–2519 | hold 1976 (65.5–67.0s) | **Confirmed** | พระยาโบราณราชธานินทร์ | สำรวจขุดแต่งและอนุรักษ์โบราณสถานเกาะเมืองอยุธยา | *Royal Gazette (27 July 1976)*: Rama V & Phraya Boran protect island; 1957 gold crypt discovery at Ratchaburana; 1,810 rai gazetted as Historical Park. Duration 3.0s (>= 2.5s). |
+| 11 | 67.8–70.6 | 1991–2026 | 2534–2569 | hold 1991 (68.2–70.4s) | **Confirmed** | มรดกโลกอยุธยา | ยูเนสโกประกาศขึ้นทะเบียนนครประวัติศาสตร์อยุธยา | *UNESCO World Heritage Decision (13 Dec 1991, Carthage)*: Inscribed under criterion (iii). Living heritage city with illuminated ruins. Duration 2.8s (>= 2.5s); clears at 70.6s before 71.0s finale. |
 
 ### Evaluation of the Elephant-Duel Beat (ยุทธหัตถี)
 - **Investigation:** The royal combat between King Naresuan and Crown Prince Mingyi Swa in January 1593 CE (BE 2135) took place at **Nong Sarai (หนองสาหร่าย), Don Chedi, Suphan Buri** (or alternative traditions at Phanom Thuan, Kanchanaburi), situated 60–80 km west of the capital.
