@@ -27,7 +27,7 @@ export const checkRender = (file) => {
   const limited = video.color_range === 'tv';
 
   // mean of the Y plane per frame, from a tiny raw yuv420p dump
-  const raw = path.resolve('out/.luma.yuv');
+  const raw = 'out/.luma.yuv';
   fs.mkdirSync('out', {recursive: true});
   ffmpeg(['-i', file, '-vf', `scale=${LW}:${LH}`, '-pix_fmt', 'yuv420p', '-c:v', 'rawvideo', '-f', 'image2pipe', raw]);
   const buf = fs.readFileSync(raw);
