@@ -125,7 +125,7 @@ export const KORAT: CityConfig = {
     {t0: 31.2, t1: 34.4, label: 'ทุ่งสัมฤทธิ์', dx: 60, dy: -120, p: [THUNG_SAMRIT[0], 0.5, THUNG_SAMRIT[1]]},
     {t0: 36.8, t1: 40, label: 'สถานีรถไฟนครราชสีมา', dx: 40, dy: -130, p: [-24, 1.6, -21.6]},
     {t0: 41.4, t1: 45, label: 'อนุสาวรีย์ท้าวสุรนารี', dx: 120, dy: -150, p: [MONUMENT[0], 2.6, MONUMENT[1]]},
-    {t0: 46.2, t1: 49.6, label: 'ถนนมิตรภาพ', dx: 70, dy: 120, p: [-36, 0, 24]},
+    {t0: 46.2, t1: 49.6, label: 'ถนนมิตรภาพ', dx: 70, dy: 120, p: [-36, 2.4, 24]},
     {t0: 50.4, t1: 53.8, label: 'กองบิน 1', dx: -60, dy: 120, p: [RUNWAY[0], 0, RUNWAY[1]]},
   ],
   soundtrack: 'soundtrack_korat.wav',

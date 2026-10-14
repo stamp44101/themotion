@@ -134,7 +134,7 @@ export const SUKHOTHAI: CityConfig = {
   Landmarks: SukhothaiLandmarks,
   callouts: [
     {t0: 4, t1: 7.8, label: 'วัดพระพายหลวง', dx: 60, dy: -140, p: [PHRA_PHAI_LUANG[0], 4, PHRA_PHAI_LUANG[1]]},
-    {t0: 4.6, t1: 7.8, label: 'เขาหลวง', dx: 40, dy: -110, p: [-47, 14, -12]},
+    {t0: 4.6, t1: 7.8, label: 'เขาหลวง', dx: 40, dy: -110, p: [-47, 15, -12]},
     {t0: 18, t1: 21.8, label: 'ศิลาจารึกหลักที่ 1', dx: -80, dy: -150, p: [PALACE[0] + 0.9, 1.2, PALACE[1] + 0.4]},
     {t0: 24, t1: 27.4, label: 'วัดมหาธาตุ', dx: 90, dy: -150, p: [MAHATHAT[0], 7, MAHATHAT[1]]},
     {t0: 25, t1: 27.4, label: 'วัดสระศรี', dx: -60, dy: -130, p: [SA_SI[0], 2.5, SA_SI[1]]},

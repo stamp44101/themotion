@@ -93,6 +93,19 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   glide at constant distance; a tracking shot that follows something moving (a train, a raft);
   a 1-1.5 s hold as each caption lands; the azimuth swinging around the city over the clip.
   `check_story.mjs` enforces the floors (`scripts/camera_stats.mjs`).
+- **Low cameras look through forest.** Nakhon Sawan's shrine shot sat at 20 degrees elevation,
+  36 units out, looking across the wooded old town: the owner saw only trees. Raising it to 34
+  degrees (same azimuth and distance) showed the shrine, the crowd and the market. Below ~30
+  degrees, aim the line of sight across water or open ground. `check_story.mjs` traces the
+  camera-to-callout line past every standing tree (`scripts/occlusion.mjs`) and fails a
+  building or monument hidden more than half its callout time; ground features (moat, road,
+  hillside) are exempt, so check those on the contact sheet.
+- **Landmarks sit on the terrain, not at y = 0.** Nakhon Sawan's San Khu redoubt was placed at
+  y = 0 where the Khao Kob foothill is 2.25 high: the whole model was buried and its callout
+  pointed at grass. `Landmarks` receives `terrainH` in its props; use `terrainH(x, z)` for the
+  y of anything near a peak, and lift the callout point with it. `check_story.mjs` fails a
+  callout more than 0.5 below the ground and warns for every exported landmark position where
+  the terrain is above 0.5.
 - **Light must never snap.** The day/night cycle in `lighting()` is continuous (no reset after the
   intro) and nights only dim to ~half. Do not add per-city light that jumps; `check_render.mjs`
   fails anything over 8 luma levels per frame or darker than 35 before the finale.
@@ -132,6 +145,7 @@ shipped broken at least once:
 - roads do not run along a riverbed
 - crowds and market stalls are on land
 - hills only where the province actually has them
+- every callout points at something you can actually see in that frame
 
 ## Model / token budget
 A whole city in one high-end session is expensive and mostly mechanical. Split it:
