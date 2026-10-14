@@ -136,6 +136,25 @@ for (const city of cities) {
       warn(`grandeur: the old town covers ${(100 * oldTown / tileA).toFixed(1)}% of the tile; it will read as a speck in a forest on wide shots. Frame the early beats tighter and keep elevation >= 30 degrees (docs/grandeur.md).`);
   }
 
+  // Curved rivers need a usable centreline. A malformed path otherwise renders
+  // nothing while placement checks silently think the channel exists.
+  layout.rivers.forEach((r, n) => {
+    if (!(r.width > 0)) err(`river ${n} has non-positive width ${r.width}.`);
+    if (!roads.isPathRiver(r)) return;
+    if (r.path.length < (r.closed ? 3 : 2)) err(`curved river ${n} needs at least ${r.closed ? 3 : 2} path points.`);
+    r.path.forEach((p, i) => {
+      if (!Number.isFinite(p[0]) || !Number.isFinite(p[1])) err(`curved river ${n} point ${i} is not finite.`);
+      if (i && Math.hypot(p[0] - r.path[i - 1][0], p[1] - r.path[i - 1][1]) < 1e-6)
+        err(`curved river ${n} repeats path point ${i - 1} at ${i}.`);
+    });
+  });
+  layout.bridges.forEach((b, n) => {
+    const r = layout.rivers[b.river ?? 0];
+    if (!r) return err(`bridge ${n} refers to missing river ${b.river ?? 0}.`);
+    if (roads.isPathRiver(r) && (b.at < 0 || b.at > roads.riverLength(layout, r)))
+      err(`bridge ${n} is at ${b.at}, outside curved river ${b.river ?? 0} length ${roads.riverLength(layout, r).toFixed(1)}.`);
+  });
+
   // A rail that crosses a river gets a bridge from the engine; one that runs along a
   // river's bed cannot be bridged (Nakhon Sawan's train ran across the Nan on bare water).
   if (layout.rail) {
@@ -143,6 +162,21 @@ for (const city of cities) {
     const t = layout.tile;
     const rs = rail.axis === 'z' ? [t.z0, t.z1] : [t.x0, t.x1];
     layout.rivers.forEach((r, n) => {
+      if (roads.isPathRiver(r)) {
+        const step = 0.25;
+        let run = 0;
+        let longest = 0;
+        for (let a = rs[0]; a <= rs[1]; a += step) {
+          const [x, z] = rail.axis === 'z' ? [rail.pos, a] : [a, rail.pos];
+          if (roads.inRiver(layout, r, x, z, 0.1)) {
+            run += step;
+            longest = Math.max(longest, run);
+          } else run = 0;
+        }
+        if (longest > Math.max(4, r.width * 2.5))
+          err(`rail runs along curved river ${n}'s bed for ${longest.toFixed(1)} units; move rail.pos to dry ground.`);
+        return;
+      }
       if (r.axis !== rail.axis) return;
       const span = r.span ?? rs;
       if (Math.abs(rail.pos - r.pos) < r.width / 2 + 1.0 && span[0] < rs[1] && rs[0] < span[1])
