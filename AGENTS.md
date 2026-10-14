@@ -76,8 +76,8 @@ optional.
 - **Before rendering:** `npm run check` -- typecheck (an import of a file you
   never committed fails here, not on the next agent's machine) plus caption and
   callout timing for every city: nothing under the intro title (before
-  `INTRO_END`, 3 s) or the finale title, no two captions on screen at once, the
-  year curve never running backwards. `npm run render:<city>` runs the timing
+  `INTRO_END`, 3 s) or the finale title, no two captions on screen at once, no
+  caption title wider than one line, the year curve never running backwards. `npm run render:<city>` runs the timing
   check itself and will not start if it fails. CI runs `npm run check` on every PR.
 - **After rendering:** `npm run encode -- <city>` makes the repo copy and the
   upload copy and then checks all three files: light may not jump more than 8

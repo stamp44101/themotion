@@ -82,6 +82,10 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
 - **Nothing goes on screen during the intro title.** First caption and first callout at
   `t0 >= INTRO_END` (3 s); last ones gone `FINALE_LEAD` (4 s) before the end. Chachoengsao shipped
   with its first caption at 2 s, stacked on the title. `scripts/check_story.mjs` enforces it.
+- **A caption title is one line.** At 74 px the column is 820 px wide; anything wider wraps and
+  drops its last word, usually the year, onto a line of its own. `check_story.mjs` measures titles
+  with Kanit's real advance widths (`scripts/textwidth.mjs`, identical to Chrome's layout) and fails
+  a title that wraps. Shorten it, or put the year in the sub.
 - **Light must never snap.** The day/night cycle in `lighting()` is continuous (no reset after the
   intro) and nights only dim to ~half. Do not add per-city light that jumps; `check_render.mjs`
   fails anything over 8 luma levels per frame or darker than 35 before the finale.

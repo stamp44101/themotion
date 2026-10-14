@@ -11,6 +11,8 @@ const FONT = "'Kanit', sans-serif";
  * action buttons sit on the right from y≈900.
  */
 export const SAFE = {left: 130, right: 950, top: 250, bottom: 1460, rightLow: 860};
+// "พ.ศ. 2377" never splits across lines: if a caption wraps, the year moves as one piece.
+const keepYear = (s: string) => s.replace(/(พ\.ศ\.|ค\.ศ\.)\s+(?=\d)/g, '$1\u00a0');
 const shadow = '0 3px 14px rgba(0,0,0,0.55), 0 1px 3px rgba(0,0,0,0.6)';
 
 const chedi = proj(0, 0.02);
@@ -188,8 +190,8 @@ export const Overlay: React.FC<{callouts?: ScreenCallout[]; story?: Story}> = ({
             }}
           >
             <div style={{width: 84, height: 6, borderRadius: 3, background: '#f6cf73', marginBottom: 18}} />
-            <div style={{fontSize: 74, fontWeight: 600, lineHeight: 1.15}}>{c.title}</div>
-            <div style={{fontSize: 40, fontWeight: 400, lineHeight: 1.4, marginTop: 12, opacity: 0.95}}>{c.sub}</div>
+            <div style={{fontSize: 74, fontWeight: 600, lineHeight: 1.15}}>{keepYear(c.title)}</div>
+            <div style={{fontSize: 40, fontWeight: 400, lineHeight: 1.4, marginTop: 12, opacity: 0.95}}>{keepYear(c.sub)}</div>
           </div>
         );
       })}
