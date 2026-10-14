@@ -13,7 +13,7 @@ const polyShape = (p: Poly) => {
 import React, {useLayoutEffect, useMemo, useRef} from 'react';
 import {random, useCurrentFrame} from 'remotion';
 import * as THREE from 'three';
-import {FPS, keyColor, lerp, lighting, mix, ramp, smooth} from '../lib';
+import {DAYLIGHT, FPS, keyColor, lerp, lighting, mix, ramp, smooth} from '../lib';
 import {BUILD_PALETTES} from '../Scene';
 import {applyCamera, droneCamera} from './camera';
 import {col, glowTexture, prism, updateInstances, windowTexture} from './parts';
@@ -49,18 +49,23 @@ const FrameSync: React.FC = () => {
 };
 
 export const sunState = (t: number, dur = 60) => {
-  const {cyc, night, intro, finale} = lighting(t, dur);
-  const day = intro ? 0.25 + (t / 3) * 0.25 : cyc / 0.72;
+  const {cyc, night, finale} = lighting(t, dur);
+  const day = cyc / DAYLIGHT;
   const th = Math.PI * Math.min(1, Math.max(0, day));
   const elev = Math.sin(th);
   const dir = new THREE.Vector3(Math.cos(th), Math.max(0.05, elev) * 1.1, 0.45).normalize();
-  const vis = (intro ? 1 : cyc < 0.72 ? 1 : 0) * (1 - finale);
+  const vis = (cyc < DAYLIGHT ? 1 : 0) * (1 - finale);
   return {dir, elev, vis, night};
 };
 
 const Lights: React.FC<P> = ({c, w}) => {
   const {t, dur} = useT(c);
   const {dir, elev, vis, night} = sunState(t, dur);
+  const {finale} = lighting(t, dur);
+  // The sun is the key light. During story time, sky fill rises as it sets so a timelapse
+  // night dims the scene instead of blacking it out; the finale is allowed to go fully dark.
+  const sunF = vis * Math.max(0, elev) ** 0.6;
+  const fill = (1 - sunF) * 1.3 * (1 - finale);
   const sun = useRef<THREE.DirectionalLight>(null);
   const tgt = useMemo(() => new THREE.Object3D(), []);
   useLayoutEffect(() => {
@@ -73,11 +78,11 @@ const Lights: React.FC<P> = ({c, w}) => {
   return (
     <>
       <primitive object={tgt} />
-      <hemisphereLight args={[mix('#cfe3ff', '#4a5a9a', night), mix('#6f8a4a', '#1a2440', night), lerp(1.2, 1.05, night)]} />
+      <hemisphereLight args={[mix('#cfe3ff', '#4a5a9a', night), mix('#6f8a4a', '#1a2440', night), lerp(1.2, 1.05, night) + fill]} />
       <directionalLight
         ref={sun}
         position={[w.C[0] + dir.x * 150, dir.y * 150, w.C[1] + dir.z * 150]}
-        intensity={vis * Math.max(0, elev) ** 0.6 * 3.0 * (1 - night)}
+        intensity={sunF * 3.0 * (1 - night)}
         color={mix('#fff4e0', '#ff9a4a', warm)}
         castShadow
         shadow-mapSize-width={2048}

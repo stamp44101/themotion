@@ -1,7 +1,7 @@
 import React from 'react';
 import {Img, staticFile, useCurrentFrame} from 'remotion';
 import {proj} from './geometry';
-import {CAPTIONS, Callout, Caption, ERAS, FPS, SECONDS, bump, camPoint, camera, sstep, yearAt} from './lib';
+import {CAPTIONS, Callout, Caption, ERAS, FINALE_LEAD, FPS, INTRO_END, SECONDS, bump, camPoint, camera, sstep, yearAt} from './lib';
 
 const FONT = "'Kanit', sans-serif";
 
@@ -11,6 +11,8 @@ const FONT = "'Kanit', sans-serif";
  * action buttons sit on the right from y≈900.
  */
 export const SAFE = {left: 130, right: 950, top: 250, bottom: 1460, rightLow: 860};
+// "พ.ศ. 2377" never splits across lines: if a caption wraps, the year moves as one piece.
+const keepYear = (s: string) => s.replace(/(พ\.ศ\.|ค\.ศ\.)\s+(?=\d)/g, '$1\u00a0');
 const shadow = '0 3px 14px rgba(0,0,0,0.55), 0 1px 3px rgba(0,0,0,0.6)';
 
 const chedi = proj(0, 0.02);
@@ -86,10 +88,10 @@ export const Overlay: React.FC<{callouts?: ScreenCallout[]; story?: Story}> = ({
   const CAPTIONS = story.captions;
   const ERAS = story.eras;
 
-  const introOp = 1 - sstep(2.3, 3.0, t);
+  const introOp = 1 - sstep(INTRO_END - 0.7, INTRO_END, t);
   const D = story.duration ?? SECONDS;
-  const counterOp = sstep(2.7, 3.4, t) * (1 - sstep(D - 4.6, D - 3.8, t));
-  const finaleOp = sstep(D - 4, D - 3, t);
+  const counterOp = sstep(INTRO_END - 0.1, INTRO_END + 0.5, t) * (1 - sstep(D - FINALE_LEAD - 0.6, D - FINALE_LEAD + 0.2, t));
+  const finaleOp = sstep(D - FINALE_LEAD, D - FINALE_LEAD + 1, t);
   const progress = t / D;
   const leak = Math.max(0, ...ERAS.map((e) => bump(t, e.t - 0.25, e.t + 0.9, 0.4)), bump(t, D - 4.4, D - 2.8, 0.6));
 
@@ -166,7 +168,9 @@ export const Overlay: React.FC<{callouts?: ScreenCallout[]; story?: Story}> = ({
 
       {/* Captions */}
       {CAPTIONS.map((c) => {
-        const inn = sstep(c.t0, c.t0 + 0.45, t);
+        // never fade a caption in under the intro title, whatever t0 a city chose
+        const start = Math.max(c.t0, INTRO_END);
+        const inn = sstep(start, start + 0.45, t);
         const out = 1 - sstep(c.t1 - 0.35, c.t1, t);
         const op = inn * out;
         if (op <= 0.001) return null;
@@ -186,8 +190,8 @@ export const Overlay: React.FC<{callouts?: ScreenCallout[]; story?: Story}> = ({
             }}
           >
             <div style={{width: 84, height: 6, borderRadius: 3, background: '#f6cf73', marginBottom: 18}} />
-            <div style={{fontSize: 74, fontWeight: 600, lineHeight: 1.15}}>{c.title}</div>
-            <div style={{fontSize: 40, fontWeight: 400, lineHeight: 1.4, marginTop: 12, opacity: 0.95}}>{c.sub}</div>
+            <div style={{fontSize: 74, fontWeight: 600, lineHeight: 1.15}}>{keepYear(c.title)}</div>
+            <div style={{fontSize: 40, fontWeight: 400, lineHeight: 1.4, marginTop: 12, opacity: 0.95}}>{keepYear(c.sub)}</div>
           </div>
         );
       })}
