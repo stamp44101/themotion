@@ -52,6 +52,12 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   automatically from the layout; Nakhon Sawan's train used to run across the Nan on
   bare water. A rail *parallel* to a river must stay out of its bed -- a bridge
   cannot fix that, and `check_story.mjs` errors on it.
+- **Every road bridges the water it crosses; cars drive only on built roads.** The engine's
+  ring road is a rectangle around the tile centre, and Nakhon Sawan's centre is the confluence:
+  three sides lay on the river, the road sank under the water at each bank and the cars drove
+  across. `RoadBridges` now puts a concrete bridge wherever the ring road or a listed road
+  crosses a river that no `bridges` entry already spans, and `Cars` runs on the ring and on
+  every built road instead of a fixed loop.
 - **People, stalls and animals stay on land; stations stand beside the track.** Nakhon
   Sawan's riverfront crowds walked on the Ping, its station sat on the rail line so every
   train drove through it, and village houses could land on the track. The engine now drops
