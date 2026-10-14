@@ -590,6 +590,69 @@ const Walls: React.FC<P> = ({c}) => {
 
 const RING = (c: CityConfig) => [c.layout.city.hx + 3.1, c.layout.city.hz + 3.1] as const;
 
+/** Where the railway crosses a river: position along the rail, bridge length, river width. */
+const railCrossings = (L: CityLayout) => {
+  const {rail} = L;
+  if (!rail) return [];
+  return L.rivers
+    .filter((river) => {
+      if (river.axis === rail.axis) return false;
+      const [s0, s1] = riverSpan(L, river);
+      return rail.pos >= s0 - river.width && rail.pos <= s1 + river.width;
+    })
+    .map((river) => ({a: river.pos, len: river.width + 1.6, width: river.width}));
+};
+
+const RailBridges: React.FC<P> = ({c}) => {
+  const {Y} = useT(c);
+  const L = c.layout;
+  const {rail, tile} = L;
+  if (!rail) return null;
+  const railK = ramp(Y, rail.open[0], rail.open[1]);
+  if (railK <= 0) return null;
+  const start = rail.axis === 'z' ? tile.z0 : tile.x0;
+  const end = rail.axis === 'z' ? tile.z1 : tile.x1;
+  const reach = start + (end - start) * railK;
+  const girder = '#2f3439';
+  return (
+    <>
+      {railCrossings(L).map(({a, len, width}, i) => {
+        const k = Math.max(0, Math.min(1, (reach - (a - len / 2)) / 1.5));
+        if (k <= 0) return null;
+        const n = Math.floor(len / 1.2) + 1;
+        return (
+          <group key={i} position={along(L, rail.axis, a, rail.pos, 0)} rotation-y={rail.axis === 'z' ? 0 : Math.PI / 2} scale={[1, 1, k]}>
+            <mesh position={[0, 0.11, 0]} castShadow receiveShadow>
+              <boxGeometry args={[1.7, 0.08, len]} />
+              <meshStandardMaterial color="#4a4f55" roughness={0.8} />
+            </mesh>
+            {[-0.82, 0.82].map((x) => (
+              <React.Fragment key={x}>
+                <mesh position={[x, 0.15 + 0.275, 0]} castShadow receiveShadow>
+                  <boxGeometry args={[0.12, 0.55, len]} />
+                  <meshStandardMaterial color={girder} roughness={0.6} metalness={0.4} />
+                </mesh>
+                {Array.from({length: n}, (_, j) => (
+                  <mesh key={j} position={[x, 0.15 + 0.275, (j - (n - 1) / 2) * 1.2]} castShadow receiveShadow>
+                    <boxGeometry args={[0.14, 0.55, 0.14]} />
+                    <meshStandardMaterial color={girder} roughness={0.6} metalness={0.4} />
+                  </mesh>
+                ))}
+              </React.Fragment>
+            ))}
+            {[-1, 1].map((s) => (
+              <mesh key={s} position={[0, -0.1, s * (width / 2 + 0.35)]} castShadow receiveShadow>
+                <boxGeometry args={[2.2, 0.5, 0.9]} />
+                <meshStandardMaterial color="#9b8f7a" roughness={0.95} />
+              </mesh>
+            ))}
+          </group>
+        );
+      })}
+    </>
+  );
+};
+
 const Infrastructure: React.FC<P> = ({c, w}) => {
   const {Y, t, dur} = useT(c);
   const {night} = lighting(t, dur);
@@ -609,7 +672,8 @@ const Infrastructure: React.FC<P> = ({c, w}) => {
       const a = railSpan[0] + 1 + i * 1.6;
       o.position.set(...along(L, rail.axis, a, rail.pos, 0.06));
       o.rotation.y = rail.axis === 'z' ? 0 : Math.PI / 2;
-      return a < railSpan[0] + railLen * railK && a < railSpan[1] - 0.5;
+      const over = railCrossings(L).some((x) => Math.abs(a - x.a) < x.len / 2);
+      return !over && a < railSpan[0] + railLen * railK && a < railSpan[1] - 0.5;
     });
   });
   const roadMat = <meshStandardMaterial color="#55585e" roughness={0.9} />;
@@ -996,6 +1060,7 @@ export const Diorama: React.FC<{c: CityConfig}> = ({c}) => {
       <LandmarkLayer {...p} />
       <LifeLayer c={c} />
       <Infrastructure {...p} />
+      <RailBridges {...p} />
       {c.layout.trains.map((_, i) => (
         <Train key={i} {...p} i={i} />
       ))}

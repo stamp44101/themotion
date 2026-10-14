@@ -47,6 +47,11 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   only ever sees roof.
 
 ## Look & feel lessons
+- **A railway bridges every river it crosses.** The engine (`RailBridges` in
+  `Diorama.tsx`) now puts a girder bridge where the rail meets a river, found
+  automatically from the layout; Nakhon Sawan's train used to run across the Nan on
+  bare water. A rail *parallel* to a river must stay out of its bed -- a bridge
+  cannot fix that, and `check_story.mjs` errors on it.
 - **A wall never runs across open water.** Where a river crosses the wall line the
   engine now opens a gap and stands a water gate there (piers + lintel) — boats
   had to pass. `subtractBands()` in `poly.ts` splits each wall edge around the
@@ -146,6 +151,8 @@ shipped broken at least once:
 - crowds and market stalls are on land
 - hills only where the province actually has them
 - every callout points at something you can actually see in that frame
+- nothing appears before it was built or stays after it was gone: give each landmark part its own
+  years (Nakhon Sawan's 1785 San Khu watchtower stood from 1357 to 2026, in front of later shots)
 
 ## Model / token budget
 A whole city in one high-end session is expensive and mostly mechanical. Split it:
