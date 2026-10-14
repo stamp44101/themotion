@@ -641,7 +641,7 @@ const RailBridges: React.FC<P> = ({c}) => {
               </React.Fragment>
             ))}
             {[-1, 1].map((s) => (
-              <mesh key={s} position={[0, 0.05, s * (width / 2 + 0.35)]} castShadow receiveShadow>
+              <mesh key={s} position={[0, -0.1, s * (width / 2 + 0.35)]} castShadow receiveShadow>
                 <boxGeometry args={[2.2, 0.5, 0.9]} />
                 <meshStandardMaterial color="#9b8f7a" roughness={0.95} />
               </mesh>

@@ -51,7 +51,7 @@ So the train runs at deck height without any change to `Train`, provided the dec
 | deck plate | `[1.7, 0.08, len]` | y = 0.11 (top 0.15) | `#4a4f55` |
 | 2 side girders | `[0.12, 0.55, len]` | x = ±0.82, y = 0.15 + 0.275 | `#2f3439` |
 | vertical posts on each girder, every 1.2 along `len` | `[0.14, 0.55, 0.14]` | same x and y as the girders | `#2f3439` |
-| 2 abutments (stone, one per bank) | `[2.2, 0.5, 0.9]` | z = ±(river.width / 2 + 0.35), y = 0.05 | `#9b8f7a` |
+| 2 abutments (stone, one per bank) | `[2.2, 0.5, 0.9]` | z = ±(river.width / 2 + 0.35), y = -0.1 (top flush with the deck at 0.15) | `#9b8f7a` |
 
 - The train is 0.9 wide (half 0.45) and the girders' inner faces are at 0.76, so it passes between them. Check this on a still.
 - Use `castShadow` / `receiveShadow` like the road bridges do.
