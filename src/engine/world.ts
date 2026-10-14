@@ -1,5 +1,6 @@
 import {random} from 'remotion';
 import {cityPoly, inPoly, shrinkPoly} from './poly';
+import {inRiver as pointInRiver, isPathRiver, riverLength} from './river';
 import type {CityLayout} from './types';
 
 /** The station stands beside the track, never on it. A station placed on the rail
@@ -49,12 +50,7 @@ const buildWorld = (L: CityLayout) => {
       : Math.abs(x) < city.hx + pad && Math.abs(z) < city.hz + pad;
   const cityDist = (x: number, z: number) => Math.max(Math.abs(x) - city.hx, Math.abs(z) - city.hz, 0);
   const inRiver = (x: number, z: number) =>
-    L.rivers.some((r) => {
-      const c = r.axis === 'z' ? x : z;
-      const a = r.axis === 'z' ? z : x;
-      const [s0, s1] = r.span ?? [-1e9, 1e9];
-      return Math.abs(c - r.pos) < r.width / 2 + 0.8 && a > s0 - r.width && a < s1 + r.width;
-    });
+    L.rivers.some((r) => pointInRiver(L, r, x, z, 0.8, r.width));
   const onRail = (x: number, z: number) => !!L.rail && Math.abs((L.rail.axis === 'z' ? x : z) - L.rail.pos) < 2;
   const onRoad = (x: number, z: number) =>
     L.roads.some(({from: [ax, az], to: [bx, bz], width}) => {
@@ -180,8 +176,9 @@ const buildWorld = (L: CityLayout) => {
     }
   });
 
+  const boatRun = isPathRiver(river) ? riverLength(L, river) : S;
   const boats = new Array(6).fill(0).map((_, i) => ({
-    at: random(`boz${i}`) * (S - 6) + 3,
+    at: random(`boz${i}`) * Math.max(0, boatRun - 6) + Math.min(3, boatRun / 2),
     sp: (random(`bos${i}`) < 0.5 ? -1 : 1) * (1.5 + random(`bov${i}`) * 2),
     off: (random(`boo${i}`) - 0.5) * river.width * 0.5,
   }));

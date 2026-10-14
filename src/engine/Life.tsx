@@ -3,6 +3,7 @@ import {random, useCurrentFrame} from 'remotion';
 import * as THREE from 'three';
 import {FPS, lerp, ramp} from '../lib';
 import {Elephant, col, prism, updateInstances} from './parts';
+import {inRiver as pointInRiver, isPathRiver, riverLength, riverPointAt} from './river';
 import type {CityConfig, CityLayout} from './types';
 
 type Life = NonNullable<CityLayout['life']>;
@@ -11,12 +12,7 @@ const PEOPLE_COLORS = ['#e9e2d0', '#3f5f8f', '#a8322a', '#2f6a4a', '#d9a43a', '#
 
 /** On or right at the edge of open water: nothing on foot belongs there. */
 const wet = (L: CityLayout, x: number, z: number, margin = 0.35) =>
-  L.rivers.some((r) => {
-    const c = r.axis === 'z' ? x : z;
-    const a = r.axis === 'z' ? z : x;
-    const [s0, s1] = r.span ?? [-1e9, 1e9];
-    return Math.abs(c - r.pos) < r.width / 2 + margin && a > s0 - r.width / 2 && a < s1 + r.width / 2;
-  });
+  L.rivers.some((r) => pointInRiver(L, r, x, z, margin, r.width / 2));
 
 type Walker = {x: number; z: number; ang: number; len: number; sp: number; ph: number; color: string; from: number; to: number};
 
@@ -205,6 +201,20 @@ const Ships: React.FC<{c: CityConfig; Y: number; t: number}> = ({c, Y, t}) => {
         const k = vis(Y, g.from, g.to);
         if (k <= 0.02) return null;
         const r = L.rivers[g.river];
+        if (isPathRiver(r)) {
+          const len = riverLength(L, r);
+          if (len <= 4) return null;
+          return new Array(g.count).fill(0).map((_, i) => {
+            const a = 2 + ((((random(`sh${gi}-${i}`) * len + t * (i % 2 ? 0.4 : -0.3)) % (len - 4)) + len - 4) % (len - 4));
+            const off = (g.offset ?? 0) + (i % 2 ? 0.25 : -0.25) * r.width;
+            const p = riverPointAt(L, r, a, off);
+            return (
+              <group key={`${gi}-${i}`} position={[p.x, 0.05, p.z]} rotation-y={Math.PI / 2 - p.angle} scale={k * 0.9}>
+                <Ship tall={i % 3 === 1} />
+              </group>
+            );
+          });
+        }
         const span = r.span ?? (r.axis === 'z' ? [L.tile.z0, L.tile.z1] : [L.tile.x0, L.tile.x1]);
         const len = span[1] - span[0];
         return new Array(g.count).fill(0).map((_, i) => {
@@ -230,6 +240,30 @@ const Houseboats: React.FC<{c: CityConfig; Y: number; t: number}> = ({c, Y, t}) 
         const k = vis(Y, g.from, g.to);
         if (k <= 0.02) return null;
         const r = L.rivers[g.river];
+        if (isPathRiver(r)) {
+          const len = riverLength(L, r);
+          if (len <= 6) return null;
+          return new Array(g.count).fill(0).map((_, i) => {
+            const a = lerp(3, len - 3, (i + random(`hb${gi}-${i}`) * 0.5) / g.count);
+            const side = i % 2 ? 1 : -1;
+            const p = riverPointAt(L, r, a, side * (r.width / 2 - 0.7));
+            return (
+              <group key={`${gi}-${i}`} position={[p.x, 0.15 + Math.sin(t * 2 + i) * 0.03, p.z]} rotation-y={Math.PI / 2 - p.angle} scale={k}>
+                <mesh position={[0, 0.1, 0]}>
+                  <boxGeometry args={[1.1, 0.2, 1.8]} />
+                  <meshStandardMaterial color="#5a4632" />
+                </mesh>
+                <mesh position={[0, 0.45, 0]} castShadow>
+                  <boxGeometry args={[0.9, 0.5, 1.5]} />
+                  <meshStandardMaterial color="#9a6a45" />
+                </mesh>
+                <mesh geometry={roof} position={[0, 0.7, 0]} castShadow>
+                  <meshStandardMaterial color="#5a3420" flatShading side={THREE.DoubleSide} />
+                </mesh>
+              </group>
+            );
+          });
+        }
         const span = r.span ?? (r.axis === 'z' ? [L.tile.z0, L.tile.z1] : [L.tile.x0, L.tile.x1]);
         return new Array(g.count).fill(0).map((_, i) => {
           const a = lerp(span[0] + 3, span[1] - 3, (i + random(`hb${gi}-${i}`) * 0.5) / g.count);

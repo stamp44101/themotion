@@ -17,6 +17,7 @@ import {DAYLIGHT, FPS, keyColor, lerp, lighting, mix, ramp, smooth} from '../lib
 import {BUILD_PALETTES} from '../Scene';
 import {applyCamera, droneCamera} from './camera';
 import {col, glowTexture, prism, updateInstances, windowTexture} from './parts';
+import {inRiver as pointInRiver, isPathRiver, riverCrossings, riverLength, riverPointAt, riverSegments, subtractPathRivers} from './river';
 import type {CityConfig, CityLayout} from './types';
 import {MAX_CARS, RING, carAt, decks, driveSegments, roadCrossings, riverSpan} from './roads';
 import {World, getWorld, stationPos} from './world';
@@ -220,6 +221,56 @@ const Water: React.FC<P> = ({c}) => {
   return (
     <>
       {L.rivers.map((river, ri) => {
+        if (isPathRiver(river)) {
+          const segs = riverSegments(L, river);
+          const joints = river.closed ? river.path : river.path.slice(1, -1);
+          return (
+            <group key={ri}>
+              {segs.map((seg, si) => {
+                const midX = (seg.a[0] + seg.b[0]) / 2;
+                const midZ = (seg.a[1] + seg.b[1]) / 2;
+                const rot = Math.PI / 2 - seg.angle;
+                const nx = -Math.sin(seg.angle);
+                const nz = Math.cos(seg.angle);
+                const count = seg.len > 2 ? Math.round(seg.len / 2.4) : 0;
+                return (
+                  <group key={si}>
+                    <mesh position={[midX, -0.6, midZ]} rotation-y={rot} receiveShadow>
+                      <boxGeometry args={[river.width, 1.4, seg.len + 0.12]} />
+                      <meshStandardMaterial color={water} roughness={0.12} metalness={0.25} />
+                    </mesh>
+                    {[-1, 1].map((side) => (
+                      <mesh
+                        key={side}
+                        position={[midX + nx * side * river.width / 2, 0.08, midZ + nz * side * river.width / 2]}
+                        rotation-y={rot}
+                      >
+                        <boxGeometry args={[0.35, 0.1, seg.len]} />
+                        <meshStandardMaterial color="#b9a77c" roughness={1} />
+                      </mesh>
+                    ))}
+                    {new Array(count).fill(0).map((_, i) => {
+                      const a = 1 + ((i * 23.7 + frame * 0.12) % (seg.len - 2));
+                      const p = riverPointAt(L, river, seg.start + a, -river.width * 0.36 + ((i * 1.37) % (river.width * 0.72)));
+                      return (
+                        <mesh key={`fl${i}`} position={[p.x, 0.1, p.z]} rotation-y={rot}>
+                          <boxGeometry args={[0.06, 0.01, 1.2]} />
+                          <meshBasicMaterial color="#d9f0ff" transparent opacity={0.45} />
+                        </mesh>
+                      );
+                    })}
+                  </group>
+                );
+              })}
+              {joints.map(([x, z], i) => (
+                <mesh key={`joint${i}`} position={[x, -0.6, z]} receiveShadow>
+                  <cylinderGeometry args={[river.width / 2, river.width / 2, 1.4, 12]} />
+                  <meshStandardMaterial color={water} roughness={0.12} metalness={0.25} />
+                </mesh>
+              ))}
+            </group>
+          );
+        }
         const span = riverSpan(L, river);
         const mid = (span[0] + span[1]) / 2;
         const len = span[1] - span[0];
@@ -445,11 +496,38 @@ const Buildings: React.FC<P> = ({c, w}) => {
 /** Where a river crosses the wall line there has to be a gap -- boats passed
  *  through a water gate, the wall did not run across the channel. */
 const riverBands = (L: CityLayout): Band[] =>
-  L.rivers.map((r) => {
+  L.rivers.flatMap((r) => {
+    if (isPathRiver(r)) return [];
     const span = riverSpan(L, r);
     const half = r.width / 2 + 0.35;
-    return {axis: r.axis === 'z' ? 'x' : 'z', lo: r.pos - half, hi: r.pos + half, s0: span[0], s1: span[1]} as Band;
+    return [{axis: r.axis === 'z' ? 'x' : 'z', lo: r.pos - half, hi: r.pos + half, s0: span[0], s1: span[1]} as Band];
   });
+
+type WallCut = {
+  dry: [[number, number], [number, number]][];
+  gaps: {p: [number, number]; q: [number, number]; angle: number}[];
+};
+const wallCutCache = new WeakMap<CityLayout, WallCut[]>();
+const wallCuts = (L: CityLayout, poly: Poly, bands: Band[]) => {
+  const cached = wallCutCache.get(L);
+  if (cached) return cached;
+  const hasPathRivers = L.rivers.some(isPathRiver);
+  const cuts = polyEdges(poly).map((edge) => {
+    const bandDry = subtractBands(edge.a, edge.b, bands);
+    const dry = hasPathRivers ? bandDry.flatMap(([p, q]) => subtractPathRivers(L, p, q)) : bandDry;
+    if (!hasPathRivers) return {dry, gaps: bandGaps(edge.a, edge.b, bands)};
+    const angle = Math.atan2(edge.b[0] - edge.a[0], edge.b[1] - edge.a[1]);
+    if (!dry.length) return {dry, gaps: [{p: edge.a, q: edge.b, angle}]};
+    const gaps: WallCut['gaps'] = [];
+    const same = (p: [number, number], q: [number, number]) => Math.hypot(p[0] - q[0], p[1] - q[1]) < 1e-5;
+    if (!same(edge.a, dry[0][0])) gaps.push({p: edge.a, q: dry[0][0], angle});
+    for (let i = 0; i < dry.length - 1; i++) if (!same(dry[i][1], dry[i + 1][0])) gaps.push({p: dry[i][1], q: dry[i + 1][0], angle});
+    if (!same(dry[dry.length - 1][1], edge.b)) gaps.push({p: dry[dry.length - 1][1], q: edge.b, angle});
+    return {dry, gaps};
+  });
+  wallCutCache.set(L, cuts);
+  return cuts;
+};
 
 const Walls: React.FC<P> = ({c}) => {
   const {Y, dur} = useT(c);
@@ -463,6 +541,7 @@ const Walls: React.FC<P> = ({c}) => {
   const roofGeo = useMemo(() => prism(2.2, 1.0, 3.0), []);
   const {hx, hz} = city;
   const poly = city.outline ? cityPoly(city) : null;
+  const cuts = poly ? wallCuts(c.layout, poly, bands) : [];
   const NX = Math.round(hx * 3.4);
   const NZ = Math.round(hz * 3.4);
   // a real footprint spaces merlons evenly along its perimeter instead of
@@ -479,7 +558,8 @@ const Walls: React.FC<P> = ({c}) => {
       else if (i < 2 * NX + NZ) [x, z] = [hx, -hz + ((i - 2 * NX + 0.5) * 2 * hz) / NZ];
       else [x, z] = [-hx, -hz + ((i - 2 * NX - NZ + 0.5) * 2 * hz) / NZ];
       o.position.set(x, h + 0.14, z);
-      return h > 0.3 && !inBands(x, z, bands);
+      const inPathRiver = c.layout.rivers.some((r) => isPathRiver(r) && pointInRiver(c.layout, r, x, z, 0.35));
+      return h > 0.3 && !inBands(x, z, bands) && !inPathRiver;
     });
   });
   const ground = ramp(Y, city.groundFrom, city.groundFrom + 1.5);
@@ -495,8 +575,8 @@ const Walls: React.FC<P> = ({c}) => {
         <>
           {(
             poly
-              ? polyEdges(poly).flatMap((e) =>
-                  subtractBands(e.a, e.b, bands).map(([p, q]) => {
+              ? cuts.flatMap((cut) =>
+                  cut.dry.map(([p, q]) => {
                     const dx = q[0] - p[0];
                     const dz = q[1] - p[1];
                     return [
@@ -536,8 +616,8 @@ const Walls: React.FC<P> = ({c}) => {
           </instancedMesh>
           {gk > 0.02 &&
             poly &&
-              polyEdges(poly).flatMap((e, ei) =>
-                bandGaps(e.a, e.b, bands).map((g, gi) => {
+              cuts.flatMap((cut, ei) =>
+                cut.gaps.map((g, gi) => {
                   const w = Math.hypot(g.q[0] - g.p[0], g.q[1] - g.p[1]);
                   const mid: [number, number] = [(g.p[0] + g.q[0]) / 2, (g.p[1] + g.q[1]) / 2];
                   return (
@@ -618,13 +698,36 @@ const RoadBridges: React.FC<P> = ({c}) => {
 const railCrossings = (L: CityLayout) => {
   const {rail} = L;
   if (!rail) return [];
-  return L.rivers
-    .filter((river) => {
-      if (river.axis === rail.axis) return false;
-      const [s0, s1] = riverSpan(L, river);
-      return rail.pos >= s0 - river.width && rail.pos <= s1 + river.width;
-    })
-    .map((river) => ({a: river.pos, len: river.width + 1.6, width: river.width}));
+  const start = rail.axis === 'z' ? L.tile.z0 : L.tile.x0;
+  const end = rail.axis === 'z' ? L.tile.z1 : L.tile.x1;
+  const a: [number, number] = rail.axis === 'z' ? [rail.pos, start] : [start, rail.pos];
+  const b: [number, number] = rail.axis === 'z' ? [rail.pos, end] : [end, rail.pos];
+  const railAngle = rail.axis === 'z' ? Math.PI / 2 : 0;
+  return L.rivers.flatMap((river) => {
+    if (isPathRiver(river)) {
+      return riverCrossings(L, river, a, b).flatMap((hit) => {
+        const sinA = Math.abs(Math.sin(railAngle - hit.angle));
+        if (sinA < 1e-3) return [];
+        return [{
+          a: rail.axis === 'z' ? hit.z : hit.x,
+          x: hit.x,
+          z: hit.z,
+          len: river.width / Math.max(sinA, 0.3) + 1.6,
+          width: river.width,
+        }];
+      });
+    }
+    if (river.axis === rail.axis) return [];
+    const [s0, s1] = riverSpan(L, river);
+    if (rail.pos < s0 - river.width || rail.pos > s1 + river.width) return [];
+    return [{
+      a: river.pos,
+      x: rail.axis === 'z' ? rail.pos : river.pos,
+      z: rail.axis === 'z' ? river.pos : rail.pos,
+      len: river.width + 1.6,
+      width: river.width,
+    }];
+  });
 };
 
 const RailBridges: React.FC<P> = ({c}) => {
@@ -640,12 +743,12 @@ const RailBridges: React.FC<P> = ({c}) => {
   const girder = '#2f3439';
   return (
     <>
-      {railCrossings(L).map(({a, len, width}, i) => {
+      {railCrossings(L).map(({a, x, z, len, width}, i) => {
         const k = Math.max(0, Math.min(1, (reach - (a - len / 2)) / 1.5));
         if (k <= 0) return null;
         const n = Math.floor(len / 1.2) + 1;
         return (
-          <group key={i} position={along(L, rail.axis, a, rail.pos, 0)} rotation-y={rail.axis === 'z' ? 0 : Math.PI / 2} scale={[1, 1, k]}>
+          <group key={i} position={[x, 0, z]} rotation-y={rail.axis === 'z' ? 0 : Math.PI / 2} scale={[1, 1, k]}>
             <mesh position={[0, 0.11, 0]} castShadow receiveShadow>
               <boxGeometry args={[1.7, 0.08, len]} />
               <meshStandardMaterial color="#4a4f55" roughness={0.8} />
@@ -707,9 +810,18 @@ const Infrastructure: React.FC<P> = ({c, w}) => {
         const k = ramp(Y, b.year, b.year + 3);
         if (k <= 0) return null;
         const river = L.rivers[b.river ?? 0];
-        const rot = river.axis === 'z' ? 0 : Math.PI / 2;
+        let position: [number, number, number];
+        let rot: number;
+        if (isPathRiver(river)) {
+          const p = riverPointAt(L, river, b.at);
+          position = [p.x, 0, p.z];
+          rot = -(p.angle + Math.PI / 2);
+        } else {
+          position = along(L, river.axis, b.at, river.pos, 0);
+          rot = river.axis === 'z' ? 0 : Math.PI / 2;
+        }
         return (
-          <group key={i} position={along(L, river.axis, b.at, river.pos, 0)} rotation-y={rot} scale={[k, 1, 1]}>
+          <group key={i} position={position} rotation-y={rot} scale={[k, 1, 1]}>
             <mesh position={[0, 0.45, 0]} castShadow receiveShadow>
               <boxGeometry args={[river.width + 1.4, 0.2, 1.5]} />
               <meshStandardMaterial color={Y > b.modernYear ? '#b3b4b5' : '#7a5636'} roughness={0.9} />
@@ -858,12 +970,21 @@ const Boats: React.FC<P> = ({c, w}) => {
   const k = ramp(Y, L.boats[0], L.boats[0] + 100) * (1 - ramp(Y, L.boats[1], L.boats[1] + 20));
   if (k <= 0.02) return null;
   const R = L.rivers[0];
-  const span = riverSpan(L, R);
-  const len = span[1] - span[0];
+  const span = isPathRiver(R) ? null : riverSpan(L, R);
+  const len = isPathRiver(R) ? riverLength(L, R) : span![1] - span![0];
   return (
     <>
       {w.boats.map((b, i) => {
-        const a = span[0] + 2 + ((((b.at + t * b.sp * 4) % (len - 4)) + len - 4) % (len - 4));
+        const a = (span?.[0] ?? 0) + 2 + ((((b.at + t * b.sp * 4) % (len - 4)) + len - 4) % (len - 4));
+        if (isPathRiver(R)) {
+          const p = riverPointAt(L, R, a, b.off);
+          return (
+            <mesh key={i} position={[p.x, 0.15, p.z]} rotation-y={Math.PI / 2 - p.angle} scale={k} castShadow>
+              <boxGeometry args={[0.45, 0.2, 1.6]} />
+              <meshStandardMaterial color="#6a4a2e" />
+            </mesh>
+          );
+        }
         return (
           <mesh key={i} position={along(L, R.axis, a, R.pos + b.off, 0.15)} rotation-y={R.axis === 'z' ? 0 : Math.PI / 2} scale={k} castShadow>
             <boxGeometry args={[0.45, 0.2, 1.6]} />

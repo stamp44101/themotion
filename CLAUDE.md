@@ -68,6 +68,12 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   automatically from the layout; Nakhon Sawan's train used to run across the Nan on
   bare water. A rail *parallel* to a river must stay out of its bed -- a bridge
   cannot fix that, and `check_story.mjs` errors on it.
+- **Trace curved rivers as centrelines, not stacked straight bands.** A river may
+  use `path: [[x, z], ...]` (and optional `closed`) instead of `axis`/`pos`;
+  `width` is still in world units. For a path river, a bridge's `at` is distance
+  in world units from `path[0]`. Water, boats, wall gaps, dry-land placement,
+  roads/cars and rail bridges all use the same centreline geometry in
+  `src/engine/river.ts`; `npm run check` exercises both path and legacy rivers.
 - **Every road bridges the water it crosses; cars drive only on built roads.** The engine's
   ring road is a rectangle around the tile centre, and Nakhon Sawan's centre is the confluence:
   three sides lay on the river, the road sank under the water at each bank and the cars drove
@@ -88,7 +94,8 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
 - **A wall never runs across open water.** Where a river crosses the wall line the
   engine now opens a gap and stands a water gate there (piers + lintel) — boats
   had to pass. `subtractBands()` in `poly.ts` splits each wall edge around the
-  river footprint, and the merlons skip the gap too. Only bites on cities whose
+  river footprint, while `subtractPathRivers()` does the same for curved
+  channels, and the merlons skip the gap too. Only bites on cities whose
   river actually crosses the walls, so the rectangle cities are unaffected.
 - **Real city footprints are not rectangles.** `city.outline` takes a polygon in
   world units; walls, moat, city ground and the in-city house grid all follow it,

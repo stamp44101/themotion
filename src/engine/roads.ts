@@ -1,5 +1,8 @@
 import {ramp} from '../lib';
 import type {CityLayout} from './types';
+import {inRiver, isPathRiver, riverCrossings, riverLength, riverPointAt, riverSpan} from './river';
+
+export {inRiver, isPathRiver, riverLength, riverPointAt, riverSpan} from './river';
 
 // Roads, road bridges and where the cars are, as plain functions: Diorama draws
 // them and scripts/check_story.mjs checks them (no car on open water).
@@ -7,9 +10,6 @@ import type {CityLayout} from './types';
 export const RING = (L: CityLayout) => [L.city.hx + 3.1, L.city.hz + 3.1] as const;
 
 export type Seg = {a: [number, number]; b: [number, number]; width: number; k: number};
-
-export const riverSpan = (L: CityLayout, r: CityLayout['rivers'][number]) =>
-  r.span ?? (r.axis === 'z' ? [L.tile.z0, L.tile.z1] : [L.tile.x0, L.tile.x1]);
 
 /** Every drivable segment standing in year Y: the ring road's four sides and each built road. */
 export const driveSegments = (L: CityLayout, Y: number): Seg[] => {
@@ -45,6 +45,22 @@ export const roadCrossings = (L: CityLayout, s: Seg) => {
   const [bx, bz] = s.b;
   const ang = Math.atan2(bz - az, bx - ax);
   L.rivers.forEach((river, ri) => {
+    if (isPathRiver(river)) {
+      for (const hit of riverCrossings(L, river, s.a, s.b)) {
+        const total = riverLength(L, river);
+        const covered = L.bridges.some((br) => {
+          if ((br.river ?? 0) !== ri) return false;
+          const raw = Math.abs(br.at - hit.at);
+          const d = river.closed && total > 0 ? Math.min(raw, total - raw) : raw;
+          return d < BRIDGE_HALF + (s.width + 0.3) / 2;
+        });
+        if (covered) continue;
+        const sinA = Math.abs(Math.sin(ang - hit.angle));
+        if (sinA < 1e-3) continue;
+        out.push({x: hit.x, z: hit.z, ang, len: river.width / Math.max(sinA, 0.3) + 1.4});
+      }
+      return;
+    }
     const across = river.axis === 'z' ? bx - ax : bz - az; // motion across the band
     if (Math.abs(across) < 1e-6) return;
     const u = (river.pos - (river.axis === 'z' ? ax : az)) / across;
@@ -64,12 +80,7 @@ export const roadCrossings = (L: CityLayout, s: Seg) => {
 
 /** On open water, before counting any bridge. */
 export const overWater = (L: CityLayout, x: number, z: number) =>
-  L.rivers.some((r) => {
-    const c = r.axis === 'z' ? x : z;
-    const a = r.axis === 'z' ? z : x;
-    const [s0, s1] = riverSpan(L, r);
-    return Math.abs(c - r.pos) < r.width / 2 + 0.2 && a > s0 - r.width / 2 && a < s1 + r.width / 2;
-  });
+  L.rivers.some((r) => inRiver(L, r, x, z, 0.2, r.width / 2));
 
 /** A bridge deck a car can drive on: centre, direction of travel, half length/width, top. */
 export type Deck = {x: number; z: number; ang: number; hl: number; hw: number; top: number};
@@ -80,8 +91,13 @@ export const decks = (L: CityLayout, Y: number): Deck[] => {
   for (const b of L.bridges) {
     if (ramp(Y, b.year, b.year + 3) < 0.99) continue;
     const river = L.rivers[b.river ?? 0];
-    const [x, z] = river.axis === 'z' ? [river.pos, b.at] : [b.at, river.pos];
-    out.push({x, z, ang: river.axis === 'z' ? 0 : Math.PI / 2, hl: (river.width + 1.4) / 2, hw: BRIDGE_HALF, top: 0.55});
+    if (isPathRiver(river)) {
+      const p = riverPointAt(L, river, b.at);
+      out.push({x: p.x, z: p.z, ang: p.angle + Math.PI / 2, hl: (river.width + 1.4) / 2, hw: BRIDGE_HALF, top: 0.55});
+    } else {
+      const [x, z] = river.axis === 'z' ? [river.pos, b.at] : [b.at, river.pos];
+      out.push({x, z, ang: river.axis === 'z' ? 0 : Math.PI / 2, hl: (river.width + 1.4) / 2, hw: BRIDGE_HALF, top: 0.55});
+    }
   }
   for (const s of driveSegments(L, Y)) {
     if (s.k < 0.99) continue;

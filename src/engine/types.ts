@@ -4,6 +4,29 @@ import type {Story} from '../Overlay';
 /** [centerX, centerZ, height, radius] of a gaussian hill. */
 export type Peak = [number, number, number, number];
 export type Axis = 'x' | 'z';
+export type AxisRiver = {
+  /** Direction of flow for the legacy straight river band. */
+  axis: Axis;
+  /** Position on the cross axis. */
+  pos: number;
+  width: number;
+  /** Limits the river along `axis`; defaults to the whole tile. */
+  span?: [number, number];
+  path?: undefined;
+  closed?: undefined;
+};
+export type PathRiver = {
+  /** River centreline in world-space [x, z] points. `at` values on bridges are
+   *  distances in world units from path[0]. */
+  path: [number, number][];
+  width: number;
+  /** Join the last point back to the first, for a closed water loop. */
+  closed?: boolean;
+  axis?: undefined;
+  pos?: undefined;
+  span?: undefined;
+};
+export type River = AxisRiver | PathRiver;
 /** Camera key: [seconds, targetX, targetY, targetZ, distance, azimuth°, elevation°, fov°]. */
 export type CamKey = [number, number, number, number, number, number, number, number];
 
@@ -13,10 +36,11 @@ export type CityLayout = {
   peaks: Peak[];
   /** Mountain slope color (vertex tint). */
   forest?: string;
-  /** Rivers run along `axis` at cross-axis position `pos`; `span` limits their extent along the axis
-   *  (defaults to the whole tile). The first river carries the boats. */
-  rivers: {axis: Axis; pos: number; width: number; span?: [number, number]}[];
-  /** Bridges across river `river` (index, default 0): `at` = position along that river's axis. */
+  /** A river is either the legacy straight axis band or a polyline centreline.
+   *  The first river carries the generic boats. */
+  rivers: River[];
+  /** Bridges across river `river` (index, default 0). `at` is the coordinate
+   *  along an axis river, or distance from path[0] for a polyline river. */
   bridges: {at: number; year: number; modernYear: number; river?: number}[];
   /** Walled city has its own moat (false when rivers form the moat). */
   noMoat?: boolean;
