@@ -20,7 +20,9 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
 4. Check composition with a contact sheet of 8–12 stills (`npx remotion still … --frame=N`, then
    `ffmpeg … hstack/vstack`) — iterate on stills, never on full renders.
 5. Export the timeline and synthesize the soundtrack so audio is synced to the year curve.
-6. Full render once; then encode two copies: repo copy (<100 MB) and a chat preview (<30 MB).
+6. `npm run check`, then full render once (`npm run render:<city>`), then `npm run encode -- <city>`
+   for the repo copy (<100 MB) and the upload copy; it fails loudly on flicker, dark nights or bad
+   tagging. A chat preview (<30 MB) is extra and is not an upload file.
 
 ## Environment notes (cloud container)
 - Browser: `--browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell`
@@ -77,6 +79,12 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   cover y>1480; action buttons cover x>860 below y≈900. Overlay `SAFE` enforces this — keep text/labels inside.
 - Remove clouds near the camera path; they clutter. Boost night ambient/moon light in 3D (ACES darkens).
 - Film grain balloons file size (110 MB); re-encode with x264 CRF 21–25 + maxrate.
+- **Nothing goes on screen during the intro title.** First caption and first callout at
+  `t0 >= INTRO_END` (3 s); last ones gone `FINALE_LEAD` (4 s) before the end. Chachoengsao shipped
+  with its first caption at 2 s, stacked on the title. `scripts/check_story.mjs` enforces it.
+- **Light must never snap.** The day/night cycle in `lighting()` is continuous (no reset after the
+  intro) and nights only dim to ~half. Do not add per-city light that jumps; `check_render.mjs`
+  fails anything over 8 luma levels per frame or darker than 35 before the finale.
 - Use a fast/slow year curve (monotone cubic) so key events get screen time; drive every visual and
   sound from the year, not from seconds.
 

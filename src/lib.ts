@@ -2,6 +2,12 @@ export const FPS = 30;
 export const SECONDS = 60;
 export const W = 1080;
 export const H = 1920;
+/** The intro title is gone by this time; captions and callouts start no earlier
+ *  (scripts/check_story.mjs enforces it, the Overlay also holds them back). */
+export const INTRO_END = 3.0;
+/** The finale title fades in this many seconds before the end; captions and
+ *  callouts must be gone by then. */
+export const FINALE_LEAD = 4;
 
 export const clamp01 = (x: number) => (x < 0 ? 0 : x > 1 ? 1 : x);
 export const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
