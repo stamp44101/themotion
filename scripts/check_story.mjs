@@ -45,7 +45,12 @@ const NO_BRIEF_OK = new Set(['ayutthaya', 'korat', 'phitsanulok', 'sukhothai']);
 
 const root = fs.readFileSync('src/Root.tsx', 'utf8');
 const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
-const cities = process.argv.slice(2).length ? process.argv.slice(2) : fs.readdirSync('src/cities').sort();
+// Landmark reels (src/landmarks/<name>) get the story checks; the city-layout checks
+// (camera floors, grandeur, rivers, rail, cars, terrain, trees) do not apply to them.
+const dirOf = (c) => (fs.existsSync(`src/landmarks/${c}`) ? 'landmarks' : 'cities');
+const cities = process.argv.slice(2).length
+  ? process.argv.slice(2)
+  : [...fs.readdirSync('src/cities'), ...(fs.existsSync('src/landmarks') ? fs.readdirSync('src/landmarks') : [])].sort();
 
 let errors = 0;
 let warnings = 0;
@@ -53,10 +58,11 @@ for (const city of cities) {
   const out = [];
   const err = (m) => out.push(`  ERROR ${m}`);
   const warn = (m) => out.push(`  warn  ${m}`);
-  const mod = await load(`src/cities/${city}/index.ts`);
-  const cfg = Object.values(mod).find((v) => v && v.story && v.layout);
+  const dir = dirOf(city);
+  const mod = await load(`src/${dir}/${city}/index.ts`);
+  const cfg = Object.values(mod).find((v) => v && v.story && (v.layout || v.landmark));
   if (!cfg) {
-    console.log(`${city}\n  ERROR src/cities/${city}/index.ts exports no CityConfig`);
+    console.log(`${city}\n  ERROR src/${dir}/${city}/index.ts exports no CityConfig`);
     errors++;
     continue;
   }
@@ -122,11 +128,12 @@ for (const city of cities) {
   for (const e of story.eras ?? []) if (e.t < 0 || e.t > D) err(`era "${e.label}" at ${s(e.t)} is outside the video (0-${D}s).`);
 
   // camera keys cover the video
-  const keys = layout.cameraKeys;
+  const keys = (layout ?? cfg).cameraKeys;
   if (keys[0][0] > 0) err(`first camera key is at ${s(keys[0][0])}, not 0.`);
   if (keys.at(-1)[0] < D - 0.5) warn(`last camera key is at ${s(keys.at(-1)[0])}; the camera freezes for the last ${s(D - keys.at(-1)[0])}.`);
   for (let i = 1; i < keys.length; i++) if (keys[i][0] <= keys[i - 1][0]) err(`camera keys out of order at ${s(keys[i][0])}.`);
 
+  if (layout) {
   // camera rhythm: not just zooming in and out
   const cam = cameraStats(keys, D, makeCurve);
   const pct = (x) => `${Math.round(x * 100)}%`;
@@ -253,8 +260,10 @@ for (const city of cities) {
       err(`callout "${o.label}" (${s(o.t0)}): trees hide it ${pct(o.blocked)} of the time. Raise the camera elevation or swing the azimuth so the line of sight crosses open ground or water.`);
   }
 
+  }
+
   // registration
-  if (!root.includes(`./cities/${city}'`)) err(`not registered in src/Root.tsx.`);
+  if (!root.includes(dir === 'cities' ? `./cities/${city}'` : `./landmarks/${city}/`)) err(`not registered in src/Root.tsx.`);
   for (const k of [`render:${city}`, `audio:${city}`]) if (!pkg.scripts[k]) err(`package.json has no "${k}" script.`);
   if (/(^|&&\s*)python\s/.test(pkg.scripts[`audio:${city}`] ?? '')) err(`audio:${city} calls "python"; use "python3" (macOS has no "python").`);
   if (!NO_BRIEF_OK.has(city) && !fs.existsSync(`docs/briefs/${city}.md`)) err(`no docs/briefs/${city}.md: the dated, sourced brief is what the captions are checked against.`);
