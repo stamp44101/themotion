@@ -11,9 +11,8 @@ macOS; only the install step differs.
 ```powershell
 winget install OpenJS.NodeJS.LTS Git.Git
 # close and reopen PowerShell, then:
-git clone --filter=blob:none --no-checkout https://github.com/stamp44101/themotion.git
+git clone --filter=blob:none https://github.com/stamp44101/themotion.git
 cd themotion
-git sparse-checkout set --no-cone '/*' '!/renders/'
 git checkout claude/busy-brown-ba1fp4
 npm ci
 ```
@@ -22,17 +21,15 @@ npm ci
 ```bash
 brew install node@22 git
 echo 'export PATH="$(brew --prefix node@22)/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc
-git clone --filter=blob:none --no-checkout https://github.com/stamp44101/themotion.git
+git clone --filter=blob:none https://github.com/stamp44101/themotion.git
 cd themotion
-git sparse-checkout set --no-cone '/*' '!/renders/'
 git checkout claude/busy-brown-ba1fp4
 npm ci
 ```
 
-The two extra flags skip the videos. A plain `git clone` downloads every
-render ever committed (over 1 GB of mp4, 20 versions) plus the current
-`renders/` (~360 MB); this way the clone is ~135 MB, almost all of it the
-soundtracks. Old versions are fetched only if you ask for them.
+`--filter=blob:none` skips old versions of files until you ask for them. Videos
+are no longer in git (see below), but the history still holds over 1 GB of old
+renders; this way the clone stays small.
 
 **Use Node 22 or 24, not 26.** Node 26 breaks the unzip Remotion uses to
 unpack Chrome on the first render: it stops half-way without an error, and every
@@ -61,7 +58,7 @@ jumps between frames, nights that go too dark, a repo copy over 100 MB or
 mis-tagged). **Do not post a render that failed.**
 
 - Upload `out/<city>_tiktok.mp4` to TikTok, from the web rather than the phone app.
-- `renders/<city>.mp4` is the repo copy.
+- `renders/<city>.mp4` is the shareable copy; it goes on the release, not into git.
 - `out/` is never committed.
 
 City names: `korat`, `ayutthaya`, `sukhothai`, `phitsanulok`, `chachoengsao`.
@@ -90,15 +87,17 @@ foreach ($c in 'korat','ayutthaya','sukhothai','phitsanulok','chachoengsao') { n
 for c in korat ayutthaya sukhothai phitsanulok chachoengsao; do npm run render:$c && npm run encode -- $c; done
 ```
 
-## Commit the repo copies
+## Put the finished clip on the release
+
+`renders/` is gitignored; finished clips live on the rolling release
+(https://github.com/stamp44101/themotion/releases/tag/renders), replaced in place:
 
 ```bash
-git checkout -b rerender/<what>
-git add --sparse renders/<city>.mp4   # --sparse because renders/ is not checked out
-git commit -m "Re-render <cities> with <why>"
-git push -u origin rerender/<what>
+gh release upload renders renders/<city>.mp4 --clobber
 ```
-Then open a PR against the default branch.
+
+Without the `gh` CLI, open the release page, choose Edit, delete the old asset
+and drop in the new file.
 
 ## If something goes wrong
 

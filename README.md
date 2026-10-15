@@ -3,7 +3,7 @@
 A 60-second, 9:16 motion-graphics "hybrid timelapse" of Chiang Mai's history, built with [Remotion](https://www.remotion.dev/).
 A fixed camera looks west across the Ping River toward Doi Suthep while the city is founded, flourishes, falls, is rebuilt and modernises.
 
-Rendered video: [`renders/chiangmai-timelapse.mp4`](renders/chiangmai-timelapse.mp4) (1080×1920, 30 fps, Thai text, stereo ambience + score)
+Rendered video: [`chiangmai-timelapse.mp4`](https://github.com/stamp44101/themotion/releases/download/renders/chiangmai-timelapse.mp4) (1080×1920, 30 fps, Thai text, stereo ambience + score)
 
 Look: parallax camera moves (push-ins on the founding, the chedi collapse and the railway), drifting mist, sun rays, rain in the Burmese era, birds, film grain, vignette and light leaks on era changes.
 
@@ -24,23 +24,23 @@ Sound (all synthesized, synced to the picture): D-major pentatonic Lanna-flavour
 
 ## 3D isometric diorama version
 
-[`renders/chiangmai-iso.mp4`](renders/chiangmai-iso.mp4) — the same story and soundtrack as a Three.js diorama: Chiang Mai on a floating tile of land with a soil cross-section, low-poly trees, real shadows, a scripted drone camera and tilt-shift blur. Source in `src/iso/` (composition `ChiangMaiIso`, render with `npm run render:iso`).
+[`chiangmai-iso.mp4`](https://github.com/stamp44101/themotion/releases/download/renders/chiangmai-iso.mp4) — the same story and soundtrack as a Three.js diorama: Chiang Mai on a floating tile of land with a soil cross-section, low-poly trees, real shadows, a scripted drone camera and tilt-shift blur. Source in `src/iso/` (composition `ChiangMaiIso`, render with `npm run render:iso`).
 
 ## Nakhon Ratchasima (Korat)
 
-[`renders/korat.mp4`](renders/korat.mp4) — built with the reusable diorama engine (`src/engine/`) from `src/cities/korat/`: dinosaurs, Ban Prasat, Sema and Phimai, King Narai's walled city, the 1826 Thao Suranari story, the first railway (1900), the monument (1934), Mittraphap Highway (1958), fireworks finale. Isan-flavoured score from `scripts/soundtrack_korat.py`.
+[`korat.mp4`](https://github.com/stamp44101/themotion/releases/download/renders/korat.mp4) — built with the reusable diorama engine (`src/engine/`) from `src/cities/korat/`: dinosaurs, Ban Prasat, Sema and Phimai, King Narai's walled city, the 1826 Thao Suranari story, the first railway (1900), the monument (1934), Mittraphap Highway (1958), fireworks finale. Isan-flavoured score from `scripts/soundtrack_korat.py`.
 
 ## Ayutthaya
 
-[`renders/ayutthaya.mp4`](renders/ayutthaya.mp4) — 75 s, island city ringed by three rivers, with drone dives into street life (riverside, the international port, today): 1350 founding, Wat Phra Si Sanphet, 1569, the 1592 elephant duel, Wat Chaiwatthanaram (1630), the fall on 7 April 1767, ruins, World Heritage 1991. Score in central-Thai classical colours (`scripts/soundtrack_ayutthaya.py`).
+[`ayutthaya.mp4`](https://github.com/stamp44101/themotion/releases/download/renders/ayutthaya.mp4) — 75 s, island city ringed by three rivers, with drone dives into street life (riverside, the international port, today): 1350 founding, Wat Phra Si Sanphet, 1569, the 1592 elephant duel, Wat Chaiwatthanaram (1630), the fall on 7 April 1767, ruins, World Heritage 1991. Score in central-Thai classical colours (`scripts/soundtrack_ayutthaya.py`).
 
 ## Sukhothai
 
-[`renders/sukhothai.mp4`](renders/sukhothai.mp4) — 75 s: Khmer Wat Phra Phai Luang, founding c. 1249, a market drone dive, Thai script per Inscription 1, Wat Mahathat's lotus-bud chedi, the triple walls, a Sangkhalok kiln dive, Wat Si Chum, the 1438 merger with Ayutthaya, ruins, historical park, World Heritage 1991, a cycling dive and a Loy Krathong night finale (krathongs on the moat, lanterns, fireworks). Score with khlui flute (`scripts/soundtrack_sukhothai.py`).
+[`sukhothai.mp4`](https://github.com/stamp44101/themotion/releases/download/renders/sukhothai.mp4) — 75 s: Khmer Wat Phra Phai Luang, founding c. 1249, a market drone dive, Thai script per Inscription 1, Wat Mahathat's lotus-bud chedi, the triple walls, a Sangkhalok kiln dive, Wat Si Chum, the 1438 merger with Ayutthaya, ruins, historical park, World Heritage 1991, a cycling dive and a Loy Krathong night finale (krathongs on the moat, lanterns, fireworks). Score with khlui flute (`scripts/soundtrack_sukhothai.py`).
 
 ## Phitsanulok
 
-[`renders/phitsanulok.mp4`](renders/phitsanulok.mp4) — 75 s: the city of two rivers. Khmer-era
+[`phitsanulok.mp4`](https://github.com/stamp44101/themotion/releases/download/renders/phitsanulok.mp4) — 75 s: the city of two rivers. Khmer-era
 Song Khwae at the confluence of the Nan and the Khwae Noi, Wat Chulamani, the casting of Phra
 Phuttha Chinnarat (attributed to 1357) and Wat Phra Si Rattana Mahathat, Borommatrailokanat moving
 the Ayutthaya capital here for 25 years (1463–1488), Naresuan's birth at the Chandra Palace (1555)
