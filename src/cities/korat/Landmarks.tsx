@@ -5,12 +5,12 @@ import {lerp, ramp, smooth} from '../../lib';
 import {Prang, SmallChedi, Viharn, updateInstances} from '../../engine/parts';
 import type {LandmarkProps} from '../../engine/types';
 
-export const SEMA: [number, number] = [-30, -28];
-export const PHIMAI: [number, number] = [22, -38];
-export const BAN_PRASAT: [number, number] = [16, -30];
+export const SEMA: [number, number] = [-44.1, 5.7]; // far: 33 km WSW, bearing 259 from the monument
+export const PHIMAI: [number, number] = [34, -31.6]; // far: 50 km NE, bearing 57
+export const BAN_PRASAT: [number, number] = [20.1, -36]; // far: 42 km NE, bearing 44
 export const MONUMENT: [number, number] = [-14.6, 0];
-export const RUNWAY: [number, number] = [24, 31];
-export const THUNG_SAMRIT: [number, number] = [18, -22];
+export const RUNWAY: [number, number] = [-22, 31]; // 5 km SSW of the monument (bearing 201), at half scale
+export const THUNG_SAMRIT: [number, number] = [20.6, -29.6]; // far: 40 km NE, bearing 50
 
 // ------------------------------------------------------------------ dinosaurs
 const DINOS = new Array(7).fill(0).map((_, i) => ({
