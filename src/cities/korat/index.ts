@@ -89,7 +89,7 @@ export const KORAT: CityConfig = {
     finale: 'fireworks',
     plane: SOUND_EVENTS.plane as [number, number],
     cameraKeys: [
-      [0, -2, 0, -2, 430, 38, 30, 30],
+      [0, -4, 2, -6, 320, 38, 34, 30],
       [3, -4, 2, -4, 150, 40, 30, 30],
       [7.4, -2, 2, -4, 110, 46, 30, 30],
       [8.6, 20, 0, -36, 80, 44, 32, 30],

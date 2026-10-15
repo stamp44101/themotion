@@ -20,7 +20,7 @@ const DINOS = new Array(7).fill(0).map((_, i) => ({
   r: 4 + random(`dr${i}`) * 7,
   w: (0.12 + random(`dw${i}`) * 0.1) * (random(`dd${i}`) < 0.5 ? -1 : 1),
   ph: random(`dp${i}`) * Math.PI * 2,
-  color: i < 3 ? ['#6f7f4a', '#7c6a4a', '#5f7a5a'][i] : ['#c47a3a', '#a8583a', '#c9963f', '#8f6a3a'][i % 4],
+  color: i < 3 ? ['#c8642e', '#d9a441', '#b5523a'][i] : ['#c47a3a', '#a8583a', '#c9963f', '#8f6a3a'][i % 4],
 }));
 
 const Dino: React.FC<{d: (typeof DINOS)[number]; t: number; k: number; terrainH: LandmarkProps['terrainH']}> = ({d, t, k, terrainH}) => {
@@ -29,7 +29,7 @@ const Dino: React.FC<{d: (typeof DINOS)[number]; t: number; k: number; terrainH:
   const z = d.cz + Math.sin(a) * d.r;
   const heading = -a - (d.w > 0 ? 0 : Math.PI);
   const step = Math.sin(t * (d.big ? 5 : 9) + d.ph);
-  const s = (d.big ? 2.6 : 1.5) * k;
+  const s = (d.big ? 3.4 : 1.8) * k;
   const m = <meshStandardMaterial color={d.color} flatShading roughness={0.9} />;
   return (
     <group position={[x, terrainH(x, z), z]} rotation-y={heading} scale={s}>
