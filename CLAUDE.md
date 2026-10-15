@@ -163,6 +163,9 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   30 degrees off -- distances may be compressed, directions may not. Place things with
   `node scripts/geo.mjs <originLat> <originLon> <m/unit> <lat,lon> ...` instead of by eye.
   No on-screen compass: the owner tried one and found it heavy-handed; get it right instead.
+  A place tens of km out (Korat's Phimai, 50 km NE) is marked `far: true` and checked only
+  against the `centre: true` point and other far places; its distance is compressed far more
+  than the town's, so its bearing to a nearby landmark means nothing.
 - **Grandeur is scale contrast.** Chiang Mai reads grand because thousands of small things
   (trees, houses, lit windows) sit under one big thing (Doi Suthep, the moated square, a modern
   city on 46% of the tile). Nakhon Sawan ended on 4 buildings and 3-high hills and read as a
