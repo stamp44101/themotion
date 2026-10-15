@@ -243,8 +243,24 @@ correctly-tagged source. Upload from the web rather than the phone app, which
 compresses before it ever reaches them.
 
 Keep three copies and do not confuse them: `out/<city>.mp4` is the master,
-`renders/<city>.mp4` is the repo copy (<100 MB), and the chat preview is heavily
-squeezed (~1.8 Mbps) and is **not** an upload file.
+`renders/<city>.mp4` is the shareable copy (<100 MB), and the chat preview is
+heavily squeezed (~1.8 Mbps) and is **not** an upload file.
+
+## Where the videos live
+
+`renders/` is **gitignored**. Video does not compress and git keeps every
+version forever, so committing a 60 MB clip on each re-render only ever adds:
+the history had reached 1.25 GB of mp4 across 34 blobs, four of them the same
+city. The finished clips live on the rolling GitHub release instead:
+
+```bash
+gh release upload renders renders/<name>.mp4 --clobber
+```
+
+https://github.com/stamp44101/themotion/releases/tag/renders — one asset per
+city or landmark, replaced in place, outside the repo's size. What stays in git
+is the small stuff that explains a render: the contact sheet, the brief, the
+soundtrack wav the render needs to run.
 
 ## Layout
 - `src/engine/` — reusable diorama engine (terrain tile, trees, houses, buildings, walls/moat/gates,

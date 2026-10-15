@@ -1,7 +1,7 @@
 // Turns the master render into the two files that leave the machine, then checks them.
 // Usage: node scripts/encode.mjs <city>        (reads out/<city>.mp4)
 //
-//   renders/<city>.mp4     repo copy, under 100 MB
+//   renders/<city>.mp4     shareable copy, under 100 MB (gitignored; goes on the release)
 //   out/<city>_tiktok.mp4  upload copy, ~17 Mbps -- never commit it
 //
 // Both are converted from Remotion's full-range/PAL-matrix output to the
@@ -21,7 +21,7 @@ if (!city || !fs.existsSync(master)) {
 const VF = ['-vf', 'scale=in_range=full:out_range=limited,format=yuv420p'];
 const TAGS = ['-pix_fmt', 'yuv420p', '-color_range', 'tv', '-colorspace', 'bt709', '-color_primaries', 'bt709', '-color_trc', 'bt709'];
 
-console.log(`encoding renders/${city}.mp4 (repo copy) ...`);
+console.log(`encoding renders/${city}.mp4 (shareable copy) ...`);
 fs.mkdirSync('renders', {recursive: true});
 ffmpeg(['-i', master, ...VF, '-c:v', 'libx264', '-preset', 'slow', '-crf', '22', '-maxrate', '7M', '-bufsize', '14M', ...TAGS,
   '-movflags', '+faststart', '-c:a', 'aac', '-b:a', '192k', `renders/${city}.mp4`]);
