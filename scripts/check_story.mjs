@@ -17,6 +17,7 @@ import {textWidth} from './textwidth.mjs';
 const lib = await load('src/lib.ts');
 const engine = {...(await load('src/engine/world.ts')), ...(await load('src/engine/camera.ts'))};
 const roads = await load('src/engine/roads.ts');
+const geoLib = await load('src/engine/geo.ts');
 const {INTRO_END, FINALE_LEAD, SECONDS, makeCurve} = lib;
 const MIN_CAPTION = 2.5; // seconds on screen; shorter cannot be read in Thai at this size
 const COLUMN = 820; // caption column width in px (Overlay: SAFE.left..SAFE.right)
@@ -40,6 +41,11 @@ const GRANDEUR_WAIVED = new Set(['chachoengsao', 'nakhonsawan']);
 const YEAR_HOLD = 1.0;
 // Posted before the year-hold rule; the owner is not re-rendering them. Warn only.
 const YEAR_HOLD_WAIVED = new Set(['ayutthaya', 'chachoengsao', 'chonburi', 'korat', 'nakhonsawan', 'phitsanulok', 'sukhothai']);
+// Compass directions between real places (src/engine/geo.ts): a pair whose model
+// bearing is off by more than this fails. Chonburi put the Gulf east of the town.
+const GEO_MAX_DIFF = 30;
+// Posted before geo anchors existed; the owner is not re-rendering them. Warn only.
+const GEO_WAIVED = new Set(['ayutthaya', 'chachoengsao', 'chonburi', 'korat', 'nakhonsawan', 'phitsanulok', 'sukhothai']);
 // Cities built before briefs existed.
 const NO_BRIEF_OK = new Set(['ayutthaya', 'korat', 'phitsanulok', 'sukhothai']);
 
@@ -260,6 +266,22 @@ for (const city of cities) {
       err(`callout "${o.label}" (${s(o.t0)}): trees hide it ${pct(o.blocked)} of the time. Raise the camera elevation or swing the azimuth so the line of sight crosses open ground or water.`);
   }
 
+  }
+
+  // real compass directions (geo.ts next to index.ts)
+  {
+    const gMsg = GEO_WAIVED.has(city) ? warn : err;
+    const gp = `src/${dir}/${city}/geo.ts`;
+    if (!fs.existsSync(gp)) gMsg(`no ${gp}: give each landmark (and a point on the water) its real lat/lon so directions can be checked (src/engine/geo.ts).`);
+    else {
+      const geo = Object.values(await load(gp)).find((v) => v && Array.isArray(v.points));
+      const pts = geo?.points ?? [];
+      if (pts.length < 2) gMsg(`${gp} needs at least 2 points to check a direction.`);
+      if ((layout?.rivers?.length ?? 0) > 0 && !pts.some((p) => p.water)) gMsg(`${gp} has no water point: add one so the river or sea is checked to be on the right side.`);
+      for (const p of geoLib.geoPairs(geo ?? {points: []}))
+        if (p.diff > GEO_MAX_DIFF)
+          gMsg(`direction ${p.a} -> ${p.b} is ${Math.round(p.real)} deg in reality but ${Math.round(p.model)} deg in the model (off by ${Math.round(p.diff)}). ${p.water ? 'The water is on the wrong side.' : 'Move one of them.'}`);
+    }
   }
 
   // registration

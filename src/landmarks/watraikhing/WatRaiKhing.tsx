@@ -5,6 +5,7 @@ import {AbsoluteFill, Audio, continueRender, delayRender, staticFile, useCurrent
 import * as THREE from 'three';
 import {STARS} from '../../geometry';
 import {applyCamera, droneCamera, projectAt} from '../../engine/camera';
+import {Compass} from '../../engine/Compass';
 import {FPS, H, W, clamp01, mix, sstep} from '../../lib';
 import {Overlay, type ScreenCallout} from '../../Overlay';
 import {CALLOUTS, CAMERA_KEYS, STORY, WAT_RAI_KHING} from './index';
@@ -67,6 +68,7 @@ export const WatRaiKhing: React.FC = () => {
         <div key={i} style={{position: 'absolute', left: 0, right: 0, top: b.top, height: b.height, backdropFilter: 'blur(5px)', WebkitMaskImage: b.mask, maskImage: b.mask}} />
       ))}
       <Overlay callouts={CALLS} story={STORY} />
+      <Compass keys={CAMERA_KEYS} duration={DURATION} />
       <Audio src={staticFile(WAT_RAI_KHING.soundtrack)} />
     </AbsoluteFill>
   );

@@ -155,6 +155,14 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   y of anything near a peak, and lift the callout point with it. `check_story.mjs` fails a
   callout more than 0.5 below the ground and warns for every exported landmark position where
   the terrain is above 0.5.
+- **Directions come from real coordinates.** Chonburi put the Gulf east of the town; it is
+  west, and a viewer from the city noticed at once. Every city and landmark reel has a
+  `geo.ts` next to its `index.ts`: each landmark's real lat/lon (copy it from Google Maps)
+  and where the model puts it, plus one point on the water. `check_story.mjs` compares the
+  compass bearing of every pair in reality and in the model and fails anything more than
+  30 degrees off -- distances may be compressed, directions may not. Place things with
+  `node scripts/geo.mjs <originLat> <originLon> <m/unit> <lat,lon> ...` instead of by eye.
+  A north arrow (`engine/Compass.tsx`) shows viewers which way the map faces.
 - **Grandeur is scale contrast.** Chiang Mai reads grand because thousands of small things
   (trees, houses, lit windows) sit under one big thing (Doi Suthep, the moated square, a modern
   city on 46% of the tile). Nakhon Sawan ended on 4 buildings and 3-high hills and read as a

@@ -6,6 +6,7 @@ import {STARS} from '../geometry';
 import {FPS, H, W, bump, keyColor, lighting, mix} from '../lib';
 import {Overlay, ScreenCallout} from '../Overlay';
 import {projectAt} from './camera';
+import {Compass} from './Compass';
 import {Diorama} from './Diorama';
 import type {CityConfig} from './types';
 
@@ -84,6 +85,7 @@ export const DioramaComposition: React.FC<{city: CityConfig}> = ({city: c}) => {
         </svg>
       )}
       <Overlay callouts={callouts} story={c.story} />
+      <Compass keys={c.layout.cameraKeys} duration={c.story.duration ?? 60} />
       <Audio src={staticFile(c.soundtrack)} />
     </AbsoluteFill>
   );
