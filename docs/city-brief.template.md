@@ -83,6 +83,15 @@ diving at an image inside a viharn sees only roof.
 - **Sky / ground colour keys:** 
 - **Gloom periods** (wars, abandonment):
 
+## 5a. Real coordinates (`geo.ts`)
+
+| place | lat | lon | source (Google Maps / Wikipedia / gazetteer) |
+|---|---|---|---|
+| | | | |
+
+Include at least one point on the river or sea. `npm run check` fails any pair whose
+direction in the model differs from reality by more than 30 degrees.
+
 ## 5b. Grandeur (see `docs/grandeur.md`)
 
 - **The big thing:** a real mountain (name, height in m), the modern city (real

@@ -85,6 +85,7 @@ Rules already earned this way, all enforced by `npm run check` / `npm run encode
 | no car is ever on open water: every car is simulated over the clip and must sit on a bridge deck | Nakhon Sawan, ring road crossed next to the Dechatiwong bridge, not on it |
 | the clip ends on something big: today's city on >= 20% of the tile, or a real peak >= 8 (`docs/grandeur.md`) | Nakhon Sawan vs Chiang Mai, "Chiang Mai feels far grander" |
 | a พ.ศ. year named in a caption is on the counter for >= 1 s while the caption is up | Chonburi, Bang Saen caption said 2486 while the counter ran 2490-2523 |
+| every landmark and the water have real lat/lon in `geo.ts`; no direction between them is off by > 30 deg | Chonburi viewer: the Gulf was on the wrong side of the town |
 | audio scripts call `python3` | Nakhon Sawan, failed on macOS |
 | every new city has a sourced brief in `docs/briefs/` | Nakhon Sawan |
 | Node 18-25 only | first Mac render, Node 26 broke Chrome's unzip |
