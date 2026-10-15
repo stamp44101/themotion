@@ -29,7 +29,7 @@ export const KORAT: CityConfig = {
       {at: -26, year: 1958, modernYear: 1958},
     ],
     // the station is ~2 km west of the monument; the line runs east-west south of the old town
-    rail: {axis: 'x', pos: 11.6, open: [1897.6, 1899.2], station: [-29, 9], stationYear: 1900},
+    rail: {axis: 'x', pos: 11.6, open: [1897.6, 1899.2], station: [-29, 9], stationYear: 1898},
     trains: SOUND_EVENTS.trains.map((tr) => ({...tr, dir: tr.dir as 1 | -1})),
     city: {hx: 11, hz: 6.5, moat: [1656.6, 1659.2], wall: [1659, 1663], gates: [1662, 1665], groundFrom: 1656.8},
     gates: [
@@ -73,6 +73,7 @@ export const KORAT: CityConfig = {
     // Wing 1 airfield: the runway (26 x 2.4 at RUNWAY) and its apron stay open
     openGround: [{x0: RUNWAY[0] - 14, x1: RUNWAY[0] + 14, z0: RUNWAY[1] - 2.5, z1: RUNWAY[1] + 2.5}],
     urban: {from: 1915, rate: 2.0},
+    highRise: 1985, // low-rise shophouses until the hotel and office towers of the late 1980s-90s
     towers: [
       {x0: -32, x1: -14, z0: -8, z1: 7, extra: 7},
       {x0: 14, x1: 32, z0: -8, z1: 10, extra: 4},
@@ -121,7 +122,7 @@ export const KORAT: CityConfig = {
   },
   Landmarks: KoratLandmarks,
   callouts: [
-    {t0: 4, t1: 7.8, label: 'ลำตะคอง', dx: 60, dy: 110, p: [-2, 0, -13]},
+    {t0: 4, t1: 7.8, label: 'ลำตะคอง', dx: 60, dy: 110, p: [5, 0, -13]},
     {t0: 8.8, t1: 11.0, label: 'แหล่งโบราณคดีบ้านปราสาท', dx: -120, dy: -140, p: [BAN_PRASAT[0], 0.5, BAN_PRASAT[1]]},
     {t0: 12.2, t1: 14.4, label: 'พระนอนเมืองเสมา', dx: 60, dy: -130, p: [SEMA[0], 1.5, SEMA[1]]},
     {t0: 15.0, t1: 17.2, label: 'ปราสาทหินพิมาย', dx: -60, dy: -130, p: [PHIMAI[0], 6, PHIMAI[1]]},
@@ -129,7 +130,7 @@ export const KORAT: CityConfig = {
     {t0: 23.2, t1: 27, label: 'ประตูชุมพล', dx: 100, dy: -150, p: [-11, 3.6, 0]},
     {t0: 31.8, t1: 33.6, label: 'ทุ่งสัมฤทธิ์', dx: 60, dy: -120, p: [THUNG_SAMRIT[0], 0.5, THUNG_SAMRIT[1]]},
     {t0: 36.8, t1: 40, label: 'สถานีรถไฟนครราชสีมา', dx: 40, dy: -130, p: [-29, 1.6, 9]},
-    {t0: 41.4, t1: 45, label: 'อนุสาวรีย์ท้าวสุรนารี', dx: 120, dy: -150, p: [MONUMENT[0], 2.6, MONUMENT[1]]},
+    {t0: 41.7, t1: 45, label: 'อนุสาวรีย์ท้าวสุรนารี', dx: 120, dy: -150, p: [MONUMENT[0], 2.6, MONUMENT[1]]},
     {t0: 46.2, t1: 49.6, label: 'ถนนมิตรภาพ', dx: 70, dy: 120, p: [-20, 0.4, 6]},
     {t0: 50.4, t1: 53.8, label: 'กองบิน 1', dx: 80, dy: 120, p: [RUNWAY[0] + 8, 0, RUNWAY[1]]},
   ],

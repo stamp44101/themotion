@@ -87,6 +87,9 @@ export type CityLayout = {
   /** Ground the sprawl must leave open: an airfield, a park, a plaza. No modern building stands in these boxes. */
   openGround?: {x0: number; x1: number; z0: number; z1: number}[];
   towers: {x0: number; x1: number; z0: number; z1: number; extra: number}[];
+  /** Year high-rises start: before it every modern building stays low-rise and its extra
+   *  storeys (towers, the odd tall block) go up over the following years. Unset = tall from the start. */
+  highRise?: number;
   roads: {from: [number, number]; to: [number, number]; width: number; year: number}[];
   ringRoadYear: number;
   cars: [number, number];

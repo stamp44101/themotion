@@ -474,8 +474,12 @@ const Buildings: React.FC<P> = ({c, w}) => {
     updateInstances(ref.current, B.length, (i, o) => {
       const b = B[i];
       const g = smooth(ramp(Y, b.built, b.built + 6));
-      o.position.set(b.x, (b.h * g) / 2, b.z);
-      o.scale.set(b.w, Math.max(0.001, b.h * g), b.d);
+      // Korat had towers by the monument in 1940; high-rises came decades later
+      const hr = c.layout.highRise;
+      const up = hr == null ? 1 : smooth(ramp(Y, Math.max(b.built, hr), Math.max(b.built, hr) + 12));
+      const h = (b.h - b.lift * (1 - up)) * g;
+      o.position.set(b.x, h / 2, b.z);
+      o.scale.set(b.w, Math.max(0.001, h), b.d);
       return g > 0.02;
     });
   });

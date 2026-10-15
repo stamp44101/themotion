@@ -168,6 +168,10 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   through the camera and fails one whose anchor is out of frame more than 10% of its time
   (posted reels only warn). Fix it by ending the callout earlier, holding the camera, or
   moving the anchor to a part of the feature that is on screen (a river or road is long).
+- **Towers wait for their era.** Korat stood a 10-storey block beside the 1934 monument in
+  1940 because tower cells are built tall from the day they appear. Set `layout.highRise` to
+  the year the city's high-rises began; buildings stay low-rise until then and their extra
+  storeys go up over the following 12 years.
 - **Modern sprawl builds over anything not marked open.** Korat's Wing 1 runway disappeared
   under towers once the city reached it. Put airfields, parks and plazas in
   `layout.openGround`; tree `clearings` do not keep buildings out.
