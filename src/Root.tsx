@@ -13,6 +13,7 @@ import {CHACHOENGSAO} from './cities/chachoengsao';
 import {NAKHONSAWAN} from './cities/nakhonsawan';
 import {CHONBURI} from './cities/chonburi';
 import {DioramaComposition} from './engine/DioramaComposition';
+import {WAT_RAI_KHING_FRAMES, WatRaiKhing} from './landmarks/watraikhing/WatRaiKhing';
 
 const Korat: React.FC = () => <DioramaComposition city={KORAT} />;
 const Ayutthaya: React.FC = () => <DioramaComposition city={AYUTTHAYA} />;
@@ -33,6 +34,7 @@ export const RemotionRoot: React.FC = () => (
       width={W}
       height={H}
     />
+    <Composition id="WatRaiKhing" component={WatRaiKhing} durationInFrames={WAT_RAI_KHING_FRAMES} fps={FPS} width={W} height={H} />
     <Composition id="Chachoengsao" component={Chachoengsao} durationInFrames={(CHACHOENGSAO.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="NakhonSawan" component={NakhonSawan} durationInFrames={(NAKHONSAWAN.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Chonburi" component={Chonburi} durationInFrames={(CHONBURI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />

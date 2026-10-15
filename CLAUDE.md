@@ -242,6 +242,9 @@ squeezed (~1.8 Mbps) and is **not** an upload file.
 - `src/engine/` — reusable diorama engine (terrain tile, trees, houses, buildings, walls/moat/gates,
   water, rail/trains, roads/cars, lighting, camera, composition).
 - `src/cities/<city>/` — per-city data + landmarks. New city = new folder + register in `src/Root.tsx`.
+- `src/landmarks/<name>/` — single-landmark reels (35 s, 2 m/unit), e.g. Wat Rai Khing. Own scene and
+  camera; `check_story.mjs` runs the story checks on them (captions, titles, year holds, brief),
+  not the city-layout ones.
 - `src/Overlay.tsx` — year counter, captions, callouts, timeline bar, intro/finale, grain/vignette.
 - `scripts/synth.py` — shared instruments; `scripts/soundtrack_<city>.py` — per-city score + SFX.
 - Legacy Chiang Mai versions: `src/Scene.tsx` (2D) and `src/iso/` (first 3D build).
