@@ -89,7 +89,7 @@ const buildWorld = (L: CityLayout) => {
   }
 
   const paddies: {x: number; z: number; appear: number; urban: number; tone: number}[] = [];
-  const buildings: {x: number; z: number; w: number; d: number; h: number; built: number; palette: number}[] = [];
+  const buildings: {x: number; z: number; w: number; d: number; h: number; lift: number; built: number; palette: number}[] = [];
   let k = 0;
   for (let z = tile.z0; z < tile.z1; z += 4) {
     for (let x = tile.x0; x < tile.x1; x += 4) {
@@ -108,18 +108,22 @@ const buildWorld = (L: CityLayout) => {
       const tower = L.towers.find((tw) => cx > tw.x0 && cx < tw.x1 && cz > tw.z0 && cz < tw.z1);
       const n = random(`bc${k}`) < 0.6 ? 2 : 1;
       for (let j = 0; j < n; j++) {
-        let h = 0.8 + random(`bh${k}-${j}`) * 1.6;
+        const base = 0.8 + random(`bh${k}-${j}`) * 1.6;
+        let h = base;
         if (tower) h += random(`bn${k}-${j}`) * tower.extra;
         else if (random(`bt${k}-${j}`) < 0.07) h += random(`bn${k}-${j}`) * 6;
         const bx = cx + (random(`bx${k}-${j}`) - 0.5) * 2.2;
         const bz = cz + (random(`bz${k}-${j}`) - 0.5) * 2.2;
         if (onRoad(bx, bz)) continue;
+        // Korat's Wing 1 runway was built over by towers once the sprawl reached it
+        if (L.openGround?.some((o) => bx > o.x0 - 1.1 && bx < o.x1 + 1.1 && bz > o.z0 - 1.1 && bz < o.z1 + 1.1)) continue;
         buildings.push({
           x: bx,
           z: bz,
           w: 1.0 + random(`bw${k}-${j}`) * 1.2,
           d: 1.0 + random(`bd${k}-${j}`) * 1.2,
           h,
+          lift: h - base,
           built: urban + 4 + random(`bb${k}-${j}`) * 16 - (tower ? 12 : 0),
           palette: Math.floor(random(`bp${k}-${j}`) * 5),
         });

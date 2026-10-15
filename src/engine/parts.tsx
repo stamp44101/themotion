@@ -16,6 +16,11 @@ export const updateInstances = (mesh: THREE.InstancedMesh | null, n: number, fn:
     mesh.setMatrixAt(i, o3.matrix);
   }
   mesh.instanceMatrix.needsUpdate = true;
+  // three caches an InstancedMesh's bounding sphere the first time it is culled. Korat's armies
+  // were first seen inside the town; once they marched to Thung Samrit the stale sphere was off
+  // camera, so a full render culled them (only their shadows showed). Stills never noticed:
+  // every still starts on a fresh page.
+  mesh.computeBoundingSphere();
 };
 
 /** Gable roof: triangular prism, width w, height h, length l (along z), base at y=0. */

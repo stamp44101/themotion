@@ -13,6 +13,12 @@ export type GeoPoint = {
   at: [number, number];
   /** a point on open water (sea, river), checked against every land point */
   water?: boolean;
+  /** a distant place pulled onto the tile (Korat's Phimai, 60 km out). Its distance is
+   *  compressed far more than the town's, so it is checked only against the `centre`
+   *  point and other far points, never against nearby places. */
+  far?: boolean;
+  /** the point far places are measured from (the town's heart) */
+  centre?: boolean;
   source: string;
 };
 
@@ -46,6 +52,8 @@ export const geoPairs = (geo: Geo, minMetres = 300): GeoPair[] => {
     for (let j = i + 1; j < P.length; j++) {
       const [a, b] = [P[i], P[j]];
       if (a.water && b.water) continue;
+      // a far place against a nearby one says nothing at mixed compression
+      if (a.far !== b.far && !(a.far ? b.centre : a.centre)) continue;
       const water = !!(a.water || b.water);
       const [e, n] = metresEN(a, b);
       const metres = Math.hypot(e, n);

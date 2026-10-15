@@ -5,12 +5,12 @@ import {lerp, ramp, smooth} from '../../lib';
 import {Prang, SmallChedi, Viharn, updateInstances} from '../../engine/parts';
 import type {LandmarkProps} from '../../engine/types';
 
-export const SEMA: [number, number] = [-30, -28];
-export const PHIMAI: [number, number] = [22, -38];
-export const BAN_PRASAT: [number, number] = [16, -30];
+export const SEMA: [number, number] = [-44.1, 5.7]; // far: 33 km WSW, bearing 259 from the monument
+export const PHIMAI: [number, number] = [34, -31.6]; // far: 50 km NE, bearing 57
+export const BAN_PRASAT: [number, number] = [20.1, -36]; // far: 42 km NE, bearing 44
 export const MONUMENT: [number, number] = [-14.6, 0];
-export const RUNWAY: [number, number] = [24, 31];
-export const THUNG_SAMRIT: [number, number] = [18, -22];
+export const RUNWAY: [number, number] = [-22, 31]; // 5 km SSW of the monument (bearing 201), at half scale
+export const THUNG_SAMRIT: [number, number] = [20.6, -29.6]; // far: 40 km NE, bearing 50
 
 // ------------------------------------------------------------------ dinosaurs
 const DINOS = new Array(7).fill(0).map((_, i) => ({
@@ -20,7 +20,7 @@ const DINOS = new Array(7).fill(0).map((_, i) => ({
   r: 4 + random(`dr${i}`) * 7,
   w: (0.12 + random(`dw${i}`) * 0.1) * (random(`dd${i}`) < 0.5 ? -1 : 1),
   ph: random(`dp${i}`) * Math.PI * 2,
-  color: i < 3 ? ['#6f7f4a', '#7c6a4a', '#5f7a5a'][i] : ['#c47a3a', '#a8583a', '#c9963f', '#8f6a3a'][i % 4],
+  color: i < 3 ? ['#c8642e', '#d9a441', '#b5523a'][i] : ['#c47a3a', '#a8583a', '#c9963f', '#8f6a3a'][i % 4],
 }));
 
 const Dino: React.FC<{d: (typeof DINOS)[number]; t: number; k: number; terrainH: LandmarkProps['terrainH']}> = ({d, t, k, terrainH}) => {
@@ -29,7 +29,7 @@ const Dino: React.FC<{d: (typeof DINOS)[number]; t: number; k: number; terrainH:
   const z = d.cz + Math.sin(a) * d.r;
   const heading = -a - (d.w > 0 ? 0 : Math.PI);
   const step = Math.sin(t * (d.big ? 5 : 9) + d.ph);
-  const s = (d.big ? 2.6 : 1.5) * k;
+  const s = (d.big ? 3.4 : 1.8) * k;
   const m = <meshStandardMaterial color={d.color} flatShading roughness={0.9} />;
   return (
     <group position={[x, terrainH(x, z), z]} rotation-y={heading} scale={s}>
@@ -39,7 +39,7 @@ const Dino: React.FC<{d: (typeof DINOS)[number]; t: number; k: number; terrainH:
             <icosahedronGeometry args={[1, 1]} />
             {m}
           </mesh>
-          <mesh position={[0, 3.6, 2.6]} rotation-x={-0.7} castShadow>
+          <mesh position={[0, 3.6, 2.6]} rotation-x={0.7} castShadow>
             <cylinderGeometry args={[0.28, 0.5, 3.2, 6]} />
             {m}
           </mesh>
@@ -118,31 +118,36 @@ const SMOKE = new Array(10).fill(0).map((_, i) => ({
 
 export const KoratLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH}) => {
   const dinos = 1 - ramp(Y, -5e6, -1.5e6);
-  const banPrasat = ramp(Y, -1200, -900);
-  const huts = banPrasat * (1 - ramp(Y, 700, 900));
+  const village = ramp(Y, -1200, -900);
+  const huts = village * (1 - ramp(Y, 700, 900));
+  // the burial pit is grassed over once the village is gone and only reopens with the
+  // Fine Arts Department excavation (from 1983); it read as a prop on the 1826 battlefield
+  const banPrasat = Math.max(village * (1 - ramp(Y, 900, 1000)), ramp(Y, 1983, 1986));
   const museum = ramp(Y, 1985, 1992);
   const sema = smooth(ramp(Y, 590, 660));
   const phimai = smooth(ramp(Y, 1060, 1110));
   const monument = smooth(ramp(Y, 1933.4, 1934.2));
   const runway = ramp(Y, 1955, 1962);
-  const war = ramp(Y, 1825.9, 1826.1) * (1 - ramp(Y, 1826.9, 1827.6));
+  const war = ramp(Y, 1825.9, 1826.1) * (1 - ramp(Y, 1826.4, 1826.475));
 
   // armies: Vientiane troops march in from the north-east and fall back to Thung Samrit;
   // Korat townsfolk gather in the city and push them out.
   const lao = (i: number): [number, number] | null => {
-    if (Y < 1825.7 || Y > 1827.3) return null;
+    if (Y < 1825.7 || Y > 1826.46) return null;
     const [ox, oz] = OFF[i];
     const inn = smooth(ramp(Y, 1825.7, 1826.05));
-    const out = smooth(ramp(Y, 1826.45, 1827.1));
-    const x = lerp(lerp(40, 4, inn), THUNG_SAMRIT[0] + 6, out);
-    const z = lerp(lerp(-44, -4, inn), THUNG_SAMRIT[1] - 6, out);
+    // retreat to Thung Samrit while its caption is up (year held at 1826 through 27.4-33.6 s; the march is 30.2-31.5 s, the curve is slow early in the hold)
+    const out = smooth(ramp(Y, 1826.13, 1826.19));
+    // both armies end inside the Thung Samrit clearing, either side of the callout point
+    const x = lerp(lerp(40, 4, inn), THUNG_SAMRIT[0] + 3, out);
+    const z = lerp(lerp(-44, -4, inn), THUNG_SAMRIT[1] - 2, out);
     return [x + ox, z + oz];
   };
   const korat = (i: number): [number, number] | null => {
-    if (Y < 1826.25 || Y > 1827.3) return null;
+    if (Y < 1826.125 || Y > 1826.46) return null;
     const [ox, oz] = OFF[(i + 17) % ARMY];
-    const go = smooth(ramp(Y, 1826.4, 1827.0));
-    return [lerp(-6, THUNG_SAMRIT[0], go) + ox, lerp(2, THUNG_SAMRIT[1], go) + oz];
+    const go = smooth(ramp(Y, 1826.13, 1826.19));
+    return [lerp(-6, THUNG_SAMRIT[0] - 2.5, go) + ox, lerp(2, THUNG_SAMRIT[1] + 1.5, go) + oz];
   };
 
   return (

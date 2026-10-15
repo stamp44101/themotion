@@ -7,21 +7,28 @@ export const YEAR_KEYS: [number, number][] = [
   [3, -112e6],
   [7.6, -98e6],
   [8.2, -1000],
-  [11.8, 560],
-  [14.5, 900],
-  [17, 1250],
+  // Sema's reclining Buddha (7th-8th c.) is up as its caption lands; Phimai (c. 1080-1110)
+  // as its own caption lands
+  [11.6, 660],
+  [14.4, 760],
+  [14.8, 1110], // Phimai complete; the counter stays in พ.ศ. 1653-1693 for its caption
+  [17, 1150],
   [18, 1640],
   [24, 1668], // King Narai builds Nakhon Ratchasima (reign 1656–1688)
-  [27, 1810],
-  [28.5, 1824],
-  [33, 1828], // 1826: Chao Anouvong seizes Korat; Thao Suranari
+  [26.6, 1805],
+  // 1826 (พ.ศ. 2369) through both war captions: Anouvong takes Korat, then Thung Samrit.
+  // The armies are driven by this year, so the battle lands inside its own caption.
+  [27.4, 1826],
+  [33.6, 1826.45], // the counter rounds, so stay under 1826.5 to keep showing พ.ศ. 2369
   [34.5, 1880],
   [36, 1898],
   [39, 1902], // 21 Dec 1900: Bangkok–Nakhon Ratchasima railway opens
   [40.2, 1931],
   [43.5, 1936], // 1934: Thao Suranari Monument
   [45, 1952],
-  [47.5, 1960], // 1958: Mittraphap (Friendship) Highway handed over
+  // hold พ.ศ. 2501 (1958) for "ถนนมิตรภาพ"
+  [46, 1958],
+  [47.6, 1958.6], // 1958: Mittraphap (Friendship) Highway handed over
   [50, 1990],
   [56, 2026],
   [60, 2026],
@@ -31,7 +38,8 @@ export const yearAt = makeCurve(YEAR_KEYS);
 export const CAPTIONS: Caption[] = [
   {t0: 3, t1: 8.2, title: 'ยุคไดโนเสาร์', sub: 'ที่ราบสูงโคราชเคยเป็นถิ่นไดโนเสาร์ อย่าง “สิรินธรนา โคราชเอนซิส”'},
   {t0: 8.2, t1: 12, title: 'บ้านปราสาท', sub: 'ราว 3,000 ปีก่อน ชุมชนโบราณตั้งรกราก ทำนา ปั้นหม้อ และฝังศพบรรพชน'},
-  {t0: 12, t1: 17.2, title: 'เสมา และ พิมาย', sub: 'เมืองเสมาสมัยทวารวดีกับพระนอนหินทราย · ขอมสร้างปราสาทหินพิมาย'},
+  {t0: 12, t1: 14.6, title: 'พระนอนเมืองเสมา', sub: 'เมืองโบราณสมัยทวารวดี พระพุทธไสยาสน์หินทราย ราวพุทธศตวรรษที่ 13'},
+  {t0: 14.6, t1: 17.2, title: 'ปราสาทหินพิมาย', sub: 'ศิลปะขอม สร้างราวพุทธศตวรรษที่ 16–17 บนเส้นทางสู่เมืองพระนคร'},
   {t0: 17.2, t1: 22.6, title: 'พระนารายณ์สร้างเมือง', sub: 'นครราชสีมา เมืองหน้าด่านสู่อีสาน มีกำแพง คูเมือง และประตูสี่ทิศ'},
   {t0: 22.6, t1: 27, title: 'ประตูชุมพล', sub: 'ประตูเมืองด้านตะวันตก ประตูหลักของเมืองโคราช'},
   {t0: 27, t1: 30.6, title: 'ศึกเจ้าอนุวงศ์', sub: 'พ.ศ. 2369 ทัพเวียงจันทน์ยกมายึดเมืองโคราช'},
@@ -58,7 +66,7 @@ export const SOUND_EVENTS = {
   founding: 1657,
   wallsDone: 1663,
   warStart: 1826.0,
-  victory: 1826.9,
+  victory: 1826.43,
   railway: 1900,
   monument: 1934,
   highway: 1958,

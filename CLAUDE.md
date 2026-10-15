@@ -58,6 +58,10 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   Hold the named year through the shot, then accelerate across the gap between
   captions. Check the counter, caption, landmark and soundtrack together.
   `check_story.mjs` fails a caption whose พ.ศ. year is on the counter for under 1 s.
+  Holding a year moves everything driven by the year: Korat's Thung Samrit armies finished
+  before their caption came up once the 1826 hold was added, and the callout pointed at empty
+  forest. After retiming the curve, re-check every year-driven animation against its caption's
+  seconds on stills. The counter rounds, so a hold on พ.ศ. X must stay below X + 0.5.
 - **Coastal ambience is a sequence of places, not one surf loop.** Chonburi
   became specific only after the continuous noise bed was kept quiet and
   irregular waves, pier timber, paddles and sail, Ang Sila rock wash, buffalo
@@ -107,6 +111,13 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
 - Changing the footprint invalidates the camera keys: a long thin city needs
   roughly 1.3-1.45x the distance of a square one, and a few degrees more
   elevation on the wide shots.
+- **A still is not proof that a moving thing shows in the render.** Every `remotion still`
+  starts on a fresh page; a render reuses one page across frames. three.js caches an
+  InstancedMesh's bounding sphere the first time it is culled, so Korat's armies, first seen in
+  the town, were culled once they marched to Thung Samrit: the stills showed them, the render
+  showed only their shadows. `updateInstances()` now recomputes the sphere each frame. To check
+  anything that moves far, render a short sequential range (`npx remotion render … --sequence
+  --frames=A-B --concurrency=1`), not single stills.
 - When A/B-ing an engine change, compare **still vs still**. A still against a
   frame pulled from an encoded render differs everywhere from compression alone
   and tells you nothing.
@@ -149,6 +160,21 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   camera-to-callout line past every standing tree (`scripts/occlusion.mjs`) and fails a
   building or monument hidden more than half its callout time; ground features (moat, road,
   hillside) are exempt, so check those on the contact sheet.
+- **A callout's anchor stays in frame while the callout is up.** The Overlay keeps the label
+  inside the safe area but draws the dot where the point projects, so a point off screen
+  leaves a label floating over unrelated ground with its leader line running off the edge.
+  Korat's ทุ่งสัมฤทธิ์ callout outlived the camera's pan by 0.2 s, and four more were off frame
+  for most of their time (กองบิน 1 the whole time). `check_story.mjs` projects every callout
+  through the camera and fails one whose anchor is out of frame more than 10% of its time
+  (posted reels only warn). Fix it by ending the callout earlier, holding the camera, or
+  moving the anchor to a part of the feature that is on screen (a river or road is long).
+- **Towers wait for their era.** Korat stood a 10-storey block beside the 1934 monument in
+  1940 because tower cells are built tall from the day they appear. Set `layout.highRise` to
+  the year the city's high-rises began; buildings stay low-rise until then and their extra
+  storeys go up over the following 12 years.
+- **Modern sprawl builds over anything not marked open.** Korat's Wing 1 runway disappeared
+  under towers once the city reached it. Put airfields, parks and plazas in
+  `layout.openGround`; tree `clearings` do not keep buildings out.
 - **Landmarks sit on the terrain, not at y = 0.** Nakhon Sawan's San Khu redoubt was placed at
   y = 0 where the Khao Kob foothill is 2.25 high: the whole model was buried and its callout
   pointed at grass. `Landmarks` receives `terrainH` in its props; use `terrainH(x, z)` for the
@@ -163,6 +189,9 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   30 degrees off -- distances may be compressed, directions may not. Place things with
   `node scripts/geo.mjs <originLat> <originLon> <m/unit> <lat,lon> ...` instead of by eye.
   No on-screen compass: the owner tried one and found it heavy-handed; get it right instead.
+  A place tens of km out (Korat's Phimai, 50 km NE) is marked `far: true` and checked only
+  against the `centre: true` point and other far places; its distance is compressed far more
+  than the town's, so its bearing to a nearby landmark means nothing.
 - **Grandeur is scale contrast.** Chiang Mai reads grand because thousands of small things
   (trees, houses, lit windows) sit under one big thing (Doi Suthep, the moated square, a modern
   city on 46% of the tile). Nakhon Sawan ended on 4 buildings and 3-high hills and read as a
