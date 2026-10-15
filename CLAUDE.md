@@ -57,6 +57,7 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   and the fleet—whose visibility was driven by year—had begun to disappear.
   Hold the named year through the shot, then accelerate across the gap between
   captions. Check the counter, caption, landmark and soundtrack together.
+  `check_story.mjs` fails a caption whose พ.ศ. year is on the counter for under 1 s.
 - **Coastal ambience is a sequence of places, not one surf loop.** Chonburi
   became specific only after the continuous noise bed was kept quiet and
   irregular waves, pier timber, paddles and sail, Ang Sila rock wash, buffalo
