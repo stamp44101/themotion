@@ -22,19 +22,18 @@ BEAT = 0.5
 SCALE = [60, 62, 64, 67, 69, 72, 74, 76, 79, 81, 84]  # pentatonic on C
 fall = tl.t_of(EV["fall"])
 first_fall = tl.t_of(EV["firstFall"])
-battle = tl.t_of(EV["battle"])
+naresuan = tl.t_of(EV["naresuan"])
 SHIFT = EV["finaleShift"]
 
 # drones / pads by section
 PADS = [
-    (0.0, 6.8, [48, 55, 60], 1400),
-    (6.5, 15.2, [48, 55, 60, 64], 2000),
-    (15.0, 24.4, [53, 60, 64, 69], 2200),
-    (24.2, 28.6, [45, 52, 57], 900),
-    (28.4, 33.6, [50, 57, 62], 1600),
-    (33.4, 47.4, [48, 55, 60, 67], 2400),
-    (47.2, 57.4, [36, 43, 48], 700),
-    (57.2, 75.0, [48, 55, 60, 64, 67], 2600),
+    (0.0, 10.0, [48, 55, 60], 1400),
+    (10.0, 24.0, [48, 55, 60, 64], 2000),
+    (24.0, 37.8, [53, 60, 64, 69], 2200),
+    (37.8, 44.6, [45, 52, 57], 900),
+    (44.6, 58.0, [48, 55, 60, 67], 2400),
+    (58.0, 64.2, [36, 43, 48], 700),
+    (64.2, 75.0, [48, 55, 60, 64, 67], 2600),
 ]
 for t0, t1, notes, br in PADS:
     add(music, pad(notes, t1 - t0, br), t0, gain=0.5)
@@ -51,33 +50,33 @@ def ranat_run(t0, t1, step, amp, prob=1.0, low=2, high=10):
         t += step
 
 
-ranat_run(6.6, 15.0, BEAT / 2, 0.3, prob=0.7)
-ranat_run(15.0, 24.2, BEAT / 2, 0.32, prob=0.85)
-ranat_run(28.4, 33.4, BEAT / 4, 0.26, prob=0.8)
-ranat_run(33.4, 47.2, BEAT / 2, 0.32, prob=0.9)
-ranat_run(57.4, 70.0, BEAT / 2, 0.3, prob=0.8)
+ranat_run(3.8, 15.8, BEAT / 2, 0.3, prob=0.7)
+ranat_run(17.0, 36.6, BEAT / 2, 0.32, prob=0.85)
+ranat_run(44.6, 57.0, BEAT / 2, 0.32, prob=0.9)
+ranat_run(64.2, 70.0, BEAT / 2, 0.3, prob=0.8)
 ranat_run(70.0, 74.0, BEAT / 4, 0.28, prob=0.9)
 
 # pi nai phrases over the golden ages, a lament over the ruins
-for t0, notes in ((16.0, [72, 74, 76, 79, 76]), (35.0, [79, 76, 74, 72, 74]), (44.0, [76, 79, 81, 79, 76]), (58.0, [72, 76, 79, 81]), (fall + 2.5, [67, 64, 62, 60])):
+for t0, notes in ((17.0, [72, 74, 76, 79, 76]), (31.0, [79, 76, 74, 72, 74]), (45.0, [76, 79, 81, 79, 76]), (52.0, [72, 76, 79, 81]), (fall + 2.0, [67, 64, 62, 60])):
     for k, m in enumerate(notes):
         add(music, pi_reed(m, 1.1 if t0 < fall else 1.6), t0 + k * (1.0 if t0 < fall else 1.5), gain=0.8)
 
 # ching keeps time; taphon/klong drums
-for sec in ((6.6, 24.2), (33.4, 47.2), (57.4, 74.0)):
+for sec in ((3.8, 37.8), (44.6, 58.0), (64.2, 74.0)):
     for k, t in enumerate(np.arange(sec[0], sec[1], BEAT)):
         add(music, ching(), t + BEAT / 2, pan=0.3, gain=0.55 if k % 2 else 0.8)
         if k % 2 == 0:
             add(music, drum(120, 60, 0.5, 0.45), t)
-for t in np.arange(28.4, battle + 0.5, BEAT / 2):
+for t in np.arange(37.8, naresuan + 0.5, BEAT / 2):
     add(music, drum(rng.uniform(110, 160), 60, 0.4, 0.5), t, pan=rng.uniform(-0.4, 0.4))
 
 for t, f, g in (
     (0.15, 70, 1.0),
     (tl.t_of(EV["founding"]), 88, 1.1),
+    (tl.t_of(EV["phanan"]), 92, 0.9),
     *[(tl.t_of(y), 96, 0.6) for y in EV["chedis"]],
     (first_fall, 66, 0.9),
-    (battle + 0.4, 84, 1.1),
+    (naresuan + 0.4, 84, 1.1),
     (tl.t_of(EV["chaiwat"]), 92, 0.9),
     (fall, 60, 1.3),
     (tl.t_of(EV["heritage"]), 88, 1.0),
@@ -116,11 +115,10 @@ for y in EV["chedis"]:
 f0 = first_fall - 0.4
 add(sfx, crackle(2.6) * env_ar(int(2.6 * SR), 0.3, 0.8), f0, gain=0.6)
 
-for t0 in (battle - 1.6, battle - 0.6, battle + 0.6):
-    add(sfx, trumpet_elephant(), t0, pan=rng.uniform(-0.6, 0.6), gain=1.0)
-for t in np.arange(battle - 1.8, battle + 0.6, 0.45):
-    add(sfx, footstep(0.6), t, pan=rng.uniform(-0.4, 0.4))
-add(sfx, crowd(3.0), battle - 1.4, gain=0.6)
+fort0, fort1 = EV["fortDive"]
+for t in np.arange(fort0 + 0.4, fort1 - 0.5, 0.7):
+    add(sfx, drum(rng.uniform(72, 105), 38, 0.9, 0.65), t, pan=rng.uniform(-0.5, 0.5))
+add(sfx, crowd(fort1 - fort0) * 0.35, fort0)
 
 p0, p1 = EV["portDive"]
 add(sfx, crowd(p1 - p0) * 0.6, p0)
@@ -151,11 +149,11 @@ tt = np.arange(tn) / SR
 add(sfx, filt(np.sign(np.sin(2 * np.pi * (34 + 6 * tt) * tt)), "low", 900) * np.sin(np.pi * tt / 1.6) * 0.04, d0 + 1.0, pan=0.4)
 add(sfx, trumpet_elephant(0.9), d0 + 2.2, pan=-0.4, gain=0.5)
 
-for et in (3.0, 15.0, 24.2, 33.4, 47.2, 57.2, 56.0 + SHIFT):
+for et in (3.8, 10.0, 17.0, 24.0, 30.8, 37.8, 44.6, 51.4, 58.0, 64.2, 67.8, 56.0 + SHIFT):
     add(sfx, whoosh(1.1, 0.75), et - 0.75, pan=rng.uniform(-0.3, 0.3), gain=0.55)
 add(sfx, drum(70, 32, 2.5, 1.0), 0.1, gain=0.6)
 for i in range(16):
     add(sfx, firework_pop(), 55.4 + SHIFT + i * 0.28 + rng.uniform(0, 0.2), pan=rng.uniform(-0.8, 0.8), gain=0.5)
 
 master("public/soundtrack_ayutthaya.wav", music, amb, sfx)
-print("wrote public/soundtrack_ayutthaya.wav", {"founding": round(tl.t_of(1350), 2), "battle": round(battle, 2), "fall": round(fall, 2)})
+print("wrote public/soundtrack_ayutthaya.wav", {"founding": round(tl.t_of(1350), 2), "naresuan": round(naresuan, 2), "fall": round(fall, 2)})
