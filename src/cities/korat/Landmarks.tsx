@@ -136,8 +136,8 @@ export const KoratLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH})
     if (Y < 1825.7 || Y > 1826.46) return null;
     const [ox, oz] = OFF[i];
     const inn = smooth(ramp(Y, 1825.7, 1826.05));
-    // retreat to Thung Samrit while its caption is up (year held at 1826 through 27.4-33.6 s)
-    const out = smooth(ramp(Y, 1826.21, 1826.31));
+    // retreat to Thung Samrit while its caption is up (year held at 1826 through 27.4-33.6 s; the march is 30.2-31.5 s, the curve is slow early in the hold)
+    const out = smooth(ramp(Y, 1826.13, 1826.19));
     // both armies end inside the Thung Samrit clearing, either side of the callout point
     const x = lerp(lerp(40, 4, inn), THUNG_SAMRIT[0] + 3, out);
     const z = lerp(lerp(-44, -4, inn), THUNG_SAMRIT[1] - 2, out);
@@ -146,7 +146,7 @@ export const KoratLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH})
   const korat = (i: number): [number, number] | null => {
     if (Y < 1826.125 || Y > 1826.46) return null;
     const [ox, oz] = OFF[(i + 17) % ARMY];
-    const go = smooth(ramp(Y, 1826.2, 1826.31));
+    const go = smooth(ramp(Y, 1826.13, 1826.19));
     return [lerp(-6, THUNG_SAMRIT[0] - 2.5, go) + ox, lerp(2, THUNG_SAMRIT[1] + 1.5, go) + oz];
   };
 

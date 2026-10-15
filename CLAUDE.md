@@ -111,6 +111,13 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
 - Changing the footprint invalidates the camera keys: a long thin city needs
   roughly 1.3-1.45x the distance of a square one, and a few degrees more
   elevation on the wide shots.
+- **A still is not proof that a moving thing shows in the render.** Every `remotion still`
+  starts on a fresh page; a render reuses one page across frames. three.js caches an
+  InstancedMesh's bounding sphere the first time it is culled, so Korat's armies, first seen in
+  the town, were culled once they marched to Thung Samrit: the stills showed them, the render
+  showed only their shadows. `updateInstances()` now recomputes the sphere each frame. To check
+  anything that moves far, render a short sequential range (`npx remotion render … --sequence
+  --frames=A-B --concurrency=1`), not single stills.
 - When A/B-ing an engine change, compare **still vs still**. A still against a
   frame pulled from an encoded render differs everywhere from compression alone
   and tells you nothing.
