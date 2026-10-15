@@ -90,23 +90,59 @@ const Dino: React.FC<{d: (typeof DINOS)[number]; t: number; k: number; terrainH:
 };
 
 // ------------------------------------------------------------------ 1826 war: two armies
+// Each army is a ranked block of figures (the villagers' body + head from Life.tsx, in army
+// colours) facing the other army. 70 identical boxes in a random patch read as rubble (#28).
 const ARMY = 70;
-const OFF = new Array(ARMY).fill(0).map((_, i) => [(random(`ax${i}`) - 0.5) * 6, (random(`az${i}`) - 0.5) * 4]);
-const Army: React.FC<{pos: (i: number) => [number, number] | null; color: string}> = ({pos, color}) => {
-  const ref = useRef<THREE.InstancedMesh>(null);
+const COLS = 12;
+const ROWS = Math.ceil(ARMY / COLS);
+const SLOT = new Array(ARMY).fill(0).map((_, i) => ({
+  side: (i % COLS - (COLS - 1) / 2) * 0.48 + (random(`as${i}`) - 0.5) * 0.14,
+  back: (Math.floor(i / COLS) - (ROWS - 1) / 2) * 0.58 + (random(`ab${i}`) - 0.5) * 0.14,
+  h: 0.9 + random(`ah${i}`) * 0.2,
+}));
+type Formation = {at: [number, number]; face: [number, number]} | null;
+const Army: React.FC<{f: Formation; color: string; terrainH: LandmarkProps['terrainH']}> = ({f, color, terrainH}) => {
+  const body = useRef<THREE.InstancedMesh>(null);
+  const head = useRef<THREE.InstancedMesh>(null);
+  const place = (i: number) => {
+    if (!f) return null;
+    let fx = f.face[0] - f.at[0];
+    let fz = f.face[1] - f.at[1];
+    const n = Math.hypot(fx, fz) || 1;
+    fx /= n;
+    fz /= n;
+    const {side, back, h} = SLOT[i];
+    const x = f.at[0] - fz * side - fx * back;
+    const z = f.at[1] + fx * side - fz * back;
+    return {x, z, y: terrainH(x, z), h, rot: Math.atan2(fx, fz)};
+  };
   useLayoutEffect(() => {
-    updateInstances(ref.current, ARMY, (i, o) => {
-      const p = pos(i);
+    updateInstances(body.current, ARMY, (i, o) => {
+      const p = place(i);
       if (!p) return false;
-      o.position.set(p[0], 0.5, p[1]);
+      o.position.set(p.x, p.y + 0.4 * p.h, p.z);
+      o.rotation.y = p.rot;
+      o.scale.set(1, p.h, 1);
+      return true;
+    });
+    updateInstances(head.current, ARMY, (i, o) => {
+      const p = place(i);
+      if (!p) return false;
+      o.position.set(p.x, p.y + 0.8 * p.h + 0.14, p.z);
       return true;
     });
   });
   return (
-    <instancedMesh ref={ref} args={[undefined, undefined, ARMY]} castShadow>
-      <boxGeometry args={[0.5, 1.0, 0.5]} />
-      <meshStandardMaterial color={color} roughness={0.8} />
-    </instancedMesh>
+    <>
+      <instancedMesh ref={body} args={[undefined, undefined, ARMY]} castShadow>
+        <cylinderGeometry args={[0.13, 0.21, 0.8, 6]} />
+        <meshStandardMaterial color={color} roughness={0.85} />
+      </instancedMesh>
+      <instancedMesh ref={head} args={[undefined, undefined, ARMY]} castShadow>
+        <sphereGeometry args={[0.15, 6, 5]} />
+        <meshStandardMaterial color="#c99a72" roughness={0.9} />
+      </instancedMesh>
+    </>
   );
 };
 
@@ -132,23 +168,19 @@ export const KoratLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH})
 
   // armies: Vientiane troops march in from the north-east and fall back to Thung Samrit;
   // Korat townsfolk gather in the city and push them out.
-  const lao = (i: number): [number, number] | null => {
-    if (Y < 1825.7 || Y > 1826.46) return null;
-    const [ox, oz] = OFF[i];
-    const inn = smooth(ramp(Y, 1825.7, 1826.05));
-    // retreat to Thung Samrit while its caption is up (year held at 1826 through 27.4-33.6 s; the march is 30.2-31.5 s, the curve is slow early in the hold)
-    const out = smooth(ramp(Y, 1826.13, 1826.19));
-    // both armies end inside the Thung Samrit clearing, either side of the callout point
-    const x = lerp(lerp(40, 4, inn), THUNG_SAMRIT[0] + 3, out);
-    const z = lerp(lerp(-44, -4, inn), THUNG_SAMRIT[1] - 2, out);
-    return [x + ox, z + oz];
-  };
-  const korat = (i: number): [number, number] | null => {
-    if (Y < 1826.125 || Y > 1826.46) return null;
-    const [ox, oz] = OFF[(i + 17) % ARMY];
-    const go = smooth(ramp(Y, 1826.13, 1826.19));
-    return [lerp(-6, THUNG_SAMRIT[0] - 2.5, go) + ox, lerp(2, THUNG_SAMRIT[1] + 1.5, go) + oz];
-  };
+  // Lao army: marches in from the north-east, then falls back to Thung Samrit
+  // (year held at 1826 through 27.4-33.6 s; the march is 30.2-31.5 s, the curve is slow early in the hold)
+  const inn = smooth(ramp(Y, 1825.7, 1826.05));
+  const out = smooth(ramp(Y, 1826.13, 1826.19));
+  const go = smooth(ramp(Y, 1826.13, 1826.19));
+  // both armies end inside the Thung Samrit clearing, either side of the callout point
+  const laoAt: [number, number] = [lerp(lerp(40, 4, inn), THUNG_SAMRIT[0] + 3, out), lerp(lerp(-44, -4, inn), THUNG_SAMRIT[1] - 2, out)];
+  const koratAt: [number, number] = [lerp(-6, THUNG_SAMRIT[0] - 2.5, go), lerp(2, THUNG_SAMRIT[1] + 1.5, go)];
+  const laoOn = Y >= 1825.7 && Y <= 1826.46;
+  const koratOn = Y >= 1826.125 && Y <= 1826.46;
+  // each army faces the other once both are out; before that the Lao army faces the town
+  const lao: Formation = laoOn ? {at: laoAt, face: koratOn ? koratAt : [0, 0]} : null;
+  const korat: Formation = koratOn ? {at: koratAt, face: laoAt} : null;
 
   return (
     <>
@@ -268,8 +300,8 @@ export const KoratLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH})
             );
           }),
         )}
-      <Army pos={lao} color="#2e3f6e" />
-      <Army pos={korat} color="#b23a2e" />
+      <Army f={lao} color="#2e3f6e" terrainH={terrainH} />
+      <Army f={korat} color="#b23a2e" terrainH={terrainH} />
 
       {/* Thao Suranari Monument in front of Chumphon Gate */}
       {monument > 0.02 && (
