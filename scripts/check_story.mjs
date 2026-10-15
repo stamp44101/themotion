@@ -40,12 +40,12 @@ const GRANDEUR_WAIVED = new Set(['chachoengsao', 'nakhonsawan']);
 // 2490-2523; Ayutthaya's "7 เมษายน 2310" counter left 2310 within a second.
 const YEAR_HOLD = 1.0;
 // Posted before the year-hold rule; the owner is not re-rendering them. Warn only.
-const YEAR_HOLD_WAIVED = new Set(['ayutthaya', 'chachoengsao', 'chonburi', 'korat', 'nakhonsawan', 'phitsanulok', 'sukhothai']);
+const YEAR_HOLD_WAIVED = new Set(['ayutthaya', 'chachoengsao', 'chonburi', 'nakhonsawan', 'phitsanulok', 'sukhothai']);
 // Compass directions between real places (src/engine/geo.ts): a pair whose model
 // bearing is off by more than this fails. Chonburi put the Gulf east of the town.
 const GEO_MAX_DIFF = 30;
 // Posted before geo anchors existed; the owner is not re-rendering them. Warn only.
-const GEO_WAIVED = new Set(['ayutthaya', 'chachoengsao', 'chonburi', 'korat', 'nakhonsawan', 'phitsanulok', 'sukhothai']);
+const GEO_WAIVED = new Set(['ayutthaya', 'chachoengsao', 'chonburi', 'nakhonsawan', 'phitsanulok', 'sukhothai']);
 // Cities built before briefs existed.
 const NO_BRIEF_OK = new Set(['ayutthaya', 'korat', 'phitsanulok', 'sukhothai']);
 

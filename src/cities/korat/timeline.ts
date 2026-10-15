@@ -12,8 +12,11 @@ export const YEAR_KEYS: [number, number][] = [
   [17, 1250],
   [18, 1640],
   [24, 1668], // King Narai builds Nakhon Ratchasima (reign 1656–1688)
-  [27, 1810],
-  [28.5, 1824],
+  [26.6, 1805],
+  // hold พ.ศ. 2369 (1826) while "ศึกเจ้าอนุวงศ์" is up
+  [27.4, 1826],
+  [29.2, 1826.6],
+  [30.6, 1827],
   [33, 1828], // 1826: Chao Anouvong seizes Korat; Thao Suranari
   [34.5, 1880],
   [36, 1898],
@@ -21,7 +24,9 @@ export const YEAR_KEYS: [number, number][] = [
   [40.2, 1931],
   [43.5, 1936], // 1934: Thao Suranari Monument
   [45, 1952],
-  [47.5, 1960], // 1958: Mittraphap (Friendship) Highway handed over
+  // hold พ.ศ. 2501 (1958) for "ถนนมิตรภาพ"
+  [46, 1958],
+  [47.6, 1958.6], // 1958: Mittraphap (Friendship) Highway handed over
   [50, 1990],
   [56, 2026],
   [60, 2026],
@@ -58,7 +63,7 @@ export const SOUND_EVENTS = {
   founding: 1657,
   wallsDone: 1663,
   warStart: 1826.0,
-  victory: 1826.9,
+  victory: 1827.9,
   railway: 1900,
   monument: 1934,
   highway: 1958,
