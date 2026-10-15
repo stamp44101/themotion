@@ -162,7 +162,7 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   compass bearing of every pair in reality and in the model and fails anything more than
   30 degrees off -- distances may be compressed, directions may not. Place things with
   `node scripts/geo.mjs <originLat> <originLon> <m/unit> <lat,lon> ...` instead of by eye.
-  A north arrow (`engine/Compass.tsx`) shows viewers which way the map faces.
+  No on-screen compass: the owner tried one and found it heavy-handed; get it right instead.
 - **Grandeur is scale contrast.** Chiang Mai reads grand because thousands of small things
   (trees, houses, lit windows) sit under one big thing (Doi Suthep, the moated square, a modern
   city on 46% of the tile). Nakhon Sawan ended on 4 buildings and 3-high hills and read as a
