@@ -125,23 +125,24 @@ export const KoratLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH})
   const phimai = smooth(ramp(Y, 1060, 1110));
   const monument = smooth(ramp(Y, 1933.4, 1934.2));
   const runway = ramp(Y, 1955, 1962);
-  const war = ramp(Y, 1825.9, 1826.1) * (1 - ramp(Y, 1826.9, 1827.6));
+  const war = ramp(Y, 1825.9, 1826.1) * (1 - ramp(Y, 1826.4, 1826.475));
 
   // armies: Vientiane troops march in from the north-east and fall back to Thung Samrit;
   // Korat townsfolk gather in the city and push them out.
   const lao = (i: number): [number, number] | null => {
-    if (Y < 1825.7 || Y > 1827.3) return null;
+    if (Y < 1825.7 || Y > 1826.46) return null;
     const [ox, oz] = OFF[i];
     const inn = smooth(ramp(Y, 1825.7, 1826.05));
-    const out = smooth(ramp(Y, 1826.45, 1827.1));
+    // retreat to Thung Samrit while its caption is up (year held at 1826 through 27.4-33.6 s)
+    const out = smooth(ramp(Y, 1826.21, 1826.31));
     const x = lerp(lerp(40, 4, inn), THUNG_SAMRIT[0] + 6, out);
     const z = lerp(lerp(-44, -4, inn), THUNG_SAMRIT[1] - 6, out);
     return [x + ox, z + oz];
   };
   const korat = (i: number): [number, number] | null => {
-    if (Y < 1826.25 || Y > 1827.3) return null;
+    if (Y < 1826.125 || Y > 1826.46) return null;
     const [ox, oz] = OFF[(i + 17) % ARMY];
-    const go = smooth(ramp(Y, 1826.4, 1827.0));
+    const go = smooth(ramp(Y, 1826.2, 1826.31));
     return [lerp(-6, THUNG_SAMRIT[0], go) + ox, lerp(2, THUNG_SAMRIT[1], go) + oz];
   };
 

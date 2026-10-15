@@ -18,7 +18,7 @@ music, amb, sfx = stereo(), stereo(), stereo()
 BEAT = 0.5
 PENTA = [57, 60, 62, 64, 67, 69, 72, 74, 76, 79, 81]
 A, G, C = [57, 64, 69], [55, 62, 67], [60, 67, 72]
-victory = tl.t_of(1827.9)  # end of the Thung Samrit beat (year held at 1826-27 for the captions)
+victory = tl.t_of(1826.43)  # end of the Thung Samrit battle (year held at 1826 through both war captions)
 
 KHAEN = [
     (0.0, 3.3, [45, 52, 57], 0.55),

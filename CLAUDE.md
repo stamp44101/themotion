@@ -58,6 +58,10 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   Hold the named year through the shot, then accelerate across the gap between
   captions. Check the counter, caption, landmark and soundtrack together.
   `check_story.mjs` fails a caption whose พ.ศ. year is on the counter for under 1 s.
+  Holding a year moves everything driven by the year: Korat's Thung Samrit armies finished
+  before their caption came up once the 1826 hold was added, and the callout pointed at empty
+  forest. After retiming the curve, re-check every year-driven animation against its caption's
+  seconds on stills. The counter rounds, so a hold on พ.ศ. X must stay below X + 0.5.
 - **Coastal ambience is a sequence of places, not one surf loop.** Chonburi
   became specific only after the continuous noise bed was kept quiet and
   irregular waves, pier timber, paddles and sail, Ang Sila rock wash, buffalo
