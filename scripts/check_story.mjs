@@ -41,6 +41,8 @@ const GRANDEUR_WAIVED = new Set(['chachoengsao', 'nakhonsawan']);
 const YEAR_HOLD = 1.0;
 // Posted before the year-hold rule; the owner is not re-rendering them. Warn only.
 const YEAR_HOLD_WAIVED = new Set(['ayutthaya', 'chachoengsao', 'chonburi', 'nakhonsawan', 'phitsanulok', 'sukhothai']);
+// posted before the in-frame callout check existed: warn only
+const FRAME_WAIVED = new Set([...YEAR_HOLD_WAIVED, 'watraikhing']);
 // Compass directions between real places (src/engine/geo.ts): a pair whose model
 // bearing is off by more than this fails. Chonburi put the Gulf east of the town.
 const GEO_MAX_DIFF = 30;
@@ -138,6 +140,28 @@ for (const city of cities) {
   if (keys[0][0] > 0) err(`first camera key is at ${s(keys[0][0])}, not 0.`);
   if (keys.at(-1)[0] < D - 0.5) warn(`last camera key is at ${s(keys.at(-1)[0])}; the camera freezes for the last ${s(D - keys.at(-1)[0])}.`);
   for (let i = 1; i < keys.length; i++) if (keys[i][0] <= keys[i - 1][0]) err(`camera keys out of order at ${s(keys[i][0])}.`);
+
+  // a callout's anchor stays in frame while the callout is up. Korat's Thung Samrit
+  // callout ran 0.2 s past the camera's pan away: the leader line ran off the edge and
+  // the label floated over forest (owner review on the re-render).
+  {
+    const fMsg = FRAME_WAIVED.has(city) ? warn : err;
+    for (const c of callouts) {
+      const n = Math.max(2, Math.ceil((c.t1 - c.t0) * 10));
+      let out = 0;
+      let firstOut = null;
+      for (let i = 0; i <= n; i++) {
+        const t = c.t0 + ((c.t1 - c.t0) * i) / n;
+        const q = engine.projectAt(keys, t, c.p);
+        if (q.x < 40 || q.x > 1080 - 40 || q.y < 40 || q.y > 1920 - 40) {
+          out++;
+          firstOut ??= t;
+        }
+      }
+      if (out / (n + 1) > 0.1)
+        fMsg(`callout "${c.label}" (${s(c.t0)}-${s(c.t1)}): its anchor is out of frame ${Math.round((100 * out) / (n + 1))}% of the time, from ${s(firstOut)}. End the callout before the camera leaves, or hold the camera on it.`);
+    }
+  }
 
   if (layout) {
   // camera rhythm: not just zooming in and out

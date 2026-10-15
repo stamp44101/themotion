@@ -114,6 +114,8 @@ const buildWorld = (L: CityLayout) => {
         const bx = cx + (random(`bx${k}-${j}`) - 0.5) * 2.2;
         const bz = cz + (random(`bz${k}-${j}`) - 0.5) * 2.2;
         if (onRoad(bx, bz)) continue;
+        // Korat's Wing 1 runway was built over by towers once the sprawl reached it
+        if (L.openGround?.some((o) => bx > o.x0 - 1.1 && bx < o.x1 + 1.1 && bz > o.z0 - 1.1 && bz < o.z1 + 1.1)) continue;
         buildings.push({
           x: bx,
           z: bz,

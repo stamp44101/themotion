@@ -118,8 +118,11 @@ const SMOKE = new Array(10).fill(0).map((_, i) => ({
 
 export const KoratLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH}) => {
   const dinos = 1 - ramp(Y, -5e6, -1.5e6);
-  const banPrasat = ramp(Y, -1200, -900);
-  const huts = banPrasat * (1 - ramp(Y, 700, 900));
+  const village = ramp(Y, -1200, -900);
+  const huts = village * (1 - ramp(Y, 700, 900));
+  // the burial pit is grassed over once the village is gone and only reopens with the
+  // Fine Arts Department excavation (from 1983); it read as a prop on the 1826 battlefield
+  const banPrasat = Math.max(village * (1 - ramp(Y, 900, 1000)), ramp(Y, 1983, 1986));
   const museum = ramp(Y, 1985, 1992);
   const sema = smooth(ramp(Y, 590, 660));
   const phimai = smooth(ramp(Y, 1060, 1110));
@@ -135,15 +138,16 @@ export const KoratLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH})
     const inn = smooth(ramp(Y, 1825.7, 1826.05));
     // retreat to Thung Samrit while its caption is up (year held at 1826 through 27.4-33.6 s)
     const out = smooth(ramp(Y, 1826.21, 1826.31));
-    const x = lerp(lerp(40, 4, inn), THUNG_SAMRIT[0] + 6, out);
-    const z = lerp(lerp(-44, -4, inn), THUNG_SAMRIT[1] - 6, out);
+    // both armies end inside the Thung Samrit clearing, either side of the callout point
+    const x = lerp(lerp(40, 4, inn), THUNG_SAMRIT[0] + 3, out);
+    const z = lerp(lerp(-44, -4, inn), THUNG_SAMRIT[1] - 2, out);
     return [x + ox, z + oz];
   };
   const korat = (i: number): [number, number] | null => {
     if (Y < 1826.125 || Y > 1826.46) return null;
     const [ox, oz] = OFF[(i + 17) % ARMY];
     const go = smooth(ramp(Y, 1826.2, 1826.31));
-    return [lerp(-6, THUNG_SAMRIT[0], go) + ox, lerp(2, THUNG_SAMRIT[1], go) + oz];
+    return [lerp(-6, THUNG_SAMRIT[0] - 2.5, go) + ox, lerp(2, THUNG_SAMRIT[1] + 1.5, go) + oz];
   };
 
   return (

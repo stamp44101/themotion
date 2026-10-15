@@ -153,6 +153,17 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   camera-to-callout line past every standing tree (`scripts/occlusion.mjs`) and fails a
   building or monument hidden more than half its callout time; ground features (moat, road,
   hillside) are exempt, so check those on the contact sheet.
+- **A callout's anchor stays in frame while the callout is up.** The Overlay keeps the label
+  inside the safe area but draws the dot where the point projects, so a point off screen
+  leaves a label floating over unrelated ground with its leader line running off the edge.
+  Korat's ทุ่งสัมฤทธิ์ callout outlived the camera's pan by 0.2 s, and four more were off frame
+  for most of their time (กองบิน 1 the whole time). `check_story.mjs` projects every callout
+  through the camera and fails one whose anchor is out of frame more than 10% of its time
+  (posted reels only warn). Fix it by ending the callout earlier, holding the camera, or
+  moving the anchor to a part of the feature that is on screen (a river or road is long).
+- **Modern sprawl builds over anything not marked open.** Korat's Wing 1 runway disappeared
+  under towers once the city reached it. Put airfields, parks and plazas in
+  `layout.openGround`; tree `clearings` do not keep buildings out.
 - **Landmarks sit on the terrain, not at y = 0.** Nakhon Sawan's San Khu redoubt was placed at
   y = 0 where the Khao Kob foothill is 2.25 high: the whole model was buried and its callout
   pointed at grass. `Landmarks` receives `terrainH` in its props; use `terrainH(x, z)` for the
