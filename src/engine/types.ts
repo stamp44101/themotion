@@ -123,4 +123,6 @@ export type CityConfig = {
   /** 0..1 grade toward desaturated/sepia (wars, dark eras). */
   gloom: (Y: number) => number;
   rain?: [number, number][];
+  /** Opt-in render look (issue #27). 'shader': post-processing in engine/Look.tsx, sharper sun shadows. */
+  look?: 'shader';
 };

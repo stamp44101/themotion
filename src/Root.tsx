@@ -16,6 +16,8 @@ import {DioramaComposition} from './engine/DioramaComposition';
 import {WAT_RAI_KHING_FRAMES, WatRaiKhing} from './landmarks/watraikhing/WatRaiKhing';
 
 const Korat: React.FC = () => <DioramaComposition city={KORAT} />;
+// Issue #27 preview: Korat with the opt-in shader look, for still-vs-still comparison only.
+const KoratLook: React.FC = () => <DioramaComposition city={{...KORAT, look: 'shader'}} />;
 const Ayutthaya: React.FC = () => <DioramaComposition city={AYUTTHAYA} />;
 const Sukhothai: React.FC = () => <DioramaComposition city={SUKHOTHAI} />;
 const Phitsanulok: React.FC = () => <DioramaComposition city={PHITSANULOK} />;
@@ -42,6 +44,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="Sukhothai" component={Sukhothai} durationInFrames={(SUKHOTHAI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Ayutthaya" component={Ayutthaya} durationInFrames={(AYUTTHAYA.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Korat" component={Korat} durationInFrames={(KORAT.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
+      <Composition id="KoratLook" component={KoratLook} durationInFrames={(KORAT.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition
       id="ChiangMaiIso"
       component={ChiangMaiIso}
