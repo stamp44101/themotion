@@ -135,6 +135,8 @@ export const KORAT: CityConfig = {
     {t0: 50.4, t1: 53.8, label: 'กองบิน 1', dx: 80, dy: 120, p: [RUNWAY[0] + 8, 0, RUNWAY[1]]},
   ],
   soundtrack: 'soundtrack_korat.wav',
+  // experimental opening: today's city at night first, then back 108 million years
+  hook: {from: 56.6, hold: 1.4, out: 0.3, in: 0.75, text: 'ย้อนกลับไป 108 ล้านปี'},
   sky: {
     top: [
       [-2e8, '#5f9fcf'],

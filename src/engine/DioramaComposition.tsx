@@ -1,9 +1,9 @@
 import {ThreeCanvas} from '@remotion/three';
 import React, {useEffect, useState} from 'react';
-import {AbsoluteFill, Audio, continueRender, delayRender, staticFile, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, Audio, Freeze, continueRender, delayRender, staticFile, useCurrentFrame} from 'remotion';
 import * as THREE from 'three';
 import {STARS} from '../geometry';
-import {FPS, H, W, bump, keyColor, lighting, mix} from '../lib';
+import {FPS, H, W, bump, clamp01, keyColor, lighting, mix} from '../lib';
 import {Overlay, ScreenCallout} from '../Overlay';
 import {projectAt} from './camera';
 import {Diorama} from './Diorama';
@@ -17,8 +17,15 @@ const RAIN = new Array(170).fill(0).map((_, i) => ({
 }));
 
 export const DioramaComposition: React.FC<{city: CityConfig}> = ({city: c}) => {
-  const frame = useCurrentFrame();
-  const t = frame / FPS;
+  const realFrame = useCurrentFrame();
+  // Hook: the scene first shows the finale, a veil covers the cut, and the story resumes at
+  // real time. Only the scene is remapped; the overlay and the soundtrack keep real time.
+  const h = c.hook;
+  const rt = realFrame / FPS;
+  const cut = h ? h.hold + h.out : 0;
+  const t = h && rt < cut ? h.from + rt * 0.5 : rt;
+  const frame = Math.round(t * FPS);
+  const veil = h ? (rt < cut ? clamp01((rt - h.hold) / h.out) : 1 - clamp01((rt - cut) / h.in)) : 0;
   const Y = c.story.yearAt(t);
   const {night, dusk, finale} = lighting(t, c.story.duration ?? 60);
   const [handle] = useState(() => delayRender('Loading Kanit'));
@@ -39,6 +46,7 @@ export const DioramaComposition: React.FC<{city: CityConfig}> = ({city: c}) => {
 
   return (
     <AbsoluteFill style={{background: `linear-gradient(180deg, ${top} 0%, ${bottom} 55%, ${bottom} 100%)`}}>
+      <Freeze frame={frame} active={!!h}>
       <svg viewBox={`0 0 ${W} ${H}`} width={W} height={H} style={{position: 'absolute', inset: 0}}>
         {STARS.map((s, i) => (
           <circle key={i} cx={s.x} cy={s.y * 0.8} r={s.r} fill="#fff" opacity={night * (0.55 + 0.45 * Math.sin(s.tw + frame * 0.2))} />
@@ -82,6 +90,15 @@ export const DioramaComposition: React.FC<{city: CityConfig}> = ({city: c}) => {
             return <line key={i} x1={r.x} y1={y} x2={r.x - 8} y2={y + r.len} stroke="#dfe7ee" strokeWidth={1.4} opacity={0.35} />;
           })}
         </svg>
+      )}
+      </Freeze>
+      {veil > 0.001 && h && (
+        // a mid-grey veil, so the light never jumps more than check_render allows
+        <AbsoluteFill style={{background: '#46506a', opacity: veil, alignItems: 'center', justifyContent: 'center'}}>
+          <div style={{fontFamily: 'Kanit', fontWeight: 600, fontSize: 64, color: '#fff', textAlign: 'center', marginTop: 360, textShadow: '0 4px 18px rgba(0,0,0,0.4)'}}>
+            {h.text}
+          </div>
+        </AbsoluteFill>
       )}
       <Overlay callouts={callouts} story={c.story} />
       <Audio src={staticFile(c.soundtrack)} />
