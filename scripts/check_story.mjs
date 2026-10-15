@@ -34,6 +34,12 @@ const WATER_WAIVED = new Set(['chachoengsao']);
 // Sawan ended on 4 buildings (2%) and read as a toy. Posted before the rule, warn only:
 const GRANDEUR = {minFinaleShare: 0.2, heroPeak: 8, minOldTown: 0.03};
 const GRANDEUR_WAIVED = new Set(['chachoengsao', 'nakhonsawan']);
+// A year named in a caption (พ.ศ.) must be on the counter for at least this long while
+// the caption is up. Chonburi's Bang Saen caption said พ.ศ. 2486 while the counter ran
+// 2490-2523; Ayutthaya's "7 เมษายน 2310" counter left 2310 within a second.
+const YEAR_HOLD = 1.0;
+// Posted before the year-hold rule; the owner is not re-rendering them. Warn only.
+const YEAR_HOLD_WAIVED = new Set(['ayutthaya', 'chachoengsao', 'chonburi', 'korat', 'nakhonsawan', 'phitsanulok', 'sukhothai']);
 // Cities built before briefs existed.
 const NO_BRIEF_OK = new Set(['ayutthaya', 'korat', 'phitsanulok', 'sukhothai']);
 
@@ -75,6 +81,22 @@ for (const city of cities) {
     const sl = Math.ceil(textWidth(c.sub, 40, 400) / COLUMN);
     if (sl > 3) warn(`${name}: sub runs to about ${sl} lines; the block runs down into the diorama.`);
   });
+
+  // a named year is on the counter while its caption is up
+  for (const c of caps) {
+    const years = new Set([...`${c.title} ${c.sub}`.matchAll(/(?<!\d)(1[6-9]\d\d|2[0-5]\d\d)(?!\d)/g)].map((m) => +m[1]));
+    for (const be of years) {
+      const ce = be - 543;
+      let held = 0;
+      for (let t = Math.max(c.t0, INTRO_END); t < c.t1; t += 1 / 30) if (Math.abs(story.yearAt(t) - ce) <= 1) held += 1 / 30;
+      if (held < YEAR_HOLD) {
+        const shown = `${Math.round(story.yearAt(c.t0) + 543)}-${Math.round(story.yearAt(c.t1) + 543)}`;
+        (YEAR_HOLD_WAIVED.has(city) ? warn : err)(
+          `caption "${c.title}" names พ.ศ. ${be} but the counter shows it for ${s(held)} (counter runs ${shown}; need >= ${YEAR_HOLD}s). Hold the year curve at ${ce} through the caption, then speed up between captions.`,
+        );
+      }
+    }
+  }
 
   // callouts
   for (const c of callouts) {
