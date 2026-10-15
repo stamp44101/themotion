@@ -39,7 +39,7 @@ const Dino: React.FC<{d: (typeof DINOS)[number]; t: number; k: number; terrainH:
             <icosahedronGeometry args={[1, 1]} />
             {m}
           </mesh>
-          <mesh position={[0, 3.6, 2.6]} rotation-x={-0.7} castShadow>
+          <mesh position={[0, 3.6, 2.6]} rotation-x={0.7} castShadow>
             <cylinderGeometry args={[0.28, 0.5, 3.2, 6]} />
             {m}
           </mesh>
