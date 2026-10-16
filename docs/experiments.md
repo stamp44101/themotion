@@ -20,14 +20,25 @@ decide a reel's reach. Change one thing per post and compare against the baselin
 
 Mean about 52%. Ten clips and an 8-point spread: a hint, not a result.
 
-## 1. Hero on the tile (Korat v2) — running
+## 1. Hero on the tile (Korat v2) — read: strong positive
 
 Hypothesis (owner): the first shot can stay the land tile, but something on it has to stand
 out. Korat opens closer (camera 320 instead of 430) with three large dinosaurs in warm
 ochre/rust against the canopy, visible from frame 0. Everything else as in the other cities.
 Read Korat's skip rate after 24 h and compare with the table. Post it on its own, not in a batch.
 
-Result: _pending_
+Result (Instagram, read ~14 h after posting): **skip rate 34.2%**, against a baseline mean of
+about 52% and a best of 47.8% (Chonburi): 13.6 points under the best clip, outside the
+baseline's whole 8-point spread. Views ~27K at 14 h against ~5K for a typical reel at 24 h.
+Share 1.3%, like 7.5%, save 0.6%, repost 0.5%, comment 0.1%.
+
+Caveats: one clip; read at 14 h, not 24 h; and the 3-s window also shows the title card, so
+interest in Korat itself (a large city, a well-known heroine) is mixed in with the opening.
+Korat v2 also changed the story, but skip rate only sees the first 3 s, so the opening is the
+likeliest cause. Average watch time not yet read.
+
+Next: keep a hero on the tile at frame 0 for the next city (a replication, not a new
+variable), and run experiment 2 only after that one is read.
 
 ## 2. Finale first, then rewind — parked
 
