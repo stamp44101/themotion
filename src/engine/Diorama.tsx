@@ -87,8 +87,9 @@ const Lights: React.FC<P> = ({c, w}) => {
         intensity={sunF * 3.0 * (1 - night)}
         color={mix('#fff4e0', '#ff9a4a', warm)}
         castShadow
-        shadow-mapSize-width={2048}
-        shadow-mapSize-height={2048}
+        // the shader look doubles the shadow resolution (issue #27, step 1)
+        shadow-mapSize-width={c.look === 'shader' ? 4096 : 2048}
+        shadow-mapSize-height={c.look === 'shader' ? 4096 : 2048}
         shadow-camera-left={-half}
         shadow-camera-right={half}
         shadow-camera-top={half}

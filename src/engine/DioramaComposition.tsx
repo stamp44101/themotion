@@ -7,6 +7,7 @@ import {FPS, H, W, bump, keyColor, lighting, mix} from '../lib';
 import {Overlay, ScreenCallout} from '../Overlay';
 import {projectAt} from './camera';
 import {Diorama} from './Diorama';
+import {Look} from './Look';
 import type {CityConfig} from './types';
 
 const RAIN = new Array(170).fill(0).map((_, i) => ({
@@ -53,6 +54,9 @@ export const DioramaComposition: React.FC<{city: CityConfig}> = ({city: c}) => {
           gl={{antialias: true, alpha: true, preserveDrawingBuffer: true, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 1.15}}
           camera={{fov: 30, near: 0.5, far: 2000, position: [80, 60, 80]}}
         >
+          {/* before Diorama: its FrameSync calls advance() in a layout effect, and the composer
+              must already have subscribed by then or the frame is drawn without effects */}
+          <Look c={c} />
           <Diorama c={c} />
         </ThreeCanvas>
       </AbsoluteFill>
