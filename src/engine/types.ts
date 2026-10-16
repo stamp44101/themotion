@@ -126,7 +126,16 @@ export type CityLayout = {
   cameraKeys: CamKey[];
 };
 
-export type LandmarkProps = {Y: number; t: number; frame: number; night: number; terrainH: (x: number, z: number) => number};
+export type LandmarkProps = {
+  Y: number;
+  t: number;
+  frame: number;
+  night: number;
+  terrainH: (x: number, z: number) => number;
+  /** 0 -> 1 across a story beat's seconds (src/engine/story.ts); drive *motion* with this
+   *  and keep *visibility* on the year. Always 0 for a city without beats. */
+  beat: (id: string) => number;
+};
 
 export type CityConfig = {
   id: string;

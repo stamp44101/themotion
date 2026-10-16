@@ -37,8 +37,13 @@ class Timeline:
         ft = np.arange(len(self.years)) / fps
         self.fps = fps
         self.events = tl.get("events", {})
+        self.beats = tl.get("beats", {})
         self.NIGHT = np.interp(T, ft, nights)
         self.YEAR = np.interp(T, ft, self.years)
+
+    def beat(self, id):
+        """[t0, t1] seconds of a story beat (src/engine/story.ts)."""
+        return tuple(self.beats[id])
 
     def t_of(self, year):
         """First time (s) the year counter reaches `year`."""

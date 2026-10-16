@@ -1198,7 +1198,8 @@ const LandmarkLayer: React.FC<P> = ({c, w}) => {
   const {Y, t, frame, dur} = useT(c);
   const {night} = lighting(t, dur);
   const Landmarks = c.Landmarks;
-  return <Landmarks Y={Y} t={t} frame={frame} night={night} terrainH={w.terrainH} />;
+  const beat = (id: string) => c.story.beat?.(id, t) ?? 0;
+  return <Landmarks Y={Y} t={t} frame={frame} night={night} terrainH={w.terrainH} beat={beat} />;
 };
 
 export const Diorama: React.FC<{c: CityConfig}> = ({c}) => {

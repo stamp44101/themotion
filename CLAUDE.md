@@ -233,11 +233,24 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   events first; a date with nothing to show is a sub line, not a beat.
 - **60 s by default, 75 s when it pays (owner's rule).** Go to 75 s only if the extra time goes
   to beats with action on screen (a siege, a procession, a tracking shot), never to longer
-  holds or more text. Set `story.duration`, register the composition with
+  holds or more text. Set `duration` in the story, register the composition with
   `(CITY.story.duration ?? SECONDS) * FPS`, export `DURATION` from timeline.ts for the
-  soundtrack, and call `synth.init(...)` in the soundtrack script. Nakhon Si stretches its
-  60 s grid with one `WARP` table (timeline.ts) used by the year curve, captions, camera,
-  callouts and soundtrack cues, so nothing drifts out of sync.
+  soundtrack, and call `synth.init(...)` in the soundtrack script.
+- **Beats own their seconds; the year curve is derived** (`src/engine/story.ts`). The curve
+  used to be a hand-tuned key list and every animation ran on the year, so any retime
+  silently changed animation speed: Korat's armies finished before their caption, Nakhon
+  Si's siege army stood still for 2 s because a two-key hold eases in, and 60 -> 75 s needed a
+  hand-written WARP table applied to five things at once. Now `timeline.ts` declares
+  `buildStory({duration, beats})`: each beat has `t: [s0, s1]`, `year: [y0, y1]` or
+  `{hold: Y}` (runs Y .. Y+0.45 so the counter never rounds up), and its caption, era,
+  callouts and camera keys. The year runs *linearly* inside a beat and a monotone cubic
+  carries the gaps. `index.ts` takes `STORY.captions/eras/callouts/cameraKeys/yearAt/beat`.
+  Landmarks get `beat(id)` (0 -> 1 across the beat's seconds): drive **motion** with it
+  (armies, boats, processions) and keep **visibility** on the year ("built in 1914").
+  `export_timeline` writes the beats and the soundtrack script cues on `tl.beat("siege")`
+  instead of hard-coded seconds. Two captions in one stretch are two beats (Korat's
+  `anouvong` / `yamo`). Posted cities before Korat keep their key lists; the builder
+  throws on overlapping beats, a year running backwards, or a duplicate camera second.
 - **A forest-only opening reads dark and green.** Nakhon Si's legend-era beats (forest and one
   small white chedi) measured ~30 luma under Korat's and 86% green-dominant pixels; its darkest
   frame was 35.8 against `check_render`'s floor of 35. Open the ground where the story allows

@@ -81,6 +81,25 @@ for (const city of cities) {
   const finale = D - FINALE_LEAD;
   const s = (x) => `${+x.toFixed(2)}s`;
 
+  // A city whose timeline declares beats (src/engine/story.ts) takes everything from them:
+  // a hand copy of the captions or camera keys next to a STORY drifts the moment a beat is
+  // retimed, which is the bug the beats exist to remove.
+  if (fs.existsSync(`src/${dir}/${city}/timeline.ts`)) {
+    const tl = await load(`src/${dir}/${city}/timeline.ts`);
+    if (tl.STORY) {
+      // the two bundles are separate module instances, so compare by value
+      const S = tl.STORY;
+      const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+      const ys = [0, 7, 19, 31, 44, 59, S.duration].map((t) => +story.yearAt(t).toFixed(3));
+      if (!same(ys, [0, 7, 19, 31, 44, 59, S.duration].map((t) => +S.yearAt(t).toFixed(3)))) err('timeline.ts has STORY but story.yearAt is not STORY.yearAt.');
+      if (typeof story.beat !== 'function') err('timeline.ts has STORY but story.beat is missing (landmarks get beat() = 0).');
+      if (!same(story.captions, S.captions)) err('timeline.ts has STORY but story.captions is not STORY.captions.');
+      if (layout && !same(layout.cameraKeys, S.cameraKeys)) err('timeline.ts has STORY but layout.cameraKeys is not STORY.cameraKeys.');
+      if (!same(callouts, S.callouts)) err('timeline.ts has STORY but callouts is not STORY.callouts.');
+      if ((story.duration ?? SECONDS) !== S.duration) err(`story.duration (${story.duration ?? SECONDS}) differs from STORY.duration (${S.duration}).`);
+    }
+  }
+
   // captions
   const caps = [...story.captions].sort((a, b) => a.t0 - b.t0);
   caps.forEach((c, i) => {
