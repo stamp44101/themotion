@@ -61,7 +61,7 @@ export const sunState = (t: number, dur = 60) => {
 };
 
 const Lights: React.FC<P> = ({c, w}) => {
-  const {t, dur} = useT(c);
+  const {t, Y, dur} = useT(c);
   const {dir, elev, vis, night} = sunState(t, dur);
   const {finale} = lighting(t, dur);
   // The sun is the key light. During story time, sky fill rises as it sets so a timelapse
@@ -80,7 +80,7 @@ const Lights: React.FC<P> = ({c, w}) => {
   return (
     <>
       <primitive object={tgt} />
-      <hemisphereLight args={[mix('#cfe3ff', '#4a5a9a', night), mix('#6f8a4a', '#1a2440', night), lerp(1.2, 1.05, night) + fill]} />
+      <hemisphereLight args={[mix('#cfe3ff', '#4a5a9a', night), mix('#6f8a4a', '#1a2440', night), lerp(1.2, 1.05, night) + fill + (c.ambient?.(Y) ?? 0)]} />
       <directionalLight
         ref={sun}
         position={[w.C[0] + dir.x * 150, dir.y * 150, w.C[1] + dir.z * 150]}

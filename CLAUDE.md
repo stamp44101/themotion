@@ -212,6 +212,12 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   toy garden. Grow the modern city to its real extent, use real mountains at real height, and
   keep wide shots at >= 30 degrees. Full guide and measurements: `docs/grandeur.md`;
   `check_story.mjs` fails a clip that ends on nothing big.
+- **A forest-only opening reads dark and green.** Nakhon Si's legend-era beats (forest and one
+  small white chedi) measured ~30 luma under Korat's and 86% green-dominant pixels; its darkest
+  frame was 35.8 against `check_render`'s floor of 35. Open the ground where the story allows
+  (a sand ridge, early paddies), give the plain a sandier `sky.ground`, and use `c.ambient(Y)`
+  (extra sky fill, ramped slowly by year) rather than a per-shot light. Measure mean luma on
+  the early stills, not only by eye.
 - **Light must never snap.** The day/night cycle in `lighting()` is continuous (no reset after the
   intro) and nights only dim to ~half. Do not add per-city light that jumps; `check_render.mjs`
   fails anything over 8 luma levels per frame or darker than 35 before the finale.

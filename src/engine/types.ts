@@ -132,6 +132,10 @@ export type CityConfig = {
   sky: {top: [number, string][]; bottom: [number, string][]; ground: [number, string][]};
   /** 0..1 grade toward desaturated/sepia (wars, dark eras). */
   gloom: (Y: number) => number;
+  /** Extra sky fill by year (added to the hemisphere light; default 0). Drive it from the
+   *  year with a slow ramp so it never snaps. Nakhon Si's forest-only early beats measured
+   *  ~30 luma darker than Korat's and 35.8 against check_render's floor of 35. */
+  ambient?: (Y: number) => number;
   rain?: [number, number][];
   /** Opt-in render look (issue #27). 'shader': post-processing in engine/Look.tsx, sharper sun shadows. */
   look?: 'shader';

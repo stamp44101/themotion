@@ -43,9 +43,9 @@ export const NAKHONSI: CityConfig = {
     city: {
       hx: 4.7,
       hz: 15.15,
-      // A rectangle 456 x 2,384 m tilted 6 deg east of north: ถนนราชดำเนิน runs the length of
-      // the town at that angle, and the north moat (คลองหน้าเมือง) meets it at a right angle,
-      // rising to the east (owner's satellite check). The brief's four corner pins made a
+      // A rectangle 456 x 2,384 m tilted 6 deg, north end to the west (docs/briefs/nakhonsi.md §1):
+      // ถนนราชดำเนิน runs the length of the town at that angle, and the north moat
+      // (คลองหน้าเมือง) meets it at a right angle, rising to the east (owner's satellite check). The brief's four corner pins made a
       // parallelogram (long sides 8.5 deg, short sides 3 deg the other way); only the long
       // sides' length and the chedi's 115 m to the east wall are kept from it.
       // corners NW, NE, SE, SW
@@ -78,10 +78,14 @@ export const NAKHONSI: CityConfig = {
     forestCity: 1100,
     clearings: [
       [CHEDI[0], CHEDI[1], 3.2, 300],
+      // the settlement on the sand ridge (หาดทรายแก้ว) that the walled town later sits on:
+      // open sand and gardens along the ridge long before the walls
+      ...[-27, -21, -15, -9, -3, 3, 9, 15, 21, 27].map((z, i) => [0.3 + 0.105 * z, z, 3.4, 420 + i * 25] as [number, number, number, number]),
       // 22 Nov 1988: the slide strips a channel down Khao Luang's east face (see SLIDE)
       ...SLIDE.map(([x, z]) => [x, z, 1.6, 1988.15] as [number, number, number, number]),
     ],
-    paddies: [800, 1500],
+    // rice on the coastal plain from the Tambralinga era on (Song records, c. 1001)
+    paddies: [550, 1300],
     // landmark ground: no generated building, house or hut stands on these in any era
     sites: [
       [CHEDI[0], CHEDI[1], 1.8],
@@ -165,7 +169,11 @@ export const NAKHONSI: CityConfig = {
       [0, '#e2eed9'],
       [2026, '#d3e8f7'],
     ],
-    ground: [...GROUND],
+    // a sandy coastal plain early (the ridge is beach sand), the shared greens from 1300
+    ground: [[0, '#a29c66'], [1100, '#969a5e'], ...GROUND.filter(([y]) => y >= 1250)],
   },
+  // the legend-era beats are forest with one white chedi: lift the sky fill until the town
+  // grows (fades out 1250-1400, t ~24.6-29.6 s, slowly enough not to step)
+  ambient: (Y) => 0.6 * (1 - ramp(Y, 1250, 1400)),
   gloom: (Y) => ramp(Y, 1767, 1767.2) * (1 - ramp(Y, 1769.2, 1769.6)) + ramp(Y, 1988.12, 1988.25) * (1 - ramp(Y, 1988.3, 1988.4)),
 };

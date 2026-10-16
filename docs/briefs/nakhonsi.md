@@ -31,10 +31,19 @@ value carries its source. `nced.onep.go.th` is still unreachable -- it answers
   | NE | 8.42729, 99.96485 | NW + 456 m east |
   | SE | 8.40587, 99.96807 | SW + 456 m east |
 
-- **Tilt off true north: about 3 degrees east.** ถนนราชดำเนิน, which runs the length of the
-  old town on its axis, has a bearing of **3.0 deg** over its 1,942 m span from
-  8.42246, 99.96215 to 8.43000, 99.96309 (OSM ways 321868239, 1221922419, 1221926343).
-  The west moat leans the same way: its top is 0.0032 deg of longitude west of its bottom.
+- **Tilt off true north: about 6 degrees, the north end leaning WEST** (axis bearing ~354 deg;
+  the north wall runs at ~84 deg, rising to the east). Corrected in review of PR #34; pass 2
+  said "about 3 degrees east", which does not survive a check:
+  - the road endpoints quoted for it (8.42246, 99.96215 -> 8.43000, 99.96309) span **840 m,
+    not 1,942 m**, and their north end is *east* of the south end (+7.1 deg), the opposite
+    sense to every other measure below. The south point lies near the west wall line, so
+    these are probably not ถนนราชดำเนิน's in-town section;
+  - the west moat (NW/SW corners above): **-8.5 deg** over 2,395 m;
+  - north gate -> midpoint of หอพระอิศวร / หอพระนารายณ์ (which straddle ราชดำเนิน): **-6.8 deg**;
+  - owner's Google Maps satellite view: ราชดำเนิน leans ~6 deg the same way, and the north
+    moat meets it at a right angle, rising to the east (OSM gives its first segment past
+    the gate a bearing of 81 deg, i.e. ~9 deg).
+  The layout uses a 6 deg rectangle; the spread above (6-9 deg) is within what a still shows.
 - **Is Wat Phra Mahathat inside the wall rectangle? YES -- inside, in the southern third,
   close to the east wall.** The chedi is at 8.41148, 99.96622 (UNESCO's own coordinate,
   N8 24 41.31 E99 57 58.38, which matches the Google Maps pin 8.4113, 99.9664). At that
@@ -104,7 +113,7 @@ Confidence: **confirmed** · **attributed** · **disputed**. Thai sources prefer
 | 1914 | 2457 | Railway branch opens 1 October 1914 | confirmed | hold the year |
 | 1962 | 2505 | Tropical Storm Harriet lands at Laem Talumphuk, Pak Phanang, 25 Oct | confirmed (toll "กว่า 900") | optional; gloom beat |
 | 1988 | 2531 | 22 Nov mudslides at Kathun & Khiriwong; national logging ban Jan 1989 | confirmed date; toll disputed (~230 vs 373) | no toll, or "หลายร้อยคน" |
-| 2012 → 2026 | 2555 → 2569 | Wat Phra Mahathat on the UNESCO tentative list 2012; **inscribed as World Heritage 25 July 2026** (Busan, 48th session) | confirmed by TAT / Nation / MGR quotes — re-verify on whc.unesco.org before shipping | closing beat: "มรดกโลก 25 ก.ค. 2569" |
+| 2012 → 2026 | 2555 → 2569 | Wat Phra Mahathat on the UNESCO tentative list 2012; **inscribed as World Heritage 2026** (Busan, 48th session; press reports give 25 July) | year confirmed on whc.unesco.org/en/list/1761 ("Date of Inscription: 2026"); the day is press-only | closing beat: "ขึ้นทะเบียน พ.ศ. 2569" -- no day |
 
 - **Era labels:** ตามพรลิงค์ · ศรีวิชัย · ศรีธรรมราช · อยุธยา · เจ้านคร · ปัจจุบัน
 - **Duration:** 60 s.
