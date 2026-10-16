@@ -19,9 +19,12 @@ export const KORAT: CityConfig = {
     tile: {x0: -50, x1: 46, z0: -50, z1: 46},
     // Dong Phaya Yen – Khao Yai hills: SW of Korat only (Khao Yai bears ~233 deg),
     // pulled in to the tile's south-west corner as a backdrop
+    // Khao Yai massif as a backdrop along the south edge, east of where Mittraphap enters
+    // the tile: the first draft stood two of these on the highway's line and the road ran
+    // 14 units up a hillside (check_story's road-grade rule).
     peaks: [
-      [-48, 30, 10, 9],
-      [-44, 44, 14, 10],
+      [-34, 40, 10, 7],
+      [-40, 47, 14, 8],
       [-30, 47, 9, 8],
     ],
     rivers: [{axis: 'x', pos: -13, width: 3.4}], // Lam Takhong, just north of the walls
