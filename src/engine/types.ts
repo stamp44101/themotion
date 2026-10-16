@@ -86,6 +86,9 @@ export type CityLayout = {
   urbanBox?: {x0: number; x1: number; z0: number; z1: number};
   /** Ground the sprawl must leave open: an airfield, a park, a plaza. No modern building stands in these boxes. */
   openGround?: {x0: number; x1: number; z0: number; z1: number}[];
+  /** Landmark sites [x, z, radius]: no generated building, house or village hut is placed
+   *  inside one, in any era. Random sprawl used to land on a chedi or a monument. */
+  sites?: [number, number, number][];
   towers: {x0: number; x1: number; z0: number; z1: number; extra: number}[];
   /** Year high-rises start: before it every modern building stays low-rise and its extra
    *  storeys (towers, the odd tall block) go up over the following years. Unset = tall from the start. */

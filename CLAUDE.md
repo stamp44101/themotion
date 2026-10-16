@@ -176,6 +176,12 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   1940 because tower cells are built tall from the day they appear. Set `layout.highRise` to
   the year the city's high-rises began; buildings stay low-rise until then and their extra
   storeys go up over the following 12 years.
+- **Nothing generated stands on a landmark.** The owner saw random buildings land on chedis
+  and monuments; the check then found generated houses on Korat's Thao Suranari Monument,
+  Ban Prasat, Sema and Thung Samrit. Give every landmark `[x, z, radius]` in `layout.sites`:
+  no modern building, in-city house or village hut is placed inside, in any era.
+  `check_story.mjs` fails any exported landmark position with generated buildings on it
+  (posted reels warn).
 - **Modern sprawl builds over anything not marked open.** Korat's Wing 1 runway disappeared
   under towers once the city reached it. Put airfields, parks and plazas in
   `layout.openGround`; tree `clearings` do not keep buildings out.

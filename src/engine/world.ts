@@ -89,6 +89,8 @@ const buildWorld = (L: CityLayout) => {
   }
 
   const paddies: {x: number; z: number; appear: number; urban: number; tone: number}[] = [];
+  // landmark sites: nothing generated stands on a chedi, a gate or a monument
+  const onSite = (x: number, z: number, pad: number) => (L.sites ?? []).some(([sx, sz, r]) => Math.hypot(x - sx, z - sz) < r + pad);
   const buildings: {x: number; z: number; w: number; d: number; h: number; lift: number; built: number; palette: number}[] = [];
   let k = 0;
   for (let z = tile.z0; z < tile.z1; z += 4) {
@@ -117,6 +119,7 @@ const buildWorld = (L: CityLayout) => {
         if (onRoad(bx, bz)) continue;
         // Korat's Wing 1 runway was built over by towers once the sprawl reached it
         if (L.openGround?.some((o) => bx > o.x0 - 1.1 && bx < o.x1 + 1.1 && bz > o.z0 - 1.1 && bz < o.z1 + 1.1)) continue;
+        if (onSite(bx, bz, 1.1)) continue;
         buildings.push({
           x: bx,
           z: bz,
@@ -141,6 +144,7 @@ const buildWorld = (L: CityLayout) => {
       // keep the grid inside the real footprint, a little clear of the wall
       if (city.outline && !inPoly(shrinkPoly(poly, 1.1), hx, hz)) continue;
       if (L.houses.keepOut.some(([kx, kz, r]) => Math.abs(hx - kx) < r && Math.abs(hz - kz) < r)) continue;
+      if (onSite(hx, hz, 0.5)) continue;
       if (Math.abs(hz) < 0.7 || Math.abs(hx) < 0.6) continue; // main cross streets
       // Nothing is built on open water. Every other placement pass already
       // skips the rivers; this one did not, which only showed up once a city
@@ -169,7 +173,7 @@ const buildWorld = (L: CityLayout) => {
       const r = 1 + random(`vr${c}-${j}`) * 5;
       const x = cx + Math.cos(a) * r;
       const z = cz + Math.sin(a) * r;
-      if (inRiver(x, z) || inCity(x, z, 3) || !inTile(x, z, 2) || onRoad(x, z) || onRail(x, z)) continue;
+      if (inRiver(x, z) || inCity(x, z, 3) || !inTile(x, z, 2) || onRoad(x, z) || onRail(x, z) || onSite(x, z, 0.6)) continue;
       village.push({
         x,
         z,

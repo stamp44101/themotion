@@ -284,6 +284,18 @@ for (const city of cities) {
     if (g > 0.5) warn(`${name} stands where the terrain is ${g.toFixed(1)} high: make sure Landmarks.tsx places it at terrainH(x, z), not at y = 0.`);
   }
 
+  // Nothing generated stands on a landmark. Random sprawl, the in-city house grid and village
+  // huts landed on chedis and monuments (owner review, Nakhon Si); `layout.sites` keeps them off.
+  {
+    const sMsg = FRAME_WAIVED.has(city) ? warn : err;
+    const near = (list, x, z, r) => list.filter((b) => Math.hypot(b.x - x, b.z - z) < r).length;
+    for (const [name, v] of Object.entries(lm)) {
+      if (!Array.isArray(v) || v.length !== 2 || typeof v[0] !== 'number') continue;
+      const n = near(world.buildings, v[0], v[1], 1.8) + near(world.houses, v[0], v[1], 1.4) + near(world.village, v[0], v[1], 1.4);
+      if (n) sMsg(`${name} (${v[0]}, ${v[1]}): ${n} generated building(s)/house(s) stand on it in some era. Add [x, z, radius] for it to layout.sites.`);
+    }
+  }
+
   // the thing a callout points at must be visible, not behind a wall of trees
   for (const o of occlusion(cfg, engine)) {
     if (o.blocked > 0.5)
