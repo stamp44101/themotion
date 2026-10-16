@@ -212,6 +212,20 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   toy garden. Grow the modern city to its real extent, use real mountains at real height, and
   keep wide shots at >= 30 degrees. Full guide and measurements: `docs/grandeur.md`;
   `check_story.mjs` fails a clip that ends on nothing big.
+- **Every beat needs something happening on screen, not just a caption.** Nakhon Si's first
+  cut was a list of dates over a forest with one small chedi (inscription no. 23, Song records,
+  an Ayutthaya province, Chandrabhanu): the owner found it boring. v2 kept only beats with an
+  event to show -- the relic boat coming ashore, junks in the Gulf, walls rising, two armies at
+  the north gate, a train, a mudslide, the แห่ผ้าขึ้นธาตุ procession wrapping the chedi --
+  and folded the text-only facts into the sub lines. Plan the story as a list of on-screen
+  events first; a date with nothing to show is a sub line, not a beat.
+- **60 s by default, 75 s when it pays (owner's rule).** Go to 75 s only if the extra time goes
+  to beats with action on screen (a siege, a procession, a tracking shot), never to longer
+  holds or more text. Set `story.duration`, register the composition with
+  `(CITY.story.duration ?? SECONDS) * FPS`, export `DURATION` from timeline.ts for the
+  soundtrack, and call `synth.init(...)` in the soundtrack script. Nakhon Si stretches its
+  60 s grid with one `WARP` table (timeline.ts) used by the year curve, captions, camera,
+  callouts and soundtrack cues, so nothing drifts out of sync.
 - **A forest-only opening reads dark and green.** Nakhon Si's legend-era beats (forest and one
   small white chedi) measured ~30 luma under Korat's and 86% green-dominant pixels; its darkest
   frame was 35.8 against `check_render`'s floor of 35. Open the ground where the story allows

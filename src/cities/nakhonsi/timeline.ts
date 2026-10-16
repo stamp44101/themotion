@@ -3,7 +3,26 @@
 // counter while its caption is up (the counter rounds, so a hold on X stays below X + 0.5).
 import {Caption, makeCurve} from '../../lib';
 
-export const YEAR_KEYS: [number, number][] = [
+// 75 s, not 60: the extra 15 s go only to beats with something happening on screen (the
+// siege +2.5 s, the procession +5 s, the Gulf junks +1.5 s, the grown city and the night
+// finale), never to holds or text. Beats, camera keys and callouts are authored on the
+// original 60 s grid and stretched by this map (old s -> new s); the soundtrack uses it too.
+export const DURATION = 75;
+export const WARP: [number, number][] = [
+  [0, 0], [8.4, 9], [9, 9.5], [14, 16], [14.5, 16.5], [19.6, 21.6], [21.4, 23.2], [26, 28],
+  [26.6, 28.6], [29.6, 32], [29.8, 32.2], [34.6, 39.5], [36.4, 41.3], [40.6, 45.5], [44.3, 50.3],
+  [48.2, 54.2], [49.2, 55], [53, 64], [53.2, 64.3], [56, 71], [60, 75],
+];
+export const at = (t: number) => {
+  for (let i = 1; i < WARP.length; i++) {
+    const [a0, b0] = WARP[i - 1];
+    const [a1, b1] = WARP[i];
+    if (t <= a1) return b0 + ((t - a0) / (a1 - a0)) * (b1 - b0);
+  }
+  return WARP[WARP.length - 1][1];
+};
+
+const KEYS_60: [number, number][] = [
   [0, 300], // legend: the relic boat comes ashore (counter never named in a caption)
   [3, 330],
   [6, 520],
@@ -37,9 +56,10 @@ export const YEAR_KEYS: [number, number][] = [
 
   [60, 2026],
 ];
+export const YEAR_KEYS: [number, number][] = KEYS_60.map(([t, y]) => [at(t), y]);
 export const yearAt = makeCurve(YEAR_KEYS);
 
-export const CAPTIONS: Caption[] = [
+const CAPTIONS_60: Caption[] = [
   {t0: 3.2, t1: 8.4, title: 'ตามตำนานพระบรมธาตุ', sub: 'เจ้าชายทนทกุมารกับนางเหมชาลา ลอยเรืออัญเชิญพระทันตธาตุจากลังกา มาขึ้นฝั่งที่หาดทรายแก้ว'},
   {t0: 9, t1: 14, title: 'เมืองท่าตามพรลิงค์', sub: 'เมืองท่าบนเส้นทางการค้าทางทะเล ส่งทูตไปราชสำนักซ่ง ราว พ.ศ. 1544'},
   {t0: 14.5, t1: 19.6, title: 'เจดีย์ทรงลังกา', sub: 'ราวพุทธศตวรรษที่ 18 ยุคพระเจ้าจันทรภาณุ สันนิษฐานว่าสร้างครอบองค์เดิม'},
@@ -52,7 +72,7 @@ export const CAPTIONS: Caption[] = [
   {t0: 53.2, t1: 56, title: 'มรดกโลก', sub: 'วัดพระมหาธาตุวรมหาวิหาร แห่งแรกของภาคใต้ ขึ้นทะเบียน พ.ศ. 2569'},
 ];
 
-export const ERAS = [
+const ERAS_60 = [
   {t: 3, label: 'ตามพรลิงค์'},
   {t: 14.5, label: 'ศรีธรรมราช'},
   {t: 21.4, label: 'อยุธยา'},
@@ -60,5 +80,13 @@ export const ERAS = [
   {t: 36.4, label: 'ปัจจุบัน'},
 ];
 
-// the first train pulls in to the terminus during the 1914 hold
-export const SOUND_EVENTS = {trains: [{t0: 36.4, dur: 3.4, dir: 1, modern: false}] as {t0: number; dur: number; dir: number; modern: boolean}[]};
+export const CAPTIONS: Caption[] = CAPTIONS_60.map((c) => ({...c, t0: at(c.t0), t1: at(c.t1)}));
+export const ERAS = ERAS_60.map((e) => ({...e, t: at(e.t)}));
+
+// the first train pulls in to the terminus during the 1914 hold; `warp` lets the soundtrack
+// script place its hand-timed cues on the same stretched grid
+const TRAIN_60 = {t0: 36.4, dur: 3.4};
+export const SOUND_EVENTS = {
+  trains: [{t0: at(TRAIN_60.t0), dur: at(TRAIN_60.t0 + TRAIN_60.dur) - at(TRAIN_60.t0), dir: 1, modern: false}] as {t0: number; dur: number; dir: number; modern: boolean}[],
+  warp: WARP,
+};

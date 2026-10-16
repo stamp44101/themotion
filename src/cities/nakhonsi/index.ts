@@ -2,7 +2,7 @@ import {ramp} from '../../lib';
 import {GROUND} from '../../Scene';
 import type {CityConfig} from '../../engine/types';
 import {CHEDI, HO_PHRA_ISUAN, HO_PHRA_NARAI, LANDING, NakhonSiLandmarks, NORTH_GATE, PHUTTHASIHING, PROCESSION, SLIDE} from './Landmarks';
-import {CAPTIONS, ERAS, SOUND_EVENTS, yearAt} from './timeline';
+import {at, CAPTIONS, DURATION, ERAS, SOUND_EVENTS, yearAt} from './timeline';
 
 // World origin = old-town centroid (8.41680, 99.96438), 80 m/unit,
 // +x east, -z north. Footprint and canals from docs/briefs/nakhonsi.md (Google Maps / OSM).
@@ -16,6 +16,7 @@ export const NAKHONSI: CityConfig = {
     intro: {kicker: 'ไทม์แลปส์ประวัติศาสตร์', title: 'นครศรีธรรมราช', sub: 'เมืองพระธาตุ มรดกโลกแห่งแดนใต้'},
     finale: {kicker: 'มรดกโลก พ.ศ. 2569', title: 'นครศรีธรรมราช', sub: 'พระบรมธาตุเจดีย์ · เขาหลวง · อ่าวไทย'},
     approxBefore: 1600,
+    duration: DURATION,
   },
   layout: {
     tile: {x0: -48, x1: 48, z0: -50, z1: 50},
@@ -186,3 +187,7 @@ export const NAKHONSI: CityConfig = {
   ambient: (Y) => 0.6 * (1 - ramp(Y, 1250, 1400)),
   gloom: (Y) => ramp(Y, 1769.0, 1769.1) * (1 - ramp(Y, 1769.38, 1769.45)) + ramp(Y, 1988.12, 1988.25) * (1 - ramp(Y, 1988.3, 1988.4)),
 };
+
+// camera keys and callouts above are on the 60 s grid; stretch them to 75 s (timeline.ts WARP)
+NAKHONSI.layout.cameraKeys = NAKHONSI.layout.cameraKeys.map(([t, ...k]) => [at(t), ...k] as typeof NAKHONSI.layout.cameraKeys[number]);
+NAKHONSI.callouts = NAKHONSI.callouts.map((c) => ({...c, t0: at(c.t0), t1: at(c.t1)}));

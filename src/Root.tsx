@@ -46,7 +46,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="Sukhothai" component={Sukhothai} durationInFrames={(SUKHOTHAI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Ayutthaya" component={Ayutthaya} durationInFrames={(AYUTTHAYA.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Korat" component={Korat} durationInFrames={(KORAT.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
-    <Composition id="NakhonSi" component={NakhonSi} durationInFrames={60 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="NakhonSi" component={NakhonSi} durationInFrames={(NAKHONSI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
       <Composition id="KoratLook" component={KoratLook} durationInFrames={(KORAT.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition
       id="ChiangMaiIso"
