@@ -11,7 +11,7 @@ export const HO_PHRA_ISUAN: [number, number] = [-0.9, -10.2];
 export const HO_PHRA_NARAI: [number, number] = [-0.2, -10.4];
 export const PHUTTHASIHING: [number, number] = [-1.0, -3.2];
 // 1988 mudslide: a channel of bare mud down Khao Luang's east face toward the plain
-export const SLIDE: [number, number][] = Array.from({length: 16}, (_, i) => [-40.5 + i * 0.9, -6 + i * 0.3 + Math.sin(i * 1.3) * 0.5]);
+export const SLIDE: [number, number][] = Array.from({length: 16}, (_, i) => [-41.5 + i * 0.55, -6 + i * 0.2 + Math.sin(i * 1.3) * 0.4]);
 
 // The great chedi is ~55 m (0.7 unit) tall; it is the clip's hero, so it is drawn ~8x tall.
 // It cannot be drawn 8x wide: it stands 115 m (1.4 units) inside the east wall of a town only

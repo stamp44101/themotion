@@ -245,6 +245,22 @@ for (const city of cities) {
     });
   }
 
+  // The rail, its sleepers and the trains are drawn at y = 0 on straight runs; terrain
+  // rising under the line buries them (Nakhon Si's Khao Luang cone sank the 1914 train).
+  if (layout.rail) {
+    const rail = layout.rail;
+    const t = layout.tile;
+    const [r0, r1] = rail.span ?? (rail.axis === 'z' ? [t.z0, t.z1] : [t.x0, t.x1]);
+    const g = engine.getWorld(layout);
+    let worst = {h: 0, a: 0};
+    for (let a = r0; a <= r1; a += 0.5) {
+      const [x, z] = rail.axis === 'z' ? [rail.pos, a] : [a, rail.pos];
+      const h = g.terrainH(x, z);
+      if (h > worst.h) worst = {h, a};
+    }
+    if (worst.h > 0.3) err(`rail is buried: terrain is ${worst.h.toFixed(2)} high under the line at ${rail.axis === 'z' ? 'z' : 'x'}=${worst.a}; move rail.pos or narrow the peaks.`);
+  }
+
   // Cars cross water only on a bridge deck. The engine hides a car with no deck under
   // it, so a city that trips this has cars vanishing mid-river (Nakhon Sawan's ring road
   // crossed the Chao Phraya next to, not on, the Dechatiwong bridge; cars drove on water).

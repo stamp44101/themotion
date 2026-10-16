@@ -21,11 +21,13 @@ export const NAKHONSI: CityConfig = {
     tile: {x0: -48, x1: 48, z0: -50, z1: 50},
     // Khao Luang range: 26 km WNW of the old town (far), pulled to the tile's west edge.
     // Real summit ~1,800 m (disputed 1,780 / 1,835); the tallest peak sits WNW of the chedi.
+    // Narrow cones, not broad ones: the first draft's r=22 summit spread 2 units of
+    // terrain onto the coastal plain at x=-11.5, and the 1914 train ran sunk in it.
     peaks: [
-      [-44, -4, 18, 22],
-      [-46, 8, 14, 12],
-      [-44, -36, 12, 10],
-      [-46, 28, 12, 9],
+      [-45, -4, 18, 13],
+      [-46, 9, 14, 9],
+      [-44, -34, 12, 8],
+      [-46, 28, 12, 8],
     ],
     rivers: [
       // Gulf of Thailand: 13 km east in reality, compressed to the tile's east edge
