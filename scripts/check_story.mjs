@@ -48,6 +48,14 @@ const YEAR_HOLD = 1.0;
 const YEAR_HOLD_WAIVED = new Set(['ayutthaya', 'chachoengsao', 'chonburi', 'nakhonsawan', 'phitsanulok', 'sukhothai']);
 // posted before the in-frame callout check existed: warn only
 const FRAME_WAIVED = new Set([...YEAR_HOLD_WAIVED, 'watraikhing']);
+// An actor in frame is not an actor the viewer can read: Korat's modern train crossed the
+// city at 26 video px per world unit (a 0.4-unit-wide train 10 px wide over dense blocks)
+// and was invisible in the strip, while every actor that reads sits at 51 px/unit or more
+// (Korat's 1901 train 78, the armies 51-62, Nakhon Si's procession 88). Each actor needs
+// this many px/unit for at least LEGIBLE_SECONDS of its beat (Korat's 1901 train, which reads, clears
+// 40 px/unit for 0.47 s).
+const LEGIBLE_SCALE = 40;
+const LEGIBLE_SECONDS = 0.4;
 // Compass directions between real places (src/engine/geo.ts): a pair whose model
 // bearing is off by more than this fails. Chonburi put the Gulf east of the town.
 const GEO_MAX_DIFF = 30;
@@ -403,6 +411,8 @@ for (const city of cities) {
       let seen = false;
       let was = false;
       let firstOut = null;
+      let legible = 0;
+      let maxScale = 0;
       for (let t = t0; t <= t1 + 1e-6; t += 2 / 30) {
         n++;
         const p = a.at(t, ctxAt(t));
@@ -418,6 +428,10 @@ for (const city of cities) {
           out++;
           firstOut ??= t;
         } else if (occ.hidden(p, t)) hid++;
+        else {
+          maxScale = Math.max(maxScale, q.scale);
+          if (q.scale >= LEGIBLE_SCALE) legible += 2 / 30;
+        }
       }
       if (!present) {
         aMsg(`actor "${a.id}" (${s(t0)}-${s(t1)}) never stands during its beat.`);
@@ -428,6 +442,10 @@ for (const city of cities) {
       if (1 - out / present < minIn) aMsg(`actor "${a.id}" (${s(t0)}-${s(t1)}): in frame only ${Math.round(100 * (1 - out / present))}% of the time it stands (need ${Math.round(minIn * 100)}%), out from ${s(firstOut)}. Hold the camera on it or move its path.`);
       if (hid / present > 0.5) aMsg(`actor "${a.id}" (${s(t0)}-${s(t1)}): hidden behind trees ${Math.round((100 * hid) / present)}% of the time it stands.`);
       if (pops) aMsg(`actor "${a.id}" (${s(t0)}-${s(t1)}): disappears and comes back ${pops} time(s) during its beat.`);
+      if (legible + 1e-6 < LEGIBLE_SECONDS) {
+        const why = !maxScale ? 'never on screen unhidden' : maxScale < LEGIBLE_SCALE ? `${Math.round(maxScale)} px per world unit at best (need ${LEGIBLE_SCALE})` : `at ${LEGIBLE_SCALE}+ px per world unit for only ${legible.toFixed(1)} s (need ${LEGIBLE_SECONDS} s)`;
+        aMsg(`actor "${a.id}" (${s(t0)}-${s(t1)}): too small to read, ${why}. Bring the camera in, or cut it: a thing nobody can see is not a beat.`);
+      }
       if (present / n < 0.5) warn(`actor "${a.id}" (${s(t0)}-${s(t1)}) stands for only ${Math.round((100 * present) / n)}% of its beat.`);
     }
   }
