@@ -30,7 +30,7 @@ const mod = await load(`src/cities/${city}/index.ts`);
 const name = Object.keys(mod).find((k) => mod[k] && mod[k].layout);
 const cfg = mod[name];
 const root = fs.readFileSync('src/Root.tsx', 'utf8');
-const comp = root.match(new RegExp(`const (\\\\w+): React.FC = \\\\(\\\\) => <DioramaComposition city={${name}}`))?.[1];
+const comp = root.match(new RegExp(`const (\\w+): React.FC = \\(\\) => <DioramaComposition city={${name}}`))?.[1];
 if (!comp) {
   console.error(`no composition in src/Root.tsx uses ${name}`);
   process.exit(1);
