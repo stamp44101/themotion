@@ -79,8 +79,10 @@ export const KORAT: CityConfig = {
       {x0: 14, x1: 32, z0: -8, z1: 10, extra: 4},
     ],
     roads: [
-      {from: [-50, 40], to: [-15, 0], width: 2.2, year: 1958}, // Mittraphap from Saraburi
-      {from: [-16, 0], to: [-28, -50], width: 2.2, year: 1958}, // Mittraphap to Khon Kaen
+      // Mittraphap (Route 2) passes west of the old town and the station, past today's
+      // Terminal 21 junction; it never ran through the monument at Chumphon Gate (viewer comment)
+      {from: [-50, 40], to: [-36, 0], width: 2.2, year: 1958}, // Mittraphap from Saraburi
+      {from: [-36, 0], to: [-30, -50], width: 2.2, year: 1958}, // Mittraphap to Khon Kaen
       {from: [14, 0], to: [46, 2], width: 1.2, year: 1930}, // road to Phimai
     ],
     ringRoadYear: 1950,
@@ -112,8 +114,8 @@ export const KORAT: CityConfig = {
       [39.6, -27, 0, 8, 52, 35, 30, 30],
       [41.2, -14.6, 1.5, 0, 30, -60, 22, 30],
       [44, -14.6, 1.5, 0, 26, -45, 22, 30],
-      [46, -24, 0, 10, 120, -20, 32, 30],
-      [49, -6, 0, 6, 140, 20, 32, 30],
+      [46, -32, 0, 8, 120, -20, 32, 30],
+      [49, -24, 0, 4, 140, 20, 32, 30],
       [52, -16, 1, 18, 140, 34, 30, 30],
       [55, -8, 2, 8, 140, 48, 30, 30],
       [57, 0, 6, 0, 150, 52, 26, 30],
@@ -131,7 +133,7 @@ export const KORAT: CityConfig = {
     {t0: 31.8, t1: 33.6, label: 'ทุ่งสัมฤทธิ์', dx: 60, dy: -120, p: [THUNG_SAMRIT[0], 0.5, THUNG_SAMRIT[1]]},
     {t0: 36.8, t1: 40, label: 'สถานีรถไฟนครราชสีมา', dx: 40, dy: -130, p: [-29, 1.6, 9]},
     {t0: 41.7, t1: 45, label: 'อนุสาวรีย์ท้าวสุรนารี', dx: 120, dy: -150, p: [MONUMENT[0], 2.6, MONUMENT[1]]},
-    {t0: 46.2, t1: 49.6, label: 'ถนนมิตรภาพ', dx: 70, dy: 120, p: [-20, 0.4, 6]},
+    {t0: 46.2, t1: 49.6, label: 'ถนนมิตรภาพ', dx: 70, dy: 120, p: [-37.5, 0.4, 4]},
     {t0: 50.4, t1: 53.8, label: 'กองบิน 1', dx: 80, dy: 120, p: [RUNWAY[0] + 8, 0, RUNWAY[1]]},
   ],
   soundtrack: 'soundtrack_korat.wav',

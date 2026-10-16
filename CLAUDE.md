@@ -192,6 +192,10 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   A place tens of km out (Korat's Phimai, 50 km NE) is marked `far: true` and checked only
   against the `centre: true` point and other far places; its distance is compressed far more
   than the town's, so its bearing to a nearby landmark means nothing.
+  Roads count too: Korat's Mittraphap Highway was drawn straight through the Thao Suranari
+  Monument at Chumphon Gate, and a viewer from Korat pointed out it passes well west of the
+  old town and the station. Route a named road by where it really runs, not to the nearest
+  landmark.
 - **Grandeur is scale contrast.** Chiang Mai reads grand because thousands of small things
   (trees, houses, lit windows) sit under one big thing (Doi Suthep, the moated square, a modern
   city on 46% of the tile). Nakhon Sawan ended on 4 buildings and 3-high hills and read as a
