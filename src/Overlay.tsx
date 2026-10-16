@@ -14,6 +14,19 @@ export const SAFE = {left: 130, right: 950, top: 250, bottom: 1460, rightLow: 86
 // "พ.ศ. 2377" never splits across lines: if a caption wraps, the year moves as one piece.
 const keepYear = (s: string) => s.replace(/(พ\.ศ\.|ค\.ศ\.)\s+(?=\d)/g, '$1\u00a0');
 const shadow = '0 3px 14px rgba(0,0,0,0.55), 0 1px 3px rgba(0,0,0,0.6)';
+// The intro and finale city names are sized for 6-10 letters. นครศรีธรรมราช at the long-name
+// size measured 1,005 px (finale 1,072) in a 1,080 frame whose sides TikTok crops ~100 px each;
+// every other city is 807 or less. A name wider than the caption column shrinks to fit it.
+// Kanit is loaded before the first frame (DioramaComposition), so the measure is the render's.
+const TITLE_MAX = 820;
+let measureCtx: CanvasRenderingContext2D | null = null;
+const fitTitle = (text: string, base: number) => {
+  measureCtx ??= document.createElement('canvas').getContext('2d');
+  if (!measureCtx) return base;
+  measureCtx.font = `700 ${base}px Kanit`;
+  const w = measureCtx.measureText(text).width;
+  return w > TITLE_MAX ? Math.floor((base * TITLE_MAX) / w) : base;
+};
 
 const chedi = proj(0, 0.02);
 const gate = proj(0, 1.05);
@@ -253,7 +266,7 @@ export const Overlay: React.FC<{callouts?: ScreenCallout[]; story?: Story}> = ({
           }}
         >
           <div style={{fontSize: 40, fontWeight: 500, letterSpacing: 6, color: '#f6cf73'}}>{story.intro.kicker}</div>
-          <div style={{fontSize: story.intro.title.length > 8 ? 150 : 190, fontWeight: 700, lineHeight: 1.15}}>{story.intro.title}</div>
+          <div style={{fontSize: fitTitle(story.intro.title, story.intro.title.length > 8 ? 150 : 190), fontWeight: 700, lineHeight: 1.15}}>{story.intro.title}</div>
           <div style={{fontSize: 50, fontWeight: 400}}>{story.intro.sub}</div>
         </div>
       )}
@@ -275,7 +288,7 @@ export const Overlay: React.FC<{callouts?: ScreenCallout[]; story?: Story}> = ({
           }}
         >
           <div style={{fontSize: 44, fontWeight: 500, letterSpacing: 4, color: '#f6cf73'}}>{story.finale.kicker}</div>
-          <div style={{fontSize: story.finale.title.length > 8 ? 160 : 200, fontWeight: 700, lineHeight: 1.15}}>{story.finale.title}</div>
+          <div style={{fontSize: fitTitle(story.finale.title, story.finale.title.length > 8 ? 160 : 200), fontWeight: 700, lineHeight: 1.15}}>{story.finale.title}</div>
           <div style={{fontSize: 52, fontWeight: 500, padding: '0 60px'}}>{story.finale.sub}</div>
         </div>
       )}

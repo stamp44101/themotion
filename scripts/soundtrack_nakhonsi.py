@@ -119,10 +119,12 @@ add(amb, traffic * np.clip((Y - 1950) / 50, 0, 1) * (1 - 0.5 * bump(T, heritage[
 # Narai's walls: brick laying knocks
 for _ in range(40):
     add(sfx, drum(rng.uniform(320, 520), 220, 0.12, 0.22), rng.uniform(tl.t_of(1685), tl.t_of(1689.5)), pan=rng.uniform(-0.6, 0.6))
-# the legend's boat: hull creaks and lapping water as it comes ashore
-for t in (0.4, 1.3, 2.1, 2.8):
+# the legend's boat: hull creaks and lapping water as it comes ashore (actors.ts: it sails
+# over 5-42% of the legend beat, while the camera comes down from the whole tile)
+ashore = legend[0] + 0.42 * (legend[1] - legend[0])
+for t in (ashore - 2.4, ashore - 1.6, ashore - 0.9, ashore - 0.3):
     add(sfx, creak(0.5), t, pan=0.3, gain=0.6)
-add(sfx, splash(), 2.9, pan=0.2, gain=0.7)
+add(sfx, splash(), ashore, pan=0.2, gain=0.7)
 # junks in the Gulf: timber and sail
 for t in (trade[0] + 0.6, trade[0] + 1.9, trade[0] + 3.4):
     add(sfx, creak(0.6), t, pan=rng.uniform(0.2, 0.7), gain=0.5)
