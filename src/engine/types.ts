@@ -44,8 +44,12 @@ export type CityLayout = {
   bridges: {at: number; year: number; modernYear: number; river?: number}[];
   /** Walled city has its own moat (false when rivers form the moat). */
   noMoat?: boolean;
-  rail?: {axis: Axis; pos: number; open: [number, number]; station: [number, number]; stationYear: number};
-  trains: {t0: number; dur: number; dir: 1 | -1; modern: boolean}[];
+  /** `span` limits the line along its axis (default: the whole tile). Nakhon Si's station is a
+   *  terminus: the line ends there instead of running on past it to the tile edge. */
+  rail?: {axis: Axis; pos: number; open: [number, number]; station: [number, number]; stationYear: number; span?: [number, number]};
+  /** `park`: seconds a train that pulled in to a terminus stays at the platform before it
+   *  is removed (default 0). Nakhon Si's first train vanished the instant its run ended. */
+  trains: {t0: number; dur: number; dir: 1 | -1; modern: boolean; park?: number}[];
   /** Walled old city: a rectangle of half-sizes hx × hz centred on the origin,
    *  unless `outline` gives a real footprint. */
   city: {
@@ -86,6 +90,14 @@ export type CityLayout = {
   urbanBox?: {x0: number; x1: number; z0: number; z1: number};
   /** Ground the sprawl must leave open: an airfield, a park, a plaza. No modern building stands in these boxes. */
   openGround?: {x0: number; x1: number; z0: number; z1: number}[];
+  /** Modern building scale. `height` multiplies the generated block heights and the modern
+   *  in-city houses (default 1);
+   *  `tall` is the chance a block outside a `towers` box gets extra storeys (default 0.07).
+   *  A low-rise provincial town (Nakhon Si) needs both lowered or it reads as a metropolis. */
+  sprawl?: {height?: number; tall?: number};
+  /** Landmark sites [x, z, radius]: no generated building, house or village hut is placed
+   *  inside one, in any era. Random sprawl used to land on a chedi or a monument. */
+  sites?: [number, number, number][];
   towers: {x0: number; x1: number; z0: number; z1: number; extra: number}[];
   /** Year high-rises start: before it every modern building stays low-rise and its extra
    *  storeys (towers, the odd tall block) go up over the following years. Unset = tall from the start. */
@@ -122,6 +134,10 @@ export type CityConfig = {
   sky: {top: [number, string][]; bottom: [number, string][]; ground: [number, string][]};
   /** 0..1 grade toward desaturated/sepia (wars, dark eras). */
   gloom: (Y: number) => number;
+  /** Extra sky fill by year (added to the hemisphere light; default 0). Drive it from the
+   *  year with a slow ramp so it never snaps. Nakhon Si's forest-only early beats measured
+   *  ~30 luma darker than Korat's and 35.8 against check_render's floor of 35. */
+  ambient?: (Y: number) => number;
   rain?: [number, number][];
   /** Opt-in render look (issue #27). 'shader': post-processing in engine/Look.tsx, sharper sun shadows. */
   look?: 'shader';

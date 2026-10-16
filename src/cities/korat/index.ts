@@ -71,6 +71,14 @@ export const KORAT: CityConfig = {
     ],
     paddies: [500, 1400],
     // Wing 1 airfield: the runway (26 x 2.4 at RUNWAY) and its apron stay open
+    // landmark ground: no generated building, house or hut stands on these in any era
+    sites: [
+      [MONUMENT[0], MONUMENT[1], 2.6],
+      [BAN_PRASAT[0], BAN_PRASAT[1], 2.6],
+      [SEMA[0], SEMA[1], 3],
+      [THUNG_SAMRIT[0], THUNG_SAMRIT[1], 5],
+      [PHIMAI[0], PHIMAI[1], 4.5],
+    ],
     openGround: [{x0: RUNWAY[0] - 14, x1: RUNWAY[0] + 14, z0: RUNWAY[1] - 2.5, z1: RUNWAY[1] + 2.5}],
     urban: {from: 1915, rate: 2.0},
     highRise: 1985, // low-rise shophouses until the hotel and office towers of the late 1980s-90s

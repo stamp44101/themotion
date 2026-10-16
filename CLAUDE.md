@@ -47,6 +47,10 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   only ever sees roof.
 
 ## Look & feel lessons
+- **Bloom can black out a whole frame.** With `look: 'shader'`, Nakhon Si's first frames came
+  out black: under a low dawn sun the sea threw a highlight past half-float range, and the bloom
+  chain spread the Inf into NaN across the frame even at intensity 0. `Look.tsx` now mounts
+  Bloom only at night. Check a shader-look city's dawn and wide shots on stills, not only noon.
 - **Model a named landmark's silhouette before its icon.** Chonburi's first
   Khao Sam Muk shot put a small red shrine on a round green mound; the label was
   correct, but the place was not recognisable. The useful identity was the long
@@ -172,6 +176,20 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   1940 because tower cells are built tall from the day they appear. Set `layout.highRise` to
   the year the city's high-rises began; buildings stay low-rise until then and their extra
   storeys go up over the following 12 years.
+- **Nothing generated stands on a landmark.** The owner saw random buildings land on chedis
+  and monuments; the check then found generated houses on Korat's Thao Suranari Monument,
+  Ban Prasat, Sema and Thung Samrit. Give every landmark `[x, z, radius]` in `layout.sites`:
+  no modern building, in-city house or village hut is placed inside, in any era.
+  `check_story.mjs` fails any exported landmark position with generated buildings on it
+  (posted reels warn).
+- **A block's whole footprint stays off the road, and its trees go when it goes up.** The
+  engine tested only a building's centre against `L.roads` (not the ring road), so blocks stuck
+  out over the kerb; and trees cleared on their own schedule, so towers rose through canopies.
+  Nakhon Si had 14 blocks on roads and 42 inside trees, Korat 4 and 151. `world.ts` now checks
+  the footprint against every road and the rail and clears trees under each block at its
+  build year; `check_story.mjs` fails either.
+- **A train that pulls in to a terminus parks** (`trains[].park`, seconds) instead of
+  vanishing the moment its run ends.
 - **Modern sprawl builds over anything not marked open.** Korat's Wing 1 runway disappeared
   under towers once the city reached it. Put airfields, parks and plazas in
   `layout.openGround`; tree `clearings` do not keep buildings out.
@@ -202,6 +220,26 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   toy garden. Grow the modern city to its real extent, use real mountains at real height, and
   keep wide shots at >= 30 degrees. Full guide and measurements: `docs/grandeur.md`;
   `check_story.mjs` fails a clip that ends on nothing big.
+- **Every beat needs something happening on screen, not just a caption.** Nakhon Si's first
+  cut was a list of dates over a forest with one small chedi (inscription no. 23, Song records,
+  an Ayutthaya province, Chandrabhanu): the owner found it boring. v2 kept only beats with an
+  event to show -- the relic boat coming ashore, junks in the Gulf, walls rising, two armies at
+  the north gate, a train, a mudslide, the แห่ผ้าขึ้นธาตุ procession wrapping the chedi --
+  and folded the text-only facts into the sub lines. Plan the story as a list of on-screen
+  events first; a date with nothing to show is a sub line, not a beat.
+- **60 s by default, 75 s when it pays (owner's rule).** Go to 75 s only if the extra time goes
+  to beats with action on screen (a siege, a procession, a tracking shot), never to longer
+  holds or more text. Set `story.duration`, register the composition with
+  `(CITY.story.duration ?? SECONDS) * FPS`, export `DURATION` from timeline.ts for the
+  soundtrack, and call `synth.init(...)` in the soundtrack script. Nakhon Si stretches its
+  60 s grid with one `WARP` table (timeline.ts) used by the year curve, captions, camera,
+  callouts and soundtrack cues, so nothing drifts out of sync.
+- **A forest-only opening reads dark and green.** Nakhon Si's legend-era beats (forest and one
+  small white chedi) measured ~30 luma under Korat's and 86% green-dominant pixels; its darkest
+  frame was 35.8 against `check_render`'s floor of 35. Open the ground where the story allows
+  (a sand ridge, early paddies), give the plain a sandier `sky.ground`, and use `c.ambient(Y)`
+  (extra sky fill, ramped slowly by year) rather than a per-shot light. Measure mean luma on
+  the early stills, not only by eye.
 - **Light must never snap.** The day/night cycle in `lighting()` is continuous (no reset after the
   intro) and nights only dim to ~half. Do not add per-city light that jumps; `check_render.mjs`
   fails anything over 8 luma levels per frame or darker than 35 before the finale.

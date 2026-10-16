@@ -221,7 +221,7 @@ for (const city of cities) {
   if (layout.rail) {
     const rail = layout.rail;
     const t = layout.tile;
-    const rs = rail.axis === 'z' ? [t.z0, t.z1] : [t.x0, t.x1];
+    const rs = rail.span ?? (rail.axis === 'z' ? [t.z0, t.z1] : [t.x0, t.x1]);
     layout.rivers.forEach((r, n) => {
       if (roads.isPathRiver(r)) {
         const step = 0.25;
@@ -243,6 +243,46 @@ for (const city of cities) {
       if (Math.abs(rail.pos - r.pos) < r.width / 2 + 1.0 && span[0] < rs[1] && rs[0] < span[1])
         err(`rail runs along river ${n}'s bed; move rail.pos to dry ground.`);
     });
+  }
+
+  // The rail, its sleepers and the trains are drawn at y = 0 on straight runs; terrain
+  // rising under the line buries them (Nakhon Si's Khao Luang cone sank the 1914 train).
+  if (layout.rail) {
+    const rail = layout.rail;
+    const t = layout.tile;
+    const [r0, r1] = rail.span ?? (rail.axis === 'z' ? [t.z0, t.z1] : [t.x0, t.x1]);
+    const g = engine.getWorld(layout);
+    let worst = {h: 0, a: 0};
+    for (let a = r0; a <= r1; a += 0.5) {
+      const [x, z] = rail.axis === 'z' ? [rail.pos, a] : [a, rail.pos];
+      const h = g.terrainH(x, z);
+      if (h > worst.h) worst = {h, a};
+    }
+    if (worst.h > 0.3) err(`rail is buried: terrain is ${worst.h.toFixed(2)} high under the line at ${rail.axis === 'z' ? 'z' : 'x'}=${worst.a}; move rail.pos or narrow the peaks.`);
+  }
+
+  // Generated blocks keep their whole footprint off every road (the ring road included),
+  // and no tree still stands inside one after it is built (Nakhon Si: blocks over the kerb,
+  // towers rising through canopies).
+  {
+    const g = engine.getWorld(layout);
+    const [rx, rz] = [layout.city.hx + 3.1, layout.city.hz + 3.1];
+    const segs = [
+      ...layout.roads.map((r) => [r.from, r.to, r.width]),
+      [[rx, -rz], [rx, rz], 1.2], [[rx, rz], [-rx, rz], 1.2], [[-rx, rz], [-rx, -rz], 1.2], [[-rx, -rz], [rx, -rz], 1.2],
+    ];
+    const dist = ([ax, az], [bx, bz], x, z) => {
+      const dx = bx - ax, dz = bz - az;
+      const u = Math.max(0, Math.min(1, ((x - ax) * dx + (z - az) * dz) / (dx * dx + dz * dz)));
+      return Math.hypot(x - (ax + u * dx), z - (az + u * dz));
+    };
+    let onRoad = 0, inTree = 0;
+    for (const b of g.buildings) {
+      if (segs.some(([a, c, w]) => dist(a, c, b.x, b.z) < w / 2 + Math.min(b.w, b.d) / 2)) onRoad++;
+      if (g.trees.some((t) => t.clear > b.built && Math.abs(t.x - b.x) < b.w / 2 && Math.abs(t.z - b.z) < b.d / 2)) inTree++;
+    }
+    if (onRoad) err(`${onRoad} generated building(s) stand on a road.`);
+    if (inTree) err(`${inTree} generated building(s) rise through a standing tree.`);
   }
 
   // Cars cross water only on a bridge deck. The engine hides a car with no deck under
@@ -282,6 +322,18 @@ for (const city of cities) {
     if (new RegExp(`\\b(at|terrainH)\\(\\s*${name}\\b`).test(lmSrc)) continue;
     const g = world.terrainH(v[0], v[1]);
     if (g > 0.5) warn(`${name} stands where the terrain is ${g.toFixed(1)} high: make sure Landmarks.tsx places it at terrainH(x, z), not at y = 0.`);
+  }
+
+  // Nothing generated stands on a landmark. Random sprawl, the in-city house grid and village
+  // huts landed on chedis and monuments (owner review, Nakhon Si); `layout.sites` keeps them off.
+  {
+    const sMsg = FRAME_WAIVED.has(city) ? warn : err;
+    const near = (list, x, z, r) => list.filter((b) => Math.hypot(b.x - x, b.z - z) < r).length;
+    for (const [name, v] of Object.entries(lm)) {
+      if (!Array.isArray(v) || v.length !== 2 || typeof v[0] !== 'number') continue;
+      const n = near(world.buildings, v[0], v[1], 1.8) + near(world.houses, v[0], v[1], 1.4) + near(world.village, v[0], v[1], 1.4);
+      if (n) sMsg(`${name} (${v[0]}, ${v[1]}): ${n} generated building(s)/house(s) stand on it in some era. Add [x, z, radius] for it to layout.sites.`);
+    }
   }
 
   // the thing a callout points at must be visible, not behind a wall of trees
