@@ -15,8 +15,10 @@ export const STORY = buildStory({
   // transitions between beats
   camera: [
     [22.4, CHEDI[0], 2.5, CHEDI[1], 52, 290, 32, 30],
-    [49.26, 2, 1, 4, 155, 480, 38, 30],
-    [75, CHEDI[0], 2, CHEDI[1] - 4, 125, 590, 35, 30],
+    // the whole tile again while the town grows between the railway and the mudslide
+    [47.6, 0, 1, 0, 250, 485, 36, 30],
+    // the finale pulls back to the whole tile, as every city in the series ends
+    [75, 0, 1, 0, 290, 600, 36, 30],
   ],
   beats: [
     {
@@ -28,8 +30,10 @@ export const STORY = buildStory({
       era: 'ตามพรลิงค์',
       callouts: [{t0: 5.89, label: 'พระบรมธาตุเจดีย์', dx: 90, dy: -120, p: [CHEDI[0], 2.4, CHEDI[1]]}],
       camera: [
-        [0, 44, 1, -12, 34, 100, 28, 30],
-        [3.21, LANDING[0] - 4, 1, LANDING[1], 52, 100, 30, 30],
+        // the series' signature: the whole floating tile under the title, then down to the boat
+        [0, 0, 1, 0, 340, 125, 34, 30],
+        [2.2, 30, 1, -4, 130, 108, 32, 30],
+        [3.6, LANDING[0] - 4, 1, LANDING[1], 52, 100, 30, 30],
         [6.96, CHEDI[0], 2, CHEDI[1], 58, 115, 30, 30],
       ],
     },
@@ -97,9 +101,9 @@ export const STORY = buildStory({
       id: 'railway',
       t: [41.6, 44.9],
       year: [1914.2, 1914.4],
-      caption: {t0: 41.3, t1: 45.5, title: 'รถไฟมาถึงนคร', sub: 'ทางแยกเขาชุมทอง–นครศรีธรรมราช เปิดเดินรถ 1 ตุลาคม พ.ศ. 2457'},
+      caption: {t0: 41.3, t1: 46.4, title: 'รถไฟมาถึงนคร', sub: 'ทางแยกเขาชุมทอง–นครศรีธรรมราช เปิดเดินรถ 1 ตุลาคม พ.ศ. 2457'},
       era: 'ปัจจุบัน',
-      callouts: [{t0: 43.8, t1: 45.5, label: 'สถานีรถไฟนครศรีธรรมราช', dx: 80, dy: -130, p: [-8.9, 1.2, -31.4]}],
+      callouts: [{t0: 43.8, t1: 46.6, label: 'สถานีรถไฟนครศรีธรรมราช', dx: 80, dy: -130, p: [-8.9, 1.2, -31.4]}],
       camera: [
         [41.3, -11, 1, 26, 55, 455, 34, 30],
         [42.6, -11, 1, 2, 55, 450, 34, 30],
@@ -110,13 +114,13 @@ export const STORY = buildStory({
     {
       // 22 Nov 1988 mudslides at Kathun / Khiriwong
       id: 'mudslide',
-      t: [50.5, 54],
+      t: [49.1, 53.6],
       year: [1988.1, 1988.4],
-      caption: {t0: 50.3, t1: 54.2, title: 'ดินโคลนถล่มเขาหลวง', sub: '22 พฤศจิกายน พ.ศ. 2531 ที่กะทูนและคีรีวง นำไปสู่การปิดป่าสัมปทานทั่วประเทศ'},
-      callouts: [{t0: 50.8, label: 'เขาหลวง', dx: 80, dy: -110, p: [-45, 19.4, -4]}],
+      caption: {t0: 48.9, t1: 53.8, title: 'ดินโคลนถล่มเขาหลวง', sub: '22 พฤศจิกายน พ.ศ. 2531 ที่กะทูนและคีรีวง นำไปสู่การปิดป่าสัมปทานทั่วประเทศ'},
+      callouts: [{t0: 50.2, label: 'เขาหลวง', dx: 80, dy: -110, p: [-45, 19.4, -4]}],
       camera: [
-        [50.8, -36, 8, -4, 120, 495, 32, 30],
-        [53.8, -36, 8, -4, 115, 505, 32, 30],
+        [49.9, -36, 8, -4, 120, 495, 32, 30],
+        [53.4, -36, 8, -4, 115, 505, 32, 30],
       ],
     },
     {

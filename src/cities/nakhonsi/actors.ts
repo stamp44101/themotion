@@ -17,13 +17,13 @@ export const PROCESSION: [number, number][] = [
   [1.3, 7.4],
 ];
 
-// legend: the relic boat sails in over the beat's first third and comes ashore
-// (visibility on the beat too: on the year it lasted 0.8 s once the legend beat ran
-// 300 -> 820, which the actor check caught at once)
+// legend: the relic boat sails in while the camera comes down from the whole tile, and
+// comes ashore as it arrives (visibility on the beat too: on the year it lasted 0.8 s once
+// the legend beat ran 300 -> 820, which the actor check caught at once)
 export const relicBoat = (t: number, {beat}: ActorCtx) => {
   const p = beat('legend');
-  const k = 1 - ramp(p, 0.36, 0.46);
-  const sail = smooth(Math.min(1, p * 3));
+  const k = 1 - ramp(p, 0.5, 0.6);
+  const sail = smooth(ramp(p, 0.05, 0.42));
   return {x: lerp(46, LANDING[0], sail), z: lerp(-16, LANDING[1], sail), k, rot: Math.atan2(LANDING[0] - 46, LANDING[1] + 16)};
 };
 
