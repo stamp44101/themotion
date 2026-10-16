@@ -182,6 +182,14 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   no modern building, in-city house or village hut is placed inside, in any era.
   `check_story.mjs` fails any exported landmark position with generated buildings on it
   (posted reels warn).
+- **A block's whole footprint stays off the road, and its trees go when it goes up.** The
+  engine tested only a building's centre against `L.roads` (not the ring road), so blocks stuck
+  out over the kerb; and trees cleared on their own schedule, so towers rose through canopies.
+  Nakhon Si had 14 blocks on roads and 42 inside trees, Korat 4 and 151. `world.ts` now checks
+  the footprint against every road and the rail and clears trees under each block at its
+  build year; `check_story.mjs` fails either.
+- **A train that pulls in to a terminus parks** (`trains[].park`, seconds) instead of
+  vanishing the moment its run ends.
 - **Modern sprawl builds over anything not marked open.** Korat's Wing 1 runway disappeared
   under towers once the city reached it. Put airfields, parks and plazas in
   `layout.openGround`; tree `clearings` do not keep buildings out.

@@ -261,6 +261,30 @@ for (const city of cities) {
     if (worst.h > 0.3) err(`rail is buried: terrain is ${worst.h.toFixed(2)} high under the line at ${rail.axis === 'z' ? 'z' : 'x'}=${worst.a}; move rail.pos or narrow the peaks.`);
   }
 
+  // Generated blocks keep their whole footprint off every road (the ring road included),
+  // and no tree still stands inside one after it is built (Nakhon Si: blocks over the kerb,
+  // towers rising through canopies).
+  {
+    const g = engine.getWorld(layout);
+    const [rx, rz] = [layout.city.hx + 3.1, layout.city.hz + 3.1];
+    const segs = [
+      ...layout.roads.map((r) => [r.from, r.to, r.width]),
+      [[rx, -rz], [rx, rz], 1.2], [[rx, rz], [-rx, rz], 1.2], [[-rx, rz], [-rx, -rz], 1.2], [[-rx, -rz], [rx, -rz], 1.2],
+    ];
+    const dist = ([ax, az], [bx, bz], x, z) => {
+      const dx = bx - ax, dz = bz - az;
+      const u = Math.max(0, Math.min(1, ((x - ax) * dx + (z - az) * dz) / (dx * dx + dz * dz)));
+      return Math.hypot(x - (ax + u * dx), z - (az + u * dz));
+    };
+    let onRoad = 0, inTree = 0;
+    for (const b of g.buildings) {
+      if (segs.some(([a, c, w]) => dist(a, c, b.x, b.z) < w / 2 + Math.min(b.w, b.d) / 2)) onRoad++;
+      if (g.trees.some((t) => t.clear > b.built && Math.abs(t.x - b.x) < b.w / 2 && Math.abs(t.z - b.z) < b.d / 2)) inTree++;
+    }
+    if (onRoad) err(`${onRoad} generated building(s) stand on a road.`);
+    if (inTree) err(`${inTree} generated building(s) rise through a standing tree.`);
+  }
+
   // Cars cross water only on a bridge deck. The engine hides a car with no deck under
   // it, so a city that trips this has cars vanishing mid-river (Nakhon Sawan's ring road
   // crossed the Chao Phraya next to, not on, the Dechatiwong bridge; cars drove on water).

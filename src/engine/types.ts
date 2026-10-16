@@ -47,7 +47,9 @@ export type CityLayout = {
   /** `span` limits the line along its axis (default: the whole tile). Nakhon Si's station is a
    *  terminus: the line ends there instead of running on past it to the tile edge. */
   rail?: {axis: Axis; pos: number; open: [number, number]; station: [number, number]; stationYear: number; span?: [number, number]};
-  trains: {t0: number; dur: number; dir: 1 | -1; modern: boolean}[];
+  /** `park`: seconds a train that pulled in to a terminus stays at the platform before it
+   *  is removed (default 0). Nakhon Si's first train vanished the instant its run ended. */
+  trains: {t0: number; dur: number; dir: 1 | -1; modern: boolean; park?: number}[];
   /** Walled old city: a rectangle of half-sizes hx × hz centred on the origin,
    *  unless `outline` gives a real footprint. */
   city: {

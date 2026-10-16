@@ -83,7 +83,7 @@ for t in np.arange(W(29.8), W(34.4), BEAT / 2):
     add(music, drum(rng.uniform(120, 160), 65, 0.35, 0.45), t, pan=rng.uniform(-0.4, 0.4))
 
 # gongs on the big beats, temple bells for the chedi
-for t, f, g in ((0.15, 70, 1.0), (tl.t_of(1215), 88, 0.9), (tl.t_of(1688), 92, 0.9), (tl.t_of(1914.2), 82, 0.7), (tl.t_of(1769.33), 76, 1.1), (W(54.0), 70, 1.2)):
+for t, f, g in ((0.15, 70, 1.0), (tl.t_of(1215), 88, 0.9), (tl.t_of(1688), 92, 0.9), (tl.t_of(1914.2), 82, 0.7), (tl.t_of(1769.27), 76, 1.1), (W(54.0), 70, 1.2)):
     add(music, gong(f, 7, g), t)
 for t in map(W, (4.2, 6.0, 15.6, 18.6, 49.6, 51.0, 52.4, 53.4)):
     add(sfx, bell(mtof(81), 3.0, (1, 2.0, 2.76, 4.07, 5.4), 1.6), t, pan=rng.uniform(-0.3, 0.3), gain=0.18)
@@ -126,11 +126,13 @@ add(sfx, splash(), 2.9, pan=0.2, gain=0.7)
 for t in map(W, (9.8, 11.0, 12.4)):
     add(sfx, creak(0.6), t, pan=rng.uniform(0.2, 0.7), gain=0.5)
 # 1769: Taksin's army marches in, the siege at the north gate
-for t in np.arange(W(30.0), W(31.8), 0.42):
+# (cued by year: march 1769.00-.12, clash at the gate .12-.24, the town falls .24-.28)
+m0, c0, c1 = tl.t_of(1769.0), tl.t_of(1769.12), tl.t_of(1769.26)
+for t in np.arange(m0 + 0.2, c0, 0.42):
     add(sfx, footstep(0.5), t + rng.uniform(-0.05, 0.05), pan=rng.uniform(-0.5, 0.5))
-add(sfx, crowd(W(34.2) - W(31.4)), W(31.4), gain=0.6)
-for _ in range(14):
-    add(sfx, clash(), rng.uniform(W(31.8), W(34.2)), pan=rng.uniform(-0.7, 0.7))
+add(sfx, crowd(c1 - c0 + 0.6), c0 - 0.2, gain=0.6)
+for _ in range(16):
+    add(sfx, clash(), rng.uniform(c0, c1), pan=rng.uniform(-0.7, 0.7))
 # แห่ผ้าขึ้นธาตุ: the crowd murmur and temple bells under the procession
 add(sfx, crowd(W(53.0) - W(49.4)) * 0.5, W(49.4), gain=0.5)
 
@@ -162,4 +164,4 @@ for i in range(16):
     add(sfx, firework_pop(), W(55.4) + i * 0.28 + rng.uniform(0, 0.2), pan=rng.uniform(-0.8, 0.8), gain=0.5)
 
 mix = master("public/soundtrack_nakhonsi.wav", music, amb, sfx)
-print("wrote public/soundtrack_nakhonsi.wav", {"lanka": round(tl.t_of(1215), 2), "walls": round(tl.t_of(1688), 2), "siege": round(tl.t_of(1769.33), 2), "railway": round(tl.t_of(1914.2), 2)})
+print("wrote public/soundtrack_nakhonsi.wav", {"lanka": round(tl.t_of(1215), 2), "walls": round(tl.t_of(1688), 2), "siege": round(tl.t_of(1769.27), 2), "railway": round(tl.t_of(1914.2), 2)})

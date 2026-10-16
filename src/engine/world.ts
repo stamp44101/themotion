@@ -59,19 +59,32 @@ const buildWorld = (L: CityLayout) => {
   const inRiver = (x: number, z: number) =>
     L.rivers.some((r) => pointInRiver(L, r, x, z, 0.8, r.width));
   const [rs0, rs1] = railSpan(L);
-  const onRail = (x: number, z: number) => {
+  const onRail = (x: number, z: number, pad = 0) => {
     if (!L.rail) return false;
     const along = L.rail.axis === 'z' ? z : x;
-    return Math.abs((L.rail.axis === 'z' ? x : z) - L.rail.pos) < 2 && along > rs0 - 1 && along < rs1 + 1;
+    return Math.abs((L.rail.axis === 'z' ? x : z) - L.rail.pos) < 2 + pad && along > rs0 - 1 - pad && along < rs1 + 1 + pad;
   };
-  const onRoad = (x: number, z: number) =>
-    L.roads.some(({from: [ax, az], to: [bx, bz], width}) => {
+  // every built road, the ring road included (it is not in L.roads): buildings, trees and
+  // huts test against all of them. `pad` grows the band by a footprint's half-size.
+  const [ringX, ringZ] = [city.hx + 3.1, city.hz + 3.1];
+  const allRoads = [
+    ...L.roads,
+    ...([
+      [[ringX, -ringZ], [ringX, ringZ]],
+      [[ringX, ringZ], [-ringX, ringZ]],
+      [[-ringX, ringZ], [-ringX, -ringZ]],
+      [[-ringX, -ringZ], [ringX, -ringZ]],
+    ] as [[number, number], [number, number]][]).map(([from, to]) => ({from, to, width: 1.2, year: L.ringRoadYear})),
+  ];
+  const roadsAt = (x: number, z: number, pad = 0) =>
+    allRoads.filter(({from: [ax, az], to: [bx, bz], width}) => {
       const dx = bx - ax;
       const dz = bz - az;
       const len2 = dx * dx + dz * dz;
       const u = Math.max(0, Math.min(1, ((x - ax) * dx + (z - az) * dz) / len2));
-      return Math.hypot(x - (ax + u * dx), z - (az + u * dz)) < width / 2 + 0.6;
+      return Math.hypot(x - (ax + u * dx), z - (az + u * dz)) < width / 2 + 0.6 + pad;
     });
+  const onRoad = (x: number, z: number, pad = 0) => roadsAt(x, z, pad).length > 0;
 
   const trees: {x: number; y: number; z: number; s: number; clear: number; regrow?: [number, number]; tint: number}[] = [];
   for (let i = 0; i < 3400; i++) {
@@ -95,7 +108,8 @@ const buildWorld = (L: CityLayout) => {
       const [sx, , sz] = stationPos(L.rail);
       if (Math.abs(x - sx) < 2.2 && Math.abs(z - sz) < 3) clear = Math.min(clear, L.rail.stationYear - 1);
     }
-    if (onRoad(x, z)) clear = Math.min(clear, Math.min(...L.roads.map((rd) => rd.year)) - 1);
+    const rd = roadsAt(x, z, 0.3);
+    if (rd.length) clear = Math.min(clear, Math.min(...rd.map((r) => r.year)) - 1);
     for (const [cx, cz, cr, cy] of L.clearings ?? []) if (Math.hypot(x - cx, z - cz) < cr) clear = Math.min(clear, cy);
     trees.push({x, y: h, z, s: 0.7 + random(`ts${i}`) * 0.7, clear, regrow, tint: random(`tt${i}`)});
   }
@@ -129,21 +143,48 @@ const buildWorld = (L: CityLayout) => {
         else if (random(`bt${k}-${j}`) < (L.sprawl?.tall ?? 0.07)) h += random(`bn${k}-${j}`) * 6 * hs;
         const bx = cx + (random(`bx${k}-${j}`) - 0.5) * 2.2;
         const bz = cz + (random(`bz${k}-${j}`) - 0.5) * 2.2;
-        if (onRoad(bx, bz)) continue;
+        const bw = 1.0 + random(`bw${k}-${j}`) * 1.2;
+        const bd = 1.0 + random(`bd${k}-${j}`) * 1.2;
+        // the whole footprint stays off the road, not just its centre (blocks used to
+        // stick out over the kerb, and the ring road was not checked at all)
+        if (onRoad(bx, bz, Math.hypot(bw, bd) / 2 - 0.4) || onRail(bx, bz, Math.hypot(bw, bd) / 2 - 1)) continue;
         // Korat's Wing 1 runway was built over by towers once the sprawl reached it
         if (L.openGround?.some((o) => bx > o.x0 - 1.1 && bx < o.x1 + 1.1 && bz > o.z0 - 1.1 && bz < o.z1 + 1.1)) continue;
         if (onSite(bx, bz, 1.1)) continue;
         buildings.push({
           x: bx,
           z: bz,
-          w: 1.0 + random(`bw${k}-${j}`) * 1.2,
-          d: 1.0 + random(`bd${k}-${j}`) * 1.2,
+          w: bw,
+          d: bd,
           h,
           lift: h - base,
           built: urban + 4 + random(`bb${k}-${j}`) * 16 - (tower ? 12 : 0),
           palette: Math.floor(random(`bp${k}-${j}`) * 5),
         });
       }
+    }
+  }
+
+  // A tree under a building's footprint goes when the building goes up. Trees clear on
+  // their own schedule (distance from the walls), so blocks used to rise through canopies.
+  {
+    const cell = 4;
+    const grid = new Map<string, number[]>();
+    trees.forEach((tr, i) => {
+      const key = `${Math.floor(tr.x / cell)},${Math.floor(tr.z / cell)}`;
+      (grid.get(key) ?? grid.set(key, []).get(key)!).push(i);
+    });
+    for (const b of buildings) {
+      const r = Math.hypot(b.w, b.d) / 2 + 0.5;
+      for (let gx = Math.floor((b.x - r) / cell); gx <= Math.floor((b.x + r) / cell); gx++)
+        for (let gz = Math.floor((b.z - r) / cell); gz <= Math.floor((b.z + r) / cell); gz++)
+          for (const i of grid.get(`${gx},${gz}`) ?? []) {
+            const tr = trees[i];
+            if (Math.abs(tr.x - b.x) < b.w / 2 + 0.5 && Math.abs(tr.z - b.z) < b.d / 2 + 0.5) {
+              tr.clear = Math.min(tr.clear, b.built - 1);
+              tr.regrow = undefined;
+            }
+          }
     }
   }
 

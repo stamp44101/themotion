@@ -42,7 +42,8 @@ export const NAKHONSI: CityConfig = {
     // Khao Chum Thong - Nakhon Si branch, opened 1 Oct 1914. The station (Tha Wang) is a
     // terminus, so the line stops there instead of running on to the tile edge.
     rail: {axis: 'z', pos: -11.5, open: [1913.4, 1914.1], station: [-8.9, -31.4], stationYear: 1912.5, span: [-34, 50]},
-    trains: SOUND_EVENTS.trains.map((tr) => ({...tr, dir: tr.dir as 1 | -1})),
+    // the first train stays at the Tha Wang platform after pulling in, until the camera leaves
+    trains: SOUND_EVENTS.trains.map((tr) => ({...tr, dir: tr.dir as 1 | -1, park: 3})),
     city: {
       hx: 4.7,
       hz: 15.15,
@@ -163,7 +164,7 @@ export const NAKHONSI: CityConfig = {
     {t0: 10, t1: 13.5, label: 'อ่าวไทย', dx: 80, dy: 110, p: [42, 0, 0]},
     {t0: 23, t1: 25.8, label: 'ประตูชัยเหนือ', dx: -90, dy: -130, p: [NORTH_GATE[0], 1.5, NORTH_GATE[1]]},
     {t0: 27.6, t1: 29.6, label: 'หอพระอิศวร', dx: -100, dy: -120, p: [HO_PHRA_ISUAN[0], 0.8, HO_PHRA_ISUAN[1]]},
-    {t0: 30.6, t1: 33.4, label: 'ทัพกรุงธนบุรี', dx: 90, dy: -120, p: [-0.6, 0.8, -20.5]},
+    {t0: 30.6, t1: 32.6, label: 'ทัพกรุงธนบุรี', dx: 90, dy: -120, p: [-0.5, 0.8, -19]},
     {t0: 38.9, t1: 40.6, label: 'สถานีรถไฟนครศรีธรรมราช', dx: 80, dy: -130, p: [-8.9, 1.2, -31.4]},
     {t0: 44.8, t1: 48, label: 'เขาหลวง', dx: 80, dy: -110, p: [-45, 19.4, -4]},
     {t0: 50, t1: 52.8, label: 'วัดพระมหาธาตุวรมหาวิหาร', dx: 90, dy: -120, p: [CHEDI[0], 5.5, CHEDI[1]]},
@@ -185,7 +186,7 @@ export const NAKHONSI: CityConfig = {
   // the legend-era beats are forest with one white chedi: lift the sky fill until the town
   // grows (fades out 1250-1400, t ~24.6-29.6 s, slowly enough not to step)
   ambient: (Y) => 0.6 * (1 - ramp(Y, 1250, 1400)),
-  gloom: (Y) => ramp(Y, 1769.0, 1769.1) * (1 - ramp(Y, 1769.38, 1769.45)) + ramp(Y, 1988.12, 1988.25) * (1 - ramp(Y, 1988.3, 1988.4)),
+  gloom: (Y) => ramp(Y, 1769.0, 1769.06) * (1 - ramp(Y, 1769.38, 1769.45)) + ramp(Y, 1988.12, 1988.25) * (1 - ramp(Y, 1988.3, 1988.4)),
 };
 
 // camera keys and callouts above are on the 60 s grid; stretch them to 75 s (timeline.ts WARP)

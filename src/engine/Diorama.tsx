@@ -910,9 +910,9 @@ const Train: React.FC<P & {i: number}> = ({c, i}) => {
   const L = c.layout;
   const tr = L.trains[i];
   const rail = L.rail;
-  if (!rail || t < tr.t0 || t > tr.t0 + tr.dur) return null;
+  if (!rail || t < tr.t0 || t > tr.t0 + tr.dur + (tr.park ?? 0)) return null;
   const span = railSpan(L);
-  const p = (t - tr.t0) / tr.dur;
+  const p = Math.min(1, (t - tr.t0) / tr.dur);
   // a line with a terminus (rail.span) ends at its station: trains pull in and stop there
   // or start from there, instead of running on past it
   const st = rail.axis === 'z' ? rail.station[1] : rail.station[0];

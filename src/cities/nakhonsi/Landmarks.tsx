@@ -216,14 +216,17 @@ export const NakhonSiLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrain
   const k = smooth(ramp(Y, 335, 420));
   // Tambralinga's sea trade
   const trade = ramp(Y, 850, 900) * (1 - ramp(Y, 1450, 1500));
-  // 1767-69: Chao Nakhon's men hold the town; Taksin's army comes down from the north
-  // (year held at 1767 for ชุมนุมเจ้านคร, then at 1769 through the siege)
-  const defend = Y >= 1767.05 && Y < 1769.33;
-  const inn = smooth(ramp(Y, 1769.02, 1769.18));
-  const enter = smooth(ramp(Y, 1769.33, 1769.42));
-  const thonburiAt: [number, number] = [lerp(lerp(3, -0.6, inn), -0.5, enter), lerp(lerp(-48, -20.5, inn), -11.5, enter)];
-  const thonburi: Formation = Y >= 1769.0 && Y < 1769.47 ? {at: thonburiAt, face: defend ? [-0.5, -12] : [-0.5, 0]} : null;
-  const nakhon: Formation = defend ? {at: [-0.5, -12], face: Y >= 1769.05 ? thonburiAt : [-0.5, -20]} : null;
+  // 1767-69: Chao Nakhon's men hold the town; Taksin's army comes down from the north.
+  // Year runs ~0.06/s through the 1769 hold: march 1769.00-.12, clash at the gate .12-.24,
+  // the defenders fall .24-.28, Thonburi marches in .28-.38.
+  const inn = smooth(ramp(Y, 1769.0, 1769.12));
+  const clash = smooth(ramp(Y, 1769.12, 1769.2));
+  const enter = smooth(ramp(Y, 1769.28, 1769.38));
+  const defend = Y >= 1767.05 && Y < 1769.26;
+  const nakhonAt: [number, number] = [-0.5, lerp(-12, -14.2, clash)];
+  const thonburiAt: [number, number] = [lerp(lerp(3, -0.6, inn), -0.5, enter), lerp(lerp(lerp(-48, -20.5, inn), -17.4, clash), -11.5, enter)];
+  const thonburi: Formation = Y >= 1769.0 && Y < 1769.45 ? {at: thonburiAt, face: defend ? nakhonAt : [-0.5, 0]} : null;
+  const nakhon: Formation = defend ? {at: nakhonAt, face: Y >= 1769.0 ? thonburiAt : [-0.5, -20]} : null;
   // แห่ผ้าขึ้นธาตุ, today: the procession, then the cloth on the chedi
   const proc = ramp(Y, 2017.3, 2022.9);
   const wrap = smooth(ramp(Y, 2022.3, 2024.6));

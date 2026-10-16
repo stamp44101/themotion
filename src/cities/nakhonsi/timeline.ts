@@ -41,6 +41,10 @@ const KEYS_60: [number, number][] = [
   [27, 1767], // Chao Nakhon's independent ชุมนุม
   [29.2, 1767.3],
   [29.8, 1769], // Taksin's army takes the city
+  // near-linear through the hold, so the march, the clash at the gate and the entry each
+  // get their own seconds (a plain two-key hold eases in and the army stood still for 2 s)
+  [30.06, 1769.03],
+  [34.34, 1769.42],
   [34.5, 1769.45],
   [35.5, 1880],
   [36.2, 1912],
