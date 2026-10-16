@@ -242,8 +242,8 @@ export class Occupancy {
   }
 }
 
-const FOREVER = Infinity;
-const ALWAYS = -Infinity;
+const FOREVER = 1e9;
+const ALWAYS = -1e9;
 
 /** The fixed occupants of a layout: water, landmark sites, open ground, roads (ring
  *  road included), rail and station. Everything generated is claimed after these. */

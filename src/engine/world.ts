@@ -25,8 +25,9 @@ export const getWorld = (L: CityLayout) => {
   return w;
 };
 
-const FOREVER = Infinity;
-const ALWAYS = -Infinity;
+// finite: a ramp(Y, Infinity, Infinity) is NaN and makes a mesh vanish
+const FOREVER = 1e9;
+const ALWAYS = -1e9;
 
 // Placement goes through one occupancy map (occupancy.ts): water, landmark sites, open
 // ground, roads, rail and the station are claimed first, then trees, then buildings,
@@ -191,12 +192,12 @@ const buildWorld = (L: CityLayout) => {
       const first = occ.claim(fp, {kind: 'house', from: house.built, to: house.gone, label: 'house'}, 0.1);
       if (!first) continue;
       if (first[1] < house.gone) house.razed = first[1];
-      if (house.rebuilt < FOREVER) {
+      if (house.rebuilt < Infinity) {
         const again = occ.claim(fp, {kind: 'house', from: house.rebuilt, to: FOREVER, label: 'house'}, 0.1);
         if (!again) house.rebuilt = FOREVER;
         else if (again[1] < FOREVER) house.razed = Math.min(house.razed, again[1]);
       }
-      if (house.modern < FOREVER && house.modern >= house.gone && house.modern < house.rebuilt) {
+      if (house.modern < Infinity && house.modern >= house.gone && house.modern < house.rebuilt) {
         // a modern house on a plot that was empty when it was built
         const mod = occ.claim(fp, {kind: 'house', from: house.modern, to: FOREVER, label: 'modern house'}, 0.1);
         if (!mod) house.modern = FOREVER;
