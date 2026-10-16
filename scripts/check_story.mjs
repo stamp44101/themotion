@@ -221,7 +221,7 @@ for (const city of cities) {
   if (layout.rail) {
     const rail = layout.rail;
     const t = layout.tile;
-    const rs = rail.axis === 'z' ? [t.z0, t.z1] : [t.x0, t.x1];
+    const rs = rail.span ?? (rail.axis === 'z' ? [t.z0, t.z1] : [t.x0, t.x1]);
     layout.rivers.forEach((r, n) => {
       if (roads.isPathRiver(r)) {
         const step = 0.25;

@@ -44,7 +44,9 @@ export type CityLayout = {
   bridges: {at: number; year: number; modernYear: number; river?: number}[];
   /** Walled city has its own moat (false when rivers form the moat). */
   noMoat?: boolean;
-  rail?: {axis: Axis; pos: number; open: [number, number]; station: [number, number]; stationYear: number};
+  /** `span` limits the line along its axis (default: the whole tile). Nakhon Si's station is a
+   *  terminus: the line ends there instead of running on past it to the tile edge. */
+  rail?: {axis: Axis; pos: number; open: [number, number]; station: [number, number]; stationYear: number; span?: [number, number]};
   trains: {t0: number; dur: number; dir: 1 | -1; modern: boolean}[];
   /** Walled old city: a rectangle of half-sizes hx × hz centred on the origin,
    *  unless `outline` gives a real footprint. */
@@ -86,6 +88,11 @@ export type CityLayout = {
   urbanBox?: {x0: number; x1: number; z0: number; z1: number};
   /** Ground the sprawl must leave open: an airfield, a park, a plaza. No modern building stands in these boxes. */
   openGround?: {x0: number; x1: number; z0: number; z1: number}[];
+  /** Modern building scale. `height` multiplies the generated block heights and the modern
+   *  in-city houses (default 1);
+   *  `tall` is the chance a block outside a `towers` box gets extra storeys (default 0.07).
+   *  A low-rise provincial town (Nakhon Si) needs both lowered or it reads as a metropolis. */
+  sprawl?: {height?: number; tall?: number};
   /** Landmark sites [x, z, radius]: no generated building, house or village hut is placed
    *  inside one, in any era. Random sprawl used to land on a chedi or a monument. */
   sites?: [number, number, number][];

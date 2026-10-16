@@ -20,7 +20,7 @@ import {col, glowTexture, prism, updateInstances, windowTexture} from './parts';
 import {inRiver as pointInRiver, isPathRiver, riverCrossings, riverLength, riverPointAt, riverSegments, subtractPathRivers} from './river';
 import type {CityConfig, CityLayout} from './types';
 import {MAX_CARS, RING, carAt, decks, driveSegments, roadCrossings, riverSpan} from './roads';
-import {World, getWorld, stationPos} from './world';
+import {World, getWorld, railSpan, stationPos} from './world';
 import {LifeLayer} from './Life';
 
 type P = {c: CityConfig; w: World};
@@ -708,8 +708,7 @@ const RoadBridges: React.FC<P> = ({c}) => {
 const railCrossings = (L: CityLayout) => {
   const {rail} = L;
   if (!rail) return [];
-  const start = rail.axis === 'z' ? L.tile.z0 : L.tile.x0;
-  const end = rail.axis === 'z' ? L.tile.z1 : L.tile.x1;
+  const [start, end] = railSpan(L);
   const a: [number, number] = rail.axis === 'z' ? [rail.pos, start] : [start, rail.pos];
   const b: [number, number] = rail.axis === 'z' ? [rail.pos, end] : [end, rail.pos];
   const railAngle = rail.axis === 'z' ? Math.PI / 2 : 0;
@@ -743,12 +742,11 @@ const railCrossings = (L: CityLayout) => {
 const RailBridges: React.FC<P> = ({c}) => {
   const {Y} = useT(c);
   const L = c.layout;
-  const {rail, tile} = L;
+  const {rail} = L;
   if (!rail) return null;
   const railK = ramp(Y, rail.open[0], rail.open[1]);
   if (railK <= 0) return null;
-  const start = rail.axis === 'z' ? tile.z0 : tile.x0;
-  const end = rail.axis === 'z' ? tile.z1 : tile.x1;
+  const [start, end] = railSpan(L);
   const reach = start + (end - start) * railK;
   const girder = '#2f3439';
   return (
@@ -797,8 +795,8 @@ const Infrastructure: React.FC<P> = ({c, w}) => {
   const {rail, tile} = L;
   const sleepers = useRef<THREE.InstancedMesh>(null);
   const railK = rail ? ramp(Y, rail.open[0], rail.open[1]) : 0;
-  const railSpan = rail ? (rail.axis === 'z' ? [tile.z0, tile.z1] : [tile.x0, tile.x1]) : [0, 0];
-  const railLen = railSpan[1] - railSpan[0];
+  const span = rail ? railSpan(L) : [0, 0];
+  const railLen = span[1] - span[0];
   const station = rail ? ramp(Y, rail.stationYear, rail.stationYear + 2) : 0;
   const roofGeo = useMemo(() => prism(2.6, 0.9, 4.6), []);
   const ring = ramp(Y, L.ringRoadYear, L.ringRoadYear + 8);
@@ -806,11 +804,11 @@ const Infrastructure: React.FC<P> = ({c, w}) => {
   useLayoutEffect(() => {
     if (!rail) return;
     updateInstances(sleepers.current, 140, (i, o) => {
-      const a = railSpan[0] + 1 + i * 1.6;
+      const a = span[0] + 1 + i * 1.6;
       o.position.set(...along(L, rail.axis, a, rail.pos, 0.06));
       o.rotation.y = rail.axis === 'z' ? 0 : Math.PI / 2;
       const over = railCrossings(L).some((x) => Math.abs(a - x.a) < x.len / 2);
-      return !over && a < railSpan[0] + railLen * railK && a < railSpan[1] - 0.5;
+      return !over && a < span[0] + railLen * railK && a < span[1] - 0.5;
     });
   });
   const roadMat = <meshStandardMaterial color="#55585e" roughness={0.9} />;
@@ -842,7 +840,7 @@ const Infrastructure: React.FC<P> = ({c, w}) => {
       {rail && railK > 0 && (
         <>
           {[-0.35, 0.35].map((dx) => (
-            <mesh key={dx} position={along(L, rail.axis, railSpan[0] + (railLen * railK) / 2, rail.pos + dx, 0.12)} rotation-y={rail.axis === 'z' ? 0 : Math.PI / 2}>
+            <mesh key={dx} position={along(L, rail.axis, span[0] + (railLen * railK) / 2, rail.pos + dx, 0.12)} rotation-y={rail.axis === 'z' ? 0 : Math.PI / 2}>
               <boxGeometry args={[0.08, 0.08, railLen * railK]} />
               <meshStandardMaterial color="#8b8f96" metalness={0.6} roughness={0.4} />
             </mesh>
@@ -913,9 +911,19 @@ const Train: React.FC<P & {i: number}> = ({c, i}) => {
   const tr = L.trains[i];
   const rail = L.rail;
   if (!rail || t < tr.t0 || t > tr.t0 + tr.dur) return null;
-  const span = rail.axis === 'z' ? [L.tile.z0, L.tile.z1] : [L.tile.x0, L.tile.x1];
+  const span = railSpan(L);
   const p = (t - tr.t0) / tr.dur;
-  const a = tr.dir > 0 ? lerp(span[1] + 6, span[0] - 14, p) : lerp(span[0] - 14, span[1] + 6, p);
+  // a line with a terminus (rail.span) ends at its station: trains pull in and stop there
+  // or start from there, instead of running on past it
+  const st = rail.axis === 'z' ? rail.station[1] : rail.station[0];
+  const termLo = !!rail.span && Math.abs(st - span[0]) < Math.abs(st - span[1]);
+  const termHi = !!rail.span && !termLo;
+  const lo = termLo ? span[0] + 3 : span[0] - 14;
+  const hi = termHi ? span[1] - 3 : span[1] + 6;
+  const arrive = tr.dir > 0 ? termLo : termHi;
+  const leave = tr.dir > 0 ? termHi : termLo;
+  const ease = (u: number) => (arrive ? 1 - (1 - u) ** 2 : leave ? u * u : u);
+  const a = tr.dir > 0 ? lerp(hi, lo, ease(p)) : lerp(lo, hi, ease(p));
   const head = -tr.dir;
   const body = tr.modern ? '#2f5aa8' : '#202024';
   const car = tr.modern ? '#e8ecef' : '#7a3b2a';

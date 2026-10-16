@@ -17,6 +17,8 @@
     "audio": "node scripts/export_timeline.mjs && python3 scripts/make_soundtrack.py",
     "render:iso": "remotion render ChiangMaiIso out/chiangmai-iso.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
     "audio:korat": "node scripts/export_timeline.mjs src/cities/korat/timeline.ts out/timeline_korat.json && python3 scripts/soundtrack_korat.py",
+    "audio:nakhonsi": "node scripts/export_timeline.mjs src/cities/nakhonsi/timeline.ts out/timeline_nakhonsi.json && python3 scripts/soundtrack_nakhonsi.py",
+    "render:nakhonsi": "node scripts/check_story.mjs nakhonsi && remotion render NakhonSi out/nakhonsi.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
     "render:korat": "node scripts/check_story.mjs korat && remotion render Korat out/korat.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
     "audio:ayutthaya": "node scripts/export_timeline.mjs src/cities/ayutthaya/timeline.ts out/timeline_ayutthaya.json && python3 scripts/soundtrack_ayutthaya.py",
     "render:ayutthaya": "node scripts/check_story.mjs ayutthaya && remotion render Ayutthaya out/ayutthaya.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",

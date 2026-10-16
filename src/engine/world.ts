@@ -15,6 +15,13 @@ export const stationPos = (rail: NonNullable<CityLayout['rail']>): [number, numb
   return rail.axis === 'z' ? [c, 0, sz] : [sx, 0, c];
 };
 
+/** Extent of the railway along its axis: the whole tile unless `rail.span` ends it at a terminus. */
+export const railSpan = (L: CityLayout): [number, number] => {
+  const {rail, tile} = L;
+  if (rail?.span) return rail.span;
+  return rail?.axis === 'z' ? [tile.z0, tile.z1] : [tile.x0, tile.x1];
+};
+
 export type World = ReturnType<typeof buildWorld>;
 
 const cache = new Map<CityLayout, World>();
@@ -51,7 +58,12 @@ const buildWorld = (L: CityLayout) => {
   const cityDist = (x: number, z: number) => Math.max(Math.abs(x) - city.hx, Math.abs(z) - city.hz, 0);
   const inRiver = (x: number, z: number) =>
     L.rivers.some((r) => pointInRiver(L, r, x, z, 0.8, r.width));
-  const onRail = (x: number, z: number) => !!L.rail && Math.abs((L.rail.axis === 'z' ? x : z) - L.rail.pos) < 2;
+  const [rs0, rs1] = railSpan(L);
+  const onRail = (x: number, z: number) => {
+    if (!L.rail) return false;
+    const along = L.rail.axis === 'z' ? z : x;
+    return Math.abs((L.rail.axis === 'z' ? x : z) - L.rail.pos) < 2 && along > rs0 - 1 && along < rs1 + 1;
+  };
   const onRoad = (x: number, z: number) =>
     L.roads.some(({from: [ax, az], to: [bx, bz], width}) => {
       const dx = bx - ax;
@@ -110,10 +122,11 @@ const buildWorld = (L: CityLayout) => {
       const tower = L.towers.find((tw) => cx > tw.x0 && cx < tw.x1 && cz > tw.z0 && cz < tw.z1);
       const n = random(`bc${k}`) < 0.6 ? 2 : 1;
       for (let j = 0; j < n; j++) {
-        const base = 0.8 + random(`bh${k}-${j}`) * 1.6;
+        const hs = L.sprawl?.height ?? 1;
+        const base = (0.8 + random(`bh${k}-${j}`) * 1.6) * hs;
         let h = base;
         if (tower) h += random(`bn${k}-${j}`) * tower.extra;
-        else if (random(`bt${k}-${j}`) < 0.07) h += random(`bn${k}-${j}`) * 6;
+        else if (random(`bt${k}-${j}`) < (L.sprawl?.tall ?? 0.07)) h += random(`bn${k}-${j}`) * 6 * hs;
         const bx = cx + (random(`bx${k}-${j}`) - 0.5) * 2.2;
         const bz = cz + (random(`bz${k}-${j}`) - 0.5) * 2.2;
         if (onRoad(bx, bz)) continue;
@@ -160,7 +173,7 @@ const buildWorld = (L: CityLayout) => {
         gone: abandoned && ab ? ab.from + random(`hg${k}`) * ab.spread : Infinity,
         rebuilt: abandoned && ab ? ab.rebuild + random(`hr${k}`) * ab.rebuildSpread : Infinity,
         modern: random(`hm${k}`) < 0.6 ? L.houses.modern[0] + random(`hn${k}`) * L.houses.modern[1] : Infinity,
-        modernH: 0.6 + random(`hh${k}`) * 0.9,
+        modernH: (0.6 + random(`hh${k}`) * 0.9) * (L.sprawl?.height ?? 1),
         palette: Math.floor(random(`hp${k}`) * 5),
       });
     }
