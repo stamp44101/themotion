@@ -123,10 +123,11 @@ export const STORY = buildStory({
       ],
     },
     {
-      // 1934: Thao Suranari Monument
+      // 1934: Thao Suranari Monument. Held, so the monument (built 1933.4-1934.2) is up
+      // before its callout at 41.7 s; a linear 1931-1936 had it half-built then.
       id: 'monument',
       t: [40.2, 43.5],
-      year: [1931, 1936],
+      year: {hold: 1934},
       caption: {t0: 40, t1: 45, title: 'อนุสาวรีย์ย่าโม', sub: 'สร้างหน้าประตูชุมพล เปิดเมื่อ พ.ศ. 2477'},
       callouts: [{t0: 41.7, t1: 45, label: 'อนุสาวรีย์ท้าวสุรนารี', dx: 120, dy: -150, p: [MONUMENT[0], 2.6, MONUMENT[1]]}],
       camera: [
