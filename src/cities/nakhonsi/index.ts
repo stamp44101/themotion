@@ -1,7 +1,7 @@
 import {ramp} from '../../lib';
 import {GROUND} from '../../Scene';
 import type {CityConfig} from '../../engine/types';
-import {CHEDI, NakhonSiLandmarks, NORTH_GATE} from './Landmarks';
+import {CHEDI, HO_PHRA_ISUAN, HO_PHRA_NARAI, NakhonSiLandmarks, NORTH_GATE, PHUTTHASIHING} from './Landmarks';
 import {CAPTIONS, ERAS, yearAt} from './timeline';
 
 // Style-frame draft. World origin = old-town centroid (8.41680, 99.96438), 80 m/unit,
@@ -70,6 +70,14 @@ export const NAKHONSI: CityConfig = {
     forestCity: 1100,
     clearings: [[CHEDI[0], CHEDI[1], 4.5, 300]],
     paddies: [800, 1500],
+    // landmark ground: no generated building, house or hut stands on these in any era
+    sites: [
+      [CHEDI[0], CHEDI[1], 4.8],
+      [NORTH_GATE[0], NORTH_GATE[1], 1.2],
+      [HO_PHRA_ISUAN[0], HO_PHRA_ISUAN[1], 1.0],
+      [HO_PHRA_NARAI[0], HO_PHRA_NARAI[1], 1.0],
+      [PHUTTHASIHING[0], PHUTTHASIHING[1], 0.8],
+    ],
     urban: {from: 1930, rate: 2.2},
     highRise: 1990,
     towers: [{x0: -8, x1: 12, z0: -38, z1: -20, extra: 4}],
