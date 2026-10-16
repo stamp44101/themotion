@@ -11,7 +11,7 @@ import {pathToFileURL} from 'node:url';
 import './node_guard.mjs';
 import {buildSync} from 'esbuild';
 import {cameraStats} from './camera_stats.mjs';
-import {occlusion} from './occlusion.mjs';
+import {makeOcclusion, occlusion} from './occlusion.mjs';
 import {textWidth} from './textwidth.mjs';
 
 const lib = await load('src/lib.ts');
@@ -20,6 +20,7 @@ const roads = await load('src/engine/roads.ts');
 const geoLib = await load('src/engine/geo.ts');
 const polyLib = await load('src/engine/poly.ts');
 const occLib = await load('src/engine/occupancy.ts');
+const actorLib = await load('src/engine/actors.ts');
 const {INTRO_END, FINALE_LEAD, SECONDS, makeCurve} = lib;
 const MIN_CAPTION = 2.5; // seconds on screen; shorter cannot be read in Thai at this size
 const COLUMN = 820; // caption column width in px (Overlay: SAFE.left..SAFE.right)
@@ -374,6 +375,60 @@ for (const city of cities) {
       if (!Array.isArray(v) || v.length !== 2 || typeof v[0] !== 'number') continue;
       const n = near(world.buildings, v[0], v[1], 1.8) + near(world.houses, v[0], v[1], 1.4) + near(world.village, v[0], v[1], 1.4);
       if (n) sMsg(`${name} (${v[0]}, ${v[1]}): ${n} generated building(s)/house(s) stand on it in some era. Add [x, z, radius] for it to layout.sites.`);
+    }
+  }
+
+  // Moving things (src/engine/actors.ts): each registered actor, and every train, is
+  // projected through the camera for each frame of its beat. It must be in frame and not
+  // behind trees for most of that time, and must not pop in and out while on screen.
+  // Stills cannot show this: Korat's armies were culled out of the render after the first
+  // frame, and Nakhon Si's train vanished the moment its run ended.
+  if (layout) {
+    const aMsg = FRAME_WAIVED.has(city) ? warn : err;
+    const occ = makeOcclusion(cfg, engine);
+    const ctxAt = (t) => ({Y: story.yearAt(t), beat: (id) => story.beat?.(id, t) ?? 0});
+    const actors = [...(cfg.actors ?? []), ...actorLib.trainActors(layout, engine.getWorld(layout).terrainH)];
+    for (const a of actors) {
+      const [t0, t1] = typeof a.during === 'string' ? (story.beats?.[a.during] ?? [0, 0]) : a.during;
+      if (!(t1 > t0)) {
+        err(`actor "${a.id}": its beat "${a.during}" is not in the story.`);
+        continue;
+      }
+      const margin = 40 + (a.size ?? 1) * 12;
+      let n = 0;
+      let present = 0;
+      let out = 0;
+      let hid = 0;
+      let pops = 0;
+      let seen = false;
+      let was = false;
+      let firstOut = null;
+      for (let t = t0; t <= t1 + 1e-6; t += 2 / 30) {
+        n++;
+        const p = a.at(t, ctxAt(t));
+        const here = !!p;
+        // absent -> present after it has already stood once: it popped out and back in
+        if (seen && !was && here) pops++;
+        was = here;
+        seen ||= here;
+        if (!p) continue;
+        present++;
+        const q = engine.projectAt(keys, t, p);
+        if (q.x < margin || q.x > 1080 - margin || q.y < margin || q.y > 1920 - margin) {
+          out++;
+          firstOut ??= t;
+        } else if (occ.hidden(p, t)) hid++;
+      }
+      if (!present) {
+        aMsg(`actor "${a.id}" (${s(t0)}-${s(t1)}) never stands during its beat.`);
+        continue;
+      }
+      // a train crosses the whole tile and is only meant to pass through the frame
+      const minIn = a.minInFrame ?? 0.8;
+      if (1 - out / present < minIn) aMsg(`actor "${a.id}" (${s(t0)}-${s(t1)}): in frame only ${Math.round(100 * (1 - out / present))}% of the time it stands (need ${Math.round(minIn * 100)}%), out from ${s(firstOut)}. Hold the camera on it or move its path.`);
+      if (hid / present > 0.5) aMsg(`actor "${a.id}" (${s(t0)}-${s(t1)}): hidden behind trees ${Math.round((100 * hid) / present)}% of the time it stands.`);
+      if (pops) aMsg(`actor "${a.id}" (${s(t0)}-${s(t1)}): disappears and comes back ${pops} time(s) during its beat.`);
+      if (present / n < 0.5) warn(`actor "${a.id}" (${s(t0)}-${s(t1)}) stands for only ${Math.round((100 * present) / n)}% of its beat.`);
     }
   }
 

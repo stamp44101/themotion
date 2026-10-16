@@ -1,9 +1,9 @@
 import React, {useLayoutEffect, useRef} from 'react';
-import {random} from 'remotion';
 import * as THREE from 'three';
-import {Army, type Formation} from '../../engine/army';
+import {Army} from '../../engine/army';
 import {lathe, updateInstances, Viharn} from '../../engine/parts';
-import {lerp, ramp, smooth} from '../../lib';
+import {ramp, smooth} from '../../lib';
+import {JUNKS, junkAt, PATH_LEN, pathPointAt, PEOPLE, relicBoat, siege, tradeK} from './actors';
 import type {LandmarkProps} from '../../engine/types';
 
 // World positions from Google Maps / UNESCO via scripts/geo.mjs (origin = old-town centroid
@@ -13,16 +13,7 @@ export const NORTH_GATE: [number, number] = [-1.1, -15.0];
 export const HO_PHRA_ISUAN: [number, number] = [-0.9, -10.2];
 export const HO_PHRA_NARAI: [number, number] = [-0.2, -10.4];
 export const PHUTTHASIHING: [number, number] = [-1.0, -3.2];
-// where the legend's boat comes ashore: the Gulf's edge (13 km east, compressed to the tile)
-export const LANDING: [number, number] = [40.4, 5];
-// แห่ผ้าขึ้นธาตุ: the procession walks south down the town's axis, west of Phutthasihing,
-// then turns east into the chedi court through its west side
-export const PROCESSION: [number, number][] = [
-  [-0.4, -7],
-  [0.3, 5.6],
-  [0.6, 7.4],
-  [1.3, 7.4],
-];
+export {LANDING, PROCESSION} from './actors';
 // 1988 mudslide: a channel of bare mud down Khao Luang's east face toward the plain
 export const SLIDE: [number, number][] = Array.from({length: 16}, (_, i) => [-41.5 + i * 0.55, -6 + i * 0.2 + Math.sin(i * 1.3) * 0.4]);
 
@@ -127,33 +118,9 @@ const Ship: React.FC<{x: number; z: number; rot: number; k: number; relic?: bool
   );
 };
 
-// trade junks in the Gulf through the Tambralinga centuries (Song embassies 1001-1070)
-const JUNKS = new Array(5).fill(0).map((_, i) => ({
-  x: 41.5 + random(`jx${i}`) * 5,
-  z0: -46 + random(`jz${i}`) * 90,
-  v: (random(`jv${i}`) < 0.5 ? -1 : 1) * (1.6 + random(`js${i}`)),
-}));
-
 // ------------------------------------------------------------------ แห่ผ้าขึ้นธาตุ
-const PEOPLE = 64;
-const segs = PROCESSION.slice(1).map((b, i) => {
-  const a = PROCESSION[i];
-  return {a, b, len: Math.hypot(b[0] - a[0], b[1] - a[1])};
-});
-const PATH_LEN = segs.reduce((s, g) => s + g.len, 0);
-const pointAt = (d: number) => {
-  let r = Math.max(0, Math.min(PATH_LEN, d));
-  for (const g of segs) {
-    if (r <= g.len) {
-      const u = r / g.len;
-      return {x: lerp(g.a[0], g.b[0], u), z: lerp(g.a[1], g.b[1], u), rot: Math.atan2(g.b[0] - g.a[0], g.b[1] - g.a[1])};
-    }
-    r -= g.len;
-  }
-  const g = segs[segs.length - 1];
-  return {x: g.b[0], z: g.b[1], rot: 0};
-};
-// two abreast, the cloth held overhead between them
+// two abreast, the cloth held overhead between them; the route and the head's position
+// are in actors.ts so check_story can follow it
 const Procession: React.FC<{p: number}> = ({p}) => {
   const body = useRef<THREE.InstancedMesh>(null);
   const head = useRef<THREE.InstancedMesh>(null);
@@ -163,7 +130,7 @@ const Procession: React.FC<{p: number}> = ({p}) => {
     const row = Math.floor(i / 2);
     const d = p * (PATH_LEN + PEOPLE * 0.16) - row * 0.32;
     if (d < 0 || d > PATH_LEN) return null;
-    const q = pointAt(d);
+    const q = pathPointAt(d);
     const side = (i % 2 ? 1 : -1) * 0.13;
     return {x: q.x + Math.cos(q.rot) * side, z: q.z - Math.sin(q.rot) * side, cx: q.x, cz: q.z, rot: q.rot};
   };
@@ -208,29 +175,13 @@ const Procession: React.FC<{p: number}> = ({p}) => {
 };
 
 export const NakhonSiLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH, beat}) => {
-  // Motion runs on beat progress (timeline.ts), visibility on the year.
-  // legend: the relic boat sails in over the beat's first third and comes ashore, then the
-  // first stupa rises
-  const boatK = 1 - ramp(Y, 345, 360);
-  const sail = smooth(Math.min(1, beat('legend') * 3));
-  const boatX = lerp(46, LANDING[0], sail);
-  const boatZ = lerp(-16, LANDING[1], sail);
+  // Motion runs on beat progress (timeline.ts) through the pure functions in actors.ts,
+  // which check_story also projects through the camera; visibility stays on the year.
+  const ctx = {Y, beat};
+  const boat = relicBoat(t, ctx);
   const k = smooth(ramp(Y, 335, 420));
-  // Tambralinga's sea trade
-  const trade = ramp(Y, 850, 900) * (1 - ramp(Y, 1450, 1500));
-  // 1767-69: Chao Nakhon's men hold the town; Taksin's army comes down from the north
-  // across the siege beat: march 0-.27, clash at the gate .27-.44, the defenders fall
-  // .44-.58, Thonburi marches in .62-.84
-  const siege = beat('siege');
-  const inn = smooth(ramp(siege, 0, 0.27));
-  const clash = smooth(ramp(siege, 0.27, 0.44));
-  const enter = smooth(ramp(siege, 0.62, 0.84));
-  const defend = Y >= 1767.05 && siege < 0.58;
-  const nakhonAt: [number, number] = [-0.5, lerp(-12, -14.2, clash)];
-  const thonburiAt: [number, number] = [lerp(lerp(3, -0.6, inn), -0.5, enter), lerp(lerp(lerp(-48, -20.5, inn), -17.4, clash), -11.5, enter)];
-  const thonburi: Formation = siege > 0 && siege < 1 ? {at: thonburiAt, face: defend ? nakhonAt : [-0.5, 0]} : null;
-  const nakhon: Formation = defend ? {at: nakhonAt, face: siege > 0 ? thonburiAt : [-0.5, -20]} : null;
-  // แห่ผ้าขึ้นธาตุ, today: the procession walks the beat, then the cloth goes on the chedi
+  const trade = tradeK(Y);
+  const {thonburi, nakhon} = siege(t, ctx);
   const proc = beat('procession');
   const wrap = smooth(ramp(Y, 2022.3, 2024.6));
   const lanka = smooth(ramp(Y, 1180, 1215));
@@ -240,11 +191,11 @@ export const NakhonSiLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrain
   return (
     <>
       <Chedi k={k} lanka={lanka} night={night} wrap={wrap} />
-      <Ship x={boatX} z={boatZ} rot={Math.atan2(LANDING[0] - 46, LANDING[1] + 16)} k={boatK} relic />
+      <Ship x={boat.x} z={boat.z} rot={boat.rot} k={boat.k} relic />
       {trade > 0.02 &&
         JUNKS.map((j, i) => {
-          const z = ((((j.z0 + j.v * t + 46) % 92) + 92) % 92) - 46;
-          return <Ship key={i} x={j.x} z={z} rot={j.v > 0 ? 0 : Math.PI} k={trade} />;
+          const q = junkAt(j, t);
+          return <Ship key={i} x={q.x} z={q.z} rot={q.rot} k={trade} />;
         })}
       <Army f={thonburi} color="#2e4f8e" terrainH={terrainH} />
       <Army f={nakhon} color="#8e2e2e" terrainH={terrainH} />

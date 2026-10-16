@@ -2,6 +2,7 @@ import {ramp} from '../../lib';
 import {GROUND} from '../../Scene';
 import type {CityConfig} from '../../engine/types';
 import {CHEDI, HO_PHRA_ISUAN, HO_PHRA_NARAI, NakhonSiLandmarks, NORTH_GATE, PHUTTHASIHING, PROCESSION, SLIDE} from './Landmarks';
+import {ACTORS} from './actors';
 import {SOUND_EVENTS, STORY} from './timeline';
 
 // World origin = old-town centroid (8.41680, 99.96438), 80 m/unit,
@@ -15,6 +16,7 @@ export const NAKHONSI: CityConfig = {
     eras: STORY.eras,
     yearAt: STORY.yearAt,
     beat: STORY.beat,
+    beats: STORY.beats,
     intro: {kicker: 'ไทม์แลปส์ประวัติศาสตร์', title: 'นครศรีธรรมราช', sub: 'เมืองพระธาตุ มรดกโลกแห่งแดนใต้'},
     finale: {kicker: 'มรดกโลก พ.ศ. 2569', title: 'นครศรีธรรมราช', sub: 'พระบรมธาตุเจดีย์ · เขาหลวง · อ่าวไทย'},
     approxBefore: 1600,
@@ -127,6 +129,7 @@ export const NAKHONSI: CityConfig = {
   },
   Landmarks: NakhonSiLandmarks,
   callouts: STORY.callouts,
+  actors: ACTORS,
   soundtrack: 'soundtrack_nakhonsi.wav',
   sky: {
     top: [

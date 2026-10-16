@@ -6,7 +6,7 @@
 //
 // Nakhon Sawan: the camera looked at the Thepharak shrine from 36 units away at
 // 20 degrees elevation across a forested old town, and the owner saw only trees.
-export const occlusion = ({layout, story, callouts}, {getWorld, droneCamera}) => {
+export const makeOcclusion = ({layout, story}, {getWorld, droneCamera}) => {
   const w = getWorld(layout);
   const cam = droneCamera(layout.cameraKeys);
   const crownsAt = (Y) => {
@@ -38,16 +38,24 @@ export const occlusion = ({layout, story, callouts}, {getWorld, droneCamera}) =>
     }
     return false;
   };
-  return callouts.map((c) => {
+  return {
+    /** is the line from the camera to p blocked by a standing tree at second t */
+    hidden: (p, t) => blocked(cam(t).pos, p, crownsAt(story.yearAt(t))),
+    standing: (p) => p[1] - w.terrainH(p[0], p[2]) >= 0.8,
+  };
+};
+
+export const occlusion = (cfg, engine) => {
+  const o = makeOcclusion(cfg, engine);
+  return cfg.callouts.map((c) => {
     // Ground features (a moat, a road, a hillside) are meant to be seen through
     // and between trees; only standing subjects -- buildings, monuments -- count.
-    const standing = c.p[1] - w.terrainH(c.p[0], c.p[2]) >= 0.8;
-    if (!standing) return {label: c.label, t0: c.t0, blocked: 0, ground: true};
+    if (!o.standing(c.p)) return {label: c.label, t0: c.t0, blocked: 0, ground: true};
     let n = 0;
     let hit = 0;
     for (let t = c.t0 + 0.3; t <= c.t1 - 0.3; t += 0.25) {
       n++;
-      if (blocked(cam(t).pos, c.p, crownsAt(story.yearAt(t)))) hit++;
+      if (o.hidden(c.p, t)) hit++;
     }
     return {label: c.label, t0: c.t0, blocked: n ? hit / n : 0};
   });

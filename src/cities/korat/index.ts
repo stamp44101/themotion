@@ -2,6 +2,7 @@ import {ramp} from '../../lib';
 import {GROUND} from '../../Scene';
 import type {CityConfig} from '../../engine/types';
 import {BAN_PRASAT, KoratLandmarks, MONUMENT, PHIMAI, RUNWAY, SEMA, THUNG_SAMRIT} from './Landmarks';
+import {ACTORS} from './actors';
 import {SOUND_EVENTS, STORY} from './timeline';
 
 export const KORAT: CityConfig = {
@@ -11,6 +12,7 @@ export const KORAT: CityConfig = {
     eras: STORY.eras,
     yearAt: STORY.yearAt,
     beat: STORY.beat,
+    beats: STORY.beats,
     intro: {kicker: 'ไทม์แลปส์ประวัติศาสตร์', title: 'นครราชสีมา', sub: 'จากแผ่นดินไดโนเสาร์ สู่ประตูอีสาน'},
     finale: {kicker: 'เมืองย่าโม', title: 'นครราชสีมา', sub: 'ดินแดน 3 มงกุฎยูเนสโก · เขาใหญ่ · สะแกราช · อุทยานธรณีโคราช'},
     approxBefore: 1650,
@@ -106,6 +108,7 @@ export const KORAT: CityConfig = {
   },
   Landmarks: KoratLandmarks,
   callouts: STORY.callouts,
+  actors: ACTORS,
   soundtrack: 'soundtrack_korat.wav',
   sky: {
     top: [

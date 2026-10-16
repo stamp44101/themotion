@@ -1,6 +1,7 @@
 import type React from 'react';
 import type {Story} from '../Overlay';
 import type {Footprint} from './occupancy';
+import type {Actor} from './actors';
 
 /** [centerX, centerZ, height, radius] of a gaussian hill. */
 export type Peak = [number, number, number, number];
@@ -154,4 +155,8 @@ export type CityConfig = {
   rain?: [number, number][];
   /** Opt-in render look (issue #27). 'shader': post-processing in engine/Look.tsx, sharper sun shadows. */
   look?: 'shader';
+  /** Moving things (armies, boats, processions) with a pure position function, so
+   *  check_story can project each one through the camera for its beat (engine/actors.ts).
+   *  Trains are registered by the engine from layout.trains. */
+  actors?: Actor[];
 };

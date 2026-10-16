@@ -119,9 +119,15 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   starts on a fresh page; a render reuses one page across frames. three.js caches an
   InstancedMesh's bounding sphere the first time it is culled, so Korat's armies, first seen in
   the town, were culled once they marched to Thung Samrit: the stills showed them, the render
-  showed only their shadows. `updateInstances()` now recomputes the sphere each frame. To check
-  anything that moves far, render a short sequential range (`npx remotion render … --sequence
-  --frames=A-B --concurrency=1`), not single stills.
+  showed only their shadows. `updateInstances()` now recomputes the sphere each frame.
+  **Moving things are actors** (`src/engine/actors.ts`): a city lists them in `actors`
+  (`src/cities/<city>/actors.ts`, pure position math that `Landmarks.tsx` also draws from;
+  the engine adds every train). `check_story.mjs` projects each actor through the camera for
+  every frame of its beat and fails one that is out of frame too long (80% in frame; a train
+  that crosses the tile 15%), hidden behind trees, or that pops out and back in. It found
+  Nakhon Si's relic boat lasting 0.8 s after the beats conversion. To see what the render
+  sees, `node scripts/actor_strips.mjs <city> [actor]` renders 1.5 s around each actor's
+  beat with `--sequence --concurrency=1` into `shots/<city>/actor_<id>.png`.
 - When A/B-ing an engine change, compare **still vs still**. A still against a
   frame pulled from an encoded render differs everywhere from compression alone
   and tells you nothing.
