@@ -4,7 +4,8 @@ import * as THREE from 'three';
 import {lerp, ramp, smooth} from '../../lib';
 import {Prang, SmallChedi, Viharn, updateInstances} from '../../engine/parts';
 import type {LandmarkProps} from '../../engine/types';
-import {Army, type Formation} from '../../engine/army';
+import {Army} from '../../engine/army';
+import {war as armies} from './actors';
 
 export const SEMA: [number, number] = [-44.1, 5.7]; // far: 33 km WSW, bearing 259 from the monument
 export const PHIMAI: [number, number] = [34, -31.6]; // far: 50 km NE, bearing 57
@@ -113,23 +114,8 @@ export const KoratLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH, 
   const runway = ramp(Y, 1955, 1962);
   const war = ramp(Y, 1825.9, 1826.1) * (1 - ramp(Y, 1826.4, 1826.475));
 
-  // armies: Vientiane troops march in from the north-east across the 'anouvong' beat and
-  // fall back to Thung Samrit over the first third of 'yamo'; Korat townsfolk gather in the
-  // city late in 'anouvong' and push them out. Motion on beat progress, so a retime of the
-  // captions moves the battle with them (it used to be year-driven and drifted off its caption).
-  const anouvong = beat('anouvong');
-  const yamo = beat('yamo');
-  const inn = smooth(ramp(anouvong, 0, 0.25));
-  const out = smooth(ramp(yamo, 0, 0.3));
-  const go = out;
-  // both armies end inside the Thung Samrit clearing, either side of the callout point
-  const laoAt: [number, number] = [lerp(lerp(40, 4, inn), THUNG_SAMRIT[0] + 3, out), lerp(lerp(-44, -4, inn), THUNG_SAMRIT[1] - 2, out)];
-  const koratAt: [number, number] = [lerp(-6, THUNG_SAMRIT[0] - 2.5, go), lerp(2, THUNG_SAMRIT[1] + 1.5, go)];
-  const laoOn = anouvong > 0 && yamo < 1;
-  const koratOn = anouvong >= 0.6 && yamo < 1;
-  // each army faces the other once both are out; before that the Lao army faces the town
-  const lao: Formation = laoOn ? {at: laoAt, face: koratOn ? koratAt : [0, 0]} : null;
-  const korat: Formation = koratOn ? {at: koratAt, face: laoAt} : null;
+  // the armies' positions are in actors.ts (pure), so check_story follows them too
+  const {lao, korat} = armies(t, {Y, beat});
 
   return (
     <>

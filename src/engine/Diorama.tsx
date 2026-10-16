@@ -21,6 +21,7 @@ import {inRiver as pointInRiver, isPathRiver, riverCrossings, riverLength, river
 import type {CityConfig, CityLayout} from './types';
 import {MAX_CARS, RING, carAt, decks, driveSegments, roadCrossings, riverSpan} from './roads';
 import {World, getWorld, railSpan, stationPos} from './world';
+import {trainAt} from './actors';
 import {LifeLayer} from './Life';
 
 type P = {c: CityConfig; w: World};
@@ -949,30 +950,17 @@ const Infrastructure: React.FC<P> = ({c, w}) => {
 };
 
 const Train: React.FC<P & {i: number}> = ({c, w, i}) => {
-  const {t, dur} = useT(c);
+  const {t} = useT(c);
   const L = c.layout;
   const tr = L.trains[i];
   const rail = L.rail;
-  if (!rail || t < tr.t0 || t > tr.t0 + tr.dur + (tr.park ?? 0)) return null;
-  const span = railSpan(L);
-  const p = Math.min(1, (t - tr.t0) / tr.dur);
-  // a line with a terminus (rail.span) ends at its station: trains pull in and stop there
-  // or start from there, instead of running on past it
-  const st = rail.axis === 'z' ? rail.station[1] : rail.station[0];
-  const termLo = !!rail.span && Math.abs(st - span[0]) < Math.abs(st - span[1]);
-  const termHi = !!rail.span && !termLo;
-  const lo = termLo ? span[0] + 3 : span[0] - 14;
-  const hi = termHi ? span[1] - 3 : span[1] + 6;
-  const arrive = tr.dir > 0 ? termLo : termHi;
-  const leave = tr.dir > 0 ? termHi : termLo;
-  const ease = (u: number) => (arrive ? 1 - (1 - u) ** 2 : leave ? u * u : u);
-  const a = tr.dir > 0 ? lerp(hi, lo, ease(p)) : lerp(lo, hi, ease(p));
+  const p = rail ? trainAt(L, tr, t, w.terrainH) : null;
+  if (!rail || !p) return null;
   const head = -tr.dir;
   const body = tr.modern ? '#2f5aa8' : '#202024';
   const car = tr.modern ? '#e8ecef' : '#7a3b2a';
-  const visible = a < span[1] && a > span[0] + 2;
   return (
-    <group position={((p) => [p[0], w.terrainH(p[0], p[2]), p[2]])(along(L, rail.axis, a, rail.pos, 0)) as [number, number, number]} rotation-y={rail.axis === 'z' ? 0 : Math.PI / 2} visible={visible}>
+    <group position={[p.x, p.y, p.z]} rotation-y={rail.axis === 'z' ? 0 : Math.PI / 2} visible={p.visible}>
       <mesh position={[0, 0.6, 0]} castShadow>
         <boxGeometry args={[0.9, 0.9, 2.2]} />
         <meshStandardMaterial color={body} roughness={0.6} />

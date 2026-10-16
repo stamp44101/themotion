@@ -63,6 +63,8 @@ export type Story = {
   duration?: number;
   /** beat progress (src/engine/story.ts): 0 -> 1 across a beat's seconds */
   beat?: (id: string, t: number) => number;
+  /** [t0, t1] per beat id, for actors and the checks */
+  beats?: Record<string, [number, number]>;
 };
 
 export const CHIANG_MAI_STORY: Story = {
