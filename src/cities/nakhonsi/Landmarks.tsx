@@ -1,6 +1,9 @@
-import React from 'react';
-import {lathe, Viharn} from '../../engine/parts';
-import {ramp, smooth} from '../../lib';
+import React, {useLayoutEffect, useRef} from 'react';
+import {random} from 'remotion';
+import * as THREE from 'three';
+import {Army, type Formation} from '../../engine/army';
+import {lathe, updateInstances, Viharn} from '../../engine/parts';
+import {lerp, ramp, smooth} from '../../lib';
 import type {LandmarkProps} from '../../engine/types';
 
 // World positions from Google Maps / UNESCO via scripts/geo.mjs (origin = old-town centroid
@@ -10,6 +13,16 @@ export const NORTH_GATE: [number, number] = [-1.1, -15.0];
 export const HO_PHRA_ISUAN: [number, number] = [-0.9, -10.2];
 export const HO_PHRA_NARAI: [number, number] = [-0.2, -10.4];
 export const PHUTTHASIHING: [number, number] = [-1.0, -3.2];
+// where the legend's boat comes ashore: the Gulf's edge (13 km east, compressed to the tile)
+export const LANDING: [number, number] = [40.4, 5];
+// แห่ผ้าขึ้นธาตุ: the procession walks south down the town's axis, west of Phutthasihing,
+// then turns east into the chedi court through its west side
+export const PROCESSION: [number, number][] = [
+  [-0.4, -7],
+  [0.3, 5.6],
+  [0.6, 7.4],
+  [1.3, 7.4],
+];
 // 1988 mudslide: a channel of bare mud down Khao Luang's east face toward the plain
 export const SLIDE: [number, number][] = Array.from({length: 16}, (_, i) => [-41.5 + i * 0.55, -6 + i * 0.2 + Math.sin(i * 1.3) * 0.4]);
 
@@ -35,7 +48,7 @@ const bellGeo = lathe(BELL, 24);
 const spireGeo = lathe(SPIRE, 12);
 const CLOISTER = 2.7;
 
-const Chedi: React.FC<{k: number; lanka: number; night: number}> = ({k, lanka, night}) => (
+const Chedi: React.FC<{k: number; lanka: number; night: number; wrap: number}> = ({k, lanka, night, wrap}) => (
   <group position={[CHEDI[0], 0, CHEDI[1]]} scale={[S, S * Math.max(0.001, k), S]}>
     {/* the older, smaller Srivijaya-era stupa inside, replaced by the Lanka bell */}
     <group scale={1 - 0.15 * (1 - lanka)}>
@@ -49,6 +62,13 @@ const Chedi: React.FC<{k: number; lanka: number; night: number}> = ({k, lanka, n
         <meshStandardMaterial color="#e2b33c" metalness={0.7} roughness={0.3} emissive="#ffcf6a" emissiveIntensity={night * 0.6} />
       </mesh>
     </group>
+    {/* ผ้าพระบฏ: the saffron cloth wound round the bell after the procession */}
+    {wrap > 0.02 && (
+      <mesh position={[0, 2.2, 0]} scale={[1, wrap, 1]}>
+        <cylinderGeometry args={[2.12, 2.16, 1.2, 24, 1, true]} />
+        <meshStandardMaterial color="#f0a020" roughness={0.6} side={THREE.DoubleSide} emissive="#f0a020" emissiveIntensity={0.15 + night * 0.3} />
+      </mesh>
+    )}
     {/* วิหารคด: the roofed gallery round the chedi court (comes with the Lanka rebuild) */}
     {lanka > 0.02 && [
       [0, -CLOISTER, 2 * CLOISTER + 0.5, 0.5],
@@ -82,16 +102,147 @@ const Slide: React.FC<{Y: number; terrainH: LandmarkProps['terrainH']}> = ({Y, t
   );
 };
 
-export const NakhonSiLandmarks: React.FC<LandmarkProps> = ({Y, night, terrainH}) => {
-  // a first stupa from the legend onward, the Lanka bell ~13th century (attributed)
-  const k = smooth(ramp(Y, 280, 300));
+// ------------------------------------------------------------------ boats
+// a junk: hull, deck house, two battened sails; `relic` is the legend's small white-sailed boat
+const Ship: React.FC<{x: number; z: number; rot: number; k: number; relic?: boolean}> = ({x, z, rot, k, relic}) => {
+  if (k <= 0.02) return null;
+  const sail = relic ? '#f3eee2' : '#a8452e';
+  return (
+    <group position={[x, 0, z]} rotation-y={rot} scale={k * (relic ? 1.4 : 1.2)}>
+      <mesh position={[0, 0.25, 0]} castShadow>
+        <boxGeometry args={[0.9, 0.45, 2.8]} />
+        <meshStandardMaterial color="#6b4428" roughness={0.9} />
+      </mesh>
+      <mesh position={[0, 0.55, 0.9]} castShadow>
+        <boxGeometry args={[0.7, 0.3, 0.6]} />
+        <meshStandardMaterial color="#8a5a34" roughness={0.9} />
+      </mesh>
+      {(relic ? [0.1] : [-0.6, 0.5]).map((sz, i) => (
+        <mesh key={i} position={[0, 1.45, sz]} castShadow>
+          <boxGeometry args={[0.05, 1.6 - i * 0.3, 1.0]} />
+          <meshStandardMaterial color={sail} roughness={0.8} side={THREE.DoubleSide} />
+        </mesh>
+      ))}
+    </group>
+  );
+};
+
+// trade junks in the Gulf through the Tambralinga centuries (Song embassies 1001-1070)
+const JUNKS = new Array(5).fill(0).map((_, i) => ({
+  x: 41.5 + random(`jx${i}`) * 5,
+  z0: -46 + random(`jz${i}`) * 90,
+  v: (random(`jv${i}`) < 0.5 ? -1 : 1) * (1.6 + random(`js${i}`)),
+}));
+
+// ------------------------------------------------------------------ แห่ผ้าขึ้นธาตุ
+const PEOPLE = 64;
+const segs = PROCESSION.slice(1).map((b, i) => {
+  const a = PROCESSION[i];
+  return {a, b, len: Math.hypot(b[0] - a[0], b[1] - a[1])};
+});
+const PATH_LEN = segs.reduce((s, g) => s + g.len, 0);
+const pointAt = (d: number) => {
+  let r = Math.max(0, Math.min(PATH_LEN, d));
+  for (const g of segs) {
+    if (r <= g.len) {
+      const u = r / g.len;
+      return {x: lerp(g.a[0], g.b[0], u), z: lerp(g.a[1], g.b[1], u), rot: Math.atan2(g.b[0] - g.a[0], g.b[1] - g.a[1])};
+    }
+    r -= g.len;
+  }
+  const g = segs[segs.length - 1];
+  return {x: g.b[0], z: g.b[1], rot: 0};
+};
+// two abreast, the cloth held overhead between them
+const Procession: React.FC<{p: number}> = ({p}) => {
+  const body = useRef<THREE.InstancedMesh>(null);
+  const head = useRef<THREE.InstancedMesh>(null);
+  const cloth = useRef<THREE.InstancedMesh>(null);
+  const place = (i: number) => {
+    if (p <= 0 || p >= 1) return null;
+    const row = Math.floor(i / 2);
+    const d = p * (PATH_LEN + PEOPLE * 0.16) - row * 0.32;
+    if (d < 0 || d > PATH_LEN) return null;
+    const q = pointAt(d);
+    const side = (i % 2 ? 1 : -1) * 0.13;
+    return {x: q.x + Math.cos(q.rot) * side, z: q.z - Math.sin(q.rot) * side, cx: q.x, cz: q.z, rot: q.rot};
+  };
+  useLayoutEffect(() => {
+    updateInstances(body.current, PEOPLE, (i, o) => {
+      const q = place(i);
+      if (!q) return false;
+      o.position.set(q.x, 0.2, q.z);
+      o.rotation.y = q.rot;
+      return true;
+    });
+    updateInstances(head.current, PEOPLE, (i, o) => {
+      const q = place(i);
+      if (!q) return false;
+      o.position.set(q.x, 0.45, q.z);
+      return true;
+    });
+    updateInstances(cloth.current, PEOPLE, (i, o) => {
+      const q = i % 2 === 0 ? place(i) : null;
+      if (!q) return false;
+      o.position.set(q.cx, 0.6, q.cz);
+      o.rotation.y = q.rot;
+      return true;
+    });
+  });
+  return (
+    <>
+      <instancedMesh ref={body} args={[undefined, undefined, PEOPLE]} castShadow>
+        <cylinderGeometry args={[0.06, 0.09, 0.4, 6]} />
+        <meshStandardMaterial color="#f2efe6" roughness={0.85} />
+      </instancedMesh>
+      <instancedMesh ref={head} args={[undefined, undefined, PEOPLE]}>
+        <sphereGeometry args={[0.07, 6, 5]} />
+        <meshStandardMaterial color="#c99a72" roughness={0.9} />
+      </instancedMesh>
+      <instancedMesh ref={cloth} args={[undefined, undefined, PEOPLE]} castShadow>
+        <boxGeometry args={[0.42, 0.04, 0.36]} />
+        <meshStandardMaterial color="#f0a020" roughness={0.6} emissive="#f0a020" emissiveIntensity={0.25} />
+      </instancedMesh>
+    </>
+  );
+};
+
+export const NakhonSiLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH}) => {
+  // legend: the relic boat sails in from the Gulf and comes ashore, then the first stupa rises
+  const boatK = 1 - ramp(Y, 345, 360);
+  const sail = smooth(Math.min(1, t / 3));
+  const boatX = lerp(46, LANDING[0], sail);
+  const boatZ = lerp(-16, LANDING[1], sail);
+  const k = smooth(ramp(Y, 335, 420));
+  // Tambralinga's sea trade
+  const trade = ramp(Y, 850, 900) * (1 - ramp(Y, 1450, 1500));
+  // 1767-69: Chao Nakhon's men hold the town; Taksin's army comes down from the north
+  // (year held at 1767 for ชุมนุมเจ้านคร, then at 1769 through the siege)
+  const defend = Y >= 1767.05 && Y < 1769.33;
+  const inn = smooth(ramp(Y, 1769.02, 1769.18));
+  const enter = smooth(ramp(Y, 1769.33, 1769.42));
+  const thonburiAt: [number, number] = [lerp(lerp(3, -0.6, inn), -0.5, enter), lerp(lerp(-48, -20.5, inn), -11.5, enter)];
+  const thonburi: Formation = Y >= 1769.0 && Y < 1769.47 ? {at: thonburiAt, face: defend ? [-0.5, -12] : [-0.5, 0]} : null;
+  const nakhon: Formation = defend ? {at: [-0.5, -12], face: Y >= 1769.05 ? thonburiAt : [-0.5, -20]} : null;
+  // แห่ผ้าขึ้นธาตุ, today: the procession, then the cloth on the chedi
+  const proc = ramp(Y, 2017.3, 2022.9);
+  const wrap = smooth(ramp(Y, 2022.3, 2024.6));
   const lanka = smooth(ramp(Y, 1180, 1215));
   // the Ho Phra halls: shrines of great age, but the halls standing today are later
   // rebuilds of unknown date -- shown from the late Ayutthaya town on (approximate)
   const ho = smooth(ramp(Y, 1690, 1700));
   return (
     <>
-      <Chedi k={k} lanka={lanka} night={night} />
+      <Chedi k={k} lanka={lanka} night={night} wrap={wrap} />
+      <Ship x={boatX} z={boatZ} rot={Math.atan2(LANDING[0] - 46, LANDING[1] + 16)} k={boatK} relic />
+      {trade > 0.02 &&
+        JUNKS.map((j, i) => {
+          const z = ((((j.z0 + j.v * t + 46) % 92) + 92) % 92) - 46;
+          return <Ship key={i} x={j.x} z={z} rot={j.v > 0 ? 0 : Math.PI} k={trade} />;
+        })}
+      <Army f={thonburi} color="#2e4f8e" terrainH={terrainH} />
+      <Army f={nakhon} color="#8e2e2e" terrainH={terrainH} />
+      <Procession p={proc} />
       <Slide Y={Y} terrainH={terrainH} />
       <Viharn pos={[HO_PHRA_ISUAN[0], 0, HO_PHRA_ISUAN[1]]} k={ho} scale={0.32} />
       <Viharn pos={[HO_PHRA_NARAI[0], 0, HO_PHRA_NARAI[1]]} k={ho} scale={0.32} />

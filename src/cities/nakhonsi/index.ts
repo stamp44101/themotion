@@ -1,7 +1,7 @@
 import {ramp} from '../../lib';
 import {GROUND} from '../../Scene';
 import type {CityConfig} from '../../engine/types';
-import {CHEDI, HO_PHRA_ISUAN, HO_PHRA_NARAI, NakhonSiLandmarks, NORTH_GATE, PHUTTHASIHING, SLIDE} from './Landmarks';
+import {CHEDI, HO_PHRA_ISUAN, HO_PHRA_NARAI, LANDING, NakhonSiLandmarks, NORTH_GATE, PHUTTHASIHING, PROCESSION, SLIDE} from './Landmarks';
 import {CAPTIONS, ERAS, SOUND_EVENTS, yearAt} from './timeline';
 
 // World origin = old-town centroid (8.41680, 99.96438), 80 m/unit,
@@ -95,6 +95,10 @@ export const NAKHONSI: CityConfig = {
       [HO_PHRA_ISUAN[0], HO_PHRA_ISUAN[1], 1.0],
       [HO_PHRA_NARAI[0], HO_PHRA_NARAI[1], 1.0],
       [PHUTTHASIHING[0], PHUTTHASIHING[1], 0.8],
+      // the procession's route stays clear of houses in every era (it is a street)
+      ...PROCESSION.map(([x, z]) => [x, z, 0.6] as [number, number, number]),
+      [-0.05, -0.7, 0.6],
+      [0.15, 3.2, 0.6],
     ],
     // The modern city is a long low-rise strip on the sand ridge: Tha Wang market (the
     // commercial centre since the railway) 2 km north of the old town, down to Central
@@ -116,51 +120,54 @@ export const NAKHONSI: CityConfig = {
     boats: [300, 2026],
     finale: 'fireworks',
     cameraKeys: [
-      // opening: east of the town looking west, Khao Luang behind the chedi
-      [0, CHEDI[0], 1.5, CHEDI[1], 38, 95, 28, 30],
-      [3, CHEDI[0], 2, CHEDI[1], 60, 102, 30, 30],
-      // legend -> stele: orbit the chedi round to the south
-      [7.5, CHEDI[0], 2.5, CHEDI[1], 75, 130, 32, 30],
-      [8.7, CHEDI[0], 2.5, CHEDI[1], 75, 140, 32, 30],
-      // Tambralinga: the long town from the south-west
-      [12.5, 0, 1, -2, 95, 175, 36, 30],
-      [16.5, 0, 1, -2, 110, 215, 35, 30],
-      // the Lanka bell and Chandrabhanu: close on the chedi, swinging west -> north-west
-      [20.5, CHEDI[0], 2.5, CHEDI[1], 48, 250, 32, 30],
-      [21.8, CHEDI[0], 2.5, CHEDI[1], 48, 262, 32, 30],
-      [25, CHEDI[0], 2.5, CHEDI[1], 52, 300, 32, 30],
-      // Ayutthaya: wide from the north-west, the whole walled town
-      [29.5, 0, 1, 0, 125, 340, 38, 30],
-      // Narai's walls: the north gate on the canal
-      [33.5, NORTH_GATE[0], 1, NORTH_GATE[1] + 2, 55, 380, 34, 30],
-      // Chao Nakhon: the town from the north-east
-      [38.5, 0, 1, -4, 85, 420, 36, 30],
+      // legend: ride in with the relic boat from the Gulf, Khao Luang on the horizon,
+      // then glide west to the sand ridge as the first stupa rises
+      [0, 44, 1, -12, 34, 100, 28, 30],
+      [3, LANDING[0] - 4, 1, LANDING[1], 52, 100, 30, 30],
+      [6.5, CHEDI[0], 2, CHEDI[1], 58, 115, 30, 30],
+      // Tambralinga: junks in the Gulf, the town on the ridge behind
+      [9.5, 36, 1, 2, 80, 112, 34, 30],
+      [13.5, 32, 1, -2, 82, 140, 34, 30],
+      // the Lanka bell: close on the chedi, swinging west
+      [15.5, CHEDI[0], 2.5, CHEDI[1], 48, 230, 32, 30],
+      [18.5, CHEDI[0], 2.5, CHEDI[1], 48, 255, 32, 30],
+      [20.5, CHEDI[0], 2.5, CHEDI[1], 52, 290, 32, 30],
+      // Narai's walls: wide from the north-west, then the north gate
+      [22.5, 0, 1, -2, 110, 330, 38, 30],
+      [25.5, NORTH_GATE[0], 1, NORTH_GATE[1] + 2, 55, 370, 34, 30],
+      // Chao Nakhon holds the town; Taksin's army arrives at the north gate
+      [27.5, 0, 1, -8, 80, 400, 36, 30],
+      [30, -0.5, 1, -17, 62, 420, 36, 30],
+      [34.3, -0.5, 1, -15, 58, 445, 36, 30],
       // 1914: follow the first train up the line into the Tha Wang terminus
-      [40.2, -11, 1, 26, 55, 455, 34, 30],
-      [41.5, -11, 1, 2, 55, 450, 34, 30],
-      [42.4, -10, 1, -20, 55, 444, 34, 30],
-      [44.5, -9, 1, -30, 60, 446, 35, 30],
-      // the modern strip city from Tha Wang to Central, growing
-      [47, 2, 1, 4, 155, 480, 38, 30],
-      // 1988: across the town to the Khao Luang slopes
-      [48.4, -34, 8, -4, 120, 495, 32, 30],
-      [50.8, -34, 8, -4, 115, 505, 32, 30],
-      // World Heritage: back to the chedi, night falls over the modern city
-      [52.5, CHEDI[0], 2.5, CHEDI[1], 80, 530, 32, 30],
-      [56, CHEDI[0], 2.5, CHEDI[1], 95, 565, 34, 30],
+      [36.4, -11, 1, 26, 55, 455, 34, 30],
+      [37.7, -11, 1, 2, 55, 450, 34, 30],
+      [38.6, -10, 1, -20, 55, 444, 34, 30],
+      [40.7, -9, 1, -30, 60, 446, 35, 30],
+      // the modern strip city from Tha Wang to Central, grown
+      [43.5, 2, 1, 4, 155, 480, 38, 30],
+      // 1988: the Khao Luang slopes
+      [44.8, -36, 8, -4, 120, 495, 32, 30],
+      [47.8, -36, 8, -4, 115, 505, 32, 30],
+      // แห่ผ้าขึ้นธาตุ: the procession down the town to the chedi, then night over the city
+      [49.5, 0.5, 1, 2, 48, 525, 38, 30],
+      [53, CHEDI[0], 2, CHEDI[1], 50, 560, 34, 30],
+      [56, CHEDI[0], 2.5, CHEDI[1], 95, 575, 34, 30],
       [60, CHEDI[0], 2, CHEDI[1] - 4, 125, 590, 35, 30],
     ],
   },
   Landmarks: NakhonSiLandmarks,
   callouts: [
-    {t0: 4, t1: 7.4, label: 'พระบรมธาตุเจดีย์', dx: 90, dy: -120, p: [CHEDI[0], 2.4, CHEDI[1]]},
-    {t0: 13.2, t1: 15.7, label: 'คลองหน้าเมือง', dx: 90, dy: 110, p: [8, 0, -17.3]},
-    {t0: 30.5, t1: 33.6, label: 'ประตูชัยเหนือ', dx: -90, dy: -130, p: [NORTH_GATE[0], 1.5, NORTH_GATE[1]]},
-    {t0: 35.2, t1: 38.4, label: 'หอพระอิศวร', dx: -100, dy: -120, p: [HO_PHRA_ISUAN[0], 0.8, HO_PHRA_ISUAN[1]]},
-    {t0: 42.9, t1: 44.4, label: 'สถานีรถไฟนครศรีธรรมราช', dx: 80, dy: -130, p: [-8.9, 1.2, -31.4]},
-    {t0: 48.4, t1: 50.9, label: 'เขาหลวง', dx: 80, dy: -110, p: [-44, 22.5, -4]},
-    {t0: 52.6, t1: 55.6, label: 'วัดพระมหาธาตุวรมหาวิหาร', dx: 90, dy: -120, p: [CHEDI[0], 5.5, CHEDI[1]]},
+    {t0: 5.5, t1: 8.4, label: 'พระบรมธาตุเจดีย์', dx: 90, dy: -120, p: [CHEDI[0], 2.4, CHEDI[1]]},
+    {t0: 10, t1: 13.5, label: 'อ่าวไทย', dx: 80, dy: 110, p: [42, 0, 0]},
+    {t0: 23, t1: 25.8, label: 'ประตูชัยเหนือ', dx: -90, dy: -130, p: [NORTH_GATE[0], 1.5, NORTH_GATE[1]]},
+    {t0: 27.6, t1: 29.6, label: 'หอพระอิศวร', dx: -100, dy: -120, p: [HO_PHRA_ISUAN[0], 0.8, HO_PHRA_ISUAN[1]]},
+    {t0: 30.6, t1: 33.4, label: 'ทัพกรุงธนบุรี', dx: 90, dy: -120, p: [-0.6, 0.8, -20.5]},
+    {t0: 38.9, t1: 40.6, label: 'สถานีรถไฟนครศรีธรรมราช', dx: 80, dy: -130, p: [-8.9, 1.2, -31.4]},
+    {t0: 44.8, t1: 48, label: 'เขาหลวง', dx: 80, dy: -110, p: [-45, 19.4, -4]},
+    {t0: 50, t1: 52.8, label: 'วัดพระมหาธาตุวรมหาวิหาร', dx: 90, dy: -120, p: [CHEDI[0], 5.5, CHEDI[1]]},
   ],
+
   soundtrack: 'soundtrack_nakhonsi.wav',
   sky: {
     top: [
@@ -177,5 +184,5 @@ export const NAKHONSI: CityConfig = {
   // the legend-era beats are forest with one white chedi: lift the sky fill until the town
   // grows (fades out 1250-1400, t ~24.6-29.6 s, slowly enough not to step)
   ambient: (Y) => 0.6 * (1 - ramp(Y, 1250, 1400)),
-  gloom: (Y) => ramp(Y, 1767, 1767.2) * (1 - ramp(Y, 1769.2, 1769.6)) + ramp(Y, 1988.12, 1988.25) * (1 - ramp(Y, 1988.3, 1988.4)),
+  gloom: (Y) => ramp(Y, 1769.0, 1769.1) * (1 - ramp(Y, 1769.38, 1769.45)) + ramp(Y, 1988.12, 1988.25) * (1 - ramp(Y, 1988.3, 1988.4)),
 };

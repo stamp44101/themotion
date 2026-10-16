@@ -115,6 +115,17 @@ Confidence: **confirmed** · **attributed** · **disputed**. Thai sources prefer
 | 1988 | 2531 | 22 Nov mudslides at Kathun & Khiriwong; national logging ban Jan 1989 | confirmed date; toll disputed (~230 vs 373) | no toll, or "หลายร้อยคน" |
 | 2012 → 2026 | 2555 → 2569 | Wat Phra Mahathat on the UNESCO tentative list 2012; **inscribed as World Heritage 2026** (Busan, 48th session; press reports give 25 July) | year confirmed on whc.unesco.org/en/list/1761 ("Date of Inscription: 2026"); the day is press-only | closing beat: "ขึ้นทะเบียน พ.ศ. 2569" -- no day |
 
+
+**Storyline v2 (owner: "the list of dates is boring").** Text-only beats were cut or merged
+(stele no. 23, Ayutthaya province c. 1350, Chandrabhanu as his own beat) and every remaining
+beat has something happening on screen: the legend's relic boat coming ashore, Song-era
+junks in the Gulf (Tambralinga's 1001 embassy), the Lanka bell, Narai's walls, Chao Nakhon
+holding the town and Taksin's army at the north gate (2312, confirmed: silpa-mag.com/?p=36619),
+the 1914 train, the 1988 mudslide, and **แห่ผ้าขึ้นธาตุ** before the World Heritage close:
+on Makha Bucha people carry the long ผ้าพระบฏ round the chedi and wrap it (Thai PBS, Thai Post;
+the legend dates it to the Sri Dharmasoka kings, "over 800 years", attributed). The ceremony
+is cited in the inscription's criterion (vi).
+
 - **Era labels:** ตามพรลิงค์ · ศรีวิชัย · ศรีธรรมราช · อยุธยา · เจ้านคร · ปัจจุบัน
 - **Duration:** 60 s.
 
