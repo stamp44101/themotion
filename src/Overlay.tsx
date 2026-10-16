@@ -61,6 +61,8 @@ export type Story = {
   approxBefore: number;
   /** Clip length in seconds (default 60). */
   duration?: number;
+  /** beat progress (src/engine/story.ts): 0 -> 1 across a beat's seconds */
+  beat?: (id: string, t: number) => number;
 };
 
 export const CHIANG_MAI_STORY: Story = {

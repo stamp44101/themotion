@@ -99,7 +99,7 @@ const SMOKE = new Array(10).fill(0).map((_, i) => ({
   ph: random(`smp${i}`),
 }));
 
-export const KoratLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH}) => {
+export const KoratLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH, beat}) => {
   const dinos = 1 - ramp(Y, -5e6, -1.5e6);
   const village = ramp(Y, -1200, -900);
   const huts = village * (1 - ramp(Y, 700, 900));
@@ -113,18 +113,20 @@ export const KoratLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH})
   const runway = ramp(Y, 1955, 1962);
   const war = ramp(Y, 1825.9, 1826.1) * (1 - ramp(Y, 1826.4, 1826.475));
 
-  // armies: Vientiane troops march in from the north-east and fall back to Thung Samrit;
-  // Korat townsfolk gather in the city and push them out.
-  // Lao army: marches in from the north-east, then falls back to Thung Samrit
-  // (year held at 1826 through 27.4-33.6 s; the march is 30.2-31.5 s, the curve is slow early in the hold)
-  const inn = smooth(ramp(Y, 1825.7, 1826.05));
-  const out = smooth(ramp(Y, 1826.13, 1826.19));
-  const go = smooth(ramp(Y, 1826.13, 1826.19));
+  // armies: Vientiane troops march in from the north-east across the 'anouvong' beat and
+  // fall back to Thung Samrit over the first third of 'yamo'; Korat townsfolk gather in the
+  // city late in 'anouvong' and push them out. Motion on beat progress, so a retime of the
+  // captions moves the battle with them (it used to be year-driven and drifted off its caption).
+  const anouvong = beat('anouvong');
+  const yamo = beat('yamo');
+  const inn = smooth(ramp(anouvong, 0, 0.25));
+  const out = smooth(ramp(yamo, 0, 0.3));
+  const go = out;
   // both armies end inside the Thung Samrit clearing, either side of the callout point
   const laoAt: [number, number] = [lerp(lerp(40, 4, inn), THUNG_SAMRIT[0] + 3, out), lerp(lerp(-44, -4, inn), THUNG_SAMRIT[1] - 2, out)];
   const koratAt: [number, number] = [lerp(-6, THUNG_SAMRIT[0] - 2.5, go), lerp(2, THUNG_SAMRIT[1] + 1.5, go)];
-  const laoOn = Y >= 1825.7 && Y <= 1826.46;
-  const koratOn = Y >= 1826.125 && Y <= 1826.46;
+  const laoOn = anouvong > 0 && yamo < 1;
+  const koratOn = anouvong >= 0.6 && yamo < 1;
   // each army faces the other once both are out; before that the Lao army faces the town
   const lao: Formation = laoOn ? {at: laoAt, face: koratOn ? koratAt : [0, 0]} : null;
   const korat: Formation = koratOn ? {at: koratAt, face: laoAt} : null;

@@ -207,28 +207,31 @@ const Procession: React.FC<{p: number}> = ({p}) => {
   );
 };
 
-export const NakhonSiLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH}) => {
-  // legend: the relic boat sails in from the Gulf and comes ashore, then the first stupa rises
+export const NakhonSiLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH, beat}) => {
+  // Motion runs on beat progress (timeline.ts), visibility on the year.
+  // legend: the relic boat sails in over the beat's first third and comes ashore, then the
+  // first stupa rises
   const boatK = 1 - ramp(Y, 345, 360);
-  const sail = smooth(Math.min(1, t / 3));
+  const sail = smooth(Math.min(1, beat('legend') * 3));
   const boatX = lerp(46, LANDING[0], sail);
   const boatZ = lerp(-16, LANDING[1], sail);
   const k = smooth(ramp(Y, 335, 420));
   // Tambralinga's sea trade
   const trade = ramp(Y, 850, 900) * (1 - ramp(Y, 1450, 1500));
-  // 1767-69: Chao Nakhon's men hold the town; Taksin's army comes down from the north.
-  // Year runs ~0.06/s through the 1769 hold: march 1769.00-.12, clash at the gate .12-.24,
-  // the defenders fall .24-.28, Thonburi marches in .28-.38.
-  const inn = smooth(ramp(Y, 1769.0, 1769.12));
-  const clash = smooth(ramp(Y, 1769.12, 1769.2));
-  const enter = smooth(ramp(Y, 1769.28, 1769.38));
-  const defend = Y >= 1767.05 && Y < 1769.26;
+  // 1767-69: Chao Nakhon's men hold the town; Taksin's army comes down from the north
+  // across the siege beat: march 0-.27, clash at the gate .27-.44, the defenders fall
+  // .44-.58, Thonburi marches in .62-.84
+  const siege = beat('siege');
+  const inn = smooth(ramp(siege, 0, 0.27));
+  const clash = smooth(ramp(siege, 0.27, 0.44));
+  const enter = smooth(ramp(siege, 0.62, 0.84));
+  const defend = Y >= 1767.05 && siege < 0.58;
   const nakhonAt: [number, number] = [-0.5, lerp(-12, -14.2, clash)];
   const thonburiAt: [number, number] = [lerp(lerp(3, -0.6, inn), -0.5, enter), lerp(lerp(lerp(-48, -20.5, inn), -17.4, clash), -11.5, enter)];
-  const thonburi: Formation = Y >= 1769.0 && Y < 1769.45 ? {at: thonburiAt, face: defend ? nakhonAt : [-0.5, 0]} : null;
-  const nakhon: Formation = defend ? {at: nakhonAt, face: Y >= 1769.0 ? thonburiAt : [-0.5, -20]} : null;
-  // แห่ผ้าขึ้นธาตุ, today: the procession, then the cloth on the chedi
-  const proc = ramp(Y, 2017.3, 2022.9);
+  const thonburi: Formation = siege > 0 && siege < 1 ? {at: thonburiAt, face: defend ? nakhonAt : [-0.5, 0]} : null;
+  const nakhon: Formation = defend ? {at: nakhonAt, face: siege > 0 ? thonburiAt : [-0.5, -20]} : null;
+  // แห่ผ้าขึ้นธาตุ, today: the procession walks the beat, then the cloth goes on the chedi
+  const proc = beat('procession');
   const wrap = smooth(ramp(Y, 2022.3, 2024.6));
   const lanka = smooth(ramp(Y, 1180, 1215));
   // the Ho Phra halls: shrines of great age, but the halls standing today are later

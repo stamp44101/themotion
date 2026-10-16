@@ -23,5 +23,5 @@ for (let f = 0; f < dur * mod.FPS; f++) {
   const t = f / mod.FPS;
   frames.push([+mod.yearAt(t).toFixed(3), +mod.lighting(t, dur).night.toFixed(3)]);
 }
-fs.writeFileSync(outPath, JSON.stringify({fps: mod.FPS, duration: dur, frames, events: mod.SOUND_EVENTS ?? {}}));
+fs.writeFileSync(outPath, JSON.stringify({fps: mod.FPS, duration: dur, frames, events: mod.SOUND_EVENTS ?? {}, beats: mod.STORY?.beats ?? {}}));
 console.log('wrote', outPath, frames.length, 'frames');
