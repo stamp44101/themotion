@@ -34,7 +34,9 @@ const WATER_WAIVED = new Set(['chachoengsao']);
 // walls + modern city on 46% of the tile and a 20-high Doi Suthep behind; Nakhon
 // Sawan ended on 4 buildings (2%) and read as a toy. Posted before the rule, warn only:
 const GRANDEUR = {minFinaleShare: 0.2, heroPeak: 8, minOldTown: 0.03};
-const GRANDEUR_WAIVED = new Set(['chachoengsao', 'nakhonsawan']);
+// Chonburi: posted at 20%; the occupancy map then removed the blocks that stood in the
+// sea and on the ring road, and it sits at 19%.
+const GRANDEUR_WAIVED = new Set(['chachoengsao', 'nakhonsawan', 'chonburi']);
 // A year named in a caption (พ.ศ.) must be on the counter for at least this long while
 // the caption is up. Chonburi's Bang Saen caption said พ.ศ. 2486 while the counter ran
 // 2490-2523; Ayutthaya's "7 เมษายน 2310" counter left 2310 within a second.
@@ -261,28 +263,16 @@ for (const city of cities) {
     if (worst.h > 0.3) err(`rail is buried: terrain is ${worst.h.toFixed(2)} high under the line at ${rail.axis === 'z' ? 'z' : 'x'}=${worst.a}; move rail.pos or narrow the peaks.`);
   }
 
-  // Generated blocks keep their whole footprint off every road (the ring road included),
-  // and no tree still stands inside one after it is built (Nakhon Si: blocks over the kerb,
-  // towers rising through canopies).
+  // One occupancy audit for everything generated (src/engine/occupancy.ts): every pair
+  // the rules forbid on the same ground at the same time, whichever generator placed
+  // it. It replaced the per-case rules (houses on a chedi, blocks on a road, towers
+  // through trees, huts on water) once it reproduced each of them on the old engine.
   {
-    const g = engine.getWorld(layout);
-    const [rx, rz] = [layout.city.hx + 3.1, layout.city.hz + 3.1];
-    const segs = [
-      ...layout.roads.map((r) => [r.from, r.to, r.width]),
-      [[rx, -rz], [rx, rz], 1.2], [[rx, rz], [-rx, rz], 1.2], [[-rx, rz], [-rx, -rz], 1.2], [[-rx, -rz], [rx, -rz], 1.2],
-    ];
-    const dist = ([ax, az], [bx, bz], x, z) => {
-      const dx = bx - ax, dz = bz - az;
-      const u = Math.max(0, Math.min(1, ((x - ax) * dx + (z - az) * dz) / (dx * dx + dz * dz)));
-      return Math.hypot(x - (ax + u * dx), z - (az + u * dz));
-    };
-    let onRoad = 0, inTree = 0;
-    for (const b of g.buildings) {
-      if (segs.some(([a, c, w]) => dist(a, c, b.x, b.z) < w / 2 + Math.min(b.w, b.d) / 2)) onRoad++;
-      if (g.trees.some((t) => t.clear > b.built && Math.abs(t.x - b.x) < b.w / 2 && Math.abs(t.z - b.z) < b.d / 2)) inTree++;
+    const conflicts = engine.auditWorld(layout, engine.getWorld(layout));
+    for (const c of conflicts) {
+      const where = `${c.labels[1]} on ${c.labels[0]} at (${c.at[0].toFixed(1)}, ${c.at[1].toFixed(1)}) in ${Math.round(c.year)}`;
+      (FRAME_WAIVED.has(city) ? warn : err)(`occupancy: ${c.count} cell(s) of ${c.over} on ${c.under}, e.g. ${where}.`);
     }
-    if (onRoad) err(`${onRoad} generated building(s) stand on a road.`);
-    if (inTree) err(`${inTree} generated building(s) rise through a standing tree.`);
   }
 
   // Cars cross water only on a bridge deck. The engine hides a car with no deck under

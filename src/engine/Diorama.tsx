@@ -418,19 +418,22 @@ const Houses: React.FC<P> = ({c, w}) => {
   const modern = useRef<THREE.InstancedMesh>(null);
   const {map, emap} = useMemo(windowTexture, []);
   const {night} = lighting(t, dur);
+  // razed: a road or rail laid through the old town later removed the house for good
   const trad = (i: number) => {
     const h = H[i];
     if (smooth(ramp(Y, h.modern, h.modern + 5)) > 0.02) return 0;
-    return Math.min(
-      1,
-      smooth(ramp(Y, h.built, h.built + 6)) * (1 - ramp(Y, h.gone, h.gone + 10)) +
-        (Y > h.rebuilt ? smooth(ramp(Y, h.rebuilt, h.rebuilt + 4)) : 0),
+    return (
+      Math.min(
+        1,
+        smooth(ramp(Y, h.built, h.built + 6)) * (1 - ramp(Y, h.gone, h.gone + 10)) +
+          (Y > h.rebuilt ? smooth(ramp(Y, h.rebuilt, h.rebuilt + 4)) : 0),
+      ) * (1 - ramp(Y, h.razed, h.razed + 2))
     );
   };
   useLayoutEffect(() => {
     updateInstances(modern.current, H.length, (i, o) => {
       const h = H[i];
-      const k = smooth(ramp(Y, h.modern, h.modern + 5));
+      const k = smooth(ramp(Y, h.modern, h.modern + 5)) * (1 - ramp(Y, h.razed, h.razed + 2));
       o.position.set(h.x, (h.modernH * k) / 2, h.z);
       o.rotation.y = h.rot;
       o.scale.set(0.95, Math.max(0.001, h.modernH * k), 0.8);
@@ -474,7 +477,8 @@ const Buildings: React.FC<P> = ({c, w}) => {
   useLayoutEffect(() => {
     updateInstances(ref.current, B.length, (i, o) => {
       const b = B[i];
-      const g = smooth(ramp(Y, b.built, b.built + 6));
+      // gone: a road laid through the block later (the ring road) took it down
+      const g = smooth(ramp(Y, b.built, b.built + 6)) * (1 - ramp(Y, b.gone, b.gone + 2));
       // Korat had towers by the monument in 1940; high-rises came decades later
       const hr = c.layout.highRise;
       const up = hr == null ? 1 : smooth(ramp(Y, Math.max(b.built, hr), Math.max(b.built, hr) + 12));

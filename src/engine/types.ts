@@ -1,5 +1,6 @@
 import type React from 'react';
 import type {Story} from '../Overlay';
+import type {Footprint} from './occupancy';
 
 /** [centerX, centerZ, height, radius] of a gaussian hill. */
 export type Peak = [number, number, number, number];
@@ -98,6 +99,9 @@ export type CityLayout = {
   /** Landmark sites [x, z, radius]: no generated building, house or village hut is placed
    *  inside one, in any era. Random sprawl used to land on a chedi or a monument. */
   sites?: [number, number, number][];
+  /** Hand-placed landmark parts with their own years, so nothing generated stands in a
+   *  viharn or a fort while it is up. Optional; `sites` covers the landmark's whole ground. */
+  footprints?: {fp: Footprint; from?: number; to?: number; label?: string}[];
   towers: {x0: number; x1: number; z0: number; z1: number; extra: number}[];
   /** Year high-rises start: before it every modern building stays low-rise and its extra
    *  storeys (towers, the odd tall block) go up over the following years. Unset = tall from the start. */
