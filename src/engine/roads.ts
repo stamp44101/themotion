@@ -136,5 +136,5 @@ export const carAt = (L: CityLayout, Y: number, frame: number, i: number, segs =
   const z = az + (bz - az) * t + Math.cos(ang) * lane;
   const wetHere = overWater(L, x, z);
   const deck = wetHere ? dk.find((d) => onDeck(d, x, z)) : undefined;
-  return {x, z, ang, y: deck ? deck.top + 0.16 : 0.22, wet: wetHere && !deck};
+  return {x, z, ang, y: deck ? deck.top + 0.16 : 0.22, deck: !!deck, wet: wetHere && !deck};
 };

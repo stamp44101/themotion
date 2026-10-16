@@ -78,6 +78,21 @@ export const inPoly = (p: Poly, x: number, z: number) => {
   return inside;
 };
 
+/** Distance from the point to the polygon's edge, negative inside. */
+export const polySignedDistance = (p: Poly, x: number, z: number) => {
+  let best = Infinity;
+  for (let i = 0; i < p.length; i++) {
+    const [ax, az] = p[i];
+    const [bx, bz] = p[(i + 1) % p.length];
+    const dx = bx - ax;
+    const dz = bz - az;
+    const len2 = dx * dx + dz * dz || 1;
+    const u = Math.max(0, Math.min(1, ((x - ax) * dx + (z - az) * dz) / len2));
+    best = Math.min(best, Math.hypot(x - (ax + u * dx), z - (az + u * dz)));
+  }
+  return inPoly(p, x, z) ? -best : best;
+};
+
 /** Shrink toward the centroid — used to keep houses off the wall line. */
 export const shrinkPoly = (p: Poly, d: number): Poly => offsetPoly(p, -d);
 

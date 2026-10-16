@@ -18,6 +18,8 @@ const lib = await load('src/lib.ts');
 const engine = {...(await load('src/engine/world.ts')), ...(await load('src/engine/camera.ts'))};
 const roads = await load('src/engine/roads.ts');
 const geoLib = await load('src/engine/geo.ts');
+const polyLib = await load('src/engine/poly.ts');
+const occLib = await load('src/engine/occupancy.ts');
 const {INTRO_END, FINALE_LEAD, SECONDS, makeCurve} = lib;
 const MIN_CAPTION = 2.5; // seconds on screen; shorter cannot be read in Thai at this size
 const COLUMN = 820; // caption column width in px (Overlay: SAFE.left..SAFE.right)
@@ -266,20 +268,50 @@ for (const city of cities) {
     });
   }
 
-  // The rail, its sleepers and the trains are drawn at y = 0 on straight runs; terrain
-  // rising under the line buries them (Nakhon Si's Khao Luang cone sank the 1914 train).
-  if (layout.rail) {
-    const rail = layout.rail;
-    const t = layout.tile;
-    const [r0, r1] = rail.span ?? (rail.axis === 'z' ? [t.z0, t.z1] : [t.x0, t.x1]);
+  // Built things sit on the ground (src/engine/world.ts terrainH): the walled town and its
+  // moat are level by construction, and roads, rail, station, huts and blocks follow the
+  // terrain. What is still wrong is a hill under the walls or a gate, a railway over a hill,
+  // or a road steeper than a road can be (Nakhon Sawan's gate was 2.5 deep in Khao Kob;
+  // Korat's Mittraphap ran into a 14-high peak).
+  {
     const g = engine.getWorld(layout);
-    let worst = {h: 0, a: 0};
-    for (let a = r0; a <= r1; a += 0.5) {
-      const [x, z] = rail.axis === 'z' ? [rail.pos, a] : [a, rail.pos];
-      const h = g.terrainH(x, z);
-      if (h > worst.h) worst = {h, a};
+    const t = layout.tile;
+    const poly = polyLib.cityPoly(layout.city);
+    const moat = polyLib.offsetPoly(poly, layout.noMoat ? 1.2 : 3.0);
+    let cityMax = 0;
+    for (let x = t.x0; x <= t.x1; x += 0.5)
+      for (let z = t.z0; z <= t.z1; z += 0.5) if (polyLib.inPoly(moat, x, z)) cityMax = Math.max(cityMax, g.terrainH(x, z));
+    if (cityMax > 0.2) err(`terrain is ${cityMax.toFixed(2)} high inside the walled town / moat; the ground there should be level.`);
+    for (const gt of layout.gates) {
+      const h = g.terrainH(gt.x, gt.z);
+      if (h > 0.2) err(`gate at (${gt.x}, ${gt.z}) stands on ${h.toFixed(2)} of hill.`);
     }
-    if (worst.h > 0.3) err(`rail is buried: terrain is ${worst.h.toFixed(2)} high under the line at ${rail.axis === 'z' ? 'z' : 'x'}=${worst.a}; move rail.pos or narrow the peaks.`);
+    const grade = (a, b, width) => {
+      const n = Math.max(1, Math.ceil(Math.hypot(b[0] - a[0], b[1] - a[1]) / 1));
+      let worst = {g: 0, h: 0, at: a};
+      for (let i = 0; i < n; i++) {
+        const p = (u) => [a[0] + ((b[0] - a[0]) * u) / n, a[1] + ((b[1] - a[1]) * u) / n];
+        const [x0, z0] = p(i);
+        const [x1, z1] = p(i + 1);
+        const h0 = g.terrainH(x0, z0);
+        const h1 = g.terrainH(x1, z1);
+        const gr = Math.abs(h1 - h0) / (Math.hypot(x1 - x0, z1 - z0) || 1);
+        if (gr > worst.g) worst = {g: gr, h: Math.max(h0, h1), at: [x0, z0]};
+      }
+      return worst;
+    };
+    for (const rd of occLib.allRoads(layout)) {
+      const w = grade(rd.from, rd.to, rd.width);
+      if (w.g > 0.7) err(`${rd.label} climbs a ${Math.round(Math.atan(w.g) * 57.3)} degree slope near (${w.at[0].toFixed(0)}, ${w.at[1].toFixed(0)}): route it round the hill or narrow the peak.`);
+    }
+    if (layout.rail) {
+      const rail = layout.rail;
+      const [r0, r1] = rail.span ?? (rail.axis === 'z' ? [t.z0, t.z1] : [t.x0, t.x1]);
+      const a = rail.axis === 'z' ? [rail.pos, r0] : [r0, rail.pos];
+      const b = rail.axis === 'z' ? [rail.pos, r1] : [r1, rail.pos];
+      const w = grade(a, b, 1.2);
+      if (w.h > 1.5) err(`the railway runs over ${w.h.toFixed(1)} of hill near (${w.at[0].toFixed(0)}, ${w.at[1].toFixed(0)}); a line does not climb a hill here: move rail.pos or narrow the peak.`);
+    }
   }
 
   // One occupancy audit for everything generated (src/engine/occupancy.ts): every pair

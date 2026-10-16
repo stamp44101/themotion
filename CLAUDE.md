@@ -197,6 +197,17 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
 - **Modern sprawl builds over anything not marked open.** Korat's Wing 1 runway disappeared
   under towers once the city reached it. Put airfields, parks and plazas in
   `layout.openGround`; tree `clearings` do not keep buildings out.
+- **Built things sit on the ground; the ground is level where a town stands.** Roads, the
+  rail, sleepers, the station, trains, cars, village huts and modern blocks were all drawn at
+  y = 0 while a peak was a gaussian whose tail ran across the plain: Nakhon Si's train ran
+  buried, Sukhothai had a village 5 units deep in a hill, Nakhon Sawan's gate 2.5 deep in Khao
+  Kob, Korat's Mittraphap 14 up a hillside. Now (`world.ts` `terrainH`) a peak fades to exactly
+  0 between 1.2 r and 1.7 r, the ground inside the moat ring is cut level and rises back over
+  4 units, and everything listed above follows `terrainH` (`Strip` in `Diorama.tsx` lays a road
+  or rail in pieces that each sit on the slope). `check_story.mjs` fails a hill under the
+  walled town or a gate, a railway over 1.5 of hill, and a road steeper than 35 degrees: route
+  the road round the hill or move the peak (Korat's Khao Yai hills moved east of the
+  highway's entry). Chonburi's ring road legitimately climbs Khao Sam Muk's foot now.
 - **Landmarks sit on the terrain, not at y = 0.** Nakhon Sawan's San Khu redoubt was placed at
   y = 0 where the Khao Kob foothill is 2.25 high: the whole model was buried and its callout
   pointed at grass. `Landmarks` receives `terrainH` in its props; use `terrainH(x, z)` for the

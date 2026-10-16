@@ -1,6 +1,6 @@
 import {random} from 'remotion';
 import {Occupancy, baseOccupancy, stationPos} from './occupancy';
-import {cityPoly, inPoly, shrinkPoly} from './poly';
+import {cityPoly, inPoly, offsetPoly, polySignedDistance, shrinkPoly} from './poly';
 import {isPathRiver, riverLength} from './river';
 import type {CityLayout} from './types';
 
@@ -40,16 +40,34 @@ const buildWorld = (L: CityLayout) => {
   const river = L.rivers[0];
   const S = tile.x1 - tile.x0;
   const C: [number, number] = [(tile.x0 + tile.x1) / 2, (tile.z0 + tile.z1) / 2];
-  const peak = (x: number, z: number, cx: number, cz: number, h: number, r: number) =>
-    h * Math.exp(-((x - cx) ** 2 + (z - cz) ** 2) / (r * r));
+  const smoothstep = (u: number) => {
+    const c = Math.max(0, Math.min(1, u));
+    return c * c * (3 - 2 * c);
+  };
+  // A peak is a gaussian cone with a real edge: it fades to exactly 0 between 1.2 r and
+  // 1.7 r instead of trailing across the plain (Nakhon Si's 22-unit Khao Luang put 2 units
+  // of ground under the rail at x = -11.5 and the 1914 train ran buried).
+  const peak = (x: number, z: number, cx: number, cz: number, h: number, r: number) => {
+    const d = Math.hypot(x - cx, z - cz);
+    if (d >= 1.7 * r) return 0;
+    return h * Math.exp(-(d * d) / (r * r)) * (1 - smoothstep((d - 1.2 * r) / (0.5 * r)));
+  };
+  const poly = cityPoly(city);
+  // The walled town and its moat stand on level ground: the hill is cut away inside the
+  // moat ring and rises back over 4 units outside it (Nakhon Sawan's gate was 2.5 deep in
+  // Khao Kob; a 2-unit feather made a 43-degree bank where its main street left the moat).
+  // Rectangle cities use the hx/hz box, outline cities their polygon.
+  const level = offsetPoly(poly, L.noMoat ? 1.2 : 3.0);
+  const cut = (x: number, z: number) => 1 - smoothstep(polySignedDistance(level, x, z) / 4);
   const terrainH = (x: number, z: number) => {
     let h = 0;
     for (const [cx, cz, ph, r] of L.peaks) h += peak(x, z, cx, cz, ph, r);
+    if (h <= 0) return 0;
     const n = Math.sin(x * 0.31) * Math.cos(z * 0.27) * 1.2 + Math.sin(x * 0.7 + z * 0.5) * 0.5;
-    return h > 1.5 ? h + n * Math.min(1, h / 8) : h;
+    const raw = h > 1.5 ? h + n * Math.min(1, h / 8) : h;
+    return raw * (1 - cut(x, z));
   };
   const inTile = (x: number, z: number, m = 1) => x > tile.x0 + m && x < tile.x1 - m && z > tile.z0 + m && z < tile.z1 - m;
-  const poly = cityPoly(city);
   // With a real (non-rectangular) footprint the padded test has to grow the
   // polygon rather than the bounding box, or the corners leak.
   const inCity = (x: number, z: number, pad = 2.2) =>
@@ -122,7 +140,7 @@ const buildWorld = (L: CityLayout) => {
   }
 
   const paddies: {x: number; z: number; appear: number; urban: number; tone: number}[] = [];
-  const buildings: {x: number; z: number; w: number; d: number; h: number; lift: number; built: number; gone: number; palette: number}[] = [];
+  const buildings: {x: number; z: number; y: number; w: number; d: number; h: number; lift: number; built: number; gone: number; palette: number}[] = [];
   let k = 0;
   for (let z = tile.z0; z < tile.z1; z += 4) {
     for (let x = tile.x0; x < tile.x1; x += 4) {
@@ -156,7 +174,7 @@ const buildWorld = (L: CityLayout) => {
         // a road laid through it later (the ring road) takes it down that year
         const stood = occ.claim({rect: [bx, bz, bw, bd]}, {kind: 'building', from: built, to: FOREVER, label: 'building'});
         if (!stood) continue;
-        buildings.push({x: bx, z: bz, w: bw, d: bd, h, lift: h - base, built, gone: stood[1], palette: Math.floor(random(`bp${k}-${j}`) * 5)});
+        buildings.push({x: bx, z: bz, y: terrainH(bx, bz), w: bw, d: bd, h, lift: h - base, built, gone: stood[1], palette: Math.floor(random(`bp${k}-${j}`) * 5)});
       }
     }
   }
@@ -207,7 +225,7 @@ const buildWorld = (L: CityLayout) => {
     }
   }
 
-  const village: {x: number; z: number; rot: number; built: number; urban: number}[] = [];
+  const village: {x: number; z: number; y: number; rot: number; built: number; urban: number}[] = [];
   L.villages.centers.forEach(([cx, cz], c) => {
     for (let j = 0; j < 16; j++) {
       const a = random(`va${c}-${j}`) * Math.PI * 2;
@@ -218,6 +236,7 @@ const buildWorld = (L: CityLayout) => {
       const hut = {
         x,
         z,
+        y: terrainH(x, z),
         rot: random(`vo${c}-${j}`) < 0.5 ? 0 : Math.PI / 2,
         built: L.villages.built[0] + random(`vb${c}-${j}`) * L.villages.built[1],
         urban: L.urban.from + cityDist(x, z) * L.urban.rate + random(`vu${c}-${j}`) * 25,

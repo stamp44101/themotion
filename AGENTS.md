@@ -90,6 +90,7 @@ Rules already earned this way, all enforced by `npm run check` / `npm run encode
 | every new city has a sourced brief in `docs/briefs/` | Nakhon Sawan |
 | Node 18-25 only | first Mac render, Node 26 broke Chrome's unzip |
 | the rail does not run along a river's bed (crossings get a bridge automatically) | Nakhon Sawan, train crossed the Nan on bare water |
+| the walled town is level, roads/rail/huts/blocks follow the terrain; no hill under a gate, no railway over a hill, no road over 35 degrees | Nakhon Si, train buried in Khao Luang's tail; Sukhothai, village inside a hill; Korat, highway up a 14-high peak |
 | a story is beats (`story.ts`): captions, callouts, camera and the year curve come from them, motion runs on beat progress | Nakhon Si, siege army stood still for 2 s inside an eased hold; Korat, battle ended before its caption |
 | one occupancy audit: nothing generated stands on water, a road, the rail, the station, a landmark site, or inside something built earlier (`occupancy.ts`) | Korat / Nakhon Si, blocks on chedis, the kerb and through trees; found blocks on Ayutthaya's rail |
 

@@ -380,20 +380,20 @@ const Trees: React.FC<P> = ({c, w}) => {
 };
 
 /** Instanced traditional houses (box + gable roof) with a per-instance scale. */
-const HouseSet: React.FC<{items: {x: number; z: number; rot: number}[]; k: (i: number) => number}> = ({items, k}) => {
+const HouseSet: React.FC<{items: {x: number; z: number; rot: number; y?: number}[]; k: (i: number) => number}> = ({items, k}) => {
   const body = useRef<THREE.InstancedMesh>(null);
   const roof = useRef<THREE.InstancedMesh>(null);
   const roofGeo = useMemo(() => prism(1.05, 0.6, 0.85), []);
   useLayoutEffect(() => {
     const ks = items.map((_, i) => k(i));
     updateInstances(body.current, items.length, (i, o) => {
-      o.position.set(items[i].x, 0.22 * ks[i], items[i].z);
+      o.position.set(items[i].x, (items[i].y ?? 0) + 0.22 * ks[i], items[i].z);
       o.rotation.y = items[i].rot;
       o.scale.set(1, ks[i], 1);
       return ks[i] > 0.02;
     });
     updateInstances(roof.current, items.length, (i, o) => {
-      o.position.set(items[i].x, 0.44 * ks[i], items[i].z);
+      o.position.set(items[i].x, (items[i].y ?? 0) + 0.44 * ks[i], items[i].z);
       o.rotation.y = items[i].rot;
       o.scale.set(1, ks[i], 1);
       return ks[i] > 0.02;
@@ -483,7 +483,7 @@ const Buildings: React.FC<P> = ({c, w}) => {
       const hr = c.layout.highRise;
       const up = hr == null ? 1 : smooth(ramp(Y, Math.max(b.built, hr), Math.max(b.built, hr) + 12));
       const h = (b.h - b.lift * (1 - up)) * g;
-      o.position.set(b.x, h / 2, b.z);
+      o.position.set(b.x, b.y + h / 2, b.z);
       o.scale.set(b.w, Math.max(0.001, h), b.d);
       return g > 0.02;
     });
@@ -792,6 +792,48 @@ const RailBridges: React.FC<P> = ({c}) => {
   );
 };
 
+/** A flat box laid along a->b in pieces that each sit on the terrain under them, so a road
+ *  or a rail climbs a hill instead of sinking into it. `k` builds it from a. */
+const Strip: React.FC<{
+  w: World;
+  a: [number, number];
+  b: [number, number];
+  width: number;
+  thick: number;
+  y: number;
+  k?: number;
+  children: React.ReactNode;
+}> = ({w, a, b, width, thick, y, k = 1, children}) => {
+  const len = Math.hypot(b[0] - a[0], b[1] - a[1]) * k;
+  if (len <= 0.01) return null;
+  const ang = Math.atan2(b[1] - a[1], b[0] - a[0]);
+  const n = Math.max(1, Math.ceil(len / 1.5));
+  const step = len / n;
+  return (
+    <>
+      {Array.from({length: n}, (_, i) => {
+        const s0 = i * step;
+        const s1 = s0 + step;
+        const x0 = a[0] + Math.cos(ang) * s0;
+        const z0 = a[1] + Math.sin(ang) * s0;
+        const x1 = a[0] + Math.cos(ang) * s1;
+        const z1 = a[1] + Math.sin(ang) * s1;
+        const h0 = w.terrainH(x0, z0);
+        const h1 = w.terrainH(x1, z1);
+        const pitch = Math.atan2(h1 - h0, step);
+        return (
+          <group key={i} position={[(x0 + x1) / 2, (h0 + h1) / 2 + y, (z0 + z1) / 2]} rotation-y={-ang}>
+            <mesh rotation-z={pitch} receiveShadow>
+              <boxGeometry args={[step * 1.03 / Math.cos(pitch), thick, width]} />
+              {children}
+            </mesh>
+          </group>
+        );
+      })}
+    </>
+  );
+};
+
 const Infrastructure: React.FC<P> = ({c, w}) => {
   const {Y, t, dur} = useT(c);
   const {night} = lighting(t, dur);
@@ -809,7 +851,8 @@ const Infrastructure: React.FC<P> = ({c, w}) => {
     if (!rail) return;
     updateInstances(sleepers.current, 140, (i, o) => {
       const a = span[0] + 1 + i * 1.6;
-      o.position.set(...along(L, rail.axis, a, rail.pos, 0.06));
+      const [px, , pz] = along(L, rail.axis, a, rail.pos, 0);
+      o.position.set(px, w.terrainH(px, pz) + 0.06, pz);
       o.rotation.y = rail.axis === 'z' ? 0 : Math.PI / 2;
       const over = railCrossings(L).some((x) => Math.abs(a - x.a) < x.len / 2);
       return !over && a < span[0] + railLen * railK && a < span[1] - 0.5;
@@ -843,12 +886,15 @@ const Infrastructure: React.FC<P> = ({c, w}) => {
       })}
       {rail && railK > 0 && (
         <>
-          {[-0.35, 0.35].map((dx) => (
-            <mesh key={dx} position={along(L, rail.axis, span[0] + (railLen * railK) / 2, rail.pos + dx, 0.12)} rotation-y={rail.axis === 'z' ? 0 : Math.PI / 2}>
-              <boxGeometry args={[0.08, 0.08, railLen * railK]} />
-              <meshStandardMaterial color="#8b8f96" metalness={0.6} roughness={0.4} />
-            </mesh>
-          ))}
+          {[-0.35, 0.35].map((dx) => {
+            const a: [number, number] = rail.axis === 'z' ? [rail.pos + dx, span[0]] : [span[0], rail.pos + dx];
+            const b: [number, number] = rail.axis === 'z' ? [rail.pos + dx, span[1]] : [span[1], rail.pos + dx];
+            return (
+              <Strip key={dx} w={w} a={a} b={b} width={0.08} thick={0.08} y={0.12} k={railK}>
+                <meshStandardMaterial color="#8b8f96" metalness={0.6} roughness={0.4} />
+              </Strip>
+            );
+          })}
           <instancedMesh ref={sleepers} args={[undefined, undefined, 140]} receiveShadow>
             <boxGeometry args={[1.3, 0.06, 0.3]} />
             <meshStandardMaterial color="#5a4632" />
@@ -856,7 +902,7 @@ const Infrastructure: React.FC<P> = ({c, w}) => {
         </>
       )}
       {rail && station > 0.02 && (
-        <group position={stationPos(rail)} rotation-y={rail.axis === 'z' ? 0 : Math.PI / 2} scale={[1, station, 1]}>
+        <group position={((p) => [p[0], w.terrainH(p[0], p[2]), p[2]])(stationPos(rail)) as [number, number, number]} rotation-y={rail.axis === 'z' ? 0 : Math.PI / 2} scale={[1, station, 1]}>
           <mesh position={[0, 0.8, 0]} castShadow receiveShadow>
             <boxGeometry args={[2.4, 1.6, 4.4]} />
             <meshStandardMaterial color="#ece4d0" emissive="#ffcf7a" emissiveIntensity={night * 0.25} />
@@ -870,46 +916,39 @@ const Infrastructure: React.FC<P> = ({c, w}) => {
         <group>
           {(
             [
-              [rx, 0, 1.2, 2 * rz + 1.2],
-              [-rx, 0, 1.2, 2 * rz + 1.2],
-              [0, rz, 2 * rx + 1.2, 1.2],
-              [0, -rz, 2 * rx + 1.2, 1.2],
-            ] as const
-          ).map(([x, z, ww, dd], i) => (
-            <mesh key={i} position={[x, 0.05, z]} receiveShadow>
-              <boxGeometry args={[ww, 0.04 * ring, dd]} />
+              [[rx, -rz - 0.6], [rx, rz + 0.6]],
+              [[-rx, -rz - 0.6], [-rx, rz + 0.6]],
+              [[-rx - 0.6, rz], [rx + 0.6, rz]],
+              [[-rx - 0.6, -rz], [rx + 0.6, -rz]],
+            ] as [[number, number], [number, number]][]
+          ).map(([a, b], i) => (
+            <Strip key={i} w={w} a={a} b={b} width={1.2} thick={0.04 * ring} y={0.05}>
               {roadMat}
-            </mesh>
+            </Strip>
           ))}
         </group>
       )}
       {L.roads.map((r, i) => {
         const k = ramp(Y, r.year - 3, r.year);
         if (k <= 0) return null;
-        const [ax, az] = r.from;
-        const [bx, bz] = r.to;
-        const len = Math.hypot(bx - ax, bz - az) * k;
-        const ang = Math.atan2(bz - az, bx - ax);
         return (
-          <group key={`rd${i}`} position={[ax + Math.cos(ang) * (len / 2), 0.06, az + Math.sin(ang) * (len / 2)]} rotation-y={-ang}>
-            <mesh receiveShadow>
-              <boxGeometry args={[len, 0.05, r.width]} />
+          <React.Fragment key={`rd${i}`}>
+            <Strip w={w} a={r.from} b={r.to} width={r.width} thick={0.05} y={0.06} k={k}>
               {roadMat}
-            </mesh>
+            </Strip>
             {r.width > 1.6 && (
-              <mesh position={[0, 0.04, 0]}>
-                <boxGeometry args={[len, 0.02, 0.08]} />
+              <Strip w={w} a={r.from} b={r.to} width={0.08} thick={0.02} y={0.1} k={k}>
                 <meshStandardMaterial color="#e8e2c8" />
-              </mesh>
+              </Strip>
             )}
-          </group>
+          </React.Fragment>
         );
       })}
     </>
   );
 };
 
-const Train: React.FC<P & {i: number}> = ({c, i}) => {
+const Train: React.FC<P & {i: number}> = ({c, w, i}) => {
   const {t, dur} = useT(c);
   const L = c.layout;
   const tr = L.trains[i];
@@ -933,7 +972,7 @@ const Train: React.FC<P & {i: number}> = ({c, i}) => {
   const car = tr.modern ? '#e8ecef' : '#7a3b2a';
   const visible = a < span[1] && a > span[0] + 2;
   return (
-    <group position={along(L, rail.axis, a, rail.pos, 0)} rotation-y={rail.axis === 'z' ? 0 : Math.PI / 2} visible={visible}>
+    <group position={((p) => [p[0], w.terrainH(p[0], p[2]), p[2]])(along(L, rail.axis, a, rail.pos, 0)) as [number, number, number]} rotation-y={rail.axis === 'z' ? 0 : Math.PI / 2} visible={visible}>
       <mesh position={[0, 0.6, 0]} castShadow>
         <boxGeometry args={[0.9, 0.9, 2.2]} />
         <meshStandardMaterial color={body} roughness={0.6} />
@@ -955,7 +994,7 @@ const Train: React.FC<P & {i: number}> = ({c, i}) => {
   );
 };
 
-const Cars: React.FC<P> = ({c}) => {
+const Cars: React.FC<P> = ({c, w}) => {
   const {Y, frame} = useT(c);
   const ref = useRef<THREE.InstancedMesh>(null);
   const L = c.layout;
@@ -967,7 +1006,7 @@ const Cars: React.FC<P> = ({c}) => {
     updateInstances(ref.current, MAX_CARS, (i, o) => {
       const car = carAt(L, Y, frame, i, segs, dk);
       if (!car || car.wet) return false;
-      o.position.set(car.x, car.y, car.z);
+      o.position.set(car.x, car.y + (car.deck ? 0 : w.terrainH(car.x, car.z)), car.z);
       o.rotation.y = -car.ang + Math.PI / 2;
       return true;
     });
