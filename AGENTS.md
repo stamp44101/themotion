@@ -90,6 +90,7 @@ Rules already earned this way, all enforced by `npm run check` / `npm run encode
 | every new city has a sourced brief in `docs/briefs/` | Nakhon Sawan |
 | Node 18-25 only | first Mac render, Node 26 broke Chrome's unzip |
 | the rail does not run along a river's bed (crossings get a bridge automatically) | Nakhon Sawan, train crossed the Nan on bare water |
+| one occupancy audit: nothing generated stands on water, a road, the rail, the station, a landmark site, or inside something built earlier (`occupancy.ts`) | Korat / Nakhon Si, blocks on chedis, the kerb and through trees; found blocks on Ayutthaya's rail |
 
 Before you ask the owner to look at anything, `npm run check` passes. It is
 cheaper for you to read its errors than for the owner to find them on a phone.

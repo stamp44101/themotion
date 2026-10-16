@@ -176,18 +176,22 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   1940 because tower cells are built tall from the day they appear. Set `layout.highRise` to
   the year the city's high-rises began; buildings stay low-rise until then and their extra
   storeys go up over the following 12 years.
-- **Nothing generated stands on a landmark.** The owner saw random buildings land on chedis
-  and monuments; the check then found generated houses on Korat's Thao Suranari Monument,
-  Ban Prasat, Sema and Thung Samrit. Give every landmark `[x, z, radius]` in `layout.sites`:
-  no modern building, in-city house or village hut is placed inside, in any era.
-  `check_story.mjs` fails any exported landmark position with generated buildings on it
-  (posted reels warn).
-- **A block's whole footprint stays off the road, and its trees go when it goes up.** The
-  engine tested only a building's centre against `L.roads` (not the ring road), so blocks stuck
-  out over the kerb; and trees cleared on their own schedule, so towers rose through canopies.
-  Nakhon Si had 14 blocks on roads and 42 inside trees, Korat 4 and 151. `world.ts` now checks
-  the footprint against every road and the rail and clears trees under each block at its
-  build year; `check_story.mjs` fails either.
+- **Everything placed goes through one occupancy map** (`src/engine/occupancy.ts`). Every
+  generator used to carry its own partial keep-out (`inRiver`, `onRoad`, `onSite`, `wet()`...)
+  and each missed something: houses on a chedi (Korat, Nakhon Si), the in-city grid on the
+  river (Phitsanulok), blocks over the kerb and towers through trees (Nakhon Si 14/42, Korat
+  4/151), and, found only by the audit, blocks on the rail (Ayutthaya, 120 cells) and on the
+  station (Phitsanulok, Nakhon Si). Now water, `sites`, `openGround`, `footprints`, every
+  road (ring road included), the rail and the station are claimed first; trees, blocks,
+  houses and huts *claim their whole footprint* after them, in that order. A higher claim
+  evicts a lower one from the year it arrives (a block fells the trees under it; a ring road
+  laid through a block or an old-town house razes it: `gone` / `razed`), a lower claim
+  landing on a higher one is refused. `check_story.mjs` runs `auditWorld()`, which records
+  the finished layout with no rules and reports every forbidden pair; it is engine-agnostic,
+  and `node scripts/audit_engine.mjs <commit>` proves it still catches an older engine's
+  mistakes. Keep giving every landmark `[x, z, radius]` in `layout.sites` (the check for a
+  landmark with none stays), and give hand-placed parts with their own years
+  `layout.footprints`. Compare engine changes with `node scripts/ab_stills.mjs before|after|sheet`.
 - **A train that pulls in to a terminus parks** (`trains[].park`, seconds) instead of
   vanishing the moment its run ends.
 - **Modern sprawl builds over anything not marked open.** Korat's Wing 1 runway disappeared

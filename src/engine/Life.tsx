@@ -3,16 +3,17 @@ import {random, useCurrentFrame} from 'remotion';
 import * as THREE from 'three';
 import {FPS, lerp, ramp} from '../lib';
 import {Elephant, col, prism, updateInstances} from './parts';
-import {inRiver as pointInRiver, isPathRiver, riverLength, riverPointAt} from './river';
+import {isPathRiver, riverLength, riverPointAt} from './river';
 import type {CityConfig, CityLayout} from './types';
+import {getWorld} from './world';
 
 type Life = NonNullable<CityLayout['life']>;
 const vis = (Y: number, from: number, to: number) => ramp(Y, from, from + 5) * (1 - ramp(Y, to, to + 5));
 const PEOPLE_COLORS = ['#e9e2d0', '#3f5f8f', '#a8322a', '#2f6a4a', '#d9a43a', '#6a4a8a', '#c86a3a'];
 
-/** On or right at the edge of open water: nothing on foot belongs there. */
-const wet = (L: CityLayout, x: number, z: number, margin = 0.35) =>
-  L.rivers.some((r) => pointInRiver(L, r, x, z, margin, r.width / 2));
+/** Ground nothing on foot belongs on: open water, the rail, the station, a landmark
+ *  part (the occupancy map in world.ts; this used to be a river-only test). */
+const wet = (L: CityLayout, x: number, z: number, margin = 0.35) => !getWorld(L).occ.free({disc: [x, z, margin]}, 'life', -Infinity, Infinity);
 
 type Walker = {x: number; z: number; ang: number; len: number; sp: number; ph: number; color: string; from: number; to: number};
 
