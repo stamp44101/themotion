@@ -31,7 +31,7 @@ export const NAKHONSI: CityConfig = {
       // Gulf of Thailand: 13 km east in reality, compressed to the tile's east edge
       {axis: 'z', pos: 44, width: 10},
       // คลองหน้าเมือง: along the north wall, then east to the Gulf (OSM way 145173593)
-      {path: [[-6.5, -14.6], [-0.8, -15.6], [1.7, -15.9], [3.2, -16.0], [12.5, -18.4], [26, -24], [39, -27]], width: 0.4},
+      {path: [[-6.5, -15.05], [-1.34, -15.6], [1.7, -15.92], [3.2, -16.0], [12.5, -18.4], [26, -24], [39, -27]], width: 0.4},
       // คลองท่าซัก: north of the old town, past Tha Wang (OSM)
       {path: [[-12, -50], [-10.3, -44.2], [-7.7, -37.6], [5.5, -43.6], [16.1, -44.4], [39, -46]], width: 0.35},
     ],
@@ -41,21 +41,26 @@ export const NAKHONSI: CityConfig = {
     rail: {axis: 'z', pos: -11.5, open: [1913.4, 1914.1], station: [-8.9, -31.4], stationYear: 1912.5, span: [-34, 50]},
     trains: SOUND_EVENTS.trains.map((tr) => ({...tr, dir: tr.dir as 1 | -1})),
     city: {
-      hx: 5.1,
-      hz: 15.1,
-      // corners NW, NE, SE, SW (brief §1): tilted ~3 deg east of north
+      hx: 4.7,
+      hz: 15.15,
+      // A rectangle 456 x 2,384 m tilted 6 deg east of north: ถนนราชดำเนิน runs the length of
+      // the town at that angle, and the north moat (คลองหน้าเมือง) meets it at a right angle,
+      // rising to the east (owner's satellite check). The brief's four corner pins made a
+      // parallelogram (long sides 8.5 deg, short sides 3 deg the other way); only the long
+      // sides' length and the chedi's 115 m to the east wall are kept from it.
+      // corners NW, NE, SE, SW
       outline: [
-        [-5.1, -14.8],
-        [0.6, -14.5],
-        [5.1, 15.1],
-        [-0.7, 14.8],
+        [-4.09, -14.55],
+        [1.58, -15.15],
+        [4.69, 14.49],
+        [-0.98, 15.08],
       ],
       moat: [1686, 1688],
       wall: [1686, 1688],
       gates: [1687, 1689],
       groundFrom: 1200,
     },
-    gates: [{x: NORTH_GATE[0], z: NORTH_GATE[1], rot: Math.PI / 2, width: 1.6, pavilion: true}],
+    gates: [{x: NORTH_GATE[0], z: NORTH_GATE[1], rot: Math.PI / 2 + 0.105, width: 1.6, pavilion: true}], // turned with the 6 deg wall
     houses: {
       built: [1250, 500],
       modern: [1920, 80],
