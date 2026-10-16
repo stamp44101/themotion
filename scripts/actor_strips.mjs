@@ -51,10 +51,10 @@ for (const a of actors) {
   const mid = (t0 + t1) / 2;
   const f0 = Math.max(0, Math.round((mid - 0.75) * FPS));
   const f1 = Math.round((mid + 0.75) * FPS);
-  const dir = `shots/${city}/.strip_${a.id}`;
+  const dir = `shots/${city}/strip_${a.id}`; // no dot: remotion reads one as an extension
   fs.rmSync(dir, {recursive: true, force: true});
   console.log(`${a.id}: frames ${f0}-${f1} (${t0.toFixed(1)}-${t1.toFixed(1)} s)`);
-  const r = spawnSync('npx', ['remotion', 'render', 'out/bundle', comp, `${dir}/`, '--sequence', `--frames=${f0}-${f1}`, '--concurrency=1', '--gl=angle', `--browser-executable=${BROWSER}`, '--scale=0.4', '--image-format=png', '--log=error'], {stdio: 'ignore'});
+  const r = spawnSync('npx', ['remotion', 'render', 'out/bundle', comp, dir, '--sequence', `--frames=${f0}-${f1}`, '--concurrency=1', '--gl=angle', `--browser-executable=${BROWSER}`, '--scale=0.4', '--image-format=png', '--log=error'], {stdio: 'ignore'});
   if (r.status !== 0) {
     console.log(`FAIL ${a.id}`);
     continue;
