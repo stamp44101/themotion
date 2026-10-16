@@ -25,10 +25,15 @@ export const Look: React.FC<{c: CityConfig}> = ({c}) => {
   // alone in daytime, so bloom is driven by the night: none by day, full glow at night.
   return (
     <EffectComposer multisampling={8} frameBufferType={THREE.HalfFloatType}>
-      <N8AO aoRadius={2.5} intensity={2.2} distanceFalloff={1} quality="high" halfRes={false} />
-      <DepthOfField target={cam.target} worldFocusRange={dist * 0.45} bokehScale={3} />
-      <Bloom intensity={1.2 * night} luminanceThreshold={0.3} luminanceSmoothing={0.2} mipmapBlur />
-      <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
+      {[
+        <N8AO key="ao" aoRadius={2.5} intensity={2.2} distanceFalloff={1} quality="high" halfRes={false} />,
+        <DepthOfField key="dof" target={cam.target} worldFocusRange={dist * 0.45} bokehScale={3} />,
+        // Mounted only when it has something to do: under a low dawn sun Nakhon Si's sea threw
+        // a highlight past half-float range and the bloom chain blacked out the whole frame,
+        // even at intensity 0 (Inf * 0 = NaN).
+        ...(night > 0.02 ? [<Bloom key="bloom" intensity={1.2 * night} luminanceThreshold={0.3} luminanceSmoothing={0.2} mipmapBlur />] : []),
+        <ToneMapping key="tone" mode={ToneMappingMode.ACES_FILMIC} />,
+      ]}
     </EffectComposer>
   );
 };

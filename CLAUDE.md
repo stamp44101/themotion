@@ -47,6 +47,10 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   only ever sees roof.
 
 ## Look & feel lessons
+- **Bloom can black out a whole frame.** With `look: 'shader'`, Nakhon Si's first frames came
+  out black: under a low dawn sun the sea threw a highlight past half-float range, and the bloom
+  chain spread the Inf into NaN across the frame even at intensity 0. `Look.tsx` now mounts
+  Bloom only at night. Check a shader-look city's dawn and wide shots on stills, not only noon.
 - **Model a named landmark's silhouette before its icon.** Chonburi's first
   Khao Sam Muk shot put a small red shrine on a round green mound; the label was
   correct, but the place was not recognisable. The useful identity was the long
