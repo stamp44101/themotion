@@ -128,6 +128,12 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   Nakhon Si's relic boat lasting 0.8 s after the beats conversion. To see what the render
   sees, `node scripts/actor_strips.mjs <city> [actor]` renders 1.5 s around each actor's
   beat with `--sequence --concurrency=1` into `shots/<city>/actor_<id>.png`.
+  **In frame is not the same as readable.** `projectAt()` also returns `scale`, video px per
+  world unit at the actor's depth; an actor needs 40 px/unit for 0.4 s of its beat or
+  `check_story` fails it. Calibrated on Korat: the 1901 train that reads sits at 78, the
+  armies at 51-62, the procession at 88; the modern train crossing the finale's wide shot
+  ran at 26 (a 10 px line over dense blocks) and was cut. Bring the camera in or cut the
+  actor; a thing nobody can see is not a beat.
 - When A/B-ing an engine change, compare **still vs still**. A still against a
   frame pulled from an encoded render differs everywhere from compression alone
   and tells you nothing.

@@ -128,7 +128,6 @@ for _ in range(26):
 
 # 1900: the first train arrives
 steam = next(tr for tr in EV["trains"] if not tr["modern"])
-modern = next(tr for tr in EV["trains"] if tr["modern"])
 s0, s1 = steam["t0"] + 0.3, steam["t0"] + steam["dur"] - 0.2
 t = s0
 while t < s1:
@@ -142,10 +141,6 @@ j0, j1 = EV["jets"]
 p0, p1 = EV["plane"]
 add(sfx, pan_sweep(jet(j1 - j0 + 0.4), -0.9, 0.9), j0 - 0.2, gain=1.4)
 add(sfx, pan_sweep(jet(p1 - p0) * 0.4, 0.9, -0.9), p0)
-# modern train
-mn = int(modern["dur"] * SR)
-mt = np.arange(mn) / SR
-add(sfx, pan_sweep(filt(np.sign(np.sin(2 * np.pi * 78 * mt)), "low", 400) * np.sin(np.pi * mt / modern["dur"]) * 0.05, 0.9, -0.9), modern["t0"])
 
 # era-change whooshes + opening boom
 for et in (3.0, 8.2, 12.0, 17.2, 27.0, 34.5, 45.0, 56.0):

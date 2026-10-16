@@ -42,8 +42,13 @@ export const applyCamera = (cam: PerspectiveCamera, s: DroneCam) => {
 
 const scratch = new PerspectiveCamera();
 const v = new Vector3();
+/** Where world point p lands on the 1080x1920 frame at second t, and `scale`: how many
+ *  video pixels one world unit covers at that depth (0 behind the camera). */
 export const projectAt = (keys: CamKey[], t: number, p: [number, number, number]) => {
-  applyCamera(scratch, droneCamera(keys)(t));
+  const s = droneCamera(keys)(t);
+  applyCamera(scratch, s);
   v.set(...p).project(scratch);
-  return {x: ((v.x + 1) / 2) * W, y: ((1 - v.y) / 2) * H};
+  const depth = Math.hypot(p[0] - s.pos[0], p[1] - s.pos[1], p[2] - s.pos[2]);
+  const scale = depth > 0 ? H / (2 * Math.tan((s.fov * Math.PI) / 360) * depth) : 0;
+  return {x: ((v.x + 1) / 2) * W, y: ((1 - v.y) / 2) * H, scale};
 };

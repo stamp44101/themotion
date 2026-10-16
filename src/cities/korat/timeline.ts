@@ -176,10 +176,9 @@ export const SOUND_EVENTS = {
   railway: 1900,
   monument: 1934,
   highway: 1958,
-  trains: [
-    {t0: 37.4, dur: 3.0, dir: -1, modern: false},
-    {t0: 51.0, dur: 2.8, dir: 1, modern: true},
-  ],
+  // one train only: a modern one crossed the finale's wide shot at 26 px per world unit,
+  // a 10 px line nobody could see (check_story's legibility rule)
+  trains: [{t0: 37.4, dur: 3.0, dir: -1, modern: false}],
   jets: [47.6, 49.2],
   plane: [50.5, 54],
   trafficFrom: 1955,
