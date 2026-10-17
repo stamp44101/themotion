@@ -37,6 +37,11 @@ points under the best clip, outside the baseline's whole 8-point spread. 41,722 
 Sukhothai 24, Phitsanulok 25). The opening kept far more people past 3 s, but once past it
 they left at the usual pace: the hook is solved, the middle of the clip is the next lever.
 
+Retention curve (same read): ~67% at 3 s, **~35% by 17 s**, then nearly flat to ~21% at
+59 s. The loss after the hook is in seconds 3-17 (dinosaurs, Ban Prasat, Sema, Phimai:
+archaeology, no people); from the town and the armies on (18 s+) people stay. Next lever:
+people and motion in the first beat after the title, and a shorter legend.
+
 Caveats: one clip; and the 3-s window also shows the title card, so interest in Korat itself
 (a large city, a well-known heroine) is mixed in with the opening. Korat v2 also changed the
 story, but skip rate only sees the first 3 s, so the opening is the likeliest cause.
