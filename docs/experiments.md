@@ -51,6 +51,16 @@ down to the relic boat by 3.6 s; a replication, not a new variable), and run exp
 only after that one is read. Read average watch time and the retention curve on every post
 from now on: that is where the next gain is.
 
+## 1b. Replication: Nakhon Si (posted 17 Oct 2026) — running
+
+Same opening rule as Korat: the whole tile under the title, then down to the relic boat by
+3.6 s. The boat is smaller on the tile at frame 0 than Korat's dinosaurs, so this also tests
+whether the wide establishing shot alone carries the hook. 75 s, not 60, so compare skip
+rate (first 3 s) directly, and average watch as a share of the length. Also read the
+retention curve: the legend beat now has the boat moving from frame 0.
+
+Result: _pending (read ~24 h after posting)_
+
 ## 2. Finale first, then rewind — parked
 
 Branch `exp/korat-hook`: 1.4 s of the finale city at night, a veil reading
