@@ -28,7 +28,7 @@ const lengthOf = (pts: P[]) => pts.slice(1).reduce((s, p, i) => s + Math.hypot(p
 
 // frame 0: the city's symbol stands on the forest tile at hero scale (experiment 1c); it
 // trots across the clearing north of where the walls will rise and is gone by the caption
-export const HERO_AT: P = [-20, -16]; // the horse leads ~20 units ahead at 8x: keep it off the Wang
+export const HERO_AT: P = [-27, -16]; // the horse leads ~20 units ahead at 8x: keep it off the Wang
 export const heroCarriage = (t: number, {beat}: ActorCtx) => {
   const p = beat('legend');
   return {x: HERO_AT[0] + t * 1.5, z: HERO_AT[1] + t * 0.3, k: 1 - smooth(ramp(p, 0.36, 0.5))};
@@ -100,7 +100,7 @@ export const ACTORS: Actor[] = [
   {
     id: 'heroCarriage',
     during: [0, 2.4],
-    size: 8,
+    size: 11,
     at: (t, ctx) => {
       const c = heroCarriage(t, ctx);
       return c.k > 0.02 ? [c.x, 2, c.z] : null;

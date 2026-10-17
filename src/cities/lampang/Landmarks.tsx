@@ -2,6 +2,7 @@ import React from 'react';
 import {Army} from '../../engine/army';
 import {Elephant, SmallChedi, Viharn, lathe} from '../../engine/parts';
 import {Horse} from './Horse';
+import {RoosterBowl} from './Bowl';
 import type {LandmarkProps} from '../../engine/types';
 import {ramp, smooth} from '../../lib';
 import {elephantAt, heroCarriage, kawila, logAt, thipChang, townCarriage} from './actors';
@@ -14,7 +15,7 @@ export {BAN_SAO_NAK, BRIDGE, CLOCK_TOWER, KILNS, LAMPANG_LUANG, MAE_MOH, PRATU_M
 // scale for the opening and at street scale (still exaggerated) from 1916
 export const Carriage: React.FC<{t: number}> = ({t}) => {
   const step = Math.sin(t * 9);
-  const wood = <meshStandardMaterial color="#8a2a22" flatShading roughness={0.8} />;
+  const wood = <meshStandardMaterial color="#c8322a" flatShading roughness={0.6} />;
   const white = <meshStandardMaterial color="#f2ede4" flatShading roughness={0.8} />;
   return (
     <group>
@@ -43,12 +44,25 @@ export const Carriage: React.FC<{t: number}> = ({t}) => {
           </mesh>
         )),
       )}
-      {[-0.8, -0.35, 0.1].map((x) => (
-        <mesh key={x} position={[x, 1.62, 0.48]}>
-          <icosahedronGeometry args={[0.07, 0]} />
-          <meshStandardMaterial color="#ff5fa2" />
-        </mesh>
-      ))}
+      {/* the scalloped fringe of a Lampang carriage canopy, and flowers along its edge */}
+      {Array.from({length: 18}, (_, i) => {
+        const side = i < 9 ? 1 : -1;
+        const x = -0.95 + (i % 9) * 0.15;
+        return (
+          <mesh key={i} position={[x, 1.46, side * 0.48]}>
+            <boxGeometry args={[0.12, 0.12, 0.02]} />
+            <meshStandardMaterial color={['#e8b030', '#2f9a5a', '#e04a8a'][i % 3]} />
+          </mesh>
+        );
+      })}
+      {[-0.9, -0.55, -0.2, 0.15].flatMap((x) =>
+        [-1, 1].map((sz) => (
+          <mesh key={`${x}${sz}`} position={[x, 1.63, sz * 0.48]}>
+            <icosahedronGeometry args={[0.08, 0]} />
+            <meshStandardMaterial color={sz > 0 ? '#ff5fa2' : '#ffd23a'} />
+          </mesh>
+        )),
+      )}
       {[
         [0.25, 0.45, 0.42],
         [-0.75, 0.55, 0.46],
@@ -176,8 +190,6 @@ const BanSaoNak: React.FC<{k: number}> = ({k}) =>
   );
 
 // ------------------------------------------------------------------ ชามตราไก่
-const BOWL: [number, number][] = [[0, 0], [0.35, 0], [0.45, 0.08], [0.85, 0.5], [0.95, 0.62], [0.9, 0.64], [0.8, 0.55], [0, 0.12]];
-const bowlGeo = lathe(BOWL, 20);
 const Kilns: React.FC<{k: number; t: number}> = ({k, t}) => {
   if (k < 0.02) return null;
   const [x, z] = KILNS;
@@ -204,20 +216,26 @@ const Kilns: React.FC<{k: number; t: number}> = ({k, t}) => {
           })}
         </group>
       ))}
-      {/* the rooster bowl itself, drawn large: white glaze, a red band, the cockerel in black */}
-      <group position={[0, 0, 1.4]} scale={2.6 * k}>
-        <mesh geometry={bowlGeo} castShadow>
-          <meshStandardMaterial color="#f6f2ea" roughness={0.3} side={2} />
-        </mesh>
-        <mesh position={[0, 0.55, 0]}>
-          <cylinderGeometry args={[0.93, 0.88, 0.07, 20, 1, true]} />
-          <meshStandardMaterial color="#c8322a" side={2} />
-        </mesh>
-        <mesh position={[0.62, 0.34, 0.3]} rotation-y={0.45}>
-          <boxGeometry args={[0.04, 0.2, 0.22]} />
-          <meshStandardMaterial color="#222" />
-        </mesh>
+      {/* the rooster bowl itself, drawn huge and tipped toward the camera so its painted side shows */}
+      {/* the camera looks down from the south-east (az ~50 deg), so the bowl turns to face it
+          and tips its rim away: the painted outer wall faces the lens, not the white inside */}
+      <group position={[0.6, 0.9, 2.2]} rotation-y={0.85} scale={2.9 * k}>
+        <group rotation-x={-0.55}>
+          <group position={[0, -0.38, 0]}>
+            <RoosterBowl />
+          </group>
+        </group>
       </group>
+      {/* stacks of finished bowls by the kilns */}
+      {[-2.2, -1.5, 2.2].map((dx, i) => (
+        <group key={i} position={[dx, 0, 1.6 + (i % 2) * 0.5]} scale={0.45 * k}>
+          {[0, 1, 2, 3].map((j) => (
+            <group key={j} position={[0, j * 0.22, 0]}>
+              <RoosterBowl />
+            </group>
+          ))}
+        </group>
+      ))}
     </group>
   );
 };
@@ -283,7 +301,7 @@ export const LampangLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH
   const luang = smooth(ramp(Y, 1440, 1480));
   const siChum = smooth(ramp(Y, 1889.7, 1890.6));
   const saoNak = smooth(ramp(Y, 1895, 1896));
-  const kilns = smooth(ramp(Y, 1955.2, 1956));
+  const kilns = smooth(ramp(Y, 1954.95, 1955.25));
   const pit = smooth(ramp(Y, 1954, 1990));
   const plant = smooth(ramp(Y, 1972.1, 1973.2));
   const elephants = [0, 1, 2].map((i) => elephantAt(i, ctx));
@@ -293,7 +311,7 @@ export const LampangLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH
   return (
     <>
       {hero.k > 0.02 && (
-        <group position={[hero.x, terrainH(hero.x, hero.z), hero.z]} rotation-y={-0.2} scale={8 * hero.k}>
+        <group position={[hero.x, terrainH(hero.x, hero.z), hero.z]} rotation-y={-0.2} scale={11 * hero.k}>
           <Carriage t={t} />
         </group>
       )}
@@ -347,16 +365,16 @@ export const LampangLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH
       <Kilns k={kilns} t={t} />
       <MaeMoh pit={pit} plant={plant} t={t} terrainH={terrainH} />
       {carriage && (
-        <group position={[carriage.x, 0.14, carriage.z]} rotation-y={carriage.rot - Math.PI / 2} scale={1}>
+        <group position={[carriage.x, 0.14, carriage.z]} rotation-y={carriage.rot - Math.PI / 2} scale={1.3}>
           <Carriage t={t} />
         </group>
       )}
       {modern > 0.02 &&
-        [0, 1].map((i) => {
+        [0, 1, 2, 3].map((i) => {
           // the bridge runs north-south across the Wang
-          const u = ((t * 0.12 + i * 0.5) % 1) * 2 - 1;
+          const u = ((t * 0.12 + i * 0.25) % 1) * 2 - 1;
           return (
-            <group key={i} position={[BRIDGE[0] + (i ? 0.25 : -0.25), 0.16, BRIDGE[1] + (i ? -u : u) * 2.4]} rotation-y={i ? Math.PI / 2 : -Math.PI / 2} scale={0.5 * modern}>
+            <group key={i} position={[BRIDGE[0] + (i % 2 ? 0.3 : -0.3), 0.16, BRIDGE[1] + (i % 2 ? -u : u) * 2.6]} rotation-y={i % 2 ? Math.PI / 2 : -Math.PI / 2} scale={0.75 * modern}>
               <Carriage t={t + i} />
             </group>
           );

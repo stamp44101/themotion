@@ -71,10 +71,10 @@ export const LAMPANG: CityConfig = {
     forestCity: 680,
     clearings: [
       // the opening carriage trots across a clearing north of the town
-      [HERO_AT[0] + 10, HERO_AT[1], 9, -1e9],
+      [HERO_AT[0] + 14, HERO_AT[1], 12, -1e9],
       [LAMPANG_LUANG[0], LAMPANG_LUANG[1], 4.5, 1430],
       [MAE_MOH[0], MAE_MOH[1], 7, 1954],
-      [KILNS[0], KILNS[1], 3.2, 1954],
+      [KILNS[0], KILNS[1], 4.6, 1954],
     ],
     paddies: [900, 1500],
     sites: [
