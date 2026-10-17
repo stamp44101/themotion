@@ -17,7 +17,14 @@ const RAIN = new Array(170).fill(0).map((_, i) => ({
   len: 28 + ((i * 53) % 26),
 }));
 
-export const DioramaComposition: React.FC<{city: CityConfig}> = ({city: c}) => {
+export const DioramaComposition: React.FC<{city: CityConfig}> = ({city}) => {
+  // still-only switches (--props): `clean` drops the text overlay; `cutout` also drops the sky,
+  // stars and blur bands so the tile renders on transparency; `wide` swaps in one whole-tile
+  // camera so tiles from different cities match (the 1,000-follower story)
+  const props = getInputProps() as {clean?: boolean; cutout?: boolean; wide?: [number, number, number]};
+  const c: CityConfig = props.wide
+    ? {...city, layout: {...city.layout, cameraKeys: [[0, 0, 1, 0, ...props.wide, 30], [9999, 0, 1, 0, ...props.wide, 30]]}}
+    : city;
   const frame = useCurrentFrame();
   const t = frame / FPS;
   const Y = c.story.yearAt(t);
@@ -39,9 +46,9 @@ export const DioramaComposition: React.FC<{city: CityConfig}> = ({city: c}) => {
   const rain = Math.max(0, ...(c.rain ?? []).map(([a, b]) => bump(t, a, b, 0.8)));
 
   return (
-    <AbsoluteFill style={{background: `linear-gradient(180deg, ${top} 0%, ${bottom} 55%, ${bottom} 100%)`}}>
+    <AbsoluteFill style={{background: props.cutout ? 'transparent' : `linear-gradient(180deg, ${top} 0%, ${bottom} 55%, ${bottom} 100%)`}}>
       <svg viewBox={`0 0 ${W} ${H}`} width={W} height={H} style={{position: 'absolute', inset: 0}}>
-        {STARS.map((s, i) => (
+        {!props.cutout && STARS.map((s, i) => (
           <circle key={i} cx={s.x} cy={s.y * 0.8} r={s.r} fill="#fff" opacity={night * (0.55 + 0.45 * Math.sin(s.tw + frame * 0.2))} />
         ))}
       </svg>
@@ -60,7 +67,7 @@ export const DioramaComposition: React.FC<{city: CityConfig}> = ({city: c}) => {
           <Diorama c={c} />
         </ThreeCanvas>
       </AbsoluteFill>
-      {[
+      {!props.cutout && [
         {top: 0, height: H * 0.42, mask: 'linear-gradient(180deg, black 0%, black 35%, transparent 100%)'},
         {top: H * 0.7, height: H * 0.3, mask: 'linear-gradient(0deg, black 0%, black 30%, transparent 100%)'},
       ].map((b, i) => (
@@ -88,7 +95,7 @@ export const DioramaComposition: React.FC<{city: CityConfig}> = ({city: c}) => {
         </svg>
       )}
       {/* `--props='{"clean":true}'` drops the text overlay: stills for thumbnails and stories */}
-      {!getInputProps().clean && <Overlay callouts={callouts} story={c.story} />}
+      {!props.clean && !props.cutout && <Overlay callouts={callouts} story={c.story} />}
       <Audio src={staticFile(c.soundtrack)} />
     </AbsoluteFill>
   );
