@@ -51,10 +51,12 @@ const FRAME_WAIVED = new Set([...YEAR_HOLD_WAIVED, 'watraikhing']);
 // An actor in frame is not an actor the viewer can read: Korat's modern train crossed the
 // city at 26 video px per world unit (a 0.4-unit-wide train 10 px wide over dense blocks)
 // and was invisible in the strip, while every actor that reads sits at 51 px/unit or more
-// (Korat's 1901 train 78, the armies 51-62, Nakhon Si's procession 88). Each actor needs
-// this many px/unit for at least LEGIBLE_SECONDS of its beat (Korat's 1901 train, which reads, clears
-// 40 px/unit for 0.47 s).
-const LEGIBLE_SCALE = 40;
+// (Korat's 1901 train 78, the armies 51-62, Nakhon Si's procession 88). The test is the
+// actor's on-screen size, px/unit x its `size` (half-size in units): the size-2 trains put
+// the line at 80 px, and Lampang's hero carriage (size 8) reads at 26 px/unit from the
+// whole-tile shot because it is drawn 8x. It must hold for LEGIBLE_SECONDS of the beat
+// (Korat's 1901 train, which reads, clears it for 0.47 s).
+const LEGIBLE_PX = 80;
 const LEGIBLE_SECONDS = 0.4;
 // Compass directions between real places (src/engine/geo.ts): a pair whose model
 // bearing is off by more than this fails. Chonburi put the Gulf east of the town.
@@ -429,8 +431,9 @@ for (const city of cities) {
           firstOut ??= t;
         } else if (occ.hidden(p, t)) hid++;
         else {
-          maxScale = Math.max(maxScale, q.scale);
-          if (q.scale >= LEGIBLE_SCALE) legible += 2 / 30;
+          const px = q.scale * (a.size ?? 1);
+          maxScale = Math.max(maxScale, px);
+          if (px >= LEGIBLE_PX) legible += 2 / 30;
         }
       }
       if (!present) {
@@ -443,7 +446,7 @@ for (const city of cities) {
       if (hid / present > 0.5) aMsg(`actor "${a.id}" (${s(t0)}-${s(t1)}): hidden behind trees ${Math.round((100 * hid) / present)}% of the time it stands.`);
       if (pops) aMsg(`actor "${a.id}" (${s(t0)}-${s(t1)}): disappears and comes back ${pops} time(s) during its beat.`);
       if (legible + 1e-6 < LEGIBLE_SECONDS) {
-        const why = !maxScale ? 'never on screen unhidden' : maxScale < LEGIBLE_SCALE ? `${Math.round(maxScale)} px per world unit at best (need ${LEGIBLE_SCALE})` : `at ${LEGIBLE_SCALE}+ px per world unit for only ${legible.toFixed(1)} s (need ${LEGIBLE_SECONDS} s)`;
+        const why = !maxScale ? 'never on screen unhidden' : maxScale < LEGIBLE_PX ? `${Math.round(maxScale)} px across at best (need ${LEGIBLE_PX})` : `${LEGIBLE_PX}+ px across for only ${legible.toFixed(1)} s (need ${LEGIBLE_SECONDS} s)`;
         aMsg(`actor "${a.id}" (${s(t0)}-${s(t1)}): too small to read, ${why}. Bring the camera in, or cut it: a thing nobody can see is not a beat.`);
       }
       if (present / n < 0.5) warn(`actor "${a.id}" (${s(t0)}-${s(t1)}) stands for only ${Math.round((100 * present) / n)}% of its beat.`);
