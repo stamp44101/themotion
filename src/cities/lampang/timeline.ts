@@ -106,8 +106,8 @@ export const STORY = buildStory({
       era: 'ปัจจุบัน',
       callouts: [{t0: 44, t1: 46.6, label: 'เตาชามไก่', dx: 90, dy: -110, p: [KILNS[0], 1.5, KILNS[1]]}],
       camera: [
-        [43.4, KILNS[0], 1.5, KILNS[1], 46, 405, 36, 30],
-        [46.4, KILNS[0] + 0.4, 1.5, KILNS[1] + 1, 40, 412, 36, 30],
+        [43.4, KILNS[0], 1.5, KILNS[1], 46, 397, 36, 30],
+        [46.4, KILNS[0] + 0.4, 1.5, KILNS[1] + 1, 40, 421, 36, 30],
       ],
     },
     {
