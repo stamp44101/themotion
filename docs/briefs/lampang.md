@@ -93,8 +93,12 @@ until the wall line is traced.
 | 1950s-1978 | | Mae Moh: the open-pit lignite mine and power plant, 25 km east | dates **[unknown]** -- need EGAT's own history page | greenpeace (location/scale only) |
 | 2026 | 2569 | the modern city at night, horse carriages on the bridge | -- | -- |
 
-- **Hero at frame 0:** the white elephant with พระแก้วมรกต standing large on the tile (an animal,
-  like Korat's dinosaurs), or the golden chedi of Lampang Luang. Recommendation: the elephant.
+- **Hero at frame 0 (owner's pick, 2026-10-17):** a Lampang horse carriage at hero scale on the
+  usual forest tile, the way Korat's dinosaurs stood on theirs; it comes back at real size in
+  the 1916 railway beat. No rewind, no modern city in the opening (style frames in
+  `src/styleframes/lampang.tsx`: elephant, chedi, rewind and carriage were tried). The real
+  build needs a better horse model (the style-frame one reads as a llama up close) and the
+  opening camera no closer than ~100 to it.
 - **Era labels:** หริภุญชัย / ล้านนา / พม่า / เจ้าเจ็ดตน / สยาม / ปัจจุบัน (draft).
 - **Clip duration:** 60 s. 75 s only if the 1732 shooting and the 1774 march both need room.
 

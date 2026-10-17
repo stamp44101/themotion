@@ -61,6 +61,13 @@ retention curve: the legend beat now has the boat moving from frame 0.
 
 Result: _pending (read ~24 h after posting)_
 
+## 1c. Lampang: a hero from the city's present on the old tile — planned
+
+Owner's call: keep the usual forest tile and put a Lampang horse carriage on it at hero scale
+from frame 0 (no rewind). Unlike the dinosaurs and the relic boat, the hero is not from the
+opening era; it is the city's best-known symbol, and it returns in its own beat (1916). Read
+skip rate and the retention curve as for 1 and 1b.
+
 ## 2. Finale first, then rewind — parked
 
 Branch `exp/korat-hook`: 1.4 s of the finale city at night, a veil reading

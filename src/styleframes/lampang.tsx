@@ -6,7 +6,6 @@ import React from 'react';
 import {KORAT} from '../cities/korat';
 import {buildStory} from '../engine/story';
 import {Elephant, SmallChedi} from '../engine/parts';
-import {smooth} from '../lib';
 import type {CityConfig, LandmarkProps} from '../engine/types';
 
 const STORY = buildStory({
@@ -120,32 +119,16 @@ const base = (Landmarks: React.FC<LandmarkProps>): CityConfig => ({
 export const LAMPANG_ELEPHANT = base(ElephantHero);
 export const LAMPANG_CHEDI = base(ChediHero);
 
-// ------------------------------------------------------------------ rewind opening
-// Owner's idea (experiment 2, docs/experiments.md): open on a Lampang horse carriage crossing
-// the Ratsadaphisek bridge today, pull back to the whole tile, then run the year backwards so
-// the city un-builds itself into forest, and meet the carriage again at the 1916 railway beat.
-// The scene is year-driven, so the rewind is just the year curve running backwards here; the
-// real build needs a prologue in buildStory, which today throws on a backwards year.
-const REWIND_AT = 1.5;
-const REWIND_END = 3.2;
-const rewindYear = (t: number) => {
-  if (t <= REWIND_AT) return 2026;
-  // most of the visible change is after 1900, so spend the first 60% of the rewind there
-  if (t <= REWIND_END) {
-    const u = (t - REWIND_AT) / (REWIND_END - REWIND_AT);
-    return u < 0.6 ? 2026 - 156 * smooth(u / 0.6) : 1870 - (1870 - 690) * smooth((u - 0.6) / 0.4);
-  }
-  return 690 + (t - REWIND_END) * 12;
-};
-const BRIDGE_Z = 0;
-const carriageX = (t: number) => -9 + t * 3.2;
-
+// ------------------------------------------------------------------ carriage hero
+// Owner's pick: the usual forest tile, with a Lampang horse carriage standing out on it from
+// frame 0 the way Korat's dinosaurs did; the carriage comes back at its real size in the 1916
+// railway beat. Hero scale, not real scale: it has to read from the whole-tile shot.
 // รถม้าลำปาง: a horse and a canopied four-wheel carriage, red and white with flowers, at hero scale
 const Carriage: React.FC<{t: number}> = ({t}) => {
   const step = Math.sin(t * 9);
   const wood = <meshStandardMaterial color="#8a2a22" flatShading roughness={0.8} />;
   const white = <meshStandardMaterial color="#f2ede4" flatShading roughness={0.8} />;
-  const horse = <meshStandardMaterial color="#6b4428" flatShading roughness={0.9} />;
+  const horse = <meshStandardMaterial color="#efe3cf" flatShading roughness={0.9} />;
   return (
     <group>
       {/* horse */}
@@ -208,8 +191,8 @@ const Carriage: React.FC<{t: number}> = ({t}) => {
         [0.25, 0.45, 0.32],
         [-0.75, 0.55, 0.42],
       ].flatMap(([x, r, w]) => [-1, 1].map((sz) => (
-        <mesh key={`${x}${sz}`} position={[x, r, sz * w]} rotation-x={Math.PI / 2} castShadow>
-          <torusGeometry args={[r, 0.04, 5, 14]} />
+        <mesh key={`${x}${sz}`} position={[x, r, sz * w]} castShadow>
+          <torusGeometry args={[r, 0.05, 5, 14]} />
           <meshStandardMaterial color="#e2b04a" />
         </mesh>
       )))}
@@ -217,28 +200,14 @@ const Carriage: React.FC<{t: number}> = ({t}) => {
   );
 };
 
-const RewindLandmarks: React.FC<LandmarkProps> = ({t}) => {
-  // on the bridge until the rewind sweeps it away
-  if (t > REWIND_AT + 0.3) return null;
+const CarriageHero: React.FC<LandmarkProps> = ({t, terrainH}) => {
+  const x = HERO[0] - 8 + t * 1.6;
+  const z = HERO[1] + 2;
   return (
-    <group position={[carriageX(t), 0.14, BRIDGE_Z + 0.4]} scale={1.6}>
+    <group position={[x, terrainH(x, z), z]} rotation-y={-0.9} scale={8}>
       <Carriage t={t} />
     </group>
   );
 };
 
-export const LAMPANG_REWIND: CityConfig = {
-  ...base(RewindLandmarks),
-  story: {...base(RewindLandmarks).story, yearAt: rewindYear},
-  layout: {
-    ...base(RewindLandmarks).layout,
-    roads: [{from: [-40, BRIDGE_Z], to: [40, BRIDGE_Z], width: 1.6, year: 1917}],
-    cameraKeys: [
-      [0, -6.5, 1.2, BRIDGE_Z, 24, 160, 28, 30],
-      [0.9, -4, 1, BRIDGE_Z, 40, 150, 30, 30],
-      [1.6, 0, 1, 0, 300, 140, 34, 30],
-      [3.0, 0, 1, 0, 330, 135, 34, 30],
-      [5.0, 6, 2, 2, 120, 150, 32, 30],
-    ],
-  },
-};
+export const LAMPANG_CARRIAGE = base(CarriageHero);
