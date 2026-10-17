@@ -1,6 +1,6 @@
 import {ThreeCanvas} from '@remotion/three';
 import React, {useEffect, useState} from 'react';
-import {AbsoluteFill, Audio, continueRender, delayRender, staticFile, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, Audio, continueRender, delayRender, getInputProps, staticFile, useCurrentFrame} from 'remotion';
 import * as THREE from 'three';
 import {STARS} from '../geometry';
 import {FPS, H, W, bump, keyColor, lighting, mix} from '../lib';
@@ -87,7 +87,8 @@ export const DioramaComposition: React.FC<{city: CityConfig}> = ({city: c}) => {
           })}
         </svg>
       )}
-      <Overlay callouts={callouts} story={c.story} />
+      {/* `--props='{"clean":true}'` drops the text overlay: stills for thumbnails and stories */}
+      {!getInputProps().clean && <Overlay callouts={callouts} story={c.story} />}
       <Audio src={staticFile(c.soundtrack)} />
     </AbsoluteFill>
   );
