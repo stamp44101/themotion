@@ -1,6 +1,7 @@
 import React from 'react';
 import {Army} from '../../engine/army';
 import {Elephant, SmallChedi, Viharn, lathe} from '../../engine/parts';
+import {Horse} from './Horse';
 import type {LandmarkProps} from '../../engine/types';
 import {ramp, smooth} from '../../lib';
 import {elephantAt, heroCarriage, kawila, logAt, thipChang, townCarriage} from './actors';
@@ -15,56 +16,10 @@ export const Carriage: React.FC<{t: number}> = ({t}) => {
   const step = Math.sin(t * 9);
   const wood = <meshStandardMaterial color="#8a2a22" flatShading roughness={0.8} />;
   const white = <meshStandardMaterial color="#f2ede4" flatShading roughness={0.8} />;
-  const horse = <meshStandardMaterial color="#efe3cf" flatShading roughness={0.9} />;
-  const mane = <meshStandardMaterial color="#5b4430" flatShading roughness={0.9} />;
   return (
     <group>
-      {/* the horse, side-on along +x: barrel, rounded chest and haunch, a deep neck rising
-          at ~40 deg, a long head angled nose-down, ears, mane, tail, thin legs with hooves */}
-      <group position={[1.7, 0, 0]}>
-        <mesh position={[0, 0.97, 0]} scale={[0.7, 0.34, 0.27]} castShadow>
-          <icosahedronGeometry args={[1, 2]} />
-          {horse}
-        </mesh>
-        <mesh position={[0.74, 1.33, 0]} rotation-z={-0.66} scale={[1, 1, 0.7]} castShadow>
-          <cylinderGeometry args={[0.1, 0.19, 0.6, 7]} />
-          {horse}
-        </mesh>
-        <mesh position={[0.66, 1.42, 0]} rotation-z={-0.66}>
-          <boxGeometry args={[0.05, 0.56, 0.07]} />
-          {mane}
-        </mesh>
-        <mesh position={[1.07, 1.44, 0]} rotation-z={-2.36} scale={[1, 1, 0.7]} castShadow>
-          <cylinderGeometry args={[0.065, 0.11, 0.42, 7]} />
-          {horse}
-        </mesh>
-        {[-0.045, 0.045].map((z) => (
-          <mesh key={z} position={[0.93, 1.67, z]} rotation-z={-0.25} castShadow>
-            <coneGeometry args={[0.03, 0.11, 4]} />
-            {horse}
-          </mesh>
-        ))}
-        <mesh position={[-0.83, 0.8, 0]} rotation-z={0.35}>
-          <cylinderGeometry args={[0.025, 0.07, 0.5, 5]} />
-          {mane}
-        </mesh>
-        {[
-          [0.48, 0.15],
-          [0.48, -0.15],
-          [-0.5, 0.15],
-          [-0.5, -0.15],
-        ].map(([lx, lz], j) => (
-          <group key={j} position={[lx, 0.66, lz]} rotation-z={step * 0.35 * (j % 3 === 0 ? 1 : -1)}>
-            <mesh position={[0, -0.31, 0]} castShadow>
-              <cylinderGeometry args={[0.045, 0.06, 0.62, 5]} />
-              {horse}
-            </mesh>
-            <mesh position={[0, -0.63, 0]}>
-              <cylinderGeometry args={[0.05, 0.055, 0.06, 5]} />
-              {mane}
-            </mesh>
-          </group>
-        ))}
+      <group position={[1.75, 0, 0]} scale={0.78}>
+        <Horse step={step} />
       </group>
       {[-0.32, 0.32].map((z) => (
         <mesh key={z} position={[0.9, 0.75, z]} rotation-z={Math.PI / 2} castShadow>

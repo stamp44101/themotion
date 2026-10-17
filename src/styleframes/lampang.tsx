@@ -221,5 +221,5 @@ const HorseTest: React.FC<LandmarkProps> = ({t, terrainH}) => (
 );
 export const LAMPANG_HORSE: CityConfig = {
   ...base(HorseTest),
-  layout: {...base(HorseTest).layout, cameraKeys: [[0, 12, 6, -20, 120, 0, 8, 30], [10, 12, 6, -20, 120, 0, 8, 30]]},
+  layout: {...base(HorseTest).layout, cameraKeys: [[0, 15, 7, -20, 90, 0, 10, 30], [2, 15, 7, -20, 90, 90, 18, 30], [4, 15, 7, -20, 90, 180, 18, 30], [6, 15, 7, -20, 90, 270, 18, 30], [8, 15, 7, -20, 90, 360, 30, 30]]},
 };
