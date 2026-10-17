@@ -14,7 +14,7 @@ import {NAKHONSAWAN} from './cities/nakhonsawan';
 import {CHONBURI} from './cities/chonburi';
 import {NAKHONSI} from './cities/nakhonsi';
 import {LAMPANG} from './cities/lampang';
-import {LAMPANG_CHEDI, LAMPANG_ELEPHANT, LAMPANG_CARRIAGE} from './styleframes/lampang';
+import {LAMPANG_CHEDI, LAMPANG_ELEPHANT, LAMPANG_CARRIAGE, LAMPANG_HORSE} from './styleframes/lampang';
 import {DioramaComposition} from './engine/DioramaComposition';
 import {WAT_RAI_KHING_FRAMES, WatRaiKhing} from './landmarks/watraikhing/WatRaiKhing';
 
@@ -32,6 +32,7 @@ const Lampang: React.FC = () => <DioramaComposition city={LAMPANG} />;
 const LampangStyleElephant: React.FC = () => <DioramaComposition city={LAMPANG_ELEPHANT} />;
 const LampangStyleChedi: React.FC = () => <DioramaComposition city={LAMPANG_CHEDI} />;
 const LampangStyleCarriage: React.FC = () => <DioramaComposition city={LAMPANG_CARRIAGE} />;
+const LampangStyleHorse: React.FC = () => <DioramaComposition city={LAMPANG_HORSE} />;
 import {FPS, H, SECONDS, W} from './lib';
 
 export const RemotionRoot: React.FC = () => (
@@ -57,6 +58,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="LampangStyleElephant" component={LampangStyleElephant} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="LampangStyleChedi" component={LampangStyleChedi} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="LampangStyleCarriage" component={LampangStyleCarriage} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="LampangStyleHorse" component={LampangStyleHorse} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
       <Composition id="KoratLook" component={KoratLook} durationInFrames={(KORAT.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition
       id="ChiangMaiIso"

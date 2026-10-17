@@ -211,3 +211,15 @@ const CarriageHero: React.FC<LandmarkProps> = ({t, terrainH}) => {
 };
 
 export const LAMPANG_CARRIAGE = base(CarriageHero);
+
+// side view of the street carriage, for checking the horse model
+import {Carriage as CityCarriage} from '../cities/lampang/Landmarks';
+const HorseTest: React.FC<LandmarkProps> = ({t, terrainH}) => (
+  <group position={[0, terrainH(0, -20) + 0, -20]} scale={8}>
+    <CityCarriage t={t} />
+  </group>
+);
+export const LAMPANG_HORSE: CityConfig = {
+  ...base(HorseTest),
+  layout: {...base(HorseTest).layout, cameraKeys: [[0, 12, 6, -20, 120, 0, 8, 30], [10, 12, 6, -20, 120, 0, 8, 30]]},
+};
