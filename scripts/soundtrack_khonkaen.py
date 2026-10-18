@@ -42,11 +42,15 @@ for t0, t1, notes in ((dinos[1], railway[0] - 0.4, Am), (railway[0] - 0.4, dig[0
     # แคน: a reedy drone on the chord under each era
     add(music, khaen(notes, t1 - t0 + 0.6), t0, gain=0.32)
     for t in np.arange(t0 + 0.1, t1 - 0.2, BEAT):
-        # พิณ: a bright pluck on the beat, the fifth on the off-beat
-        # the score keeps its stylized pluck in v2 too (owner, A/B: a too-real พิณ may not suit the
-        # diorama, and every posted city uses this one); phin() stays in synth.py as an option
-        add(music, pluck(notes[1] + 12, 0.6, 0.7), t, pan=-0.2, gain=0.3)
-        add(music, pluck(notes[2] + 12, 0.45, 0.6), t + BEAT / 2, pan=0.2, gain=0.18)
+        if V2:
+            # v2 swaps the roles (owner: the พิณ was acting as the beat and the โปงลาง as the
+            # tune): struck wood keeps the pulse, the พิณ gets the melody below
+            add(music, ranat(notes[1] + 24, 0.45), t, pan=-0.15, gain=0.2)
+            add(music, ranat(notes[2] + 24, 0.35), t + BEAT / 2, pan=0.15, gain=0.12)
+        else:
+            # พิณ: a bright pluck on the beat, the fifth on the off-beat
+            add(music, pluck(notes[1] + 12, 0.6, 0.7), t, pan=-0.2, gain=0.3)
+            add(music, pluck(notes[2] + 12, 0.45, 0.6), t + BEAT / 2, pan=0.2, gain=0.18)
 
 
 def ponglang(t0, t1, step, amp, low=0, high=len(PENTA) - 1, start=4):
@@ -59,9 +63,45 @@ def ponglang(t0, t1, step, amp, low=0, high=len(PENTA) - 1, start=4):
         t += step * rng.choice([1, 1, 2])
 
 
-ponglang(founding[0], founding[1], BEAT / 2, 0.26)
-ponglang(stupa[0], stupa[1], BEAT / 2, 0.28, low=2)
-ponglang(modern[0], DUR - 2.5, BEAT / 2, 0.26, low=3)
+PHIN_KS = os.environ.get("SOUND_PHIN") == "ks"
+
+
+def phin_line(t0, t1, amp, low=0, high=len(PENTA) - 1, seed=0):
+    """พิณ melody, หมอลำ-style: a two-bar riff of eighths (with rests) repeated, its tail varied
+    every third time round, instead of a random walk."""
+    r = np.random.default_rng(seed)
+    i = r.integers(low + 2, min(high, low + 6))
+    riff = []
+    for k in range(16):
+        if r.random() < 0.22 and k % 4:
+            riff.append(None)
+        else:
+            i = int(np.clip(i + r.choice([-2, -1, -1, 0, 1, 1, 2]), low, high))
+            riff.append(PENTA[i])
+    t, rep_n = t0, 0
+    while t < t1:
+        line = list(riff)
+        if rep_n % 3 == 2:
+            for k in (13, 14, 15):
+                line[k] = PENTA[int(np.clip(r.integers(low, high + 1), low, high))]
+        for m in line:
+            if t >= t1:
+                break
+            if m is not None:
+                note = phin(m, 0.6, seed=int(t * 100)) if PHIN_KS else pluck(m, 0.55, 0.8)
+                add(music, note, t, pan=-0.1, gain=amp)
+            t += BEAT / 2
+        rep_n += 1
+
+
+if V2:
+    phin_line(founding[0], founding[1], 0.34 if PHIN_KS else 0.28, seed=3)
+    phin_line(stupa[0], stupa[1], 0.36 if PHIN_KS else 0.3, low=2, seed=5)
+    phin_line(modern[0], DUR - 2.5, 0.34 if PHIN_KS else 0.28, low=3, seed=7)
+else:
+    ponglang(founding[0], founding[1], BEAT / 2, 0.26)
+    ponglang(stupa[0], stupa[1], BEAT / 2, 0.28, low=2)
+    ponglang(modern[0], DUR - 2.5, BEAT / 2, 0.26, low=3)
 
 # ---------------------------------------------------------------- ambience
 add(amb, filt(pink(N), "low", 600) * 0.03, 0, pan=-0.3)
