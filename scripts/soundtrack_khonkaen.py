@@ -122,6 +122,30 @@ else:
     n = int((modern[1] - modern[0]) * 0.75 * SR)
     add(sfx, filt(noise(n), "low", 220) * env_ar(n, 2.0, 1.2) * 0.35, modern[0] + 0.2, pan=0.2)
     add(sfx, filt(pi_reed(57, 1.0), "low", 1400) * 0.4, modern[0] + 0.5 * (modern[1] - modern[0]), pan=0.1, gain=0.5)
+# today: the city's traffic as single events over the hum bed, at uneven gaps: a bus pulling
+# away from the lights, a motorbike passing left to right, a few short car horns
+
+
+def engine(dur, f0, f1, cutoff, a, r):
+    n = int(dur * SR)
+    f = np.linspace(f0, f1, n) * (1 + 0.015 * np.sin(2 * np.pi * 7 * np.arange(n) / SR))
+    ph = 2 * np.pi * np.cumsum(f) / SR
+    sig = sum(np.sin(k * ph) / k for k in range(1, 7)) + filt(noise(n), "low", cutoff) * 0.4
+    return filt(sig, "low", cutoff) * env_ar(n, a, r)
+
+
+def car_horn(dur):
+    n = int(dur * SR)
+    ph = 2 * np.pi * np.arange(n) / SR
+    sig = np.sign(np.sin(410 * ph)) + np.sign(np.sin(500 * ph))
+    return filt(sig, "band", (350, 2200)) * env_ar(n, 0.01, 0.06) * 0.25
+
+
+tt = modern[1] - 0.6
+add(sfx, engine(2.2, 38, 70, 500, 0.3, 0.9) * 0.12, tt, pan=-0.3)
+add(sfx, pan_sweep(engine(1.6, 95, 70, 1800, 0.5, 0.7) * 0.08, -0.8, 0.8), tt + 1.4)
+for dt, d, p in ((0.5, 0.22, 0.5), (2.3, 0.14, -0.4), (2.5, 0.3, -0.4), (3.6, 0.18, 0.6)):
+    add(sfx, car_horn(d), tt + dt, pan=p, gain=0.16)
 # 1996: the stupa's tiers going up, then a temple bell
 for i in range(10):
     add(sfx, drum(220 + i * 18, 140, 0.25, 0.5), stupa[0] + i * 0.55 * (stupa[1] - stupa[0]) / 10, pan=0.1, gain=0.45)
