@@ -572,7 +572,7 @@ def steam_train(dur=4.5, rev0=2.2, stop_at=0.8, whistle_at=0.25, seed=7):
     # brake squeal over the last stretch before the stop
     sq = np.clip((u - 0.55) / 0.45, 0, 1) * (u < 1)
     f_sq = 2350 * (1 + 0.006 * np.sin(2 * np.pi * 7 * t)) * (1 - 0.04 * u)
-    out += np.sin(2 * np.pi * np.cumsum(f_sq) / SR) * sq ** 2 * 0.05
+    out += np.sin(2 * np.pi * np.cumsum(f_sq) / SR) * sq ** 2 * 0.015
     # chime whistle: three pipes, harmonics, breath, the pitch settling on the attack
     w0, wd = int(whistle_at * dur * SR), 1.4
     wn = int(wd * SR)
@@ -639,6 +639,28 @@ def _norm(x, peak=0.7):
 def _decay(n, tau, attack=0.002):
     t = np.arange(n) / SR
     return np.exp(-t / tau) * np.minimum(1, t / max(attack, 1e-4))
+
+
+def bird_call(seed=None):
+    """A small bird: two to four notes, each a short glide with a couple of harmonics, a fast
+    amplitude flutter and a breath of noise, quieter and sparser than chirp_bird(), whose pure
+    sine sweeps sounded like synth bleeps darting about. Mono."""
+    r = rng if seed is None else np.random.default_rng(seed)
+    parts = []
+    base = r.uniform(2400, 3600)
+    for _ in range(r.integers(2, 5)):
+        d = r.uniform(0.05, 0.11)
+        n = int(d * SR)
+        t = np.arange(n) / SR
+        f = base * (1 + r.uniform(-0.12, 0.12) * (t / d))
+        ph = 2 * np.pi * np.cumsum(f) / SR
+        tone = np.sin(ph) + 0.25 * np.sin(2 * ph) + 0.08 * np.sin(3 * ph)
+        flutter = 0.75 + 0.25 * np.sin(2 * np.pi * r.uniform(40, 70) * t)
+        env = np.sin(np.pi * t / d) ** 2
+        breath = filt(r.standard_normal(n), "band", (base * 0.8, base * 1.3)) * 0.15
+        parts.append((tone * flutter + breath) * env)
+        parts.append(np.zeros(int(r.uniform(0.03, 0.08) * SR)))
+    return np.concatenate(parts) * 0.07
 
 
 def wood(m, dur=0.5):
@@ -813,7 +835,6 @@ def diesel_train(dur=6.0, stop_at=0.85, horn_at=0.35, seed=61):
     u = np.clip(t / (dur * stop_at), 0, 1)
     v = (1 - u) ** 1.2
     out = engine(dur, 700 + 1100 * v, cyl=12, seed=seed) * 0.5
-    out += np.sin(2 * np.pi * np.cumsum(1200 + 900 * v) / SR) * 0.005 * v  # turbo, kept low: a pure whine is piercing
     out += filt(r.standard_normal(n), "band", (300, 1500)) * 0.12 * v ** 1.5  # wheel roar
     out += filt(r.standard_normal(n), "high", 3500) * 0.02 * np.exp(-np.maximum(0, t - dur * stop_at) / 0.35) * (t > dur * stop_at * 0.9)
     h0, hd = int(horn_at * dur * SR), 1.1
@@ -836,9 +857,11 @@ def fireworks(dur=4.5, shells=7, seed=71):
         if r.random() < 0.6:  # launch whistle
             L = int(r.uniform(0.6, 0.9) * SR)
             tt = np.arange(L) / SR
-            f = 900 + 1800 * (tt / tt[-1]) ** 1.5
-            wh = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.minimum(1, tt / 0.05) * 0.05
-            _seg(out, int(t0 * SR), wh + filt(r.standard_normal(L), "band", (1500, 4000)) * 0.03)
+            # the launch as a rising hiss (a pure rising sine read as a synth sweep)
+            rise = np.minimum(1, tt / 0.05) * (tt / tt[-1])
+            lo = filt(r.standard_normal(L), "band", (600, 1500)) * (1 - tt / tt[-1])
+            hi = filt(r.standard_normal(L), "band", (1500, 3200)) * (tt / tt[-1])
+            _seg(out, int(t0 * SR), (lo + hi) * rise * 0.05)
             t0 += L / SR
         L = int(2.2 * SR)
         tt = np.arange(L) / SR

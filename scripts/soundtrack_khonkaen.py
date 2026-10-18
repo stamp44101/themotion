@@ -114,17 +114,22 @@ t = 0.3
 while t < modern[0]:
     i = int(t * SR)
     if tl.NIGHT[i] < 0.2:
-        add(amb, chirp_bird(), t, pan=rng.uniform(-0.8, 0.8), gain=0.8 if Y[i] < 1950 else 0.3)
-    t += rng.exponential(0.5)
+        if V2:
+            add(amb, place(bird_call(), rng.uniform(0.4, 0.8), rng.uniform(-0.8, 0.8)), t, gain=0.8 if Y[i] < 1950 else 0.3)
+        else:
+            add(amb, chirp_bird(), t, pan=rng.uniform(-0.8, 0.8), gain=0.8 if Y[i] < 1950 else 0.3)
+    t += rng.exponential(1.1 if V2 else 0.5)
 if V2:
     # a 4.6 kHz tone chopped by a hard 28 Hz square clicks on every edge: a chain of clicks that
     # sounds like a speaker breaking. v2 shapes each chirp pulse smoothly instead.
-    car = np.sin(2 * np.pi * (4600 + 60 * np.sin(2 * np.pi * 0.3 * T)) * T) * (0.5 + 0.5 * np.sin(2 * np.pi * 28 * T)) ** 4
+    # a narrow band of noise around 4.4 kHz, pulsed: no steady tone, no pitch wobble (the wobbling
+    # 4.6 kHz tone read as a synth siren through every night)
+    car = filt(noise(N), "band", (4100, 4700)) * 3 * (0.5 + 0.5 * np.sin(2 * np.pi * 28 * T)) ** 4
     gate = filt((np.sin(2 * np.pi * 1.7 * T) > 0.1).astype(float), "low", 12)
 else:
     car = np.sin(2 * np.pi * 4600 * T) * (np.sin(2 * np.pi * 28 * T) > 0.2)
     gate = filt((np.sin(2 * np.pi * 1.7 * T) > 0.1).astype(float), "low", 40)
-crickets = car * gate * np.clip((tl.NIGHT - 0.25) / 0.35, 0, 1) * 0.025
+crickets = car * gate * np.clip((tl.NIGHT - 0.25) / 0.35, 0, 1) * (0.012 if V2 else 0.025)
 add(amb, crickets, 0, pan=-0.5)
 add(amb, np.roll(crickets, int(0.37 * SR)) * 0.8, 0, pan=0.6)
 traffic = filt(pink(N), "low", 450) * 0.6 + filt(noise(N), "band", (500, 1600)) * 0.05
