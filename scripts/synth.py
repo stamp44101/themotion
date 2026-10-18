@@ -474,7 +474,7 @@ def _compress(x, thresh_db=-20.0, ratio=2.5, tau=0.12):
     return x * gain[:, None]
 
 
-def _level(x, target_db, ratio=2.5, tau=1.5, max_db=6.0):
+def _level(x, target_db, ratio=2.5, tau=1.5, max_db=3.0):
     """Slow two-way leveller: a stretch louder than the target is pulled down and a quieter one
     lifted, by (1 - 1/ratio) of the difference and at most max_db, over a ~tau s window."""
     from scipy.signal import filtfilt
@@ -488,7 +488,7 @@ def _level(x, target_db, ratio=2.5, tau=1.5, max_db=6.0):
     return x * (10 ** (g_db / 20))[:, None]
 
 
-def _limit(x, ceiling=0.89, look=0.005, release=0.08):
+def _limit(x, ceiling=0.89, look=0.005, release=0.2):
     from scipy.ndimage import maximum_filter1d, minimum_filter1d
     from scipy.signal import lfilter
 
@@ -506,13 +506,15 @@ def _to_rms(x, db):
     return x * 10 ** (db / 20) / (np.sqrt((x ** 2).mean()) + 1e-12)
 
 
-def master2(path, music, amb, sfx, music_room=0.14, target_rms_db=-14.5):
+def master2(path, music, amb, sfx, music_room=0.14, target_rms_db=-15.0):
     """Phase-1 master: the score in a hall, SFX already placed (place() carries their room),
     low-cut, a slow two-way leveller that evens the beats out, loudness target
-    (-14.5 dB RMS, where master() lands, so an A/B is not won by loudness), look-ahead limiter
+    (-15 dB RMS, within 1 dB of master(), so an A/B is not won by loudness; a little below it so the
+    limiter seldom works), look-ahead limiter
     instead of tanh."""
     mix = music * 0.85 + room(music, "open", seed=5) * music_room + amb + sfx
-    mix = filt(mix, "high", 30)
+    # phones cannot play below ~50 Hz; energy there only drives the limiter and flaps the speaker
+    mix = filt(mix, "high", 45)
     mix = _to_rms(mix, target_rms_db)
     mix = _level(mix, target_rms_db)
     mix = _to_rms(mix, target_rms_db)
@@ -637,9 +639,9 @@ def giant_steps(dur=4.5, interval=0.95, seed=21):
     while t < dur - 0.3:
         n = int(1.2 * SR)
         tt = np.arange(n) / SR
-        f = 22 + 16 * np.exp(-tt / 0.08)
+        f = 48 + 24 * np.exp(-tt / 0.06)  # 72 -> 48 Hz: felt on a phone, not lost below it
         thud = np.sin(2 * np.pi * np.cumsum(f) / SR) * _decay(n, 0.28, 0.006)
-        rumble = filt(r.standard_normal(n), "low", 140) * _decay(n, 0.45, 0.02) * 0.6
+        rumble = filt(r.standard_normal(n), "band", (60, 220)) * _decay(n, 0.35, 0.02) * 0.45
         grit = filt(r.standard_normal(n) * (r.random(n) < 0.0012), "band", (1500, 5000)) * _decay(n, 0.12) * 1.2
         g = (1.0 if k % 2 == 0 else 0.75) * r.uniform(0.9, 1.1)
         _seg(out, int(t * SR), (thud + rumble + grit) * g)

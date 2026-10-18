@@ -36,7 +36,11 @@ BEAT = 60 / 126
 PENTA = [69, 72, 74, 76, 79, 81, 84, 86, 88, 91]
 Am, G, C, Em = [45, 52, 57], [43, 50, 55], [48, 55, 60], [40, 47, 52]
 
-add(music, pad([33, 40, 45], dinos[1] + 0.6, 700), 0.0, gain=0.6)
+if V2:
+    # an octave up and softer: the 55 Hz A1 drove the limiter into a crackle on phone speakers
+    add(music, pad([45, 52, 57], dinos[1] + 0.6, 900), 0.0, gain=0.42)
+else:
+    add(music, pad([33, 40, 45], dinos[1] + 0.6, 700), 0.0, gain=0.6)
 for t0, t1, notes in ((dinos[1], railway[0] - 0.4, Am), (railway[0] - 0.4, dig[0] - 0.4, C),
                       (dig[0] - 0.4, stupa[0] - 0.4, G), (stupa[0] - 0.4, modern[0] - 0.4, Am), (modern[0] - 0.4, DUR, [45, 57, 64, 69, 76])):
     # แคน: a reedy drone on the chord under each era
@@ -122,7 +126,7 @@ add(amb, traffic * np.clip((Y - 1957) / 45, 0, 1) * 0.05, 0)
 # ---------------------------------------------------------------- sfx
 # the sauropods below Phu Wiang: footfalls and a low call
 if V2:
-    fx(giant_steps(dinos[1] - dinos[0] - 3.2), dinos[0] + 3.4, pan=-0.3, gain=0.9, dist=0.4)
+    fx(giant_steps(dinos[1] - dinos[0] - 3.2), dinos[0] + 3.4, pan=-0.3, gain=0.7, dist=0.4)
 else:
     for t in np.arange(dinos[0] + 3.4, dinos[1], 0.9):
         fx(drum(60, 30, 0.6, 0.9), t, pan=-0.3, gain=0.5)
@@ -194,8 +198,12 @@ for i in range(10):
 fx(bell(392, 3.0), stupa[0] + 0.58 * (stupa[1] - stupa[0]), gain=0.5, dist=0.3, size="open")
 
 for et in (3.0, founding[0] - 0.2, railway[0] - 0.2, mitt[0] - 0.2, dig[0] - 0.2, stupa[0] - 0.2, modern[0] - 0.2):
-    add(sfx, whoosh(1.1, 0.75), et - 0.75, pan=rng.uniform(-0.3, 0.3), gain=0.5)
-add(sfx, drum(70, 32, 2.5, 1.0), 0.1, gain=0.6)
+    add(sfx, whoosh(1.1, 0.75), et - 0.75, pan=rng.uniform(-0.3, 0.3), gain=0.36 if V2 else 0.5)
+if V2:
+    # the opening boom pitched where a phone speaker can play it (the 32-70 Hz one distorted)
+    add(sfx, drum(110, 55, 1.6, 1.0), 0.1, gain=0.5)
+else:
+    add(sfx, drum(70, 32, 2.5, 1.0), 0.1, gain=0.6)
 if S["fireworks_city"] is not None:
     fx(S["fireworks_city"], DUR - 4.6, gain=0.6)
 elif V2:
