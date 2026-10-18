@@ -126,8 +126,9 @@ for (const city of cities) {
     // A title that wraps drops its last word -- usually the year -- onto a line of its own.
     const tw = textWidth(c.title, 74, 600);
     if (tw > COLUMN) err(`${name} is ${Math.round(tw)} px wide and wraps (column ${COLUMN} px). Shorten it or move the year into the sub.`);
-    const sl = Math.ceil(textWidth(c.sub, 40, 400) / COLUMN);
-    if (sl > 3) warn(`${name}: sub runs to about ${sl} lines; the block runs down into the diorama.`);
+    // a note line counts as one more sub line (32 px under the 40 px sub)
+    const sl = Math.ceil(textWidth(c.sub, 40, 400) / COLUMN) + (c.note ? Math.ceil(textWidth(c.note, 32, 500) / COLUMN) : 0);
+    if (sl > 3) warn(`${name}: sub${c.note ? ' and note run' : ' runs'} to about ${sl} lines; the block runs down into the diorama.`);
   });
 
   // a named year is on the counter while its caption is up
@@ -256,6 +257,12 @@ for (const city of cities) {
     const rail = layout.rail;
     const t = layout.tile;
     const rs = rail.span ?? (rail.axis === 'z' ? [t.z0, t.z1] : [t.x0, t.x1]);
+    // a lifted line carries no trains (rail.close)
+    if (rail.close !== undefined)
+      (layout.trains ?? []).forEach((tr, n) => {
+        const y = story.yearAt(tr.t0 + tr.dur);
+        if (y >= rail.close) err(`train ${n} (${tr.t0}s) still runs in ${y.toFixed(1)}, after rail.close ${rail.close}: the track is gone.`);
+      });
     layout.rivers.forEach((r, n) => {
       if (roads.isPathRiver(r)) {
         const step = 0.25;

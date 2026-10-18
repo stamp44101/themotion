@@ -46,9 +46,15 @@ export type CityLayout = {
   bridges: {at: number; year: number; modernYear: number; river?: number}[];
   /** Walled city has its own moat (false when rivers form the moat). */
   noMoat?: boolean;
+  /** A town that never had a wall (Khon Kaen): no wall, gates or moat are drawn; the town
+   *  ground and in-town house grid still follow `city`. Set `noMoat` too. */
+  noWall?: boolean;
   /** `span` limits the line along its axis (default: the whole tile). Nakhon Si's station is a
    *  terminus: the line ends there instead of running on past it to the tile edge. */
-  rail?: {axis: Axis; pos: number; open: [number, number]; station: [number, number]; stationYear: number; span?: [number, number]};
+  /** `close`: the year the at-grade track (rails, sleepers, its river bridges) is lifted, as when
+   *  Khon Kaen's line went up on a viaduct in 2019 and the old track stayed under it. The
+   *  corridor and the station stay claimed; trains may not run after it (check_story). */
+  rail?: {axis: Axis; pos: number; open: [number, number]; close?: number; station: [number, number]; stationYear: number; span?: [number, number]};
   /** `park`: seconds a train that pulled in to a terminus stays at the platform before it
    *  is removed (default 0). Nakhon Si's first train vanished the instant its run ended. */
   trains: {t0: number; dur: number; dir: 1 | -1; modern: boolean; park?: number}[];

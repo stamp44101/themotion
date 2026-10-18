@@ -17,6 +17,8 @@
     "audio": "node scripts/export_timeline.mjs && python3 scripts/make_soundtrack.py",
     "render:iso": "remotion render ChiangMaiIso out/chiangmai-iso.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
     "audio:korat": "node scripts/export_timeline.mjs src/cities/korat/timeline.ts out/timeline_korat.json && python3 scripts/soundtrack_korat.py",
+    "audio:khonkaen": "node scripts/export_timeline.mjs src/cities/khonkaen/timeline.ts out/timeline_khonkaen.json && python3 scripts/soundtrack_khonkaen.py",
+    "render:khonkaen": "node scripts/check_story.mjs khonkaen && remotion render KhonKaen out/khonkaen.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
     "audio:lampang": "node scripts/export_timeline.mjs src/cities/lampang/timeline.ts out/timeline_lampang.json && python3 scripts/soundtrack_lampang.py",
     "render:lampang": "node scripts/check_story.mjs lampang && remotion render Lampang out/lampang.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
     "audio:nakhonsi": "node scripts/export_timeline.mjs src/cities/nakhonsi/timeline.ts out/timeline_nakhonsi.json && python3 scripts/soundtrack_nakhonsi.py",

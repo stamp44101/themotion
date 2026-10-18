@@ -209,6 +209,7 @@ export const Overlay: React.FC<{callouts?: ScreenCallout[]; story?: Story}> = ({
             <div style={{width: 84, height: 6, borderRadius: 3, background: '#f6cf73', marginBottom: 18}} />
             <div style={{fontSize: 74, fontWeight: 600, lineHeight: 1.15}}>{keepYear(c.title)}</div>
             <div style={{fontSize: 40, fontWeight: 400, lineHeight: 1.4, marginTop: 12, opacity: 0.95}}>{keepYear(c.sub)}</div>
+            {c.note && <div style={{fontSize: 32, fontWeight: 500, lineHeight: 1.3, marginTop: 10, color: '#f6cf73'}}>{keepYear(c.note)}</div>}
           </div>
         );
       })}
