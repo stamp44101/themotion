@@ -85,14 +85,14 @@ export const STORY = buildStory({
     {
       // 1996: พระมหาธาตุแก่นนคร goes up, tier by tier, on the lake shore
       id: 'stupa',
-      t: [38.6, 46],
+      t: [38.6, 44.2],
       year: {hold: 1996},
       caption: {t0: 38.4, title: 'พระมหาธาตุแก่นนคร', sub: 'พ.ศ. 2539 พระธาตุ 9 ชั้น ริมบึงแก่นนคร ฉลองเมืองขอนแก่นครบ 200 ปี'},
       era: 'ปัจจุบัน',
-      callouts: [{t0: 42.4, t1: 45.8, label: 'วัดหนองแวง', dx: 90, dy: -130, p: [STUPA[0], 6, STUPA[1]]}],
+      callouts: [{t0: 41.6, t1: 44.1, label: 'วัดหนองแวง', dx: 90, dy: -130, p: [STUPA[0], 6, STUPA[1]]}],
       camera: [
         [38.8, STUPA[0], 3, STUPA[1], 52, 462, 34, 30],
-        [45.8, STUPA[0], 4, STUPA[1], 46, 494, 33, 30],
+        [44, STUPA[0], 4, STUPA[1], 46, 494, 33, 30],
       ],
     },
     {
@@ -100,12 +100,12 @@ export const STORY = buildStory({
       // the north-east's first elevated station -- the 1933 line's answer, 86 years on. The
       // counter holds here, then runs on to today before the finale card comes up.
       id: 'doubletrack',
-      t: [47.2, 53.2],
+      t: [45.6, 53.2],
       year: {hold: 2019},
-      caption: {t0: 47, title: 'รถไฟทางคู่ถึงขอนแก่น', sub: 'พ.ศ. 2562 สถานีรถไฟยกระดับแห่งแรกของภาคอีสาน'},
+      caption: {t0: 45.4, title: 'รถไฟทางคู่ถึงขอนแก่น', sub: 'พ.ศ. 2562 สถานีรถไฟยกระดับแห่งแรกของภาคอีสาน'},
       callouts: [{t0: 50.4, t1: 53.2, label: 'สถานีขอนแก่น', dx: 90, dy: -130, p: [RAIL_X, 2.8, STATION[1]]}],
       camera: [
-        [47.6, RAIL_X, 2, 22, 46, 506, 34, 30],
+        [46, RAIL_X, 2, 24, 46, 506, 34, 30],
         [50.4, RAIL_X, 2, -8, 56, 518, 36, 30],
         [53, RAIL_X, 2, -16, 66, 528, 38, 30],
       ],

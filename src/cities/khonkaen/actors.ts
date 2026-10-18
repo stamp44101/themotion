@@ -62,7 +62,7 @@ export const dtrainAt = ({beat}: ActorCtx) => {
 export const reservoirK = (Y: number) => smooth(ramp(Y, 1964.9, 1966.1));
 
 // 1996: the nine tiers go up one after another over the stupa beat
-export const tiersUp = ({beat}: ActorCtx) => beat('stupa') * 1.25;
+export const tiersUp = ({beat}: ActorCtx) => beat('stupa') / 0.55;
 
 export const ACTORS: Actor[] = [
   {id: 'heroStupa', during: [0, 2.4], size: 6, at: (t, ctx) => (heroStupa(t, ctx).k > 0.02 ? [HERO_AT[0], 6, HERO_AT[1]] : null)},

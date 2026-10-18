@@ -102,8 +102,8 @@ add(sfx, filt(noise(n), "low", 220) * env_ar(n, 2.0, 1.2) * 0.35, modern[0] + 0.
 add(sfx, filt(pi_reed(57, 1.0), "low", 1400) * 0.4, modern[0] + 0.5 * (modern[1] - modern[0]), pan=0.1, gain=0.5)
 # 1996: the stupa's tiers going up, then a temple bell
 for i in range(10):
-    add(sfx, drum(220 + i * 18, 140, 0.25, 0.5), stupa[0] + i * 0.8 * (stupa[1] - stupa[0]) / 10, pan=0.1, gain=0.45)
-add(sfx, bell(392, 3.0), stupa[0] + 0.82 * (stupa[1] - stupa[0]), gain=0.5)
+    add(sfx, drum(220 + i * 18, 140, 0.25, 0.5), stupa[0] + i * 0.55 * (stupa[1] - stupa[0]) / 10, pan=0.1, gain=0.45)
+add(sfx, bell(392, 3.0), stupa[0] + 0.58 * (stupa[1] - stupa[0]), gain=0.5)
 
 for et in (3.0, founding[0] - 0.2, railway[0] - 0.2, mitt[0] - 0.2, dig[0] - 0.2, stupa[0] - 0.2, modern[0] - 0.2):
     add(sfx, whoosh(1.1, 0.75), et - 0.75, pan=rng.uniform(-0.3, 0.3), gain=0.5)

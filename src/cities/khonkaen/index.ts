@@ -17,7 +17,7 @@ export const KHONKAEN: CityConfig = {
     beat: STORY.beat,
     beats: STORY.beats,
     intro: {kicker: 'ไทม์แลปส์ประวัติศาสตร์', title: 'ขอนแก่น', sub: 'จากแผ่นดินไดโนเสาร์ สู่เมืองใหญ่แห่งอีสาน'},
-    finale: {kicker: 'เมืองขอนแก่น', title: 'ขอนแก่น', sub: 'ครบ 50 ปี การค้นพบไดโนเสาร์ไทย'},
+    finale: {kicker: 'พ.ศ. 2340 – 2569', title: 'ขอนแก่น', sub: 'แผ่นดินไดโนเสาร์ ใจกลางแห่งอีสาน'},
     approxBefore: 1700,
     duration: STORY.duration,
   },
