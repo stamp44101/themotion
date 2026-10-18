@@ -22,7 +22,7 @@ export type Beat = {
   /** the years the counter covers, or a year held through the beat: the counter rounds,
    *  so a hold on X runs X .. X + 0.45 and never shows X + 1 */
   year: [number, number] | {hold: number};
-  caption?: {title: string; sub: string; t0?: number; t1?: number};
+  caption?: {title: string; sub: string; note?: string; t0?: number; t1?: number};
   /** era label from this beat on (the timeline bar) */
   era?: string;
   callouts?: {label: string; dx: number; dy: number; p: [number, number, number]; t0?: number; t1?: number}[];
@@ -100,7 +100,7 @@ export const buildStory = (def: StoryDef) => {
 
   const captions: Caption[] = beats
     .filter((b) => b.caption)
-    .map((b) => ({t0: b.caption!.t0 ?? b.t[0], t1: b.caption!.t1 ?? b.t[1], title: b.caption!.title, sub: b.caption!.sub}));
+    .map((b) => ({t0: b.caption!.t0 ?? b.t[0], t1: b.caption!.t1 ?? b.t[1], title: b.caption!.title, sub: b.caption!.sub, note: b.caption!.note}));
   const eras = beats.filter((b) => b.era).map((b) => ({t: b.t[0], label: b.era!}));
   const callouts = beats.flatMap((b) => (b.callouts ?? []).map((c) => ({...c, t0: c.t0 ?? b.t[0], t1: c.t1 ?? b.t[1]})));
   const cameraKeys = [...(def.camera ?? []), ...beats.flatMap((b) => b.camera ?? [])].sort((a, b) => a[0] - b[0]);

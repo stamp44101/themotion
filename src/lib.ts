@@ -113,7 +113,9 @@ export const yearAt = (t: number) => {
   );
 };
 
-export type Caption = {t0: number; t1: number; title: string; sub: string};
+/** `note`: a small footnote line under the sub (Khon Kaen's 1976 find: ครบ 50 ปี in 2569). It may
+ *  name a year other than the counter's, so the caption-year hold check reads only the sub. */
+export type Caption = {t0: number; t1: number; title: string; sub: string; note?: string};
 
 export const CAPTIONS: Caption[] = [
   {t0: 3, t1: 9, title: 'ก่อนมีเมือง', sub: 'หุบเขาลุ่มน้ำปิง เชิงดอยสุเทพ ถิ่นฐานดั้งเดิมของชาวลัวะ'},
