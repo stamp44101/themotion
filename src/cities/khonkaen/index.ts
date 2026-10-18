@@ -34,7 +34,8 @@ export const KHONKAEN: CityConfig = {
     noMoat: true,
     noWall: true,
     // the north-eastern line from Korat, through Khon Kaen toward Udon (reached 1 Apr 1933)
-    rail: {axis: 'z', pos: RAIL_X, open: [1932.4, 1933.1], station: STATION, stationYear: 1932.6},
+    // the at-grade track is lifted when the double track goes up on its viaduct (2019, Landmarks)
+    rail: {axis: 'z', pos: RAIL_X, open: [1932.4, 1933.1], close: 2018.5, station: STATION, stationYear: 1932.6},
     trains: SOUND_EVENTS.trains.map((tr) => ({...tr, dir: tr.dir as 1 | -1})),
     city: {hx: 20, hz: 25, outline: TOWN, moat: [1797, 1797.1], wall: [1797, 1797.1], gates: [1797, 1797.1], groundFrom: 1797.1},
     gates: [],

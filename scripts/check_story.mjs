@@ -256,6 +256,12 @@ for (const city of cities) {
     const rail = layout.rail;
     const t = layout.tile;
     const rs = rail.span ?? (rail.axis === 'z' ? [t.z0, t.z1] : [t.x0, t.x1]);
+    // a lifted line carries no trains (rail.close)
+    if (rail.close !== undefined)
+      (layout.trains ?? []).forEach((tr, n) => {
+        const y = story.yearAt(tr.t0 + tr.dur);
+        if (y >= rail.close) err(`train ${n} (${tr.t0}s) still runs in ${y.toFixed(1)}, after rail.close ${rail.close}: the track is gone.`);
+      });
     layout.rivers.forEach((r, n) => {
       if (roads.isPathRiver(r)) {
         const step = 0.25;

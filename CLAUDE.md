@@ -207,6 +207,10 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   `layout.footprints`. Compare engine changes with `node scripts/ab_stills.mjs before|after|sheet`.
 - **A train that pulls in to a terminus parks** (`trains[].park`, seconds) instead of
   vanishing the moment its run ends.
+- **A line that is lifted or replaced closes** (`rail.close`, a year): Khon Kaen's at-grade
+  track went up on a viaduct in 2019 and would otherwise have stayed under it. Rails, sleepers
+  and rail bridges go; the corridor and station stay claimed. `check_story.mjs` fails a train
+  that still runs after the close.
 - **Modern sprawl builds over anything not marked open.** Korat's Wing 1 runway disappeared
   under towers once the city reached it. Put airfields, parks and plazas in
   `layout.openGround`; tree `clearings` do not keep buildings out.

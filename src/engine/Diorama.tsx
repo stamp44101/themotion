@@ -744,12 +744,16 @@ const railCrossings = (L: CityLayout) => {
   });
 };
 
+/** How much of the at-grade track stands: laid over `open`, lifted over 0.4 years from `close`. */
+const railBuilt = (rail: NonNullable<CityLayout['rail']>, Y: number) =>
+  ramp(Y, rail.open[0], rail.open[1]) * (rail.close === undefined ? 1 : 1 - ramp(Y, rail.close, rail.close + 0.4));
+
 const RailBridges: React.FC<P> = ({c}) => {
   const {Y} = useT(c);
   const L = c.layout;
   const {rail} = L;
   if (!rail) return null;
-  const railK = ramp(Y, rail.open[0], rail.open[1]);
+  const railK = railBuilt(rail, Y);
   if (railK <= 0) return null;
   const [start, end] = railSpan(L);
   const reach = start + (end - start) * railK;
@@ -841,7 +845,7 @@ const Infrastructure: React.FC<P> = ({c, w}) => {
   const L = c.layout;
   const {rail, tile} = L;
   const sleepers = useRef<THREE.InstancedMesh>(null);
-  const railK = rail ? ramp(Y, rail.open[0], rail.open[1]) : 0;
+  const railK = rail ? railBuilt(rail, Y) : 0;
   const span = rail ? railSpan(L) : [0, 0];
   const railLen = span[1] - span[0];
   const station = rail ? ramp(Y, rail.stationYear, rail.stationYear + 2) : 0;
