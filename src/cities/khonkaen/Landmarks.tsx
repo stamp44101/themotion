@@ -3,7 +3,7 @@ import {lathe} from '../../engine/parts';
 import type {LandmarkProps} from '../../engine/types';
 import {ramp, smooth} from '../../lib';
 import {caravanAt, HERO_AT, heroStupa, reservoirK, sauropodAt, tiersUp, truckAt} from './actors';
-import {DAM, KKU, LAKE_PATH, STUPA, THUNG_SANG} from './places';
+import {DAM, DIG, KKU, LAKE_PATH, STUPA, THUNG_SANG} from './places';
 import * as THREE from 'three';
 
 export {CENTRAL, DAM, KKU, LAKE, PHU_WIANG, STATION, STUPA, THUNG_SANG} from './places';
@@ -42,10 +42,14 @@ export const NineTier: React.FC<{tiers: number; night: number}> = ({tiers, night
 );
 
 // ------------------------------------------------------------------ Phuwiangosaurus
-const Sauropod: React.FC<{t: number; i: number; s: number; color: string; terrainH: LandmarkProps['terrainH']}> = ({t, i, s, color, terrainH}) => {
-  const {x, z, rot} = sauropodAt(i, t);
-  const step = Math.sin(t * 4 + i);
-  const m = <meshStandardMaterial color={color} flatShading roughness={0.9} />;
+const Sauropod: React.FC<{t: number; i: number; s: number; color: string; terrainH: LandmarkProps['terrainH']; at?: {x: number; z: number; rot: number}; ghost?: number}> = ({t, i, s, color, terrainH, at, ghost}) => {
+  const {x, z, rot} = at ?? sauropodAt(i, t);
+  const step = at ? 0 : Math.sin(t * 4 + i);
+  const m = ghost === undefined ? (
+    <meshStandardMaterial color={color} flatShading roughness={0.9} />
+  ) : (
+    <meshBasicMaterial color={color} transparent opacity={ghost} depthWrite={false} toneMapped={false} />
+  );
   return (
     <group position={[x, terrainH(x, z), z]} rotation-y={rot} scale={s}>
       <mesh position={[0, 2.1, 0]} scale={[2.2, 1.05, 1.15]} castShadow>
@@ -70,6 +74,71 @@ const Sauropod: React.FC<{t: number; i: number; s: number; color: string; terrai
           {m}
         </mesh>
       ))}
+    </group>
+  );
+};
+
+// ------------------------------------------------------------------ the 1976 find
+// The dig at ห้วยประตูตีหมา: a trench in the Sao Khua sandstone, the femur coming out of it
+// (drawn ~8x, like every actor that has to read), the survey team, and over the trench the
+// animal it came from, faint, as the opening showed it.
+const Dig: React.FC<{p: number; t: number; terrainH: LandmarkProps['terrainH']}> = ({p, t, terrainH}) => {
+  const [x, z] = DIG;
+  const y = terrainH(x, z);
+  const rise = smooth(ramp(p, 0.08, 0.45));
+  const crew = p > 0 && p < 1;
+  const ghost = 0.45 * smooth(ramp(p, 0.5, 0.78)) * (1 - smooth(ramp(p, 0.94, 1)));
+  return (
+    <group position={[x, y, z]} rotation-y={0.5}>
+      <mesh position={[0, 0.03, 0]} receiveShadow>
+        <boxGeometry args={[5.2, 0.06, 3.4]} />
+        <meshStandardMaterial color="#c79a62" roughness={1} />
+      </mesh>
+      <mesh position={[0, 0.05, 0]} receiveShadow>
+        <boxGeometry args={[4.2, 0.06, 2.4]} />
+        <meshStandardMaterial color="#8e6239" roughness={1} />
+      </mesh>
+      {/* the femur: shaft and its two knuckles, lifted out of the trench */}
+      <group position={[0, -0.5 + 0.9 * rise, 0]} rotation-z={0.12}>
+        <mesh rotation-z={Math.PI / 2} castShadow>
+          <cylinderGeometry args={[0.32, 0.38, 2.8, 10]} />
+          <meshStandardMaterial color="#efe4cc" roughness={0.7} />
+        </mesh>
+        {[-1.5, 1.5].map((dx) => (
+          <mesh key={dx} position={[dx, 0, 0]} scale={[0.75, 0.8, 0.95]} castShadow>
+            <icosahedronGeometry args={[0.7, 1]} />
+            <meshStandardMaterial color="#e8dcc0" roughness={0.7} flatShading />
+          </mesh>
+        ))}
+      </group>
+      {crew &&
+        [[-2.4, -1.2], [2.3, 1.1], [-0.6, 1.9]].map(([cx, cz], i) => (
+          <group key={i} position={[cx, 0, cz]} rotation-y={Math.atan2(-cx, -cz)}>
+            <mesh position={[0, 0.45 + 0.04 * Math.sin(t * 5 + i * 2), 0]} castShadow>
+              <capsuleGeometry args={[0.18, 0.5, 3, 8]} />
+              <meshStandardMaterial color={['#3f6aa0', '#c2683a', '#5b7a3a'][i]} />
+            </mesh>
+            <mesh position={[0, 0.98, 0]}>
+              <sphereGeometry args={[0.17, 10, 8]} />
+              <meshStandardMaterial color="#f2f0ea" />
+            </mesh>
+          </group>
+        ))}
+      {crew && (
+        <>
+          <mesh position={[3.6, 0.6, -1.6]} castShadow>
+            <coneGeometry args={[0.9, 1.2, 4]} />
+            <meshStandardMaterial color="#d8c48a" />
+          </mesh>
+          <mesh position={[-3.8, 0.45, 1.4]} rotation-y={0.3} castShadow>
+            <boxGeometry args={[1.5, 0.7, 0.85]} />
+            <meshStandardMaterial color="#5f6f45" />
+          </mesh>
+        </>
+      )}
+      {ghost > 0.01 && (
+        <Sauropod t={t} i={0} s={1.5} color="#ffd9a8" terrainH={() => 0} at={{x: 0, z: 0, rot: -0.5}} ghost={ghost} />
+      )}
     </group>
   );
 };
@@ -241,6 +310,7 @@ export const KhonKaenLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrain
         ) : null,
       )}
       <Lake />
+      {Y >= 1975.9 && <Dig p={beat('discovery')} t={t} terrainH={terrainH} />}
       <Dam k={reservoirK(Y)} built={damBuilt} />
       <Campus k={campus} />
     </>

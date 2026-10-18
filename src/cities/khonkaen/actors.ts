@@ -1,7 +1,7 @@
 // Pure position math for Khon Kaen's moving things (src/engine/actors.ts).
 import type {Actor, ActorCtx} from '../../engine/actors';
 import {lerp, ramp, smooth} from '../../lib';
-import {DAM, LAKE, mittraphapX, PHU_WIANG} from './places';
+import {DAM, DIG, LAKE, mittraphapX, PHU_WIANG} from './places';
 
 type P = [number, number];
 const along = (pts: P[], d: number) => {
@@ -61,6 +61,7 @@ export const ACTORS: Actor[] = [
     const s = sauropodAt(0, t);
     return [s.x, 3, s.z];
   }},
+  {id: 'bone', during: 'discovery', size: 2.4, at: () => [DIG[0], 1, DIG[1]]},
   {id: 'caravan', during: 'founding', size: 1.6, at: (t, ctx) => {
     const c = caravanAt(0, ctx);
     return c ? [c.x, 0.5, c.z] : null;

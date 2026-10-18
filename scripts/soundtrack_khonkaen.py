@@ -18,8 +18,8 @@ EV = tl.events
 Y = tl.YEAR
 music, amb, sfx = stereo(), stereo(), stereo()
 B = tl.beat
-dinos, founding, railway, mitt, dam, stupa, modern = (
-    B("dinos"), B("founding"), B("railway"), B("mittraphap"), B("dam"), B("stupa"), B("modern"))
+dinos, founding, railway, mitt, dig, stupa, modern = (
+    B("dinos"), B("founding"), B("railway"), B("mittraphap"), B("discovery"), B("stupa"), B("modern"))
 
 # ---------------------------------------------------------------- score (A minor pentatonic, 126 bpm)
 BEAT = 60 / 126
@@ -27,8 +27,8 @@ PENTA = [69, 72, 74, 76, 79, 81, 84, 86, 88, 91]
 Am, G, C, Em = [45, 52, 57], [43, 50, 55], [48, 55, 60], [40, 47, 52]
 
 add(music, pad([33, 40, 45], dinos[1] + 0.6, 700), 0.0, gain=0.6)
-for t0, t1, notes in ((dinos[1], railway[0] - 0.4, Am), (railway[0] - 0.4, dam[0] - 0.4, C),
-                      (dam[0] - 0.4, stupa[0] - 0.4, G), (stupa[0] - 0.4, modern[0] - 0.4, Am), (modern[0] - 0.4, DUR, [45, 57, 64, 69, 76])):
+for t0, t1, notes in ((dinos[1], railway[0] - 0.4, Am), (railway[0] - 0.4, dig[0] - 0.4, C),
+                      (dig[0] - 0.4, stupa[0] - 0.4, G), (stupa[0] - 0.4, modern[0] - 0.4, Am), (modern[0] - 0.4, DUR, [45, 57, 64, 69, 76])):
     # แคน: a reedy drone on the chord under each era
     add(music, khaen(notes, t1 - t0 + 0.6), t0, gain=0.32)
     for t in np.arange(t0 + 0.1, t1 - 0.2, BEAT):
@@ -88,15 +88,20 @@ while t < s1:
 add(sfx, steam_whistle(), s0 + 0.3, pan=-0.4)
 # 1956-57: the convoy on the new highway
 add(sfx, filt(noise(int((mitt[1] - mitt[0]) * SR)), "low", 160) * env_ar(int((mitt[1] - mitt[0]) * SR), 0.8, 1.0) * 0.4, mitt[0])
-# 1966: water rising behind the dam
-add(sfx, filt(noise(int((dam[1] - dam[0]) * SR)), "band", (300, 1800)) * env_ar(int((dam[1] - dam[0]) * SR), 1.0, 1.0) * 0.12, dam[0])
-add(sfx, splash(), dam[0] + 1.0, pan=0.2, gain=0.5)
+# 1976: picks and trowels in the sandstone at irregular gaps, then a low bell as the animal
+# appears over the trench
+t = dig[0] + 0.5
+while t < dig[0] + 0.5 * (dig[1] - dig[0]):
+    n = int(0.06 * SR)
+    add(sfx, filt(noise(n), "band", (1500, 4500)) * env_ar(n, 0.003, 0.05) * 0.5, t, pan=rng.uniform(-0.4, 0.4))
+    t += rng.uniform(0.28, 0.6)
+add(sfx, bell(196, 4.0), dig[0] + 0.55 * (dig[1] - dig[0]), gain=0.45)
 # 1996: the stupa's tiers going up, then a temple bell
 for i in range(10):
     add(sfx, drum(220 + i * 18, 140, 0.25, 0.5), stupa[0] + i * 0.8 * (stupa[1] - stupa[0]) / 10, pan=0.1, gain=0.45)
 add(sfx, bell(392, 3.0), stupa[0] + 0.82 * (stupa[1] - stupa[0]), gain=0.5)
 
-for et in (3.0, founding[0] - 0.2, railway[0] - 0.2, mitt[0] - 0.2, dam[0] - 0.2, stupa[0] - 0.2, modern[0] - 0.2):
+for et in (3.0, founding[0] - 0.2, railway[0] - 0.2, mitt[0] - 0.2, dig[0] - 0.2, stupa[0] - 0.2, modern[0] - 0.2):
     add(sfx, whoosh(1.1, 0.75), et - 0.75, pan=rng.uniform(-0.3, 0.3), gain=0.5)
 add(sfx, drum(70, 32, 2.5, 1.0), 0.1, gain=0.6)
 for i in range(16):

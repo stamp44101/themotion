@@ -2,7 +2,7 @@ import {GROUND} from '../../Scene';
 import type {CityConfig} from '../../engine/types';
 import {KhonKaenLandmarks} from './Landmarks';
 import {ACTORS, CARAVAN} from './actors';
-import {CENTRAL, DAM, KKU, LAKE_DISCS, mittraphapX, PHU_WIANG, RAIL_X, STATION, STUPA, THUNG_SANG, TOWN} from './places';
+import {CENTRAL, DAM, DIG, KKU, LAKE_DISCS, mittraphapX, PHU_WIANG, RAIL_X, STATION, STUPA, THUNG_SANG, TOWN} from './places';
 import {SOUND_EVENTS, STORY} from './timeline';
 
 // World origin = water centroid of บึงแก่นนคร, 80 m/unit, +x east, -z north. Pins from #46
@@ -70,6 +70,7 @@ export const KHONKAEN: CityConfig = {
       [DAM[0] - 4.8, DAM[1], 6],
       [DAM[0] + 2.4, DAM[1], 3],
       [KKU[0], KKU[1], 4.5],
+      [DIG[0], DIG[1], 5],
       [STATION[0], STATION[1], 1.8],
       ...LAKE_DISCS,
       [THUNG_SANG[0], THUNG_SANG[1], 3.3],
@@ -86,6 +87,8 @@ export const KHONKAEN: CityConfig = {
       {from: [mittraphapX(-11.5), -11.5], to: [12, -11.5], width: 1.1, year: 1940},
       {from: [CENTRAL[0] - 2, -48], to: [CENTRAL[0] - 2, -29.5], width: 1.1, year: 1966},
     ],
+    // the countryside out toward Phu Wiang stays country: the 1976 dig must not stand in a suburb
+    openGround: [{x0: -48, x1: -30, z0: -36, z1: -14}],
     ringRoadYear: 1e9,
     cars: [1960, 2026],
     boats: [1800, 1960],
