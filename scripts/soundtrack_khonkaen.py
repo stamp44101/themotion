@@ -19,7 +19,7 @@ Y = tl.YEAR
 music, amb, sfx = stereo(), stereo(), stereo()
 B = tl.beat
 dinos, founding, railway, mitt, dig, stupa, modern = (
-    B("dinos"), B("founding"), B("railway"), B("mittraphap"), B("discovery"), B("stupa"), B("modern"))
+    B("dinos"), B("founding"), B("railway"), B("mittraphap"), B("discovery"), B("stupa"), B("doubletrack"))
 
 # ---------------------------------------------------------------- score (A minor pentatonic, 126 bpm)
 BEAT = 60 / 126
@@ -96,6 +96,10 @@ while t < dig[0] + 0.5 * (dig[1] - dig[0]):
     add(sfx, filt(noise(n), "band", (1500, 4500)) * env_ar(n, 0.003, 0.05) * 0.5, t, pan=rng.uniform(-0.4, 0.4))
     t += rng.uniform(0.28, 0.6)
 add(sfx, bell(196, 4.0), dig[0] + 0.55 * (dig[1] - dig[0]), gain=0.45)
+# 2019: the train on the viaduct, a long low hum rising as it comes in, and a horn
+n = int((modern[1] - modern[0]) * 0.75 * SR)
+add(sfx, filt(noise(n), "low", 220) * env_ar(n, 2.0, 1.2) * 0.35, modern[0] + 0.2, pan=0.2)
+add(sfx, filt(pi_reed(57, 1.0), "low", 1400) * 0.4, modern[0] + 0.5 * (modern[1] - modern[0]), pan=0.1, gain=0.5)
 # 1996: the stupa's tiers going up, then a temple bell
 for i in range(10):
     add(sfx, drum(220 + i * 18, 140, 0.25, 0.5), stupa[0] + i * 0.8 * (stupa[1] - stupa[0]) / 10, pan=0.1, gain=0.45)

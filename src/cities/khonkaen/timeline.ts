@@ -2,7 +2,7 @@
 // (src/engine/story.ts); dates and wording from docs/briefs/khonkaen.md §3. 60 s: Nakhon Si's
 // 75 s lost viewers in its finale (docs/experiments.md).
 import {buildStory} from '../../engine/story';
-import {DIG, KKU, LAKE, PHU_WIANG, STATION, STUPA} from './places';
+import {DIG, LAKE, PHU_WIANG, RAIL_X, STATION, STUPA} from './places';
 
 export const STORY = buildStory({
   duration: 60,
@@ -96,16 +96,18 @@ export const STORY = buildStory({
       ],
     },
     {
-      // the boom: towers go up and the city spreads to its real extent; university town,
-      // crossroads of the north-east
-      id: 'modern',
-      t: [47.6, 56],
-      year: [1997, 2026],
-      caption: {t0: 47.4, title: 'ขอนแก่นวันนี้', sub: 'เมืองมหาวิทยาลัย และศูนย์กลางการเดินทางของภาคอีสาน'},
-      callouts: [{t0: 50, t1: 53.6, label: 'มหาวิทยาลัยขอนแก่น', dx: 80, dy: -120, p: [KKU[0], 1.5, KKU[1]]}],
+      // 13 March 2019: the double track reaches Khon Kaen on a 5.4 km viaduct through town, with
+      // the north-east's first elevated station -- the 1933 line's answer, 86 years on. The
+      // counter holds here and only runs on to today under the finale's pull-out.
+      id: 'doubletrack',
+      t: [47.2, 55.6],
+      year: {hold: 2019},
+      caption: {t0: 47, title: 'รถไฟทางคู่ถึงขอนแก่น', sub: 'พ.ศ. 2562 สถานีรถไฟยกระดับแห่งแรกของภาคอีสาน'},
+      callouts: [{t0: 52.4, t1: 55.4, label: 'สถานีขอนแก่น', dx: 90, dy: -130, p: [RAIL_X, 2.8, STATION[1]]}],
       camera: [
-        [48, -6, 1, -20, 110, 512, 36, 30],
-        [53.6, -6, 1, -26, 130, 532, 37, 30],
+        [47.6, RAIL_X, 2, 22, 46, 506, 34, 30],
+        [51.6, RAIL_X, 2, -5, 56, 518, 36, 30],
+        [55.4, RAIL_X, 2, -14, 66, 530, 38, 30],
       ],
     },
   ],

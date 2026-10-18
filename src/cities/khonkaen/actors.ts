@@ -1,7 +1,7 @@
 // Pure position math for Khon Kaen's moving things (src/engine/actors.ts).
 import type {Actor, ActorCtx} from '../../engine/actors';
 import {lerp, ramp, smooth} from '../../lib';
-import {DAM, DIG, LAKE, mittraphapX, PHU_WIANG} from './places';
+import {DAM, DIG, LAKE, mittraphapX, PHU_WIANG, RAIL_X, STATION} from './places';
 
 type P = [number, number];
 const along = (pts: P[], d: number) => {
@@ -50,6 +50,14 @@ export const truckAt = (i: number, {beat}: ActorCtx) => {
   return {x: mittraphapX(z) + 0.3, z, rot: Math.PI - 0.155};
 };
 
+// 2019: an SRT train comes up the new viaduct from the south and pulls in to the elevated station
+export const VIADUCT = {x: RAIL_X, y: 1.7, z0: 48, z1: -48};
+export const dtrainAt = ({beat}: ActorCtx) => {
+  const p = beat('doubletrack');
+  if (p <= 0 || p >= 1) return null;
+  return {x: VIADUCT.x, z: lerp(36, STATION[1] + 3, smooth(ramp(p, 0, 0.72)))};
+};
+
 // 1964-66: the reservoir behind Ubolratana fills
 export const reservoirK = (Y: number) => smooth(ramp(Y, 1964.9, 1966.1));
 
@@ -63,6 +71,10 @@ export const ACTORS: Actor[] = [
     return [s.x, 3, s.z];
   }},
   {id: 'bone', during: 'discovery', size: 2.4, at: () => [DIG[0], 1, DIG[1]]},
+  {id: 'dtrain', during: 'doubletrack', size: 2.4, at: (t, ctx) => {
+    const c = dtrainAt(ctx);
+    return c ? [c.x, VIADUCT.y + 0.6, c.z] : null;
+  }},
   {id: 'caravan', during: 'founding', size: 1.6, at: (t, ctx) => {
     const c = caravanAt(0, ctx);
     return c ? [c.x, 0.5, c.z] : null;

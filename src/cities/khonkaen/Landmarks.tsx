@@ -2,8 +2,8 @@ import React from 'react';
 import {lathe} from '../../engine/parts';
 import type {LandmarkProps} from '../../engine/types';
 import {ramp, smooth} from '../../lib';
-import {caravanAt, HERO_AT, heroStupa, reservoirK, sauropodAt, tiersUp, truckAt} from './actors';
-import {DAM, DIG, KKU, LAKE_PATH, STUPA, THUNG_SANG} from './places';
+import {caravanAt, dtrainAt, HERO_AT, heroStupa, reservoirK, sauropodAt, tiersUp, truckAt, VIADUCT} from './actors';
+import {DAM, DIG, KKU, LAKE_PATH, STATION, STUPA, THUNG_SANG} from './places';
 import * as THREE from 'three';
 
 export {CENTRAL, DAM, KKU, LAKE, PHU_WIANG, STATION, STUPA, THUNG_SANG} from './places';
@@ -235,6 +235,45 @@ const Dam: React.FC<{k: number; built: number}> = ({k, built}) => {
   );
 };
 
+// ------------------------------------------------------------------ the 2019 viaduct
+// The double track rides a 5.4 km viaduct through town (5 level crossings gone), 14 m up, with
+// the elevated station on it; drawn as tall as the engine's buildings are, not to scale.
+const Viaduct: React.FC<{k: number; train: {x: number; z: number} | null}> = ({k, train}) => {
+  const {x, y, z0, z1} = VIADUCT;
+  const len = z0 - z1;
+  const piers = Array.from({length: Math.floor(len / 4)}, (_, i) => z1 + 2 + i * 4);
+  return (
+    <group scale={[1, k, 1]}>
+      <mesh position={[x, y, (z0 + z1) / 2]} castShadow receiveShadow>
+        <boxGeometry args={[1.5, 0.3, len]} />
+        <meshStandardMaterial color="#d9d6cf" roughness={0.85} />
+      </mesh>
+      {piers.map((pz) => (
+        <mesh key={pz} position={[x, y / 2, pz]} castShadow>
+          <boxGeometry args={[0.35, y, 0.35]} />
+          <meshStandardMaterial color="#c9c5bc" />
+        </mesh>
+      ))}
+      {/* the elevated station: two storeys on the deck, a long pale roof */}
+      <mesh position={[x, y + 0.75, STATION[1]]} castShadow receiveShadow>
+        <boxGeometry args={[3.2, 1.2, 7]} />
+        <meshStandardMaterial color="#eef1f3" roughness={0.6} />
+      </mesh>
+      <mesh position={[x, y + 1.45, STATION[1]]} castShadow>
+        <boxGeometry args={[3.8, 0.18, 7.8]} />
+        <meshStandardMaterial color="#9fb4c4" roughness={0.4} metalness={0.3} />
+      </mesh>
+      {train &&
+        [0, 1, 2, 3].map((i) => (
+          <mesh key={i} position={[train.x + 0.25, y + 0.55, train.z + i * 2.1]} castShadow>
+            <boxGeometry args={[0.6, 0.6, 1.95]} />
+            <meshStandardMaterial color={i === 0 ? '#2f5d9e' : '#f2f2f0'} />
+          </mesh>
+        ))}
+    </group>
+  );
+};
+
 // ------------------------------------------------------------------ KKU
 const Campus: React.FC<{k: number}> = ({k}) =>
   k < 0.02 ? null : (
@@ -310,6 +349,7 @@ export const KhonKaenLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrain
         ) : null,
       )}
       <Lake />
+      {Y >= 2016 && <Viaduct k={smooth(ramp(Y, 2016, 2019))} train={dtrainAt(ctx)} />}
       {Y >= 1975.9 && <Dig p={beat('discovery')} t={t} terrainH={terrainH} />}
       <Dam k={reservoirK(Y)} built={damBuilt} />
       <Campus k={campus} />
