@@ -489,21 +489,19 @@ def _level(x, target_db, ratio=2.5, tau=1.5, max_db=3.0):
 
 
 def _limit(x, ceiling=0.89, look=0.005, release=0.2):
-    from scipy.ndimage import maximum_filter1d, minimum_filter1d
+    """Look-ahead limiter whose gain never steps: the gain each peak needs is spread over the
+    look-ahead by a minimum filter then a box average (so it has fully arrived by the peak and
+    ramps in over `look` s), and recovers over `release` s. A gain that drops in one sample is a
+    click; the first version did that on every limited peak."""
+    from scipy.ndimage import minimum_filter1d, uniform_filter1d
     from scipy.signal import lfilter
 
-    w = int(look * SR) * 2 + 1
-    peak = maximum_filter1d(np.abs(x).max(axis=1), w)
-    g = np.minimum(1, ceiling / (peak + 1e-9))
-    g = minimum_filter1d(g, w)
+    L = max(2, int(look * SR))
+    need = np.minimum(1, ceiling / (np.abs(x).max(axis=1) + 1e-9))
+    g = uniform_filter1d(minimum_filter1d(need, 2 * L + 1), L + 1)
     a = np.exp(-1 / (release * SR))
-    smooth = lfilter([1 - a], [1, -a], g)
-    # the gain falls as fast as the look-ahead needs and recovers at `release`
-    return x * np.minimum(g, smooth)[:, None]
-
-
-def _to_rms(x, db):
-    return x * 10 ** (db / 20) / (np.sqrt((x ** 2).mean()) + 1e-12)
+    rec = lfilter([1 - a], [1, -a], g)
+    return x * np.minimum(g, rec)[:, None]
 
 
 def master2(path, music, amb, sfx, music_room=0.14, target_rms_db=-15.0):
@@ -610,10 +608,16 @@ def phin(m, dur=0.9, pos=0.18, bright=0.996, seed=None):
     return (s + body) * np.minimum(1, t / 0.002) * 0.35
 
 
-def _seg(out, s, sig):
-    """Add `sig` into mono `out` at sample s, clipped to the buffer."""
+def _seg(out, s, sig, fade=0.012):
+    """Add `sig` into mono `out` at sample s, clipped to the buffer. The last `fade` s ramp to
+    zero: a sound cut off while still ringing is a step in the waveform, and a step is a click
+    (the sauropod steps, cut at 1.2 s, clicked on every footfall)."""
     if s >= len(out) or s + len(sig) <= 0:
         return
+    k = min(len(sig), int(fade * SR))
+    if k > 1:
+        sig = sig.copy()
+        sig[-k:] *= np.linspace(1, 0, k)
     if s < 0:
         sig, s = sig[-s:], 0
     out[s : s + len(sig)] += sig[: len(out) - s]
@@ -629,6 +633,33 @@ def _decay(n, tau, attack=0.002):
     return np.exp(-t / tau) * np.minimum(1, t / max(attack, 1e-4))
 
 
+def boom(dur=1.6, f0=110.0, f1=55.0):
+    """The opening hit: a pitch-dropping sine with a 4 ms attack and no noise click, pitched where
+    a phone speaker can play it. Mono."""
+    n = int(dur * SR)
+    t = np.arange(n) / SR
+    f = f1 + (f0 - f1) * np.exp(-t / 0.09)
+    x = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t / 0.45) * np.minimum(1, t / 0.004)
+    x += np.sin(2 * np.pi * np.cumsum(2 * f) / SR) * np.exp(-t / 0.2) * 0.25  # an octave of body
+    x[-int(0.02 * SR):] *= np.linspace(1, 0, int(0.02 * SR))
+    return x * 0.8
+
+
+def sauropod_call(dur=2.2, f0=95.0):
+    """A low, hollow call for the sauropods: a breathy harmonic tone falling 95 -> 70 Hz through
+    two soft formants, slow attack and release. Replaces roar(), whose 23 Hz wobble and rasp noise
+    sounded like a speaker breaking. Mono."""
+    n = int(dur * SR)
+    t = np.arange(n) / SR
+    f = f0 * (1 - 0.26 * t / dur) * (1 + 0.012 * np.sin(2 * np.pi * 4.5 * t))
+    ph = 2 * np.pi * np.cumsum(f) / SR
+    tone = sum(np.sin(k * ph) / k ** 1.3 for k in range(1, 16))
+    body = filt(tone, "band", (140, 420)) + 0.45 * filt(tone, "band", (600, 1100))
+    breath = filt(noise(n), "band", (200, 900)) * 0.06
+    env = np.clip(t / 0.35, 0, 1) * np.clip((dur - t) / 0.6, 0, 1)
+    return (body + breath) * env * 0.5
+
+
 def giant_steps(dur=4.5, interval=0.95, seed=21):
     """A sauropod walking: each footfall a sub-bass thud that bends down, a rumble through the
     ground, and grit and twigs scattering. Two feet, alternately heavier. Mono."""
@@ -637,7 +668,7 @@ def giant_steps(dur=4.5, interval=0.95, seed=21):
     t = 0.1
     k = 0
     while t < dur - 0.3:
-        n = int(1.2 * SR)
+        n = int(2.0 * SR)  # long enough for the rumble to die away before the fade
         tt = np.arange(n) / SR
         f = 48 + 24 * np.exp(-tt / 0.06)  # 72 -> 48 Hz: felt on a phone, not lost below it
         thud = np.sin(2 * np.pi * np.cumsum(f) / SR) * _decay(n, 0.28, 0.006)

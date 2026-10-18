@@ -115,8 +115,14 @@ while t < modern[0]:
     if tl.NIGHT[i] < 0.2:
         add(amb, chirp_bird(), t, pan=rng.uniform(-0.8, 0.8), gain=0.8 if Y[i] < 1950 else 0.3)
     t += rng.exponential(0.5)
-car = np.sin(2 * np.pi * 4600 * T) * (np.sin(2 * np.pi * 28 * T) > 0.2)
-gate = filt((np.sin(2 * np.pi * 1.7 * T) > 0.1).astype(float), "low", 40)
+if V2:
+    # a 4.6 kHz tone chopped by a hard 28 Hz square clicks on every edge: a chain of clicks that
+    # sounds like a speaker breaking. v2 shapes each chirp pulse smoothly instead.
+    car = np.sin(2 * np.pi * (4600 + 60 * np.sin(2 * np.pi * 0.3 * T)) * T) * (0.5 + 0.5 * np.sin(2 * np.pi * 28 * T)) ** 4
+    gate = filt((np.sin(2 * np.pi * 1.7 * T) > 0.1).astype(float), "low", 12)
+else:
+    car = np.sin(2 * np.pi * 4600 * T) * (np.sin(2 * np.pi * 28 * T) > 0.2)
+    gate = filt((np.sin(2 * np.pi * 1.7 * T) > 0.1).astype(float), "low", 40)
 crickets = car * gate * np.clip((tl.NIGHT - 0.25) / 0.35, 0, 1) * 0.025
 add(amb, crickets, 0, pan=-0.5)
 add(amb, np.roll(crickets, int(0.37 * SR)) * 0.8, 0, pan=0.6)
@@ -130,7 +136,10 @@ if V2:
 else:
     for t in np.arange(dinos[0] + 3.4, dinos[1], 0.9):
         fx(drum(60, 30, 0.6, 0.9), t, pan=-0.3, gain=0.5)
-fx(roar(2.0, 70.0), dinos[0] + 4.8, pan=-0.3, gain=0.5)
+if V2:
+    fx(sauropod_call(), dinos[0] + 4.8, pan=-0.3, gain=0.45, dist=0.45)
+else:
+    fx(roar(2.0, 70.0), dinos[0] + 4.8, pan=-0.3, gain=0.5)
 # Recorded/generated SFX (public/sfx/, ElevenLabs) replace the synthesized one for a beat when
 # the file is there; without it the script falls back to the synth, so it always runs.
 S = {k: sample(k) for k in ("sauropod_steps", "ox_carts", "steam_train", "convoy_trucks", "dig_sandstone", "train_viaduct", "fireworks_city")}
@@ -201,7 +210,7 @@ for et in (3.0, founding[0] - 0.2, railway[0] - 0.2, mitt[0] - 0.2, dig[0] - 0.2
     add(sfx, whoosh(1.1, 0.75), et - 0.75, pan=rng.uniform(-0.3, 0.3), gain=0.36 if V2 else 0.5)
 if V2:
     # the opening boom pitched where a phone speaker can play it (the 32-70 Hz one distorted)
-    add(sfx, drum(110, 55, 1.6, 1.0), 0.1, gain=0.5)
+    add(sfx, boom(), 0.1, gain=0.5)
 else:
     add(sfx, drum(70, 32, 2.5, 1.0), 0.1, gain=0.6)
 if S["fireworks_city"] is not None:
