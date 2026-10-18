@@ -362,9 +362,17 @@ so the only thing that matters is giving its encoder a clean, high-bitrate,
 correctly-tagged source. Upload from the web rather than the phone app, which
 compresses before it ever reaches them.
 
-Keep three copies and do not confuse them: `out/<city>.mp4` is the master,
-`renders/<city>.mp4` is the shareable copy (<100 MB), and the chat preview is
-heavily squeezed (~1.8 Mbps) and is **not** an upload file.
+Keep the copies straight: `out/<city>.mp4` is the master,
+`renders/<city>.mp4` is the shareable copy (<100 MB), `out/<city>_tiktok.mp4`
+is the TikTok upload, `out/<city>_ig.mp4` is the Instagram and Facebook upload,
+and the chat preview is heavily squeezed (~1.8 Mbps) and is **not** an upload
+file. `scripts/encode.mjs` builds all of them from the master in one pass.
+
+**Instagram needs its own file; the TikTok one will not post.** TikTok takes a
+heavy source and re-encodes it, so ~17 Mbps costs nothing there. Instagram
+expects around 5 Mbps for a reel, and a file several times that gets stuck on
+"processing" and is then dropped without an error. The IG copy is the same
+picture, colour tags and frame rate at ~7.5 Mbps, `high@4.0`, AAC 192k.
 
 ## Where the videos live
 

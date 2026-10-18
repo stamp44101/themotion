@@ -1,11 +1,18 @@
-// Turns the master render into the two files that leave the machine, then checks them.
+// Turns the master render into the three files that leave the machine, then checks them.
 // Usage: node scripts/encode.mjs <city>        (reads out/<city>.mp4)
 //
 //   renders/<city>.mp4     shareable copy, under 100 MB (gitignored; goes on the release)
-//   out/<city>_tiktok.mp4  upload copy, ~17 Mbps -- never commit it
+//   out/<city>_tiktok.mp4  TikTok upload copy, ~17 Mbps -- never commit it
+//   out/<city>_ig.mp4      Instagram/Facebook upload copy, ~7.5 Mbps -- never commit it
 //
-// Both are converted from Remotion's full-range/PAL-matrix output to the
+// All three are converted from Remotion's full-range/PAL-matrix output to the
 // limited-range bt709 that players and TikTok assume (see CLAUDE.md).
+//
+// Why Instagram gets its own file: TikTok accepts a heavy source and re-encodes it, so feeding it
+// ~17 Mbps is free quality. Instagram expects around 5 Mbps for a reel and reacts to a file several
+// times that by sitting on "processing" and then silently dropping the post -- no error to read.
+// The IG copy keeps the same picture, colour tags and frame rate, and only lowers the bitrate (and
+// the level, to 4.0, which is what older IG clients accept).
 import './node_guard.mjs';
 import fs from 'node:fs';
 import {checkRender} from './check_render.mjs';
@@ -32,6 +39,12 @@ ffmpeg(['-i', master, ...VF, '-c:v', 'libx264', '-preset', 'slow', '-crf', '17',
   '-x264-params', 'keyint=60:min-keyint=30:colorprim=bt709:transfer=bt709:colormatrix=bt709:range=tv',
   '-movflags', '+faststart', '-c:a', 'aac', '-b:a', '320k', '-ar', '48000', `out/${city}_tiktok.mp4`]);
 
-const ok = [master, `renders/${city}.mp4`, `out/${city}_tiktok.mp4`].map(checkRender).every(Boolean);
+console.log(`encoding out/${city}_ig.mp4 (Instagram/Facebook copy) ...`);
+ffmpeg(['-i', master, ...VF, '-c:v', 'libx264', '-preset', 'slow', '-crf', '21', '-maxrate', '8M', '-bufsize', '16M',
+  '-profile:v', 'high', '-level', '4.0', ...TAGS,
+  '-x264-params', 'keyint=60:min-keyint=30:colorprim=bt709:transfer=bt709:colormatrix=bt709:range=tv',
+  '-movflags', '+faststart', '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-ac', '2', `out/${city}_ig.mp4`]);
+
+const ok = [master, `renders/${city}.mp4`, `out/${city}_tiktok.mp4`, `out/${city}_ig.mp4`].map(checkRender).every(Boolean);
 console.log(ok ? '\nall checks passed' : '\nchecks FAILED -- do not post or commit this render');
 process.exit(ok ? 0 : 1);
