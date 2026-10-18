@@ -517,6 +517,8 @@ def master2(path, music, amb, sfx, music_room=0.14, target_rms_db=-15.0):
     mix = music * 0.85 + room(music, "open", seed=5) * music_room + amb + sfx
     # phones cannot play below ~50 Hz; energy there only drives the limiter and flaps the speaker
     mix = filt(mix, "high", 45)
+    # a broad ~4 dB dip at 2.5-5 kHz, where the ear (and a phone speaker) is harshest
+    mix = mix - 0.38 * filt(mix, "band", (2500, 5000))
     mix = _to_rms(mix, target_rms_db)
     mix = _level(mix, target_rms_db)
     mix = _to_rms(mix, target_rms_db)
@@ -586,7 +588,7 @@ def steam_train(dur=4.5, rev0=2.2, stop_at=0.8, whistle_at=0.25, seed=7):
     return out
 
 
-def phin(m, dur=0.9, pos=0.18, bright=0.996, seed=None):
+def phin(m, dur=0.9, pos=0.18, bright=0.993, tone=3000.0, seed=None):
     """พิณ as a Karplus-Strong string (docs/sound.md phase 3): a noise pluck at `pos` along the
     string, loss per round trip, and two body resonances. Computed a period at a time at 4x the
     sample rate, so the tuning is within a few cents. Mono."""
@@ -609,7 +611,9 @@ def phin(m, dur=0.9, pos=0.18, bright=0.996, seed=None):
     s = resample_poly(y[1 : n + 1], 1, os)
     t = np.arange(len(s)) / SR
     body = filt(s, "band", (180, 260)) * 1.2 + filt(s, "band", (420, 520)) * 0.7
-    return (s + body) * np.minimum(1, t / 0.002) * 0.35
+    # `tone` rolls off the top: a bright metal string held through a melody was ear-fatiguing
+    # (owner: "แสบหู" in the last third), and phone speakers exaggerate 2-6 kHz
+    return filt(s + body, "low", tone) * np.minimum(1, t / 0.002) * 0.35
 
 
 def _seg(out, s, sig, fade=0.012):
@@ -809,14 +813,14 @@ def diesel_train(dur=6.0, stop_at=0.85, horn_at=0.35, seed=61):
     u = np.clip(t / (dur * stop_at), 0, 1)
     v = (1 - u) ** 1.2
     out = engine(dur, 700 + 1100 * v, cyl=12, seed=seed) * 0.5
-    out += np.sin(2 * np.pi * np.cumsum(1500 + 1400 * v) / SR) * 0.015 * v  # turbo
-    out += filt(r.standard_normal(n), "band", (400, 2200)) * 0.12 * v ** 1.5  # wheel roar
+    out += np.sin(2 * np.pi * np.cumsum(1200 + 900 * v) / SR) * 0.005 * v  # turbo, kept low: a pure whine is piercing
+    out += filt(r.standard_normal(n), "band", (300, 1500)) * 0.12 * v ** 1.5  # wheel roar
     out += filt(r.standard_normal(n), "high", 3500) * 0.02 * np.exp(-np.maximum(0, t - dur * stop_at) / 0.35) * (t > dur * stop_at * 0.9)
     h0, hd = int(horn_at * dur * SR), 1.1
     hn = int(hd * SR)
     th = np.arange(hn) / SR
     horn = sum(np.sign(np.sin(2 * np.pi * f * th)) for f in (311.0, 370.0))
-    horn = filt(horn, "low", 1800) * np.minimum(1, th / 0.04) * np.clip((hd - th) / 0.15, 0, 1)
+    horn = filt(horn, "low", 1200) * np.minimum(1, th / 0.04) * np.clip((hd - th) / 0.15, 0, 1)
     _seg(out, h0, horn * 0.12)
     return _norm(out)
 

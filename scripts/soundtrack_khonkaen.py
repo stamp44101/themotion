@@ -100,8 +100,9 @@ def phin_line(t0, t1, amp, low=0, high=len(PENTA) - 1, seed=0):
 
 if V2:
     phin_line(founding[0], founding[1], 0.34 if PHIN_KS else 0.28, seed=3)
-    phin_line(stupa[0], stupa[1], 0.36 if PHIN_KS else 0.3, low=2, seed=5)
-    phin_line(modern[0], DUR - 2.5, 0.34 if PHIN_KS else 0.28, low=3, seed=7)
+    # the later lines stay in the middle of the range (high=7): up top the พิณ grew piercing
+    phin_line(stupa[0], stupa[1], 0.34 if PHIN_KS else 0.3, low=1, high=7, seed=5)
+    phin_line(modern[0], DUR - 2.5, 0.32 if PHIN_KS else 0.28, low=1, high=7, seed=7)
 else:
     ponglang(founding[0], founding[1], BEAT / 2, 0.26)
     ponglang(stupa[0], stupa[1], BEAT / 2, 0.28, low=2)
