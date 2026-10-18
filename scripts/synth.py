@@ -664,37 +664,37 @@ def boom(dur=1.6, f0=110.0, f1=55.0):
     return x * 0.8
 
 
-def sauropod_call(dur=2.2, f0=95.0):
-    """A low, hollow call for the sauropods: a breathy harmonic tone falling 95 -> 70 Hz through
-    two soft formants, slow attack and release. Replaces roar(), whose 23 Hz wobble and rasp noise
-    sounded like a speaker breaking. Mono."""
+def sauropod_call(dur=2.2, f0=110.0):
+    """A low, hollow call for the sauropods: a near-sine tone falling 110 -> 85 Hz with only a few
+    soft harmonics and a slow swell. The first two calls (roar(), then a 15-harmonic version)
+    were buzzy low tones, which on a phone read as a speaker breaking. Mono."""
     n = int(dur * SR)
     t = np.arange(n) / SR
-    f = f0 * (1 - 0.26 * t / dur) * (1 + 0.012 * np.sin(2 * np.pi * 4.5 * t))
+    f = f0 * (1 - 0.23 * t / dur) * (1 + 0.01 * np.sin(2 * np.pi * 4.0 * t))
     ph = 2 * np.pi * np.cumsum(f) / SR
-    tone = sum(np.sin(k * ph) / k ** 1.3 for k in range(1, 16))
-    body = filt(tone, "band", (140, 420)) + 0.45 * filt(tone, "band", (600, 1100))
-    breath = filt(noise(n), "band", (200, 900)) * 0.06
-    env = np.clip(t / 0.35, 0, 1) * np.clip((dur - t) / 0.6, 0, 1)
-    return (body + breath) * env * 0.5
+    tone = np.sin(ph) + 0.35 * np.sin(2 * ph) + 0.12 * np.sin(3 * ph) + 0.05 * np.sin(4 * ph)
+    env = np.clip(t / 0.4, 0, 1) ** 2 * np.clip((dur - t) / 0.7, 0, 1)
+    return tone * env * 0.45
 
 
 def giant_steps(dur=4.5, interval=0.95, seed=21):
-    """A sauropod walking: each footfall a sub-bass thud that bends down, a rumble through the
-    ground, and grit and twigs scattering. Two feet, alternately heavier. Mono."""
+    """A sauropod walking, as clean thumps a phone can play: a short pitch-dropping sine
+    (90 -> 55 Hz) for weight, a 30 ms low-passed earth impact for the hit, a few grains of grit.
+    The first version carried a 0.4 s band of 60-220 Hz noise for the ground shaking: band-limited
+    low noise is exactly the sound of a rattling speaker cone, and the owner heard it from 4 s. Mono."""
     r = np.random.default_rng(seed)
     out = np.zeros(int(dur * SR))
     t = 0.1
     k = 0
     while t < dur - 0.3:
-        n = int(2.0 * SR)  # long enough for the rumble to die away before the fade
+        n = int(0.6 * SR)
         tt = np.arange(n) / SR
-        f = 48 + 24 * np.exp(-tt / 0.06)  # 72 -> 48 Hz: felt on a phone, not lost below it
-        thud = np.sin(2 * np.pi * np.cumsum(f) / SR) * _decay(n, 0.28, 0.006)
-        rumble = filt(r.standard_normal(n), "band", (60, 220)) * _decay(n, 0.35, 0.02) * 0.45
-        grit = filt(r.standard_normal(n) * (r.random(n) < 0.0012), "band", (1500, 5000)) * _decay(n, 0.12) * 1.2
+        f = 55 + 35 * np.exp(-tt / 0.04)
+        thud = np.sin(2 * np.pi * np.cumsum(f) / SR) * _decay(n, 0.12, 0.004)
+        hit = filt(r.standard_normal(n), "low", 380) * _decay(n, 0.03, 0.002) * 0.5
+        grit = filt(r.standard_normal(n) * (r.random(n) < 0.0008), "band", (1500, 4500)) * _decay(n, 0.1) * 0.8
         g = (1.0 if k % 2 == 0 else 0.75) * r.uniform(0.9, 1.1)
-        _seg(out, int(t * SR), (thud + rumble + grit) * g)
+        _seg(out, int(t * SR), (thud + hit + grit) * g)
         t += interval * r.uniform(0.93, 1.07)
         k += 1
     return _norm(out)
