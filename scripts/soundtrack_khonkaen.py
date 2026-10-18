@@ -21,7 +21,7 @@ music, amb, sfx = stereo(), stereo(), stereo()
 V2 = os.environ.get("SOUND_V2") == "1"
 
 
-def fx(sig, t0, pan=0.0, gain=1.0, dist=0.35, size="open"):
+def fx(sig, t0, pan=0.0, gain=1.0, dist=0.35, size="outdoor"):
     """An on-screen sound: v1 mixes it dry and panned; v2 places it at a distance in a room."""
     if V2:
         add(sfx, place(sig * gain, dist, pan, size), t0)
@@ -43,12 +43,10 @@ for t0, t1, notes in ((dinos[1], railway[0] - 0.4, Am), (railway[0] - 0.4, dig[0
     add(music, khaen(notes, t1 - t0 + 0.6), t0, gain=0.32)
     for t in np.arange(t0 + 0.1, t1 - 0.2, BEAT):
         # พิณ: a bright pluck on the beat, the fifth on the off-beat
-        if V2:
-            add(music, phin(notes[1] + 12, 0.7), t, pan=-0.2, gain=0.42)
-            add(music, phin(notes[2] + 12, 0.5, pos=0.3), t + BEAT / 2, pan=0.2, gain=0.24)
-        else:
-            add(music, pluck(notes[1] + 12, 0.6, 0.7), t, pan=-0.2, gain=0.3)
-            add(music, pluck(notes[2] + 12, 0.45, 0.6), t + BEAT / 2, pan=0.2, gain=0.18)
+        # the score keeps its stylized pluck in v2 too (owner, A/B: a too-real พิณ may not suit the
+        # diorama, and every posted city uses this one); phin() stays in synth.py as an option
+        add(music, pluck(notes[1] + 12, 0.6, 0.7), t, pan=-0.2, gain=0.3)
+        add(music, pluck(notes[2] + 12, 0.45, 0.6), t + BEAT / 2, pan=0.2, gain=0.18)
 
 
 def ponglang(t0, t1, step, amp, low=0, high=len(PENTA) - 1, start=4):
@@ -131,7 +129,7 @@ else:
         n = int(0.06 * SR)
         fx(filt(noise(n), "band", (1500, 4500)) * env_ar(n, 0.003, 0.05) * 0.5, t, pan=rng.uniform(-0.4, 0.4))
         t += rng.uniform(0.28, 0.6)
-fx(bell(196, 4.0), dig[0] + 0.55 * (dig[1] - dig[0]), gain=0.45, dist=0.5, size="hall")
+fx(bell(196, 4.0), dig[0] + 0.55 * (dig[1] - dig[0]), gain=0.45, dist=0.5, size="open")
 # 2019: the train on the viaduct, a long low hum rising as it comes in, and a horn
 if S["train_viaduct"] is not None:
     fx(S["train_viaduct"], modern[0] + 0.3, gain=0.65)
@@ -142,7 +140,7 @@ else:
 # 1996: the stupa's tiers going up, then a temple bell
 for i in range(10):
     fx(drum(220 + i * 18, 140, 0.25, 0.5), stupa[0] + i * 0.55 * (stupa[1] - stupa[0]) / 10, pan=0.1, gain=0.45)
-fx(bell(392, 3.0), stupa[0] + 0.58 * (stupa[1] - stupa[0]), gain=0.5, dist=0.3, size="hall")
+fx(bell(392, 3.0), stupa[0] + 0.58 * (stupa[1] - stupa[0]), gain=0.5, dist=0.3, size="open")
 
 for et in (3.0, founding[0] - 0.2, railway[0] - 0.2, mitt[0] - 0.2, dig[0] - 0.2, stupa[0] - 0.2, modern[0] - 0.2):
     add(sfx, whoosh(1.1, 0.75), et - 0.75, pan=rng.uniform(-0.3, 0.3), gain=0.5)

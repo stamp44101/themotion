@@ -412,6 +412,8 @@ def clink():
 
 _ROOMS = {
     # pre-delay s, (T60 low, mid, high) s, early reflection taps (s, gain)
+    # outdoors: the diorama's plains and towns -- a few ground/building bounces, a short tail
+    "outdoor": (0.008, (0.7, 0.5, 0.22), [(0.014, 0.35), (0.029, 0.22)]),
     "open": (0.012, (1.5, 1.1, 0.45), [(0.019, 0.5), (0.031, 0.38), (0.047, 0.3), (0.071, 0.2)]),
     "hall": (0.024, (3.4, 2.7, 1.2), [(0.023, 0.55), (0.037, 0.45), (0.052, 0.4), (0.069, 0.33), (0.091, 0.26), (0.118, 0.2)]),
 }
@@ -446,14 +448,14 @@ def room(x, size="open", seed=11):
     return np.stack([fftconvolve(xs[:, c], ir[:, c])[: len(xs)] for c in range(2)], axis=1)
 
 
-def place(sig, dist=0.3, pan=0.0, size="open"):
+def place(sig, dist=0.3, pan=0.0, size="outdoor"):
     """A mono sound at a distance (0 = at the camera, 1 = across the tile): farther is quieter,
     duller (air takes the highs), wetter and narrower. Returns stereo with its own reverb."""
     dist = float(np.clip(dist, 0, 1))
     cut = 16000 * (1 - dist) ** 1.6 + 2200
     dry = filt(sig, "low", min(cut, 18000)) * (1 / (1 + 2.5 * dist))
     tail = np.zeros(int(2.5 * SR))
-    wet = room(np.concatenate([dry, tail]), size) * (0.12 + 0.55 * dist)
+    wet = room(np.concatenate([dry, tail]), size) * (0.05 + 0.3 * dist)
     a = (pan * (1 - 0.5 * dist) + 1) * np.pi / 4
     out = wet.copy()
     out[: len(dry), 0] += dry * np.cos(a)
@@ -504,12 +506,12 @@ def _to_rms(x, db):
     return x * 10 ** (db / 20) / (np.sqrt((x ** 2).mean()) + 1e-12)
 
 
-def master2(path, music, amb, sfx, music_room=0.32, target_rms_db=-14.5):
+def master2(path, music, amb, sfx, music_room=0.14, target_rms_db=-14.5):
     """Phase-1 master: the score in a hall, SFX already placed (place() carries their room),
     low-cut, a slow two-way leveller that evens the beats out, loudness target
     (-14.5 dB RMS, where master() lands, so an A/B is not won by loudness), look-ahead limiter
     instead of tanh."""
-    mix = music * 0.8 + room(music, "hall", seed=5) * music_room + amb + sfx
+    mix = music * 0.85 + room(music, "open", seed=5) * music_room + amb + sfx
     mix = filt(mix, "high", 30)
     mix = _to_rms(mix, target_rms_db)
     mix = _level(mix, target_rms_db)
