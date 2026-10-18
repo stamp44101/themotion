@@ -85,6 +85,30 @@ def add(bus, sig, t0, pan=0.0, gain=1.0):
         bus[i0 : i0 + len(sig)] += sig * gain
 
 
+def sample(name, peak=0.8, fade=0.15):
+    """A recorded or generated sound from public/sfx/<name>.(wav|mp3) as a stereo float array
+    at SR, peak-normalised, with short fades; None when the file is not there, so a city script
+    can fall back to its synthesized version and still run without the asset."""
+    import os
+    import subprocess
+
+    for ext in ("wav", "mp3"):
+        path = f"public/sfx/{name}.{ext}"
+        if os.path.exists(path):
+            raw = subprocess.run(
+                ["ffmpeg", "-v", "error", "-i", path, "-f", "f32le", "-ac", "2", "-ar", str(SR), "-"],
+                check=True, capture_output=True,
+            ).stdout
+            x = np.frombuffer(raw, dtype=np.float32).reshape(-1, 2).astype(np.float64)
+            x *= peak / max(1e-9, np.abs(x).max())
+            n = min(int(fade * SR), len(x) // 2)
+            ramp = np.linspace(0, 1, n)[:, None]
+            x[:n] *= ramp
+            x[len(x) - n :] *= ramp[::-1]
+            return x
+    return None
+
+
 def pan_sweep(sig, p0, p1):
     """Stereo signal whose pan moves linearly from p0 to p1."""
     p = np.linspace(p0, p1, len(sig))
