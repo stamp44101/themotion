@@ -30,17 +30,18 @@ export const STORY = buildStory({
       ],
     },
     {
-      // 1797: settlers from Suwannaphum come up to Bueng Bon; the village becomes a town
+      // 1797: เพียเมืองแพน's people, out of Suwannaphum since ~1788 and settled near today's Ban
+      // Phai (SSW), come up to Bueng Bon, and the village is raised to เมืองขอนแก่น
       id: 'founding',
       t: [10.4, 17.6],
       year: {hold: 1797},
-      caption: {t0: 10.2, title: 'ตั้งเมืองขอนแก่น', sub: 'พ.ศ. 2340 ท้าวเพียเมืองแพนพาผู้คนจากเมืองสุวรรณภูมิ มาตั้งบ้านเรือนริมบึงบอน'},
+      caption: {t0: 10.2, title: 'ตั้งเมืองขอนแก่น', sub: 'พ.ศ. 2340 เพียเมืองแพนพาผู้คนมาตั้งที่บึงบอน และได้ยกขึ้นเป็นเมืองขอนแก่น'},
       era: 'สยาม',
       callouts: [{t0: 14, t1: 17.4, label: 'บึงแก่นนคร', dx: 90, dy: -120, p: [LAKE[0], 0.3, LAKE[1]]}],
       camera: [
-        [10.6, 22, 1, 16, 48, 175, 46, 30],
-        [14.2, 7, 1, 1, 60, 195, 42, 30],
-        [17.4, 2, 1, -3, 58, 210, 37, 30],
+        [10.6, -15, 1, 40, 50, 175, 46, 30],
+        [14.2, -4, 1, 6, 62, 195, 42, 30],
+        [17.4, -3, 1, 1, 58, 210, 37, 30],
       ],
     },
     {
@@ -73,7 +74,7 @@ export const STORY = buildStory({
       id: 'discovery',
       t: [30.2, 36.8],
       year: {hold: 1976},
-      caption: {t0: 30, title: 'พบกระดูกไดโนเสาร์', sub: 'พ.ศ. 2519 นักธรณีวิทยาพบกระดูกต้นขาไดโนเสาร์ชิ้นแรกของไทย ที่ภูเวียง'},
+      caption: {t0: 30, title: 'พบกระดูกไดโนเสาร์', sub: '20 กรกฎาคม พ.ศ. 2519 นายสุธรรม แย้มนิยม พบซากไดโนเสาร์ชิ้นแรกของไทย ที่ภูเวียง'},
       callouts: [{t0: 32.6, t1: 36.6, label: 'ภูเวียง', dx: 90, dy: -130, p: [DIG[0], 1.2, DIG[1]]}],
       camera: [
         [30.4, DIG[0], 2, DIG[1], 44, 392, 36, 30],

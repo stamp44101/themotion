@@ -1,5 +1,5 @@
 import type {Geo} from '../../engine/geo';
-import {CENTRAL, DAM, KKU, PHU_WIANG, PILLAR, STATION, STUPA, THUNG_SANG} from './places';
+import {CENTRAL, DAM, DIG, KKU, PILLAR, STATION, STUPA, THUNG_SANG} from './places';
 
 // Real pins from issue #46 (Google Maps / OSM); see docs/briefs/khonkaen.md.
 export const GEO: Geo = {
@@ -12,6 +12,7 @@ export const GEO: Geo = {
     {name: 'Bueng Thung Sang', lat: 16.44923, lon: 102.85137, at: THUNG_SANG, source: '#46 (pulled in x0.7)'},
     {name: 'Khon Kaen University', lat: 16.47441, lon: 102.82202, at: KKU, source: '#46 (7 km N, pulled in to the tile edge)'},
     {name: 'Ubolratana dam', lat: 16.77544, lon: 102.61841, at: DAM, far: true, source: '#46'},
-    {name: 'Phu Wiang dinosaur museum', lat: 16.67792, lon: 102.26706, at: PHU_WIANG, far: true, source: '#46'},
+    // the range itself (PHU_WIANG) is terrain; the place the story names is the dig
+    {name: 'Dig pit 1, Phu Pratu Tee Ma (Phu Wiang)', lat: 16.68312, lon: 102.22974, at: DIG, far: true, source: '#46 (DMR: หลุมที่ 1 (ประตูตีหมา))'},
   ],
 };

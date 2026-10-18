@@ -30,8 +30,9 @@ export const sauropodAt = (i: number, t: number) => {
   return {x: PHU_WIANG[0] + 12 + Math.cos(a) * 4, z: PHU_WIANG[1] + 8 + Math.sin(a) * 3, rot: -a};
 };
 
-// 1797: the settlers' caravan from Suwannaphum (south-east) to Bueng Bon's north shore
-export const CARAVAN: P[] = [[30, 24], [20, 15], [12, 6], [5.5, -9.5]];
+// 1797: the settlers' carts come up from the Ban Phai country (SSW, bearing 207) to Bueng
+// Bon's west shore, where the old town stands
+export const CARAVAN: P[] = [[-19, 47], [-14, 32], [-9, 17], [-7.5, 2], [-6.5, -3]];
 const CARAVAN_LEN = lengthOf(CARAVAN);
 export const caravanAt = (i: number, {beat}: ActorCtx) => {
   const p = beat('founding');

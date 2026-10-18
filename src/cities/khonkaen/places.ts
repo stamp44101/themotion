@@ -16,11 +16,11 @@ export const mittraphapX = (z: number) => -34.4 + (z - 32.4) * ((-6.7 + 34.4) / 
 export const THUNG_SANG: [number, number] = [13.1, -35]; // บึงทุ่งสร้าง (real 18.7, -50.0) x 0.7
 export const KKU: [number, number] = [-10.5, -43]; // 7.0 km N, bearing 346 (real -20.5, -84.8)
 // far places: only their bearing from the centre (and between each other) is kept
-export const DAM: [number, number] = [-30, -38]; // เขื่อนอุบลรัตน์, 46 km, bearing 330 (model 322)
-export const PHU_WIANG: [number, number] = [-47.5, -32]; // ภูเวียง museum, 67 km, bearing 296 (model 304)
-// the 1976 find at ห้วยประตูตีหมา, inside the Phu Wiang ring (#46): drawn on the range's
-// eastern foot, since the range itself sits at the tile edge
-export const DIG: [number, number] = [PHU_WIANG[0] + 7, PHU_WIANG[1] + 5];
+export const DAM: [number, number] = [-30, -34]; // เขื่อนอุบลรัตน์, 46 km, bearing 330 (model 319; dam -> dig 256, model 235)
+export const PHU_WIANG: [number, number] = [-47.5, -32]; // ภูเวียง range (national park pin), 72 km, bearing 296 (model 304)
+// หลุมขุดค้นที่ 1 ภูประตูตีหมา, where the first bone was found on 20 Jul 1976 (#46), inside the
+// range: drawn on its eastern foot because the range stands at the tile edge
+export const DIG: [number, number] = [PHU_WIANG[0] + 6, PHU_WIANG[1] + 6];
 
 // บึงแก่นนคร: 1,418 m north-south, 553 m wide at the median row and 731 m at the widest,
 // 0.60 km2 of open water (#46). Narrower toward the south, where the stupa stands.

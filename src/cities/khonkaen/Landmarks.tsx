@@ -214,7 +214,7 @@ const Dam: React.FC<{k: number; built: number}> = ({k, built}) => {
     <group position={[x, 0, z]} scale={1.2}>
       {/* the reservoir spreads up the valley behind (west of) the wall as it fills */}
       <mesh position={[-4, 0.18 + 0.1 * k, 0]} rotation-x={-Math.PI / 2} scale={[0.2 + 0.8 * k, 0.2 + 0.8 * k, 1]}>
-        <circleGeometry args={[4.6, 24]} />
+        <circleGeometry args={[4, 24]} />
         <meshStandardMaterial color="#3f8fc0" roughness={0.25} metalness={0.1} />
       </mesh>
       {/* the wall runs north-south across the Nam Phong, on the reservoir's east shore */}
@@ -227,8 +227,8 @@ const Dam: React.FC<{k: number; built: number}> = ({k, built}) => {
         <meshStandardMaterial color="#8a8578" />
       </mesh>
       {/* the river below the dam, out toward the plain */}
-      <mesh position={[2.8, 0.06, 0.4]}>
-        <boxGeometry args={[2.6, 0.02, 0.7]} />
+      <mesh position={[2.5, 0.06, 0.4]}>
+        <boxGeometry args={[2, 0.02, 0.7]} />
         <meshStandardMaterial color="#3f8fc0" />
       </mesh>
     </group>
