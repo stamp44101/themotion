@@ -129,8 +129,9 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   sees, `node scripts/actor_strips.mjs <city> [actor]` renders 1.5 s around each actor's
   beat with `--sequence --concurrency=1` into `shots/<city>/actor_<id>.png`.
   **In frame is not the same as readable.** `projectAt()` also returns `scale`, video px per
-  world unit at the actor's depth; an actor needs 40 px/unit for 0.4 s of its beat or
-  `check_story` fails it. Calibrated on Korat: the 1901 train that reads sits at 78, the
+  world unit at the actor's depth; an actor needs `scale x size` >= 80 px for 0.4 s of its
+  beat or `check_story` fails it (size = its half-size in units, so set it honestly: Lampang's
+  hero carriage is drawn 8x and reads from the whole-tile shot at 26 px/unit). Calibrated on Korat: the 1901 train that reads sits at 78, the
   armies at 51-62, the procession at 88; the modern train crossing the finale's wide shot
   ran at 26 (a 10 px line over dense blocks) and was cut. Bring the camera in or cut the
   actor; a thing nobody can see is not a beat.

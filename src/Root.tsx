@@ -13,6 +13,9 @@ import {CHACHOENGSAO} from './cities/chachoengsao';
 import {NAKHONSAWAN} from './cities/nakhonsawan';
 import {CHONBURI} from './cities/chonburi';
 import {NAKHONSI} from './cities/nakhonsi';
+import {LAMPANG} from './cities/lampang';
+import {CELEBRATION} from './styleframes/celebration';
+import {LAMPANG_CHEDI, LAMPANG_ELEPHANT, LAMPANG_CARRIAGE, LAMPANG_HORSE} from './styleframes/lampang';
 import {DioramaComposition} from './engine/DioramaComposition';
 import {WAT_RAI_KHING_FRAMES, WatRaiKhing} from './landmarks/watraikhing/WatRaiKhing';
 
@@ -26,6 +29,12 @@ const Chachoengsao: React.FC = () => <DioramaComposition city={CHACHOENGSAO} />;
 const NakhonSawan: React.FC = () => <DioramaComposition city={NAKHONSAWAN} />;
 const Chonburi: React.FC = () => <DioramaComposition city={CHONBURI} />;
 const NakhonSi: React.FC = () => <DioramaComposition city={NAKHONSI} />;
+const Lampang: React.FC = () => <DioramaComposition city={LAMPANG} />;
+const Celebration: React.FC = () => <DioramaComposition city={CELEBRATION} />;
+const LampangStyleElephant: React.FC = () => <DioramaComposition city={LAMPANG_ELEPHANT} />;
+const LampangStyleChedi: React.FC = () => <DioramaComposition city={LAMPANG_CHEDI} />;
+const LampangStyleCarriage: React.FC = () => <DioramaComposition city={LAMPANG_CARRIAGE} />;
+const LampangStyleHorse: React.FC = () => <DioramaComposition city={LAMPANG_HORSE} />;
 import {FPS, H, SECONDS, W} from './lib';
 
 export const RemotionRoot: React.FC = () => (
@@ -47,6 +56,12 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="Ayutthaya" component={Ayutthaya} durationInFrames={(AYUTTHAYA.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Korat" component={Korat} durationInFrames={(KORAT.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="NakhonSi" component={NakhonSi} durationInFrames={(NAKHONSI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="Celebration" component={Celebration} durationInFrames={60 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="Lampang" component={Lampang} durationInFrames={(LAMPANG.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="LampangStyleElephant" component={LampangStyleElephant} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="LampangStyleChedi" component={LampangStyleChedi} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="LampangStyleCarriage" component={LampangStyleCarriage} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="LampangStyleHorse" component={LampangStyleHorse} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
       <Composition id="KoratLook" component={KoratLook} durationInFrames={(KORAT.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition
       id="ChiangMaiIso"

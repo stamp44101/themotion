@@ -37,6 +37,11 @@ points under the best clip, outside the baseline's whole 8-point spread. 41,722 
 Sukhothai 24, Phitsanulok 25). The opening kept far more people past 3 s, but once past it
 they left at the usual pace: the hook is solved, the middle of the clip is the next lever.
 
+Retention curve (same read): ~67% at 3 s, **~35% by 17 s**, then nearly flat to ~21% at
+59 s. The loss after the hook is in seconds 3-17 (dinosaurs, Ban Prasat, Sema, Phimai:
+archaeology, no people); from the town and the armies on (18 s+) people stay. Next lever:
+people and motion in the first beat after the title, and a shorter legend.
+
 Caveats: one clip; and the 3-s window also shows the title card, so interest in Korat itself
 (a large city, a well-known heroine) is mixed in with the opening. Korat v2 also changed the
 story, but skip rate only sees the first 3 s, so the opening is the likeliest cause.
@@ -45,6 +50,38 @@ Next: keep a hero on the tile at frame 0 for the next city (Nakhon Si: the whole
 down to the relic boat by 3.6 s; a replication, not a new variable), and run experiment 2
 only after that one is read. Read average watch time and the retention curve on every post
 from now on: that is where the next gain is.
+
+## 1b. Replication: Nakhon Si (posted 17 Oct 2026) — read: partial
+
+Same opening rule as Korat: the whole tile under the title, then down to the relic boat by
+3.6 s. The boat is smaller on the tile at frame 0 than Korat's dinosaurs, so this also tests
+whether the wide establishing shot alone carries the hook. 75 s, not 60, so compare skip
+rate (first 3 s) directly, and average watch as a share of the length. Also read the
+retention curve: the legend beat now has the boat moving from frame 0.
+
+Result (read 18 Oct 08:59, about a day in): **skip rate 43.1%**. Better than the old baseline
+(mean ~52%, best 47.8%) but **10 points worse than Korat's 32.9%**. 9,417 views from 7,000
+viewers (Korat: 41,722), 30 follows, share 0.8%, like 6.6%, save 0.6%. Average watch 21 s of
+75 (28%; Korat 21 of 60). Retention ~57% at 3 s, ~31% by 17 s, ~22% at 54 s, then a slide
+to ~12% over the last 10 s.
+
+Reading: the wide tile under the title helps a little, but it is the **hero** that did most of
+Korat's work -- the relic boat is a speck at frame 0 (the cover frame shows forest and a dot),
+the dinosaurs filled it. After the hook the two clips behave alike: both keep a bit over half
+of the 3-s audience to 17 s, then stay nearly flat. The 75 s tail loses people in the finale;
+a 75 s clip needs its finale to earn the extra seconds. Caveat: one clip each, and Korat's
+audience (a big city, a famous heroine) is larger to begin with.
+
+Rule from here: **a hero big enough to read at frame 0 on the whole tile**, sized for the
+whole-tile shot (check_story's legibility rule with an honest `size`), not for the close-up.
+Lampang's 11x carriage is the next test of it.
+
+## 1c. Lampang: a hero from the city's present on the old tile — planned
+
+Owner's call: keep the usual forest tile and put a Lampang horse carriage on it at hero scale
+from frame 0 (no rewind). Unlike the dinosaurs and the relic boat, the hero is not from the
+opening era; it is the city's best-known symbol, and it returns in its own beat (1916). Read
+skip rate and the retention curve as for 1 and 1b.
 
 ## 2. Finale first, then rewind — parked
 
