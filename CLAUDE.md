@@ -12,6 +12,10 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   "yes" from the user for that spend. Choosing a style is not consent to spend credits.
 - History content gets posted publicly: verify dates with a web search before writing captions,
   and tell the user which facts are approximate or disputed.
+- **The province series is code, not generation (owner's rule).** Picture and sound are both
+  made by code: the score and SFX come from `scripts/synth.py`. Do not add generated audio
+  (ElevenLabs SFX, music or voice) to a province clip. `synth.sample()` and `public/sfx/` exist for
+  other series. Khon Kaen's ElevenLabs test set was tried and taken out (prompts in commit 6377944).
 
 ## Workflow that works (do it in this order)
 1. Agree the visual style first (show 2–3 quick style frames) before building anything.
