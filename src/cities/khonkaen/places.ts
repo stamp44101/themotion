@@ -10,8 +10,8 @@ export const MITTRAPHAP_X = -17.4; // ถนนมิตรภาพ runs north-
 export const RAIL_X = -13.6;
 // far places, pulled onto the tile by direction
 export const KKU: [number, number] = [-12, -45]; // 6.3 km N (real -12.4, -78.2)
-export const DAM: [number, number] = [-26, -42]; // เขื่อนอุบลรัตน์, ~45 km NNW (bearing ~330)
-export const PHU_WIANG: [number, number] = [-46, -30]; // ~70 km WNW (bearing ~300)
+export const DAM: [number, number] = [-32, -30]; // เขื่อนอุบลรัตน์, ~45 km NNW (bearing ~330)
+export const PHU_WIANG: [number, number] = [-46, -20]; // ~70 km WNW (bearing ~300)
 
 // บึงแก่นนคร: about 1 km across, drawn as a closed shoreline
 export const LAKE_PATH: [number, number][] = Array.from({length: 14}, (_, i) => {

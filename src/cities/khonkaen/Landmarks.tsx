@@ -23,18 +23,19 @@ export const NineTier: React.FC<{tiers: number; night: number}> = ({tiers, night
         <group key={i} position={[0, i * 1.0, 0]}>
           <mesh position={[0, 0.5 * k, 0]} scale={[1, k, 1]} castShadow receiveShadow>
             <boxGeometry args={[w, 1.0, w]} />
-            <meshStandardMaterial color="#f4efe3" />
+            <meshStandardMaterial color="#f4efe3" emissive="#ffe2a8" emissiveIntensity={night * 0.55} />
           </mesh>
           <mesh position={[0, 0.98 * k, 0]} scale={[1, k, 1]}>
             <boxGeometry args={[w + 0.12, 0.08, w + 0.12]} />
-            <meshStandardMaterial color="#d9a43a" metalness={0.5} roughness={0.35} emissive="#ffc861" emissiveIntensity={night * 0.6} />
+            <meshStandardMaterial color="#d9a43a" metalness={0.5} roughness={0.35} emissive="#ffc861" emissiveIntensity={night * 1.4} toneMapped={false} />
           </mesh>
         </group>
       );
     })}
     {tiers > 9 && (
       <mesh geometry={SPIRE} position={[0, 9, 0]} scale={[1, Math.min(1, tiers - 9), 1]} castShadow>
-        <meshStandardMaterial color="#e2b33c" metalness={0.6} roughness={0.3} emissive="#ffcf6a" emissiveIntensity={night * 0.7} />
+        {/* floodlit at night; untone-mapped so ACES does not wash the glow out */}
+        <meshStandardMaterial color="#e2b33c" metalness={0.6} roughness={0.3} emissive="#ffcf6a" emissiveIntensity={night * 1.4} toneMapped={false} />
       </mesh>
     )}
   </group>
@@ -141,23 +142,24 @@ const Dam: React.FC<{k: number; built: number}> = ({k, built}) => {
   if (built < 0.02) return null;
   const [x, z] = DAM;
   return (
-    <group position={[x, 0, z]}>
+    <group position={[x, 0, z]} scale={1.5}>
       {/* the reservoir spreads up the valley behind the wall as it fills */}
-      <mesh position={[-2, 0.18 + 0.1 * k, -2]} rotation-x={-Math.PI / 2} scale={[0.2 + 0.8 * k, 0.2 + 0.8 * k, 1]}>
-        <circleGeometry args={[7, 24]} />
+      <mesh position={[-3, 0.18 + 0.1 * k, -1]} rotation-x={-Math.PI / 2} scale={[0.2 + 0.8 * k, 0.2 + 0.8 * k, 1]}>
+        <circleGeometry args={[5, 24]} />
         <meshStandardMaterial color="#3f8fc0" roughness={0.25} metalness={0.1} />
       </mesh>
-      <mesh position={[3.8, 0.7 * built, 3.4]} rotation-y={-0.75} scale={[1, built, 1]} castShadow receiveShadow>
+      {/* the wall runs NE-SW across the Nam Phong, on the reservoir's south-east shore */}
+      <mesh position={[0.8, 0.7 * built, 2.8]} rotation-y={0.785} scale={[1, built, 1]} castShadow receiveShadow>
         <boxGeometry args={[8, 1.4, 0.9]} />
         <meshStandardMaterial color="#cfcac0" roughness={0.8} />
       </mesh>
-      <mesh position={[3.8, 1.45 * built, 3.4]} rotation-y={-0.75}>
+      <mesh position={[0.8, 1.45 * built, 2.8]} rotation-y={0.785}>
         <boxGeometry args={[8, 0.06, 1.0]} />
         <meshStandardMaterial color="#8a8578" />
       </mesh>
       {/* the river below the dam, out toward the plain */}
-      <mesh position={[6.2, 0.06, 6.4]} rotation-x={-Math.PI / 2} rotation-z={0.75}>
-        <planeGeometry args={[0.8, 6]} />
+      <mesh position={[3, 0.06, 5]} rotation-y={0.785}>
+        <boxGeometry args={[0.8, 0.02, 6]} />
         <meshStandardMaterial color="#3f8fc0" />
       </mesh>
     </group>
@@ -214,7 +216,7 @@ export const KhonKaenLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrain
         </group>
       )}
       {tiers > 0 && (
-        <group position={[STUPA[0], 0, STUPA[1]]} scale={0.5}>
+        <group position={[STUPA[0], 0, STUPA[1]]} scale={0.7}>
           <NineTier tiers={tiers} night={night} />
         </group>
       )}

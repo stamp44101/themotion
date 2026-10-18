@@ -25,8 +25,8 @@ export const KHONKAEN: CityConfig = {
     tile: {x0: -48, x1: 48, z0: -48, z1: 48},
     peaks: [
       [PHU_WIANG[0], PHU_WIANG[1], 7, 8],
-      [PHU_WIANG[0] - 2, PHU_WIANG[1] - 9, 6, 6],
-      [DAM[0] - 9, DAM[1] - 4, 6, 6],
+      [PHU_WIANG[0] - 1, PHU_WIANG[1] + 9, 6, 6],
+      [DAM[0] - 7, DAM[1] - 13, 6, 6],
     ],
     // the lakes are drawn as open water in Landmarks.tsx (a closed `path` river is a ring
     // channel, not a lake); `sites` and `clearings` keep houses and trees off them
@@ -54,7 +54,8 @@ export const KHONKAEN: CityConfig = {
     clearings: [
       [PHU_WIANG[0] + 10, PHU_WIANG[1] + 6, 9, -1e9],
       [STUPA[0], STUPA[1], 9, -1e9],
-      [DAM[0], DAM[1], 9, 1964],
+      [DAM[0] - 4.5, DAM[1] - 1.5, 9, 1964],
+      [DAM[0] + 4.5, DAM[1] + 7.5, 4.5, 1964],
       [0, 0, 7, -1e9],
       [THUNG_SANG[0], THUNG_SANG[1], 3.6, -1e9],
       // the cart track the 1797 settlers came up from Suwannaphum
@@ -67,7 +68,8 @@ export const KHONKAEN: CityConfig = {
     paddies: [1810, 1950],
     sites: [
       [STUPA[0], STUPA[1], 2.4],
-      [DAM[0], DAM[1], 8],
+      [DAM[0] - 4.5, DAM[1] - 1.5, 8],
+      [DAM[0] + 2, DAM[1] + 3, 4],
       [KKU[0], KKU[1], 4.5],
       [STATION[0], STATION[1], 1],
       [0, 0, 6.6],
