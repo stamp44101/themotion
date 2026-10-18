@@ -606,3 +606,189 @@ def phin(m, dur=0.9, pos=0.18, bright=0.996, seed=None):
     t = np.arange(len(s)) / SR
     body = filt(s, "band", (180, 260)) * 1.2 + filt(s, "band", (420, 520)) * 0.7
     return (s + body) * np.minimum(1, t / 0.002) * 0.35
+
+
+def _seg(out, s, sig):
+    """Add `sig` into mono `out` at sample s, clipped to the buffer."""
+    if s >= len(out) or s + len(sig) <= 0:
+        return
+    if s < 0:
+        sig, s = sig[-s:], 0
+    out[s : s + len(sig)] += sig[: len(out) - s]
+
+
+def _norm(x, peak=0.7):
+    """Scale to a fixed peak so a script's gain means the same thing for every procedural SFX."""
+    return x * peak / (np.abs(x).max() + 1e-9)
+
+
+def _decay(n, tau, attack=0.002):
+    t = np.arange(n) / SR
+    return np.exp(-t / tau) * np.minimum(1, t / max(attack, 1e-4))
+
+
+def giant_steps(dur=4.5, interval=0.95, seed=21):
+    """A sauropod walking: each footfall a sub-bass thud that bends down, a rumble through the
+    ground, and grit and twigs scattering. Two feet, alternately heavier. Mono."""
+    r = np.random.default_rng(seed)
+    out = np.zeros(int(dur * SR))
+    t = 0.1
+    k = 0
+    while t < dur - 0.3:
+        n = int(1.2 * SR)
+        tt = np.arange(n) / SR
+        f = 22 + 16 * np.exp(-tt / 0.08)
+        thud = np.sin(2 * np.pi * np.cumsum(f) / SR) * _decay(n, 0.28, 0.006)
+        rumble = filt(r.standard_normal(n), "low", 140) * _decay(n, 0.45, 0.02) * 0.6
+        grit = filt(r.standard_normal(n) * (r.random(n) < 0.0012), "band", (1500, 5000)) * _decay(n, 0.12) * 1.2
+        g = (1.0 if k % 2 == 0 else 0.75) * r.uniform(0.9, 1.1)
+        _seg(out, int(t * SR), (thud + rumble + grit) * g)
+        t += interval * r.uniform(0.93, 1.07)
+        k += 1
+    return _norm(out)
+
+
+def ox_carts(dur=6.0, carts=3, seed=31):
+    """Ox carts on a dirt track: wooden wheels creak by stick-slip as they turn (a pulse train
+    at a wandering rate through a wood resonance), hooves fall soft on earth, the bodies knock.
+    Mono."""
+    r = np.random.default_rng(seed)
+    n = int(dur * SR)
+    out = np.zeros(n)
+    for c in range(carts):
+        off = c * r.uniform(0.6, 1.2)
+        # wheel: a creak once or twice per turn (~3 s per turn at walking pace)
+        t = off + r.uniform(0, 0.8)
+        while t < dur:
+            L = int(r.uniform(0.18, 0.45) * SR)
+            tt = np.arange(L) / SR
+            rate = r.uniform(180, 420) * (1 + 0.25 * np.sin(2 * np.pi * r.uniform(3, 9) * tt))
+            pulses = (np.diff(np.floor(np.cumsum(rate) / SR), prepend=0) > 0).astype(float)
+            pulses *= 1 + 0.4 * r.standard_normal(L)
+            body = filt(pulses, "band", (r.uniform(420, 560), r.uniform(900, 1300)))
+            env = np.clip(np.sin(np.pi * tt / tt[-1]), 0, 1) ** 0.7
+            _seg(out, int(t * SR), body * env * 0.9)
+            t += r.uniform(1.0, 1.8)
+        # two oxen, four feet each, slow walk on soft ground
+        t = off + r.uniform(0, 0.3)
+        while t < dur:
+            L = int(0.12 * SR)
+            hoof = filt(r.standard_normal(L), "low", 420) * _decay(L, 0.03) + filt(r.standard_normal(L), "band", (900, 2200)) * _decay(L, 0.006) * 0.3
+            _seg(out, int(t * SR), hoof * r.uniform(0.25, 0.45))
+            t += r.uniform(0.18, 0.42)
+        # loose boards and the yoke knocking
+        for _ in range(int(dur * 1.5)):
+            L = int(0.05 * SR)
+            knock = filt(r.standard_normal(L), "band", (300, 1200)) * _decay(L, 0.012)
+            _seg(out, int(r.uniform(off, dur) * SR), knock * r.uniform(0.1, 0.25))
+    return _norm(out)
+
+
+def engine(dur, rpm, cyl=6, seed=41):
+    """A diesel engine: firing pulses at rpm/60 * cyl/2 through exhaust resonances, with a
+    little combustion noise. `rpm` is a scalar or an array of len dur*SR. Mono."""
+    r = np.random.default_rng(seed)
+    n = int(dur * SR)
+    rpm = np.broadcast_to(np.asarray(rpm, float), (n,))
+    fire = rpm / 60 * cyl / 2
+    ph = np.cumsum(fire) / SR
+    pulses = (np.diff(np.floor(ph), prepend=0) > 0).astype(float) * (1 + 0.3 * r.standard_normal(n))
+    snd = filt(pulses, "low", 900) * 3 + filt(pulses, "band", (90, 180)) * 4
+    snd += filt(r.standard_normal(n), "band", (150, 700)) * 0.08
+    return snd
+
+
+def convoy(dur=5.0, trucks=3, seed=43):
+    """Army trucks passing one after another: each engine swells as it nears, gets brighter and
+    drops in pitch as it goes by (Doppler), with a gear change partway. Mono."""
+    r = np.random.default_rng(seed)
+    n = int(dur * SR)
+    t = np.arange(n) / SR
+    out = np.zeros(n)
+    for k in range(trucks):
+        tc = 0.6 + k * (dur - 1.2) / max(1, trucks - 1) + r.uniform(-0.15, 0.15)  # closest at tc
+        x = (t - tc) * 12.0  # metres along the road, 12 m/s (~45 km/h)
+        d = np.sqrt(x ** 2 + 6.0 ** 2)  # the camera's road is 6 m off
+        doppler = 1 / (1 + (x / d) * 12.0 / 343)
+        rpm = 1500 * doppler * (1 - 0.18 * ((t > tc + 0.4) & (t < tc + 0.7)))  # a shift going by
+        e = engine(dur, rpm, seed=seed + k)
+        near = 6.0 / d
+        out += filt(e, "low", 2500) * near ** 1.5 * 0.6 + filt(e, "high", 2500) * near ** 3 * 0.3
+        out += filt(r.standard_normal(n), "band", (300, 1500)) * near ** 2 * 0.05  # tyres
+    return _norm(out)
+
+
+def fossil_dig(dur=5.0, seed=51):
+    """Fossil hunters at work: a geologist's hammer tapping stone (click plus a short stone
+    ring), a trowel scraping grit in strokes, a brush sweeping dust. Irregular. Mono."""
+    r = np.random.default_rng(seed)
+    n = int(dur * SR)
+    out = np.zeros(n)
+    t = 0.2
+    while t < dur - 0.2:
+        what = r.random()
+        if what < 0.45:  # hammer tap
+            L = int(0.12 * SR)
+            tap = filt(r.standard_normal(L), "high", 1500) * _decay(L, 0.003) * 0.8
+            ring = sum(np.sin(2 * np.pi * f * np.arange(L) / SR) * _decay(L, 0.02 + 0.02 * r.random()) for f in r.uniform(2200, 4200, 3)) * 0.12
+            _seg(out, int(t * SR), tap + ring)
+            t += r.uniform(0.22, 0.5)
+        elif what < 0.8:  # trowel stroke
+            L = int(r.uniform(0.25, 0.5) * SR)
+            tt = np.arange(L) / SR
+            grit = filt(r.standard_normal(L), "band", (1500, 5500)) * (0.4 + 0.6 * (r.random(L) < 0.08))
+            _seg(out, int(t * SR), grit * np.clip(np.sin(np.pi * tt / tt[-1]), 0, 1) * 0.16)
+            t += L / SR + r.uniform(0.1, 0.3)
+        else:  # brush
+            L = int(0.35 * SR)
+            tt = np.arange(L) / SR
+            _seg(out, int(t * SR), filt(r.standard_normal(L), "high", 4000) * np.sin(np.pi * tt / tt[-1]) ** 2 * 0.1)
+            t += 0.45
+    return _norm(out)
+
+
+def diesel_train(dur=6.0, stop_at=0.85, horn_at=0.35, seed=61):
+    """A modern diesel railcar slowing into an elevated station: engine dropping to idle,
+    turbo whine, steel wheels on welded rail (a smooth roar, joints only at the points), brake
+    hiss, and a two-tone horn. Mono."""
+    r = np.random.default_rng(seed)
+    n = int(dur * SR)
+    t = np.arange(n) / SR
+    u = np.clip(t / (dur * stop_at), 0, 1)
+    v = (1 - u) ** 1.2
+    out = engine(dur, 700 + 1100 * v, cyl=12, seed=seed) * 0.5
+    out += np.sin(2 * np.pi * np.cumsum(1500 + 1400 * v) / SR) * 0.015 * v  # turbo
+    out += filt(r.standard_normal(n), "band", (400, 2200)) * 0.12 * v ** 1.5  # wheel roar
+    out += filt(r.standard_normal(n), "high", 3500) * 0.02 * np.exp(-np.maximum(0, t - dur * stop_at) / 0.35) * (t > dur * stop_at * 0.9)
+    h0, hd = int(horn_at * dur * SR), 1.1
+    hn = int(hd * SR)
+    th = np.arange(hn) / SR
+    horn = sum(np.sign(np.sin(2 * np.pi * f * th)) for f in (311.0, 370.0))
+    horn = filt(horn, "low", 1800) * np.minimum(1, th / 0.04) * np.clip((hd - th) / 0.15, 0, 1)
+    _seg(out, h0, horn * 0.12)
+    return _norm(out)
+
+
+def fireworks(dur=4.5, shells=7, seed=71):
+    """A fireworks display seen from across town: each shell a rising whistle, a boom arriving
+    a moment after the burst, and a crackling tail of sparks. Mono."""
+    r = np.random.default_rng(seed)
+    n = int(dur * SR)
+    out = np.zeros(n)
+    for k in range(shells):
+        t0 = r.uniform(0, dur - 1.6)
+        if r.random() < 0.6:  # launch whistle
+            L = int(r.uniform(0.6, 0.9) * SR)
+            tt = np.arange(L) / SR
+            f = 900 + 1800 * (tt / tt[-1]) ** 1.5
+            wh = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.minimum(1, tt / 0.05) * 0.05
+            _seg(out, int(t0 * SR), wh + filt(r.standard_normal(L), "band", (1500, 4000)) * 0.03)
+            t0 += L / SR
+        L = int(2.2 * SR)
+        tt = np.arange(L) / SR
+        boom = np.sin(2 * np.pi * np.cumsum(55 + 40 * np.exp(-tt / 0.05)) / SR) * _decay(L, 0.25, 0.003)
+        boom += filt(r.standard_normal(L), "low", 1200) * _decay(L, 0.18, 0.002) * 0.7
+        dens = 0.003 * np.exp(-tt / 0.7) * (tt > 0.15)
+        crackle = filt(r.standard_normal(L) * (r.random(L) < dens), "high", 1800) * 2.2
+        _seg(out, int(t0 * SR), (boom + crackle) * r.uniform(0.6, 1.0))
+    return _norm(out)

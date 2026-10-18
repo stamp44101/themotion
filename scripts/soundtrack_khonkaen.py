@@ -81,8 +81,11 @@ add(amb, traffic * np.clip((Y - 1957) / 45, 0, 1) * 0.05, 0)
 
 # ---------------------------------------------------------------- sfx
 # the sauropods below Phu Wiang: footfalls and a low call
-for t in np.arange(dinos[0] + 3.4, dinos[1], 0.9):
-    fx(drum(60, 30, 0.6, 0.9), t, pan=-0.3, gain=0.5)
+if V2:
+    fx(giant_steps(dinos[1] - dinos[0] - 3.2), dinos[0] + 3.4, pan=-0.3, gain=0.9, dist=0.4)
+else:
+    for t in np.arange(dinos[0] + 3.4, dinos[1], 0.9):
+        fx(drum(60, 30, 0.6, 0.9), t, pan=-0.3, gain=0.5)
 fx(roar(2.0, 70.0), dinos[0] + 4.8, pan=-0.3, gain=0.5)
 # Recorded/generated SFX (public/sfx/, ElevenLabs) replace the synthesized one for a beat when
 # the file is there; without it the script falls back to the synth, so it always runs.
@@ -94,6 +97,8 @@ if S["sauropod_steps"] is not None:
 # 1797: ox carts creaking up to Bueng Bon, then building
 if S["ox_carts"] is not None:
     fx(S["ox_carts"], founding[0] + 0.3, gain=0.55)
+elif V2:
+    fx(ox_carts(0.75 * (founding[1] - founding[0])), founding[0] + 0.3, pan=0.3, gain=0.8, dist=0.35)
 else:
     for t in np.arange(founding[0] + 0.3, founding[0] + 0.7 * (founding[1] - founding[0]), 0.55):
         fx(creak(0.4), t, pan=rng.uniform(0.1, 0.6), gain=0.4)
@@ -117,12 +122,16 @@ else:
 # 1956-57: the convoy on the new highway
 if S["convoy_trucks"] is not None:
     fx(S["convoy_trucks"], mitt[0], gain=0.6)
+elif V2:
+    fx(convoy(mitt[1] - mitt[0]), mitt[0], pan=-0.1, gain=0.8, dist=0.4)
 else:
     fx(filt(noise(int((mitt[1] - mitt[0]) * SR)), "low", 160) * env_ar(int((mitt[1] - mitt[0]) * SR), 0.8, 1.0) * 0.4, mitt[0])
 # 1976: picks and trowels in the sandstone at irregular gaps, then a low bell as the animal
 # appears over the trench
 if S["dig_sandstone"] is not None:
     fx(S["dig_sandstone"], dig[0] + 0.3, gain=0.55)
+elif V2:
+    fx(fossil_dig(0.55 * (dig[1] - dig[0])), dig[0] + 0.4, pan=0.1, gain=0.85, dist=0.3)
 else:
     t = dig[0] + 0.5
     while t < dig[0] + 0.5 * (dig[1] - dig[0]):
@@ -133,6 +142,8 @@ fx(bell(196, 4.0), dig[0] + 0.55 * (dig[1] - dig[0]), gain=0.45, dist=0.5, size=
 # 2019: the train on the viaduct, a long low hum rising as it comes in, and a horn
 if S["train_viaduct"] is not None:
     fx(S["train_viaduct"], modern[0] + 0.3, gain=0.65)
+elif V2:
+    fx(diesel_train(0.85 * (modern[1] - modern[0])), modern[0] + 0.2, pan=0.15, gain=0.75, dist=0.4)
 else:
     n = int((modern[1] - modern[0]) * 0.75 * SR)
     fx(filt(noise(n), "low", 220) * env_ar(n, 2.0, 1.2) * 0.35, modern[0] + 0.2, pan=0.2)
@@ -147,6 +158,8 @@ for et in (3.0, founding[0] - 0.2, railway[0] - 0.2, mitt[0] - 0.2, dig[0] - 0.2
 add(sfx, drum(70, 32, 2.5, 1.0), 0.1, gain=0.6)
 if S["fireworks_city"] is not None:
     fx(S["fireworks_city"], DUR - 4.6, gain=0.6)
+elif V2:
+    fx(fireworks(4.4), DUR - 4.6, gain=0.9, dist=0.7)
 else:
     for i in range(16):
         fx(firework_pop(), DUR - 4.4 + i * 0.28 + rng.uniform(0, 0.2), pan=rng.uniform(-0.8, 0.8), gain=0.5, dist=0.75)

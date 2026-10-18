@@ -44,6 +44,22 @@ Recipes after Andy Farnell, *Designing Sound*: model what makes the sound, not i
 - An A/B pair (before/after mp3) for each change; the owner listens before a city switches.
 - Loudness is measured (RMS per beat, peak) the way the render checks measure luma.
 
-## Sample (this PR)
-Phase 1 (space, distance, master bus) plus the phase-2 steam train and the phase-3 พิณ, applied
-to Khon Kaen as an A/B. The committed Khon Kaen soundtrack is unchanged.
+## Decisions so far (owner, from the A/Bs)
+- **Outdoors, not a hall.** The first reverb felt like a room. The diorama is outdoors, so
+  `place()` uses the `outdoor` room at a low send, and the score sits in a small `open` room.
+- **The world gets physical, the music stays stylized.** The Karplus-Strong พิณ read as real,
+  but a too-real instrument may not suit the diorama, and every posted city uses the stylized
+  pluck. The score keeps `pluck()`; `phin()` stays available.
+
+## Built (opt-in, `SOUND_V2=1` in a city script)
+| beat sound | function | what it models |
+|---|---|---|
+| sauropod footfalls | `giant_steps()` | sub-bass thud bending down, ground rumble, scattered grit |
+| ox carts | `ox_carts()` | stick-slip wheel creak, soft hooves, knocking boards |
+| steam train | `steam_train()` | exhaust beats on wheel speed, rail joints, chime whistle, brakes, steam |
+| army convoy | `convoy()` / `engine()` | diesel firing pulses, Doppler, gear change, tyres |
+| fossil dig | `fossil_dig()` | hammer tap and stone ring, trowel strokes, brush |
+| modern train | `diesel_train()` | engine to idle, turbo, wheel roar, two-tone horn, brake hiss |
+| fireworks | `fireworks()` | launch whistle, boom, crackle tail |
+
+Khon Kaen's committed soundtrack is unchanged; `SOUND_V2=1` writes the sample to `out/`.
