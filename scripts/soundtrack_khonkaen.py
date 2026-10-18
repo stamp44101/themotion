@@ -49,8 +49,8 @@ for t0, t1, notes in ((dinos[1], railway[0] - 0.4, Am), (railway[0] - 0.4, dig[0
         if V2:
             # v2 swaps the roles (owner: the พิณ was acting as the beat and the โปงลาง as the
             # tune): struck wood keeps the pulse, the พิณ gets the melody below
-            add(music, ranat(notes[1] + 24, 0.45), t, pan=-0.15, gain=0.2)
-            add(music, ranat(notes[2] + 24, 0.35), t + BEAT / 2, pan=0.15, gain=0.12)
+            add(music, wood(notes[1] + 12, 0.45), t, pan=-0.15, gain=0.32)
+            add(music, wood(notes[2] + 12, 0.35), t + BEAT / 2, pan=0.15, gain=0.2)
         else:
             # พิณ: a bright pluck on the beat, the fifth on the off-beat
             add(music, pluck(notes[1] + 12, 0.6, 0.7), t, pan=-0.2, gain=0.3)

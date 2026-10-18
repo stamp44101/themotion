@@ -504,6 +504,10 @@ def _limit(x, ceiling=0.89, look=0.005, release=0.2):
     return x * np.minimum(g, rec)[:, None]
 
 
+def _to_rms(x, db):
+    return x * 10 ** (db / 20) / (np.sqrt((x ** 2).mean()) + 1e-12)
+
+
 def master2(path, music, amb, sfx, music_room=0.14, target_rms_db=-15.0):
     """Phase-1 master: the score in a hall, SFX already placed (place() carries their room),
     low-cut, a slow two-way leveller that evens the beats out, loudness target
@@ -631,6 +635,21 @@ def _norm(x, peak=0.7):
 def _decay(n, tau, attack=0.002):
     t = np.arange(n) / SR
     return np.exp(-t / tau) * np.minimum(1, t / max(attack, 1e-4))
+
+
+def wood(m, dur=0.5):
+    """A soft struck wooden bar for a steady pulse (the โปงลาง keeping time in v2): fundamental
+    plus the tuned 3.9x partial dying fast, a padded mallet thump low-passed at 2 kHz. ranat()
+    has a 9.2x partial and a 1.5-5 kHz noise click on every note: struck twice a beat two octaves
+    up, that chain of bright clicks read on a phone as a breaking speaker. Mono."""
+    n = int(dur * SR)
+    t = np.arange(n) / SR
+    f = mtof(m)
+    x = np.sin(2 * np.pi * f * t) * np.exp(-t * 9) + 0.18 * np.sin(2 * np.pi * f * 3.9 * t) * np.exp(-t * 28)
+    x += filt(noise(n), "low", 2000) * np.exp(-t * 90) * 0.06
+    x *= np.minimum(1, t / 0.0015)
+    x[-int(0.01 * SR):] *= np.linspace(1, 0, int(0.01 * SR))
+    return x * 0.5
 
 
 def boom(dur=1.6, f0=110.0, f1=55.0):
