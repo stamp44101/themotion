@@ -404,3 +404,203 @@ def khlui(m, dur):
 def clink():
     """Ceramic pot clink."""
     return bell(rng.uniform(2200, 3400), 0.4, ratios=(1, 2.32, 4.25), decay=10) * 0.4
+
+
+# ================================================================ v2: space, distance, master
+# docs/sound.md, phase 1. Opt-in: a city script that keeps calling master()/pluck()/chuff()
+# sounds exactly as it did.
+
+_ROOMS = {
+    # pre-delay s, (T60 low, mid, high) s, early reflection taps (s, gain)
+    "open": (0.012, (1.5, 1.1, 0.45), [(0.019, 0.5), (0.031, 0.38), (0.047, 0.3), (0.071, 0.2)]),
+    "hall": (0.024, (3.4, 2.7, 1.2), [(0.023, 0.55), (0.037, 0.45), (0.052, 0.4), (0.069, 0.33), (0.091, 0.26), (0.118, 0.2)]),
+}
+_IR_CACHE = {}
+
+
+def _room_ir(size, seed=11):
+    if (size, seed) in _IR_CACHE:
+        return _IR_CACHE[(size, seed)]
+    pre, (tl, tm, th), taps = _ROOMS[size]
+    r = np.random.default_rng(seed)
+    n = int((pre + max(tl, tm, th) * 1.1) * SR)
+    t = np.arange(n) / SR
+    ir = np.zeros((n, 2))
+    # late tail: three bands, each decaying at its own T60 (-60 dB = factor 1e-3); highs die first
+    for band, t60 in ((("low", 500), tl), (("band", (500, 4000)), tm), (("high", 4000), th)):
+        tail = filt(r.standard_normal((n, 2)), band[0], band[1])
+        ir += tail * (10 ** (-3 * np.maximum(0, t - pre) / t60))[:, None] * (t >= pre)[:, None]
+    ir *= np.minimum(1, np.maximum(0, t - pre) / 0.03)[:, None]  # tail swells in, no click
+    ir /= np.sqrt((ir ** 2).sum(axis=0))
+    # early reflections, alternating sides so the room has width
+    for i, (d, g) in enumerate(taps):
+        ir[int(d * SR), i % 2] += g * 0.6
+    _IR_CACHE[(size, seed)] = ir
+    return ir
+
+
+def room(x, size="open", seed=11):
+    """Wet signal of `x` (mono or stereo) in a room; same length as x."""
+    ir = _room_ir(size, seed)
+    xs = np.stack([x, x], 1) if x.ndim == 1 else x
+    return np.stack([fftconvolve(xs[:, c], ir[:, c])[: len(xs)] for c in range(2)], axis=1)
+
+
+def place(sig, dist=0.3, pan=0.0, size="open"):
+    """A mono sound at a distance (0 = at the camera, 1 = across the tile): farther is quieter,
+    duller (air takes the highs), wetter and narrower. Returns stereo with its own reverb."""
+    dist = float(np.clip(dist, 0, 1))
+    cut = 16000 * (1 - dist) ** 1.6 + 2200
+    dry = filt(sig, "low", min(cut, 18000)) * (1 / (1 + 2.5 * dist))
+    tail = np.zeros(int(2.5 * SR))
+    wet = room(np.concatenate([dry, tail]), size) * (0.12 + 0.55 * dist)
+    a = (pan * (1 - 0.5 * dist) + 1) * np.pi / 4
+    out = wet.copy()
+    out[: len(dry), 0] += dry * np.cos(a)
+    out[: len(dry), 1] += dry * np.sin(a)
+    return out
+
+
+def _compress(x, thresh_db=-20.0, ratio=2.5, tau=0.12):
+    from scipy.signal import lfilter
+
+    a = np.exp(-1 / (tau * SR))
+    level = np.sqrt(lfilter([1 - a], [1, -a], (x ** 2).mean(axis=1)) + 1e-12)
+    db = 20 * np.log10(level)
+    over = np.maximum(0, db - thresh_db)
+    gain = 10 ** (-over * (1 - 1 / ratio) / 20)
+    return x * gain[:, None]
+
+
+def _level(x, target_db, ratio=2.5, tau=1.5, max_db=6.0):
+    """Slow two-way leveller: a stretch louder than the target is pulled down and a quieter one
+    lifted, by (1 - 1/ratio) of the difference and at most max_db, over a ~tau s window."""
+    from scipy.signal import filtfilt
+
+    a = np.exp(-1 / (tau * SR))
+    ms = filtfilt([1 - a], [1, -a], (x ** 2).mean(axis=1))
+    db = 10 * np.log10(np.maximum(ms, 1e-10))
+    g_db = np.clip((target_db - db) * (1 - 1 / ratio), -max_db, max_db)
+    # never lift near-silence (the fade-in, gaps) into audible noise
+    g_db = np.where(db < target_db - 30, np.minimum(g_db, 0), g_db)
+    return x * (10 ** (g_db / 20))[:, None]
+
+
+def _limit(x, ceiling=0.89, look=0.005, release=0.08):
+    from scipy.ndimage import maximum_filter1d, minimum_filter1d
+    from scipy.signal import lfilter
+
+    w = int(look * SR) * 2 + 1
+    peak = maximum_filter1d(np.abs(x).max(axis=1), w)
+    g = np.minimum(1, ceiling / (peak + 1e-9))
+    g = minimum_filter1d(g, w)
+    a = np.exp(-1 / (release * SR))
+    smooth = lfilter([1 - a], [1, -a], g)
+    # the gain falls as fast as the look-ahead needs and recovers at `release`
+    return x * np.minimum(g, smooth)[:, None]
+
+
+def _to_rms(x, db):
+    return x * 10 ** (db / 20) / (np.sqrt((x ** 2).mean()) + 1e-12)
+
+
+def master2(path, music, amb, sfx, music_room=0.32, target_rms_db=-14.5):
+    """Phase-1 master: the score in a hall, SFX already placed (place() carries their room),
+    low-cut, a slow two-way leveller that evens the beats out, loudness target
+    (-14.5 dB RMS, where master() lands, so an A/B is not won by loudness), look-ahead limiter
+    instead of tanh."""
+    mix = music * 0.8 + room(music, "hall", seed=5) * music_room + amb + sfx
+    mix = filt(mix, "high", 30)
+    mix = _to_rms(mix, target_rms_db)
+    mix = _level(mix, target_rms_db)
+    mix = _to_rms(mix, target_rms_db)
+    fade = np.minimum(1, T / 0.25) * np.clip((DUR - T) / 1.6, 0, 1)
+    mix = _limit(mix * fade[:, None])
+    wavfile.write(path, SR, (np.clip(mix, -1, 1) * 32767).astype(np.int16))
+    return mix
+
+
+# ================================================================ v2: procedural SFX
+def steam_train(dur=4.5, rev0=2.2, stop_at=0.8, whistle_at=0.25, seed=7):
+    """A steam locomotive slowing into a station (docs/sound.md phase 2, after Farnell).
+    Driving wheels turn at rev0 rev/s and slow to a stop at stop_at of the clip; four exhaust
+    beats per turn, the first accented; rail-joint clicks from the same speed; a three-pipe chime
+    whistle; brake squeal and a steam release as it stops. Mono."""
+    r = np.random.default_rng(seed)
+    n = int(dur * SR)
+    t = np.arange(n) / SR
+    u = np.clip(t / (dur * stop_at), 0, 1)
+    rev = rev0 * (1 - u) ** 1.4  # rev/s, easing to zero
+    turns = np.cumsum(rev) / SR
+    out = np.zeros(n)
+    # exhaust beats: one each quarter turn; slower = longer, fuller chuff
+    beats = np.flatnonzero(np.diff(np.floor(turns * 4)) > 0)
+    accent = (1.0, 0.68, 0.84, 0.62)
+    for i, b in enumerate(beats):
+        v = rev[b] / rev0
+        L = int((0.07 + 0.16 * (1 - v)) * SR)
+        e = np.exp(-np.arange(L) / SR / (0.035 + 0.09 * (1 - v))) * np.minimum(1, np.arange(L) / (0.004 * SR))
+        burst = filt(r.standard_normal(L), "band", (220, 2600)) + 0.6 * filt(r.standard_normal(L), "band", (480, 800))
+        thump = np.sin(2 * np.pi * 62 * np.arange(L) / SR) * np.exp(-np.arange(L) / SR / 0.05) * 0.5
+        g = accent[i % 4] * r.uniform(0.9, 1.1) * (0.55 + 0.45 * (1 - v))
+        s = b + int(r.uniform(-0.006, 0.006) * SR)
+        if 0 <= s < n:
+            seg = (burst * 0.35 + thump) * e * g
+            out[s : s + L] += seg[: n - s]
+    # rail joints every 12 m on 1.5 m wheels: two clicks (front and rear bogie) per joint
+    metres = np.cumsum(rev * np.pi * 1.5) / SR
+    for j in np.flatnonzero(np.diff(np.floor(metres / 12)) > 0):
+        for off in (0.0, 9.0):
+            k = j + int(off / max(rev[j] * np.pi * 1.5, 0.5) * SR)
+            if k < n - 2000:
+                L = 1800
+                clk = filt(r.standard_normal(L), "high", 2500) * np.exp(-np.arange(L) / SR / 0.004)
+                ring = np.sin(2 * np.pi * r.uniform(1900, 2300) * np.arange(L) / SR) * np.exp(-np.arange(L) / SR / 0.03) * 0.15
+                out[k : k + L] += (clk * 0.25 + ring) * (rev[j] / rev0)
+    # steam hiss: a bed, and a big release once stopped
+    hiss = filt(r.standard_normal(n), "high", 3000)
+    release = np.exp(-np.maximum(0, t - dur * stop_at) / 0.4) * (t > dur * stop_at)
+    out += hiss * (0.01 + 0.045 * release)
+    # brake squeal over the last stretch before the stop
+    sq = np.clip((u - 0.55) / 0.45, 0, 1) * (u < 1)
+    f_sq = 2350 * (1 + 0.006 * np.sin(2 * np.pi * 7 * t)) * (1 - 0.04 * u)
+    out += np.sin(2 * np.pi * np.cumsum(f_sq) / SR) * sq ** 2 * 0.05
+    # chime whistle: three pipes, harmonics, breath, the pitch settling on the attack
+    w0, wd = int(whistle_at * dur * SR), 1.4
+    wn = int(wd * SR)
+    tw = np.arange(wn) / SR
+    env = np.minimum(1, tw / 0.06) * np.clip((wd - tw) / 0.3, 0, 1)
+    scoop = 1 - 0.035 * np.exp(-tw / 0.09)
+    wh = np.zeros(wn)
+    for f in (466.0, 587.0, 698.0):
+        ph = 2 * np.pi * np.cumsum(f * scoop * (1 + 0.003 * np.sin(2 * np.pi * 5.5 * tw))) / SR
+        wh += np.sin(ph) + 0.3 * np.sin(2 * ph) + 0.12 * np.sin(3 * ph)
+        wh += filt(r.standard_normal(wn), "band", (f * 0.92, f * 1.08)) * 0.35
+    out[w0 : w0 + wn] += (wh * env * 0.06)[: n - w0]
+    return out
+
+
+def phin(m, dur=0.9, pos=0.18, bright=0.996, seed=None):
+    """พิณ as a Karplus-Strong string (docs/sound.md phase 3): a noise pluck at `pos` along the
+    string, loss per round trip, and two body resonances. Computed a period at a time at 4x the
+    sample rate, so the tuning is within a few cents. Mono."""
+    from scipy.signal import resample_poly
+
+    r = rng if seed is None else np.random.default_rng(seed)
+    os = 4
+    sr = SR * os
+    P = int(round(sr / mtof(m)))
+    n = int(dur * sr)
+    y = np.zeros(n + P + 1)
+    exc = r.uniform(-1, 1, P)
+    exc -= np.roll(exc, int(pos * P))  # pluck position: a comb notch
+    y[1 : P + 1] = exc
+    k = P + 1
+    while k < len(y):
+        e = min(k + P, len(y))
+        y[k:e] = bright * 0.5 * (y[k - P : e - P] + y[k - P - 1 : e - P - 1])
+        k = e
+    s = resample_poly(y[1 : n + 1], 1, os)
+    t = np.arange(len(s)) / SR
+    body = filt(s, "band", (180, 260)) * 1.2 + filt(s, "band", (420, 520)) * 0.7
+    return (s + body) * np.minimum(1, t / 0.002) * 0.35
