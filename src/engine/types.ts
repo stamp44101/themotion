@@ -46,6 +46,9 @@ export type CityLayout = {
   bridges: {at: number; year: number; modernYear: number; river?: number}[];
   /** Walled city has its own moat (false when rivers form the moat). */
   noMoat?: boolean;
+  /** A town that never had a wall (Khon Kaen): no wall, gates or moat are drawn; the town
+   *  ground and in-town house grid still follow `city`. Set `noMoat` too. */
+  noWall?: boolean;
   /** `span` limits the line along its axis (default: the whole tile). Nakhon Si's station is a
    *  terminus: the line ends there instead of running on past it to the tile edge. */
   rail?: {axis: Axis; pos: number; open: [number, number]; station: [number, number]; stationYear: number; span?: [number, number]};

@@ -14,6 +14,7 @@ import {NAKHONSAWAN} from './cities/nakhonsawan';
 import {CHONBURI} from './cities/chonburi';
 import {NAKHONSI} from './cities/nakhonsi';
 import {LAMPANG} from './cities/lampang';
+import {KHONKAEN} from './cities/khonkaen';
 import {CELEBRATION} from './styleframes/celebration';
 import {KHONKAEN_DINO, KHONKAEN_STUPA, KHONKAEN_TAMARIND} from './styleframes/khonkaen';
 import {LAMPANG_CHEDI, LAMPANG_ELEPHANT, LAMPANG_CARRIAGE, LAMPANG_HORSE} from './styleframes/lampang';
@@ -31,6 +32,7 @@ const NakhonSawan: React.FC = () => <DioramaComposition city={NAKHONSAWAN} />;
 const Chonburi: React.FC = () => <DioramaComposition city={CHONBURI} />;
 const NakhonSi: React.FC = () => <DioramaComposition city={NAKHONSI} />;
 const Lampang: React.FC = () => <DioramaComposition city={LAMPANG} />;
+const KhonKaen: React.FC = () => <DioramaComposition city={KHONKAEN} />;
 const Celebration: React.FC = () => <DioramaComposition city={CELEBRATION} />;
 const KhonKaenStyleDino: React.FC = () => <DioramaComposition city={KHONKAEN_DINO} />;
 const KhonKaenStyleTamarind: React.FC = () => <DioramaComposition city={KHONKAEN_TAMARIND} />;
@@ -64,6 +66,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="KhonKaenStyleDino" component={KhonKaenStyleDino} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="KhonKaenStyleTamarind" component={KhonKaenStyleTamarind} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="KhonKaenStyleStupa" component={KhonKaenStyleStupa} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="KhonKaen" component={KhonKaen} durationInFrames={(KHONKAEN.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Lampang" component={Lampang} durationInFrames={(LAMPANG.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="LampangStyleElephant" component={LampangStyleElephant} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="LampangStyleChedi" component={LampangStyleChedi} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />

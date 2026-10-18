@@ -1019,6 +1019,7 @@ const Boats: React.FC<P> = ({c, w}) => {
   const k = ramp(Y, L.boats[0], L.boats[0] + 100) * (1 - ramp(Y, L.boats[1], L.boats[1] + 20));
   if (k <= 0.02) return null;
   const R = L.rivers[0];
+  if (!R) return null;
   const span = isPathRiver(R) ? null : riverSpan(L, R);
   const len = isPathRiver(R) ? riverLength(L, R) : span![1] - span![0];
   return (
@@ -1243,7 +1244,7 @@ export const Diorama: React.FC<{c: CityConfig}> = ({c}) => {
       <Houses {...p} />
       <Village {...p} />
       <Buildings {...p} />
-      <Walls {...p} />
+      {!c.layout.noWall && <Walls {...p} />}
       <LandmarkLayer {...p} />
       <LifeLayer c={c} />
       <Infrastructure {...p} />

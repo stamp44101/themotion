@@ -248,11 +248,12 @@ const buildWorld = (L: CityLayout) => {
     }
   });
 
-  const boatRun = isPathRiver(river) ? riverLength(L, river) : S;
-  const boats = new Array(6).fill(0).map((_, i) => ({
+  // a city with no river (Khon Kaen's lakes are drawn by its landmarks) has no boats
+  const boatRun = !river ? 0 : isPathRiver(river) ? riverLength(L, river) : S;
+  const boats = new Array(river ? 6 : 0).fill(0).map((_, i) => ({
     at: random(`boz${i}`) * Math.max(0, boatRun - 6) + Math.min(3, boatRun / 2),
     sp: (random(`bos${i}`) < 0.5 ? -1 : 1) * (1.5 + random(`bov${i}`) * 2),
-    off: (random(`boo${i}`) - 0.5) * river.width * 0.5,
+    off: (random(`boo${i}`) - 0.5) * river!.width * 0.5,
   }));
 
   return {S, C, terrainH, trees, paddies, buildings, houses, village, boats, inTile, cityDist, occ};
