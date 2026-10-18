@@ -98,17 +98,24 @@ export const STORY = buildStory({
     {
       // 13 March 2019: the double track reaches Khon Kaen on a 5.4 km viaduct through town, with
       // the north-east's first elevated station -- the 1933 line's answer, 86 years on. The
-      // counter holds here and only runs on to today under the finale's pull-out.
+      // counter holds here, then runs on to today before the finale card comes up.
       id: 'doubletrack',
-      t: [47.2, 55.6],
+      t: [47.2, 53.2],
       year: {hold: 2019},
       caption: {t0: 47, title: 'รถไฟทางคู่ถึงขอนแก่น', sub: 'พ.ศ. 2562 สถานีรถไฟยกระดับแห่งแรกของภาคอีสาน'},
-      callouts: [{t0: 52.4, t1: 55.4, label: 'สถานีขอนแก่น', dx: 90, dy: -130, p: [RAIL_X, 2.8, STATION[1]]}],
+      callouts: [{t0: 50.4, t1: 53.2, label: 'สถานีขอนแก่น', dx: 90, dy: -130, p: [RAIL_X, 2.8, STATION[1]]}],
       camera: [
         [47.6, RAIL_X, 2, 22, 46, 506, 34, 30],
-        [51.6, RAIL_X, 2, -5, 56, 518, 36, 30],
-        [55.4, RAIL_X, 2, -14, 66, 530, 38, 30],
+        [50.4, RAIL_X, 2, -8, 56, 518, 36, 30],
+        [53, RAIL_X, 2, -16, 66, 528, 38, 30],
       ],
+    },
+    {
+      // today: the counter lands on 2569 and holds it on screen before the finale card, which
+      // reads ครบ 50 ปี -- true only now (every city's counter ends in the present)
+      id: 'today',
+      t: [54.6, 56.2],
+      year: [2025.6, 2026],
     },
   ],
 });

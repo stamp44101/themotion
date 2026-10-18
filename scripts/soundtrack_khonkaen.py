@@ -109,7 +109,7 @@ for et in (3.0, founding[0] - 0.2, railway[0] - 0.2, mitt[0] - 0.2, dig[0] - 0.2
     add(sfx, whoosh(1.1, 0.75), et - 0.75, pan=rng.uniform(-0.3, 0.3), gain=0.5)
 add(sfx, drum(70, 32, 2.5, 1.0), 0.1, gain=0.6)
 for i in range(16):
-    add(sfx, firework_pop(), modern[1] - 0.4 + i * 0.28 + rng.uniform(0, 0.2), pan=rng.uniform(-0.8, 0.8), gain=0.5)
+    add(sfx, firework_pop(), DUR - 4.4 + i * 0.28 + rng.uniform(0, 0.2), pan=rng.uniform(-0.8, 0.8), gain=0.5)
 
 mix = master("public/soundtrack_khonkaen.wav", music, amb, sfx)
 print("wrote public/soundtrack_khonkaen.wav", {"railway": round(railway[0], 2), "stupa": round(stupa[0], 2)})
