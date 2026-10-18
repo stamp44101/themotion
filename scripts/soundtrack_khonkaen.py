@@ -77,7 +77,7 @@ add(sfx, roar(2.0, 70.0), dinos[0] + 4.8, pan=-0.3, gain=0.5)
 S = {k: sample(k) for k in ("sauropod_steps", "ox_carts", "steam_train", "convoy_trucks", "dig_sandstone", "train_viaduct", "fireworks_city")}
 print("sfx samples:", {k: v is not None for k, v in S.items()})
 if S["sauropod_steps"] is not None:
-    add(sfx, S["sauropod_steps"], 3.6, gain=0.7)
+    add(sfx, S["sauropod_steps"], 3.6, gain=0.55)
 
 # 1797: ox carts creaking up to Bueng Bon, then building
 if S["ox_carts"] is not None:
@@ -91,7 +91,7 @@ for _ in range(14):
 steam = EV["trains"][0]
 s0, s1 = steam["t0"] + 0.2, steam["t0"] + steam["dur"]
 if S["steam_train"] is not None:
-    add(sfx, S["steam_train"], s0, gain=0.75)
+    add(sfx, S["steam_train"], s0, gain=0.5)
 else:
     t = s0
     while t < s1:
