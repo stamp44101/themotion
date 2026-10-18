@@ -2,7 +2,7 @@ import React from 'react';
 import {lathe} from '../../engine/parts';
 import type {LandmarkProps} from '../../engine/types';
 import {ramp, smooth} from '../../lib';
-import {caravanAt, heroStupa, reservoirK, sauropodAt, tiersUp, truckAt} from './actors';
+import {caravanAt, HERO_AT, heroStupa, reservoirK, sauropodAt, tiersUp, truckAt} from './actors';
 import {DAM, KKU, LAKE_PATH, STUPA, THUNG_SANG} from './places';
 import * as THREE from 'three';
 
@@ -142,24 +142,24 @@ const Dam: React.FC<{k: number; built: number}> = ({k, built}) => {
   if (built < 0.02) return null;
   const [x, z] = DAM;
   return (
-    <group position={[x, 0, z]} scale={1.5}>
-      {/* the reservoir spreads up the valley behind the wall as it fills */}
-      <mesh position={[-3, 0.18 + 0.1 * k, -1]} rotation-x={-Math.PI / 2} scale={[0.2 + 0.8 * k, 0.2 + 0.8 * k, 1]}>
-        <circleGeometry args={[5, 24]} />
+    <group position={[x, 0, z]} scale={1.2}>
+      {/* the reservoir spreads up the valley behind (west of) the wall as it fills */}
+      <mesh position={[-4, 0.18 + 0.1 * k, 0]} rotation-x={-Math.PI / 2} scale={[0.2 + 0.8 * k, 0.2 + 0.8 * k, 1]}>
+        <circleGeometry args={[4.6, 24]} />
         <meshStandardMaterial color="#3f8fc0" roughness={0.25} metalness={0.1} />
       </mesh>
-      {/* the wall runs NE-SW across the Nam Phong, on the reservoir's south-east shore */}
-      <mesh position={[0.8, 0.7 * built, 2.8]} rotation-y={0.785} scale={[1, built, 1]} castShadow receiveShadow>
+      {/* the wall runs north-south across the Nam Phong, on the reservoir's east shore */}
+      <mesh position={[1.1, 0.7 * built, 0]} rotation-y={Math.PI / 2} scale={[1, built, 1]} castShadow receiveShadow>
         <boxGeometry args={[8, 1.4, 0.9]} />
         <meshStandardMaterial color="#cfcac0" roughness={0.8} />
       </mesh>
-      <mesh position={[0.8, 1.45 * built, 2.8]} rotation-y={0.785}>
+      <mesh position={[1.1, 1.45 * built, 0]} rotation-y={Math.PI / 2}>
         <boxGeometry args={[8, 0.06, 1.0]} />
         <meshStandardMaterial color="#8a8578" />
       </mesh>
       {/* the river below the dam, out toward the plain */}
-      <mesh position={[3, 0.06, 5]} rotation-y={0.785}>
-        <boxGeometry args={[0.8, 0.02, 6]} />
+      <mesh position={[2.8, 0.06, 0.4]}>
+        <boxGeometry args={[2.6, 0.02, 0.7]} />
         <meshStandardMaterial color="#3f8fc0" />
       </mesh>
     </group>
@@ -211,7 +211,7 @@ export const KhonKaenLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrain
   return (
     <>
       {hero.k > 0.02 && (
-        <group position={[STUPA[0], terrainH(STUPA[0], STUPA[1]), STUPA[1]]} scale={2.2 * hero.k}>
+        <group position={[HERO_AT[0], terrainH(HERO_AT[0], HERO_AT[1]), HERO_AT[1]]} scale={1.6 * hero.k}>
           <NineTier tiers={10} night={night} />
         </group>
       )}

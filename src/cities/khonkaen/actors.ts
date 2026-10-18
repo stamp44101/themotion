@@ -1,7 +1,7 @@
 // Pure position math for Khon Kaen's moving things (src/engine/actors.ts).
 import type {Actor, ActorCtx} from '../../engine/actors';
 import {lerp, ramp, smooth} from '../../lib';
-import {DAM, LAKE, MITTRAPHAP_X, PHU_WIANG, STUPA} from './places';
+import {DAM, LAKE, mittraphapX, PHU_WIANG} from './places';
 
 type P = [number, number];
 const along = (pts: P[], d: number) => {
@@ -19,6 +19,8 @@ const along = (pts: P[], d: number) => {
 };
 const lengthOf = (pts: P[]) => pts.slice(1).reduce((s, p, i) => s + Math.hypot(p[0] - pts[i][0], p[1] - pts[i][1]), 0);
 
+// frame 0: drawn just west of its real spot at hero scale so its base stays off the lake
+export const HERO_AT: P = [-8, 6.5];
 // frame 0: พระมหาธาตุแก่นนคร at hero scale on the forest tile, gone by the first caption
 export const heroStupa = (t: number, {beat}: ActorCtx) => ({k: 1 - smooth(ramp(beat('dinos'), 0.26, 0.4))});
 
@@ -29,7 +31,7 @@ export const sauropodAt = (i: number, t: number) => {
 };
 
 // 1797: the settlers' caravan from Suwannaphum (south-east) to Bueng Bon's north shore
-export const CARAVAN: P[] = [[30, 24], [20, 15], [12, 9], [4, -7]];
+export const CARAVAN: P[] = [[30, 24], [20, 15], [12, 6], [5.5, -9.5]];
 const CARAVAN_LEN = lengthOf(CARAVAN);
 export const caravanAt = (i: number, {beat}: ActorCtx) => {
   const p = beat('founding');
@@ -44,7 +46,7 @@ export const truckAt = (i: number, {beat}: ActorCtx) => {
   const p = beat('mittraphap');
   if (p <= 0 || p >= 1) return null;
   const z = lerp(32, -22, p) + i * 3;
-  return {x: MITTRAPHAP_X + 0.3, z, rot: Math.PI};
+  return {x: mittraphapX(z) + 0.3, z, rot: Math.PI - 0.155};
 };
 
 // 1964-66: the reservoir behind Ubolratana fills
@@ -54,7 +56,7 @@ export const reservoirK = (Y: number) => smooth(ramp(Y, 1964.9, 1966.1));
 export const tiersUp = ({beat}: ActorCtx) => beat('stupa') * 1.25;
 
 export const ACTORS: Actor[] = [
-  {id: 'heroStupa', during: [0, 2.4], size: 7, at: (t, ctx) => (heroStupa(t, ctx).k > 0.02 ? [STUPA[0], 6, STUPA[1]] : null)},
+  {id: 'heroStupa', during: [0, 2.4], size: 6, at: (t, ctx) => (heroStupa(t, ctx).k > 0.02 ? [HERO_AT[0], 6, HERO_AT[1]] : null)},
   {id: 'sauropods', during: [3.4, 8], size: 4, at: (t) => {
     const s = sauropodAt(0, t);
     return [s.x, 3, s.z];
