@@ -14,18 +14,42 @@ and a confidence level; nothing marked [unknown] is to be guessed.
 
 ## 1. Footprint
 
-Khon Kaen is **not a walled town**: Bueng Bon village was raised to a town in 1797 with no
-recorded wall or moat. [check whether Khon Kaen is among ONEP's 36 old towns; if not, there is
-no official polygon.] The old core is around **บึงแก่นนคร** (formerly บึงบอน). The engine
-always draws a city wall today: a wall-less town needs an engine option (`city.walls: false`)
-before the build -- flag for the engine pass.
+**Khon Kaen is not one of ONEP's 36 announced old towns, so there is no official polygon.**
+Checked against ONEP's own data, not inferred: neither `thai-oldtown.csv` nor the `oldtown_all`
+shapefile inside https://www.onep.go.th/data/oldtown.rar contains ขอนแก่น. The 36 are
+น่าน, เชียงใหม่, ลำพูน, ลำปาง, พิษณุโลก, กำแพงเพชร, ลพบุรี, พิมาย, นครศรีธรรมราช, สงขลา, แพร่,
+เพชรบุรี, จันทบุรี, ปัตตานี, เชียงราย, สุพรรณบุรี, ระยอง, บุรีรัมย์, ตะกั่วป่า, พะเยา, ตาก,
+นครราชสีมา, สกลนคร, สตูล, ราชบุรี, สุรินทร์, ภูเก็ต, ระนอง, แม่ฮ่องสอน, กาญจนบุรี, ยะลา,
+นราธิวาส, ร้อยเอ็ด, อุทัยธานี, ตรัง, ฉะเชิงเทรา. Note พิมาย and นครราชสีมา are on that list,
+so the absence is not "Isan was skipped" -- Khon Kaen simply has no announced old-town zone.
+
+This fits the rest: Bueng Bon village was raised to a town in 1797 with no recorded wall or
+moat. There is no circuit to trace because there was none. The engine still draws a wall for
+every city, so `city.walls: false` is a real prerequisite for this build, not an optional
+nicety -- flag it for the engine pass.
+
+**The old core, from the satellite view:** the town grew on the **west and north-west shore of
+บึงแก่นนคร**, where the oldest temples still sit -- วัดหนองแวง / พระมหาธาตุแก่นนคร at the
+south-west corner of the lake, วัดกลาง and วัดธาตุ (พระอารามหลวง) on the west shore, the
+municipal stadium and the old grid behind them. The modern city then runs north-west from
+there to the station, Central, and on to KKU, with the lake left as its south-east edge.
 
 ## 2. Water
 
 | water | real size | notes |
 |---|---|---|
-| บึงแก่นนคร | [unknown] -- measure on Google Maps | the lake the town grew round; renamed from บึงบอน under Sarit (Chula thesis) |
-| แม่น้ำพอง / เขื่อนอุบลรัตน์ reservoir | [unknown] | ~50 km NW [check], far |
+| บึงแก่นนคร | **about 1,420 m N-S x 550-730 m E-W, water surface ~0.60 km2** | measured, see below. Renamed from บึงบอน under Sarit (Chula thesis) |
+| เขื่อนอุบลรัตน์ reservoir | [unknown] | dam wall at 16.77544, 102.61841 -- **46.3 km NNW** of the lake, bearing 330 deg (computed from the pins), so "~50 km NW" was close |
+
+**Lake measurement.** Taken off Google Maps satellite at **2.291 m/pixel** (z16 at this
+latitude, checked against the scale bar) by masking the water and measuring the blob:
+**1,418 m north-south**, **553 m across at the median row** and **731 m at the widest**,
+water area **0.60 km2**. Water centroid **16.41304, 102.83739**; Google's own label pin sits
+at 16.41469, 102.83820, which is the north end, not the centre -- **use the centroid for the
+layout**.
+
+The ~603 rai (0.96 km2) figure that circulates covers the lake *and* its park ring; the open
+water is the 0.60 km2 above. Say which one a caption means.
 
 ## 3. Story beats (proposal, 60 s)
 
@@ -53,13 +77,44 @@ before the build -- flag for the engine pass.
 
 ## 5. Terrain
 
-The Khorat plateau is flat round the city; ภูเวียง (a ring-shaped range, far west) and the hills
-by the dam are the only relief. Heights [unknown].
+The Khorat plateau is flat round the city; ภูเวียง (a ring-shaped range, far west) and the
+hills by the dam are the only relief.
 
-## 5a. Real coordinates -- all [unknown]
+- **ภูเวียง** is a basin ringed by mountains -- the park's own page calls it
+  "เมืองที่มีภูเขาเป็นกำแพงธรรมชาติ", a town walled by mountains, which is a gift for a
+  diorama that has no city wall to draw. Park area ~325 km2.
+- **Height: ผาชมตะวัน, ~687 m** above sea level (Phu Wiang NP). ⚠️ That is a **viewpoint**,
+  not necessarily the range's summit; the highest point of ภูเวียง is **[unknown]**. Do not
+  put 687 m on screen as "the summit".
+- Hills by the dam: height and name **[unknown]**.
 
-city centre / บึงแก่นนคร, พระมหาธาตุแก่นนคร, the station, ศาลหลักเมือง, KKU, Central Khon Kaen,
-two points on Mittraphap, เขื่อนอุบลรัตน์, ภูเวียง dinosaur museum / pit, พระธาตุขามแก่น.
+## 5a. Real coordinates
+
+All from Google Maps unless noted, read off the place URL (`!3d<lat>!4d<lon>`), with the pin's
+own name quoted so the match can be checked.
+
+| place | lat | lon | pin |
+|---|---|---|---|
+| บึงแก่นนคร (water centroid) | 16.41304 | 102.83739 | computed from satellite, section 2 |
+| บึงแก่นนคร (Google label) | 16.41469 | 102.83820 | "Bueng Kaen Nakhon Reservoir" -- north end, not the centre |
+| พระมหาธาตุแก่นนคร / วัดหนองแวง | 16.40943 | 102.83422 | "Wat Nong Waeng Phra Aram Luang" |
+| ศาลหลักเมืองขอนแก่น | 16.43108 | 102.82846 | "Khon Kaen City Pillar Shrine (San Lak Mueang)" |
+| สถานีรถไฟขอนแก่น | 16.42675 | 102.82576 | "Khon Kaen" station |
+| Central Khon Kaen | 16.43317 | 102.82617 | "Central Khon Kaen" |
+| มหาวิทยาลัยขอนแก่น | 16.47441 | 102.82202 | "Khon Kaen University" -- 7.0 km N of the lake (bearing 346 deg) |
+| บึงทุ่งสร้าง | 16.44923 | 102.85137 | "บึงทุ่งสร้าง" |
+| ถนนมิตรภาพ, north of the city | 16.51860 | 102.83240 | OSM way 1550208013, `ถนนมิตรภาพ` ref 2 |
+| ถนนมิตรภาพ, south of the city | 16.38960 | 102.81160 | OSM way 1552214095, same road |
+| เขื่อนอุบลรัตน์ | 16.77544 | 102.61841 | "Ubol Ratana Dam" -- 42 km NNW, `far: true` |
+| พิพิธภัณฑ์ไดโนเสาร์ภูเวียง | 16.67792 | 102.26706 | "Phu Wiang Dinosaur Museum" -- 67 km WNW (bearing 296 deg), `far: true` |
+| หลุมขุดค้นที่ 1 ภูเวียง | 16.68312 | 102.22974 | "หลุมขุดที่ 1" -- 4 km west of the museum |
+| อุทยานแห่งชาติภูเวียง | 16.69780 | 102.22317 | "Phu Wiang National Park" |
+| พระธาตุขามแก่น | 16.56349 | 102.95187 | "Phra That Kham Kaen" -- 21 km NE (bearing 36 deg), `far: true` |
+
+**Mitraphap runs north-south past the city on its west side**, at lon ~102.832 in the north
+and ~102.811 in the south (OSM). It does not pass through the old core by the lake -- the same
+trap Korat's Mittraphap hit, so route it by the road's own geometry, not to the nearest
+landmark.
 
 ## 6. Sound
 
@@ -68,7 +123,22 @@ rising at the dam; a dinosaur roar at frame 0.
 
 ## 7. Open questions
 
-1. Is there an ONEP old-town polygon for Khon Kaen? If not, the town extent off Google Maps.
-2. Pins and the lake's size (§5a, §2).
-3. A source for the age of the Phu Wiang beds (~130 Ma?).
-4. Engine: a town with no wall (`city.walls: false`).
+1. **ONEP polygon -- answered: there is none.** Khon Kaen is not among the 36; see section 1.
+   The old core round the lake is described there from the satellite view, but nobody has
+   traced corner points for it yet, because there is no wall line to trace. Decide whether
+   the city even needs an outline, or whether the lake plus the road grid carries it.
+2. **Pins and lake size -- done**, sections 5a and 2.
+3. **The Phu Wiang beds -- confirmed, ~130 Ma is right.** The **Sao Khua Formation** is Early
+   Cretaceous, **Valanginian to Hauterivian** (en.wikipedia, Sao Khua Formation; same stages
+   given on Phuwiangosaurus, the sauropod named for these beds and for Princess Sirindhorn).
+   Those stages run roughly **140-126 Ma**, so "about 130 million years" sits inside the
+   range and is safe to say. Avoid a single exact number.
+4. **Engine: a town with no wall (`city.walls: false`)** -- still open, and now certain to be
+   needed: there was never a wall here, and there is no ONEP zone to stand in for one.
+5. **KKU's founding date -- both numbers are real, and they count different things.** KKU's
+   own site says the royal act establishing the university was promulgated **25 มกราคม
+   พ.ศ. 2509** (kku.ac.th). The same site publishes anniversary pieces -- "62 ปี
+   มหาวิทยาลัยขอนแก่น" -- whose arithmetic puts the start at **2507**, when teaching began.
+   Safest caption: **พ.ศ. 2509** with the act, or say เริ่มเปิดสอน พ.ศ. 2507 if the beat is
+   about the first students. Do not mix the two in one line.
+6. Height and name of the hills by the dam, and the true summit height of ภูเวียง.
