@@ -165,4 +165,8 @@ export type CityConfig = {
    *  check_story can project each one through the camera for its beat (engine/actors.ts).
    *  Trains are registered by the engine from layout.trains. */
   actors?: Actor[];
+  /** Opening hook (experimental): show the finale first, then rewind to the start. About half of
+   *  viewers skipped every posted clip in its first 3 s while it showed a static forest tile.
+   *  `from`: story second shown first; `hold`: how long; `out`/`in`: veil fade times; `text`: veil line. */
+  hook?: {from: number; hold: number; out: number; in: number; text: string};
 };
