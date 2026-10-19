@@ -12,8 +12,8 @@ export const PEAK_H = {w: 3.0, m: 2.6, e: 2.0};
 
 // วัดกำแพงแลง: the pin (3.8, -2.2) sits on the traced east wall line; drawn just inside it
 export const KAMPHAENG_LAENG: P = [2.9, -2.4];
-// วัดมหาธาตุวรวิหาร on the west bank (pin -7.9, -2.0), kept clear of the channel
-export const MAHATHAT: P = [-8.2, -2.0];
+// วัดมหาธาตุวรวิหาร on the west bank
+export const MAHATHAT: P = [-8.9, -2.0]; // pin -7.9: moved 80 m west so its terrace clears the channel
 // วัดใหญ่สุวรรณาราม: the pin (0.4, -7.0) lies on the disputed north wall line; drawn inside
 export const WAT_YAI: P = [0.4, -5.4];
 // พระรามราชนิเวศน์ (วังบ้านปืน), on the west bank south of the town (pin -7.7, 12.5)

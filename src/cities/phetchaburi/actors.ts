@@ -49,6 +49,8 @@ export const boatAt = (i: number, {beat}: ActorCtx) => {
   return {...b, rot: b.rot};
 };
 
+// the west force's ranks run 5.8 units north-south: centred north of the pin, clear of Wat Mahathat
+export const WEST_ARMY_Z = -7.2;
 // the two assaults and the defenders on the east side
 //   west: lands .4, stands on the bank facing the wall, firing across the river
 //   east: marches in from the coast road 0-.45, clash at the gate .45-.62, enters .7-.95
@@ -63,7 +65,7 @@ export const siege = (t: number, {Y, beat}: ActorCtx) => {
   const eastIn: P = [lerp(eastAt[0], gate[0] - 3.4, enter), eastAt[1]];
   const townAt: P = [gate[0] - 2.6, gate[1]];
   const defend = Y >= 1581 && p < 0.66;
-  const west: Formation = p > 0.4 ? {at: [KLONG_KRACHAENG[0] - 2.1, KLONG_KRACHAENG[1]], face: [-5.3, KLONG_KRACHAENG[1]]} : null;
+  const west: Formation = p > 0.4 ? {at: [KLONG_KRACHAENG[0] - 2.1, WEST_ARMY_Z], face: [-5.3, WEST_ARMY_Z]} : null;
   const east: Formation = {at: eastIn, face: defend ? townAt : [gate[0] - 6, gate[1]]};
   const town: Formation = defend ? {at: townAt, face: eastAt} : null;
   return {west, east, town};

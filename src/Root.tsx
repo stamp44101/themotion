@@ -35,6 +35,8 @@ const NakhonSi: React.FC = () => <DioramaComposition city={NAKHONSI} />;
 const Lampang: React.FC = () => <DioramaComposition city={LAMPANG} />;
 const KhonKaen: React.FC = () => <DioramaComposition city={KHONKAEN} />;
 const Phetchaburi: React.FC = () => <DioramaComposition city={PHETCHABURI} />;
+// shader-look preview (issue #27), for still-vs-still checks of the PR #53 blackout
+const PhetchaburiLook: React.FC = () => <DioramaComposition city={{...PHETCHABURI, look: 'shader'}} />;
 const Celebration: React.FC = () => <DioramaComposition city={CELEBRATION} />;
 const KhonKaenStyleDino: React.FC = () => <DioramaComposition city={KHONKAEN_DINO} />;
 const KhonKaenStyleTamarind: React.FC = () => <DioramaComposition city={KHONKAEN_TAMARIND} />;
@@ -70,6 +72,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="KhonKaenStyleStupa" component={KhonKaenStyleStupa} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="KhonKaen" component={KhonKaen} durationInFrames={(KHONKAEN.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Phetchaburi" component={Phetchaburi} durationInFrames={(PHETCHABURI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="PhetchaburiLook" component={PhetchaburiLook} durationInFrames={(PHETCHABURI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Lampang" component={Lampang} durationInFrames={(LAMPANG.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="LampangStyleElephant" component={LampangStyleElephant} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="LampangStyleChedi" component={LampangStyleChedi} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />

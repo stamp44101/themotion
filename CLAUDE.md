@@ -55,6 +55,12 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   out black: under a low dawn sun the sea threw a highlight past half-float range, and the bloom
   chain spread the Inf into NaN across the frame even at intensity 0. `Look.tsx` now mounts
   Bloom only at night. Check a shader-look city's dawn and wide shots on stills, not only noon.
+  **A mesh mounted at scale 0 does the same.** Phetchaburi's shader cut went black for 1.4 s
+  at dusk: Phra That Chom Phet was mounted at the start of its build with a y-scale of exactly
+  0, a singular normal matrix gave NaN shading on a few pixels, and bloom spread them over the
+  frame (the plain cut shows nothing). Gate every growing mesh on its own scale (`> 0.02`),
+  not on the beat or year that drives it. Bisect on one still: a still is a fresh page, so a
+  black still means per-frame overflow, not page reuse.
 - **Model a named landmark's silhouette before its icon.** Chonburi's first
   Khao Sam Muk shot put a small red shrine on a round green mound; the label was
   correct, but the place was not recognisable. The useful identity was the long

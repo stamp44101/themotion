@@ -5,8 +5,8 @@ import {Army} from '../../engine/army';
 import {lathe, Prang, prism, SmallChedi, updateInstances, Viharn} from '../../engine/parts';
 import type {LandmarkProps} from '../../engine/types';
 import {ramp, smooth} from '../../lib';
-import {boatAt, cartAt, FLEET, fireK, siege, towersUp} from './actors';
-import {BAN_PUEN, BANG_CHAN, eastWallX, KAMPHAENG_LAENG, KLONG_KRACHAENG, MAHATHAT, PEAK_E, PEAK_M, PEAK_W, RAIL_X, RIVER, WAT_YAI} from './places';
+import {boatAt, cartAt, FLEET, fireK, siege, towersUp, WEST_ARMY_Z} from './actors';
+import {BAN_PUEN, BANG_CHAN, eastWallX, KAMPHAENG_LAENG, MAHATHAT, PEAK_E, PEAK_M, PEAK_W, RAIL_X, RIVER, WAT_YAI} from './places';
 
 export {BAN_PUEN, KAMPHAENG_LAENG, MAHATHAT, PEAK_E, PEAK_M, PEAK_W, STATION, WAT_YAI} from './places';
 
@@ -84,10 +84,10 @@ const KamphaengLaeng: React.FC<{k: number}> = ({k}) => (
   <group position={[KAMPHAENG_LAENG[0], 0, KAMPHAENG_LAENG[1]]}>
     <Prang pos={[0, 0, 0]} k={k} scale={0.62} color={LATERITE} />
     {[[-1, -1], [1, -1], [-1, 1], [1, 1]].map(([sx, sz], i) => (
-      <Prang key={i} pos={[sx * 1.35, 0, sz * 1.35]} k={Math.max(0, Math.min(1, k * 1.25 - 0.1 * i))} scale={0.42} color={LATERITE} />
+      <Prang key={i} pos={[sx * 1.9, 0, sz * 1.9]} k={Math.max(0, Math.min(1, k * 1.25 - 0.1 * i))} scale={0.4} color={LATERITE} />
     ))}
     {k > 0.05 &&
-      [[0, -2.3, 4.8, 0.3], [0, 2.3, 4.8, 0.3], [-2.3, 0, 0.3, 4.8], [2.3, 0, 0.3, 4.8]].map(([x, z, w, l], i) => (
+      [[0, -3.0, 6.2, 0.3], [0, 3.0, 6.2, 0.3], [-3.0, 0, 0.3, 6.2], [3.0, 0, 0.3, 6.2]].map(([x, z, w, l], i) => (
         <mesh key={`w${i}`} position={[x, 0.25 * k, z]} scale={[1, k, 1]} castShadow receiveShadow>
           <boxGeometry args={[w, 0.5, l]} />
           <meshStandardMaterial color={LATERITE} roughness={1} />
@@ -103,11 +103,11 @@ const Mahathat: React.FC<{k: number; night: number}> = ({k, night}) => (
   <group position={[MAHATHAT[0], 0, MAHATHAT[1]]}>
     <Prang pos={[0, 0, 0]} k={k} scale={0.7} color={WHITE} />
     {[[-1, -1], [1, -1], [-1, 1], [1, 1]].map(([sx, sz], i) => (
-      <Prang key={i} pos={[sx * 1.1, 0, sz * 1.1]} k={k} scale={0.38} color={WHITE} />
+      <Prang key={i} pos={[sx * 1.5, 0, sz * 1.5]} k={k} scale={0.34} color={WHITE} />
     ))}
     {k > 0.05 && (
       <mesh position={[0, 0.2, 0]} receiveShadow>
-        <boxGeometry args={[3.6, 0.4, 3.6]} />
+        <boxGeometry args={[4.0, 0.4, 4.0]} />
         <meshStandardMaterial color="#d8cfbd" roughness={1} emissive="#ffd28a" emissiveIntensity={night * 0.25} />
       </mesh>
     )}
@@ -120,7 +120,7 @@ const Mahathat: React.FC<{k: number; night: number}> = ({k, night}) => (
 // on the east. Floodlit at night (untone-mapped so ACES does not wash the glow out).
 const BELL = lathe([[0, 0], [1.2, 0], [1.2, 0.35], [1.0, 0.4], [1.0, 0.7], [0.95, 1.1], [0.85, 1.5], [0.6, 1.85], [0.32, 2.0], [0.3, 2.3], [0.16, 2.5], [0.1, 3.4], [0.04, 3.9], [0, 4.1]], 16);
 const Glow: React.FC<{color: string; night: number; base?: number}> = ({color, night, base = 0}) => (
-  <meshStandardMaterial color={color} roughness={0.6} emissive="#ffd27a" emissiveIntensity={base + night * 0.9} toneMapped={night < 0.3} />
+  <meshStandardMaterial color={color} roughness={0.6} emissive="#ffd27a" emissiveIntensity={base + night * 0.9} />
 );
 const KhaoWang: React.FC<{k: number; old: number; night: number; terrainH: LandmarkProps['terrainH']}> = ({k, old, night, terrainH}) => {
   const roof = useMemo(() => prism(1.3, 0.55, 1.8), []);
@@ -131,21 +131,23 @@ const KhaoWang: React.FC<{k: number; old: number; night: number; terrainH: Landm
       {/* the older chedi on the summit, grey, before Rama IV built the new one over it */}
       <SmallChedi pos={at(PEAK_M)} scale={0.7} k={old * (1 - kk(0.25, 0.5))} color="#9b958a" />
       {/* พระธาตุจอมเพชร */}
-      {k > 0.02 && (
+      {/* gated on its own scale: a mesh at y-scale 0 gets a singular normal matrix, NaN shading,
+          and the shader look's bloom spreads the NaN over the whole frame (PR #53, 22.17 s) */}
+      {kk(0.2, 0.6) > 0.02 && (
         <mesh geometry={BELL} position={at(PEAK_M)} scale={[0.8, 0.8 * kk(0.2, 0.6), 0.8]} castShadow>
           <Glow color={WHITE} night={night} />
         </mesh>
       )}
       {/* the palace group: three halls and the domed observatory หอชัชวาลเวียงชัย */}
       {[
-        [-0.9, 0.4, 0],
-        [0.5, -0.5, 0.6],
-        [0.6, 0.9, 1.2],
+        [-1.3, 0.5, 0],
+        [-0.6, -1.4, 1.57],
+        [1.0, -1.5, 1.2],
       ].map(([dx, dz, r], i) => {
         const s = kk(0.35 + i * 0.08, 0.7 + i * 0.08);
         if (s < 0.02) return null;
         return (
-          <group key={i} position={at(PEAK_W, dx * 1.3, dz * 1.3)} rotation-y={r} scale={[1.35, 1.35 * s, 1.35]}>
+          <group key={i} position={at(PEAK_W, dx, dz)} rotation-y={r} scale={[1.2, 1.2 * s, 1.2]}>
             <mesh position={[0, 0.35, 0]} castShadow receiveShadow>
               <boxGeometry args={[1.1, 0.7, 1.6]} />
               <Glow color="#f2ece0" night={night} />
@@ -157,7 +159,7 @@ const KhaoWang: React.FC<{k: number; old: number; night: number; terrainH: Landm
         );
       })}
       {kk(0.55, 0.85) > 0.02 && (
-        <group position={at(PEAK_W, 0.3, -1.2)} scale={[1.35, 1.35 * kk(0.55, 0.85), 1.35]}>
+        <group position={at(PEAK_W, 0.5, 0.2)} scale={[1.3, 1.3 * kk(0.55, 0.85), 1.3]}>
           <mesh position={[0, 0.8, 0]} castShadow>
             <cylinderGeometry args={[0.32, 0.36, 1.6, 12]} />
             <Glow color="#f5f0e4" night={night} />
@@ -169,8 +171,8 @@ const KhaoWang: React.FC<{k: number; old: number; night: number; terrainH: Landm
         </group>
       )}
       {/* วัดพระแก้วน้อย: a small marble-grey ubosot and its prang */}
-      <Viharn pos={at(PEAK_E, 0.4, 0.3)} k={kk(0.45, 0.8)} rot={0.1} scale={0.75} />
-      <Prang pos={at(PEAK_E, -0.7, -0.4)} k={kk(0.5, 0.85)} scale={0.38} color="#e6e2da" />
+      <Viharn pos={at(PEAK_E, 0.8, 0.4)} k={kk(0.45, 0.8)} rot={0.1} scale={0.7} />
+      <Prang pos={at(PEAK_E, 0.5, -1.1)} k={kk(0.5, 0.85)} scale={0.34} color="#e6e2da" />
     </>
   );
 };
@@ -308,7 +310,7 @@ export const PhetchaburiLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terr
       <Army f={town} color="#e8e2d0" terrainH={terrainH} />
       {Y >= 1500 && Y < 1700 && (
         <>
-          <Tower x={-5.3} z={KLONG_KRACHAENG[1]} f={f} t={t} />
+          <Tower x={-5.3} z={WEST_ARMY_Z} f={f} t={t} />
           <Tower x={gateX - 0.2} z={BANG_CHAN[1] - 1.6} f={f} t={t} />
         </>
       )}

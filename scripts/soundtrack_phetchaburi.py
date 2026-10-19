@@ -135,6 +135,69 @@ for t in np.arange(banpuen[0] + 0.7 * (banpuen[1] - banpuen[0]), banpuen[1], BEA
 # today: the งานพระนครคีรี fair at the foot of the ridge
 add(sfx, crowd(unesco[1] - unesco[0]), unesco[0], pan=-0.2, gain=0.35)
 
+# ---------------------------------------------------------------- places (8-12 dB under the score, never evenly spaced)
+
+
+def gusts(t0, t1, gain):
+    """dry sugar-palm fronds rattling in gusts: high-passed noise under a slow, uneven swell."""
+    n = int((t1 - t0) * SR)
+    env = filt(np.abs(rng.standard_normal(n // 2000 + 2)), "low", 0.5 * SR / 2000)
+    env = np.interp(np.arange(n), np.linspace(0, n, len(env)), env)
+    env = np.clip(env / (env.max() + 1e-9), 0, 1) ** 2
+    rattle = filt(noise(n), "band", (1400, 4200)) * (0.6 + 0.4 * (np.sin(2 * np.pi * 23 * np.arange(n) / SR) > 0.3))
+    add(amb, rattle * env * gain, t0, pan=rng.uniform(-0.5, 0.5))
+
+
+def wash(t0, t1, gain, pan=-0.3):
+    """the river along the bank: low wash with a few irregular laps and a pole set in the mud."""
+    n = int((t1 - t0) * SR)
+    add(amb, filt(pink(n), "band", (180, 900)) * env_ar(n, 0.8, 0.8) * gain, t0, pan=pan)
+    t = t0 + rng.uniform(0.3, 1.0)
+    while t < t1 - 0.4:
+        add(amb, splash(), t, pan=pan + rng.uniform(-0.2, 0.2), gain=gain * 2.2)
+        t += rng.uniform(1.1, 2.6)
+
+
+# the plain under the palms, until the town fills it
+gusts(HOOK + 0.2, khmer[1], 0.035)
+gusts(siege[1], railway[1], 0.025)
+# the river through the town: the opening plain, the walls, Ban Puen on its bank
+wash(HOOK + 1.0, khmer[1], 0.045, pan=-0.4)
+wash(banpuen[0], banpuen[1], 0.05, pan=-0.2)
+# the laterite carts: slow ox hooves and a wooden cart bell, out of step with each other
+for i, t in enumerate(np.arange(khmer[0] + 2.6, khmer[0] + 0.75 * (khmer[1] - khmer[0]), 0.62)):
+    add(sfx, drum(rng.uniform(180, 240), 120, 0.09, 0.3), t + rng.uniform(-0.06, 0.06), pan=0.4, gain=0.35)
+    if i % 3 == 1:
+        add(sfx, bell(rng.uniform(1100, 1300), 0.6), t + 0.2, pan=0.45, gain=0.08)
+# the fleet: oar strokes in loose time, a creaking hull, a horn before the gate goes
+for t in np.arange(siege[0] + 0.3, fleet_end, 0.55):
+    add(sfx, filt(noise(int(0.12 * SR)), "band", (300, 1400)) * env_ar(int(0.12 * SR), 0.02, 0.08) * 0.25, t + rng.uniform(-0.07, 0.07), pan=-0.3)
+add(sfx, creak(0.7), siege[0] + 1.2, pan=-0.3, gain=0.3)
+add(sfx, creak(0.6), siege[0] + 2.9, pan=-0.2, gain=0.25)
+add(sfx, filt(pi_reed(43, 1.5, vib=2.0), "low", 900), gate_t - 1.4, pan=0.4, gain=0.35)
+# 1903: rail joints under the train as it slows into the terminus
+t = s0 + 0.15
+while t < s1 - 0.3:
+    p = (t - s0) / (s1 - s0)
+    for dt in (0.0, 0.11):
+        add(sfx, drum(95, 60, 0.07, 0.4), t + dt, pan=-0.6 + 1.2 * p, gain=0.3 * (1 - 0.5 * p))
+    t += 0.42 + 0.5 * p
+# the City of Gastronomy: a kitchen at the fair -- knives on boards, a wok's sizzle, the
+# pestle in a mortar, bowls -- on top of the crowd, at uneven gaps
+u0, u1 = unesco
+t = u0 + 0.3
+while t < u1:
+    for k in range(int(rng.integers(3, 7))):
+        n = int(0.03 * SR)
+        add(sfx, filt(noise(n), "band", (1800, 5000)) * env_ar(n, 0.002, 0.025) * 0.35, t + k * 0.13, pan=0.3)
+    t += rng.uniform(0.9, 1.6)
+n = int((u1 - u0 - 0.6) * SR)
+add(sfx, filt(pink(n), "band", (1800, 5500)) * env_ar(n, 0.9, 1.2) * 0.05, u0 + 0.6, pan=-0.35)
+for t in np.arange(u0 + 0.8, u1, 0.48):
+    add(sfx, drum(170, 110, 0.12, 0.5), t + rng.uniform(-0.05, 0.05), pan=0.15, gain=0.3)
+for _ in range(5):
+    add(sfx, clink(), rng.uniform(u0 + 0.5, u1), pan=rng.uniform(-0.5, 0.5), gain=0.35)
+
 # era-change whooshes
 for et in (siege[0] - 0.2, palace[0] - 0.2, railway[0] - 0.4, banpuen[0] - 0.2, unesco[0] - 0.2):
     add(sfx, whoosh(1.1, 0.75), et - 0.75, pan=rng.uniform(-0.3, 0.3), gain=0.5)

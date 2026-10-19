@@ -1,7 +1,7 @@
 import {GROUND} from '../../Scene';
 import type {CityConfig} from '../../engine/types';
 import {PhetchaburiLandmarks} from './Landmarks';
-import {ACTORS} from './actors';
+import {ACTORS, WEST_ARMY_Z} from './actors';
 import {
   BAN_PUEN, BANG_CHAN, eastWallX, KAMPHAENG_LAENG, MAHATHAT, PEAK_E, PEAK_H, PEAK_M, PEAK_W, RAIL_X, RIVER, RIVER_W, STATION, WALL, WAT_YAI, WEST_GATE,
 } from './places';
@@ -65,7 +65,7 @@ export const PHETCHABURI: CityConfig = {
       built: [1150, 450],
       modern: [1920, 80],
       keepOut: [
-        [KAMPHAENG_LAENG[0], KAMPHAENG_LAENG[1], 2.6],
+        [KAMPHAENG_LAENG[0], KAMPHAENG_LAENG[1], 3.4],
         [WAT_YAI[0], WAT_YAI[1], 1.6],
       ],
     },
@@ -94,11 +94,11 @@ export const PHETCHABURI: CityConfig = {
       [-34, -30, 9, -1e9],
       [-12, -18, 6, -1e9],
       [-12, 4, 5, -1e9],
-      [KAMPHAENG_LAENG[0], KAMPHAENG_LAENG[1], 3.2, -1e9],
-      [MAHATHAT[0], MAHATHAT[1], 2.4, 1400],
+      [KAMPHAENG_LAENG[0], KAMPHAENG_LAENG[1], 3.8, -1e9],
+      [MAHATHAT[0], MAHATHAT[1], 3.2, 1400],
       [BAN_PUEN[0], BAN_PUEN[1], 4, 1909],
       // the crowns: the old chedi's summit always, the palace grounds from 1859
-      [PEAK_M[0], PEAK_M[1], 1.4, -1e9],
+      [PEAK_M[0], PEAK_M[1], 2.0, -1e9],
       [PEAK_W[0], PEAK_W[1], 2.4, 1858.6],
       [PEAK_M[0], PEAK_M[1], 2.0, 1858.6],
       [PEAK_E[0], PEAK_E[1], 2.0, 1858.6],
@@ -111,13 +111,30 @@ export const PHETCHABURI: CityConfig = {
     // rice under the sugar palms from the start: the plain reads open and sandy, not forest
     paddies: [500, 900],
     sites: [
-      [KAMPHAENG_LAENG[0], KAMPHAENG_LAENG[1], 2.6],
-      [MAHATHAT[0], MAHATHAT[1], 2.0],
-      [WAT_YAI[0], WAT_YAI[1], 1.4],
+      [KAMPHAENG_LAENG[0], KAMPHAENG_LAENG[1], 3.4],
+      [MAHATHAT[0], MAHATHAT[1], 2.4],
+      [WAT_YAI[0], WAT_YAI[1], 1.6],
       [BAN_PUEN[0], BAN_PUEN[1], 2.0],
       [PEAK_W[0], PEAK_W[1], 1.6],
       [PEAK_M[0], PEAK_M[1], 1.2],
       [PEAK_E[0], PEAK_E[1], 1.2],
+    ],
+    // every hand-placed part with its own years (Landmarks.tsx), so the occupancy audit can
+    // test them and nothing generated stands in them while they are up
+    footprints: [
+      {fp: {rect: [KAMPHAENG_LAENG[0], KAMPHAENG_LAENG[1], 6.6, 6.6]}, from: 1185, label: 'วัดกำแพงแลง'},
+      {fp: {rect: [MAHATHAT[0], MAHATHAT[1], 4.0, 4.0]}, from: 1440, label: 'วัดมหาธาตุ'},
+      {fp: {disc: [WAT_YAI[0], WAT_YAI[1], 1.5]}, from: 1680, label: 'วัดใหญ่สุวรรณาราม'},
+      {fp: {disc: [PEAK_M[0], PEAK_M[1], 1.0]}, from: 1300, label: 'พระธาตุจอมเพชร'},
+      {fp: {disc: [PEAK_W[0] - 1.3, PEAK_W[1] + 0.5, 1.2]}, from: 1859, label: 'พระนครคีรี hall 1'},
+      {fp: {disc: [PEAK_W[0] - 0.6, PEAK_W[1] - 1.4, 1.2]}, from: 1859, label: 'พระนครคีรี hall 2'},
+      {fp: {disc: [PEAK_W[0] + 1.0, PEAK_W[1] - 1.5, 1.2]}, from: 1859, label: 'พระนครคีรี hall 3'},
+      {fp: {disc: [PEAK_W[0] + 0.5, PEAK_W[1] + 0.2, 0.6]}, from: 1859, label: 'หอชัชวาลเวียงชัย'},
+      {fp: {disc: [PEAK_E[0] + 0.8, PEAK_E[1] + 0.4, 1.0]}, from: 1859, label: 'วัดพระแก้วน้อย'},
+      {fp: {disc: [PEAK_E[0] + 0.5, PEAK_E[1] - 1.1, 0.7]}, from: 1859, label: 'วัดพระแก้วน้อย prang'},
+      {fp: {rect: [BAN_PUEN[0], BAN_PUEN[1], 3.4, 5.4]}, from: 1910, label: 'วังบ้านปืน'},
+      {fp: {disc: [-5.3, WEST_ARMY_Z, 0.8]}, from: 1500, to: 1700, label: 'หอรบ west'},
+      {fp: {disc: [eastWallX(BANG_CHAN[1] - 1.6) - 0.2, BANG_CHAN[1] - 1.6, 0.8]}, from: 1500, to: 1700, label: 'หอรบ east'},
     ],
     // the ridge and the palace grounds stay open as the town grows round them
     openGround: [

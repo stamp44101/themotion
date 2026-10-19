@@ -67,14 +67,15 @@ export const STORY = buildStory({
       caption: {t0: 21.8, title: 'พระนครคีรี', sub: 'พ.ศ. 2402 รัชกาลที่ 4 โปรดให้สร้างพระราชวังบนเขาสมณ เสร็จ พ.ศ. 2405'},
       era: 'รัตนโกสินทร์',
       callouts: [
-        {t0: 24, t1: 26.8, label: 'พระธาตุจอมเพชร', dx: 90, dy: -130, p: [PEAK_M[0], 6, PEAK_M[1]]},
-        {t0: 27.2, t1: 29.8, label: 'พระราชวัง', dx: -90, dy: -130, p: [PEAK_W[0], 4.6, PEAK_W[1]]},
+        {t0: 24, t1: 26.8, label: 'พระธาตุจอมเพชร', dx: 90, dy: -130, p: [PEAK_M[0], 5.0, PEAK_M[1]]},
+        {t0: 27.2, t1: 29.8, label: 'พระราชวัง', dx: -90, dy: -130, p: [PEAK_W[0] + 0.5, 4.2, PEAK_W[1] + 0.2]},
       ],
       camera: [
         // low, across the open plain, so the ridge stands against the sky
-        [22.2, -20, 2.5, -6, 60, 200, 25, 30],
-        [26, -20, 2.5, -6, 50, 228, 23, 30],
-        [29.8, -20.5, 2.5, -6, 54, 258, 25, 30],
+        // from the south the three crowns stand side by side (from the east they stack up)
+        [22.2, -20, 2.5, -6, 60, 186, 25, 30],
+        [26, -20, 2.5, -6, 50, 196, 23, 30],
+        [29.8, -20.5, 2.5, -6, 54, 208, 25, 30],
       ],
     },
     {

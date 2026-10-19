@@ -13,6 +13,9 @@ export const GEO: Geo = {
     {name: 'Wat Phra Kaeo Noi, east peak', lat: 13.1078438, lon: 99.9394913, at: PEAK_E, source: 'Google Maps'},
     {name: 'Phra Ram Ratchaniwet (Ban Puen)', lat: 13.09497, lon: 99.9473744, at: BAN_PUEN, source: 'Google Maps'},
     {name: 'Phetchaburi station', lat: 13.116271, lon: 99.941152, at: STATION, source: 'Google Maps'},
+    // the open Gulf, 19 km SE (GEBCO -6 m): pulled onto the tile by direction, so an east-west
+    // flip of the coast (Chonburi's mistake) fails the check
+    {name: 'Gulf of Thailand, open water', lat: 13.00756, lon: 100.09549, at: [44.5, 30.7], far: true, water: true, source: 'issue #51, GEBCO 2020'},
     {name: 'Phetchaburi river, south', lat: 13.09571, lon: 99.94868, at: [-5.95, 11.4], water: true, source: 'OSM way 120451772'},
   ],
 };
