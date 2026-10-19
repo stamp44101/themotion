@@ -19,8 +19,9 @@ Y = tl.YEAR
 music, amb, sfx = stereo(), stereo(), stereo()
 # cues sit on the story's beats (timeline.ts), so a retime of the picture moves the score
 B = tl.beat
-khmer, siege, palace, railway, banpuen, unesco = (
-    B("khmer"), B("siege"), B("palace"), B("railway"), B("banpuen"), B("unesco"))
+khmer, siege, palace, railway, growth, feast = (
+    B("khmer"), B("siege"), B("palace"), B("railway"), B("growth"), B("feast"))
+at = lambda b, p: b[0] + p * (b[1] - b[0])
 # the story starts at 0 (the hook was dropped: the cover frame has to be the tile with its hero)
 HOOK = 0.0
 
@@ -31,7 +32,7 @@ D, G, A, Bm = [38, 45, 50], [43, 50, 55], [45, 52, 57], [47, 54, 59]
 
 add(music, pad([38, 45, 50], khmer[1] - HOOK + 0.5, 900), HOOK, gain=0.5)
 for t0, t1, notes in ((khmer[1], siege[0] - 0.4, D), (siege[0] - 0.4, siege[1], Bm), (siege[1], railway[0] - 0.4, G),
-                      (railway[0] - 0.4, banpuen[0] - 0.4, A), (banpuen[0] - 0.4, unesco[0] - 0.4, D), (unesco[0] - 0.4, DUR, [38, 50, 57, 62, 66])):
+                      (railway[0] - 0.4, growth[0] - 0.4, A), (growth[0] - 0.4, feast[0] - 0.4, D), (feast[0] - 0.4, DUR, [38, 50, 57, 62, 66])):
     add(music, pad(notes, t1 - t0 + 0.6, 1500), t0, gain=0.38)
     for t in np.arange(t0 + 0.1, t1 - 0.2, BEAT):
         # ฉิ่ง on the beat; ฆ้องวง (low struck bronze) on the root and fifth
@@ -62,8 +63,8 @@ def flute(t0, t1, step, amp, low=0, high=len(PENTA) - 1, start=4):
 
 flute(HOOK + 1.4, khmer[1], BEAT, 0.2)
 ranat_line(palace[0], palace[1], BEAT / 2, 0.24, low=2)
-flute(railway[1] - 1.0, banpuen[1], BEAT, 0.2)
-ranat_line(unesco[0] - 0.4, DUR - 2.5, BEAT / 2, 0.24, low=3)
+flute(railway[1] - 1.0, growth[1], BEAT, 0.2)
+ranat_line(feast[0] - 0.4, DUR - 2.5, BEAT / 2, 0.24, low=3)
 # ปี่ and war drums under the siege; the rest of the score ducks under them
 for t in np.arange(siege[0], siege[1] - 0.2, BEAT / 2):
     add(sfx, drum(150, 70, 0.35, 0.8), t, pan=rng.uniform(-0.2, 0.2), gain=0.55 if (t - siege[0]) % BEAT < 0.1 else 0.3)
@@ -77,7 +78,7 @@ music *= (1 - 0.35 * bump(T, siege[0], siege[1], 0.4))[:, None]
 # ---------------------------------------------------------------- ambience
 add(amb, filt(pink(N), "low", 600) * 0.03, 0, pan=-0.3)
 t = HOOK + 0.3
-while t < unesco[0]:
+while t < feast[0]:
     i = int(t * SR)
     if tl.NIGHT[i] < 0.2 and not (siege[0] - 0.4 < t < siege[1]):
         add(amb, chirp_bird(), t, pan=rng.uniform(-0.8, 0.8), gain=0.8 if Y[i] < 1900 else 0.3)
@@ -91,18 +92,51 @@ traffic = filt(pink(N), "low", 450) * 0.6 + filt(noise(N), "band", (500, 1600)) 
 add(amb, traffic * np.clip((Y - 1955) / 50, 0, 1) * 0.05, 0)
 
 # ---------------------------------------------------------------- sfx
-# opening: a low drum under the title, a gong as the hero crowns give way to the plain
-add(sfx, drum(70, 32, 2.5, 1.0), 0.1, gain=0.6)
-add(sfx, gong(88, 5.0, 0.35), khmer[0] + 0.3 * (khmer[1] - khmer[0]))
+# the hero's sound comes first (docs/storyline.md 3.1): the server slides under a piece of
+# ขนมหม้อแกง with a soft, dense give, taps the tray, and a few fried shallots crackle as it lifts
+# (the piece rises 0.2 -> 1.5 s in Landmarks.tsx)
+
+
+def serve(t0, gain=1.0):
+    n = int(0.42 * SR)
+    add(sfx, filt(noise(n), "band", (260, 1700)) * env_ar(n, 0.04, 0.34) * 0.5, t0, pan=0.2, gain=gain)
+    add(sfx, bell(1480, 0.35, ratios=(1, 2.4), decay=0.4), t0 + 0.4, pan=0.25, gain=0.07 * gain)
+    for k in range(7):
+        m = int(0.02 * SR)
+        add(sfx, filt(noise(m), "band", (1500, 3600)) * env_ar(m, 0.001, 0.016) * 0.3, t0 + 0.55 + k * rng.uniform(0.06, 0.13), pan=0.3, gain=gain)
+
+
+serve(0.2)
+# under the title, a low drum; a gong as the hero gives way to the plain
+add(sfx, drum(70, 32, 2.5, 1.0), 0.1, gain=0.5)
+add(sfx, gong(88, 5.0, 0.3), khmer[0] + 0.3 * (khmer[1] - khmer[0]))
 add(sfx, whoosh(1.1, 0.75), 3.0 - 0.75, gain=0.32)
 # ~1191: laterite dressed and set at irregular gaps, carts creaking in from the east
 t = khmer[0] + 3.0
 while t < khmer[0] + 0.8 * (khmer[1] - khmer[0]):
     n = int(0.06 * SR)
-    add(sfx, filt(noise(n), "band", (1200, 3800)) * env_ar(n, 0.003, 0.05) * 0.45, t, pan=rng.uniform(-0.4, 0.4))
+    add(sfx, filt(noise(n), "band", (1200, 3800)) * env_ar(n, 0.003, 0.05) * 0.3, t, pan=rng.uniform(-0.4, 0.4))
     t += rng.uniform(0.3, 0.65)
 for t in np.arange(khmer[0] + 2.4, khmer[0] + 0.7 * (khmer[1] - khmer[0]), 0.7):
     add(sfx, creak(0.4), t + rng.uniform(-0.1, 0.1), pan=rng.uniform(0.2, 0.6), gain=0.35)
+# the builders' rhythm: the gang's "ฮึบ" as they heave, a low thud as each block is set
+
+
+def heave(dur=0.28):
+    n = int(dur * SR)
+    t = np.arange(n) / SR
+    out = np.zeros(n)
+    for f0 in rng.uniform(120, 175, 3):
+        ph = 2 * np.pi * np.cumsum(f0 * (1 - 0.18 * t / dur)) / SR
+        saw = sum(np.sin(k * ph) / k for k in range(1, 12))
+        out += filt(saw, "band", (420, 900)) + 0.5 * filt(saw, "band", (1000, 1700))
+    return out * env_ar(n, 0.03, 0.16) * 0.12
+
+
+for i, t in enumerate(np.arange(at(khmer, 0.3), at(khmer, 0.9), 0.84)):
+    add(sfx, drum(118, 58, 0.32, 0.8), t + rng.uniform(-0.04, 0.04), pan=-0.1, gain=0.42)
+    if i % 2 == 0:
+        add(sfx, heave(), t - 0.32, pan=-0.15, gain=0.5)
 # 2124: paddles as the fleet comes up the river, the clash at the gate, the fire
 fleet_end = siege[0] + 0.42 * (siege[1] - siege[0])
 for t in np.arange(siege[0] + 0.2, fleet_end, 0.5):
@@ -112,10 +146,23 @@ for i in range(5):
     add(sfx, clash(), gate_t + i * 0.33 + rng.uniform(0, 0.12), pan=rng.uniform(0.0, 0.6), gain=0.14)
 add(sfx, crowd(siege[1] - gate_t), gate_t, pan=0.3, gain=0.3)
 add(sfx, filt(crackle(siege[1] - gate_t - 0.3), "low", 3500), gate_t + 0.4, pan=0.2, gain=0.22)
-# 1859-62: the palace rising, a gong as it is finished and named
+# 1859-62: the palace rising, a gong as it is finished and the procession reaches it
 for _ in range(10):
     add(sfx, drum(rng.uniform(300, 460), 200, 0.12, 0.25), rng.uniform(palace[0] + 0.5, palace[0] + 0.8 * (palace[1] - palace[0])), pan=rng.uniform(-0.5, 0.5))
-add(sfx, gong(98, 6.0, 0.35), palace[0] + 0.86 * (palace[1] - palace[0]))
+add(sfx, gong(98, 6.0, 0.3), at(palace, 0.86))
+# the royal procession (palace .44 -> .97): a conch as it sets off, then กลองชนะ in step
+# with the bearers, a small gong every other step and a ปี่ line over them, until the big
+# gong above
+add(sfx, filt(pi_reed(45, 1.3, vib=2.0), "low", 1100), at(palace, 0.44), pan=-0.2, gain=0.3)
+for i, t in enumerate(np.arange(at(palace, 0.5), at(palace, 0.85), BEAT)):
+    add(sfx, drum(138, 76, 0.3, 0.7), t, pan=-0.1, gain=0.34 if i % 2 == 0 else 0.22)
+    if i % 2 == 0:
+        add(music, gong(176, 1.1, 0.12), t, pan=0.1)
+t = at(palace, 0.52)
+while t < at(palace, 0.84):
+    d = BEAT * rng.choice([1, 2])
+    add(music, pi_reed(PENTA[int(rng.integers(2, 7))], d * 1.05), t, pan=0.15, gain=0.11)
+    t += d
 # 1903: the first train comes down from the north and pulls in to the terminus
 steam = EV["trains"][0]
 s0, s1 = steam["t0"] + 0.2, steam["t0"] + steam["dur"]
@@ -126,13 +173,26 @@ while t < s1:
     t += 0.2 + 0.18 * p
 add(sfx, steam_whistle(), s0 + 0.3, pan=-0.4)
 add(sfx, steam_whistle(1.6), s1 - 0.4, pan=0.3, gain=0.7)
-# 1910-16: the palace at Ban Puen going up, a royal band in the distance
-for _ in range(10):
-    add(sfx, drum(rng.uniform(260, 420), 180, 0.14, 0.3), rng.uniform(banpuen[0] + 0.4, banpuen[0] + 0.7 * (banpuen[1] - banpuen[0])), pan=rng.uniform(-0.5, 0.5))
-for t in np.arange(banpuen[0] + 0.7 * (banpuen[1] - banpuen[0]), banpuen[1], BEAT):
-    add(sfx, drum(110, 60, 0.3, 0.5), t, pan=-0.2, gain=0.35)
-# today: the งานพระนครคีรี fair at the foot of the ridge
-add(sfx, crowd(unesco[1] - unesco[0]), unesco[0], pan=-0.2, gain=0.35)
+# the town grows: hammers and timber at uneven gaps, then motor traffic and a couple of horns
+for _ in range(16):
+    add(sfx, drum(rng.uniform(260, 420), 180, 0.12, 0.2), rng.uniform(at(growth, 0.05), at(growth, 0.8)), pan=rng.uniform(-0.6, 0.6))
+for _ in range(6):
+    clank = bell(rng.uniform(560, 880), 0.35, ratios=(1, 2.7, 4.1), decay=9)
+    add(sfx, clank, rng.uniform(at(growth, 0.2), at(growth, 0.9)), pan=rng.uniform(-0.5, 0.5), gain=0.22)
+
+
+def horn(dur):
+    n = int(dur * SR)
+    ph = 2 * np.pi * np.arange(n) / SR
+    return filt(np.sign(np.sin(410 * ph)) + np.sign(np.sin(500 * ph)), "band", (350, 2200)) * env_ar(n, 0.01, 0.06) * 0.25
+
+
+for p, d, pan in ((0.66, 0.2, 0.4), (0.83, 0.14, -0.3), (0.86, 0.26, -0.3)):
+    add(sfx, horn(d), at(growth, p), pan=pan, gain=0.12)
+# the fair at the foot of the ridge, and the server lifting a piece out again on the cover's
+# sound (Landmarks.tsx lifts it over feast .32 -> .5)
+add(sfx, crowd(feast[1] - feast[0]), feast[0], pan=-0.2, gain=0.35)
+serve(at(feast, 0.32), gain=0.9)
 
 # ---------------------------------------------------------------- places (8-12 dB under the score, never evenly spaced)
 
@@ -162,7 +222,7 @@ gusts(HOOK + 0.2, khmer[1], 0.035)
 gusts(siege[1], railway[1], 0.025)
 # the river through the town: the opening plain, the walls, Ban Puen on its bank
 wash(HOOK + 1.0, khmer[1], 0.045, pan=-0.4)
-wash(banpuen[0], banpuen[1], 0.05, pan=-0.2)
+wash(growth[0], at(growth, 0.6), 0.05, pan=-0.2)
 # the laterite carts: slow ox hooves and a wooden cart bell, out of step with each other
 for i, t in enumerate(np.arange(khmer[0] + 2.6, khmer[0] + 0.75 * (khmer[1] - khmer[0]), 0.62)):
     add(sfx, drum(rng.uniform(180, 240), 120, 0.09, 0.3), t + rng.uniform(-0.06, 0.06), pan=0.4, gain=0.35)
@@ -183,12 +243,12 @@ while t < s1 - 0.3:
     t += 0.42 + 0.5 * p
 # the City of Gastronomy: a kitchen at the fair -- knives on boards, a wok's sizzle, the
 # pestle in a mortar, bowls -- on top of the crowd, at uneven gaps
-u0, u1 = unesco
+u0, u1 = feast
 t = u0 + 0.3
 while t < u1:
     for k in range(int(rng.integers(3, 7))):
         n = int(0.03 * SR)
-        add(sfx, filt(noise(n), "band", (1800, 5000)) * env_ar(n, 0.002, 0.025) * 0.35, t + k * 0.13, pan=0.3)
+        add(sfx, filt(noise(n), "band", (1600, 4400)) * env_ar(n, 0.002, 0.025) * 0.32, t + k * 0.13, pan=0.3)
     t += rng.uniform(0.9, 1.6)
 n = int((u1 - u0 - 0.6) * SR)
 add(sfx, filt(pink(n), "band", (1800, 5500)) * env_ar(n, 0.9, 1.2) * 0.05, u0 + 0.6, pan=-0.35)
@@ -198,12 +258,12 @@ for _ in range(5):
     add(sfx, clink(), rng.uniform(u0 + 0.5, u1), pan=rng.uniform(-0.5, 0.5), gain=0.35)
 
 # era-change whooshes
-for et in (siege[0] - 0.2, palace[0] - 0.2, railway[0] - 0.4, banpuen[0] - 0.2, unesco[0] - 0.2):
+for et in (siege[0] - 0.2, palace[0] - 0.2, railway[0] - 0.4, growth[0] - 0.2, feast[0] - 0.2):
     add(sfx, whoosh(1.1, 0.75), et - 0.75, pan=rng.uniform(-0.3, 0.3), gain=0.5)
 
 # finale fireworks over the ridge
 for i in range(16):
-    add(sfx, firework_pop(), DUR - 4.6 + i * 0.28 + rng.uniform(0, 0.2), pan=rng.uniform(-0.8, 0.8), gain=0.5)
+    add(sfx, firework_pop(), DUR - 4.6 + i * 0.28 + rng.uniform(0, 0.2), pan=rng.uniform(-0.8, 0.8), gain=0.4)
 
 mix = master("public/soundtrack_phetchaburi.wav", music, amb, sfx)
 print("wrote public/soundtrack_phetchaburi.wav", {"siege": round(siege[0], 2), "railway": round(railway[0], 2)})

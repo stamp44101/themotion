@@ -15,8 +15,13 @@ import type {Caption} from '../lib';
 import {makeCurve} from '../lib';
 import type {CamKey} from './types';
 
+/** What happens on screen in a beat (docs/storyline.md §3.4): one verb per beat, no two in a row. */
+export type BeatKind = 'legend' | 'build' | 'fight' | 'disaster' | 'procession' | 'arrive' | 'trade' | 'discover' | 'grow' | 'celebrate' | 'today';
+
 export type Beat = {
   id: string;
+  /** the beat's verb (required under `standard: 1`) */
+  kind?: BeatKind;
   /** seconds on the clip */
   t: [number, number];
   /** the years the counter covers, or a year held through the beat: the counter rounds,
@@ -32,6 +37,9 @@ export type Beat = {
 
 export type StoryDef = {
   duration: number;
+  /** the storyline standard this story is built to (docs/storyline.md); 1 turns on
+   *  scripts/storyline.mjs in npm run check */
+  standard?: 1;
   /** the year at t = 0, before the first beat (default: the first beat's start year) */
   before?: number;
   /** the year at the end, after the last beat (default: the last beat's end year) */
@@ -118,6 +126,9 @@ export const buildStory = (def: StoryDef) => {
     cameraKeys,
     /** [t0, t1] per id, for export_timeline and the soundtrack */
     beats: Object.fromEntries(beats.map((b) => [b.id, b.t])) as Record<string, [number, number]>,
+    /** each beat's verb and years, in order, for the storyline checks */
+    plan: beats.map((b) => ({id: b.id, t: b.t, kind: b.kind, years: span(b), captioned: !!b.caption})),
+    standard: def.standard,
     /** the derived year keys (for check_story's hold checks and debugging) */
     yearKeys: keys,
   };

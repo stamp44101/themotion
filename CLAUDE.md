@@ -19,7 +19,8 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
 
 ## Workflow that works (do it in this order)
 1. Agree the visual style first (show 2–3 quick style frames) before building anything.
-2. Write the story beats + year curve + captions (`src/cities/<city>/timeline.ts`).
+2. Write the story beats + year curve + captions (`src/cities/<city>/timeline.ts`) to the storyline
+   standard, `docs/storyline.md`: fill its worksheet in the brief first.
 3. Lay out the diorama (`src/cities/<city>/layout.ts`) and city-specific landmarks (`Landmarks.tsx`).
 4. Check composition with a contact sheet of 8–12 stills (`npx remotion still … --frame=N`, then
    `ffmpeg … hstack/vstack`) — iterate on stills, never on full renders.
@@ -269,6 +270,18 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   the north gate, a train, a mudslide, the แห่ผ้าขึ้นธาตุ procession wrapping the chedi --
   and folded the text-only facts into the sub lines. Plan the story as a list of on-screen
   events first; a date with nothing to show is a sub line, not a beat.
+- **Every city from Phetchaburi on is built to the storyline standard** (`docs/storyline.md`,
+  `buildStory({standard: 1, ...})`), written from the posts in `docs/experiments.md`.
+  Korat's walking dinosaurs cut the skip rate to 32.9%; Lampang's standing carriage did not
+  (44.9%); every clip lost about half of its 3-s audience by 17 s. So:
+  - a `role: 'hero'` actor stands on the whole tile at frame 0 and returns in the payoff as a
+    `role: 'callback'` actor;
+  - registered actors move on screen through 3-17 s, with no 4-s gap anywhere after the title;
+  - every beat has one `kind` (verb), never the same verb twice in a row;
+  - one wide `grow` shot;
+  - the counter lands on today and holds before the finale card.
+
+  `check_story.mjs` (`scripts/storyline.mjs`) errors on a new city that does not declare it.
 - **60 s by default, 75 s when it pays (owner's rule).** Go to 75 s only if the extra time goes
   to beats with action on screen (a siege, a procession, a tracking shot), never to longer
   holds or more text. Set `duration` in the story, register the composition with
@@ -316,7 +329,7 @@ re-renders and a re-tune of all 31 camera keys.
    ended up 350 m wide inside a 1,136 m city.
 3. **Verify the dates** (the repo rule) and note which are attributed vs
    documented. Say so in the caption when a date is `สันนิษฐานว่า`.
-4. Story beats + year curve + captions → `timeline.ts`.
+4. Story beats + year curve + captions → `timeline.ts`, to `docs/storyline.md` (worksheet in the brief, §3).
 5. Layout + landmarks, then **audit every hand-placed coordinate** against the
    rivers and the city polygon — including each object's footprint radius, not
    just its centre point. The engine only protects what it generates.

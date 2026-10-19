@@ -24,6 +24,9 @@ export type Actor = {
   /** share of its standing time it must be in frame (default 0.8; a train that crosses the
    *  whole tile only passes through the frame, 0.15) */
   minInFrame?: number;
+  /** docs/storyline.md: `hero` is the cover's standout thing at frame 0; `callback` is that
+   *  hero coming back in the payoff (the open loop closing) */
+  role?: 'hero' | 'callback';
 };
 
 const lerp = (a: number, b: number, u: number) => a + (b - a) * u;

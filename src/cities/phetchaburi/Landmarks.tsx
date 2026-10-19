@@ -5,8 +5,8 @@ import {Army} from '../../engine/army';
 import {lathe, Prang, prism, SmallChedi, updateInstances, Viharn} from '../../engine/parts';
 import type {LandmarkProps} from '../../engine/types';
 import {ramp, smooth} from '../../lib';
-import {boatAt, cartAt, FLEET, fireK, heroK, siege, towersUp, WEST_ARMY_Z} from './actors';
-import {BAN_PUEN, BANG_CHAN, eastWallX, KAMPHAENG_LAENG, MAHATHAT, PEAK_E, PEAK_M, PEAK_W, RAIL_X, RIVER, WAT_YAI} from './places';
+import {boatAt, cartAt, fairTrayK, FLEET, fireK, heroK, MARCHERS, marcherAt, palaceK, PORTERS, porterAt, siege, towersUp, WEST_ARMY_Z, workersOn} from './actors';
+import {BAN_PUEN, BANG_CHAN, eastWallX, FAIR, KAMPHAENG_LAENG, MAHATHAT, PEAK_E, PEAK_M, PEAK_W, RAIL_X, RIVER, WAT_YAI} from './places';
 
 export {BAN_PUEN, KAMPHAENG_LAENG, MAHATHAT, PEAK_E, PEAK_M, PEAK_W, STATION, WAT_YAI} from './places';
 
@@ -81,10 +81,12 @@ const Palms: React.FC<{Y: number; terrainH: LandmarkProps['terrainH']}> = ({Y, t
 
 // ------------------------------------------------------------------ วัดกำแพงแลง
 // five laterite prangs in the Bayon plan inside a low laterite wall; real towers ~15 m,
-// drawn ~6x so they read from the opening's whole-tile shot as they rise
+// drawn ~5x so they read as they rise. The plan is laid out at 1 and drawn at 0.65 across
+// (enclosure 3.9 units, 310 m) so it fits inside the town's east wall
 const LATERITE = '#8e4c32';
+export const KL_SCALE = 0.65;
 const KamphaengLaeng: React.FC<{k: number}> = ({k}) => (
-  <group position={[KAMPHAENG_LAENG[0], 0, KAMPHAENG_LAENG[1]]}>
+  <group position={[KAMPHAENG_LAENG[0], 0, KAMPHAENG_LAENG[1]]} scale={[KL_SCALE, 0.8, KL_SCALE]}>
     <Prang pos={[0, 0, 0]} k={k} scale={0.62} color={LATERITE} />
     {[[-1, -1], [1, -1], [-1, 1], [1, 1]].map(([sx, sz], i) => (
       <Prang key={i} pos={[sx * 1.9, 0, sz * 1.9]} k={Math.max(0, Math.min(1, k * 1.25 - 0.1 * i))} scale={0.4} color={LATERITE} />
@@ -360,8 +362,9 @@ const Shallots: React.FC<{list: typeof SHALLOTS; lifted?: boolean}> = ({list, li
 const ALUMINIUM = <meshStandardMaterial color="#dfe3e7" metalness={0.3} roughness={0.22} />;
 // the tray's sides lean out a little, as a pressed aluminium tray's do
 const FLARE = 0.12;
-// `k` 0 -> 1 grows it in (it must shrink away with the hero, not pop out at full size)
-const MoKaeng: React.FC<{k: number; t: number}> = ({k, t}) => {
+// `k` 0 -> 1 grows it in (it must shrink away with the hero, not pop out at full size);
+// `at` places it (the cover's spot by default), `lift` 0 -> 1 raises the served piece
+const MoKaeng: React.FC<{k: number; lift: number; at?: [number, number]; s?: number}> = ({k, lift: liftU, at = TRAY_AT, s = 1}) => {
   const geo = useMemo(domedPiece, []);
   const tops = useMemo(() => {
     const base = topTexture();
@@ -380,11 +383,12 @@ const MoKaeng: React.FC<{k: number; t: number}> = ({k, t}) => {
   const mats = (i: number) => [sideMat, sideMat, tops[i], sideMat, sideMat, sideMat];
   if (k < 0.02) return null;
   const [lx, lz] = pieceAt(LIFT.c, LIFT.r);
-  // the served piece rises a little over the opening seconds
-  const lift = 0.3 + 0.08 * Math.min(1, t / 2);
+  // the served piece is lifted clear as `lift` runs 0 -> 1: the hero's own motion in the
+  // cover's first second (docs/storyline.md §3.1), and again at the fair, on the same sound
+  const lift = 0.3 + 0.6 * smooth(Math.min(1, Math.max(0, liftU)));
   const y0 = TRAY.wall + PIECE.h / 2;
   return (
-    <group position={[TRAY_AT[0], 0, TRAY_AT[1]]} rotation-y={0.25} scale={1.75 * k}>
+    <group position={[at[0], 0, at[1]]} rotation-y={0.25} scale={1.75 * k * s}>
       {/* the tray: floor, walls and a rolled rim */}
       <mesh position={[0, TRAY.wall / 2, 0]} receiveShadow>
         <boxGeometry args={[TRAY.x, TRAY.wall, TRAY.z]} />
@@ -526,6 +530,139 @@ const Tower: React.FC<{x: number; z: number; f: number; t: number}> = ({x, z, f,
       })}
   </group>
 );
+// ------------------------------------------------------------------ people
+// a body and a head per person (the villagers' figures from Life.tsx), with an optional load
+// on the head (laterite for the porters) and a few gold umbrellas over the procession
+type Person = {x: number; z: number; rot: number; bob: number; load?: boolean; robe: string; umbrella?: boolean; palanquin?: boolean};
+const People: React.FC<{list: Person[]; max: number; terrainH: LandmarkProps['terrainH']}> = ({list, max, terrainH}) => {
+  const body = useRef<THREE.InstancedMesh>(null);
+  const head = useRef<THREE.InstancedMesh>(null);
+  const load = useRef<THREE.InstancedMesh>(null);
+  const tmp = useMemo(() => new THREE.Color(), []);
+  useLayoutEffect(() => {
+    const y = (p: Person) => terrainH(p.x, p.z) + p.bob;
+    updateInstances(body.current, max, (i, o) => {
+      const p = list[i];
+      if (!p) return false;
+      o.position.set(p.x, y(p) + 0.4, p.z);
+      o.rotation.y = p.rot;
+      return true;
+    });
+    list.forEach((p, i) => body.current?.setColorAt(i, tmp.set(p.robe)));
+    if (body.current?.instanceColor) body.current.instanceColor.needsUpdate = true;
+    updateInstances(head.current, max, (i, o) => {
+      const p = list[i];
+      if (!p) return false;
+      o.position.set(p.x, y(p) + 0.94, p.z);
+      return true;
+    });
+    updateInstances(load.current, max, (i, o) => {
+      const p = list[i];
+      if (!p || !p.load) return false;
+      o.position.set(p.x, y(p) + 1.18, p.z);
+      o.rotation.y = p.rot;
+      return true;
+    });
+  });
+  return (
+    <>
+      <instancedMesh ref={body} args={[undefined, undefined, max]} castShadow>
+        <cylinderGeometry args={[0.13, 0.21, 0.8, 6]} />
+        <meshStandardMaterial roughness={0.85} />
+      </instancedMesh>
+      <instancedMesh ref={head} args={[undefined, undefined, max]} castShadow>
+        <sphereGeometry args={[0.15, 6, 5]} />
+        <meshStandardMaterial color="#c99a72" roughness={0.9} />
+      </instancedMesh>
+      <instancedMesh ref={load} args={[undefined, undefined, max]} castShadow>
+        <boxGeometry args={[0.34, 0.18, 0.24]} />
+        <meshStandardMaterial color={LATERITE} roughness={1} />
+      </instancedMesh>
+      {list.map((p, i) =>
+        p.umbrella ? (
+          <group key={`u${i}`} position={[p.x, terrainH(p.x, p.z) + p.bob, p.z]}>
+            <mesh position={[0.18, 1.0, 0]}>
+              <cylinderGeometry args={[0.02, 0.02, 1.6, 4]} />
+              <meshStandardMaterial color="#6a4a22" />
+            </mesh>
+            <mesh position={[0.18, 1.85, 0]} castShadow>
+              <coneGeometry args={[0.42, 0.3, 10]} />
+              <meshStandardMaterial color="#e2b13c" metalness={0.4} roughness={0.4} />
+            </mesh>
+          </group>
+        ) : p.palanquin ? (
+          <group key={`q${i}`} position={[p.x, terrainH(p.x, p.z) + p.bob + 0.9, p.z]} rotation-y={p.rot}>
+            <mesh castShadow>
+              <boxGeometry args={[0.55, 0.45, 0.8]} />
+              <meshStandardMaterial color="#b8322a" roughness={0.6} />
+            </mesh>
+            <mesh position={[0, 0.38, 0]} castShadow>
+              <coneGeometry args={[0.5, 0.4, 4]} />
+              <meshStandardMaterial color="#e2b13c" metalness={0.4} roughness={0.4} />
+            </mesh>
+          </group>
+        ) : null,
+      )}
+    </>
+  );
+};
+
+// ~1191: porters carry laterite in behind the carts; a gang works round the rising towers.
+// Undyed cotton and indigo, so the figures read as people against the sand and the laterite
+// (in laterite browns they read as posts)
+const PORTER_ROBES = ['#efe6d0', '#f6f1e4', '#3c4f80', '#e8dcc0', '#efe6d0', '#41558a'];
+const WORK_ANGLES = [100, 125, 150, 175, 200, 225, 250, 280, 305, 330].map((d) => (d * Math.PI) / 180);
+const Builders: React.FC<{t: number; ctx: {Y: number; beat: (id: string) => number}; terrainH: LandmarkProps['terrainH']}> = ({t, ctx, terrainH}) => {
+  const list: Person[] = [];
+  for (let i = 0; i < PORTERS; i++) {
+    const p = porterAt(i, ctx);
+    if (!p) continue;
+    list.push({
+      x: p.x + Math.cos(p.rot) * p.side,
+      z: p.z - Math.sin(p.rot) * p.side,
+      rot: p.rot,
+      bob: 0.05 * Math.abs(Math.sin(t * 7 + i)),
+      load: true,
+      robe: PORTER_ROBES[i % PORTER_ROBES.length],
+    });
+  }
+  if (workersOn(ctx))
+    WORK_ANGLES.forEach((a, i) =>
+      list.push({
+        // on a square just outside the enclosure wall (2.05 from the centre at KL_SCALE)
+        x: KAMPHAENG_LAENG[0] + (Math.cos(a) * 2.5) / Math.max(Math.abs(Math.cos(a)), Math.abs(Math.sin(a))),
+        z: KAMPHAENG_LAENG[1] + (Math.sin(a) * 2.5) / Math.max(Math.abs(Math.cos(a)), Math.abs(Math.sin(a))),
+        rot: Math.atan2(-Math.cos(a), -Math.sin(a)),
+        bob: 0.08 * Math.max(0, Math.sin(t * 9 + i * 1.7)),
+        load: i % 3 === 0,
+        robe: PORTER_ROBES[(i + 1) % PORTER_ROBES.length],
+      }),
+    );
+  if (!list.length) return null;
+  return <People list={list} max={PORTERS + WORK_ANGLES.length} terrainH={terrainH} />;
+};
+
+// 1859-62: the royal procession climbs to the palace: white-robed bearers, gold umbrellas and
+// a red palanquin
+const Procession: React.FC<{t: number; ctx: {Y: number; beat: (id: string) => number}; terrainH: LandmarkProps['terrainH']}> = ({t, ctx, terrainH}) => {
+  const list: Person[] = [];
+  for (let i = 0; i < MARCHERS; i++) {
+    const m = marcherAt(i, ctx);
+    if (!m) continue;
+    list.push({
+      x: m.x + (i % 2 ? 0.22 : -0.22) * Math.cos(m.rot),
+      z: m.z - (i % 2 ? 0.22 : -0.22) * Math.sin(m.rot),
+      rot: m.rot,
+      bob: 0.04 * Math.abs(Math.sin(t * 6 + i)),
+      robe: i === 6 ? '#b8322a' : '#f1ece0',
+      umbrella: i === 3 || i === 9,
+      palanquin: i === 6,
+    });
+  }
+  if (!list.length) return null;
+  return <People list={list} max={MARCHERS} terrainH={terrainH} />;
+};
+
 const Cart: React.FC = () => (
   <group>
     <mesh position={[0, 0.45, 0]} castShadow>
@@ -551,9 +688,10 @@ export const PhetchaburiLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terr
   const mahathat = smooth(ramp(Y, 1440, 1470));
   const watYai = smooth(ramp(Y, 1680, 1700));
   // the palace rises across its beat and stands from then on
-  const palace = Y >= 1862.45 ? 1 : Y >= 1859 ? beat('palace') : 0;
+  const palace = palaceK(Y, ctx);
   const hero = heroK(ctx);
-  const banPuen = Y >= 1916.45 ? 1 : Y >= 1910 ? smooth(ramp(beat('banpuen'), 0.05, 0.85)) : 0;
+  const banPuen = smooth(ramp(Y, 1910, 1916.45));
+  const fair = fairTrayK(Y, ctx);
   const {west, east, town} = siege(t, ctx);
   const f = fireK(ctx);
   const gateX = eastWallX(BANG_CHAN[1]);
@@ -571,12 +709,16 @@ export const PhetchaburiLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terr
         <group position={[RIDGE[0], 0, RIDGE[1]]} scale={1 + 2.2 * hero}>
           <group position={[-RIDGE[0], 0, -RIDGE[1]]}>
             <HeroMound k={hero} terrainH={terrainH} />
-            <MoKaeng k={Math.min(1, hero * 1.3)} t={t} />
+            <MoKaeng k={Math.min(1, hero * 1.3)} lift={ramp(t, 0.2, 1.5)} />
             <KhaoWang k={hero} old={0} night={night} terrainH={terrainH} />
           </group>
         </group>
       )}
       <BanPuen k={banPuen} night={night} />
+      <Builders t={t} ctx={ctx} terrainH={terrainH} />
+      <Procession t={t} ctx={ctx} terrainH={terrainH} />
+      {/* the payoff: the cover's tray back at the fair below the hill */}
+      <MoKaeng k={fair} lift={ramp(beat('feast'), 0.32, 0.5)} at={[FAIR[0], FAIR[1]]} s={0.62} />
       {[0, 1, 2, 3].map((i) => {
         const c = cartAt(i, ctx);
         return c ? (

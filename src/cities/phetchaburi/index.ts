@@ -3,7 +3,7 @@ import type {CityConfig} from '../../engine/types';
 import {PhetchaburiLandmarks} from './Landmarks';
 import {ACTORS, WEST_ARMY_Z} from './actors';
 import {
-  BAN_PUEN, BANG_CHAN, eastWallX, KAMPHAENG_LAENG, MAHATHAT, PEAK_E, PEAK_H, PEAK_M, PEAK_W, RAIL_X, RIVER, RIVER_W, STATION, WALL, WAT_YAI, WEST_GATE,
+  BAN_PUEN, BANG_CHAN, CLIMB, eastWallX, FAIR, KAMPHAENG_LAENG, MAHATHAT, PEAK_E, PEAK_H, PEAK_M, PEAK_W, RAIL_X, RIVER, RIVER_W, STATION, WALL, WAT_YAI, WEST_GATE,
 } from './places';
 import {SOUND_EVENTS, STORY} from './timeline';
 
@@ -63,7 +63,7 @@ export const PHETCHABURI: CityConfig = {
       built: [1150, 450],
       modern: [1920, 80],
       keepOut: [
-        [KAMPHAENG_LAENG[0], KAMPHAENG_LAENG[1], 3.4],
+        [KAMPHAENG_LAENG[0], KAMPHAENG_LAENG[1], 2.4],
         [WAT_YAI[0], WAT_YAI[1], 1.6],
       ],
     },
@@ -79,6 +79,10 @@ export const PHETCHABURI: CityConfig = {
     },
     forestCity: 1150,
     clearings: [
+      // the royal path up the hill (palace beat), cut as the palace is built
+      ...CLIMB.map(([x, z]) => [x, z, 1.0, 1858.6] as [number, number, number, number]),
+      // the fair ground below the hill, where the tray comes back
+      [FAIR[0], FAIR[1], 4.6, 1985],
       // the open plain under the sugar palms (Landmarks.tsx), leaving groves between the
       // discs and the wooded ridge standing up out of it
       [12, -22, 11, -1e9],
@@ -92,7 +96,7 @@ export const PHETCHABURI: CityConfig = {
       [-34, -30, 9, -1e9],
       [-12, -18, 6, -1e9],
       [-12, 4, 5, -1e9],
-      [KAMPHAENG_LAENG[0], KAMPHAENG_LAENG[1], 3.8, -1e9],
+      [KAMPHAENG_LAENG[0], KAMPHAENG_LAENG[1], 2.9, -1e9],
       [MAHATHAT[0], MAHATHAT[1], 3.2, 1400],
       [BAN_PUEN[0], BAN_PUEN[1], 4, 1909],
       // the crowns, open from the start: the frame-0 hero stands there, then the old chedi
@@ -111,7 +115,7 @@ export const PHETCHABURI: CityConfig = {
     // rice under the sugar palms from the start: the plain reads open and sandy, not forest
     paddies: [500, 900],
     sites: [
-      [KAMPHAENG_LAENG[0], KAMPHAENG_LAENG[1], 3.4],
+      [KAMPHAENG_LAENG[0], KAMPHAENG_LAENG[1], 2.4],
       [MAHATHAT[0], MAHATHAT[1], 2.4],
       [WAT_YAI[0], WAT_YAI[1], 1.6],
       [BAN_PUEN[0], BAN_PUEN[1], 2.0],
@@ -122,7 +126,8 @@ export const PHETCHABURI: CityConfig = {
     // every hand-placed part with its own years (Landmarks.tsx), so the occupancy audit can
     // test them and nothing generated stands in them while they are up
     footprints: [
-      {fp: {rect: [KAMPHAENG_LAENG[0], KAMPHAENG_LAENG[1], 6.6, 6.6]}, from: 1185, label: 'วัดกำแพงแลง'},
+      {fp: {rect: [KAMPHAENG_LAENG[0], KAMPHAENG_LAENG[1], 4.3, 4.3]}, from: 1185, label: 'วัดกำแพงแลง'},
+      {fp: {disc: [FAIR[0], FAIR[1], 2.0]}, from: 2021, label: 'ขนมหม้อแกง (the payoff tray)'},
       {fp: {rect: [MAHATHAT[0], MAHATHAT[1], 4.0, 4.0]}, from: 1440, label: 'วัดมหาธาตุ'},
       {fp: {disc: [WAT_YAI[0], WAT_YAI[1], 1.5]}, from: 1680, label: 'วัดใหญ่สุวรรณาราม'},
       {fp: {disc: [PEAK_M[0], PEAK_M[1], 1.0]}, from: 1300, label: 'พระธาตุจอมเพชร'},
@@ -140,6 +145,8 @@ export const PHETCHABURI: CityConfig = {
     openGround: [
       {x0: -26, x1: -15.6, z0: -11, z1: -1.5},
       {x0: BAN_PUEN[0] - 2.4, x1: BAN_PUEN[0] + 1.6, z0: BAN_PUEN[1] - 2.6, z1: BAN_PUEN[1] + 2.6},
+      // the fair ground (the payoff beat)
+      {x0: FAIR[0] - 4.2, x1: FAIR[0] + 3.6, z0: FAIR[1] - 3.6, z1: FAIR[1] + 4.2},
     ],
     urban: {from: 1930, rate: 2.0},
     sprawl: {height: 0.7, tall: 0.02},
@@ -149,8 +156,8 @@ export const PHETCHABURI: CityConfig = {
       // station road east over the river into the town
       {from: [RAIL_X + 1.6, -16], to: [-2, -10], width: 1.0, year: 1903},
       {from: [-2, -10], to: [-2, 9.5], width: 0.9, year: 1903},
-      // east to the coast (the Gulf is SE)
-      {from: [eastWallX(0) + 0.8, 0], to: [48, 24], width: 1.0, year: 1950},
+      // east to the coast (the Gulf is SE), out of ประตูบางจาน
+      {from: [eastWallX(BANG_CHAN[1]) + 0.8, BANG_CHAN[1]], to: [48, 24], width: 1.0, year: 1950},
     ],
     // no engine ring road: its rectangle would run along the river (cars on the water)
     ringRoadYear: 1e9,
@@ -159,9 +166,17 @@ export const PHETCHABURI: CityConfig = {
     finale: 'fireworks',
     life: {
       buffalo: [{x: 16, z: -6, r: 4, count: 5, from: 1000, to: 1960}],
-      // the งานพระนครคีรี fair at the foot of the ridge
-      people: [{x: -16.6, z: -2.2, r: 1.4, count: 30, from: 1990, to: 2026}],
-      stalls: [{x: -16.6, z: -2.2, r: 1.3, count: 12, from: 1990, to: 2026}],
+      // the งานพระนครคีรี fair round the tray (payoff), and the crowd that met the first train
+      people: [
+        {x: FAIR[0], z: FAIR[1] + 3.2, r: 1.1, count: 22, from: 1990, to: 2026},
+        {x: FAIR[0] - 3.2, z: FAIR[1], r: 1.0, count: 16, from: 1990, to: 2026},
+        {x: FAIR[0] + 2.9, z: FAIR[1] + 1.2, r: 0.8, count: 12, from: 1990, to: 2026},
+        {x: STATION[0] + 1.4, z: STATION[1] + 2.4, r: 1.0, count: 18, from: 1902.9, to: 1930},
+      ],
+      stalls: [
+        {x: FAIR[0], z: FAIR[1] - 3.0, r: 1.0, count: 8, from: 1990, to: 2026},
+        {x: FAIR[0] + 3.0, z: FAIR[1] - 1.4, r: 0.8, count: 6, from: 1990, to: 2026},
+      ],
     },
     cameraKeys: STORY.cameraKeys,
   },

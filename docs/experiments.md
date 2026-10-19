@@ -123,3 +123,38 @@ and the series' identity is **a green tile with one standout thing on it**. A ni
 the finale breaks the grid. The opening lever stays inside that frame: a hero that is big,
 surprising and, ideally, moving (see 1c), on the whole tile at frame 0.
 
+## 3. Storyline standard v1 (Phetchaburi) — to read
+
+This is not one variable. Phetchaburi is the first clip built to the whole of
+`docs/storyline.md`, which draws on 1–1c and the owner's notes:
+
+- **Hook:** a hero with all four marks of the scorecard. Korat's dinosaurs had all four;
+  Lampang's carriage had two.
+  - On screen: Khao Wang with a hill-sized tray of ขนมหม้อแกง beside it, a piece lifting out
+    while the camera pushes in.
+  - Its own sound from 0.2 s: a server going under the custard.
+- **3–17 s:**
+  - porters and builders from 3.4 s;
+  - from 9 s, the siege: a fleet and two armies.
+
+  Something moves on screen for at least 70% of the window, which is checked. In Korat this
+  stretch was archaeology with no people in it.
+- **Open loop:** the tray returns at the fair at 45 s, with the same sound.
+- **Ending:** the counter lands on พ.ศ. 2569 and holds before the finale card, which has a
+  tagline. The clip is 60 s.
+
+Read about 24 h after posting:
+
+- **Skip rate**, against Korat's 32.9% and Lampang's 44.9%. Does a moving, surprising hero work
+  without dinosaurs?
+- **Retention at 17 s**, against 30–35% on every clip so far. This is the number the standard
+  is meant to move.
+- **Average watch**, against 18–21 s.
+- **Shares**, against 0.8–1.3%. ขนมหม้อแกง is the province's best-known product, so finding 6
+  predicts a share rate at Korat's level or above.
+
+Caveat: the clip tests a package, so a gain cannot be pinned on one rule.
+- If retention at 17 s moves and skip rate does not, the middle worked and the hook did not.
+- If skip rate moves and retention at 17 s does not, it is the other way round.
+
+From the next city on, change one thing at a time against this standard.

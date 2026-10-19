@@ -12,6 +12,7 @@ import './node_guard.mjs';
 import {buildSync} from 'esbuild';
 import {cameraStats} from './camera_stats.mjs';
 import {makeOcclusion, occlusion} from './occlusion.mjs';
+import {storylineChecks} from './storyline.mjs';
 import {textWidth} from './textwidth.mjs';
 
 const lib = await load('src/lib.ts');
@@ -65,6 +66,9 @@ const GEO_MAX_DIFF = 30;
 const GEO_WAIVED = new Set(['ayutthaya', 'chachoengsao', 'chonburi', 'nakhonsawan', 'phitsanulok', 'sukhothai']);
 // Cities built before briefs existed.
 const NO_BRIEF_OK = new Set(['ayutthaya', 'korat', 'phitsanulok', 'sukhothai']);
+// built before the storyline standard (docs/storyline.md); every later city declares
+// buildStory({standard: 1}) and gets scripts/storyline.mjs
+const PRE_STANDARD = new Set(['ayutthaya', 'chachoengsao', 'chonburi', 'khonkaen', 'korat', 'lampang', 'nakhonsawan', 'nakhonsi', 'phitsanulok', 'sukhothai']);
 
 const root = fs.readFileSync('src/Root.tsx', 'utf8');
 const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
@@ -97,11 +101,13 @@ for (const city of cities) {
   // A city whose timeline declares beats (src/engine/story.ts) takes everything from them:
   // a hand copy of the captions or camera keys next to a STORY drifts the moment a beat is
   // retimed, which is the bug the beats exist to remove.
+  let STORY = null;
   if (fs.existsSync(`src/${dir}/${city}/timeline.ts`)) {
     const tl = await load(`src/${dir}/${city}/timeline.ts`);
     if (tl.STORY) {
       // the two bundles are separate module instances, so compare by value
       const S = tl.STORY;
+      STORY = S;
       const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
       const ys = [0, 7, 19, 31, 44, 59, S.duration].map((t) => +story.yearAt(t).toFixed(3));
       if (!same(ys, [0, 7, 19, 31, 44, 59, S.duration].map((t) => +S.yearAt(t).toFixed(3)))) err('timeline.ts has STORY but story.yearAt is not STORY.yearAt.');
@@ -458,6 +464,15 @@ for (const city of cities) {
       }
       if (present / n < 0.5) warn(`actor "${a.id}" (${s(t0)}-${s(t1)}) stands for only ${Math.round((100 * present) / n)}% of its beat.`);
     }
+  }
+
+  // the storyline standard (docs/storyline.md): hook, open loop, danger zone, pace, landing
+  if (layout) {
+    if (STORY?.standard) {
+      const ctxAt = (t) => ({Y: story.yearAt(t), beat: (id) => story.beat?.(id, t) ?? 0});
+      const actors = [...(cfg.actors ?? []), ...actorLib.trainActors(layout, engine.getWorld(layout).terrainH)];
+      storylineChecks({cfg, plan: STORY.plan, actors, keys, projectAt: engine.projectAt, ctxAt, D, INTRO_END, FINALE_LEAD, err, warn});
+    } else if (!PRE_STANDARD.has(city)) err('no storyline standard: build the story with buildStory({standard: 1, ...}) and meet docs/storyline.md.');
   }
 
   // the thing a callout points at must be visible, not behind a wall of trees

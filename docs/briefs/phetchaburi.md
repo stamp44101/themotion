@@ -12,6 +12,8 @@ what is still open. Every date carries its source and a confidence level.
   52% to 32.9% (Korat's dinosaurs). Nakhon Si's relic boat was a speck: 43.1%.
 - Half the 3 s audience is gone by 17 s: keep the early beats short and moving.
 - **60 s.** Only go to 75 s if the extra time is action.
+- Lampang's standing carriage did not repeat Korat's hook (44.9%): the hero has to move or
+  surprise as well as be big. All of this is now `docs/storyline.md`, and §3 is built to it.
 
 ## 1. Footprint
 
@@ -84,26 +86,56 @@ the channel, and the moat on that side is the river itself, not a dug ring.
 | เขื่อนแก่งกระจาน | crest 760 m, height 58 m, ~710 million m³ | 40.4 km WSW of the town. `far: true` |
 | อ่าวไทย | — | **13.00756, 100.09549** is open water, GEBCO depth −6 m, 19.0 km ESE/SE (bearing 124°) of the centroid. หาดเจ้าสำราญ (13.0075561, 100.0415603) is the nearest beach, 14.5 km SE |
 
-## 3. Story beats (proposal, 60 s)
+## 3. Story beats (built, 60 s, storyline standard v1)
 
-Every beat has something happening on screen. Facts with nothing to show go in sub lines.
+Rebuilt on 19 ต.ค. 2569 to `docs/storyline.md`. v1's beats (open, khmer, siege, palace, railway,
+banpuen, today) failed it:
+- no hero actor;
+- nothing came back in the payoff;
+- 17 s with nothing moving before the finale card;
+- no beat had a verb.
 
-| beat | s | year | on screen | confidence |
-|---|---|---|---|---|
-| **open** | 0–8 | — | **hero at frame 0:** Khao Wang's three-peaked hill standing over a plain of ตาลโตนด palms beside the river. The shape stays in every shot. | landscape; ridge measured, 91 m summit over a 10 m plain, 485 x 498 m wide (§5a) |
-| **khmer** | 9–15 | ~1191 (พุทธศตวรรษที่ 18) | red laterite towers of **วัดกำแพงแลง** rise one by one, five prangs in the Bayon plan | **attributed:** "คาดว่าสร้างสมัยพระเจ้าชัยวรมันที่ 7"; the five-prang plan is in travel sources. The Preah Khan name **ศรีชยวัชรปุระ** may now be used — it is Cœdès' reading, repeated by กรมศิลปากร and ศานติ ภักดีคำ — but on screen it must carry **"สันนิษฐานว่า"** (§7.6). Do **not** caption พริบพรี as "ชื่อเดิม"  |
-| **siege** | 17–24 | พ.ศ. 2307 (1764) | a Burmese army comes over from the west and is **driven back**; Phraya Tak among the defenders | **confirmed** in outline (KMUTT King Taksin history after Thuan Boonyaniyom 1970; silpa-mag 17644): Phraya Tak served under Phraya Phiphatkosa and the Burmese were pushed back through the Singkhon pass. No battle site is named inside the province — the fight was for the town itself, and the Burmese were pushed back south through **ด่านสิงขร**. The one attack with named ground is พระยาละแวก's second, **พ.ศ. 2124**: the Cambodian fleet came up from the sea and stormed **ตำบลคลองกระแชง** (west of the wall) and **ประตูบางจาน** (east) on the same day, burned the หอรบ and climbed the wall; the town fell and its governor died (พระราชพงศาวดารฯ ฉบับสมเด็จพระพนรัตน์, via ศานติ ภักดีคำ, ศิลปวัฒนธรรม เม.ย. 2559). That is a far better beat to *show* than 2307 — consider swapping them |
-| **palace** | 26–33 | พ.ศ. 2402–2405 (1859–62) | **พระนครคีรี** goes up on the three peaks: palace, Wat Phra Kaeo Noi, and a chedi over the old one on the summit | **confirmed:** started 2402 under Rama IV with Chaophraya Si Suriyawong as แม่กอง. Completion **2405** is confirmed by กรมศิลปากร and by the standard accounts, and the name พระนครคีรี was given on completion — use it. The hill, เขาสมณ, was renamed เขามหาสวรรค์ |
-| **railway** | 35–41 | พ.ศ. 2446 (1903) | the first southern train runs in from the north and stops at Phetchaburi, the line's first terminus | **confirmed:** Thonburi–Phetchaburi, about 150 km. Ran with makeshift carriages from **1 เม.ย. 2446**; Rama V's official opening **19 มิ.ย. 2446** (en.wikipedia Southern Line / Phetchaburi station). Hold พ.ศ. 2446 |
-| **banpuen** | 43–48 | พ.ศ. 2453–2459 (1910–16) | **พระรามราชนิเวศน์** (วังบ้านปืน) rises by the river, a German Jugendstil palace | **confirmed:** foundation 19 ส.ค. 2453 under Rama V, finished 2459 under Rama VI; architect Karl Döhring |
-| **today** | 50–56 | → พ.ศ. 2569 | the modern town has spread around the hill; **fireworks over Khao Wang** (the งานพระนครคีรี fair) | both 2021 honours go in the sub line: กลุ่มป่าแก่งกระจาน a natural World Heritage site, **26 ก.ค. 2564** (ONEP), and Phetchaburi a **UNESCO City of Gastronomy, 8 พฤศจิกายน 2564** — the date UNESCO's Director-General designated 49 new Creative Cities. The 22 พ.ย. 2564 in Thai coverage is TAT's press date. The full date may go on screen |
+Ban Puen's palace is now part of the grow beat, and the UNESCO year is the feast beat. The
+v1 proposal's sourcing is kept in the table's last column.
 
-- **Finale card:** kicker `<first year> – พ.ศ. 2569` (the first year depends on the khmer
-  beat's wording), title `เพชรบุรี`, tagline from the provincial slogan *"เขาวังคู่บ้าน
-  ขนมหวาน เมืองพระ ..."*: e.g. **"เขาวังคู่บ้าน เมืองขนมหวาน"**. Check that it fits one line.
-- **Era labels:** เขมร · อยุธยา · รัตนโกสินทร์.
-- **Candidates for sub lines:** Kaeng Krachan dam opened 22 พ.ค. 2509 (confirmed). Phetchaburi
-  as "เมือง 3 รส": salt, lime and palm sugar (TAT).
+### 3a. Storyline worksheet
+
+```
+Hero (0-3 s): Khao Wang with a hill-sized tray of ขนมหม้อแกง at its foot, a piece being lifted out
+              BIG yes (fills the lower frame)   IDENTITY yes (the slogan: เขาวังคู่บ้าน ... ขนมหวาน)
+              MOVING yes (the piece lifts, the camera pushes in)   SURPRISING yes (a dessert as big as the hill)
+Hero sound: a server sliding under the custard, a tap on the tray, fried shallots crackling (0.2 s)
+Open loop: why is there a giant dessert by the hill? -> the fair, 45.4-53.6 s: the tray back among
+           the stalls, callout ขนมหม้อแกง at 47.6 s, the same serving sound
+First event (3-9 s, people): porters haul laterite behind the carts, builders set วัดกำแพงแลง's towers
+Spectacle (by 12 s): พระยาละแวก's fleet up the river and the two-sided attack, 9.0-18.2 s
+Middle beats, one verb each: palace (build: the palace rises, Rama IV's procession climbs to it)
+           / railway (arrive) / growth (grow)
+Grow shot: 35.4-44.0 s, พ.ศ. 2451-2555, wide, swinging from the west round to the north
+Payoff (45-54 s, people + hero back): the งานพระนครคีรี fair, crowds and stalls round the tray
+Tagline: เขาวังคู่บ้าน เมืองขนมหวาน
+Facts with nothing to show (sub lines only): ศรีชยวัชรปุระ (attributed), the name เขาวัง,
+           Thonburi 150 km, Ban Puen finished under Rama VI, Kaeng Krachan World Heritage (note)
+```
+
+### 3b. Beats
+
+| beat | kind | s | counter | on screen | confidence |
+|---|---|---|---|---|---|
+| **khmer** | build | 0–8.4 | holds พ.ศ. 1734 (~1191) | the cover (the hero), then porters and builders as the laterite towers of **วัดกำแพงแลง** rise | **attributed:** "คาดว่าสร้างสมัยพระเจ้าชัยวรมันที่ 7". **ศรีชยวัชรปุระ** is Cœdès' reading, repeated by กรมศิลปากร and ศานติ ภักดีคำ, so the sub says **สันนิษฐานว่า** (§7.6). Never caption พริบพรี as "ชื่อเดิม" |
+| **siege** | fight | 9.0–18.2 | holds พ.ศ. 2124 (1581) | พระยาละแวก's fleet comes up the river from the Gulf; one force storms **คลองกระแชง** (west), the other **ประตูบางจาน** (east); the หอรบ burn | **documented:** พระราชพงศาวดารฯ ฉบับสมเด็จพระพนรัตน์, via ศานติ ภักดีคำ (ศิลปวัฒนธรรม, เม.ย. 2559). Chosen over the 2307 Burmese attack, which has no named ground to show |
+| **palace** | build | 19.4–27.0 | พ.ศ. 2402 → 2405 | **พระนครคีรี** rises on the three peaks; Rama IV's procession climbs the path to it | **confirmed:** begun 2402 under Rama IV, with เจ้าพระยาศรีสุริยวงศ์ as แม่กอง; finished and named 2405 (กรมศิลปากร) |
+| **railway** | arrive | 28.4–34.0 | holds พ.ศ. 2446 (1903) | the first southern train runs down from the north and parks at the terminus, where a crowd waits | **confirmed:** Thonburi–Phetchaburi, about 150 km. Services from 1 เม.ย. 2446; Rama V opened it on 19 มิ.ย. 2446 |
+| **growth** | grow | 35.4–44.0 | พ.ศ. 2451 → 2555 | the wide shot: **วังบ้านปืน** rises by the river, then roads, blocks and cars spread over the palm plain | **confirmed:** Ban Puen begun 19 ส.ค. 2453 under Rama V, finished 2459 under Rama VI; architect Karl Döhring |
+| **feast** | celebrate | 45.4–53.6 | holds พ.ศ. 2564 (2021) | the งานพระนครคีรี fair at the foot of the hill; the tray is back, a piece being served | **confirmed:** UNESCO City of Gastronomy, **8 พ.ย. 2564** (UNESCO; TAT's press date was 22 พ.ย.). The note line has กลุ่มป่าแก่งกระจาน, World Heritage on 26 ก.ค. 2564 (ONEP) |
+| **today** | today | 54.2–56.0 | lands on พ.ศ. 2569 | the counter reaches today and holds before the finale card | — |
+
+- **Finale card:** title `เพชรบุรี`, tagline **"เขาวังคู่บ้าน เมืองขนมหวาน"**, from the provincial
+  slogan.
+- **Era labels:** เขมร · อยุธยา · รัตนโกสินทร์ · ปัจจุบัน.
+- **Spare sub lines:**
+  - the Kaeng Krachan dam opened 22 พ.ค. 2509 (confirmed);
+  - "เมือง 3 รส": salt, lime and palm sugar (TAT).
 
 ## 4. Landmarks
 
@@ -188,12 +220,17 @@ i.e. ~6.1 × 6.2 units.
 
 - **Central-Thai palette:** ranat, khlui, pi, khong wong. The province series is synth only.
 - **Events, keyed to the beat:**
-  - khmer: stone being dressed and set
-  - siege: drums and a clash, then the retreat
-  - palace: a gong as it completes
-  - railway: chuffs and a whistle
-  - banpuen: a brass band hint
-  - today: traffic, then fireworks
+  - **hero (0.2 s, before anything else):** a server slides under the custard, taps the tray,
+    and fried shallots crackle;
+  - khmer: stone dressed and set, the gang's "ฮึบ" and a thud per block, ox carts;
+  - siege: paddles, the war drums and ปี่, a clash at the gate, the fire;
+  - palace: knocks as it rises; for the procession, a conch, then กลองชนะ, a small gong and
+    a ปี่ line; a big gong as it is finished;
+  - railway: chuffs, rail joints, two whistles;
+  - growth: hammers and clanks at uneven gaps, then traffic and a couple of car horns;
+  - feast: the fair crowd, a kitchen, and **the cover's serving sound again** (the open loop);
+  - finale: fireworks.
+- **Levels:** about −14.5 dBFS RMS; the band above 5 kHz sits about 21 dB under the mix.
 
 ## 7. Open questions — answered (issue #51, 19 ต.ค. 2569)
 
