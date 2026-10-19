@@ -21,8 +21,8 @@ music, amb, sfx = stereo(), stereo(), stereo()
 B = tl.beat
 khmer, siege, palace, railway, banpuen, unesco = (
     B("khmer"), B("siege"), B("palace"), B("railway"), B("banpuen"), B("unesco"))
-# the hook (index.ts): the finale's fireworks for 1.4 s, a veil, then the story from 1.7 s
-HOOK = 1.7
+# the story starts at 0 (the hook was dropped: the cover frame has to be the tile with its hero)
+HOOK = 0.0
 
 # ---------------------------------------------------------------- score (D major pentatonic, 112 bpm)
 BEAT = 60 / 112
@@ -70,7 +70,7 @@ for t in np.arange(siege[0], siege[1] - 0.2, BEAT / 2):
 t = siege[0] + 0.4
 while t < siege[1] - 0.6:
     d = BEAT * rng.choice([1, 2])
-    add(music, pi_reed(PENTA[int(rng.integers(1, 6))], d * 1.05), t, pan=0.1, gain=0.18)
+    add(music, pi_reed(PENTA[int(rng.integers(1, 6))], d * 1.05), t, pan=0.1, gain=0.13)
     t += d
 music *= (1 - 0.35 * bump(T, siege[0], siege[1], 0.4))[:, None]
 
@@ -91,11 +91,10 @@ traffic = filt(pink(N), "low", 450) * 0.6 + filt(noise(N), "band", (500, 1600)) 
 add(amb, traffic * np.clip((Y - 1955) / 50, 0, 1) * 0.05, 0)
 
 # ---------------------------------------------------------------- sfx
-# the hook: the finale's fireworks, then a whoosh as the veil carries us back
-for i in range(6):
-    add(sfx, firework_pop(), 0.15 + i * 0.22 + rng.uniform(0, 0.1), pan=rng.uniform(-0.7, 0.7), gain=0.5)
-add(sfx, whoosh(1.2, 0.5), HOOK - 0.7, gain=0.6)
-add(sfx, gong(88, 5.0, 0.35), HOOK + 0.2)
+# opening: a low drum under the title, a gong as the hero crowns give way to the plain
+add(sfx, drum(70, 32, 2.5, 1.0), 0.1, gain=0.6)
+add(sfx, gong(88, 5.0, 0.35), khmer[0] + 0.3 * (khmer[1] - khmer[0]))
+add(sfx, whoosh(1.1, 0.75), 3.0 - 0.75, gain=0.32)
 # ~1191: laterite dressed and set at irregular gaps, carts creaking in from the east
 t = khmer[0] + 3.0
 while t < khmer[0] + 0.8 * (khmer[1] - khmer[0]):
@@ -110,9 +109,9 @@ for t in np.arange(siege[0] + 0.2, fleet_end, 0.5):
     add(sfx, splash(), t + rng.uniform(-0.08, 0.08), pan=rng.uniform(-0.5, 0.1), gain=0.3)
 gate_t = siege[0] + 0.5 * (siege[1] - siege[0])
 for i in range(5):
-    add(sfx, clash(), gate_t + i * 0.33 + rng.uniform(0, 0.12), pan=rng.uniform(0.0, 0.6), gain=0.45)
-add(sfx, crowd(siege[1] - gate_t), gate_t, pan=0.3, gain=0.5)
-add(sfx, crackle(siege[1] - gate_t - 0.3), gate_t + 0.4, pan=0.2, gain=0.4)
+    add(sfx, clash(), gate_t + i * 0.33 + rng.uniform(0, 0.12), pan=rng.uniform(0.0, 0.6), gain=0.14)
+add(sfx, crowd(siege[1] - gate_t), gate_t, pan=0.3, gain=0.3)
+add(sfx, filt(crackle(siege[1] - gate_t - 0.3), "low", 3500), gate_t + 0.4, pan=0.2, gain=0.22)
 # 1859-62: the palace rising, a gong as it is finished and named
 for _ in range(10):
     add(sfx, drum(rng.uniform(300, 460), 200, 0.12, 0.25), rng.uniform(palace[0] + 0.5, palace[0] + 0.8 * (palace[1] - palace[0])), pan=rng.uniform(-0.5, 0.5))

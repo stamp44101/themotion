@@ -5,7 +5,7 @@ import {Army} from '../../engine/army';
 import {lathe, Prang, prism, SmallChedi, updateInstances, Viharn} from '../../engine/parts';
 import type {LandmarkProps} from '../../engine/types';
 import {ramp, smooth} from '../../lib';
-import {boatAt, cartAt, FLEET, fireK, siege, towersUp, WEST_ARMY_Z} from './actors';
+import {boatAt, cartAt, FLEET, fireK, heroK, siege, towersUp, WEST_ARMY_Z} from './actors';
 import {BAN_PUEN, BANG_CHAN, eastWallX, KAMPHAENG_LAENG, MAHATHAT, PEAK_E, PEAK_M, PEAK_W, RAIL_X, RIVER, WAT_YAI} from './places';
 
 export {BAN_PUEN, KAMPHAENG_LAENG, MAHATHAT, PEAK_E, PEAK_M, PEAK_W, STATION, WAT_YAI} from './places';
@@ -122,19 +122,20 @@ const BELL = lathe([[0, 0], [1.2, 0], [1.2, 0.35], [1.0, 0.4], [1.0, 0.7], [0.95
 const Glow: React.FC<{color: string; night: number; base?: number}> = ({color, night, base = 0}) => (
   <meshStandardMaterial color={color} roughness={0.6} emissive="#ffd27a" emissiveIntensity={base + night * 0.9} />
 );
-const KhaoWang: React.FC<{k: number; old: number; night: number; terrainH: LandmarkProps['terrainH']}> = ({k, old, night, terrainH}) => {
+// `g` grows the whole group (sizes and spacing) for the frame-0 hero; 1 for the real palace
+const KhaoWang: React.FC<{k: number; g?: number; old: number; night: number; terrainH: LandmarkProps['terrainH']}> = ({k, g = 1, old, night, terrainH}) => {
   const roof = useMemo(() => prism(1.3, 0.55, 1.8), []);
-  const at = (p: [number, number], dx = 0, dz = 0): [number, number, number] => [p[0] + dx, terrainH(p[0] + dx, p[1] + dz) - 0.05, p[1] + dz];
+  const at = (p: [number, number], dx = 0, dz = 0): [number, number, number] => [p[0] + dx * g, terrainH(p[0] + dx * g, p[1] + dz * g) - 0.05, p[1] + dz * g];
   const kk = (a: number, b: number) => smooth(ramp(k, a, b));
   return (
     <>
       {/* the older chedi on the summit, grey, before Rama IV built the new one over it */}
-      <SmallChedi pos={at(PEAK_M)} scale={0.7} k={old * (1 - kk(0.25, 0.5))} color="#9b958a" />
+      <SmallChedi pos={at(PEAK_M)} scale={0.7 * g} k={old * (1 - kk(0.25, 0.5))} color="#9b958a" />
       {/* พระธาตุจอมเพชร */}
       {/* gated on its own scale: a mesh at y-scale 0 gets a singular normal matrix, NaN shading,
           and the shader look's bloom spreads the NaN over the whole frame (PR #53, 22.17 s) */}
       {kk(0.2, 0.6) > 0.02 && (
-        <mesh geometry={BELL} position={at(PEAK_M)} scale={[0.8, 0.8 * kk(0.2, 0.6), 0.8]} castShadow>
+        <mesh geometry={BELL} position={at(PEAK_M)} scale={[0.8 * g, 0.8 * g * kk(0.2, 0.6), 0.8 * g]} castShadow>
           <Glow color={WHITE} night={night} />
         </mesh>
       )}
@@ -147,7 +148,7 @@ const KhaoWang: React.FC<{k: number; old: number; night: number; terrainH: Landm
         const s = kk(0.35 + i * 0.08, 0.7 + i * 0.08);
         if (s < 0.02) return null;
         return (
-          <group key={i} position={at(PEAK_W, dx, dz)} rotation-y={r} scale={[1.2, 1.2 * s, 1.2]}>
+          <group key={i} position={at(PEAK_W, dx, dz)} rotation-y={r} scale={[1.2 * g, 1.2 * g * s, 1.2 * g]}>
             <mesh position={[0, 0.35, 0]} castShadow receiveShadow>
               <boxGeometry args={[1.1, 0.7, 1.6]} />
               <Glow color="#f2ece0" night={night} />
@@ -159,7 +160,7 @@ const KhaoWang: React.FC<{k: number; old: number; night: number; terrainH: Landm
         );
       })}
       {kk(0.55, 0.85) > 0.02 && (
-        <group position={at(PEAK_W, 0.5, 0.2)} scale={[1.3, 1.3 * kk(0.55, 0.85), 1.3]}>
+        <group position={at(PEAK_W, 0.3, -0.2)} scale={[1.3 * g, 1.3 * g * kk(0.55, 0.85), 1.3 * g]}>
           <mesh position={[0, 0.8, 0]} castShadow>
             <cylinderGeometry args={[0.32, 0.36, 1.6, 12]} />
             <Glow color="#f5f0e4" night={night} />
@@ -171,11 +172,25 @@ const KhaoWang: React.FC<{k: number; old: number; night: number; terrainH: Landm
         </group>
       )}
       {/* วัดพระแก้วน้อย: a small marble-grey ubosot and its prang */}
-      <Viharn pos={at(PEAK_E, 0.8, 0.4)} k={kk(0.45, 0.8)} rot={0.1} scale={0.7} />
-      <Prang pos={at(PEAK_E, 0.5, -1.1)} k={kk(0.5, 0.85)} scale={0.34} color="#e6e2da" />
+      <Viharn pos={at(PEAK_E, 0.8, 0.4)} k={kk(0.45, 0.8)} rot={0.1} scale={0.7 * g} />
+      <Prang pos={at(PEAK_E, 0.5, -1.1)} k={kk(0.5, 0.85)} scale={0.34 * g} color="#e6e2da" />
     </>
   );
 };
+
+// the frame-0 hero's hill: three wooded lobes at the real peaks and heights, so scaled up it
+// still reads as Khao Wang (the real terrain is inside it)
+export const RIDGE: [number, number] = [-20.2, -5.8];
+const HeroMound: React.FC<{terrainH: LandmarkProps['terrainH']}> = ({terrainH}) => (
+  <>
+    {([[PEAK_W, 2.3], [PEAK_M, 2.0], [PEAK_E, 1.8]] as [[number, number], number][]).map(([p, r], i) => (
+      <mesh key={i} position={[p[0], 0, p[1]]} scale={[r, terrainH(p[0], p[1]) + 0.1, r]} castShadow receiveShadow>
+        <sphereGeometry args={[1, 10, 7, 0, Math.PI * 2, 0, Math.PI / 2]} />
+        <meshStandardMaterial color="#4c7a37" roughness={0.95} flatShading />
+      </mesh>
+    ))}
+  </>
+);
 
 // ------------------------------------------------------------------ พระรามราชนิเวศน์
 // two pale storeys under steep red roofs, a round corner tower; real ~100 m long, drawn ~2.4x
@@ -277,6 +292,7 @@ export const PhetchaburiLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terr
   const watYai = smooth(ramp(Y, 1680, 1700));
   // the palace rises across its beat and stands from then on
   const palace = Y >= 1862.45 ? 1 : Y >= 1859 ? beat('palace') : 0;
+  const hero = heroK(ctx);
   const banPuen = Y >= 1916.45 ? 1 : Y >= 1910 ? smooth(ramp(beat('banpuen'), 0.05, 0.85)) : 0;
   const {west, east, town} = siege(t, ctx);
   const f = fireK(ctx);
@@ -287,7 +303,18 @@ export const PhetchaburiLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terr
       <KamphaengLaeng k={towers} />
       <Mahathat k={mahathat} night={night} />
       <Viharn pos={[WAT_YAI[0], 0, WAT_YAI[1]]} k={watYai} rot={0} scale={0.8} />
+      {/* frame 0: the crowns at hero scale on the ridge (the cover frame), gone by the first
+          caption; the real palace rises in its own beat */}
       <KhaoWang k={palace} old={Y >= 1300 ? 1 : 0} night={night} terrainH={terrainH} />
+      {hero > 0.02 && (
+        // the whole hill as a model, scaled about the ridge's centre so nothing collides
+        <group position={[RIDGE[0], 0, RIDGE[1]]} scale={1 + 2.2 * hero}>
+          <group position={[-RIDGE[0], 0, -RIDGE[1]]}>
+            <HeroMound terrainH={terrainH} />
+            <KhaoWang k={hero} old={0} night={night} terrainH={terrainH} />
+          </group>
+        </group>
+      )}
       <BanPuen k={banPuen} night={night} />
       {[0, 1, 2, 3].map((i) => {
         const c = cartAt(i, ctx);

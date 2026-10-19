@@ -1,7 +1,7 @@
 // Pure data (no React/three) so scripts/export_timeline.mjs can import it for the soundtrack.
 // Beats own their seconds (src/engine/story.ts); dates and wording from docs/briefs/phetchaburi.md §3.
-// Opens with experiment 2 (docs/experiments.md): the finale over Khao Wang first, then back to
-// the Khmer towers, which rise while the camera comes down so something moves from the start.
+// Opens on the whole tile with Khao Wang's crowns at hero scale (the cover frame: every reel in
+// the grid is a green tile with one standout thing), then the Khmer towers rise.
 import {buildStory} from '../../engine/story';
 import {BAN_PUEN, BANG_CHAN, KAMPHAENG_LAENG, KLONG_KRACHAENG, PEAK_M, PEAK_W, RAIL_X, STATION} from './places';
 
@@ -11,7 +11,7 @@ export const STORY = buildStory({
   after: 2026,
   // transitions between beats
   camera: [
-    [10.4, -2, 1, -3, 120, 112, 37, 30],
+    [10.4, -2, 1, -3, 110, -10, 37, 30],
     [21.2, -11, 1, -5, 112, 188, 37, 30],
     [39, -10, 1, 2, 120, 308, 37, 30],
     [56.4, -12, 2, -4, 150, 396, 34, 30],
@@ -32,10 +32,11 @@ export const STORY = buildStory({
       era: 'เขมร',
       callouts: [{t0: 6.4, t1: 9.4, label: 'วัดกำแพงแลง', dx: 90, dy: -120, p: [KAMPHAENG_LAENG[0], 2.2, KAMPHAENG_LAENG[1]]}],
       camera: [
-        [0, -8, 1, -3, 300, 62, 36, 30],
-        [2.8, -6, 1, -3, 170, 72, 35, 30],
-        [6.2, 2, 1, -2.4, 60, 88, 36, 30],
-        [9.4, 3, 1, -2.4, 46, 102, 37, 30],
+        // from the west: Khao Wang in the foreground, the whole tile behind it (the cover)
+        [0, -6, 1, -2, 300, -107, 36, 30],
+        [2.8, -8, 1, -3, 180, -92, 35, 30],
+        [6.2, 2, 1, -2.4, 60, -62, 36, 30],
+        [9.4, 3, 1, -2.4, 46, -44, 37, 30],
       ],
     },
     {
@@ -52,11 +53,11 @@ export const STORY = buildStory({
       ],
       camera: [
         // up the river with the fleet, then across the town to the east gate
-        [11.6, -1, 1, -32, 62, 122, 37, 30],
-        [13.4, -5, 1, -20, 60, 128, 37, 30],
-        [15.2, -5.5, 1, -6, 60, 136, 38, 30],
-        [17.4, 3, 1, -1, 58, 150, 38, 30],
-        [20.2, 2, 1, -1, 66, 166, 38, 30],
+        [11.6, -1, 1, -32, 62, 40, 37, 30],
+        [13.4, -5, 1, -20, 60, 70, 37, 30],
+        [15.2, -5.5, 1, -6, 60, 100, 38, 30],
+        [17.4, 3, 1, -1, 58, 130, 38, 30],
+        [20.2, 2, 1, -1, 66, 156, 38, 30],
       ],
     },
     {
@@ -68,7 +69,7 @@ export const STORY = buildStory({
       era: 'รัตนโกสินทร์',
       callouts: [
         {t0: 24, t1: 26.8, label: 'พระธาตุจอมเพชร', dx: 90, dy: -130, p: [PEAK_M[0], 5.0, PEAK_M[1]]},
-        {t0: 27.2, t1: 29.8, label: 'พระราชวัง', dx: -90, dy: -130, p: [PEAK_W[0] + 0.5, 4.2, PEAK_W[1] + 0.2]},
+        {t0: 27.2, t1: 29.8, label: 'พระราชวัง', dx: -90, dy: -130, p: [PEAK_W[0] + 0.3, 4.2, PEAK_W[1] - 0.2]},
       ],
       camera: [
         // low, across the open plain, so the ridge stands against the sky

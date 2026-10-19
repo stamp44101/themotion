@@ -4,7 +4,7 @@
 import type {Actor, ActorCtx} from '../../engine/actors';
 import type {Formation} from '../../engine/army';
 import {lerp, ramp, smooth} from '../../lib';
-import {BANG_CHAN, eastWallX, KAMPHAENG_LAENG, KLONG_KRACHAENG, RIVER} from './places';
+import {BANG_CHAN, eastWallX, KAMPHAENG_LAENG, KLONG_KRACHAENG, PEAK_M, RIVER} from './places';
 
 type P = [number, number];
 const along = (pts: P[], d: number) => {
@@ -21,6 +21,9 @@ const along = (pts: P[], d: number) => {
   return {x: bx, z: bz, rot: Math.atan2(bx - ax, bz - az)};
 };
 const lengthOf = (pts: P[]) => pts.slice(1).reduce((s, p, i) => s + Math.hypot(p[0] - pts[i][0], p[1] - pts[i][1]), 0);
+
+// frame 0 (the cover): Khao Wang's crowns at hero scale on the ridge, gone by the first caption
+export const heroK = ({beat}: ActorCtx) => 1 - smooth(ramp(beat('khmer'), 0.24, 0.38));
 
 // ~1191: ox carts haul laterite in from the east to the rising towers
 export const HAUL: P[] = [[30, 6], [18, 2], [9, -1], [KAMPHAENG_LAENG[0] + 2.2, KAMPHAENG_LAENG[1] + 0.4]];
@@ -77,6 +80,7 @@ export const fireK = ({beat}: ActorCtx) => {
 };
 
 export const ACTORS: Actor[] = [
+  {id: 'heroKhaoWang', during: [0, 2.2], size: 8, at: (t, ctx) => (heroK(ctx) > 0.02 ? [PEAK_M[0], 8, PEAK_M[1]] : null)},
   {id: 'carts', during: 'khmer', size: 1.4, minInFrame: 0.5, at: (t, ctx) => {
     const c = cartAt(0, ctx);
     return c ? [c.x, 0.5, c.z] : null;

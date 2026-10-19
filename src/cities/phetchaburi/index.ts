@@ -22,8 +22,6 @@ export const PHETCHABURI: CityConfig = {
     approxBefore: 1500,
     duration: STORY.duration,
   },
-  // experiment 2 (docs/experiments.md): fireworks over the lit ridge first, then back 800 years
-  hook: {from: 56.6, hold: 1.4, out: 0.3, in: 0.75, text: 'ย้อนกลับไป 800 กว่าปี'},
   layout: {
     tile: {x0: -48, x1: 48, z0: -48, z1: 48},
     // Khao Wang: summit 91 m over a 10 m plain, i.e. ~1 unit of relief over a ~6 x 6 unit ridge
@@ -97,11 +95,11 @@ export const PHETCHABURI: CityConfig = {
       [KAMPHAENG_LAENG[0], KAMPHAENG_LAENG[1], 3.8, -1e9],
       [MAHATHAT[0], MAHATHAT[1], 3.2, 1400],
       [BAN_PUEN[0], BAN_PUEN[1], 4, 1909],
-      // the crowns: the old chedi's summit always, the palace grounds from 1859
+      // the crowns, open from the start: the frame-0 hero stands there, then the old chedi
       [PEAK_M[0], PEAK_M[1], 2.0, -1e9],
-      [PEAK_W[0], PEAK_W[1], 2.4, 1858.6],
-      [PEAK_M[0], PEAK_M[1], 2.0, 1858.6],
-      [PEAK_E[0], PEAK_E[1], 2.0, 1858.6],
+      [PEAK_W[0], PEAK_W[1], 3.0, -1e9],
+      [PEAK_M[0], PEAK_M[1], 2.6, -1e9],
+      [PEAK_E[0], PEAK_E[1], 2.6, -1e9],
       // open ground round the ridge's foot, so the hill stands up out of the plain
       [-20, -12.5, 4, -1e9],
       [-27, -2, 4, -1e9],
@@ -129,7 +127,7 @@ export const PHETCHABURI: CityConfig = {
       {fp: {disc: [PEAK_W[0] - 1.3, PEAK_W[1] + 0.5, 1.2]}, from: 1859, label: 'พระนครคีรี hall 1'},
       {fp: {disc: [PEAK_W[0] - 0.6, PEAK_W[1] - 1.4, 1.2]}, from: 1859, label: 'พระนครคีรี hall 2'},
       {fp: {disc: [PEAK_W[0] + 1.0, PEAK_W[1] - 1.5, 1.2]}, from: 1859, label: 'พระนครคีรี hall 3'},
-      {fp: {disc: [PEAK_W[0] + 0.5, PEAK_W[1] + 0.2, 0.6]}, from: 1859, label: 'หอชัชวาลเวียงชัย'},
+      {fp: {disc: [PEAK_W[0] + 0.3, PEAK_W[1] - 0.2, 0.6]}, from: 1859, label: 'หอชัชวาลเวียงชัย'},
       {fp: {disc: [PEAK_E[0] + 0.8, PEAK_E[1] + 0.4, 1.0]}, from: 1859, label: 'วัดพระแก้วน้อย'},
       {fp: {disc: [PEAK_E[0] + 0.5, PEAK_E[1] - 1.1, 0.7]}, from: 1859, label: 'วัดพระแก้วน้อย prang'},
       {fp: {rect: [BAN_PUEN[0], BAN_PUEN[1], 3.4, 5.4]}, from: 1910, label: 'วังบ้านปืน'},

@@ -83,8 +83,15 @@ from frame 0 (no rewind). Unlike the dinosaurs and the relic boat, the hero is n
 opening era; it is the city's best-known symbol, and it returns in its own beat (1916). Read
 skip rate and the retention curve as for 1 and 1b.
 
-## 2. Finale first, then rewind — parked
+## 2. Finale first, then rewind — dropped (owner, 19 Oct)
 
 Branch `exp/korat-hook`: 1.4 s of the finale city at night, a veil reading
 "ย้อนกลับไป 108 ล้านปี", then the story. Test on a later city, after experiment 1 is read,
 so the two are not mixed.
+
+Dropped before posting. Built into Phetchaburi v1 (the `hook` engine option, still in the engine),
+the owner rejected it after seeing it: the reel's first frame is its cover in the profile grid,
+and the series' identity is **a green tile with one standout thing on it**. A night frame of
+the finale breaks the grid. The opening lever stays inside that frame: a hero that is big,
+surprising and, ideally, moving (see 1c), on the whole tile at frame 0.
+
