@@ -39,7 +39,7 @@ const PALMS = (() => {
     if (Math.abs(x - RAIL_X) < 1.8 && z < -12) continue;
     if (Math.hypot(x - BAN_PUEN[0], z - BAN_PUEN[1]) < 2.4) continue;
     if (Math.hypot(x - MAHATHAT[0], z - MAHATHAT[1]) < 2) continue;
-    if (Math.hypot(x - HERO_TRAY[0], z - HERO_TRAY[1]) < 9.5) continue; // the frame-0 tray
+    if (Math.hypot(x - HERO_TRAY[0], z - HERO_TRAY[1]) < 12.5) continue; // the frame-0 tray
     // the modern town grows out from the walls at about 2 years per unit (index.ts urban)
     const fromWalls = Math.max(0, Math.hypot(Math.max(0, Math.abs(x) - 6), Math.max(0, Math.abs(z) - 8)));
     out.push({x, z, h: 1.8 + random(`ph${i}`) * 0.6, reach: 1930 + 2.0 * fromWalls + random(`pr${i}`) * 6});
@@ -186,10 +186,11 @@ const KhaoWang: React.FC<{k: number; g?: number; old: number; night: number; ter
 export const RIDGE: [number, number] = [-20.2, -5.8];
 // the tray beside it, in the same (unscaled) coordinates: toward the camera and to its right
 const RIDGE_TRAY: [number, number] = [-23.6, -1.0];
-const HeroMound: React.FC<{terrainH: LandmarkProps['terrainH']}> = ({terrainH}) => (
+// `k` sinks it into the real hill as the hero goes, so it never pops out at full size
+const HeroMound: React.FC<{k: number; terrainH: LandmarkProps['terrainH']}> = ({k, terrainH}) => (
   <>
     {([[PEAK_W, 2.3], [PEAK_M, 2.0], [PEAK_E, 1.8]] as [[number, number], number][]).map(([p, r], i) => (
-      <mesh key={i} position={[p[0], 0, p[1]]} scale={[r, terrainH(p[0], p[1]) + 0.1, r]} castShadow receiveShadow>
+      <mesh key={i} position={[p[0], 0, p[1]]} scale={[r * (0.6 + 0.4 * k), (terrainH(p[0], p[1]) + 0.1) * (0.3 + 0.7 * k), r * (0.6 + 0.4 * k)]} castShadow receiveShadow>
         <sphereGeometry args={[1, 10, 7, 0, Math.PI * 2, 0, Math.PI / 2]} />
         <meshStandardMaterial color="#4c7a37" roughness={0.95} flatShading />
       </mesh>
@@ -197,39 +198,259 @@ const HeroMound: React.FC<{terrainH: LandmarkProps['terrainH']}> = ({terrainH}) 
   </>
 );
 
-// the frame-0 hero's ขนมหม้อแกง: a tray of the province's best-known sweet beside the hill, its
-// top baked golden-brown with darker spots and fried shallots, scored into pieces. Placed in
-// the hero group's own coordinates (it is scaled about RIDGE with the hill)
+// the frame-0 hero's ขนมหม้อแกง, beside the hill, in the hero group's own coordinates (it is
+// scaled about RIDGE with the hill). Built to read as the real thing from the cover shot:
+// a shallow aluminium tray; the custard cut into twelve pieces, each with a slightly domed,
+// glossy top baked golden in the middle and caramel-brown toward the tray walls, mottled where
+// the heat caught it; a thick scatter of fried shallots; and one piece lifted out on a server
+// so the pale, dense cut face shows, with its thin brown skin on top.
 export const TRAY_AT: [number, number] = [RIDGE_TRAY[0], RIDGE_TRAY[1]];
-const SPOTS = Array.from({length: 26}, (_, i) => [random(`mk${i}`) - 0.5, random(`mz${i}`) - 0.5, random(`ms${i}`)]);
-const MoKaeng: React.FC = () => (
-  <group position={[TRAY_AT[0], 0, TRAY_AT[1]]} rotation-y={0.25} scale={1.75}>
-    <mesh position={[0, 0.22, 0]} castShadow receiveShadow>
-      <boxGeometry args={[2.6, 0.44, 1.9]} />
-      <meshStandardMaterial color="#a9adb2" metalness={0.6} roughness={0.35} />
-    </mesh>
-    <mesh position={[0, 0.45, 0]} receiveShadow>
-      <boxGeometry args={[2.4, 0.04, 1.7]} />
-      <meshStandardMaterial color="#d38d34" roughness={0.7} />
-    </mesh>
-    {[-0.6, 0, 0.6].map((x) => (
-      <mesh key={`cx${x}`} position={[x, 0.475, 0]}>
-        <boxGeometry args={[0.025, 0.01, 1.7]} />
-        <meshStandardMaterial color="#7a4a1e" roughness={1} />
+const TRAY = {x: 2.6, z: 1.9, h: 0.42, wall: 0.022};
+const COLS = 4;
+const ROWS = 3;
+const GAP = 0.03;
+const PIECE = {
+  w: (TRAY.x - 2 * TRAY.wall - (COLS - 1) * GAP) / COLS,
+  d: (TRAY.z - 2 * TRAY.wall - (ROWS - 1) * GAP) / ROWS,
+  h: 0.36,
+  dome: 0.05,
+};
+const pieceAt = (c: number, r: number): [number, number] => [
+  -TRAY.x / 2 + TRAY.wall + PIECE.w / 2 + c * (PIECE.w + GAP),
+  -TRAY.z / 2 + TRAY.wall + PIECE.d / 2 + r * (PIECE.d + GAP),
+];
+// the piece nearest the cover camera (west, right of frame) is the one being served
+const LIFT = {c: 0, r: 2};
+const domeY = (u: number, v: number) => PIECE.dome * Math.max(0, 1 - (2 * u / PIECE.w) ** 2) * Math.max(0, 1 - (2 * v / PIECE.d) ** 2);
+// a box whose top face puffs up like baked custard (the edges stay put, so the sides meet it)
+const domedPiece = () => {
+  const g = new THREE.BoxGeometry(PIECE.w, PIECE.h, PIECE.d, 6, 1, 6);
+  const pos = g.attributes.position;
+  for (let i = 0; i < pos.count; i++) {
+    if (pos.getY(i) > PIECE.h / 2 - 1e-6) pos.setY(i, PIECE.h / 2 + domeY(pos.getX(i), pos.getZ(i)));
+  }
+  g.computeVertexNormals();
+  return g;
+};
+// the whole tray's top in one canvas: golden, darker toward the walls and corners, mottled
+const topTexture = () => {
+  const W = 512;
+  const H = Math.round((W * (TRAY.z - 2 * TRAY.wall)) / (TRAY.x - 2 * TRAY.wall));
+  const c = document.createElement('canvas');
+  c.width = W;
+  c.height = H;
+  const g = c.getContext('2d')!;
+  // deep golden in the middle, the palm sugar caramelising darker toward the hot tray walls
+  const mid = g.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, W * 0.62);
+  mid.addColorStop(0, '#dc9a42');
+  mid.addColorStop(0.7, '#c98536');
+  mid.addColorStop(1, '#a8652a');
+  g.fillStyle = mid;
+  g.fillRect(0, 0, W, H);
+  const edge = (x0: number, y0: number, x1: number, y1: number) => {
+    const grd = g.createLinearGradient(x0, y0, x1, y1);
+    grd.addColorStop(0, 'rgba(96,42,10,0.85)');
+    grd.addColorStop(0.4, 'rgba(126,62,18,0.38)');
+    grd.addColorStop(1, 'rgba(120,58,16,0)');
+    g.fillStyle = grd;
+    g.fillRect(0, 0, W, H);
+  };
+  edge(0, 0, W * 0.13, 0);
+  edge(W, 0, W * 0.87, 0);
+  edge(0, 0, 0, H * 0.16);
+  edge(0, H, 0, H * 0.84);
+  const blob = (x: number, y: number, r: number, color: string) => {
+    const grd = g.createRadialGradient(x, y, 0, x, y, r);
+    grd.addColorStop(0, color);
+    grd.addColorStop(1, 'rgba(0,0,0,0)');
+    g.fillStyle = grd;
+    g.fillRect(x - r, y - r, 2 * r, 2 * r);
+  };
+  // browned patches where the top heat caught it, thicker toward the edges
+  for (let i = 0; i < 230; i++) {
+    const bx = random(`mtx${i}`);
+    const by = random(`mty${i}`);
+    const toEdge = Math.min(bx, 1 - bx, by, 1 - by);
+    const a = (0.14 + 0.22 * random(`mta${i}`)) * (toEdge < 0.18 ? 1.4 : 1);
+    blob(bx * W, by * H, 4 + 13 * random(`mtr${i}`), `rgba(104,46,12,${a.toFixed(2)})`);
+  }
+  // a little warmer gold where the custard rose highest
+  for (let i = 0; i < 40; i++) {
+    blob((0.2 + 0.6 * random(`mhx${i}`)) * W, (0.2 + 0.6 * random(`mhy${i}`)) * H, 8 + 16 * random(`mhr${i}`), 'rgba(222,150,62,0.22)');
+  }
+  // fine crust grain, darker only (pale specks read as flour)
+  for (let i = 0; i < 700; i++) {
+    g.fillStyle = 'rgba(88,38,10,0.3)';
+    g.fillRect(random(`mgx${i}`) * W, random(`mgy${i}`) * H, 1 + random(`mgs${i}`) * 1.5, 1 + random(`mgt${i}`) * 1.5);
+  }
+  const t = new THREE.CanvasTexture(c);
+  t.colorSpace = THREE.SRGBColorSpace;
+  return t;
+};
+// the cut face: pale, dense mung-bean-and-palm-sugar custard under a thin brown baked skin
+const sideTexture = () => {
+  const c = document.createElement('canvas');
+  c.width = 64;
+  c.height = 64;
+  const g = c.getContext('2d')!;
+  const grd = g.createLinearGradient(0, 0, 0, 64);
+  grd.addColorStop(0, '#5e300e');
+  grd.addColorStop(0.08, '#874a1a');
+  grd.addColorStop(0.15, '#c99a58');
+  grd.addColorStop(0.3, '#d6ae6b');
+  grd.addColorStop(0.92, '#dbb575');
+  grd.addColorStop(1, '#b9874a');
+  g.fillStyle = grd;
+  g.fillRect(0, 0, 64, 64);
+  for (let i = 0; i < 90; i++) {
+    g.fillStyle = 'rgba(170,118,52,0.18)';
+    g.fillRect(random(`msx${i}`) * 64, 10 + random(`msy${i}`) * 52, 1, 1);
+  }
+  const t = new THREE.CanvasTexture(c);
+  t.colorSpace = THREE.SRGBColorSpace;
+  return t;
+};
+// fried shallots: thin crescent rings, golden to dark amber, scattered thick over the top
+const SHALLOTS = (() => {
+  const out: {x: number; z: number; y: number; ry: number; rx: number; s: number; col: string}[] = [];
+  for (let i = 0; out.length < 820 && i < 6000; i++) {
+    const c = Math.floor(random(`shc${i}`) * COLS);
+    const r = Math.floor(random(`shr${i}`) * ROWS);
+    if (c === LIFT.c && r === LIFT.r) continue;
+    const u = (random(`shu${i}`) - 0.5) * (PIECE.w - 0.06);
+    const v = (random(`shv${i}`) - 0.5) * (PIECE.d - 0.06);
+    const [px, pz] = pieceAt(c, r);
+    const k = random(`shk${i}`);
+    out.push({
+      x: px + u,
+      z: pz + v,
+      y: TRAY.wall + PIECE.h + domeY(u, v) + 0.006,
+      ry: random(`shy${i}`) * Math.PI * 2,
+      rx: Math.PI / 2 + (random(`shx${i}`) - 0.5) * 0.5,
+      s: 0.7 + random(`shs${i}`) * 0.6,
+      col: k < 0.45 ? '#c27a30' : k < 0.85 ? '#9c5419' : '#5e2f0e',
+    });
+  }
+  return out;
+})();
+const ON_LIFTED = SHALLOTS.slice(0, 24).map((sh, i) => ({...sh, x: (random(`slx${i}`) - 0.5) * (PIECE.w - 0.08), z: (random(`slz${i}`) - 0.5) * (PIECE.d - 0.08)}));
+const Shallots: React.FC<{list: typeof SHALLOTS; lifted?: boolean}> = ({list, lifted}) => {
+  const ref = useRef<THREE.InstancedMesh>(null);
+  const tmp = useMemo(() => new THREE.Color(), []);
+  useLayoutEffect(() => {
+    updateInstances(ref.current, list.length, (i, o) => {
+      const sh = list[i];
+      o.position.set(sh.x, lifted ? PIECE.h / 2 + domeY(sh.x, sh.z) + 0.006 : sh.y, sh.z);
+      // lay the ring flat first, then spin it about the vertical
+      o.rotation.order = 'YXZ';
+      o.rotation.set(sh.rx, sh.ry, 0);
+      o.scale.setScalar(sh.s);
+      return true;
+    });
+    list.forEach((sh, i) => ref.current?.setColorAt(i, tmp.set(sh.col)));
+    if (ref.current?.instanceColor) ref.current.instanceColor.needsUpdate = true;
+  });
+  return (
+    <instancedMesh ref={ref} args={[undefined, undefined, list.length]} castShadow>
+      <torusGeometry args={[0.034, 0.0085, 3, 6, 2.3]} />
+      <meshStandardMaterial roughness={0.6} />
+    </instancedMesh>
+  );
+};
+const ALUMINIUM = <meshStandardMaterial color="#dfe3e7" metalness={0.3} roughness={0.22} />;
+// the tray's sides lean out a little, as a pressed aluminium tray's do
+const FLARE = 0.12;
+// `k` 0 -> 1 grows it in (it must shrink away with the hero, not pop out at full size)
+const MoKaeng: React.FC<{k: number; t: number}> = ({k, t}) => {
+  const geo = useMemo(domedPiece, []);
+  const tops = useMemo(() => {
+    const base = topTexture();
+    return Array.from({length: COLS * ROWS}, (_, i) => {
+      const c = i % COLS;
+      const r = Math.floor(i / COLS);
+      const map = base.clone();
+      map.needsUpdate = true;
+      map.repeat.set(1 / COLS, 1 / ROWS);
+      map.offset.set(c / COLS, (ROWS - 1 - r) / ROWS);
+      // a soft sheen, not a lacquer: strong clearcoat glare read as a chalky film
+      return new THREE.MeshPhysicalMaterial({map, roughness: 0.5, clearcoat: 0.2, clearcoatRoughness: 0.5});
+    });
+  }, []);
+  const sideMat = useMemo(() => new THREE.MeshStandardMaterial({map: sideTexture(), roughness: 0.55}), []);
+  const mats = (i: number) => [sideMat, sideMat, tops[i], sideMat, sideMat, sideMat];
+  if (k < 0.02) return null;
+  const [lx, lz] = pieceAt(LIFT.c, LIFT.r);
+  // the served piece rises a little over the opening seconds
+  const lift = 0.3 + 0.08 * Math.min(1, t / 2);
+  const y0 = TRAY.wall + PIECE.h / 2;
+  return (
+    <group position={[TRAY_AT[0], 0, TRAY_AT[1]]} rotation-y={0.25} scale={1.75 * k}>
+      {/* the tray: floor, walls and a rolled rim */}
+      <mesh position={[0, TRAY.wall / 2, 0]} receiveShadow>
+        <boxGeometry args={[TRAY.x, TRAY.wall, TRAY.z]} />
+        {ALUMINIUM}
       </mesh>
-    ))}
-    <mesh position={[0, 0.475, 0]}>
-      <boxGeometry args={[2.4, 0.01, 0.025]} />
-      <meshStandardMaterial color="#7a4a1e" roughness={1} />
-    </mesh>
-    {SPOTS.map(([u, v, k], i) => (
-      <mesh key={i} position={[u * 2.2, 0.48, v * 1.5]} rotation-y={k * 3}>
-        <boxGeometry args={[0.07 + 0.05 * k, 0.02, 0.05]} />
-        <meshStandardMaterial color={k > 0.5 ? '#5a3214' : '#8a5222'} roughness={1} />
+      {[
+        // x, z, w, d, lean about x, lean about z (each side leans outward)
+        [0, -TRAY.z / 2 + TRAY.wall / 2, TRAY.x, TRAY.wall, -FLARE, 0],
+        [0, TRAY.z / 2 - TRAY.wall / 2, TRAY.x, TRAY.wall, FLARE, 0],
+        [-TRAY.x / 2 + TRAY.wall / 2, 0, TRAY.wall, TRAY.z, 0, FLARE],
+        [TRAY.x / 2 - TRAY.wall / 2, 0, TRAY.wall, TRAY.z, 0, -FLARE],
+      ].map(([x, z, w, d, rx, rz], i) => (
+        <group key={i} position={[x, 0, z]} rotation-x={rx} rotation-z={rz}>
+          <mesh position={[0, TRAY.h / 2, 0]} castShadow receiveShadow>
+            <boxGeometry args={[w + (w > d ? 0.1 : 0), TRAY.h, d + (d > w ? 0.1 : 0)]} />
+            {ALUMINIUM}
+          </mesh>
+          <mesh position={[0, TRAY.h, 0]} castShadow>
+            <boxGeometry args={[w + (w > d ? 0.16 : 0.03), 0.026, d + (d > w ? 0.16 : 0.03)]} />
+            {ALUMINIUM}
+          </mesh>
+        </group>
+      ))}
+      {/* caramel left on the walls above the custard line */}
+      {[
+        [0, -TRAY.z / 2 + TRAY.wall + 0.004, TRAY.x - 2 * TRAY.wall, 0.008],
+        [0, TRAY.z / 2 - TRAY.wall - 0.004, TRAY.x - 2 * TRAY.wall, 0.008],
+        [-TRAY.x / 2 + TRAY.wall + 0.004, 0, 0.008, TRAY.z - 2 * TRAY.wall],
+        [TRAY.x / 2 - TRAY.wall - 0.004, 0, 0.008, TRAY.z - 2 * TRAY.wall],
+      ].map(([x, z, w, d], i) => (
+        <mesh key={`c${i}`} position={[x + Math.sign(x) * 0.045, TRAY.wall + PIECE.h + 0.025, z + Math.sign(z) * 0.045]}>
+          <boxGeometry args={[w, 0.04, d]} />
+          <meshStandardMaterial color="#7a4116" roughness={0.6} />
+        </mesh>
+      ))}
+      {/* the pieces, cut with thin gaps, one slot empty where the served piece came from */}
+      {Array.from({length: COLS * ROWS}, (_, i) => {
+        const c = i % COLS;
+        const r = Math.floor(i / COLS);
+        if (c === LIFT.c && r === LIFT.r) return null;
+        const [x, z] = pieceAt(c, r);
+        return <mesh key={`p${i}`} geometry={geo} material={mats(i)} position={[x, y0, z]} castShadow receiveShadow />;
+      })}
+      {/* what the served piece left on the tray floor */}
+      <mesh position={[lx, TRAY.wall + 0.004, lz]}>
+        <boxGeometry args={[PIECE.w - 0.04, 0.008, PIECE.d - 0.04]} />
+        <meshStandardMaterial color="#c79a55" roughness={0.7} />
       </mesh>
-    ))}
-  </group>
-);
+      <Shallots list={SHALLOTS} />
+      {/* the served piece on a steel server with a wooden handle, tilted so its top and its
+          cut face both turn to the camera */}
+      <group position={[lx - 0.22, y0 + lift, lz]} rotation-z={0.18}>
+        <mesh geometry={geo} material={mats(LIFT.r * COLS + LIFT.c)} castShadow />
+        <Shallots list={ON_LIFTED} lifted />
+        <mesh position={[0, -PIECE.h / 2 - 0.008, 0]} castShadow>
+          <boxGeometry args={[PIECE.w + 0.06, 0.014, PIECE.d + 0.04]} />
+          <meshStandardMaterial color="#d9dce0" metalness={0.4} roughness={0.28} />
+        </mesh>
+        <mesh position={[-PIECE.w / 2 - 0.3, -PIECE.h / 2 + 0.12, 0]} rotation-z={-0.42} castShadow>
+          <boxGeometry args={[0.7, 0.04, 0.09]} />
+          <meshStandardMaterial color="#5c3a20" roughness={0.7} />
+        </mesh>
+      </group>
+    </group>
+  );
+};
 
 // ------------------------------------------------------------------ พระรามราชนิเวศน์
 // two pale storeys under steep red roofs, a round corner tower; real ~100 m long, drawn ~2.4x
@@ -349,8 +570,8 @@ export const PhetchaburiLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terr
         // the whole hill as a model, scaled about the ridge's centre so nothing collides
         <group position={[RIDGE[0], 0, RIDGE[1]]} scale={1 + 2.2 * hero}>
           <group position={[-RIDGE[0], 0, -RIDGE[1]]}>
-            <HeroMound terrainH={terrainH} />
-            <MoKaeng />
+            <HeroMound k={hero} terrainH={terrainH} />
+            <MoKaeng k={Math.min(1, hero * 1.3)} t={t} />
             <KhaoWang k={hero} old={0} night={night} terrainH={terrainH} />
           </group>
         </group>
