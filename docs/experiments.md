@@ -76,12 +76,40 @@ Rule from here: **a hero big enough to read at frame 0 on the whole tile**, size
 whole-tile shot (check_story's legibility rule with an honest `size`), not for the close-up.
 Lampang's 11x carriage is the next test of it.
 
-## 1c. Lampang: a hero from the city's present on the old tile — planned
+## 1c. Lampang: a hero from the city's present on the old tile — read: did not replicate
 
 Owner's call: keep the usual forest tile and put a Lampang horse carriage on it at hero scale
 from frame 0 (no rewind). Unlike the dinosaurs and the relic boat, the hero is not from the
 opening era; it is the city's best-known symbol, and it returns in its own beat (1916). Read
 skip rate and the retention curve as for 1 and 1b.
+
+Result (read 19 Oct 09:42, a little over a day in): **skip rate 44.9%**: no better than Nakhon
+Si's 43.1%, and 12 points worse than Korat's 32.9%. 17,179 views from 13,388 viewers, the
+second-largest reach after Korat, well above the typical-reel line. Share 1.2%, like 8.0%,
+save 0.7%, repost 0.9%, comment 0.2%; 67 follows. Average watch **18 s of 60**, the lowest of
+the three (Korat 21, Nakhon Si 21 of 75). Views: Reels tab 76.9%, Explore 9.1%, Feed 7.4%,
+Stories 3.0%, Profile 2.7%. Retention, read off the curve, so approximate: ~60% at 3 s,
+~30% by 17 s, then a slow slide to ~20% at 55 s and a drop at the very end.
+
+Reading: **a big hero alone did not repeat Korat's hook.** The carriage reads clearly at frame
+0 (it fills the cover frame as the dinosaurs did), yet the skip rate landed with Nakhon Si's
+speck of a boat. What the dinosaurs had that the carriage lacks:
+- surprise: a prehistoric animal on a city tile;
+- motion from frame 0: they walk; the carriage stands until its own beat;
+- a link to the title: Korat ↔ dinosaurs is a known local fact, whereas a carriage on a forest
+  is a symbol out of its era.
+
+Engagement held up (share and like rates match Korat's), so people who stay like the clip;
+the leak is still the first 3 s and seconds 3-17.
+
+Caveats: three clips, each with a different audience and story. Korat's dinosaurs may still be
+a one-off.
+
+Next (Phetchaburi): the planned frame-0 hero is Khao Wang, a static hill, which this result
+says is not enough. Give the opening **something moving and surprising** under the title, not
+just something big: e.g. the palace building itself up on the peaks, or the festival fireworks
+over the hill as a 1-s flash-forward (which is experiment 2's question, so pick one and say
+which).
 
 ## 2. Finale first, then rewind — dropped (owner, 19 Oct)
 
