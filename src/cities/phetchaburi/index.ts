@@ -100,6 +100,8 @@ export const PHETCHABURI: CityConfig = {
       [PEAK_W[0], PEAK_W[1], 3.0, -1e9],
       [PEAK_M[0], PEAK_M[1], 2.6, -1e9],
       [PEAK_E[0], PEAK_E[1], 2.6, -1e9],
+      // the frame-0 ขนมหม้อแกง tray stands here at hero scale (Landmarks.tsx)
+      [-31.1, 9.6, 9.5, -1e9],
       // open ground round the ridge's foot, so the hill stands up out of the plain
       [-20, -12.5, 4, -1e9],
       [-27, -2, 4, -1e9],

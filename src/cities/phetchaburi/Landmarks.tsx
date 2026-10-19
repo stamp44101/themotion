@@ -26,6 +26,8 @@ const riverDist = (x: number, z: number) => {
   }
   return best;
 };
+// where the frame-0 tray stands at full hero scale (RIDGE + (tray - RIDGE) * 3.2)
+const HERO_TRAY: [number, number] = [-20.2 + (-23.6 + 20.2) * 3.2, -5.8 + (-1.0 + 5.8) * 3.2];
 const PALMS = (() => {
   const out: {x: number; z: number; h: number; reach: number}[] = [];
   for (let i = 0; out.length < 520 && i < 6000; i++) {
@@ -37,6 +39,7 @@ const PALMS = (() => {
     if (Math.abs(x - RAIL_X) < 1.8 && z < -12) continue;
     if (Math.hypot(x - BAN_PUEN[0], z - BAN_PUEN[1]) < 2.4) continue;
     if (Math.hypot(x - MAHATHAT[0], z - MAHATHAT[1]) < 2) continue;
+    if (Math.hypot(x - HERO_TRAY[0], z - HERO_TRAY[1]) < 9.5) continue; // the frame-0 tray
     // the modern town grows out from the walls at about 2 years per unit (index.ts urban)
     const fromWalls = Math.max(0, Math.hypot(Math.max(0, Math.abs(x) - 6), Math.max(0, Math.abs(z) - 8)));
     out.push({x, z, h: 1.8 + random(`ph${i}`) * 0.6, reach: 1930 + 2.0 * fromWalls + random(`pr${i}`) * 6});
@@ -181,6 +184,8 @@ const KhaoWang: React.FC<{k: number; g?: number; old: number; night: number; ter
 // the frame-0 hero's hill: three wooded lobes at the real peaks and heights, so scaled up it
 // still reads as Khao Wang (the real terrain is inside it)
 export const RIDGE: [number, number] = [-20.2, -5.8];
+// the tray beside it, in the same (unscaled) coordinates: toward the camera and to its right
+const RIDGE_TRAY: [number, number] = [-23.6, -1.0];
 const HeroMound: React.FC<{terrainH: LandmarkProps['terrainH']}> = ({terrainH}) => (
   <>
     {([[PEAK_W, 2.3], [PEAK_M, 2.0], [PEAK_E, 1.8]] as [[number, number], number][]).map(([p, r], i) => (
@@ -190,6 +195,40 @@ const HeroMound: React.FC<{terrainH: LandmarkProps['terrainH']}> = ({terrainH}) 
       </mesh>
     ))}
   </>
+);
+
+// the frame-0 hero's ขนมหม้อแกง: a tray of the province's best-known sweet beside the hill, its
+// top baked golden-brown with darker spots and fried shallots, scored into pieces. Placed in
+// the hero group's own coordinates (it is scaled about RIDGE with the hill)
+export const TRAY_AT: [number, number] = [RIDGE_TRAY[0], RIDGE_TRAY[1]];
+const SPOTS = Array.from({length: 26}, (_, i) => [random(`mk${i}`) - 0.5, random(`mz${i}`) - 0.5, random(`ms${i}`)]);
+const MoKaeng: React.FC = () => (
+  <group position={[TRAY_AT[0], 0, TRAY_AT[1]]} rotation-y={0.25} scale={1.75}>
+    <mesh position={[0, 0.22, 0]} castShadow receiveShadow>
+      <boxGeometry args={[2.6, 0.44, 1.9]} />
+      <meshStandardMaterial color="#a9adb2" metalness={0.6} roughness={0.35} />
+    </mesh>
+    <mesh position={[0, 0.45, 0]} receiveShadow>
+      <boxGeometry args={[2.4, 0.04, 1.7]} />
+      <meshStandardMaterial color="#d38d34" roughness={0.7} />
+    </mesh>
+    {[-0.6, 0, 0.6].map((x) => (
+      <mesh key={`cx${x}`} position={[x, 0.475, 0]}>
+        <boxGeometry args={[0.025, 0.01, 1.7]} />
+        <meshStandardMaterial color="#7a4a1e" roughness={1} />
+      </mesh>
+    ))}
+    <mesh position={[0, 0.475, 0]}>
+      <boxGeometry args={[2.4, 0.01, 0.025]} />
+      <meshStandardMaterial color="#7a4a1e" roughness={1} />
+    </mesh>
+    {SPOTS.map(([u, v, k], i) => (
+      <mesh key={i} position={[u * 2.2, 0.48, v * 1.5]} rotation-y={k * 3}>
+        <boxGeometry args={[0.07 + 0.05 * k, 0.02, 0.05]} />
+        <meshStandardMaterial color={k > 0.5 ? '#5a3214' : '#8a5222'} roughness={1} />
+      </mesh>
+    ))}
+  </group>
 );
 
 // ------------------------------------------------------------------ พระรามราชนิเวศน์
@@ -311,6 +350,7 @@ export const PhetchaburiLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terr
         <group position={[RIDGE[0], 0, RIDGE[1]]} scale={1 + 2.2 * hero}>
           <group position={[-RIDGE[0], 0, -RIDGE[1]]}>
             <HeroMound terrainH={terrainH} />
+            <MoKaeng />
             <KhaoWang k={hero} old={0} night={night} terrainH={terrainH} />
           </group>
         </group>
