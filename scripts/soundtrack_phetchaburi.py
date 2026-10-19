@@ -191,7 +191,7 @@ for p, d, pan in ((0.66, 0.2, 0.4), (0.83, 0.14, -0.3), (0.86, 0.26, -0.3)):
     add(sfx, horn(d), at(growth, p), pan=pan, gain=0.12)
 # the fair at the foot of the ridge, and the server lifting a piece out again on the cover's
 # sound (Landmarks.tsx lifts it over feast .32 -> .5)
-add(sfx, crowd(feast[1] - feast[0]), feast[0], pan=-0.2, gain=0.35)
+add(sfx, crowd(feast[1] - feast[0] + 1.0), feast[0] - 1.0, pan=-0.2, gain=0.35)
 serve(at(feast, 0.32), gain=0.9)
 
 # ---------------------------------------------------------------- places (8-12 dB under the score, never evenly spaced)
@@ -256,6 +256,28 @@ for t in np.arange(u0 + 0.8, u1, 0.48):
     add(sfx, drum(170, 110, 0.12, 0.5), t + rng.uniform(-0.05, 0.05), pan=0.15, gain=0.3)
 for _ in range(5):
     add(sfx, clink(), rng.uniform(u0 + 0.5, u1), pan=rng.uniform(-0.5, 0.5), gain=0.35)
+
+# the gaps between beats: every cue above sits inside a beat, so each gap fell to the ambience
+# bed alone, 5-6 dB under the clip (PR #53: 44.6-45.7 s before the fair). A rising swell and a
+# quickening low roll carry each one, so the whoosh lands on an upbeat, not in a hole
+
+
+def bridge(t0, t1):
+    n = int((t1 - t0) * SR)
+    rise = 0.45 + 0.55 * np.linspace(0, 1, n) ** 1.6
+    add(sfx, filt(pink(n), "band", (180, 1400)) * rise * 0.12, t0, pan=0.1)
+    t, step = t0, 0.24
+    while t < t1 - 0.05:
+        add(sfx, drum(96, 58, 0.25, 0.6), t, pan=-0.1, gain=0.12 + 0.22 * (t - t0) / (t1 - t0))
+        t += step
+        step = max(0.09, step * 0.85)
+
+
+order = [khmer, siege, palace, railway, growth, feast]
+for a_, b_ in zip(order, order[1:]):
+    bridge(a_[1] - 0.9, b_[0] + 0.05)
+    # and a low gong as the next beat lands, so the downbeat is not left to the bed either
+    add(sfx, gong(98, 2.6, 0.2), b_[0], pan=0.05)
 
 # era-change whooshes
 for et in (siege[0] - 0.2, palace[0] - 0.2, railway[0] - 0.4, growth[0] - 0.2, feast[0] - 0.2):

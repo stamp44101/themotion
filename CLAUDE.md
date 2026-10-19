@@ -83,6 +83,15 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   hooves, Bang Saen beach murmur and a distant modern boat horn were attached
   to their matching beats. Keep ambience 8–12 dB under the score and avoid
   evenly spaced repetitions.
+- **The gaps between beats need sound too.** Phetchaburi wrote every cue inside a beat, so each
+  1-1.4 s gap fell to the ambience bed, 5-6 dB under the clip, right before the fair. Carry
+  each gap with a rising bridge into the next beat and land the downbeat (`bridge()` in
+  `soundtrack_phetchaburi.py`); measure 0.25-s RMS across the gaps, not only the whole mix.
+- **A building "on the hill" sits on the crown, not on the slope.** Phetchaburi's palace halls
+  were placed at `terrainH` 1.5 units off the peak, i.e. at the hill's foot, under a caption
+  that says วังบนเขา. Cut a terrace level at summit height and stand them on it.
+- **A looping procession in `Life.tsx` fades out and back in at its restart**; it used to jump
+  320 m in one frame every 8 s.
 - **A railway bridges every river it crosses.** The engine (`RailBridges` in
   `Diorama.tsx`) now puts a girder bridge where the rail meets a river, found
   automatically from the layout; Nakhon Sawan's train used to run across the Nan on

@@ -28,9 +28,11 @@ export const PHETCHABURI: CityConfig = {
     // (brief §5). At true height it reads as a bump; drawn ~4x (Chonburi's Khao Sam Muk is amplified the same way)
     // so the three crowns stand up from the plain. Kaeng Krachan's hills far west, low.
     peaks: [
-      [PEAK_W[0], PEAK_W[1], PEAK_H.w, 2.0],
-      [PEAK_M[0], PEAK_M[1], PEAK_H.m, 1.7],
-      [PEAK_E[0], PEAK_E[1], PEAK_H.e, 1.6],
+      // the ridge is 485 x 498 m (~6 units) above the 30 m contour: three crowns, broad enough
+      // to read as a massif, not one cone (PR #53)
+      [PEAK_W[0], PEAK_W[1], PEAK_H.w, 2.7],
+      [PEAK_M[0], PEAK_M[1], PEAK_H.m, 2.3],
+      [PEAK_E[0], PEAK_E[1], PEAK_H.e, 2.1],
       [-46, 30, 5, 8],
       [-46, 4, 3.5, 7],
     ],
@@ -119,7 +121,7 @@ export const PHETCHABURI: CityConfig = {
       [MAHATHAT[0], MAHATHAT[1], 2.4],
       [WAT_YAI[0], WAT_YAI[1], 1.6],
       [BAN_PUEN[0], BAN_PUEN[1], 2.0],
-      [PEAK_W[0], PEAK_W[1], 1.6],
+      [PEAK_W[0], PEAK_W[1], 2.6],
       [PEAK_M[0], PEAK_M[1], 1.2],
       [PEAK_E[0], PEAK_E[1], 1.2],
     ],
@@ -134,7 +136,8 @@ export const PHETCHABURI: CityConfig = {
       {fp: {disc: [PEAK_W[0] - 1.3, PEAK_W[1] + 0.5, 1.2]}, from: 1859, label: 'พระนครคีรี hall 1'},
       {fp: {disc: [PEAK_W[0] - 0.6, PEAK_W[1] - 1.4, 1.2]}, from: 1859, label: 'พระนครคีรี hall 2'},
       {fp: {disc: [PEAK_W[0] + 1.0, PEAK_W[1] - 1.5, 1.2]}, from: 1859, label: 'พระนครคีรี hall 3'},
-      {fp: {disc: [PEAK_W[0] + 0.3, PEAK_W[1] - 0.2, 0.6]}, from: 1859, label: 'หอชัชวาลเวียงชัย'},
+      {fp: {disc: [PEAK_W[0] + 0.3, PEAK_W[1] + 0.35, 0.6]}, from: 1859, label: 'หอชัชวาลเวียงชัย'},
+      {fp: {disc: [PEAK_W[0], PEAK_W[1], 2.45]}, from: 1859, label: 'พระนครคีรี terrace'},
       {fp: {disc: [PEAK_E[0] + 0.8, PEAK_E[1] + 0.4, 1.0]}, from: 1859, label: 'วัดพระแก้วน้อย'},
       {fp: {disc: [PEAK_E[0] + 0.5, PEAK_E[1] - 1.1, 0.7]}, from: 1859, label: 'วัดพระแก้วน้อย prang'},
       {fp: {rect: [BAN_PUEN[0], BAN_PUEN[1], 3.4, 5.4]}, from: 1910, label: 'วังบ้านปืน'},

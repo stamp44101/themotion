@@ -128,10 +128,16 @@ const Glow: React.FC<{color: string; night: number; base?: number}> = ({color, n
   <meshStandardMaterial color={color} roughness={0.6} emissive="#ffd27a" emissiveIntensity={base + night * 0.9} />
 );
 // `g` grows the whole group (sizes and spacing) for the frame-0 hero; 1 for the real palace
+// the palace terrace on the west crown, and the observatory clear of the halls round it
+const TERRACE_R = 2.2;
+const OBS: [number, number] = [0.3, 0.35];
 const KhaoWang: React.FC<{k: number; g?: number; old: number; night: number; terrainH: LandmarkProps['terrainH']}> = ({k, g = 1, old, night, terrainH}) => {
   const roof = useMemo(() => prism(1.3, 0.55, 1.8), []);
   const at = (p: [number, number], dx = 0, dz = 0): [number, number, number] => [p[0] + dx * g, terrainH(p[0] + dx * g, p[1] + dz * g) - 0.05, p[1] + dz * g];
   const kk = (a: number, b: number) => smooth(ramp(k, a, b));
+  const terraceTop = terrainH(PEAK_W[0], PEAK_W[1]) - 0.15;
+  const terraceFoot = terrainH(PEAK_W[0] + TERRACE_R, PEAK_W[1]);
+  const top = (dx: number, dz: number): [number, number, number] => [PEAK_W[0] + dx * g, terraceTop * kk(0.3, 0.6) + terrainH(PEAK_W[0] + dx * g, PEAK_W[1] + dz * g) * (1 - kk(0.3, 0.6)), PEAK_W[1] + dz * g];
   return (
     <>
       {/* the older chedi on the summit, grey, before Rama IV built the new one over it */}
@@ -144,6 +150,14 @@ const KhaoWang: React.FC<{k: number; g?: number; old: number; night: number; ter
           <Glow color={WHITE} night={night} />
         </mesh>
       )}
+      {/* the palace stands on a walled terrace cut level across the west crown (PR #53: on the
+          bare slope the halls sat at the foot of the hill, and the caption says วังบนเขา) */}
+      {kk(0.3, 0.6) > 0.02 && (
+        <mesh position={[PEAK_W[0], (terraceTop + terraceFoot) / 2 - 0.02, PEAK_W[1]]} scale={[g, kk(0.3, 0.6), g]} castShadow receiveShadow>
+          <cylinderGeometry args={[TERRACE_R, TERRACE_R + 0.25, terraceTop - terraceFoot, 12]} />
+          <meshStandardMaterial color="#cbbfa8" roughness={0.95} flatShading />
+        </mesh>
+      )}
       {/* the palace group: three halls and the domed observatory หอชัชวาลเวียงชัย */}
       {[
         [-1.3, 0.5, 0],
@@ -153,7 +167,7 @@ const KhaoWang: React.FC<{k: number; g?: number; old: number; night: number; ter
         const s = kk(0.35 + i * 0.08, 0.7 + i * 0.08);
         if (s < 0.02) return null;
         return (
-          <group key={i} position={at(PEAK_W, dx, dz)} rotation-y={r} scale={[1.2 * g, 1.2 * g * s, 1.2 * g]}>
+          <group key={i} position={top(dx, dz)} rotation-y={r} scale={[1.2 * g, 1.2 * g * s, 1.2 * g]}>
             <mesh position={[0, 0.35, 0]} castShadow receiveShadow>
               <boxGeometry args={[1.1, 0.7, 1.6]} />
               <Glow color="#f2ece0" night={night} />
@@ -165,7 +179,7 @@ const KhaoWang: React.FC<{k: number; g?: number; old: number; night: number; ter
         );
       })}
       {kk(0.55, 0.85) > 0.02 && (
-        <group position={at(PEAK_W, 0.3, -0.2)} scale={[1.3 * g, 1.3 * g * kk(0.55, 0.85), 1.3 * g]}>
+        <group position={top(OBS[0], OBS[1])} scale={[1.3 * g, 1.3 * g * kk(0.55, 0.85), 1.3 * g]}>
           <mesh position={[0, 0.8, 0]} castShadow>
             <cylinderGeometry args={[0.32, 0.36, 1.6, 12]} />
             <Glow color="#f5f0e4" night={night} />
@@ -185,7 +199,7 @@ const KhaoWang: React.FC<{k: number; g?: number; old: number; night: number; ter
 
 // the frame-0 hero's hill: three wooded lobes at the real peaks and heights, so scaled up it
 // still reads as Khao Wang (the real terrain is inside it)
-export const RIDGE: [number, number] = [-20.2, -5.8];
+const RIDGE: [number, number] = [-20.2, -5.8];
 // the tray beside it, in the same (unscaled) coordinates: toward the camera and to its right
 const RIDGE_TRAY: [number, number] = [-23.6, -1.0];
 // `k` sinks it into the real hill as the hero goes, so it never pops out at full size

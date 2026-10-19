@@ -70,7 +70,7 @@ export const STORY = buildStory({
       era: 'รัตนโกสินทร์',
       callouts: [
         {t0: 21.4, t1: 24.0, label: 'พระธาตุจอมเพชร', dx: 90, dy: -130, p: [PEAK_M[0], 5.0, PEAK_M[1]]},
-        {t0: 24.4, t1: 26.8, label: 'พระราชวัง', dx: -90, dy: -130, p: [PEAK_W[0] + 0.3, 4.2, PEAK_W[1] - 0.2]},
+        {t0: 24.4, t1: 26.8, label: 'พระราชวัง', dx: -90, dy: -130, p: [PEAK_W[0] + 0.3, 4.6, PEAK_W[1] + 0.35]},
       ],
       camera: [
         // from the north the three crowns stand side by side (from the east they stack up)

@@ -63,16 +63,15 @@ export const RIVER: P[] = [
 export const RIVER_W = 0.7;
 
 // the royal procession's way up Khao Wang (palace beat): from the plain at the hill's north-east
-// foot, up the north flank below วัดพระแก้วน้อย and the chedi, to the palace forecourt by the
-// หอชัชวาลเวียงชัย. The palace shot looks from the north, where the three crowns stand side by
+// foot, up the north flank below วัดพระแก้วน้อย and the chedi, to the foot of the palace
+// terrace. The palace shot looks from the north, where the three crowns stand side by
 // side; a way up the south-east flank (the first route) was hidden behind the hill all along
 export const CLIMB: P[] = [
   [-15.4, -7.6],
   [-16.6, -7.3],
   [-17.8, -7.6],
   [-19.0, -7.3],
-  [-20.0, -7.0],
-  [-20.9, -7.0],
+  [-19.7, -7.0],
 ];
 // the งานพระนครคีรี fair on the plain below the hill, where the cover's ขนมหม้อแกง comes back;
 // clear of Wat Mahathat's terrace (its nearest corner is 4 units away) and of the river
