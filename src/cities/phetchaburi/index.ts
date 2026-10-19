@@ -1,7 +1,7 @@
 import {GROUND} from '../../Scene';
 import type {CityConfig} from '../../engine/types';
 import {PhetchaburiLandmarks} from './Landmarks';
-import {ACTORS, WEST_ARMY_Z} from './actors';
+import {ACTORS, WEST_TOWER_Z} from './actors';
 import {
   BAN_PUEN, BANG_CHAN, CLIMB, eastWallX, FAIR, KAMPHAENG_LAENG, MAHATHAT, PEAK_E, PEAK_H, PEAK_M, PEAK_W, RAIL_X, RIVER, RIVER_W, STATION, WALL, WAT_YAI, WEST_GATE,
 } from './places';
@@ -126,7 +126,7 @@ export const PHETCHABURI: CityConfig = {
     // every hand-placed part with its own years (Landmarks.tsx), so the occupancy audit can
     // test them and nothing generated stands in them while they are up
     footprints: [
-      {fp: {rect: [KAMPHAENG_LAENG[0], KAMPHAENG_LAENG[1], 4.3, 4.3]}, from: 1185, label: 'วัดกำแพงแลง'},
+      {fp: {rect: [KAMPHAENG_LAENG[0], KAMPHAENG_LAENG[1], 4.1, 4.1]}, from: 1185, label: 'วัดกำแพงแลง'},
       {fp: {disc: [FAIR[0], FAIR[1], 2.0]}, from: 2021, label: 'ขนมหม้อแกง (the payoff tray)'},
       {fp: {rect: [MAHATHAT[0], MAHATHAT[1], 4.0, 4.0]}, from: 1440, label: 'วัดมหาธาตุ'},
       {fp: {disc: [WAT_YAI[0], WAT_YAI[1], 1.5]}, from: 1680, label: 'วัดใหญ่สุวรรณาราม'},
@@ -138,8 +138,8 @@ export const PHETCHABURI: CityConfig = {
       {fp: {disc: [PEAK_E[0] + 0.8, PEAK_E[1] + 0.4, 1.0]}, from: 1859, label: 'วัดพระแก้วน้อย'},
       {fp: {disc: [PEAK_E[0] + 0.5, PEAK_E[1] - 1.1, 0.7]}, from: 1859, label: 'วัดพระแก้วน้อย prang'},
       {fp: {rect: [BAN_PUEN[0], BAN_PUEN[1], 3.4, 5.4]}, from: 1910, label: 'วังบ้านปืน'},
-      {fp: {disc: [-5.3, WEST_ARMY_Z, 0.8]}, from: 1500, to: 1700, label: 'หอรบ west'},
-      {fp: {disc: [eastWallX(BANG_CHAN[1] - 1.6) - 0.2, BANG_CHAN[1] - 1.6, 0.8]}, from: 1500, to: 1700, label: 'หอรบ east'},
+      {fp: {disc: [-5.3, WEST_TOWER_Z, 0.8]}, from: 1500, to: 1700, label: 'หอรบ west', onWall: true},
+      {fp: {disc: [eastWallX(BANG_CHAN[1] - 1.6) - 0.2, BANG_CHAN[1] - 1.6, 0.8]}, from: 1500, to: 1700, label: 'หอรบ east', onWall: true},
     ],
     // the ridge and the palace grounds stay open as the town grows round them
     openGround: [

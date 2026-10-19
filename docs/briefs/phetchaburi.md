@@ -103,7 +103,7 @@ v1 proposal's sourcing is kept in the table's last column.
 ```
 Hero (0-3 s): Khao Wang with a hill-sized tray of ขนมหม้อแกง at its foot, a piece being lifted out
               BIG yes (fills the lower frame)   IDENTITY yes (the slogan: เขาวังคู่บ้าน ... ขนมหวาน)
-              MOVING yes (the piece lifts, the camera pushes in)   SURPRISING yes (a dessert as big as the hill)
+              MOVING yes (the piece is lifted out, ~60 px in 1.3 s)   SURPRISING yes (a dessert as big as the hill)
 Hero sound: a server sliding under the custard, a tap on the tray, fried shallots crackling (0.2 s)
 Open loop: why is there a giant dessert by the hill? -> the fair, 45.4-53.6 s: the tray back among
            the stalls, callout ขนมหม้อแกง at 47.6 s, the same serving sound

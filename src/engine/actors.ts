@@ -11,7 +11,9 @@
 import type {CityLayout} from './types';
 import {railSpan} from './world';
 
-export type ActorCtx = {Y: number; beat: (id: string) => number};
+/** `ground` is the terrain height (check_story passes the world's terrainH), so an actor on a
+ *  slope can declare its real height: one declared above the hill cannot be hidden by it */
+export type ActorCtx = {Y: number; beat: (id: string) => number; ground?: (x: number, z: number) => number};
 
 export type Actor = {
   id: string;

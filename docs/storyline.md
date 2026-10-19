@@ -69,6 +69,9 @@ happens; this table decides how long each thing gets and how it is shown.
   - **SURPRISING:** out of scale, out of era, or impossible.
 
   Korat had all four. Lampang had only the first two.
+- **Measure the motion.** On two stills 1 s apart, the moving part travels ≥ 30 px. Phetchaburi's
+  first lifting piece moved 5 px, which no viewer sees. A camera push-in does not count; the
+  hero itself has to move.
 - **The first sound belongs to the hero,** within 0.5 s: a footfall, an engine, a knife going
   through custard.
 - `intro.sub` names the identity the hero shows.

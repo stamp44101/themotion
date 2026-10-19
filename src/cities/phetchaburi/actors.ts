@@ -54,13 +54,17 @@ export const workersOn = ({beat}: ActorCtx) => {
   return p > 0.2 && p < 1;
 };
 
-// 1859-62: Rama IV's procession climbs to the palace as it is finished (palace beat .4 -> 1)
+// 1859-62: Rama IV's procession climbs to the palace as it is finished (palace beat .4 -> 1).
+// The leader reaches the forecourt at .97 with the file strung out down the path behind it
+// (driving every marcher to the top stacked them on one spot), and they stand there until
+// the year moves on
 const CLIMB_LEN = lengthOf(CLIMB);
 export const MARCHERS = 18;
-export const marcherAt = (i: number, {beat}: ActorCtx) => {
+const STEP = Math.min(0.42, (CLIMB_LEN - 0.2) / (MARCHERS - 1));
+export const marcherAt = (i: number, {Y, beat}: ActorCtx) => {
   const p = beat('palace');
-  if (p <= 0.4 || p >= 1) return null;
-  const d = smooth(ramp(p, 0.4, 0.97)) * (CLIMB_LEN + MARCHERS * 0.42) - i * 0.42;
+  if (p <= 0.4 || Y > 1863) return null;
+  const d = smooth(ramp(p, 0.4, 0.97)) * CLIMB_LEN - i * STEP;
   if (d < 0) return null;
   return along(CLIMB, Math.min(d, CLIMB_LEN));
 };
@@ -89,6 +93,9 @@ export const boatAt = (i: number, {beat}: ActorCtx) => {
 
 // the west force's ranks run 5.8 units north-south: centred north of the pin, clear of Wat Mahathat
 export const WEST_ARMY_Z = -7.2;
+// the west หอรบ on the west wall, clear of the north-west corner tower (at -6.7; the army's
+// line at -7.2 put the two towers inside each other)
+export const WEST_TOWER_Z = WEST_ARMY_Z + 2.0;
 // the two assaults and the defenders on the east side
 //   west: lands .4, stands on the bank facing the wall, firing across the river
 //   east: marches in from the coast road 0-.45, clash at the gate .45-.62, enters .7-.95
@@ -101,7 +108,9 @@ export const siege = (t: number, {Y, beat}: ActorCtx) => {
   const enter = smooth(ramp(p, 0.7, 0.95));
   const eastAt: P = [lerp(lerp(15, gate[0] + 3.6, inn), gate[0] + 2.4, clash), lerp(lerp(-9, gate[1], inn), gate[1], clash)];
   const eastIn: P = [lerp(eastAt[0], gate[0] - 3.4, enter), eastAt[1]];
-  const townAt: P = [gate[0] - 2.6, gate[1]];
+  // the defenders hold the street inside the gate: clear of the slanting east wall on their
+  // north-east corner and of วัดกำแพงแลง's enclosure to the north
+  const townAt: P = [gate[0] - 3.0, gate[1]];
   const defend = Y >= 1581 && p < 0.66;
   const west: Formation = p > 0.4 ? {at: [KLONG_KRACHAENG[0] - 2.1, WEST_ARMY_Z], face: [-5.3, WEST_ARMY_Z]} : null;
   const east: Formation = {at: eastIn, face: defend ? townAt : [gate[0] - 6, gate[1]]};
@@ -133,7 +142,7 @@ export const ACTORS: Actor[] = [
   }},
   {id: 'procession', during: [beatAt('palace', 0.44), beatAt('palace', 0.97)], size: 1.6, minInFrame: 0.6, at: (t, ctx) => {
     const m = marcherAt(4, ctx);
-    return m ? [m.x, 3, m.z] : null;
+    return m ? [m.x, (ctx.ground?.(m.x, m.z) ?? 0) + 0.6, m.z] : null;
   }},
   {id: 'palaceRising', during: 'palace', size: 3, at: (t, ctx) => {
     const k = palaceK(ctx.Y, ctx);

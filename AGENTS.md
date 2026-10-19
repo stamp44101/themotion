@@ -94,6 +94,8 @@ Rules already earned this way, all enforced by `npm run check` / `npm run encode
 | every moving thing is an actor: in frame for its beat, not behind trees, never popping out and back (`actors.ts`) | Korat, armies culled in the render; Nakhon Si, train vanished mid-shot, relic boat cut to 0.8 s |
 | a story is beats (`story.ts`): captions, callouts, camera and the year curve come from them, motion runs on beat progress | Nakhon Si, siege army stood still for 2 s inside an eased hold; Korat, battle ended before its caption |
 | one occupancy audit: nothing generated stands on water, a road, the rail, the station, a landmark site, or inside something built earlier (`occupancy.ts`) | Korat / Nakhon Si, blocks on chedis, the kerb and through trees; found blocks on Ayutthaya's rail |
+| the wall never runs through a landmark footprint (a part built on the wall is `onWall`) | Phetchaburi, the east wall through วัดกำแพงแลง, ประตูบางจาน opening into the temple |
+| an actor is not behind a hill (camera-to-actor line over the terrain) | Phetchaburi, the royal procession climbed the far side of Khao Wang |
 | storyline standard (`docs/storyline.md`): a hero on the whole tile at frame 0 that returns in the payoff, something moving through 3-17 s, never 4 s of dead air, one verb per beat, the counter landing on today, a tagline | Lampang's standing hero (44.9% skip, Korat's walking one 32.9%); every clip lost half its viewers between 3 and 17 s; Khon Kaen's counter sprinting to today |
 
 Before you ask the owner to look at anything, `npm run check` passes. It is

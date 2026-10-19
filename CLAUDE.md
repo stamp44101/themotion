@@ -146,6 +146,16 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   armies at 51-62, the procession at 88; the modern train crossing the finale's wide shot
   ran at 26 (a 10 px line over dense blocks) and was cut. Bring the camera in or cut the
   actor; a thing nobody can see is not a beat.
+  **Hills hide actors too.** Phetchaburi's royal procession climbed Khao Wang's south-east
+  flank while the palace shot looked from the north, so it was out of sight for the whole beat.
+  `check_story` now traces the camera-to-actor line over the terrain and fails an actor behind a
+  hill > 30% of its time. Declare an actor's real height: `ctx.ground(x, z)` gives the terrain.
+  The procession declared y = 3, above the whole ridge, and the trace could not catch it until
+  that was fixed.
+- **Figures must read as people.** Phetchaburi's builders wore laterite brown and read as
+  posts beside the laterite towers. Undyed cotton, white or indigo against the sand reads at
+  once. A file of walkers driven to the end of a path must stop strung out, not all on the
+  last point: the procession stacked 18 figures on one spot, then vanished.
 - When A/B-ing an engine change, compare **still vs still**. A still against a
   frame pulled from an encoded render differs everywhere from compression alone
   and tells you nothing.
@@ -343,6 +353,9 @@ shipped broken at least once:
 - the wall opens where a river crosses it, with a water gate
 - city gates are not standing in the channel
 - landmark sub-parts do not intersect each other (viharn clipping its own prang)
+- the wall does not run through a landmark: Phetchaburi's east wall cut วัดกำแพงแลง's enclosure
+  and its gate opened into the temple. `check_story` tests `layout.footprints` against the
+  wall line; mark a part built on the wall (a หอรบ) `onWall`
 - a Buddha image or anything else meant to be seen is not inside a closed building
 - roads do not run along a riverbed
 - crowds and market stalls are on land

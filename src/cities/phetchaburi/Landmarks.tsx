@@ -5,7 +5,7 @@ import {Army} from '../../engine/army';
 import {lathe, Prang, prism, SmallChedi, updateInstances, Viharn} from '../../engine/parts';
 import type {LandmarkProps} from '../../engine/types';
 import {ramp, smooth} from '../../lib';
-import {boatAt, cartAt, fairTrayK, FLEET, fireK, heroK, MARCHERS, marcherAt, palaceK, PORTERS, porterAt, siege, towersUp, WEST_ARMY_Z, workersOn} from './actors';
+import {boatAt, cartAt, fairTrayK, FLEET, fireK, heroK, MARCHERS, marcherAt, palaceK, PORTERS, porterAt, siege, towersUp, WEST_TOWER_Z, workersOn} from './actors';
 import {BAN_PUEN, BANG_CHAN, eastWallX, FAIR, KAMPHAENG_LAENG, MAHATHAT, PEAK_E, PEAK_M, PEAK_W, RAIL_X, RIVER, WAT_YAI} from './places';
 
 export {BAN_PUEN, KAMPHAENG_LAENG, MAHATHAT, PEAK_E, PEAK_M, PEAK_W, STATION, WAT_YAI} from './places';
@@ -740,7 +740,7 @@ export const PhetchaburiLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terr
       <Army f={town} color="#e8e2d0" terrainH={terrainH} />
       {Y >= 1500 && Y < 1700 && (
         <>
-          <Tower x={-5.3} z={WEST_ARMY_Z} f={f} t={t} />
+          <Tower x={-5.3} z={WEST_TOWER_Z} f={f} t={t} />
           <Tower x={gateX - 0.2} z={BANG_CHAN[1] - 1.6} f={f} t={t} />
         </>
       )}

@@ -13,7 +13,7 @@ export const PEAK_H = {w: 3.0, m: 2.6, e: 2.0};
 // วัดกำแพงแลง: the pin (3.8, -2.2) sits on the traced east wall line. Drawn inside it, far
 // enough west that its enclosure (drawn ~3x, Landmarks.tsx) clears the wall: at 2.9 the
 // enclosure ran through the east wall and ประตูบางจาน opened into the temple
-export const KAMPHAENG_LAENG: P = [1.75, -2.4];
+export const KAMPHAENG_LAENG: P = [1.65, -2.4];
 // วัดมหาธาตุวรวิหาร on the west bank
 export const MAHATHAT: P = [-8.9, -2.0]; // pin -7.9: moved 80 m west so its terrace clears the channel
 // วัดใหญ่สุวรรณาราม: the pin (0.4, -7.0) lies on the disputed north wall line; drawn inside
