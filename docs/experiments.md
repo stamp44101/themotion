@@ -111,6 +111,37 @@ just something big: e.g. the palace building itself up on the peaks, or the fest
 over the hill as a 1-s flash-forward (which is experiment 2's question, so pick one and say
 which).
 
+## 1d. Khon Kaen: the landmark at hero scale, a dinosaur at the tile's edge — read: no better
+
+Cover: the whole tile with พระมหาธาตุแก่นนคร at hero scale in the middle and a small dinosaur at
+the right edge (the fossils of Phu Wiang). Built before the storyline standard: the stupa stands
+still, and the dinosaur is small and off-centre.
+
+Result (read 20 Oct 08:55, just under a day in): **skip rate 44.7%**. Lampang was 44.9% and Nakhon
+Si 43.1%; Korat's 32.9% is still the only clear win. 12,117 views from 8,848 viewers, 26
+follows. Average watch **19 s of 60**. Share **1.4%**, the highest of the four, with likes at
+6.8%, saves at 0.5%, reposts at 0.7% and comments at 0.3% (above the typical reel). The
+counts were 638 likes, 25 comments, 65 reposts, 126 shares and 44 saves. Views came from the
+Reels tab (75.5%), Feed (9.2%), Explore (9.1%), Profile (3.0%) and Stories (2.1%).
+Retention, read off the curve and so approximate: ~59% at 3 s, ~41% at 8 s, **~34% by 17 s**,
+then a slow slide to ~19% at 55 s and a drop at the end.
+
+Reading:
+- **The hook result repeats for the third time.** A big but static landmark or symbol on the
+  tile lands at 43–45% skip, whatever it is (relic boat, carriage, stupa). The dinosaur that
+  worked for Korat did not work as a small figure at the tile's edge: Korat's three filled the
+  frame and walked. This is the case for the standard's hero rules: **big, centred, and
+  moving**, not merely present.
+- **Retention at 17 s (~34%)** is at the top of the 30–35% band, level with Korat. Khon Kaen's
+  first beats already had moving dinosaurs and a caravan. That is weak support for "motion in
+  3–17 s", not proof.
+- **Shares are the best so far (1.4%).** They follow the province's own symbol (finding 6), and
+  Khon Kaen's dinosaur story is one locals pass on.
+
+Next: Phetchaburi (experiment 3) is the first clip with a hero that is centred, surprising
+(a dessert as big as the hill) and moving in the first second. If its skip rate falls toward
+Korat's while 17-s retention holds, the hero rules are confirmed.
+
 ## 2. Finale first, then rewind — dropped (owner, 19 Oct)
 
 Branch `exp/korat-hook`: 1.4 s of the finale city at night, a veil reading
