@@ -324,7 +324,8 @@ for (const city of cities) {
       }
       return worst;
     };
-    for (const rd of occLib.allRoads(layout)) {
+    // a road never built (ringRoadYear 1e9) has no slope to climb
+    for (const rd of occLib.allRoads(layout).filter((r) => r.year < 1e8)) {
       const w = grade(rd.from, rd.to, rd.width);
       if (w.g > 0.7) err(`${rd.label} climbs a ${Math.round(Math.atan(w.g) * 57.3)} degree slope near (${w.at[0].toFixed(0)}, ${w.at[1].toFixed(0)}): route it round the hill or narrow the peak.`);
     }
