@@ -14,17 +14,44 @@ that goes with this brief). Built to the storyline standard (`docs/storyline.md`
 
 ## 1. Footprint
 
-`[unknown]` — needs the ONEP "ขอบเขตพื้นที่เมืองเก่าเชียงราย" PDF (เมืองเก่าเชียงราย is one of the
-announced old towns). The old เวียง wrapped round ดอยจอมทอง on the south bank of the แม่น้ำกก;
-its wall and moat lines, and whether any survive in the street grid, are `[unknown]`.
+Settled, pass 3 (issue #54, on a Thai connection). Full write-up in `chiangrai_onep/README.md`;
+the polygon itself is `chiangrai_onep/chiangrai_oldtown.geojson`.
+
+ONEP published Chiang Rai as **two** features, not one — a core with a surrounding zone around it:
+
+| | area | bounding box |
+|---|---|---|
+| **core** (the walled town) | **1.2526 km²** | 1,964 m E–W × 1,146 m N–S, centroid 19.910348, 99.830185 |
+| **surrounding zone** | 2.9347 km² | — |
+| **everything inside the outer edge** (the tile) | **4.1873 km²** | **2,990 m E–W × 2,132 m N–S**, centroid **19.913421, 99.830424** |
+
+`AGREE` 12 พ.ค. 2558 · `NOTICE` 26 พ.ค. 2558.
+
+**The core is a trapezoid with one arm reaching north-west up ดอยจอมทอง** — the arm's tip is the
+core's northernmost point, which is the hill, not a wall corner. Build from the ring, not from the
+bounding box.
+
+**The wall line survives in the street grid, and ONEP drew its boundary on it** (median distance
+from every point of the OSM way to the core ring): ถนนสิงหไคล **5 m**, ถนนบรรพปราการ **11 m**,
+ถนนพหลโยธินสายใน on the east edge at lon ≈ 99.8405. ถนนอุตรกิจ (183 m), ถนนธนาลัย (218 m) and
+ถนนไตรรัตน์ (148 m) are inside the town, not the wall.
+
+**The moat survives as water.** OSM way 991206435, named **คูเมืองเชียงราย**, sits a median 9 m from
+the core ring along the south-west corner, with สะพานประตูเชียงใหม่ still crossing it.
 
 ## 2. Water
 
 | river | real width (m) | units | notes |
 |---|---|---|---|
-| แม่น้ำกก | 120–160 (Gemini, to measure) | 1.5–2.0 | flows west → east along the **north** side of the old town, then on to the Mekong at Chiang Saen. The town was founded on its south bank |
+| แม่น้ำกก | **~110** (measured) | **1.4** | flows west → east along the **north** side of the old town, then on to the Mekong at Chiang Saen. The town was founded on its south bank |
 
-- Does it pass through the walls? Probably not (the town sits beside it) — `[unknown]`.
+- Measured off Esri World Imagery at z19, perpendicular to the local river bearing, at every
+  centreline vertex across the old town: median **107 m**, range 50–145, widening to ~140 m at the
+  east end. **Below Gemini's 120–160.** Table in `chiangrai_field.md` §1.
+- **It does not pass through the walls.** The centreline has 8 points inside the ONEP outer
+  boundary and **none inside the core** — it grazes the north edge and leaves.
+- เกาะลอย is new ground the river itself made when it changed course (ณัฐกร วิทิตานนท์ 2564) — a
+  beat the diorama can show.
 
 ## 3. Story (pass 2, after the Gemini research, 60 s, storyline standard)
 
@@ -79,25 +106,31 @@ then **N** (the most surprising), then **A**.
 
 ## 4. Landmarks
 
-Pins from the Gemini pass, plausible against each other and against what I know of the
-town. The issue asks for them to be confirmed on Google Maps before use.
+Pins confirmed against OSM objects, pass 3 (issue #54). Full table, with the offset from each
+Gemini pin, in `chiangrai_field.md` §2.
 
-| name | where | pin (Gemini) | appears |
+| name | where | pin | appears |
 |---|---|---|---|
-| ดอยจอมทอง (พระธาตุ, เสาสะดือเมือง) | hill on the Kok's south bank, west of the centre; Mangrai's เวียง | 19.915712, 99.822547 | before 1262; สะดือเมือง 2530–31 |
-| ดอยงำเมือง (กู่พญามังราย) | next hill, south-east of Chom Thong | 19.912513, 99.825017 | after ~1311 |
-| วัดพระแก้ว | south-east foot of ดอยจอมทอง | 19.911716, 99.827705 | chedi 1434 |
-| centre of the 2386 square town / วัดกลางเวียง | | 19.910988, 99.832433 | 2386 |
-| หอนาฬิกา (gold, เฉลิมชัย) | on the old ประตูหวาย, south wall line | 19.907137, 99.830953 | 2548–2551 |
-| อนุสาวรีย์พญามังราย | ห้าแยกพ่อขุน, east of the old town | 19.910412, 99.840141 | 2507 |
-| แม่น้ำกก / เกาะลอย | north of the town | 19.918081, 99.835458 / 19.918387, 99.838484 | — |
-| วัดร่องขุ่น | 13 km south, `far` | `[unknown]` | 2540 |
+| ดอยจอมทอง (พระธาตุ, เสาสะดือเมือง) | hill on the Kok's south bank, west of the centre; Mangrai's เวียง | 19.915725, 99.822768 | before 1262; สะดือเมือง 2530–31 |
+| ดอยงำเมือง (กู่พญามังราย) | next hill, south-east of Chom Thong | 19.912669, 99.825093 | after ~1311 |
+| วัดพระแก้ว | south-east foot of ดอยจอมทอง | 19.911662, 99.827016 | chedi 1977; ก่อนหน้านั้นชื่อ วัดป่าเยี้ยะ |
+| วัดกลางเวียง | centre of the 2386 town | 19.910743, 99.832357 | 2386 |
+| หอนาฬิกาทอง (เฉลิมชัย) | on the old ประตูหวาย, i.e. on ถนนบรรพปราการ = the south wall line | 19.907163, 99.830989 | finished **2551** |
+| หอนาฬิกาเก่า | 350 m north of the gold one, same street | 19.910257, 99.830604 | — |
+| อนุสาวรีย์พญามังราย | ห้าแยกพ่อขุน, east of the old town | 19.910446, 99.840104 | **เปิด 31 มี.ค. 2507** |
+| เกาะลอย | north-east of the town, in the Kok | 19.915811, 99.836097 | ground the river made |
+| กลางแม่น้ำกก เหนือเมือง | under สะพานพญามังราย | 19.918110, 99.832433 | — |
+| **วัดร่องขุ่น** | **12.16 km, bearing 216° — south-WEST, not south**, `far` | **19.823983, 99.762866** | 2540 |
+| สนามบินเก่าเชียงราย | 2.64 km due south of the old town | 19.889691, 99.827621 | **2466** |
+| ท่าอากาศยานแม่ฟ้าหลวง | 6.77 km north-east | 19.950647, 99.881760 | 2535 |
 
-- **The 2386 wall (Gemini, to confirm on the ONEP map):**
-  - north along ถนนสิงหไคล;
-  - east along ถนนพหลโยธินสายใน;
-  - south along ถนนบรรพปราการ.
-- **12 gates:** ยืนยันแล้ว, ThaiJO.
+- **The 2386 wall: confirmed against the ONEP map** — north-east along ถนนสิงหไคล (5 m),
+  east along ถนนพหลโยธินสายใน, south along ถนนบรรพปราการ (11 m), and the surviving คูเมือง
+  on the south-west corner (9 m). All three streets Gemini named are real boundary edges.
+- **Gates: 12–13, not a firm 12.** สุรพล ดำริห์กุล 2549 via ณัฐกร วิทิตานนท์ 2564 describes the
+  rebuilt town as **รูปทรงสี่เหลี่ยมคางหมู** with กำแพงอิฐ, ป้อมปราการ, a moat all round and
+  ประตู 12–13 แห่ง, extended eastward. "สิบสองประตู" on screen only if the caption does not claim
+  the number is exact.
 
 ## 5. Terrain and palette
 
@@ -117,6 +150,16 @@ Lanna palette: สะล้อ, ซึง, ปี่จุม, กลองส�
    `src/styleframes/chiangrai.tsx`, owner): the whole tile at frame 0, the golden building and the Kok
    beyond. The hero shrinks into the ground at ~2–3.5 s, before the first caption.
 2. ~~Disaster beats.~~ **Out** (owner; `docs/storyline.md` §3.6a): the 2485 bombing, the 2557 earthquake and the 2567 flood.
-3. The ONEP old-town polygon; the Kok's width; pins for every landmark in §4 (issue).
-4. The years of abandonment under Burma, and the Lampang procession year.
-5. The provincial slogan's exact wording for the tagline.
+3. ~~The ONEP old-town polygon; the Kok's width; pins for every landmark in §4.~~ **Done, pass 3**
+   (issue #54) — `chiangrai_onep/README.md` and `chiangrai_field.md`.
+4. ~~The years of abandonment under Burma, and the Lampang procession year.~~ **The procession is
+   settled: พ.ศ. 1977 the lightning and the find, พ.ศ. 1979 the elephant to Lampang — two events,
+   two years, and §3b merges them.** The length of the abandonment is **still disputed**: 2347–2386
+   (39 years) against สำนักงานพาณิชย์จังหวัด's "เกือบร้อยปี … ฟื้นฟู 2384". **2386 and
+   เจ้าหลวงธรรมลังกา and ~1,000 families are confirmed**; do not put a number of years on screen.
+5. ~~The provincial slogan's exact wording.~~ **Confirmed at สำนักงานพาณิชย์จังหวัดเชียงราย**,
+   word for word as Gemini had it.
+6. **New, from pass 3 — §3b needs editing:** the airfield is **2466, not 2469**; the street grid is
+   **2438 (ถนนธนาลัย)**, a decade before the wall came down over **2450–2460**; the cholera year is
+   2460 but the "walls demolished on Briggs' advice" link is still Gemini's alone. Details in
+   `chiangrai_field.md` §3.
