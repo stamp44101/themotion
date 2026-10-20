@@ -113,6 +113,9 @@ Lanna palette: สะล้อ, ซึง, ปี่จุม, กลองส�
 ## 7. Open questions
 
 1. ~~The hero.~~ **A, วัดร่องขุ่น** (owner, 20 ต.ค. 2569). It opens the clip at hero scale and returns in the payoff, which becomes "เชียงรายเมืองศิลปะ": the temple (2540) at the tile's south edge, the gold clock tower, the City of Design (2566).
+   **Cover camera: the three-quarter view from the south-west** (`CHIANGRAI_QUARTER` in
+   `src/styleframes/chiangrai.tsx`, owner): the whole tile at frame 0, the golden building and the Kok
+   beyond. The hero shrinks into the ground at ~2–3.5 s, before the first caption.
 2. Disaster beats 2014 / 2024: in or out? Owner.
 3. The ONEP old-town polygon; the Kok's width; pins for every landmark in §4 (issue).
 4. The years of abandonment under Burma, and the Lampang procession year.
