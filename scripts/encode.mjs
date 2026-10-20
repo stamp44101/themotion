@@ -1,18 +1,17 @@
-// Turns the master render into the three files that leave the machine, then checks them.
+// Turns the master render into the two files that leave the machine, then checks them.
 // Usage: node scripts/encode.mjs <city>        (reads out/<city>.mp4)
 //
 //   renders/<city>.mp4     shareable copy, under 100 MB (gitignored; goes on the release)
-//   out/<city>_tiktok.mp4  TikTok upload copy, ~17 Mbps -- never commit it
-//   out/<city>_ig.mp4      Instagram/Facebook upload copy, ~7.5 Mbps -- never commit it
+//   out/<city>_social.mp4  the upload copy for TikTok, Instagram and Facebook, ~7.5 Mbps -- never commit it
 //
-// All three are converted from Remotion's full-range/PAL-matrix output to the
-// limited-range bt709 that players and TikTok assume (see CLAUDE.md).
+// Both are converted from Remotion's full-range/PAL-matrix output to the limited-range bt709
+// that players and the platforms assume (see CLAUDE.md).
 //
-// Why Instagram gets its own file: TikTok accepts a heavy source and re-encodes it, so feeding it
-// ~17 Mbps is free quality. Instagram expects around 5 Mbps for a reel and reacts to a file several
+// Why one upload file: Instagram expects around 5 Mbps for a reel and reacts to a file several
 // times that by sitting on "processing" and then silently dropping the post -- no error to read.
-// The IG copy keeps the same picture, colour tags and frame rate, and only lowers the bitrate (and
-// the level, to 4.0, which is what older IG clients accept).
+// TikTok re-encodes whatever it is given to a few Mbps, so the ~17 Mbps copy it used to get bought
+// nothing visible. One file at ~7.5 Mbps, high@4.0 (what older IG clients accept) posts to all
+// three; the owner has posted from it since Phetchaburi.
 import './node_guard.mjs';
 import fs from 'node:fs';
 import {checkRender} from './check_render.mjs';
@@ -33,18 +32,12 @@ fs.mkdirSync('renders', {recursive: true});
 ffmpeg(['-i', master, ...VF, '-c:v', 'libx264', '-preset', 'slow', '-crf', '22', '-maxrate', '7M', '-bufsize', '14M', ...TAGS,
   '-movflags', '+faststart', '-c:a', 'aac', '-b:a', '192k', `renders/${city}.mp4`]);
 
-console.log(`encoding out/${city}_tiktok.mp4 (upload copy) ...`);
-ffmpeg(['-i', master, ...VF, '-c:v', 'libx264', '-preset', 'slow', '-crf', '17', '-maxrate', '20M', '-bufsize', '40M',
-  '-profile:v', 'high', '-level', '4.2', ...TAGS,
-  '-x264-params', 'keyint=60:min-keyint=30:colorprim=bt709:transfer=bt709:colormatrix=bt709:range=tv',
-  '-movflags', '+faststart', '-c:a', 'aac', '-b:a', '320k', '-ar', '48000', `out/${city}_tiktok.mp4`]);
-
-console.log(`encoding out/${city}_ig.mp4 (Instagram/Facebook copy) ...`);
+console.log(`encoding out/${city}_social.mp4 (the upload copy: TikTok, Instagram and Facebook) ...`);
 ffmpeg(['-i', master, ...VF, '-c:v', 'libx264', '-preset', 'slow', '-crf', '21', '-maxrate', '8M', '-bufsize', '16M',
   '-profile:v', 'high', '-level', '4.0', ...TAGS,
   '-x264-params', 'keyint=60:min-keyint=30:colorprim=bt709:transfer=bt709:colormatrix=bt709:range=tv',
-  '-movflags', '+faststart', '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-ac', '2', `out/${city}_ig.mp4`]);
+  '-movflags', '+faststart', '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-ac', '2', `out/${city}_social.mp4`]);
 
-const ok = [master, `renders/${city}.mp4`, `out/${city}_tiktok.mp4`, `out/${city}_ig.mp4`].map(checkRender).every(Boolean);
+const ok = [master, `renders/${city}.mp4`, `out/${city}_social.mp4`].map(checkRender).every(Boolean);
 console.log(ok ? '\nall checks passed' : '\nchecks FAILED -- do not post or commit this render');
 process.exit(ok ? 0 : 1);

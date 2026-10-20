@@ -144,7 +144,8 @@ optional.
   caption title wider than one line, the year curve never running backwards. `npm run render:<city>` runs the timing
   check itself and will not start if it fails. CI runs `npm run check` on every PR.
 - **After rendering:** `npm run encode -- <city>` makes the repo copy and the
-  upload copy and then checks all three files: light may not jump more than 8
+  one `_social` upload copy (TikTok, IG and Facebook) and then checks all three files
+  (the master too): light may not jump more than 8
   luma levels between frames or drop below 35 before the finale, the repo copy
   must be under 100 MB and tagged limited-range bt709. A render that fails is
   not handed over. `npm run check:render -- <file>` checks any file on its own.
