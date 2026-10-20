@@ -1,7 +1,7 @@
 import {GROUND} from '../../Scene';
 import type {CityConfig} from '../../engine/types';
 import {ChiangRaiLandmarks} from './Landmarks';
-import {ACTORS, HERO_AT, HERO_S, RUNWAY} from './actors';
+import {ACTORS, RUNWAY} from './actors';
 import {
   AIRFIELD, CHOM_THONG, CHOM_THONG_H, GATE_CM, GATE_N, GATE_WAI, GOLD_CLOCK, KLANG_WIANG, KOH_LOI, KOK, KOK_S, KOK_S_W, KOK_W, MONUMENT, NGAM_MUEANG, NORTH_ROAD, OLD_CLOCK, PHRA_KAEW,
   RONG_KHUN, SW_ROAD, THANALAI_Z, WALL,
@@ -81,12 +81,14 @@ export const CHIANGRAI: CityConfig = {
       ],
       built: [1300, 1500],
     },
-    forestCity: 1262,
+    forestCity: 1200,
     // forest takes back the empty town, then the 2386 settlers clear it
-    regrowCity: [1790, 1840],
+    regrowCity: [1755, 1840],
     clearings: [
-      // the frame-0 temple stands here at hero scale (its court and pool), open ground from then on
-      [HERO_AT[0], HERO_AT[1] + 2.8 * HERO_S, 7.5 * HERO_S, -1e9],
+      // the frame-0 temple's court and pool at hero scale (actors.ts HERO_AT), open ground from
+      // then on. South of the walls so it never covers the town: a clearing with no end year
+      // would remove the forest that takes the empty town back before 2386
+      [-5.8, 32.1, 22, -1e9],
       // the elephant's way along the south bank to the hill (founding beat)
       [2, -5.6, 2.4, -1e9],
       [-4, -6.0, 2.2, -1e9],
@@ -99,7 +101,7 @@ export const CHIANGRAI: CityConfig = {
       [1.8, 21, 2.4, 1800],
       [PHRA_KAEW[0], PHRA_KAEW[1], 2.0, 1300],
       [AIRFIELD[0], AIRFIELD[1], 6.5, 1922],
-      [RONG_KHUN[0], RONG_KHUN[1], 6, 1996],
+      [RONG_KHUN[0], RONG_KHUN[1], 9, 1996],
       [GOLD_CLOCK[0], GOLD_CLOCK[1], 1.6, 2003],
       [MONUMENT[0], MONUMENT[1], 1.4, 1962],
     ],
@@ -172,7 +174,7 @@ export const CHIANGRAI: CityConfig = {
   callouts: STORY.callouts,
   actors: ACTORS,
   soundtrack: 'soundtrack_chiangrai.wav',
-  rain: [[8.7, 11.9]],
+  rain: [[7.8, 12.0]],
   sky: {
     top: [
       [0, '#62a2cf'],

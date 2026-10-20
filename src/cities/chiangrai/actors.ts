@@ -25,10 +25,13 @@ const lengthOf = (pts: P[]) => pts.slice(1).reduce((s, p, i) => s + Math.hypot(p
 // ------------------------------------------------------------------ the cover
 // วัดร่องขุ่น at hero scale over the whole tile at frame 0; it folds into the ground across
 // 2-3.5 s, before the first caption (owner)
-export const HERO_AT: P = [0, 4];
-export const HERO_S = 2.4;
+// it stands on the plain south of the walls, so the clearing under its court (index.ts) never
+// covers the town, where the forest has to take the empty town back before 2386
+export const HERO_AT: P = [0, 20];
+export const HERO_S = 2.0;
 export const HERO_ROT = -0.45;
-export const heroK = ({beat}: ActorCtx) => 1 - smooth(ramp(beat('founding'), 2 / 8.5, 3.5 / 8.5));
+const FOUNDING_LEN = STORY.at('founding')[1] - STORY.at('founding')[0];
+export const heroK = ({beat}: ActorCtx) => 1 - smooth(ramp(beat('founding'), 2 / FOUNDING_LEN, 3.5 / FOUNDING_LEN));
 
 // ------------------------------------------------------------------ 1262
 // the runaway elephant walks in along the Kok's south bank to the foot of Doi Chom Thong,
@@ -151,7 +154,7 @@ const gy = (ctx: ActorCtx, x: number, z: number) => ctx.ground?.(x, z) ?? 0;
 const CENTRE: P = [2, 1];
 
 export const ACTORS: Actor[] = [
-  {id: 'heroTemple', role: 'hero', during: [0, 2.2], size: 12, at: (t, ctx) => (heroK(ctx) > 0.02 ? [HERO_AT[0], 4, HERO_AT[1] + 2] : null)},
+  {id: 'heroTemple', role: 'hero', during: [0, 2.2], size: 12, at: (t, ctx) => (heroK(ctx) > 0.02 ? [HERO_AT[0] - 2.5, 4, HERO_AT[1] + 5] : null)},
   {id: 'elephant', during: [beatAt('founding', 0.42), beatAt('founding', 0.95)], size: 1.8, at: (t, ctx) => {
     const e = elephantAt(ctx);
     return e ? [e.x, gy(ctx, e.x, e.z) + 1.4, e.z] : null;
