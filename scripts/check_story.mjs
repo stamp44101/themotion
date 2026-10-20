@@ -12,6 +12,7 @@ import './node_guard.mjs';
 import {buildSync} from 'esbuild';
 import {cameraStats} from './camera_stats.mjs';
 import {makeOcclusion, occlusion} from './occlusion.mjs';
+import {storylineChecks} from './storyline.mjs';
 import {textWidth} from './textwidth.mjs';
 
 const lib = await load('src/lib.ts');
@@ -65,6 +66,9 @@ const GEO_MAX_DIFF = 30;
 const GEO_WAIVED = new Set(['ayutthaya', 'chachoengsao', 'chonburi', 'nakhonsawan', 'phitsanulok', 'sukhothai']);
 // Cities built before briefs existed.
 const NO_BRIEF_OK = new Set(['ayutthaya', 'korat', 'phitsanulok', 'sukhothai']);
+// built before the storyline standard (docs/storyline.md); every later city declares
+// buildStory({standard: 1}) and gets scripts/storyline.mjs
+const PRE_STANDARD = new Set(['ayutthaya', 'chachoengsao', 'chonburi', 'khonkaen', 'korat', 'lampang', 'nakhonsawan', 'nakhonsi', 'phitsanulok', 'sukhothai']);
 
 const root = fs.readFileSync('src/Root.tsx', 'utf8');
 const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
@@ -97,11 +101,13 @@ for (const city of cities) {
   // A city whose timeline declares beats (src/engine/story.ts) takes everything from them:
   // a hand copy of the captions or camera keys next to a STORY drifts the moment a beat is
   // retimed, which is the bug the beats exist to remove.
+  let STORY = null;
   if (fs.existsSync(`src/${dir}/${city}/timeline.ts`)) {
     const tl = await load(`src/${dir}/${city}/timeline.ts`);
     if (tl.STORY) {
       // the two bundles are separate module instances, so compare by value
       const S = tl.STORY;
+      STORY = S;
       const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
       const ys = [0, 7, 19, 31, 44, 59, S.duration].map((t) => +story.yearAt(t).toFixed(3));
       if (!same(ys, [0, 7, 19, 31, 44, 59, S.duration].map((t) => +S.yearAt(t).toFixed(3)))) err('timeline.ts has STORY but story.yearAt is not STORY.yearAt.');
@@ -395,6 +401,49 @@ for (const city of cities) {
     }
   }
 
+  // A wall never runs through a landmark. Phetchaburi's east wall ran straight through
+  // วัดกำแพงแลง's enclosure, so ประตูบางจาน opened into the temple and the 2124 armies stood
+  // among its prangs. The occupancy audit cannot see it: the wall is not one of its claims.
+  if (layout && !layout.noWall) {
+    const c = layout.city;
+    const ring = c.outline ?? [[-c.hx, -c.hz], [c.hx, -c.hz], [c.hx, c.hz], [-c.hx, c.hz]];
+    const up = [c.wall[0], c.decay ? c.decay[0] : Infinity];
+    const HALF = 0.3; // half the wall's thickness, and a little air
+    // Liang-Barsky: does the segment a-b enter the box?
+    const segInBox = ([ax, az], [bx, bz], x0, x1, z0, z1) => {
+      let u0 = 0;
+      let u1 = 1;
+      const dx = bx - ax;
+      const dz = bz - az;
+      for (const [p, q] of [[-dx, ax - x0], [dx, x1 - ax], [-dz, az - z0], [dz, z1 - az]]) {
+        if (p === 0) {
+          if (q < 0) return false;
+        } else if (p < 0) u0 = Math.max(u0, q / p);
+        else u1 = Math.min(u1, q / p);
+      }
+      return u0 <= u1;
+    };
+    const segDist = ([ax, az], [bx, bz], x, z) => {
+      const dx = bx - ax;
+      const dz = bz - az;
+      const u = Math.max(0, Math.min(1, ((x - ax) * dx + (z - az) * dz) / (dx * dx + dz * dz || 1)));
+      return Math.hypot(ax + u * dx - x, az + u * dz - z);
+    };
+    for (const f of layout.footprints ?? []) {
+      if (f.onWall || (f.to ?? Infinity) < up[0] || (f.from ?? -Infinity) > up[1]) continue;
+      const cut = ring.some((a, i) => {
+        const b = ring[(i + 1) % ring.length];
+        if (f.fp.rect) {
+          const [x, z, w, d] = f.fp.rect;
+          return segInBox(a, b, x - w / 2 - HALF, x + w / 2 + HALF, z - d / 2 - HALF, z + d / 2 + HALF);
+        }
+        if (f.fp.disc) return segDist(a, b, f.fp.disc[0], f.fp.disc[1]) < f.fp.disc[2] + HALF;
+        return false;
+      });
+      if (cut) err(`the wall runs through "${f.label ?? 'a landmark'}" while both stand: draw it clear of the wall line, inside or out, or mark a part built on the wall \`onWall\` (Phetchaburi's east wall cut วัดกำแพงแลง's enclosure).`);
+    }
+  }
+
   // Moving things (src/engine/actors.ts): each registered actor, and every train, is
   // projected through the camera for each frame of its beat. It must be in frame and not
   // behind trees for most of that time, and must not pop in and out while on screen.
@@ -403,7 +452,7 @@ for (const city of cities) {
   if (layout) {
     const aMsg = FRAME_WAIVED.has(city) ? warn : err;
     const occ = makeOcclusion(cfg, engine);
-    const ctxAt = (t) => ({Y: story.yearAt(t), beat: (id) => story.beat?.(id, t) ?? 0});
+    const ctxAt = (t) => ({Y: story.yearAt(t), beat: (id) => story.beat?.(id, t) ?? 0, ground: engine.getWorld(layout).terrainH});
     const actors = [...(cfg.actors ?? []), ...actorLib.trainActors(layout, engine.getWorld(layout).terrainH)];
     for (const a of actors) {
       const [t0, t1] = typeof a.during === 'string' ? (story.beats?.[a.during] ?? [0, 0]) : a.during;
@@ -416,6 +465,7 @@ for (const city of cities) {
       let present = 0;
       let out = 0;
       let hid = 0;
+      let hill = 0;
       let pops = 0;
       let seen = false;
       let was = false;
@@ -437,6 +487,7 @@ for (const city of cities) {
           out++;
           firstOut ??= t;
         } else if (occ.hidden(p, t)) hid++;
+        else if (occ.behindHill(p, t)) hill++;
         else {
           const px = q.scale * (a.size ?? 1);
           maxScale = Math.max(maxScale, px);
@@ -451,6 +502,7 @@ for (const city of cities) {
       const minIn = a.minInFrame ?? 0.8;
       if (1 - out / present < minIn) aMsg(`actor "${a.id}" (${s(t0)}-${s(t1)}): in frame only ${Math.round(100 * (1 - out / present))}% of the time it stands (need ${Math.round(minIn * 100)}%), out from ${s(firstOut)}. Hold the camera on it or move its path.`);
       if (hid / present > 0.5) aMsg(`actor "${a.id}" (${s(t0)}-${s(t1)}): hidden behind trees ${Math.round((100 * hid) / present)}% of the time it stands.`);
+      if (hill / present > 0.3) aMsg(`actor "${a.id}" (${s(t0)}-${s(t1)}): behind a hill ${Math.round((100 * hill) / present)}% of the time it stands -- the camera is on the other side. Move its path to the camera's side of the slope or swing the camera round.`);
       if (pops) aMsg(`actor "${a.id}" (${s(t0)}-${s(t1)}): disappears and comes back ${pops} time(s) during its beat.`);
       if (legible + 1e-6 < LEGIBLE_SECONDS) {
         const why = !maxScale ? 'never on screen unhidden' : maxScale < LEGIBLE_PX ? `${Math.round(maxScale)} px across at best (need ${LEGIBLE_PX})` : `${LEGIBLE_PX}+ px across for only ${legible.toFixed(1)} s (need ${LEGIBLE_SECONDS} s)`;
@@ -458,6 +510,15 @@ for (const city of cities) {
       }
       if (present / n < 0.5) warn(`actor "${a.id}" (${s(t0)}-${s(t1)}) stands for only ${Math.round((100 * present) / n)}% of its beat.`);
     }
+  }
+
+  // the storyline standard (docs/storyline.md): hook, open loop, danger zone, pace, landing
+  if (layout) {
+    if (STORY?.standard) {
+      const ctxAt = (t) => ({Y: story.yearAt(t), beat: (id) => story.beat?.(id, t) ?? 0, ground: engine.getWorld(layout).terrainH});
+      const actors = [...(cfg.actors ?? []), ...actorLib.trainActors(layout, engine.getWorld(layout).terrainH)];
+      storylineChecks({cfg, plan: STORY.plan, actors, keys, projectAt: engine.projectAt, ctxAt, D, INTRO_END, FINALE_LEAD, err, warn});
+    } else if (!PRE_STANDARD.has(city)) err('no storyline standard: build the story with buildStory({standard: 1, ...}) and meet docs/storyline.md.');
   }
 
   // the thing a callout points at must be visible, not behind a wall of trees

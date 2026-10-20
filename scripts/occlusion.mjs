@@ -38,9 +38,26 @@ export const makeOcclusion = ({layout, story}, {getWorld, droneCamera}) => {
     }
     return false;
   };
+  // Phetchaburi: the royal procession climbed Khao Wang's south-east flank while the palace
+  // shot looked from the north, so the hill hid it for the whole beat; trees were never the
+  // problem. Does the ground rise above the camera's line of sight on the way to p?
+  const hill = (a, p) => {
+    const b = [p[0], Math.max(p[1], w.terrainH(p[0], p[2]) + 0.5), p[2]];
+    for (let i = 1; i < 64; i++) {
+      const u = i / 64;
+      const x = a[0] + u * (b[0] - a[0]);
+      const z = a[2] + u * (b[2] - a[2]);
+      // the subject's own patch of slope does not hide it
+      if ((x - b[0]) ** 2 + (z - b[2]) ** 2 < 1) continue;
+      if (w.terrainH(x, z) > a[1] + u * (b[1] - a[1]) + 0.2) return true;
+    }
+    return false;
+  };
   return {
     /** is the line from the camera to p blocked by a standing tree at second t */
     hidden: (p, t) => blocked(cam(t).pos, p, crownsAt(story.yearAt(t))),
+    /** is p on the far side of a hill from the camera at second t */
+    behindHill: (p, t) => hill(cam(t).pos, p),
     standing: (p) => p[1] - w.terrainH(p[0], p[2]) >= 0.8,
   };
 };

@@ -67,15 +67,19 @@ const People: React.FC<{c: CityConfig; Y: number; t: number}> = ({c, Y, t}) => {
   const W = useMemo(() => buildWalkers(c.layout.life ?? {}, c.layout), [c]);
   const body = useRef<THREE.InstancedMesh>(null);
   const head = useRef<THREE.InstancedMesh>(null);
+  // a procession files 4 units east and starts again. The restart used to be a jump of 320 m in
+  // one frame, every 8 s (PR #53); now the file fades out over its last 0.4 s and back in
+  const loop = (t * 0.5) % 4;
+  const fileK = Math.min(1, loop / 0.2, (4 - loop) / 0.2);
   const pos = (w: Walker): [number, number] => {
-    if (w.len < 0) return [w.x + ((t * 0.5) % 4), w.z]; // procession
+    if (w.len < 0) return [w.x + loop, w.z]; // procession
     const s = Math.sin(t * w.sp * 0.6 + w.ph) * w.len;
     return [w.x + Math.cos(w.ang) * s, w.z + Math.sin(w.ang) * s];
   };
   useLayoutEffect(() => {
     updateInstances(body.current, W.length, (i, o) => {
       const w = W[i];
-      const k = vis(Y, w.from, w.to);
+      const k = vis(Y, w.from, w.to) * (w.len < 0 ? fileK : 1);
       const [x, z] = pos(w);
       o.position.set(x, 0.32 * k + Math.abs(Math.sin(t * 8 * w.sp + w.ph)) * 0.04, z);
       o.scale.set(k, k, k);
@@ -83,7 +87,7 @@ const People: React.FC<{c: CityConfig; Y: number; t: number}> = ({c, Y, t}) => {
     });
     updateInstances(head.current, W.length, (i, o) => {
       const w = W[i];
-      const k = vis(Y, w.from, w.to);
+      const k = vis(Y, w.from, w.to) * (w.len < 0 ? fileK : 1);
       const [x, z] = pos(w);
       o.position.set(x, 0.72 * k + Math.abs(Math.sin(t * 8 * w.sp + w.ph)) * 0.04, z);
       o.scale.set(k, k, k);

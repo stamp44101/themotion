@@ -111,8 +111,81 @@ just something big: e.g. the palace building itself up on the peaks, or the fest
 over the hill as a 1-s flash-forward (which is experiment 2's question, so pick one and say
 which).
 
-## 2. Finale first, then rewind — parked
+## 1d. Khon Kaen: the landmark at hero scale, a dinosaur at the tile's edge — read: no better
+
+Cover: the whole tile with พระมหาธาตุแก่นนคร at hero scale in the middle and a small dinosaur at
+the right edge (the fossils of Phu Wiang). Built before the storyline standard: the stupa stands
+still, and the dinosaur is small and off-centre.
+
+Result (read 20 Oct 08:55, just under a day in): **skip rate 44.7%**. Lampang was 44.9% and Nakhon
+Si 43.1%; Korat's 32.9% is still the only clear win. 12,117 views from 8,848 viewers, 26
+follows. Average watch **19 s of 60**. Share **1.4%**, the highest of the four, with likes at
+6.8%, saves at 0.5%, reposts at 0.7% and comments at 0.3% (above the typical reel). The
+counts were 638 likes, 25 comments, 65 reposts, 126 shares and 44 saves. Views came from the
+Reels tab (75.5%), Feed (9.2%), Explore (9.1%), Profile (3.0%) and Stories (2.1%).
+Retention, read off the curve and so approximate: ~59% at 3 s, ~41% at 8 s, **~34% by 17 s**,
+then a slow slide to ~19% at 55 s and a drop at the end.
+
+Reading:
+- **The hook result repeats for the third time.** A big but static landmark or symbol on the
+  tile lands at 43–45% skip, whatever it is (relic boat, carriage, stupa). The dinosaur that
+  worked for Korat did not work as a small figure at the tile's edge: Korat's three filled the
+  frame and walked. This is the case for the standard's hero rules: **big, centred, and
+  moving**, not merely present.
+- **Retention at 17 s (~34%)** is at the top of the 30–35% band, level with Korat. Khon Kaen's
+  first beats already had moving dinosaurs and a caravan. That is weak support for "motion in
+  3–17 s", not proof.
+- **Shares are the best so far (1.4%).** They follow the province's own symbol (finding 6), and
+  Khon Kaen's dinosaur story is one locals pass on.
+
+Next: Phetchaburi (experiment 3) is the first clip with a hero that is centred, surprising
+(a dessert as big as the hill) and moving in the first second. If its skip rate falls toward
+Korat's while 17-s retention holds, the hero rules are confirmed.
+
+## 2. Finale first, then rewind — dropped (owner, 19 Oct)
 
 Branch `exp/korat-hook`: 1.4 s of the finale city at night, a veil reading
 "ย้อนกลับไป 108 ล้านปี", then the story. Test on a later city, after experiment 1 is read,
 so the two are not mixed.
+
+Dropped before posting. Built into Phetchaburi v1 (the `hook` engine option, still in the engine),
+the owner rejected it after seeing it: the reel's first frame is its cover in the profile grid,
+and the series' identity is **a green tile with one standout thing on it**. A night frame of
+the finale breaks the grid. The opening lever stays inside that frame: a hero that is big,
+surprising and, ideally, moving (see 1c), on the whole tile at frame 0.
+
+## 3. Storyline standard v1 (Phetchaburi) — to read
+
+This is not one variable. Phetchaburi is the first clip built to the whole of
+`docs/storyline.md`, which draws on 1–1c and the owner's notes:
+
+- **Hook:** a hero with all four marks of the scorecard. Korat's dinosaurs had all four;
+  Lampang's carriage had two.
+  - On screen: Khao Wang with a hill-sized tray of ขนมหม้อแกง beside it, a piece lifting out
+    while the camera pushes in.
+  - Its own sound from 0.2 s: a server going under the custard.
+- **3–17 s:**
+  - porters and builders from 3.4 s;
+  - from 9 s, the siege: a fleet and two armies.
+
+  Something moves on screen for at least 70% of the window, which is checked. In Korat this
+  stretch was archaeology with no people in it.
+- **Open loop:** the tray returns at the fair at 45 s, with the same sound.
+- **Ending:** the counter lands on พ.ศ. 2569 and holds before the finale card, which has a
+  tagline. The clip is 60 s.
+
+Read about 24 h after posting:
+
+- **Skip rate**, against Korat's 32.9% and Lampang's 44.9%. Does a moving, surprising hero work
+  without dinosaurs?
+- **Retention at 17 s**, against 30–35% on every clip so far. This is the number the standard
+  is meant to move.
+- **Average watch**, against 18–21 s.
+- **Shares**, against 0.8–1.3%. ขนมหม้อแกง is the province's best-known product, so finding 6
+  predicts a share rate at Korat's level or above.
+
+Caveat: the clip tests a package, so a gain cannot be pinned on one rule.
+- If retention at 17 s moves and skip rate does not, the middle worked and the hook did not.
+- If skip rate moves and retention at 17 s does not, it is the other way round.
+
+From the next city on, change one thing at a time against this standard.

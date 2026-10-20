@@ -19,7 +19,8 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
 
 ## Workflow that works (do it in this order)
 1. Agree the visual style first (show 2–3 quick style frames) before building anything.
-2. Write the story beats + year curve + captions (`src/cities/<city>/timeline.ts`).
+2. Write the story beats + year curve + captions (`src/cities/<city>/timeline.ts`) to the storyline
+   standard, `docs/storyline.md`: fill its worksheet in the brief first.
 3. Lay out the diorama (`src/cities/<city>/layout.ts`) and city-specific landmarks (`Landmarks.tsx`).
 4. Check composition with a contact sheet of 8–12 stills (`npx remotion still … --frame=N`, then
    `ffmpeg … hstack/vstack`) — iterate on stills, never on full renders.
@@ -55,6 +56,12 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   out black: under a low dawn sun the sea threw a highlight past half-float range, and the bloom
   chain spread the Inf into NaN across the frame even at intensity 0. `Look.tsx` now mounts
   Bloom only at night. Check a shader-look city's dawn and wide shots on stills, not only noon.
+  **A mesh mounted at scale 0 does the same.** Phetchaburi's shader cut went black for 1.4 s
+  at dusk: Phra That Chom Phet was mounted at the start of its build with a y-scale of exactly
+  0, a singular normal matrix gave NaN shading on a few pixels, and bloom spread them over the
+  frame (the plain cut shows nothing). Gate every growing mesh on its own scale (`> 0.02`),
+  not on the beat or year that drives it. Bisect on one still: a still is a fresh page, so a
+  black still means per-frame overflow, not page reuse.
 - **Model a named landmark's silhouette before its icon.** Chonburi's first
   Khao Sam Muk shot put a small red shrine on a round green mound; the label was
   correct, but the place was not recognisable. The useful identity was the long
@@ -76,6 +83,15 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   hooves, Bang Saen beach murmur and a distant modern boat horn were attached
   to their matching beats. Keep ambience 8–12 dB under the score and avoid
   evenly spaced repetitions.
+- **The gaps between beats need sound too.** Phetchaburi wrote every cue inside a beat, so each
+  1-1.4 s gap fell to the ambience bed, 5-6 dB under the clip, right before the fair. Carry
+  each gap with a rising bridge into the next beat and land the downbeat (`bridge()` in
+  `soundtrack_phetchaburi.py`); measure 0.25-s RMS across the gaps, not only the whole mix.
+- **A building "on the hill" sits on the crown, not on the slope.** Phetchaburi's palace halls
+  were placed at `terrainH` 1.5 units off the peak, i.e. at the hill's foot, under a caption
+  that says วังบนเขา. Cut a terrace level at summit height and stand them on it.
+- **A looping procession in `Life.tsx` fades out and back in at its restart**; it used to jump
+  320 m in one frame every 8 s.
 - **A railway bridges every river it crosses.** The engine (`RailBridges` in
   `Diorama.tsx`) now puts a girder bridge where the rail meets a river, found
   automatically from the layout; Nakhon Sawan's train used to run across the Nan on
@@ -139,6 +155,16 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   armies at 51-62, the procession at 88; the modern train crossing the finale's wide shot
   ran at 26 (a 10 px line over dense blocks) and was cut. Bring the camera in or cut the
   actor; a thing nobody can see is not a beat.
+  **Hills hide actors too.** Phetchaburi's royal procession climbed Khao Wang's south-east
+  flank while the palace shot looked from the north, so it was out of sight for the whole beat.
+  `check_story` now traces the camera-to-actor line over the terrain and fails an actor behind a
+  hill > 30% of its time. Declare an actor's real height: `ctx.ground(x, z)` gives the terrain.
+  The procession declared y = 3, above the whole ridge, and the trace could not catch it until
+  that was fixed.
+- **Figures must read as people.** Phetchaburi's builders wore laterite brown and read as
+  posts beside the laterite towers. Undyed cotton, white or indigo against the sand reads at
+  once. A file of walkers driven to the end of a path must stop strung out, not all on the
+  last point: the procession stacked 18 figures on one spot, then vanished.
 - When A/B-ing an engine change, compare **still vs still**. A still against a
   frame pulled from an encoded render differs everywhere from compression alone
   and tells you nothing.
@@ -263,6 +289,18 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   the north gate, a train, a mudslide, the แห่ผ้าขึ้นธาตุ procession wrapping the chedi --
   and folded the text-only facts into the sub lines. Plan the story as a list of on-screen
   events first; a date with nothing to show is a sub line, not a beat.
+- **Every city from Phetchaburi on is built to the storyline standard** (`docs/storyline.md`,
+  `buildStory({standard: 1, ...})`), written from the posts in `docs/experiments.md`.
+  Korat's walking dinosaurs cut the skip rate to 32.9%; Lampang's standing carriage did not
+  (44.9%); every clip lost about half of its 3-s audience by 17 s. So:
+  - a `role: 'hero'` actor stands on the whole tile at frame 0 and returns in the payoff as a
+    `role: 'callback'` actor;
+  - registered actors move on screen through 3-17 s, with no 4-s gap anywhere after the title;
+  - every beat has one `kind` (verb), never the same verb twice in a row;
+  - one wide `grow` shot;
+  - the counter lands on today and holds before the finale card.
+
+  `check_story.mjs` (`scripts/storyline.mjs`) errors on a new city that does not declare it.
 - **60 s by default, 75 s when it pays (owner's rule).** Go to 75 s only if the extra time goes
   to beats with action on screen (a siege, a procession, a tracking shot), never to longer
   holds or more text. Set `duration` in the story, register the composition with
@@ -310,7 +348,7 @@ re-renders and a re-tune of all 31 camera keys.
    ended up 350 m wide inside a 1,136 m city.
 3. **Verify the dates** (the repo rule) and note which are attributed vs
    documented. Say so in the caption when a date is `สันนิษฐานว่า`.
-4. Story beats + year curve + captions → `timeline.ts`.
+4. Story beats + year curve + captions → `timeline.ts`, to `docs/storyline.md` (worksheet in the brief, §3).
 5. Layout + landmarks, then **audit every hand-placed coordinate** against the
    rivers and the city polygon — including each object's footprint radius, not
    just its centre point. The engine only protects what it generates.
@@ -324,6 +362,9 @@ shipped broken at least once:
 - the wall opens where a river crosses it, with a water gate
 - city gates are not standing in the channel
 - landmark sub-parts do not intersect each other (viharn clipping its own prang)
+- the wall does not run through a landmark: Phetchaburi's east wall cut วัดกำแพงแลง's enclosure
+  and its gate opened into the temple. `check_story` tests `layout.footprints` against the
+  wall line; mark a part built on the wall (a หอรบ) `onWall`
 - a Buddha image or anything else meant to be seen is not inside a closed building
 - roads do not run along a riverbed
 - crowds and market stalls are on land
