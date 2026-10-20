@@ -242,6 +242,47 @@ const Biplane: React.FC = () => {
   );
 };
 
+// the strip itself: rolled earth on a mown apron, a hangar and a windsock, so the callout
+// points at a place, not only at the aeroplane
+const Airfield: React.FC<{Y: number; t: number}> = ({Y, t}) => {
+  const len = RUNWAY.z1 - RUNWAY.z0;
+  const cz = (RUNWAY.z0 + RUNWAY.z1) / 2;
+  return (
+    <group>
+      <mesh position={[RUNWAY.x, 0.08, cz]} receiveShadow>
+        <boxGeometry args={[RUNWAY.w + 2.6, 0.06, len + 1.6]} />
+        <meshStandardMaterial color="#8fae5a" roughness={1} />
+      </mesh>
+      <mesh position={[RUNWAY.x, 0.13, cz]} receiveShadow>
+        <boxGeometry args={[RUNWAY.w, 0.06, len]} />
+        <meshStandardMaterial color={Y > 1960 ? '#9a9a92' : '#c8a873'} roughness={1} />
+      </mesh>
+      {/* the hangar: a long shed with a rounded roof beside the strip */}
+      <group position={[RUNWAY.x + 2.2, 0, cz - 1.5]}>
+        <mesh position={[0, 0.45, 0]} castShadow>
+          <boxGeometry args={[1.4, 0.9, 2.0]} />
+          <meshStandardMaterial color="#d8d0bc" roughness={0.8} />
+        </mesh>
+        <mesh position={[0, 0.9, 0]} rotation-x={Math.PI / 2} castShadow>
+          <cylinderGeometry args={[0.7, 0.7, 2.0, 12, 1, false, 0, Math.PI]} />
+          <meshStandardMaterial color="#8a3a2a" roughness={0.7} side={THREE.DoubleSide} />
+        </mesh>
+      </group>
+      {/* the windsock */}
+      <group position={[RUNWAY.x - 1.6, 0, RUNWAY.z0 + 1.2]}>
+        <mesh position={[0, 0.8, 0]}>
+          <cylinderGeometry args={[0.03, 0.03, 1.6, 5]} />
+          <meshStandardMaterial color="#e8e2d6" />
+        </mesh>
+        <mesh position={[0.3, 1.5, 0]} rotation-z={-Math.PI / 2 + 0.15 * Math.sin(t * 3)}>
+          <coneGeometry args={[0.12, 0.6, 8, 1, true]} />
+          <meshStandardMaterial color="#e05a2a" side={THREE.DoubleSide} />
+        </mesh>
+      </group>
+    </group>
+  );
+};
+
 // ------------------------------------------------------------------ the clock towers and the monument
 // the old clock tower (2510), a plain white tower at the old crossroads
 const OldClock: React.FC<{Y: number}> = ({Y}) => {
@@ -398,12 +439,7 @@ export const ChiangRaiLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrai
       <Thanalai Y={Y} t={t} ctx={ctx} terrainH={terrainH} />
 
       {/* สนามบินเก่า: a grass strip from 2466 */}
-      {Y >= 1923 && (
-        <mesh position={[RUNWAY.x, 0.04, (RUNWAY.z0 + RUNWAY.z1) / 2]} receiveShadow>
-          <boxGeometry args={[RUNWAY.w, 0.06, RUNWAY.z1 - RUNWAY.z0]} />
-          <meshStandardMaterial color={Y > 1960 ? '#9a9a92' : '#a7b678'} roughness={1} />
-        </mesh>
-      )}
+      {Y >= 1923 && <Airfield Y={Y} t={t} />}
       {plane && (
         <group position={[plane.x, plane.y, plane.z]} rotation={[plane.pitch, plane.rot, 0]}>
           <Biplane />

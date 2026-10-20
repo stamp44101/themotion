@@ -126,7 +126,7 @@ export const CHIANGRAI: CityConfig = {
       {fp: {disc: [GOLD_CLOCK[0], GOLD_CLOCK[1], 1.5]}, from: 2004, label: 'หอนาฬิกาทอง', onWall: true},
       {fp: {disc: [MONUMENT[0], MONUMENT[1], 1.2]}, from: 1963, label: 'อนุสาวรีย์พญามังราย', onWall: true},
       {fp: {rect: [RONG_KHUN[0], RONG_KHUN[1], 10, 10]}, from: 1997, label: 'วัดร่องขุ่น'},
-      {fp: {rect: [RUNWAY.x, (RUNWAY.z0 + RUNWAY.z1) / 2, RUNWAY.w, RUNWAY.z1 - RUNWAY.z0]}, from: 1923, label: 'สนามบินเก่า'},
+      {fp: {rect: [RUNWAY.x + 0.6, (RUNWAY.z0 + RUNWAY.z1) / 2, RUNWAY.w + 4.2, RUNWAY.z1 - RUNWAY.z0 + 1.6]}, from: 1923, label: 'สนามบินเก่า (strip, apron, hangar)'},
     ],
     openGround: [
       // the old airfield and the island park stay open as the town grows round them

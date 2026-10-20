@@ -123,16 +123,17 @@ export const roadHead = (Y: number, ctx: ActorCtx) => lerp(THANALAI_X[0], THANAL
 export const CREW = 8;
 
 // ------------------------------------------------------------------ 1923
-// a biplane comes in from the south over the paddies and lands northward on the new strip
+// a biplane comes in from the north over the town's roofs and lands southward on the new
+// strip, so the shot shows that the field lies outside the town
 export const RUNWAY = {x: AIRFIELD[0], z0: AIRFIELD[1] - 5, z1: AIRFIELD[1] + 5, w: 1.1};
 export const planeAt = ({Y, beat}: ActorCtx) => {
   const p = beat('airfield');
   if (Y < 1923 || p <= 0 || p >= 1) return null;
   const a = smooth(ramp(p, 0, 0.62));
   const r = smooth(ramp(p, 0.62, 0.95));
-  const z = p < 0.62 ? lerp(44, RUNWAY.z1 - 1, a) : lerp(RUNWAY.z1 - 1, RUNWAY.z0 + 2, r);
+  const z = p < 0.62 ? lerp(-8, RUNWAY.z0 + 1, a) : lerp(RUNWAY.z0 + 1, RUNWAY.z1 - 2, r);
   const y = p < 0.62 ? 0.5 + 6 * (1 - a) ** 1.6 : 0.5;
-  return {x: RUNWAY.x, y, z, rot: Math.PI, pitch: p < 0.62 ? -0.12 * (1 - a) : 0};
+  return {x: RUNWAY.x, y, z, rot: 0, pitch: p < 0.62 ? 0.12 * (1 - a) : 0};
 };
 
 // ------------------------------------------------------------------ the payoff
@@ -180,7 +181,7 @@ export const ACTORS: Actor[] = [
     const k = roadK(ctx.Y, ctx);
     return k > 0.01 && k < 0.99 ? [roadHead(ctx.Y, ctx), 0.6, THANALAI_Z] : null;
   }},
-  {id: 'biplane', during: [beatAt('airfield', 0.05), beatAt('airfield', 0.95)], size: 1.4, at: (t, ctx) => {
+  {id: 'biplane', during: [beatAt('airfield', 0.05), beatAt('airfield', 0.95)], size: 2.6, at: (t, ctx) => {
     const p = planeAt(ctx);
     return p ? [p.x, p.y, p.z] : null;
   }},

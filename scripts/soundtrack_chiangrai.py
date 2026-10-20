@@ -82,8 +82,13 @@ sueng(revival[0], revival[1], BEAT / 2, 0.3, low=1)
 khlui_line(growth[0], growth[1], BEAT, 0.18)
 sueng(design[0] - 0.4, DUR - 2.5, BEAT / 2, 0.3, low=3)
 salo(temple[0], temple[1], BEAT, 0.5, start=4)
-# the storm: the score ducks under the rain and thunder
-music *= (1 - 0.45 * bump(T, emerald[0], emerald[1], 0.4))[:, None]
+# ซึง under the road crew and the temple, which otherwise sat 4-5 dB under the clip
+sueng(streets[0], streets[1], BEAT / 2, 0.24, low=1)
+sueng(temple[0] - 0.6, temple[1] + 0.4, BEAT / 2, 0.3, low=2)
+sueng(growth[0] - 0.4, growth[1] + 0.6, BEAT / 2, 0.22, low=1)
+# the storm: the score dips under the rain and thunder, but only a little: a deeper duck left
+# 8.3-8.8 s and 10.5-11.8 s about 6 dB under the clip ([local], PR #55)
+music *= (1 - 0.2 * bump(T, emerald[0], emerald[1], 0.4))[:, None]
 
 # ---------------------------------------------------------------- ambience
 add(amb, filt(pink(N), "low", 600) * 0.03, 0, pan=-0.3)
@@ -147,12 +152,20 @@ while t < founding[1] - 0.2:
 # 1434: rain, a long low thunder roll, the crack as the bolt strikes (low-passed: the owner
 # dislikes harsh highs), the plaster giving way
 n = int((emerald[1] - emerald[0] + 0.8) * SR)
-add(amb, filt(pink(n), "band", (250, 2200)) * env_ar(n, 0.5, 0.6) * 0.12, emerald[0] - 0.3, pan=0.0)
+add(amb, filt(pink(n), "band", (250, 2200)) * env_ar(n, 0.5, 0.6) * 0.3, emerald[0] - 0.3, pan=0.0)
+# the storm comes in before the bolt (a distant roll under the cut into the beat) and rolls on
+# after it, so the stretch between the strike and the procession is never left to the rain
+for t_roll, dur, g in ((emerald[0] - 0.6, 2.2, 0.5), (at(emerald, 0.62), 2.4, 0.55)):
+    m = int(dur * SR)
+    add(sfx, filt(pink(m), "low", 180) * env_ar(m, 0.4, dur * 0.6) * 0.9, t_roll, pan=rng.uniform(-0.3, 0.3), gain=g)
 strike = at(emerald, 0.27)
 add(sfx, filt(noise(int(0.25 * SR)), "low", 1600) * env_ar(int(0.25 * SR), 0.002, 0.2) * 0.5, strike, gain=0.4)
 add(sfx, filt(pink(int(2.6 * SR)), "low", 220) * env_ar(int(2.6 * SR), 0.05, 2.0) * 0.8, strike + 0.05, gain=0.5)
 add(sfx, filt(crackle(0.6), "low", 2000), at(emerald, 0.36), pan=-0.1, gain=0.3)
 add(music, bell(523, 2.5, ratios=(1, 2.0, 3.0), decay=1.2), at(emerald, 0.5), pan=0.1, gain=0.12)
+# the procession's drums come in under the end of the storm and swell into the beat
+for i, t in enumerate(np.arange(emerald[1] - 1.4, procession[0], BEAT / 2)):
+    add(sfx, drum(132, 70, 0.3, 0.7), t, pan=-0.1, gain=0.12 + 0.18 * (t - emerald[1] + 1.4) / 1.4)
 # 1436: the procession: กลองสะบัดชัย and a small gong in step, the elephant balking at the fork
 # (a trumpet at the stop), then on south
 p_on, p_stop, p_go = at(procession, 0.05), at(procession, 0.42), at(procession, 0.5)
@@ -208,7 +221,7 @@ def horn(dur):
 for p, d, pan in ((0.66, 0.2, 0.4), (0.83, 0.14, -0.3), (0.86, 0.26, -0.3)):
     add(sfx, horn(d), at(growth, p), pan=pan, gain=0.1)
 # the payoff: the cover's bells and water come back as the temple rises
-chimes(temple[0] + 0.3, temple[1], 0.06, pan=-0.2)
+chimes(temple[0] + 0.3, temple[1], 0.09, pan=-0.2)
 for k in range(5):
     add(sfx, splash(), at(temple, 0.3) + k * 0.3 + rng.uniform(0, 0.1), pan=rng.uniform(-0.4, 0.0), gain=0.16)
 # City of Design: the crowd round the gold clock tower, สะบัดชัย drums for the light show
@@ -223,7 +236,7 @@ for i, t in enumerate(np.arange(design[0] + 0.4, design[1], BEAT / 2)):
 def bridge(t0, t1):
     n = int((t1 - t0) * SR)
     rise = 0.45 + 0.55 * np.linspace(0, 1, n) ** 1.6
-    add(sfx, filt(pink(n), "band", (180, 1400)) * rise * 0.12, t0, pan=0.1)
+    add(sfx, filt(pink(n), "band", (180, 1400)) * rise * 0.18, t0, pan=0.1)
     t, step = t0, 0.24
     while t < t1 - 0.05:
         add(sfx, drum(96, 58, 0.25, 0.6), t, pan=-0.1, gain=0.12 + 0.22 * (t - t0) / (t1 - t0))
