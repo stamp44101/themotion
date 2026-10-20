@@ -116,7 +116,7 @@ Lanna palette: สะล้อ, ซึง, ปี่จุม, กลองส�
    **Cover camera: the three-quarter view from the south-west** (`CHIANGRAI_QUARTER` in
    `src/styleframes/chiangrai.tsx`, owner): the whole tile at frame 0, the golden building and the Kok
    beyond. The hero shrinks into the ground at ~2–3.5 s, before the first caption.
-2. Disaster beats 2014 / 2024: in or out? Owner.
+2. ~~Disaster beats.~~ **Out** (owner; `docs/storyline.md` §3.6a): the 2485 bombing, the 2557 earthquake and the 2567 flood.
 3. The ONEP old-town polygon; the Kok's width; pins for every landmark in §4 (issue).
 4. The years of abandonment under Burma, and the Lampang procession year.
 5. The provincial slogan's exact wording for the tagline.
