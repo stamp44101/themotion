@@ -1,6 +1,8 @@
 # City brief — Chiang Rai / เชียงราย
 
-Status: research pass 2 (20 ตุลาคม 2569; pass 1 the same day), written in the cloud container with web search only.
+Status: research pass 3 (20 ตุลาคม 2569). Pass 3, on a Thai connection (PR #55), measured the ONEP polygon
+(`chiangrai_onep/`), the Kok and every pin, and opened the sources (`chiangrai_field.md`); its findings override
+earlier passes below, written in the cloud container with web search only.
 Everything marked `[unknown]` needs the ONEP map or a pin from a Thai connection (the issue
 that goes with this brief). Built to the storyline standard (`docs/storyline.md`).
 
@@ -80,12 +82,13 @@ then **N** (the most surprising), then **A**.
 |---|---|---|---|
 | 0–3 | cover | the hero | |
 | 3–8.5 | พ.ศ. 1805 (arrive) | Mangrai's men follow the elephant; a ring of earth walls goes up round ดอยจอมทอง | year: traditional, widely repeated; elephant: **legend** (caption ตำนานเล่าว่า) |
-| 9–18 | พ.ศ. 1977 (procession) | a storm, lightning splits the chedi at วัดป่าเยียะ, the green image shows through the plaster; the elephant procession turns away from Chiang Mai three times, toward Lampang | **attributed** (รัตนพิมพวงศ์, ชินกาลมาลีปกรณ์); the misprint พ.ศ. 1897 is common — use 1977 |
-| 19–27 | พ.ศ. 2347 → 2386 (disaster → arrive) | the town emptied, forest closes over walls and temples; then a caravan of about 1,000 families, elephants, carts, clears it and raises a square wall with 12 gates | 12 gates **ยืนยันแล้ว** (ThaiJO); 2386 **ยืนยันแล้ว**; abandoned 2347, "39 years", 1,000 families **Gemini เท่านั้น** |
-| 28–34 | พ.ศ. 2460 → 2469 (build / arrive) | the walls come down and a street grid is cut (after cholera, on Dr Briggs' advice), then the first aeroplane lands | Briggs in Chiang Rai 2446–2461 **ยืนยันแล้ว**; the wall demolition and "first provincial airfield 2469" **Gemini เท่านั้น** |
-| 35–44 | (grow) | wide shot: the town spreads south and east, the Mangrai monument (2507), the bridges over the Kok | monument 31 มี.ค. 2507 **Gemini เท่านั้น** |
-| 45–54 | พ.ศ. 2566 (celebrate) | City of Design: the gold clock tower lit, crowds, art installations; the hero back | 31 ต.ค. 2566 **ยืนยันแล้ว** |
-| 54–56 | → 2569 (today) | counter lands | |
+| 8.8–11.6 | พ.ศ. 1977 (discover) | a storm, lightning splits the chedi at วัดป่าเยี้ยะ, the green image shows through the plaster | **attributed** (รัตนพิมพวงศ์, ชินกาลมาลีปกรณ์); not the common misprint 1897 |
+| 12.0–18.2 | พ.ศ. 1979 (procession) | the Chiang Mai ruler's elephant procession leaves with the image; the elephant balks three times and turns for Lampang | **attributed**; a separate year from the find (pass 3, #55) |
+| 19.4–27 | → พ.ศ. 2386 (arrive) | the empty town under forest; then about 1,000 families with elephants and carts clear it and raise a brick wall, trapezoid, extended east, with its moat | 2386, เจ้าหลวงธรรมลังกา, ~1,000 families **ยืนยันแล้ว** (tourismchiangrai); trapezoid and moat **ยืนยันแล้ว** (ณัฐกร 2564, after สุรพล 2549; the ONEP core is that shape). Gates **12–13**: on screen "สิบสองประตู" only without claiming it exact. **No "39 years" on screen** (sources disagree: 2347→2386 vs. "nearly 100 years") |
+| 28.4–34 | พ.ศ. 2438 → 2466 (build) | the first straight street cut through the walled town (ถนนธนาลัย, east–west), the walls taken down over 2450–2460, then the first aeroplane lands at the airfield 2.6 km south | 2438 grid, wall 2450–2460, airfield **2466** **ยืนยันแล้ว** (ณัฐกร 2564). Briggs (2443–2461) is credited with the grid on the Washington D.C. model, **not** with the demolition |
+| 35.4–44 | (grow) | wide shot: the Kok shifts and new land, เกาะลอย, rises north of the town and is settled; the town spreads; the Mangrai monument (31 มี.ค. 2507) | เกาะลอย from the river's shift **ยืนยันแล้ว** (same journal, no year); monument **ยืนยันแล้ว** (อบจ.) |
+| 45.4–53.6 | พ.ศ. 2540 → 2566 (celebrate) | เชียงรายเมืองศิลปะ: วัดร่องขุ่น rising at the tile's **south-west** edge (the hero back), the gold clock tower lit on ถนนบรรพปราการ (2551), City of Design, crowds | 2540, 2551, 31 ต.ค. 2566 **ยืนยันแล้ว**. วัดร่องขุ่น is 12.16 km at **216°** (pass 3): a `far` point, south-west |
+| 54.2–56 | → 2569 (today) | counter lands | |
 
 - **Out, or the owner's call:**
   - **The 1942 bombing: ขัดแย้ง.** Gemini says 22 ก.พ. 2485, 3 aircraft, 20+ dead.
@@ -95,7 +98,7 @@ then **N** (the most surprising), then **A**.
 - **Sub lines (no beat):** เวียงเชียงรอย before Mangrai (legend); the move to Fang and to Chiang Mai;
   ถ้ำพระ and its prehistoric site (excavated 2474, **Gemini only**); บ้านดำ 2519; ดอยตุง 2531;
   วัดร่องเสือเต้น; Thailand Biennale 2566.
-- **Tagline (provincial slogan, Gemini, to confirm):** "เหนือสุดในสยาม ชายแดนสามแผ่นดิน ถิ่นวัฒนธรรม
+- **Tagline (provincial slogan, confirmed word for word, pass 3):** "เหนือสุดในสยาม ชายแดนสามแผ่นดิน ถิ่นวัฒนธรรม
   ล้านนา ล้ำค่าพระธาตุดอยตุง" → finale sub e.g. **"เหนือสุดในสยาม"**.
 - **Traps (Gemini, sensible):**
   - Two different men called ธรรมลังกา: the เจ้าหลวงเชียงใหม่ of 2347 and Chiang Rai's first เจ้าหลวง of 2386.
