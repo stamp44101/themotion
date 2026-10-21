@@ -86,6 +86,13 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   hooves, Bang Saen beach murmur and a distant modern boat horn were attached
   to their matching beats. Keep ambience 8–12 dB under the score and avoid
   evenly spaced repetitions.
+- **The small sounds are the charm; the score must not bury them (owner).** Viewers praised the
+  older clips' little effects. Phuket's first mix had the ambience 18 dB under the score and the
+  effects 9-13 dB under it through the mines, the old town, the grow shot and the payoff, and no
+  sound at all for buildings appearing. Give every thing that appears or moves its own small
+  sound -- a soft pop per building as it rises, footsteps, voices, splashes, gulls -- keep the
+  ambience 8-12 dB under the score, and meter the music bus against the effects bus per 3 s
+  before calling a soundtrack done (effects at or above the music in every action beat).
 - **The gaps between beats need sound too.** Phetchaburi wrote every cue inside a beat, so each
   1-1.4 s gap fell to the ambience bed, 5-6 dB under the clip, right before the fair. Carry
   each gap with a rising bridge into the next beat and land the downbeat (`bridge()` in

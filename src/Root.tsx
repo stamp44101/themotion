@@ -17,8 +17,10 @@ import {LAMPANG} from './cities/lampang';
 import {KHONKAEN} from './cities/khonkaen';
 import {PHETCHABURI} from './cities/phetchaburi';
 import {CHIANGRAI} from './cities/chiangrai';
+import {PHUKET} from './cities/phuket';
 import {CELEBRATION} from './styleframes/celebration';
 import {CHIANGRAI_CLOSE, CHIANGRAI_FRONT, CHIANGRAI_QUARTER} from './styleframes/chiangrai';
+import {PHUKET_DREDGE, PHUKET_GREEN, PHUKET_GREEN_CALLBACK, PHUKET_MIXED, PHUKET_MIXED_CALLBACK, PHUKET_TURTLE, PHUKET_TURTLE_CALLBACK} from './styleframes/phuket';
 import {KHONKAEN_DINO, KHONKAEN_STUPA, KHONKAEN_TAMARIND} from './styleframes/khonkaen';
 import {LAMPANG_CHEDI, LAMPANG_ELEPHANT, LAMPANG_CARRIAGE, LAMPANG_HORSE} from './styleframes/lampang';
 import {DioramaComposition} from './engine/DioramaComposition';
@@ -38,12 +40,20 @@ const Lampang: React.FC = () => <DioramaComposition city={LAMPANG} />;
 const KhonKaen: React.FC = () => <DioramaComposition city={KHONKAEN} />;
 const Phetchaburi: React.FC = () => <DioramaComposition city={PHETCHABURI} />;
 const ChiangRai: React.FC = () => <DioramaComposition city={CHIANGRAI} />;
+const Phuket: React.FC = () => <DioramaComposition city={PHUKET} />;
 // shader-look preview (issue #27), for still-vs-still checks of the PR #53 blackout
 const PhetchaburiLook: React.FC = () => <DioramaComposition city={{...PHETCHABURI, look: 'shader'}} />;
 const Celebration: React.FC = () => <DioramaComposition city={CELEBRATION} />;
 const ChiangRaiStyleFront: React.FC = () => <DioramaComposition city={CHIANGRAI_FRONT} />;
 const ChiangRaiStyleQuarter: React.FC = () => <DioramaComposition city={CHIANGRAI_QUARTER} />;
 const ChiangRaiStyleClose: React.FC = () => <DioramaComposition city={CHIANGRAI_CLOSE} />;
+const PhuketStyleTurtle: React.FC = () => <DioramaComposition city={PHUKET_TURTLE} />;
+const PhuketStyleDredge: React.FC = () => <DioramaComposition city={PHUKET_DREDGE} />;
+const PhuketStyleCallback: React.FC = () => <DioramaComposition city={PHUKET_TURTLE_CALLBACK} />;
+const PhuketStyleMixed: React.FC = () => <DioramaComposition city={PHUKET_MIXED} />;
+const PhuketStyleMixedCallback: React.FC = () => <DioramaComposition city={PHUKET_MIXED_CALLBACK} />;
+const PhuketStyleGreen: React.FC = () => <DioramaComposition city={PHUKET_GREEN} />;
+const PhuketStyleGreenCallback: React.FC = () => <DioramaComposition city={PHUKET_GREEN_CALLBACK} />;
 const KhonKaenStyleDino: React.FC = () => <DioramaComposition city={KHONKAEN_DINO} />;
 const KhonKaenStyleTamarind: React.FC = () => <DioramaComposition city={KHONKAEN_TAMARIND} />;
 const KhonKaenStyleStupa: React.FC = () => <DioramaComposition city={KHONKAEN_STUPA} />;
@@ -76,12 +86,20 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="ChiangRaiStyleFront" component={ChiangRaiStyleFront} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="ChiangRaiStyleQuarter" component={ChiangRaiStyleQuarter} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="ChiangRaiStyleClose" component={ChiangRaiStyleClose} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="PhuketStyleTurtle" component={PhuketStyleTurtle} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="PhuketStyleDredge" component={PhuketStyleDredge} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="PhuketStyleCallback" component={PhuketStyleCallback} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="PhuketStyleMixed" component={PhuketStyleMixed} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="PhuketStyleMixedCallback" component={PhuketStyleMixedCallback} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="PhuketStyleGreen" component={PhuketStyleGreen} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="PhuketStyleGreenCallback" component={PhuketStyleGreenCallback} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="KhonKaenStyleDino" component={KhonKaenStyleDino} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="KhonKaenStyleTamarind" component={KhonKaenStyleTamarind} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="KhonKaenStyleStupa" component={KhonKaenStyleStupa} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="KhonKaen" component={KhonKaen} durationInFrames={(KHONKAEN.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Phetchaburi" component={Phetchaburi} durationInFrames={(PHETCHABURI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="ChiangRai" component={ChiangRai} durationInFrames={(CHIANGRAI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="Phuket" component={Phuket} durationInFrames={(PHUKET.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="PhetchaburiLook" component={PhetchaburiLook} durationInFrames={(PHETCHABURI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Lampang" component={Lampang} durationInFrames={(LAMPANG.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="LampangStyleElephant" component={LampangStyleElephant} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
