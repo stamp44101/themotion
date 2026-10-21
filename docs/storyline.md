@@ -17,6 +17,7 @@ Read §1 once. Use §2 and §5 every time.
 | Nakhon Si (75 s) | whole tile, the relic boat a speck | 43.1% | ~57% | ~31% | 21 s | 0.8% |
 | Lampang | a big horse carriage, standing | 44.9% | ~60% | ~30% | 18 s | 1.2% |
 | Khon Kaen | the stupa at hero scale, standing; a small dinosaur at the edge | 44.7% | ~59% | ~34% | 19 s | 1.4% |
+| Phetchaburi (standard v1) | Khao Wang and a hill-sized tray, a piece lifting | 50.4% | ~51% | ~24% | 15 s | 0.7% |
 
 1. **The hook is the hero at frame 0, and only one kind of hero worked.** Korat's dinosaurs were
    big, surprising (prehistoric animals on a city tile), moving (they walk), and tied to what
@@ -30,7 +31,7 @@ Read §1 once. Use §2 and §5 every time.
    for has to be on screen at the start. The ending is the reward for those who stay.
 5. **75 s loses people in the last 10 s** (Nakhon Si). 60 s is the owner's rule.
 6. **Shares follow the city's own symbols.** They were 1.2–1.4% when its best-known symbol was on
-   screen (Korat, Lampang, Khon Kaen) and 0.8% when it was not (Nakhon Si). Locals comment to add what they
+   screen (Korat, Lampang, Khon Kaen), but only 0.7% for Phetchaburi's ขนมหม้อแกง, so this is weak and 0.8% when it was not (Nakhon Si). Locals comment to add what they
    know (Lampang's "three towns" comment).
 7. **The owner's notes:**
    - the cover is a green tile with one standout thing on it; the finale-first opening was
