@@ -95,8 +95,8 @@ format.
 
 ## Enforced by `npm run check`
 - **Error:** at the end of the clip, the city (old town + urbanised cells) covers
-  less than 20% of the tile **and** no peak reaches 8. Nakhon Sawan and
-  Chachoengsao were posted before this rule and only warn.
+  less than 20% of the tile **and** no peak reaches 8. Nakhon Sawan,
+  Chachoengsao and Chonburi were posted before this rule and only warn (`GRANDEUR_WAIVED`).
 - **Warning:** the old town covers less than 3% of the tile. That is history and
   cannot be fixed, so frame the early beats tighter and higher.
 

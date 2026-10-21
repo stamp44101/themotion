@@ -14,33 +14,36 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   and tell the user which facts are approximate or disputed.
 - **The province series is code, not generation (owner's rule).** Picture and sound are both
   made by code: the score and SFX come from `scripts/synth.py`. Do not add generated audio
-  (ElevenLabs SFX, music or voice) to a province clip. `synth.sample()` and `public/sfx/` exist for
-  other series. Khon Kaen's ElevenLabs test set was tried and taken out (prompts in commit 6377944).
+  (ElevenLabs SFX, music or voice) to a province clip. `synth.sample()` (it reads `public/sfx/<name>`, which is
+  not in the repo) exists for other series. Khon Kaen's ElevenLabs test set was tried and taken out (prompts in commit 6377944).
 
 ## Workflow that works (do it in this order)
 1. Agree the visual style first (show 2–3 quick style frames) before building anything.
-2. Write the story beats + year curve + captions (`src/cities/<city>/timeline.ts`) to the storyline
+2. Write the story beats (`buildStory`: seconds, years, captions, callouts, camera keys) in
+   `src/cities/<city>/timeline.ts` to the storyline
    standard, `docs/storyline.md`: fill its worksheet in the brief first.
-3. Lay out the diorama (`src/cities/<city>/layout.ts`) and city-specific landmarks (`Landmarks.tsx`).
+3. Lay out the diorama (`layout` in `src/cities/<city>/index.ts`, real positions in `places.ts`),
+   city-specific landmarks (`Landmarks.tsx`) and the moving things (`actors.ts`).
 4. Check composition with a contact sheet of 8–12 stills (`npx remotion still … --frame=N`, then
    `ffmpeg … hstack/vstack`) — iterate on stills, never on full renders.
-5. Export the timeline and synthesize the soundtrack so audio is synced to the year curve.
+5. Export the timeline and synthesize the soundtrack, cueing sounds on the beats (`tl.beat(...)`).
 6. `npm run check`, then full render once (`npm run render:<city>`), then `npm run encode -- <city>`
    for the repo copy (<100 MB) and the upload copy; it fails loudly on flicker, dark nights or bad
    tagging. A chat preview (<30 MB) is extra and is not an upload file.
 
 ## Environment notes (cloud container)
 - Browser: `--browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell`
-- 3D (Three.js via @remotion/three) needs `--gl=angle`; it renders in software: ~35 min for 1800 frames
-  at concurrency 4. 2D SVG versions render in ~3–7 min.
+- 3D (Three.js via @remotion/three) needs `--gl=angle`; it renders in software: ~35-50 min for 1800
+  frames at concurrency 4 (~38 frames/min; `docs/render-locally.md` says 40-60 min). 2D SVG versions render in ~3–7 min.
 - Python audio needs `pip install numpy scipy`.
 - Never render test stills while a full render runs: they steal CPU (Korat took ~55 min instead of ~35).
 - `--scale=0.5` drafts are NOT much faster for 3D (bottleneck is shadows + draw calls, ~38 frames/min either
-  way); review with still contact sheets instead, then render full-res once. Shadow map 2048 is enough.
+  way); review with still contact sheets instead, then render full-res once. Shadow map 2048 is enough (the engine uses
+  4096 only for the shader look).
 - Never `pkill -f` with a pattern that also appears in your own command line; kill by PID.
 - A GPU machine (`npm run render:<city>` locally) renders the 3D versions many times faster.
   Measured on a Windows RTX 4070 (ANGLE -> D3D11, not SwiftShader): **1 m 15 s for 1800 frames**,
-  ~28x faster than the container figure above. Iterating on full renders is fine there.
+  ~30-40x faster than the container figure above. Iterating on full renders is fine there.
 - `scripts/export_timeline.mjs` needs `pathToFileURL()` for the dynamic import — a bare Windows
   absolute path ('G:\...') is not a valid ESM specifier.
 
@@ -119,11 +122,11 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   train drove through it, and village houses could land on the track. The engine now drops
   or shortens any walker, stall, buffalo or elephant that would touch a river (`wet()` in
   `Life.tsx`), moves a station that is within 2.2 of the line to 2.6 off it and clears the
-  trees there (`stationPos()` in `world.ts`), and keeps villages off the rail.
+  trees there (`stationPos()` in `occupancy.ts`), and keeps villages off the rail.
 - **A wall never runs across open water.** Where a river crosses the wall line the
   engine now opens a gap and stands a water gate there (piers + lintel) — boats
   had to pass. `subtractBands()` in `poly.ts` splits each wall edge around the
-  river footprint, while `subtractPathRivers()` does the same for curved
+  river footprint, while `subtractPathRivers()` in `river.ts` does the same for curved
   channels, and the merlons skip the gap too. Only bites on cities whose
   river actually crosses the walls, so the rectangle cities are unaffected.
 - **Real city footprints are not rectangles.** `city.outline` takes a polygon in
@@ -177,10 +180,13 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   Phitsanulok is the first city with a river running *through* the walled area.
   Fixed in the engine. When adding a city, audit every hand-placed coordinate
   (gates, landmark sub-parts, roads, `life` groups) against the river band —
-  `|x - pos| < width/2 + 0.8` — not just the generated ones. Bridges, boats and
+  `|x - pos| < width/2 + 0.8` for a straight river, `inRiver(L, river, x, z, 0.8)` from
+  `src/engine/river.ts` for a path river — not just the generated ones; the occupancy audit
+  (below) cannot see a hand-placed part that is not declared in `sites` or `footprints`. Bridges, boats and
   houseboats are the only things that belong over water.
 - The 3D "isometric diorama" look = the whole city on a floating square tile with a soil cross-section,
-  sky gradient behind (CSS), camera always aimed at the city; mountains only as a backdrop at the tile edge.
+  sky gradient behind (CSS), camera always aimed at the city; mountains where the province really has them, at real height (see
+  Grandeur below), never invented as decoration.
 - Keep the top ~30% of the frame for the year counter + caption (camera uses a view offset).
 - TikTok safe area (video px): tall phones crop ~100 px per side; search bar covers y<215; captions/username
   cover y>1480; action buttons cover x>860 below y≈900. Overlay `SAFE` enforces this — keep text/labels inside.
@@ -262,8 +268,9 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   callout more than 0.5 below the ground and warns for every exported landmark position where
   the terrain is above 0.5.
 - **Directions come from real coordinates.** Chonburi put the Gulf east of the town; it is
-  west, and a viewer from the city noticed at once. Every city and landmark reel has a
-  `geo.ts` next to its `index.ts`: each landmark's real lat/lon (copy it from Google Maps)
+  west, and a viewer from the city noticed at once. Every city from Korat on and every landmark
+  reel has a `geo.ts` next to its `index.ts` (the older posted cities are waived to a warning,
+  `GEO_WAIVED` in `check_story.mjs`): each landmark's real lat/lon (copy it from Google Maps)
   and where the model puts it, plus one point on the water. `check_story.mjs` compares the
   compass bearing of every pair in reality and in the model and fails anything more than
   30 degrees off -- distances may be compressed, directions may not. Place things with
@@ -295,9 +302,10 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   (44.9%); every clip lost about half of its 3-s audience by 17 s. So:
   - a `role: 'hero'` actor stands on the whole tile at frame 0 and returns in the payoff as a
     `role: 'callback'` actor;
-  - registered actors move on screen through 3-17 s, with no 4-s gap anywhere after the title;
+  - registered actors move on screen through at least 70% of 3-17 s, with no 4-s gap anywhere
+    after the title;
   - every beat has one `kind` (verb), never the same verb twice in a row;
-  - one wide `grow` shot;
+  - one wide `grow` shot (the brief's rule; the script does not test it);
   - the counter lands on today and holds before the finale card.
 
   `check_story.mjs` (`scripts/storyline.mjs`) errors on a new city that does not declare it.
@@ -330,19 +338,24 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
 - **Light must never snap.** The day/night cycle in `lighting()` is continuous (no reset after the
   intro) and nights only dim to ~half. Do not add per-city light that jumps; `check_render.mjs`
   fails anything over 8 luma levels per frame or darker than 35 before the finale.
-- Use a fast/slow year curve (monotone cubic) so key events get screen time; drive every visual and
-  sound from the year, not from seconds.
+- Use a fast/slow year curve so key events get screen time. For cities built with `buildStory` the
+  curve is derived from the beats (above): drive motion with `beat(id)` and visibility with the
+  year. Only the older key-list cities drive everything from the year.
 
 ## Starting a new city — do it in this order
 
 Learned the hard way on Phitsanulok, where doing it out of order cost three full
 re-renders and a re-tune of all 31 camera keys.
 
-1. **Trace the real footprint FIRST, before placing anything.** Download
-   `nced.onep.go.th/opendata/.../oldtown36_announce/<province>.pdf` ("โครงการ
-   กำหนดขอบเขตพื้นที่เมืองเก่า"). Its boundary map is georeferenced to a UTM
-   grid: read the vertices off the grid, convert to metres, divide by 80 for
-   world units. Render the map page with PyMuPDF at ~2.4x to read it.
+1. **Trace the real footprint FIRST, before placing anything.** Use the ONEP
+   shapefile `https://www.onep.go.th/data/oldtown.rar` → `oldtown_all.shp`: every
+   announced old town, already in WGS84 lat/lon (no UTM step). Pull the city's
+   record into `docs/briefs/<city>_onep/` (geojson + README, as Lampang, Phetchaburi
+   and Chiang Rai did) and convert with `scripts/geo.mjs`. ONEP refuses the cloud
+   container (403), so this needs a Thai connection (the local agent). The older
+   per-province PDFs on `nced.onep.go.th` (UTM grid, read with PyMuPDF) now refuse
+   Thai connections too. A town that is not one of the announced old towns has no
+   polygon (Khon Kaen).
 2. **Write every real dimension in metres first, then convert.** River widths,
    wall extents, distances between landmarks. Guessing in "units" is how the Nan
    ended up 350 m wide inside a 1,136 m city.
@@ -352,7 +365,7 @@ re-renders and a re-tune of all 31 camera keys.
 5. Layout + landmarks, then **audit every hand-placed coordinate** against the
    rivers and the city polygon — including each object's footprint radius, not
    just its centre point. The engine only protects what it generates.
-6. Camera keys last, scaled to the footprint (see the note above).
+6. Tune each beat's camera keys last, scaled to the footprint (see the note above).
 7. Export the timeline, synthesise the soundtrack, render once, contact-sheet it.
 
 ### Physical plausibility checklist

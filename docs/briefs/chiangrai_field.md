@@ -116,7 +116,7 @@ Three things the pin work turned up that the brief does not have:
 
 ### Split in two
 
-- **1977 and 1979 are two different events, and the brief merges them.**
+- **1977 and 1979 are two different events, and the brief merges them (since fixed in the brief's §3b).**
   - **พ.ศ. 1977** — lightning struck the chedi at **วัดป่าเยี้ยะ**, the plaster broke and the image
     was found; the temple was renamed วัดพระแก้ว.
   - **พ.ศ. 1979** — the ruler of Chiang Mai sent the elephant procession; the elephant balked and

@@ -2,7 +2,7 @@
   "name": "chiangmai-timelapse",
   "version": "1.0.0",
   "private": true,
-  "description": "Motion-graphics hybrid timelapse of Chiang Mai history (9:16, Thai)",
+  "description": "Isometric diorama timelapses of Thai city histories (9:16, Thai), built with Remotion",
   "engines": {
     "node": ">=18 <26"
   },

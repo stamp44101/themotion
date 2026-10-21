@@ -1,7 +1,9 @@
 # City brief — Khon Kaen / ขอนแก่น
 
 Status: research pass 1 (2026-10-18), cloud container: web search only, no Google Maps, OSM
-or ONEP. Footprint, pins and heights are open (§1, §5a, §7). Every date carries its source
+or ONEP. **Built (v1):** pins done (§5a); there is no ONEP zone, so the town ground is drawn by
+hand as `TOWN` in `src/cities/khonkaen/places.ts`; heights still open (§7.6). The beats as shipped
+are in `src/cities/khonkaen/timeline.ts`; §3 below is the research proposal. Every date carries its source
 and a confidence level; nothing marked [unknown] is to be guessed.
 
 ## 0. What the last three clips say (docs/experiments.md)
@@ -26,7 +28,8 @@ so the absence is not "Isan was skipped" -- Khon Kaen simply has no announced ol
 This fits the rest: Bueng Bon village was raised to a town in 1797 with no recorded wall or
 moat. There is no circuit to trace because there was none. The engine still draws a wall for
 every city, so `city.walls: false` is a real prerequisite for this build, not an optional
-nicety -- flag it for the engine pass.
+nicety -- flag it for the engine pass. **Done:** the engine flag is `layout.noWall` (with
+`noMoat`), set in `src/cities/khonkaen/index.ts`.
 
 **The old core, from the satellite view:** the town grew on the **west and north-west shore of
 บึงแก่นนคร**, where the oldest temples still sit -- วัดหนองแวง / พระมหาธาตุแก่นนคร at the
@@ -68,6 +71,8 @@ water is the 0.60 km2 above. Say which one a caption means.
 
 - **Hero at frame 0** (style frames to choose): a sauropod herd (proven by Korat, and Phu Wiang
   is where Thailand's dinosaurs began) or the legend's tamarind tree, drawn huge, sprouting.
+  **As built:** the hero is พระมหาธาตุแก่นนคร at hero scale, with the sauropods in the first beat;
+  the shipped story adds a beat for the double-track railway on its viaduct (13 มี.ค. 2562).
 - **Era labels:** ยุคไดโนเสาร์ / ตำนาน / ล้านช้าง-สยาม / ปัจจุบัน (draft).
 
 ## 4. Landmarks (pins in §5a)
@@ -105,7 +110,7 @@ own name quoted so the match can be checked.
 | บึงทุ่งสร้าง | 16.44923 | 102.85137 | "บึงทุ่งสร้าง" |
 | ถนนมิตรภาพ, north of the city | 16.51860 | 102.83240 | OSM way 1550208013, `ถนนมิตรภาพ` ref 2 |
 | ถนนมิตรภาพ, south of the city | 16.38960 | 102.81160 | OSM way 1552214095, same road |
-| เขื่อนอุบลรัตน์ | 16.77544 | 102.61841 | "Ubol Ratana Dam" -- 42 km NNW, `far: true` |
+| เขื่อนอุบลรัตน์ | 16.77544 | 102.61841 | "Ubol Ratana Dam" -- 46.3 km NNW (§2), `far: true` |
 | พิพิธภัณฑ์ไดโนเสาร์ภูเวียง | 16.67792 | 102.26706 | "Phu Wiang Dinosaur Museum" -- 67 km WNW (bearing 296 deg), `far: true` |
 | หลุมขุดค้นที่ 1 ภูเวียง | 16.68312 | 102.22974 | "หลุมขุดที่ 1" -- 4 km west of the museum |
 | อุทยานแห่งชาติภูเวียง | 16.69780 | 102.22317 | "Phu Wiang National Park" |
@@ -127,14 +132,16 @@ rising at the dam; a dinosaur roar at frame 0.
    The old core round the lake is described there from the satellite view, but nobody has
    traced corner points for it yet, because there is no wall line to trace. Decide whether
    the city even needs an outline, or whether the lake plus the road grid carries it.
+   **Built:** a hand-drawn town outline, `TOWN` in `src/cities/khonkaen/places.ts`.
 2. **Pins and lake size -- done**, sections 5a and 2.
 3. **The Phu Wiang beds -- confirmed, ~130 Ma is right.** The **Sao Khua Formation** is Early
    Cretaceous, **Valanginian to Hauterivian** (en.wikipedia, Sao Khua Formation; same stages
    given on Phuwiangosaurus, the sauropod named for these beds and for Princess Sirindhorn).
    Those stages run roughly **140-126 Ma**, so "about 130 million years" sits inside the
    range and is safe to say. Avoid a single exact number.
-4. **Engine: a town with no wall (`city.walls: false`)** -- still open, and now certain to be
-   needed: there was never a wall here, and there is no ONEP zone to stand in for one.
+4. ~~**Engine: a town with no wall (`city.walls: false`)**~~ **Done:** `layout.noWall` (and
+   `noMoat`) in the engine, set for Khon Kaen. There was never a wall here, and there is no
+   ONEP zone to stand in for one.
 5. **KKU's founding date -- both numbers are real, and they count different things.** KKU's
    own site says the royal act establishing the university was promulgated **25 มกราคม
    พ.ศ. 2509** (kku.ac.th). The same site publishes anniversary pieces -- "62 ปี

@@ -16,6 +16,7 @@ Read §1 once. Use §2 and §5 every time.
 | Korat | three big dinosaurs, walking | **32.9%** | ~67% | ~35% | 21 s | 1.3% |
 | Nakhon Si (75 s) | whole tile, the relic boat a speck | 43.1% | ~57% | ~31% | 21 s | 0.8% |
 | Lampang | a big horse carriage, standing | 44.9% | ~60% | ~30% | 18 s | 1.2% |
+| Khon Kaen | the stupa at hero scale, standing; a small dinosaur at the edge | 44.7% | ~59% | ~34% | 19 s | 1.4% |
 
 1. **The hook is the hero at frame 0, and only one kind of hero worked.** Korat's dinosaurs were
    big, surprising (prehistoric animals on a city tile), moving (they walk), and tied to what
@@ -28,8 +29,8 @@ Read §1 once. Use §2 and §5 every time.
 4. **Average watch is about 20 s, so most viewers never see the ending.** What the city is known
    for has to be on screen at the start. The ending is the reward for those who stay.
 5. **75 s loses people in the last 10 s** (Nakhon Si). 60 s is the owner's rule.
-6. **Shares follow the city's own symbols.** They were 1.2–1.3% when its best-known symbol was on
-   screen (Korat, Lampang) and 0.8% when it was not (Nakhon Si). Locals comment to add what they
+6. **Shares follow the city's own symbols.** They were 1.2–1.4% when its best-known symbol was on
+   screen (Korat, Lampang, Khon Kaen) and 0.8% when it was not (Nakhon Si). Locals comment to add what they
    know (Lampang's "three towns" comment).
 7. **The owner's notes:**
    - the cover is a green tile with one standout thing on it; the finale-first opening was
@@ -45,7 +46,7 @@ Read §1 once. Use §2 and §5 every time.
 | seconds | slot | what has to be on screen |
 |---|---|---|
 | 0–3 | **Hook** (the cover) | the whole green tile with one hero, under the title |
-| 3–9 | **First event** | people or animals doing something, ≤ 6 s; the oldest era, compressed |
+| 3–9 | **First event** | people or animals doing something, ending ≤ 6.5 s after the title; the oldest era, compressed |
 | 9–18 | **Spectacle** | the clip's biggest event: a war, a siege, a disaster, a mass procession |
 | 18–45 | **Middle** | 3–4 beats, each a different verb, each with something moving; one wide shot where the city visibly grows |
 | 45–54 | **Payoff** | today's identity, with people, and the hero back again (the open loop closes) |
@@ -88,7 +89,7 @@ happens; this table decides how long each thing gets and how it is shown.
   returned at the dig.
 
 ### 3.3 The danger zone (3–17 s)
-- **The first beat is short and has people in it:** ≤ 6 s after the title, with people or
+- **The first beat is short and has people in it:** ending ≤ 6.5 s after the title, with people or
   animals moving. Stones rising on their own do not count. A legend gets one short beat, never
   two.
 - **The spectacle starts by 12 s** when the chronology allows. If the oldest era is calm,
@@ -158,7 +159,7 @@ happens; this table decides how long each thing gets and how it is shown.
 | something moves in the danger zone | actors in frame ≥ 70% of 3–17 s |
 | no dead air | ≤ 4 s without an actor in frame, from the title to the finale card |
 | every beat has a `kind` | from the list in §3.4 |
-| verbs vary | no two consecutive kinds alike; ≥ 4 kinds (warn); ≤ 2 `build` (warn) |
+| verbs vary | no two consecutive kinds alike (`today` exempt); ≥ 4 kinds (warn); ≤ 2 `build` (warn) |
 | the spectacle comes early | a `fight` / `disaster` / `procession` / `celebrate` beat by 12 s (warn) |
 | the first beat is short | ends ≤ 6.5 s after the title (warn) |
 | beats run 4–10 s | captioned beats (warn) |
@@ -166,6 +167,7 @@ happens; this table decides how long each thing gets and how it is shown.
 | no meaningless counter run at the end | ≤ 1 jump > 20 years in the last 12 s (warn) |
 | the finale has a tagline | `finale.sub` is words, not dates |
 | reading speed | sub + note ≤ 12 Thai characters per second (warn) |
+| length | over 60 s (warn): only when the extra time is action (§3.8) |
 
 What a script cannot judge (surprise, identity, verbs that are honest) is the reviewer's job
 on the contact sheet: AGENTS.md, "Nothing ships unreviewed".

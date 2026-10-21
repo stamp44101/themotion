@@ -57,7 +57,43 @@ Dates are footnoted in `src/cities/phitsanulok/timeline.ts`. Two to be aware of:
 *attributed* ("สันนิษฐานว่า") rather than documented, and the great fire is **1957**, not the 1955
 that English Wikipedia gives — Thai sources are unanimous on 2 January 2500 BE.
 
-## Develop
+## All cities
+
+Every city after the Chiang Mai versions is built on the shared diorama engine (`src/engine/`) from its
+own folder, with a dated, sourced brief. The sections below describe a few of them in detail.
+
+| City | Source | Brief |
+|---|---|---|
+| Nakhon Ratchasima (Korat) | `src/cities/korat/` | `docs/briefs/korat.md` |
+| Ayutthaya | `src/cities/ayutthaya/` | `docs/briefs/ayutthaya.md` |
+| Sukhothai | `src/cities/sukhothai/` | `docs/briefs/sukhothai.md` |
+| Phitsanulok | `src/cities/phitsanulok/` | `docs/briefs/phitsanulok.md` |
+| Chachoengsao | `src/cities/chachoengsao/` | `docs/briefs/chachoengsao.md` |
+| Nakhon Sawan | `src/cities/nakhonsawan/` | `docs/briefs/nakhonsawan.md` |
+| Chonburi | `src/cities/chonburi/` | `docs/briefs/chonburi.md` |
+| Nakhon Si Thammarat | `src/cities/nakhonsi/` | `docs/briefs/nakhonsi.md` |
+| Lampang | `src/cities/lampang/` | `docs/briefs/lampang.md` |
+| Khon Kaen | `src/cities/khonkaen/` | `docs/briefs/khonkaen.md` |
+| Phetchaburi | `src/cities/phetchaburi/` | `docs/briefs/phetchaburi.md` |
+| Chiang Rai | `src/cities/chiangrai/` | `docs/briefs/chiangrai.md` |
+| Wat Rai Khing (landmark reel, 35 s) | `src/landmarks/watraikhing/` | `docs/briefs/watraikhing.md` |
+
+Finished clips are on the rolling release: https://github.com/stamp44101/themotion/releases/tag/renders
+
+### Build, check, render
+
+```bash
+npm run check                    # typecheck + every check_story rule, for every city
+npm run audio:<city>             # regenerate the synthesized soundtrack (python3 + numpy + scipy)
+npm run render:<city>            # runs check_story for the city, then renders out/<city>.mp4
+npm run encode -- <city>         # renders/<city>.mp4 + out/<city>_social.mp4, then checks both
+```
+
+How to build a new city, and every lesson so far: `CLAUDE.md`. Working alongside other agents:
+`AGENTS.md`. Cities from Phetchaburi on are built to the storyline standard, `docs/storyline.md`.
+Rendering on a GPU machine: `docs/render-locally.md`.
+
+## Develop (the 2D Chiang Mai version)
 
 ```bash
 npm install
@@ -89,5 +125,6 @@ npm run render:chonburi
 npm run encode -- chonburi
 ```
 
-`render:chonburi` generates the procedural soundtrack before checking and
-rendering the film, so a fresh clone needs no committed audio binary.
+`render:chonburi` regenerates the procedural soundtrack before checking and
+rendering the film, so the committed `public/soundtrack_chonburi.wav` is always rebuilt from
+the script.

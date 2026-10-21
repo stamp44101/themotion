@@ -3,8 +3,10 @@
 Status: research pass 3 (20 ตุลาคม 2569). Pass 3, on a Thai connection (PR #55), measured the ONEP polygon
 (`chiangrai_onep/`), the Kok and every pin, and opened the sources (`chiangrai_field.md`); its findings override
 earlier passes below, written in the cloud container with web search only.
-Everything marked `[unknown]` needs the ONEP map or a pin from a Thai connection (the issue
-that goes with this brief). Built to the storyline standard (`docs/storyline.md`).
+Every `[unknown]` has since been filled by pass 3. **Built (v1, PR #55)** to the storyline standard
+(`docs/storyline.md`): §3b is the proposal; the beats as shipped are in `src/cities/chiangrai/timeline.ts`
+(§3b's "2438 → 2466" row became the `streets` and `airfield` beats, and "2540 → 2566" became `temple`
+and `design`).
 
 ## 0. What the last clips say (docs/experiments.md)
 
@@ -148,7 +150,7 @@ Lanna palette: สะล้อ, ซึง, ปี่จุม, กลองส�
 
 ## 7. Open questions
 
-1. ~~The hero.~~ **A, วัดร่องขุ่น** (owner, 20 ต.ค. 2569). It opens the clip at hero scale and returns in the payoff, which becomes "เชียงรายเมืองศิลปะ": the temple (2540) at the tile's south edge, the gold clock tower, the City of Design (2566).
+1. ~~The hero.~~ **A, วัดร่องขุ่น** (owner, 20 ต.ค. 2569). It opens the clip at hero scale and returns in the payoff, which becomes "เชียงรายเมืองศิลปะ": the temple (2540) at the tile's south-west edge (a `far` point, 12 km at 216°), the gold clock tower, the City of Design (2566).
    **Cover camera: the three-quarter view from the south-west** (`CHIANGRAI_QUARTER` in
    `src/styleframes/chiangrai.tsx`, owner): the whole tile at frame 0, the golden building and the Kok
    beyond. The hero shrinks into the ground at ~2–3.5 s, before the first caption.
@@ -157,12 +159,12 @@ Lanna palette: สะล้อ, ซึง, ปี่จุม, กลองส�
    (issue #54) — `chiangrai_onep/README.md` and `chiangrai_field.md`.
 4. ~~The years of abandonment under Burma, and the Lampang procession year.~~ **The procession is
    settled: พ.ศ. 1977 the lightning and the find, พ.ศ. 1979 the elephant to Lampang — two events,
-   two years, and §3b merges them.** The length of the abandonment is **still disputed**: 2347–2386
+   two years; §3b and the code now split them.** The length of the abandonment is **still disputed**: 2347–2386
    (39 years) against สำนักงานพาณิชย์จังหวัด's "เกือบร้อยปี … ฟื้นฟู 2384". **2386 and
    เจ้าหลวงธรรมลังกา and ~1,000 families are confirmed**; do not put a number of years on screen.
 5. ~~The provincial slogan's exact wording.~~ **Confirmed at สำนักงานพาณิชย์จังหวัดเชียงราย**,
    word for word as Gemini had it.
-6. **New, from pass 3 — §3b needs editing:** the airfield is **2466, not 2469**; the street grid is
-   **2438 (ถนนธนาลัย)**, a decade before the wall came down over **2450–2460**; the cholera year is
-   2460 but the "walls demolished on Briggs' advice" link is still Gemini's alone. Details in
-   `chiangrai_field.md` §3.
+6. ~~**New, from pass 3 — §3b needs editing:** the airfield is **2466, not 2469**; the street grid is
+   **2438 (ถนนธนาลัย)**, a decade before the wall came down over **2450–2460**.~~ **Done:** §3b and
+   `timeline.ts` use 2438 and 2466. Still true: the cholera year is 2460, but the "walls demolished
+   on Briggs' advice" link is Gemini's alone. Details in `chiangrai_field.md` §3.

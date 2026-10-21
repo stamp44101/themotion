@@ -12,15 +12,15 @@ knows to check it.
 
 ## 1. Wall footprint
 
-Traced from the ONEP old-town boundary PDF:
-`nced.onep.go.th/opendata/.../oldtown36_announce/<province>.pdf`
+From the ONEP old-town shapefile: `https://www.onep.go.th/data/oldtown.rar` →
+`oldtown_all.shp` (all announced old towns, WGS84 lat/lon). Extract the city's record to
+`docs/briefs/<city>_onep/` (geojson + README) and convert with `scripts/geo.mjs`. It needs
+a Thai connection; the cloud container gets a 403. A town that is not an announced old town
+has no polygon (see `docs/briefs/khonkaen.md` §1).
 
-That map is georeferenced to a UTM grid, so vertices convert straight to metres.
-Render the map page with PyMuPDF at ~2.4x to read the grid lines.
-
-- **Source PDF page:** <n>
-- **UTM vertices (easting, northing):**
-  | # | easting | northing |
+- **Source record:** <OT_NAME, record number>
+- **Vertices (lat, lon), or the geojson path:**
+  | # | lat | lon |
   |---|---|---|
   | 1 | | |
 - **Extent:** <w> m east-west x <h> m north-south (ratio 1:<r>)
@@ -72,7 +72,7 @@ Hero sound: ............
 Open loop: what the hero makes viewers ask -> where it is answered (s): ............
 First event (3-9 s, people): ............
 Spectacle (by 12 s): ............
-Middle beats, one verb each: ............ / ............ / ............
+Middle beats, one verb (`kind`) each: ............ / ............ / ............
 Grow shot (s, years): ............
 Payoff (45-54 s, people + hero back): ............
 Tagline: ............

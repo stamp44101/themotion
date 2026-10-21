@@ -212,6 +212,7 @@ Ayutthaya is the ancestral heart of the Siamese classical court and maritime com
 1. **Engine River Rendering Limitation:**
    - *Issue:* The existing diorama engine (`Diorama.tsx`) only supports straight, axis-aligned river channels (`axis: 'x' | 'z'`). Ayutthaya is an organic, winding island enveloped by curved rivers.
    - *Resolution:* Engine modification is out of scope for this research pass and forbidden on city branches. An engine branch supporting curved/polyline waterways or polygon river cutouts must land first before this brief is translated into code.
+   - **Resolved:** the engine now supports path rivers (`{path, width}`, `src/engine/river.ts`), and Ayutthaya v2 is built with them (`src/cities/ayutthaya/index.ts`).
 2. **Discrepancy in Gate Counts in Official Texts:**
    - *Issue:* The Fine Arts Department website lists "18 city gates + 16 postern gates + 20 water gates" (which sums to 54), yet concludes "รวมทั้งสิ้น 99 ประตู".
    - *Resolution:* The 99 total reflects *Khamhaikan Chao Krung Kao*, which includes minor wicket doors and palace sub-gates. On-screen captions should mention the major defensive count (54 fortified gates and 16 bastions) to maintain strict physical plausibility.

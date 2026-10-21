@@ -1,5 +1,11 @@
 # Spec: rail bridges where the railway crosses a river
 
+> **Status: implemented.** `railCrossings` and `RailBridges` are in `src/engine/Diorama.tsx` (they
+> now handle path rivers too), the riverbed check is in `scripts/check_story.mjs`, and the lesson is
+> in `CLAUDE.md`. Road crossings, out of scope below, were later solved by `RoadBridges`. Line
+> numbers and the crossing table are as they were when the spec was written (Ayutthaya has since
+> moved to path rivers). Kept as a design record.
+
 **Branch:** `engine/rail-bridges` (engine change; AGENTS.md: one agent in `src/engine/` at a time)
 **Size:** one component in `src/engine/Diorama.tsx`, one check in `scripts/check_story.mjs`, docs.
 **Model:** mid-tier is fine. The design decisions are made below; do not redesign them.
