@@ -35,31 +35,34 @@ const Turtle: React.FC<{t: number}> = ({t}) => {
   );
 };
 // the payoff: the mother turns back to the sea and her hatchlings scramble down the beach after her
-const HATCH = Array.from({length: 16}, (_, i) => ({z: 2 + (((i * 37) % 17) - 8) * 1.2, d: (i * 0.29) % 1, ph: i * 1.3}));
+// the hatchlings run in their own lane beside the mother's track, not over her
+// (her fore-flippers sweep ~16 units out at this scale, so the lane starts clear of them)
+const MZ = -6;
+const HATCH = Array.from({length: 12}, (_, i) => ({z: 10 + ((i * 5) % 12) * 1.25, d: (i * 0.29) % 1, ph: i * 1.3}));
 const Callback: React.FC<{t: number}> = ({t}) => {
   const s = 5.5;
   const mx = SHORE + 7 - Math.min(13, crawlAdvance(t) * 3.2);
   return (
     <group>
-      <TurtleTrack x0={mx + 1.2 * s} x1={SHORE + 16} z={2} s={s * 0.45} />
-      <group position={[mx, 0, 2]} rotation-y={-Math.PI / 2} scale={s}>
+      <TurtleTrack x0={mx + 1.2 * s} x1={SHORE + 16} z={MZ} s={s * 0.45} />
+      <group position={[mx, 0, MZ]} rotation-y={-Math.PI / 2} scale={s}>
         <SeaTurtle t={t} swim={mx < SHORE - 2} />
       </group>
-      <Surf x={mx} z={2} r={1.6 * s} t={t} k={smooth(ramp(-mx, -(SHORE + 1), -(SHORE - 4)))} />
+      <Surf x={mx} z={MZ} r={1.6 * s} t={t} k={smooth(ramp(-mx, -(SHORE + 1), -(SHORE - 4)))} />
       {HATCH.map((h, i) => {
         // they hatch from the nest up the beach and race for the water, quick little strokes
         const x = SHORE + 17 - h.d * 7 - Math.min(22, crawlAdvance(t + h.ph, 1.7) * 0.55);
         if (x < SHORE - 3) return null;
         return (
-          <group key={i} position={[x, 0, h.z]} rotation-y={-Math.PI / 2 + 0.2 * Math.sin(h.ph)} scale={1.6}>
+          <group key={i} position={[x, 0, h.z]} rotation-y={-Math.PI / 2 + 0.2 * Math.sin(h.ph)} scale={1.1}>
             <SeaTurtle t={t + h.ph} rate={1.7} />
           </group>
         );
       })}
       {/* the nest: a scuffed hollow in the sand up the beach */}
-      <mesh position={[SHORE + 16, 0.04, 2]} scale={[2.6, 0.05, 2.2]}>
+      <mesh position={[SHORE + 16, 0.04, 17]} scale={[2.6, 0.05, 8]}>
         <sphereGeometry args={[1, 12, 6]} />
-        <meshStandardMaterial color="#cdb88e" roughness={1} />
+        <meshStandardMaterial color="#b99d6c" roughness={1} />
       </mesh>
     </group>
   );
@@ -233,10 +236,10 @@ export const PHUKET_DREDGE = base(
 export const PHUKET_TURTLE_CALLBACK = base(
   Callback,
   [
-    [0, -19, 1, 2, 125, -14, 42, 30],
-    [3, -20, 1, 2, 118, -12, 42, 30],
-    [6, -21, 1, 2, 112, -10, 41, 30],
+    [0, -21, 1, 7, 135, -14, 42, 30],
+    [3, -22, 1, 7, 128, -12, 42, 30],
+    [6, -23, 1, 7, 122, -10, 41, 30],
   ],
   false,
-  [[SHORE + 8, 2, 16]],
+  [[SHORE + 8, 0, 16], [SHORE + 8, 18, 12]],
 );
