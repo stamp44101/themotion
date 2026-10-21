@@ -1,3 +1,4 @@
+// Lives here until src/cities/phuket/ exists (check_story treats every folder there as a city).
 // A green sea turtle (เต่าตนุ), the Phuket cover hero (owner's pick) and its hatchlings in the
 // payoff. Modelled from the parts that make a sea turtle read at phone size:
 // - a low domed carapace of plates: five along the spine, four down each side, and a serrated

@@ -7,7 +7,7 @@ import React, {useMemo} from 'react';
 import {KORAT} from '../cities/korat';
 import {buildStory} from '../engine/story';
 import type {CityConfig, LandmarkProps} from '../engine/types';
-import {SeaTurtle, Surf, TurtleTrack, crawlAdvance} from '../cities/phuket/SeaTurtle';
+import {SeaTurtle, Surf, TurtleTrack, crawlAdvance} from './SeaTurtle';
 import {ramp, smooth} from '../lib';
 
 type Key = [number, number, number, number, number, number, number, number];
