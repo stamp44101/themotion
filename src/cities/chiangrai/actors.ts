@@ -139,7 +139,7 @@ export const planeAt = ({Y, beat}: ActorCtx) => {
 // ------------------------------------------------------------------ the payoff
 // the temple rises at the tile's south-west edge across the temple beat, and stands on
 export const CALLBACK_S = 0.62;
-export const CALLBACK_ROT = -1.05;
+export {CALLBACK_ROT} from './places';
 export const templeK = (Y: number, {beat}: ActorCtx) => (Y < 1997 ? 0 : Y > 1998.4 ? 1 : smooth(ramp(beat('temple'), 0.04, 0.62)));
 // 2023: the gold clock tower's light show and the crowd round it
 export const lightShow = (Y: number, {beat}: ActorCtx) => (Y >= 2023 && Y < 2023.45 ? beat('design') : 0);

@@ -225,8 +225,9 @@ chimes(temple[0] + 0.3, temple[1], 0.09, pan=-0.2)
 for k in range(5):
     add(sfx, splash(), at(temple, 0.3) + k * 0.3 + rng.uniform(0, 0.1), pan=rng.uniform(-0.4, 0.0), gain=0.16)
 # City of Design: the crowd round the gold clock tower, สะบัดชัย drums for the light show
-add(sfx, crowd(design[1] - design[0] + 1.0), design[0] - 0.5, pan=0.1, gain=0.32)
-for i, t in enumerate(np.arange(design[0] + 0.4, design[1], BEAT / 2)):
+# the crowd stays on through the today beat until the finale card, so the landing is not a hole
+add(sfx, crowd(DUR - 3.0 - design[0]), design[0] - 0.5, pan=0.1, gain=0.32)
+for i, t in enumerate(np.arange(design[0] + 0.4, DUR - 3.6, BEAT / 2)):  # on through the today beat
     add(sfx, drum(120, 62, 0.3, 0.7), t, pan=rng.uniform(-0.2, 0.2), gain=0.36 if i % 2 == 0 else 0.2)
 
 # the gaps between beats: a rising swell and a quickening low roll carry each one, and a low
