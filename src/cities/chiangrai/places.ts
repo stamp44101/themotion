@@ -24,6 +24,8 @@ export const KOH_LOI: P = [9.6, -10.6];
 export const AIRFIELD: P = [-3.4, 28.6];
 // วัดร่องขุ่น: 12.16 km at 216 degrees, pulled in to the tile's south-west corner by direction
 export const RONG_KHUN: P = [-27.5, 37.5];
+// the callback model's rotation: its bridge faces (sin, cos) of this, west-south-west (actors.ts)
+export const CALLBACK_ROT = -1.05;
 
 // The 2386 wall (ONEP core ring, chiangrai_onep/README.md): a trapezoid, ถนนสิงหไคล on the
 // north-east, พหลโยธินสายใน east, บรรพปราการ south, the surviving moat on the south-west

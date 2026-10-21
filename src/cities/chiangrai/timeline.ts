@@ -5,7 +5,11 @@
 // storm and the procession in the danger zone, one verb per beat, a wide grow shot, and the
 // temple back at the tile's south-west edge before the counter lands on today.
 import {buildStory} from '../../engine/story';
-import {AIRFIELD, CHOM_THONG, CHOM_THONG_H, GOLD_CLOCK, KLANG_WIANG, KOH_LOI, MONUMENT, PHRA_KAEW, RONG_KHUN, THANALAI_Z} from './places';
+import {AIRFIELD, CALLBACK_ROT, CHOM_THONG, CHOM_THONG_H, GOLD_CLOCK, KLANG_WIANG, KOH_LOI, MONUMENT, PHRA_KAEW, RONG_KHUN, THANALAI_Z} from './places';
+
+// a point `d` units out from วัดร่องขุ่น along its axis, on the bridge side (actors.ts CALLBACK_ROT
+// faces the bridge to (sin, cos) of the rotation), at drone-target height
+const approach = (d: number): [number, number, number] => [RONG_KHUN[0] + d * Math.sin(CALLBACK_ROT), 1.2, RONG_KHUN[1] + d * Math.cos(CALLBACK_ROT)];
 
 export const STORY = buildStory({
   duration: 60,
@@ -17,8 +21,8 @@ export const STORY = buildStory({
     [18.8, -3, 1, 6, 92, 52, 37, 30],
     [27.4, 2, 1, 1.5, 78, 84, 39, 30],
     [36.9, -1, 1, 12, 100, 96, 37, 30],
-    [44.9, -16, 1, 26, 120, 268, 36, 30],
-    [49.5, -12, 1, 20, 112, 322, 36, 30],
+    [43.3, -16, 1, 26, 150, 268, 36, 30],
+    [49.75, -12, 1, 20, 112, 322, 36, 30],
     [60, 2, 2, 0, 230, 380, 36, 30],
   ],
   beats: [
@@ -115,43 +119,47 @@ export const STORY = buildStory({
       // Mangrai monument goes up at ห้าแยกพ่อขุน
       id: 'growth',
       kind: 'grow',
-      t: [37.4, 44.6],
+      t: [37.4, 43.0],
       year: [1925, 1995],
-      caption: {t0: 37.2, title: 'เมืองโตข้ามแม่น้ำกก', sub: 'แม่น้ำกกเปลี่ยนทางจนเกิดเกาะลอย บ้านเรือนขยายเต็มสองฝั่ง อนุสาวรีย์พญามังรายตั้งที่ห้าแยกพ่อขุน'},
+      caption: {t0: 37.2, title: 'เมืองโตข้ามแม่น้ำกก', sub: 'แม่น้ำกกเปลี่ยนทางจนเกิดเกาะลอย บ้านเรือนขยายเต็มสองฝั่ง มีอนุสาวรีย์พญามังราย'},
       callouts: [
-        {t0: 38.6, t1: 41.2, label: 'เกาะลอย', dx: 90, dy: -120, p: [KOH_LOI[0], 0.4, KOH_LOI[1]]},
-        {t0: 41.6, t1: 44.4, label: 'อนุสาวรีย์พญามังราย', dx: 90, dy: -130, p: [MONUMENT[0], 1.8, MONUMENT[1]]},
+        {t0: 38.4, t1: 40.4, label: 'เกาะลอย', dx: 90, dy: -120, p: [KOH_LOI[0], 0.4, KOH_LOI[1]]},
+        {t0: 40.8, t1: 42.8, label: 'อนุสาวรีย์พญามังราย', dx: 90, dy: -130, p: [MONUMENT[0], 1.8, MONUMENT[1]]},
       ],
       camera: [
         [37.6, 2, 1, -1, 124, 168, 38, 30],
-        [41.0, 3, 1, -2, 160, 186, 37, 30],
-        [44.4, -2, 1, 6, 186, 222, 37, 30],
+        [40.2, 3, 1, -2, 158, 186, 37, 30],
+        [42.8, -2, 1, 6, 184, 222, 37, 30],
       ],
     },
     {
-      // the payoff: วัดร่องขุ่น rises at the tile's south-west edge, the hands of the cover with it
+      // the payoff: วัดร่องขุ่น rises at the tile's south-west edge, the hands of the cover with it.
+      // A drone run up the approach to the bridge: it starts high over the fields 10 units out on
+      // the temple's axis and flies in and down until the bridge and the hands fill the frame
       id: 'temple',
       kind: 'build',
-      t: [45.4, 49.4],
+      t: [43.6, 49.6],
       year: [1997, 1998.4],
-      caption: {t0: 45.2, title: 'วัดร่องขุ่น วัดสีขาวทั้งหลัง', sub: 'พ.ศ. 2540 อ.เฉลิมชัย โฆษิตพิพัฒน์ เริ่มสร้างใหม่ ห่างเมืองราว 12 กม.'},
+      caption: {t0: 43.4, title: 'วัดร่องขุ่น วัดสีขาวทั้งหลัง', sub: 'พ.ศ. 2540 อ.เฉลิมชัย โฆษิตพิพัฒน์ เริ่มสร้างใหม่ ห่างเมืองราว 12 กม.'},
       era: 'ปัจจุบัน',
-      callouts: [{t0: 46.6, t1: 49.4, label: 'วัดร่องขุ่น', dx: 90, dy: -130, p: [RONG_KHUN[0], 2.4, RONG_KHUN[1]]}],
+      callouts: [{t0: 45.8, t1: 49.4, label: 'วัดร่องขุ่น', dx: 90, dy: -130, p: [RONG_KHUN[0], 2.4, RONG_KHUN[1]]}],
       camera: [
-        [45.6, RONG_KHUN[0], 1.5, RONG_KHUN[1], 60, 282, 34, 30],
-        [49.2, RONG_KHUN[0], 1.5, RONG_KHUN[1], 48, 304, 33, 30],
+        [43.8, ...approach(10), 120, 292, 34, 30],
+        [46.0, ...approach(4), 78, 298, 31, 30],
+        [48.0, RONG_KHUN[0], 1.8, RONG_KHUN[1], 42, 300, 28, 30],
+        [49.4, RONG_KHUN[0], 2.0, RONG_KHUN[1], 27, 302, 26, 30],
       ],
     },
     {
       // Chiang Rai, City of Design: the gold clock tower's light show, the crowd round it
       id: 'design',
       kind: 'celebrate',
-      t: [49.8, 54.0],
+      t: [50.0, 54.0],
       year: {hold: 2023},
-      caption: {t0: 49.6, title: 'เมืองแห่งการออกแบบ', sub: '31 ต.ค. 2566 ยูเนสโกยกย่องเป็นเมืองสร้างสรรค์ด้านการออกแบบ'},
+      caption: {t0: 49.8, title: 'เมืองแห่งการออกแบบ', sub: '31 ต.ค. 2566 ยูเนสโกยกย่องเป็นเมืองสร้างสรรค์ด้านการออกแบบ'},
       callouts: [{t0: 50.8, t1: 53.8, label: 'หอนาฬิกาทอง', dx: 90, dy: -130, p: [GOLD_CLOCK[0], 2.6, GOLD_CLOCK[1]]}],
       camera: [
-        [50.0, GOLD_CLOCK[0], 1, GOLD_CLOCK[1], 66, 336, 36, 30],
+        [50.2, GOLD_CLOCK[0], 1, GOLD_CLOCK[1], 66, 336, 36, 30],
         [54.0, GOLD_CLOCK[0] + 0.4, 1, GOLD_CLOCK[1] - 1, 58, 352, 36, 30],
       ],
     },
