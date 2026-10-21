@@ -123,7 +123,7 @@ head and flippers. **Pass 2 decides what each one does.** Today the leatherback 
 *nests* at Mai Khao; green turtles no longer do, they are *released* there by people every
 13 April. So:
 - **cover** (the island before the town, no caption claim): both mothers haul out. Mai Khao was a
-  nesting beach for sea turtles in the past, green turtles among them;
+  nesting beach for sea turtles in the past (NationTV says "เต่าทะเล", no species). **No caption, callout or note may name the green turtle as a Mai Khao nester**;
 - **payoff** (today): the leatherback mother and her hatchlings to the sea, the wild nest; beside
   them a crowd at the waterline releasing young green turtles, the human hand. People on screen in
   the payoff, as the standard asks. Style frame `PhuketStyleMixedCallback` is rebuilt to this.

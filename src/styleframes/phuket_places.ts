@@ -52,7 +52,7 @@ export const AIRPORT: P = [-13.1, -40.9];
 export const HEROINES: P = [-8.0, -28.9];
 // อนุสาวรีย์ทุ่งถลางชนะศึก, the mapped monument to the 2328 battle (not โคกพม่า): 18 km at 334
 export const BATTLE: P = [-16.0, -33.4];
-// วัดพระนางสร้าง, by the Thai camp at บ้านเคียน: 16.8 km at 338
+// วัดพระนางสร้าง, by the Thai camp at บ้านเคียน: 17.8 km at 338
 export const PHRA_NANG_SANG: P = [-13.1, -32.5];
 // สะพานสารสิน over ช่องปากพระ, the island's north tip: 37 km at 344
 export const SARASIN: P = [-14.0, -46.5];
