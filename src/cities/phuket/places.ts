@@ -1,5 +1,3 @@
-// Lives here until src/cities/phuket/index.ts exists (check_story treats every folder in
-// src/cities as a city); it moves to src/cities/phuket/places.ts with the build.
 // Real positions (docs/briefs/phuket.md §4, phuket_field.md §1: OSM-confirmed pins) via
 // scripts/geo.mjs. World origin = the ONEP core centroid, 7.878381, 98.392508; 80 m/unit,
 // +x east, -z north. Pure data so actors.ts, timeline.ts and geo.ts share it.
@@ -19,19 +17,20 @@ export const CHINPRACHA: P = [-11.9, -10.3];
 export const JUI_TUI: P = [-12.4, -6.7];
 // วงเวียนสะพานหิน: land reclaimed from the dredge tailings; the 2452 dredge worked the bay off it
 export const SAPHAN_HIN: P = [5.0, 13.9];
-export const DREDGE: P = [25, 15];
+export const DREDGE: P = [24, 12];
 
-// คลองบางใหญ่: ~11 m wide (0.14 units), runs through the core from Kathu's side to the bay.
-// Mapped run 7.905514,98.378434 -> enters the core 7.890920,98.391739 -> leaves 7.872326,98.390302
+// คลองบางใหญ่: ~11 m wide (0.14 units). At true scale it enters the core at 7.890920,98.391739
+// ([-1.1, -17.3]) and leaves at 7.872326,98.390302 ([-3.0, 8.4]) for the bay. Upstream it comes from
+// the Kathu valley, which is compressed here, so the north end bends to the compressed Kathu
+// rather than running on into the Thalang zone at its true-scale [-19.4, -37.5].
 export const BANG_YAI: P[] = [
-  [-19.4, -37.5],
-  [-12, -28],
-  [-5, -21],
+  [-14.5, -16.8],
+  [-6, -17.9],
   [-1.1, -17.3],
-  [-1.6, -6],
-  [-2.2, 2],
+  [-0.6, -6],
+  [-1.0, 2],
   [-3.0, 8.4],
-  [-1, 14],
+  [-2.2, 12.5],
 ];
 export const BANG_YAI_W = 0.4; // drawn ~3x so it reads as a line with banks
 
@@ -56,8 +55,9 @@ export const BATTLE: P = [-16.0, -33.4];
 export const PHRA_NANG_SANG: P = [-13.1, -32.5];
 // สะพานสารสิน over ช่องปากพระ, the island's north tip: 37 km at 344
 export const SARASIN: P = [-14.0, -46.5];
-// ศาลเจ้ากะทู้ (2368), the tin valley: 6.7 km at 309
-export const KATHU: P = [-23.4, -18.8];
+// ศาลเจ้ากะทู้ (2368), the tin valley: 6.7 km at 309, drawn at 318 and 24 units out so its
+// bearings to the Thalang cluster (also compressed, harder) stay within 30 degrees
+export const KATHU: P = [-16.0, -17.8];
 // พระใหญ่ on เขานาคเกิด (2545): 10.4 km at 237
 export const BIG_BUDDHA: P = [-33.6, 21.7];
 
@@ -74,16 +74,53 @@ export const ANDAMAN: P[] = [
   [-57, 56],
 ];
 export const ANDAMAN_W = 28;
-// ช่องปากพระ along the north edge, the strait Sarasin crosses (660 m long: ~8 units)
-export const PAK_PHRA_Z = -50.5;
-export const PAK_PHRA_W = 8;
-// อ่าวภูเก็ต / อ่าวทุ่งคา: east and south-east of the town
+// ช่องปากพระ along the north edge, the strait Sarasin crosses (660 m in life; 4 units here so the
+// island's north tip stays on the tile)
+export const PAK_PHRA_Z = -46;
+export const PAK_PHRA_W = 4;
+// อ่าวภูเก็ต: east of the town, then round the south-east under the Saphan Hin headland (reclaimed
+// from the dredge tailings, so land in every era here); a small cove takes the canal's mouth
 export const BAY: P[] = [
-  [36, -56],
-  [35, -20],
-  [33, 0],
-  [33, 16],
-  [27, 30],
-  [22, 56],
+  [33, -56],
+  [31, -10],
+  [29, 8],
+  [23, 31],
+  [8, 41],
+  [-6, 56],
 ];
 export const BAY_W = 28;
+export const COVE: P[] = [
+  [4, 21],
+  [-2.2, 13.5],
+];
+export const COVE_W = 6;
+// the west coast's x at a given z (the Andaman band's east edge), for the beach scenes
+export const coastX = (z: number) => {
+  for (let i = 1; i < ANDAMAN.length; i++) {
+    const [ax, az] = ANDAMAN[i - 1];
+    const [bx, bz] = ANDAMAN[i];
+    if (z >= az && z <= bz) return ax + ((bx - ax) * (z - az)) / (bz - az) + ANDAMAN_W / 2;
+  }
+  return ANDAMAN[ANDAMAN.length - 1][0] + ANDAMAN_W / 2;
+};
+
+// ---- story places (model positions for the beats, not geo pins)
+// Bowrey's Luppoone (ลิพอน, Thalang), "in the very middle of the Island": beside the later monument
+export const LIPON: P = [-7.5, -31.5];
+// where his ship lands, on the bay shore east of Thalang, and the forest track up to Luppoone
+export const LANDING: P = [20.5, -30];
+export const SHIP_AT: P = [26.5, -29];
+export const TRACK: P[] = [[20, -30], [14, -31.5], [8, -30.5], [2, -32], [-3, -31.2], LIPON];
+// 2328: the Thai stockade at วัดพระนางสร้าง / บ้านเคียน (the primary sources' camp), the Burmese
+// camp on the open field to its west; the army withdraws north-west to its boats
+export const STOCKADE: P = [-12.0, -31.6];
+export const BURMESE_CAMP: P = [-19.5, -36];
+// 1849-1869: the tin pits spread from Kathu down คลองบางใหญ่ to Thung Kha
+export const THUNG_KHA: P = [-2.2, -9];
+// the shophouse streets (ถลาง, ดีบุก, กระบี่) run east-west a block north of the Chartered corner
+export const THALANG_RD_Z = -8.6;
+export const DIBUK_RD_Z = -9.9;
+export const KRABI_RD_Z = -10.9;
+export const OLD_TOWN_X: [number, number] = [-13, -2.4];
+// ถนนเทพกระษัตรี north to the Sarasin bridge, through the heroines' roundabout
+export const NORTH_ROAD: P[] = [[-2.4, -12.6], [-5.5, -20], HEROINES, [-12.5, -38], [-14.0, -42], [-14.0, -48]];

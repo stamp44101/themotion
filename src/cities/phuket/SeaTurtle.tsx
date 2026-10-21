@@ -1,4 +1,3 @@
-// Lives here until src/cities/phuket/ exists (check_story treats every folder there as a city).
 // A leatherback (เต่ามะเฟือง), Phuket's turtle and the cover hero (owner's pick), and its
 // hatchlings in the payoff. docs/briefs/phuket.md §3b. Modelled from what makes a leatherback
 // read at phone size, and not a plated sea turtle:

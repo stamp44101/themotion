@@ -17,6 +17,7 @@ import {LAMPANG} from './cities/lampang';
 import {KHONKAEN} from './cities/khonkaen';
 import {PHETCHABURI} from './cities/phetchaburi';
 import {CHIANGRAI} from './cities/chiangrai';
+import {PHUKET} from './cities/phuket';
 import {CELEBRATION} from './styleframes/celebration';
 import {CHIANGRAI_CLOSE, CHIANGRAI_FRONT, CHIANGRAI_QUARTER} from './styleframes/chiangrai';
 import {PHUKET_DREDGE, PHUKET_GREEN, PHUKET_GREEN_CALLBACK, PHUKET_MIXED, PHUKET_MIXED_CALLBACK, PHUKET_TURTLE, PHUKET_TURTLE_CALLBACK} from './styleframes/phuket';
@@ -39,6 +40,7 @@ const Lampang: React.FC = () => <DioramaComposition city={LAMPANG} />;
 const KhonKaen: React.FC = () => <DioramaComposition city={KHONKAEN} />;
 const Phetchaburi: React.FC = () => <DioramaComposition city={PHETCHABURI} />;
 const ChiangRai: React.FC = () => <DioramaComposition city={CHIANGRAI} />;
+const Phuket: React.FC = () => <DioramaComposition city={PHUKET} />;
 // shader-look preview (issue #27), for still-vs-still checks of the PR #53 blackout
 const PhetchaburiLook: React.FC = () => <DioramaComposition city={{...PHETCHABURI, look: 'shader'}} />;
 const Celebration: React.FC = () => <DioramaComposition city={CELEBRATION} />;
@@ -97,6 +99,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="KhonKaen" component={KhonKaen} durationInFrames={(KHONKAEN.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Phetchaburi" component={Phetchaburi} durationInFrames={(PHETCHABURI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="ChiangRai" component={ChiangRai} durationInFrames={(CHIANGRAI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="Phuket" component={Phuket} durationInFrames={(PHUKET.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="PhetchaburiLook" component={PhetchaburiLook} durationInFrames={(PHETCHABURI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Lampang" component={Lampang} durationInFrames={(LAMPANG.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="LampangStyleElephant" component={LampangStyleElephant} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />

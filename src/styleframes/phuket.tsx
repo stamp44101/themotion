@@ -7,8 +7,10 @@ import React, {useMemo} from 'react';
 import {KORAT} from '../cities/korat';
 import {buildStory} from '../engine/story';
 import type {CityConfig, LandmarkProps} from '../engine/types';
-import {SeaTurtle, Surf, TurtleTrack, crawlAdvance} from './SeaTurtle';
-import {GreenTurtle} from './GreenTurtle';
+import {SeaTurtle, Surf, TurtleTrack, crawlAdvance} from '../cities/phuket/SeaTurtle';
+import {GreenTurtle} from '../cities/phuket/GreenTurtle';
+import {Dredge} from '../cities/phuket/Dredge';
+import {Person} from '../cities/phuket/figures';
 
 // which turtle: the leatherback (เต่ามะเฟือง) or the green turtle (เต่าตนุ) of the owner's photos
 type Species = React.FC<{t: number; rate?: number; swim?: boolean}>;
@@ -98,41 +100,6 @@ const callback = (Body: Species): React.FC<{t: number}> => ({t}) =>
 // People are drawn ~6 units a metre (a little under the leatherback's hero scale, so they read as
 // people round the turtles, not giants over them), in Songkran shirts, spread along the beach; each
 // sets a young turtle down and it crawls into the surf.
-const SHIRTS = ['#e0503c', '#2f7fc1', '#f2b632', '#3aa37a', '#e86fa3', '#f4f1ea'];
-const Person: React.FC<{t: number; i: number}> = ({t, i}) => {
-  // a slow crouch to set the turtle down, then up again
-  const q = (t * 0.35 + i * 0.37) % 1;
-  const bend = q < 0.5 ? Math.sin(q * 2 * Math.PI) * 0.5 : 0;
-  const shirt = SHIRTS[i % SHIRTS.length];
-  const skin = ['#c68e5f', '#a8714a', '#d9a47a'][i % 3];
-  return (
-    <group>
-      {[-1, 1].map((sd) => (
-        <mesh key={sd} position={[sd * 0.1, 0.42 - bend * 0.12, 0]} castShadow>
-          <cylinderGeometry args={[0.07, 0.06, 0.84, 8]} />
-          <meshStandardMaterial color="#2c3440" />
-        </mesh>
-      ))}
-      <group position={[0, 0.84 - bend * 0.25, 0]} rotation-x={bend}>
-        <mesh position={[0, 0.3, 0]} castShadow>
-          <capsuleGeometry args={[0.17, 0.32, 4, 10]} />
-          <meshStandardMaterial color={shirt} roughness={0.8} />
-        </mesh>
-        <mesh position={[0, 0.72, 0.02]} castShadow>
-          <sphereGeometry args={[0.13, 12, 10]} />
-          <meshStandardMaterial color={skin} />
-        </mesh>
-        {/* arms reaching down and forward to the turtle */}
-        {[-1, 1].map((sd) => (
-          <mesh key={sd} position={[sd * 0.22, 0.28, 0.12]} rotation-x={-0.6 - bend * 0.6} castShadow>
-            <cylinderGeometry args={[0.045, 0.04, 0.6, 6]} />
-            <meshStandardMaterial color={skin} />
-          </mesh>
-        ))}
-      </group>
-    </group>
-  );
-};
 const RELEASE = Array.from({length: 6}, (_, i) => ({z: 17 + i * 5.2, ph: i * 0.83}));
 const callbackMixed: React.FC<{t: number}> = ({t}) => (
   <group>
@@ -160,86 +127,11 @@ const callbackMixed: React.FC<{t: number}> = ({t}) => (
 
 // ------------------------------------------------------------------ B: the tin dredge
 const POND: [number, number] = [0, 2];
-const hull = <meshStandardMaterial color="#b9b2a0" roughness={0.7} />;
-const iron = <meshStandardMaterial color="#8a3d1c" roughness={0.6} metalness={0.3} />;
-const Dredge: React.FC<{t: number}> = ({t}) => {
-  const s = 3.4;
-  const bob = 0.05 * Math.sin(t * 1.4);
-  const buckets = 16;
-  const boomLen = 9;
-  // the bucket chain runs up the boom and back down underneath it
-  const chain = useMemo(() => Array.from({length: buckets}, (_, i) => i / buckets), []);
-  return (
-    <group position={[POND[0], bob * s, POND[1]]} rotation-y={0.5} scale={s}>
-      {/* pontoon hull and the two-storey works on it */}
-      <mesh position={[0, 0.35, 0]} castShadow receiveShadow>
-        <boxGeometry args={[4.2, 0.7, 7.5]} />
-        {hull}
-      </mesh>
-      <mesh position={[0, 1.5, -0.6]} castShadow>
-        <boxGeometry args={[3.4, 1.6, 4.6]} />
-        <meshStandardMaterial color="#d8d0bc" roughness={0.8} />
-      </mesh>
-      <mesh position={[0, 2.7, -1.0]} castShadow>
-        <boxGeometry args={[2.8, 0.9, 3.0]} />
-        <meshStandardMaterial color="#d8d0bc" roughness={0.8} />
-      </mesh>
-      <mesh position={[0, 3.25, -1.0]} castShadow>
-        <boxGeometry args={[3.2, 0.12, 3.4]} />
-        <meshStandardMaterial color="#8a3a2a" roughness={0.7} />
-      </mesh>
-      {/* the stack and its smoke */}
-      <mesh position={[0.8, 4.1, -1.8]} castShadow>
-        <cylinderGeometry args={[0.22, 0.26, 1.8, 10]} />
-        {iron}
-      </mesh>
-      {Array.from({length: 7}, (_, i) => {
-        const a = (t * 0.6 + i / 7) % 1;
-        return (
-          <mesh key={i} position={[0.8 + a * 1.2, 5.1 + a * 3.2, -1.8 - a * 0.6]} scale={0.3 + a * 0.9}>
-            <sphereGeometry args={[1, 8, 6]} />
-            <meshStandardMaterial color="#77736c" transparent opacity={0.55 * (1 - a)} depthWrite={false} />
-          </mesh>
-        );
-      })}
-      {/* the ladder (boom) dipping into the pond at the bow, the bucket chain turning on it */}
-      <group position={[0, 1.6, 3.2]} rotation-x={0.55}>
-        <mesh position={[0, 0, boomLen / 2]} castShadow>
-          <boxGeometry args={[0.5, 0.35, boomLen]} />
-          {iron}
-        </mesh>
-        {chain.map((u, i) => {
-          const q = (u + t * 0.18) % 1;
-          // up along the top for the first half, back down along the underside for the second
-          const top = q < 0.5;
-          const zz = top ? q * 2 * boomLen : (1 - (q - 0.5) * 2) * boomLen;
-          return (
-            <mesh key={i} position={[0, top ? 0.32 : -0.32, zz]} castShadow>
-              <boxGeometry args={[1.0, 0.6, 0.48]} />
-              <meshStandardMaterial color={top ? '#c2561e' : '#7a3414'} roughness={0.7} />
-            </mesh>
-          );
-        })}
-      </group>
-      {/* the tailings chute at the stern, spilling grey sand */}
-      <group position={[0, 1.4, -4.2]} rotation-x={-0.35}>
-        <mesh position={[0, 0, -1.6]} castShadow>
-          <boxGeometry args={[0.8, 0.25, 3.2]} />
-          {iron}
-        </mesh>
-        {Array.from({length: 6}, (_, i) => {
-          const a = (t * 1.2 + i / 6) % 1;
-          return (
-            <mesh key={i} position={[0, -0.3 - a * 1.6, -3.3 - a * 0.4]}>
-              <sphereGeometry args={[0.14, 6, 5]} />
-              <meshStandardMaterial color="#9a958a" />
-            </mesh>
-          );
-        })}
-      </group>
-    </group>
-  );
-};
+const DredgeOnPond: React.FC<{t: number}> = ({t}) => (
+  <group position={[POND[0], 0, POND[1]]} rotation-y={0.5} scale={3.4}>
+    <Dredge t={t} />
+  </group>
+);
 
 const base = (Hero: React.FC<{t: number}>, camera: Key[], pond: boolean, sites: [number, number, number][]): CityConfig => {
   const STORY = story(camera);
@@ -309,7 +201,7 @@ const TURTLE_CAM: Key[] = [
 export const PHUKET_TURTLE = base(turtle(SeaTurtle), TURTLE_CAM, false, [[SHORE + 4, -12, 16], [SHORE + 4, 20, 16]]);
 // B: from the south-east, the dredge on its mine pond in the middle of the island
 export const PHUKET_DREDGE = base(
-  Dredge,
+  DredgeOnPond,
   [
     [0, 0, 1, 2, 300, 30, 36, 30],
     [3, 0, 1, 2, 260, 32, 35, 30],
