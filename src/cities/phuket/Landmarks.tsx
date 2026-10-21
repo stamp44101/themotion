@@ -4,7 +4,7 @@ import type {LandmarkProps} from '../../engine/types';
 import {ramp, smooth} from '../../lib';
 import {
   ARMY_COLS, ARMY_ROWS, DIG_END, armyCentre, cannonK, carAt, CARS, columnAt, COLUMN, dredgeOn, ELEPHANTS, elephantAt, GUARDS, guardAt, HATCH_N, hatchAt, heroK, HEROES, heroX, MINERS,
-  minerAt, MOTHER, motherZ, payoffOn, SHORE_Z, PITS, pitAt, pitK, RELEASE_N, releaseAt, SHOP_N, shopK, shopX, tinBoatAt, tinOn,
+  minerAt, ferryAt, sarasinK, MOTHER, motherZ, payoffOn, SHORE_Z, PITS, pitAt, pitK, RELEASE_N, releaseAt, SHOP_N, shopK, shopX, tinBoatAt, tinOn,
 } from './actors';
 import {Dredge} from './Dredge';
 import {Person} from './figures';
@@ -47,31 +47,58 @@ const Mainland: React.FC = () => {
   );
 };
 
-// สะพานสารสิน (1967): a low concrete deck on piers over the strait, mainland to the island
-const Sarasin: React.FC = () => {
+// สะพานสารสิน (1967): a concrete deck on piers over the strait, mainland to the island. It spans
+// out from the mainland across the bridge beat (k), each pier going in as the deck reaches it.
+// Drawn 1.8 wide so a car (0.9 x 0.45 here) sits on it as on a two-lane road.
+export const DECK_W = 1.8;
+const Sarasin: React.FC<{k: number}> = ({k}) => {
   const len = BRIDGE_Z[1] - BRIDGE_Z[0];
-  const cz = (BRIDGE_Z[0] + BRIDGE_Z[1]) / 2;
+  const built = len * k;
   return (
-    <group position={[BRIDGE_X, 0, cz]}>
-      <mesh position={[0, 0.35, 0]} castShadow receiveShadow>
-        <boxGeometry args={[1.0, 0.16, len + 0.6]} />
+    <group position={[BRIDGE_X, 0, BRIDGE_Z[0]]}>
+      <mesh position={[0, 0.35, built / 2]} castShadow receiveShadow>
+        <boxGeometry args={[DECK_W, 0.16, built + 0.4]} />
         <meshStandardMaterial color="#b4b6b8" roughness={0.85} />
       </mesh>
       {[-1, 1].map((sd) => (
-        <mesh key={sd} position={[sd * 0.47, 0.5, 0]} castShadow>
-          <boxGeometry args={[0.06, 0.16, len + 0.6]} />
+        <mesh key={sd} position={[sd * (DECK_W / 2 - 0.03), 0.5, built / 2]} castShadow>
+          <boxGeometry args={[0.06, 0.16, built + 0.4]} />
           <meshStandardMaterial color="#e6e6e2" />
         </mesh>
       ))}
-      {Array.from({length: 6}, (_, i) => (
-        <mesh key={i} position={[0, (0.27 + SEA_Y) / 2, -len / 2 + ((i + 0.5) * len) / 6]} castShadow>
-          <boxGeometry args={[0.5, 0.27 - SEA_Y, 0.3]} />
-          <meshStandardMaterial color="#9a9c9e" roughness={0.9} />
+      {Array.from({length: 7}, (_, i) => {
+        const z = ((i + 0.5) * len) / 7;
+        return z > built ? null : (
+          <mesh key={i} position={[0, (0.27 + SEA_Y) / 2, z]} castShadow>
+            <boxGeometry args={[0.8, 0.27 - SEA_Y, 0.35]} />
+            <meshStandardMaterial color="#9a9c9e" roughness={0.9} />
+          </mesh>
+        );
+      })}
+    </group>
+  );
+};
+// the car ferry over ช่องปากพระ, the only way across before the bridge: a flat deck with a
+// wheelhouse and two cars on it
+const Ferry: React.FC<{x: number; z: number; k: number; t: number}> = ({x, z, k, t}) =>
+  k <= 0.02 ? null : (
+    <group position={[x, SEA_Y + 0.05 * Math.sin(t * 1.6), z]} scale={k}>
+      <mesh position={[0, 0.15, 0]} castShadow>
+        <boxGeometry args={[1.6, 0.3, 3.2]} />
+        <meshStandardMaterial color="#e8e2d0" roughness={0.8} />
+      </mesh>
+      <mesh position={[0.55, 0.55, 0]} castShadow>
+        <boxGeometry args={[0.45, 0.5, 0.8]} />
+        <meshStandardMaterial color="#c0392b" />
+      </mesh>
+      {[-0.7, 0.6].map((dz, i) => (
+        <mesh key={i} position={[-0.25, 0.42, dz]} castShadow>
+          <boxGeometry args={[0.45, 0.24, 0.9]} />
+          <meshStandardMaterial color={i ? '#2e86c1' : '#f1c40f'} />
         </mesh>
       ))}
     </group>
   );
-};
 
 // ------------------------------------------------------------------ small people
 // a body and a head; undyed cotton and indigo read as people against sand and grass
@@ -240,9 +267,9 @@ const Mansion: React.FC<{x: number; z: number; color: string; k: number; w?: num
   );
 
 // ------------------------------------------------------------------ 1967: the first cars
-const CAR_COLORS = ['#c0392b', '#2e86c1', '#f1c40f', '#ecf0f1', '#27ae60'];
+const CAR_COLORS = ['#c0392b', '#2e86c1', '#f1c40f', '#ecf0f1', '#27ae60', '#8e44ad', '#e67e22', '#34495e'];
 const Car: React.FC<{x: number; z: number; rot: number; y: number; c: string}> = ({x, z, rot, y, c}) => (
-  <group position={[x, y, z]} rotation-y={rot} scale={2.6}>
+  <group position={[x, y, z]} rotation-y={rot} scale={0.9}>
     <mesh position={[0, 0.22, 0]} castShadow>
       <boxGeometry args={[0.5, 0.24, 1.0]} />
       <meshStandardMaterial color={c} metalness={0.3} roughness={0.5} />
@@ -369,6 +396,7 @@ export const PhuketLandmarks: React.FC<LandmarkProps> = ({Y, t, terrainH, beat})
   const miners = Array.from({length: MINERS}, (_, i) => minerAt(i, ctx));
   // ---- 1967
   const cars = Array.from({length: CARS}, (_, i) => carAt(i, t, ctx));
+  const ferry = ferryAt(t, ctx);
   const payoff = payoffOn(Y);
   // the payoff arrives over its first ~1.3 s instead of popping in under the caption ([local] on
   // #59 measured it as the clip's largest frame-to-frame jump at 58.2 s): the mother rises out of
@@ -393,7 +421,8 @@ export const PhuketLandmarks: React.FC<LandmarkProps> = ({Y, t, terrainH, beat})
         <boxGeometry args={[NORTH_BEACH_X[1] - NORTH_BEACH_X[0], 0.05, NORTH_BEACH_W]} />
         <meshStandardMaterial color={SAND} roughness={1} />
       </mesh>
-      {Y >= 1966.5 && <Sarasin />}
+      {sarasinK(Y, ctx) > 0.01 && <Sarasin k={sarasinK(Y, ctx)} />}
+      {ferry && <Ferry {...ferry} t={t} />}
       {mk > 0.02 &&
         HEROES.map((h, i) => (
           // the sand each one throws up as it digs its body pit; it settles back after the cover

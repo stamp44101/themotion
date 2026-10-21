@@ -36,9 +36,10 @@ const TOWN_IN: Key = [28.8, -7, 1, -9, 40, 30, 42, 30];
 const TOWN_END: Key = [33.9, -7, 1, -9, 36, 6, 42, 30];
 const DREDGE_IN: Key = [36.3, DREDGE[0] - 4, 1, DREDGE[1], 48, 40, 36, 30];
 const DREDGE_END: Key = [41.0, DREDGE[0] - 4, 1, DREDGE[1], 42, 62, 36, 30];
-const BRIDGE_IN: Key = [43.9, -14, 1, -62, 50, -10, 38, 30];
-const BRIDGE_END: Key = [49.0, -13, 1, -49, 48, 0, 37, 30];
-const GROW_IN: Key = [51.2, -8, 1, -8, 180, 30, 37, 30];
+// a medium shot of the strait: the ferry, the bridge going out over it, the traffic coming over
+const BRIDGE_IN: Key = [43.6, -11, 1, -58, 56, -28, 42, 30];
+const BRIDGE_END: Key = [47.2, -12, 1, -55, 54, -6, 42, 30];
+const GROW_IN: Key = [49.4, -8, 1, -8, 180, 30, 37, 30];
 // the grow shot sweeps round the island and comes down to the Big Buddha from in front of it
 // (north-east) as it is finished, so the caption's พระใหญ่ is on screen, not a speck
 const GROW_END: Key = [56.9, BIG_BUDDHA[0], 5, BIG_BUDDHA[1], 62, 135, 30, 30];
@@ -146,18 +147,17 @@ export const STORY = buildStory({
       // the first cars come over สะพานสารสิน from the mainland and drive south past the heroines
       id: 'bridge',
       kind: 'arrive',
-      t: [42.6, 49.6],
+      t: [42.6, 47.6],
       year: {hold: 1967},
-      caption: {t0: 42.4, title: 'สะพานสารสิน', sub: '7 ก.ค. 2510 ถนนเส้นแรกที่ข้ามจากฝั่งพังงาสู่เกาะ'},
+      caption: {t0: 42.4, title: 'สะพานสารสิน', sub: '7 ก.ค. 2510 แทนแพข้ามฟาก เชื่อมพังงากับเกาะ'},
       era: 'ปัจจุบัน',
       callouts: [
-        {t0: 43.4, t1: 46.4, label: 'สะพานสารสิน', dx: 90, dy: -130, p: [SARASIN[0], 0.8, SARASIN[1]]},
+        {t0: 44.6, t1: 47.4, label: 'สะพานสารสิน', dx: 90, dy: -130, p: [SARASIN[0], 0.8, SARASIN[1]]},
       ],
       camera: [
         // tracking the middle car down the bridge and onto the island, the cars in the lower
         // two-thirds of the frame, clear of the caption
         BRIDGE_IN,
-        [46.2, -14, 1, -56, 46, -6, 37, 30],
         BRIDGE_END,
       ],
     },
@@ -166,9 +166,9 @@ export const STORY = buildStory({
       // town fills, planes land by Mai Khao, the Big Buddha on its hill
       id: 'growth',
       kind: 'grow',
-      t: [50.2, 57.6],
+      t: [48.2, 57.6],
       year: [1973, 2015],
-      caption: {t0: 50.0, title: 'เมืองแร่สู่เมืองท่องเที่ยว', sub: 'เหมืองปิด หาดฝั่งตะวันตกกลายเป็นเมือง พระใหญ่บนเขานาคเกิด'},
+      caption: {t0: 48.0, title: 'เมืองแร่สู่เมืองท่องเที่ยว', sub: 'เหมืองปิด หาดฝั่งตะวันตกกลายเป็นเมือง พระใหญ่บนเขานาคเกิด'},
       callouts: [{t0: 55.8, t1: 57.5, label: 'พระใหญ่', dx: 90, dy: -130, p: [BIG_BUDDHA[0], 9.5, BIG_BUDDHA[1]]}],
       camera: [
         GROW_IN,

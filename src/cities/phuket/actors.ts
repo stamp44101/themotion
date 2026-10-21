@@ -151,16 +151,27 @@ export const shopX = (i: number) => lerp(OLD_TOWN_X[1] - 0.6, OLD_TOWN_X[0] + 0.
 export const dredgeOn = (Y: number) => Y >= 1909 && Y < 1992;
 
 // ------------------------------------------------------------------ 1967
-// the first cars come over the bridge from the mainland and drive south past the heroines
-// they start on the mainland just short of the bridge, so the first is on the deck as the beat
-// opens; spaced 7 apart so three cars read as traffic, not one striped block ([local], #59)
-const ROAD_IN: P[] = [[BRIDGE_X, MAINLAND_Z[1] - 4], ...[...NORTH_ROAD].reverse()];
+// From ferry to bridge (owner: the old beat "lingered and told no story", and its three hero-scale
+// cars were wider than the bridge). The beat opens on the car ferry, until then the only way
+// over the strait, shuttling across; the bridge spans out from the mainland to the island over
+// it; then a stream of cars at road scale pours over and down the road onto the island.
+export const sarasinK = (Y: number, {beat}: ActorCtx) => (Y < 1967 ? 0 : Y > 1967.46 ? 1 : smooth(ramp(beat('bridge'), 0.08, 0.5)));
+export const FERRY_X = BRIDGE_X + 4.5;
+export const ferryAt = (t: number, {Y, beat}: ActorCtx) => {
+  const p = beat('bridge');
+  if (Y < 1960 || Y > 1967.46 || p > 0.6) return null;
+  // across and back on a slow, eased shuttle; it fades out of use as the bridge opens
+  const u = 0.5 - 0.5 * Math.cos(t * 1.4);
+  return {x: FERRY_X, z: lerp(MAINLAND_Z[1] - 1.2, -EDGE - 1.2, u), k: 1 - smooth(ramp(p, 0.45, 0.6))};
+};
+const ROAD_IN: P[] = [[BRIDGE_X, MAINLAND_Z[1] - 6], ...[...NORTH_ROAD].reverse()];
 const ROAD_LEN = lengthOf(ROAD_IN);
-export const CARS = 3;
+export const CARS = 14;
+export const CAR_GAP = 2.0;
 export const carAt = (i: number, t: number, {Y, beat}: ActorCtx) => {
   const p = beat('bridge');
-  if (Y < 1967 || Y > 1967.46 || p <= 0 || p >= 1) return null;
-  const d = (t - beatAt('bridge', 0)) * 2.4 + 6 - i * 7;
+  if (Y < 1967 || Y > 1967.46 || p < 0.45 || p >= 1) return null;
+  const d = (t - beatAt('bridge', 0.45)) * 5 - i * CAR_GAP;
   if (d < 0 || d > ROAD_LEN) return null;
   return along(ROAD_IN, d);
 };
@@ -224,9 +235,17 @@ export const ACTORS: Actor[] = [
     return null;
   }},
   {id: 'dredge', during: 'dredge', size: 3, at: (t, ctx) => (dredgeOn(ctx.Y) ? [DREDGE[0], 1.5, DREDGE[1]] : null)},
-  {id: 'firstCars', during: [beatAt('bridge', 0.04), beatAt('bridge', 0.95)], size: 1.3, minInFrame: 0.6, at: (t, ctx) => {
-    const c = carAt(0, t, ctx);
-    return c ? [c.x, 0.6, c.z] : null;
+  // the bridge going out over the strait (half its length), then the stream of traffic on it
+  {id: 'bridgeBuilt', during: [beatAt('bridge', 0.06), beatAt('bridge', 0.5)], size: 4, at: (t, ctx) => {
+    const k = sarasinK(ctx.Y, ctx);
+    return k > 0.02 && k < 0.99 ? [BRIDGE_X, 0.4, MAINLAND_Z[1] + (k * (MAINLAND_Z[1] - -EDGE)) * -1] : null;
+  }},
+  {id: 'traffic', during: [beatAt('bridge', 0.5), beatAt('bridge', 0.97)], size: 3, at: (t, ctx) => {
+    for (const i of [3, 0]) {
+      const c = carAt(i, t, ctx);
+      if (c) return [c.x, 0.6, c.z];
+    }
+    return null;
   }},
   // the town grows under the wide shot; then the camera comes down to the Big Buddha going up
   {id: 'cityGrowing', during: [beatAt('growth', 0), beatAt('growth', 0.68)], size: 12, at: (t, ctx) => (growing(ctx.Y) ? [CENTRE[0], 1.5, CENTRE[1]] : null)},
