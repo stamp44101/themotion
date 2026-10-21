@@ -2,7 +2,9 @@
 
 Status: research pass 1 (2026-10-17), written in the cloud container. It reaches web
 search but not Google Maps, OSM or any ONEP host (`www.onep.go.th` and `nced.onep.go.th`
-both refuse), so the footprint and the pins are still open (§1, §5a, §7). Every date
+both refuse), so the footprint and the pins were open at the time. **Since then:** the ONEP zone
+and the pins are done (§7.1, §7.3) and the city is built (`src/cities/lampang/`); the เขลางค์ wall
+is still an approximate ellipse, not traced (§1). Every date
 carries its source and a confidence level. Nothing marked [unknown] is to be guessed.
 
 ## 0. What the Korat numbers say about the story
@@ -102,7 +104,7 @@ until the wall line is traced.
 - **Era labels:** หริภุญชัย / ล้านนา / พม่า / เจ้าเจ็ดตน / สยาม / ปัจจุบัน (draft).
 - **Clip duration:** 60 s. 75 s only if the 1732 shooting and the 1774 march both need room.
 
-## 4. Landmarks (to place once §1 and §5a are in)
+## 4. Landmarks (placed: `src/cities/lampang/places.ts`)
 
 วัดพระแก้วดอนเต้า (+ วัดพระธาตุดอนเต้า), วัดพระธาตุลำปางหลวง (~18 km SW of the city, walled
 temple -> `far: true`), สะพานรัษฎาภิเศก, สถานีรถไฟนครลำปาง, วัดศรีชุม, บ้านเสานัก, ประตูม้า
@@ -175,5 +177,6 @@ in 1916; horse hooves and carriage bells from 1916 on; kiln roar for the bowls.
    Caption should say ราว พ.ศ. 2433. **Also worth knowing for the model:** its viharn **burned
    down on 16 มกราคม พ.ศ. 2535** and what stands today is a reconstruction -- an 1890s wooden
    viharn should not be shown intact in a 2026 frame.
-7. Whether the elephant/Emerald Buddha story should be told as legend or left out.
+7. ~~Whether the elephant/Emerald Buddha story should be told as legend or left out.~~ **Built:**
+   the white elephant carries the image in through ประตูม้า; the caption keeps to the dated facts.
 8. Name and height of the hills east of the city, around Mae Moh.

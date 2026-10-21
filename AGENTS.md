@@ -13,16 +13,20 @@ decides what ships.
 One city is almost entirely its own files:
 
 ```
-src/cities/<city>/timeline.ts     story beats, year curve, captions
+src/cities/<city>/timeline.ts     story beats (buildStory): seconds, years, captions, callouts, cameras
+src/cities/<city>/index.ts        layout, palette, wiring
 src/cities/<city>/Landmarks.tsx   the buildings unique to that city
-src/cities/<city>/index.ts        layout, cameras, callouts, palette
+src/cities/<city>/actors.ts       moving things, as pure position math (checked by check_story)
+src/cities/<city>/places.ts       real positions shared by the files above (newer cities)
+src/cities/<city>/geo.ts          real lat/lon of each landmark, for the direction check
+docs/briefs/<city>.md             the dated, sourced brief the captions are checked against
 scripts/soundtrack_<city>.py      its score
 public/soundtrack_<city>.wav      the rendered audio
 renders/<city>.mp4                the finished video (gitignored; goes to the release)
 ```
 
-plus **one line in `src/Root.tsx`** to register it, and two lines in
-`package.json` scripts. Nothing else.
+plus its registration in `src/Root.tsx` (an import, a component and a `<Composition>`),
+and two lines in `package.json` scripts. Nothing else.
 
 So two agents can build two different cities at the same time with essentially
 no overlap. Use a branch per city: `city/<name>`.
@@ -31,8 +35,9 @@ no overlap. Use a branch per city: `city/<name>`.
 
 **Only one agent touches `src/engine/` at a time.**
 
-The engine (`Diorama.tsx`, `world.ts`, `poly.ts`, `parts.tsx`, `Life.tsx`,
-`camera.ts`, `types.ts`) and `src/Overlay.tsx` are shared by every city. An
+The engine (every file in `src/engine/`: `Diorama.tsx`, `world.ts`, `story.ts`,
+`occupancy.ts`, `actors.ts`, `types.ts` and the rest) and `src/Overlay.tsx` are
+shared by every city. An
 engine change lands on its own branch, gets merged, and *then* city work
 rebases onto it. Two agents editing the engine in parallel will produce a merge
 no one can safely resolve, because the breakage shows up as wrong pixels rather
@@ -138,11 +143,13 @@ Two scripts catch what used to be found only on a phone. Run both; neither is
 optional.
 
 - **Before rendering:** `npm run check` -- typecheck (an import of a file you
-  never committed fails here, not on the next agent's machine) plus caption and
-  callout timing for every city: nothing under the intro title (before
+  never committed fails here, not on the next agent's machine), the river
+  geometry, and every `check_story` rule for every city and landmark reel
+  (layout, occupancy, camera, actors, directions, the storyline standard), including
+  caption and callout timing: nothing under the intro title (before
   `INTRO_END`, 3 s) or the finale title, no two captions on screen at once, no
-  caption title wider than one line, the year curve never running backwards. `npm run render:<city>` runs the timing
-  check itself and will not start if it fails. CI runs `npm run check` on every PR.
+  caption title wider than one line, the year curve never running backwards. `npm run render:<city>` runs
+  `check_story` for that city itself and will not start if it fails. CI runs `npm run check` on every PR.
 - **After rendering:** `npm run encode -- <city>` makes the repo copy and the
   one `_social` upload copy (TikTok, IG and Facebook) and then checks all three files
   (the master too): light may not jump more than 8
@@ -186,5 +193,6 @@ caption sat on top of the title and whose light snapped at 3 s.
   (`INTRO_END` in `src/lib.ts`), and the day/night cycle is continuous with
   shallow nights. Renders made before that change can fail `check:render`.
 - Cities built: Chiang Mai (2D and 3D), Sukhothai, Korat, Ayutthaya, Phitsanulok,
-  Chachoengsao.
+  Chachoengsao, Nakhon Sawan, Chonburi, Nakhon Si Thammarat, Lampang, Khon Kaen,
+  Phetchaburi and Chiang Rai, plus the Wat Rai Khing landmark reel.
 - Rendering on the owner's own GPU machine: `docs/render-locally.md`.

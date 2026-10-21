@@ -1,6 +1,6 @@
 # Review prompt — hand this to a model that did not build the city
 
-Attach the 12-frame contact sheet (`shots/<city>_sheet.png`) and paste this.
+Attach the 8-12-frame contact sheet of stills (made by hand: `npx remotion still` + ffmpeg hstack/vstack, see `CLAUDE.md`) and paste this.
 
 ---
 
@@ -30,8 +30,9 @@ Check for:
 9. **Anything appearing before it existed**, or surviving after it was
    destroyed, given the year on screen.
 10. **Text safety**: the year counter and captions should sit clear of the top
-    ~215 px, bottom ~440 px and the right edge below mid-frame, which is where
-    TikTok's own interface sits.
+    ~250 px, bottom ~460 px and left ~130 px, and further from the right edge below
+    mid-frame (~220 px), which is where TikTok's own interface sits (`SAFE` in
+    `src/Overlay.tsx`).
 
 For each problem give: the frame, what is wrong, and why it is impossible.
 If a frame is fine, say nothing about it. End with the single most serious

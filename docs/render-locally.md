@@ -40,28 +40,28 @@ run on Node 26. If you already hit it, switch Node and run `rm -rf node_modules
 Nothing else is needed for rendering and encoding: Remotion downloads its own
 headless Chrome on the first render and ships its own ffmpeg, which the scripts
 use. Python is only needed to regenerate a soundtrack; the `.wav` files are
-already in the repo.
+already in the repo. The one exception is `render:chonburi`, which rebuilds its
+soundtrack first (`scripts/python_chonburi.mjs` finds `py -3`, `python` or `python3`).
 
 ## Render one city
 
 ```bash
 git pull
-npm run check                  # typecheck + caption/callout timing for every city
+npm run check                  # typecheck, river geometry and every check_story rule, for every city and landmark
 npm run render:chachoengsao && npm run encode -- chachoengsao
 # render -> out/chachoengsao.mp4 (master, ~130 MB)
-# encode -> renders/chachoengsao.mp4 + out/chachoengsao_tiktok.mp4, then checks them
+# encode -> renders/chachoengsao.mp4 + out/chachoengsao_social.mp4, then checks them
 ```
 
-`render:<city>` refuses to start if that city's captions or callouts are
-mistimed. `encode` prints `all checks passed` or lists what failed (light that
+`render:<city>` refuses to start if `check_story` fails for that city. `encode` prints `all checks passed` or lists what failed (light that
 jumps between frames, nights that go too dark, a repo copy over 100 MB or
 mis-tagged). **Do not post a render that failed.**
 
-- Upload `out/<city>_tiktok.mp4` to TikTok, from the web rather than the phone app.
+- Upload `out/<city>_social.mp4` to TikTok, Instagram and Facebook (one file for all three), from the web rather than the phone app.
 - `renders/<city>.mp4` is the shareable copy; it goes on the release, not into git.
 - `out/` is never committed.
 
-City names: `korat`, `ayutthaya`, `sukhothai`, `phitsanulok`, `chachoengsao`.
+City names: `ayutthaya`, `chachoengsao`, `chiangrai`, `chonburi`, `khonkaen`, `korat`, `lampang`, `nakhonsawan`, `nakhonsi`, `phetchaburi`, `phitsanulok`, `sukhothai`; the landmark reel is `watraikhing`.
 Chiang Mai is `npm run render:iso` followed by `npm run encode -- chiangmai-iso`.
 
 ## How fast is this machine?
@@ -79,12 +79,12 @@ The whole benchmark renders about as much as one full city.
 
 **Windows (PowerShell)**
 ```powershell
-foreach ($c in 'korat','ayutthaya','sukhothai','phitsanulok','chachoengsao') { npm run "render:$c"; if ($?) { npm run encode -- $c } }
+foreach ($c in 'ayutthaya','chachoengsao','chiangrai','chonburi','khonkaen','korat','lampang','nakhonsawan','nakhonsi','phetchaburi','phitsanulok','sukhothai','watraikhing') { npm run "render:$c"; if ($?) { npm run encode -- $c } }
 ```
 
 **macOS**
 ```bash
-for c in korat ayutthaya sukhothai phitsanulok chachoengsao; do npm run render:$c && npm run encode -- $c; done
+for c in ayutthaya chachoengsao chiangrai chonburi khonkaen korat lampang nakhonsawan nakhonsi phetchaburi phitsanulok sukhothai watraikhing; do npm run render:$c && npm run encode -- $c; done
 ```
 
 ## Put the finished clip on the release
@@ -93,8 +93,10 @@ for c in korat ayutthaya sukhothai phitsanulok chachoengsao; do npm run render:$
 (https://github.com/stamp44101/themotion/releases/tag/renders), replaced in place:
 
 ```bash
-gh release upload renders renders/<city>.mp4 --clobber
+gh release upload renders renders/<city>.mp4 out/<city>_social.mp4 --clobber
 ```
+
+The shader look's upload copy goes up as `<city>_look_social.mp4`.
 
 Without the `gh` CLI, open the release page, choose Edit, delete the old asset
 and drop in the new file.

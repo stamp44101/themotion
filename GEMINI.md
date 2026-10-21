@@ -6,9 +6,10 @@ Both apply to you. The short version: one city per branch, only one agent in
 build it has checked the contact sheet against the plausibility list in
 `CLAUDE.md`.
 
-Before handing anything over, run `npm run check` and fix every error. It
-encodes every note the owner has given so far (captions, titles, light, camera
-rhythm, scripts); the table in `AGENTS.md` under "Every review becomes a rule"
+Before handing anything over, run `npm run check` before rendering and
+`npm run encode` after it, and fix every error. Together they encode every note the
+owner has given so far (captions, titles, camera rhythm and scripts in `check`;
+light in `encode`); the table in `AGENTS.md` under "Every review becomes a rule"
 says where each came from. When you fix a new review note, add its check there
 too.
 

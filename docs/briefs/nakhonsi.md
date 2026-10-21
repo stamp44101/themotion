@@ -127,7 +127,7 @@ the legend dates it to the Sri Dharmasoka kings, "over 800 years", attributed). 
 is cited in the inscription's criterion (vi).
 
 - **Era labels:** ตามพรลิงค์ · ศรีวิชัย · ศรีธรรมราช · อยุธยา · เจ้านคร · ปัจจุบัน
-- **Duration:** 60 s.
+- **Duration:** 75 s as shipped (`src/cities/nakhonsi/timeline.ts`); the brief was written for 60 s.
 
 ## 4. Landmarks
 
