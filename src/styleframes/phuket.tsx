@@ -8,6 +8,10 @@ import {KORAT} from '../cities/korat';
 import {buildStory} from '../engine/story';
 import type {CityConfig, LandmarkProps} from '../engine/types';
 import {SeaTurtle, Surf, TurtleTrack, crawlAdvance} from './SeaTurtle';
+import {GreenTurtle} from './GreenTurtle';
+
+// which turtle: the leatherback (เต่ามะเฟือง) or the green turtle (เต่าตนุ) of the owner's photos
+type Species = React.FC<{t: number; rate?: number; swim?: boolean}>;
 import {ramp, smooth} from '../lib';
 
 type Key = [number, number, number, number, number, number, number, number];
@@ -21,14 +25,14 @@ const SHORE = SEA_X + SEA_W / 2; // x of the waterline
 
 // ------------------------------------------------------------------ A: the turtle (owner's pick)
 // the cover: the mother hauls out of the surf and crawls up the beach, a stroke at a time
-const Turtle: React.FC<{t: number}> = ({t}) => {
+const turtle = (Body: Species): React.FC<{t: number}> => ({t}) => {
   const s = 8.5;
   const x = SHORE - 8 + Math.min(20, crawlAdvance(t) * 4.6);
   return (
     <group>
       <TurtleTrack x0={SHORE} x1={x - 1.2 * s} z={2} s={s * 0.45} />
       <group position={[x, 0, 2]} rotation-y={Math.PI / 2} scale={s}>
-        <SeaTurtle t={t} />
+        <Body t={t} />
       </group>
       <Surf x={x - 0.6 * s} z={2} r={1.6 * s} t={t} k={1 - smooth(ramp(x, SHORE - 2, SHORE + 4))} />
     </group>
@@ -39,14 +43,14 @@ const Turtle: React.FC<{t: number}> = ({t}) => {
 // (her fore-flippers sweep ~16 units out at this scale, so the lane starts clear of them)
 const MZ = -6;
 const HATCH = Array.from({length: 12}, (_, i) => ({z: 10 + ((i * 5) % 12) * 1.25, d: (i * 0.29) % 1, ph: i * 1.3}));
-const Callback: React.FC<{t: number}> = ({t}) => {
+const callback = (Body: Species): React.FC<{t: number}> => ({t}) => {
   const s = 5.5;
   const mx = SHORE + 7 - Math.min(13, crawlAdvance(t) * 3.2);
   return (
     <group>
       <TurtleTrack x0={mx + 1.2 * s} x1={SHORE + 16} z={MZ} s={s * 0.45} />
       <group position={[mx, 0, MZ]} rotation-y={-Math.PI / 2} scale={s}>
-        <SeaTurtle t={t} swim={mx < SHORE - 2} />
+        <Body t={t} swim={mx < SHORE - 2} />
       </group>
       <Surf x={mx} z={MZ} r={1.6 * s} t={t} k={smooth(ramp(-mx, -(SHORE + 1), -(SHORE - 4)))} />
       {HATCH.map((h, i) => {
@@ -55,7 +59,7 @@ const Callback: React.FC<{t: number}> = ({t}) => {
         if (x < SHORE - 3) return null;
         return (
           <group key={i} position={[x, 0, h.z]} rotation-y={-Math.PI / 2 + 0.2 * Math.sin(h.ph)} scale={1.1}>
-            <SeaTurtle t={t + h.ph} rate={1.7} />
+            <Body t={t + h.ph} rate={1.7} />
           </group>
         );
       })}
@@ -211,16 +215,12 @@ const base = (Hero: React.FC<{t: number}>, camera: Key[], pond: boolean, sites: 
 
 // Both open on the whole tile (the series' cover) and push in after the title (3 s).
 // A: from the south-west, the sea in front, the turtle hauling out toward the camera's left
-export const PHUKET_TURTLE = base(
-  Turtle,
-  [
-    [0, -22, 2, 2, 260, -40, 36, 30],
-    [3, -18, 2, 2, 230, -38, 35, 30],
-    [6, -12, 3, 2, 120, -30, 32, 30],
-  ],
-  false,
-  [[SHORE + 4, 2, 18]],
-);
+const TURTLE_CAM: Key[] = [
+  [0, -22, 2, 2, 260, -40, 36, 30],
+  [3, -18, 2, 2, 230, -38, 35, 30],
+  [6, -12, 3, 2, 120, -30, 32, 30],
+];
+export const PHUKET_TURTLE = base(turtle(SeaTurtle), TURTLE_CAM, false, [[SHORE + 4, 2, 18]]);
 // B: from the south-east, the dredge on its mine pond in the middle of the island
 export const PHUKET_DREDGE = base(
   Dredge,
@@ -233,13 +233,13 @@ export const PHUKET_DREDGE = base(
   [[POND[0], POND[1], 16]],
 );
 // A's payoff: mother back to the sea, the hatchlings after her (closer, the same south-west side)
-export const PHUKET_TURTLE_CALLBACK = base(
-  Callback,
-  [
-    [0, -21, 1, 7, 135, -14, 42, 30],
-    [3, -22, 1, 7, 128, -12, 42, 30],
-    [6, -23, 1, 7, 122, -10, 41, 30],
-  ],
-  false,
-  [[SHORE + 8, 0, 16], [SHORE + 8, 18, 12]],
-);
+const CALLBACK_CAM: Key[] = [
+  [0, -21, 1, 7, 135, -14, 42, 30],
+  [3, -22, 1, 7, 128, -12, 42, 30],
+  [6, -23, 1, 7, 122, -10, 41, 30],
+];
+const CALLBACK_SITES: [number, number, number][] = [[SHORE + 8, 0, 16], [SHORE + 8, 18, 12]];
+export const PHUKET_TURTLE_CALLBACK = base(callback(SeaTurtle), CALLBACK_CAM, false, CALLBACK_SITES);
+// the same two frames with the green turtle of the owner's photos, to compare
+export const PHUKET_GREEN = base(turtle(GreenTurtle), TURTLE_CAM, false, [[SHORE + 4, 2, 18]]);
+export const PHUKET_GREEN_CALLBACK = base(callback(GreenTurtle), CALLBACK_CAM, false, CALLBACK_SITES);
