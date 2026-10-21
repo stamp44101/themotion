@@ -4,7 +4,7 @@
 // Landmarks.tsx draws from these; check_story projects them.
 import type {Actor, ActorCtx} from '../../engine/actors';
 import {lerp, ramp, smooth} from '../../lib';
-import {BANG_YAI, BRIDGE_X, BURMESE_CAMP, DREDGE, EDGE, LANDING, MAI_KHAO, MAINLAND_Z, NORTH_ROAD, OLD_TOWN_X, SHIP_AT, STOCKADE, THALANG_RD_Z, TRACK} from './places';
+import {BANG_YAI, BIG_BUDDHA, BRIDGE_X, BURMESE_CAMP, DREDGE, EDGE, LANDING, MAI_KHAO, MAINLAND_Z, NORTH_ROAD, OLD_TOWN_X, SHIP_AT, STOCKADE, THALANG_RD_Z, TRACK} from './places';
 import {STORY} from './timeline';
 
 type P = [number, number];
@@ -228,7 +228,9 @@ export const ACTORS: Actor[] = [
     const c = carAt(0, t, ctx);
     return c ? [c.x, 0.6, c.z] : null;
   }},
-  {id: 'cityGrowing', during: 'growth', size: 12, at: (t, ctx) => (growing(ctx.Y) ? [CENTRE[0], 1.5, CENTRE[1]] : null)},
+  // the town grows under the wide shot; then the camera comes down to the Big Buddha going up
+  {id: 'cityGrowing', during: [beatAt('growth', 0), beatAt('growth', 0.68)], size: 12, at: (t, ctx) => (growing(ctx.Y) ? [CENTRE[0], 1.5, CENTRE[1]] : null)},
+  {id: 'bigBuddha', during: [beatAt('growth', 0.72), beatAt('growth', 1)], size: 2.6, at: (t, ctx) => (ctx.Y >= 2002 ? [BIG_BUDDHA[0], gy(ctx, BIG_BUDDHA[0], BIG_BUDDHA[1]) + 3, BIG_BUDDHA[1]] : null)},
   {id: 'turtlesReturn', role: 'callback', during: 'turtles', size: 3, at: (t, ctx) => (payoffOn(ctx.Y) ? [MOTHER.x, 0.6, motherZ(t, ctx)] : null)},
   {id: 'release', during: [beatAt('turtles', 0.1), beatAt('today', 1)], size: 2.5, at: (t, ctx) => {
     if (!payoffOn(ctx.Y)) return null;

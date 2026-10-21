@@ -274,27 +274,82 @@ const Heroines: React.FC<{y: number}> = ({y}) => (
 );
 
 // ------------------------------------------------------------------ 2002: the Big Buddha
-const BigBuddha: React.FC<{y: number; k: number}> = ({y, k}) =>
-  k <= 0.02 ? null : (
-    <group position={[BIG_BUDDHA[0], y, BIG_BUDDHA[1]]} rotation-y={0.33} scale={[1.6, 1.6 * k, 1.6]}>
-      <mesh position={[0, 0.3, 0]} castShadow>
-        <cylinderGeometry args={[1.1, 1.2, 0.6, 16]} />
-        <meshStandardMaterial color="#f6f4ef" />
+// พระพุทธมิ่งมงคลเอกนาคคีรี: a seated image in white marble, in the Maravijaya posture (the right
+// hand over the right knee touching the earth, the left in the lap), on an octagonal plinth. Built
+// from the forms that read at a distance: the broad crossed legs, the tapering body, the shoulders
+// and arms, the head with its long ears and the flame of the ushnisha. Local front is +z; ~3 tall.
+const MARBLE = '#f4f2ec';
+const BigBuddha: React.FC<{y: number; k: number}> = ({y, k}) => {
+  if (k <= 0.02) return null;
+  const m = <meshStandardMaterial color={MARBLE} roughness={0.55} />;
+  return (
+    // faces north-east, toward Chalong Bay
+    <group position={[BIG_BUDDHA[0], y, BIG_BUDDHA[1]]} rotation-y={2.36} scale={[2.6, 2.6 * k, 2.6]}>
+      {/* the octagonal plinth and the lotus throne */}
+      <mesh position={[0, 0.2, 0]} castShadow receiveShadow>
+        <cylinderGeometry args={[1.35, 1.45, 0.4, 8]} />
+        <meshStandardMaterial color="#e9e5da" roughness={0.7} />
       </mesh>
-      <mesh position={[0, 1.1, 0]} scale={[1, 0.8, 0.7]} castShadow>
-        <sphereGeometry args={[0.85, 16, 12]} />
-        <meshStandardMaterial color="#f6f4ef" />
+      <mesh position={[0, 0.5, 0]} castShadow>
+        <cylinderGeometry args={[1.15, 1.25, 0.22, 24]} />
+        {m}
       </mesh>
-      <mesh position={[0, 2.0, 0.05]} castShadow>
-        <sphereGeometry args={[0.38, 14, 10]} />
-        <meshStandardMaterial color="#f6f4ef" />
+      {/* the crossed legs: a broad, low mass with the knees out to the sides */}
+      <mesh position={[0, 0.78, 0.12]} scale={[1.18, 0.32, 0.72]} castShadow>
+        <sphereGeometry args={[1, 24, 12]} />
+        {m}
       </mesh>
-      <mesh position={[0, 2.5, 0.05]}>
-        <coneGeometry args={[0.14, 0.4, 10]} />
-        <meshStandardMaterial color="#f6f4ef" />
+      {/* the body, tapering to the shoulders, and the robe's line over the left shoulder */}
+      <mesh position={[0, 1.42, -0.05]} castShadow>
+        <cylinderGeometry args={[0.46, 0.62, 1.05, 20]} />
+        {m}
+      </mesh>
+      <mesh position={[0, 1.95, -0.05]} scale={[0.72, 0.26, 0.42]} castShadow>
+        <sphereGeometry args={[1, 20, 10]} />
+        {m}
+      </mesh>
+      {/* arms: upper arms down the sides; the right forearm reaches over the right knee to the
+          ground, the left lies in the lap */}
+      {[-1, 1].map((sd) => (
+        <mesh key={`ua${sd}`} position={[sd * 0.6, 1.55, 0.02]} rotation-z={sd * 0.12} castShadow>
+          <capsuleGeometry args={[0.13, 0.62, 4, 10]} />
+          {m}
+        </mesh>
+      ))}
+      <mesh position={[0.72, 1.0, 0.42]} rotation-x={0.9} rotation-z={0.15} castShadow>
+        <capsuleGeometry args={[0.11, 0.55, 4, 10]} />
+        {m}
+      </mesh>
+      <mesh position={[-0.3, 0.98, 0.42]} rotation-z={Math.PI / 2 - 0.3} castShadow>
+        <capsuleGeometry args={[0.11, 0.5, 4, 10]} />
+        {m}
+      </mesh>
+      {/* neck, head, the long ear lobes, the curls and the flame */}
+      <mesh position={[0, 2.12, -0.02]} castShadow>
+        <cylinderGeometry args={[0.15, 0.18, 0.18, 12]} />
+        {m}
+      </mesh>
+      <mesh position={[0, 2.42, 0]} scale={[0.29, 0.34, 0.3]} castShadow>
+        <sphereGeometry args={[1, 18, 14]} />
+        {m}
+      </mesh>
+      {[-1, 1].map((sd) => (
+        <mesh key={`ear${sd}`} position={[sd * 0.29, 2.32, -0.02]} scale={[0.05, 0.2, 0.08]} castShadow>
+          <sphereGeometry args={[1, 8, 8]} />
+          {m}
+        </mesh>
+      ))}
+      <mesh position={[0, 2.72, -0.02]} scale={[0.2, 0.12, 0.2]} castShadow>
+        <sphereGeometry args={[1, 14, 8]} />
+        {m}
+      </mesh>
+      <mesh position={[0, 2.95, -0.02]} castShadow>
+        <coneGeometry args={[0.08, 0.38, 10]} />
+        {m}
       </mesh>
     </group>
   );
+};
 
 export const PhuketLandmarks: React.FC<LandmarkProps> = ({Y, t, terrainH, beat}) => {
   const ctx = {Y, beat, ground: terrainH};
@@ -464,7 +519,7 @@ export const PhuketLandmarks: React.FC<LandmarkProps> = ({Y, t, terrainH, beat})
       {cars.map((c, i) => (c ? <Car key={`car${i}`} x={c.x} z={c.z} rot={c.rot} y={c.z < -EDGE && c.z > BRIDGE_Z[0] ? 0.43 : g(c.x, c.z)} c={CAR_COLORS[i % CAR_COLORS.length]} /> : null))}
 
       {/* ---- 2002: the Big Buddha on เขานาคเกิด */}
-      <BigBuddha y={g(BIG_BUDDHA[0], BIG_BUDDHA[1])} k={Y < 2002 ? 0 : smooth(ramp(Y, 2002, 2012))} />
+      <BigBuddha y={g(BIG_BUDDHA[0], BIG_BUDDHA[1])} k={Y < 2002 ? 0 : smooth(ramp(Y, 2002, 2007))} />
 
       {/* ---- the payoff at Mai Khao: the leatherback and her hatchlings, the Songkran release */}
       {payoff && (

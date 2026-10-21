@@ -5,7 +5,7 @@
 // siege in the danger zone, one verb per beat, a wide grow shot, and the turtles back at Mai
 // Khao before the counter lands on today. 75 s, owner's call; the extra time is all action.
 import {buildStory} from '../../engine/story';
-import {BATTLE, CHINPRACHA, DREDGE, KATHU, LIPON, MAI_KHAO, SARASIN, STOCKADE} from './places';
+import {BATTLE, BIG_BUDDHA, CHINPRACHA, DREDGE, KATHU, LIPON, MAI_KHAO, SARASIN, STOCKADE} from './places';
 
 type Key = [number, number, number, number, number, number, number, number];
 // A camera move from key a to key b that eases in and out: the keys in between follow a
@@ -39,8 +39,11 @@ const DREDGE_END: Key = [41.0, DREDGE[0] - 4, 1, DREDGE[1], 42, 62, 36, 30];
 const BRIDGE_IN: Key = [43.9, -14, 1, -62, 50, -10, 38, 30];
 const BRIDGE_END: Key = [49.0, -13, 1, -49, 48, 0, 37, 30];
 const GROW_IN: Key = [51.2, -8, 1, -8, 180, 30, 37, 30];
-const GROW_END: Key = [56.9, -12, 1, -18, 190, -110, 37, 30];
-const TURTLES_IN: Key = [59.0, -29, 1, -45, 72, -160, 42, 30];
+// the grow shot sweeps round the island and comes down to the Big Buddha from in front of it
+// (north-east) as it is finished, so the caption's พระใหญ่ is on screen, not a speck
+const GROW_END: Key = [56.9, BIG_BUDDHA[0], 5, BIG_BUDDHA[1], 62, 135, 30, 30];
+// azimuths here run on from the grow shot's 135 (200 = -160), so the drone turns the short way
+const TURTLES_IN: Key = [59.0, -29, 1, -45, 72, 200, 42, 30];
 
 export const STORY = buildStory({
   // 75 s (owner, 21 ต.ค. 2569: "เส้นเรื่องดูรีบไปหมด"); the extra 15 s go to the moving beats --
@@ -58,8 +61,8 @@ export const STORY = buildStory({
     ...between(TOWN_END, DREDGE_IN, 7, 0.8),
     ...between(DREDGE_END, BRIDGE_IN, 8, 1.4),
     ...between(BRIDGE_END, GROW_IN, 6),
-    ...between(GROW_END, TURTLES_IN, 6),
-    [75, -6, 2, -4, 240, -320, 36, 30],
+    ...between(GROW_END, TURTLES_IN, 7, 1.2),
+    [75, -6, 2, -4, 240, 400, 36, 30],
   ],
   beats: [
     {
@@ -166,9 +169,10 @@ export const STORY = buildStory({
       t: [50.2, 57.6],
       year: [1973, 2015],
       caption: {t0: 50.0, title: 'เมืองแร่สู่เมืองท่องเที่ยว', sub: 'เหมืองปิด หาดฝั่งตะวันตกกลายเป็นเมือง พระใหญ่บนเขานาคเกิด'},
+      callouts: [{t0: 55.8, t1: 57.5, label: 'พระใหญ่', dx: 90, dy: -130, p: [BIG_BUDDHA[0], 9.5, BIG_BUDDHA[1]]}],
       camera: [
         GROW_IN,
-        [54.2, -8, 1, -10, 200, -40, 37, 30],
+        [54.2, -14, 2, 2, 170, 85, 35, 30],
         GROW_END,
       ],
     },
@@ -183,8 +187,8 @@ export const STORY = buildStory({
       callouts: [{t0: 59.6, t1: 63.4, label: 'หาดไม้ขาว', dx: 90, dy: -130, p: [MAI_KHAO[0] - 6, 0.6, MAI_KHAO[1]]}],
       camera: [
         TURTLES_IN,
-        [62.6, -29, 1, -45, 68, -150, 42, 30],
-        [66.8, -30, 1, -44, 70, -138, 42, 30],
+        [62.6, -29, 1, -45, 68, 210, 42, 30],
+        [66.8, -30, 1, -44, 70, 222, 42, 30],
       ],
     },
     {
