@@ -18,7 +18,8 @@ export const GEO: Geo = {
     {name: 'Phuket airport runway', lat: 8.11333, lon: 98.31694, at: AIRPORT, far: true, source: 'OSM way 23484036'},
     {name: 'Sarasin bridge', lat: 8.201518, lon: 98.298032, at: SARASIN, far: true, source: 'OSM way 965075211'},
     {name: 'Big Buddha', lat: 7.8275, lon: 98.31361, at: BIG_BUDDHA, far: true, source: 'OSM node 11794956978'},
-    {name: 'Andaman, west of Mai Khao', lat: 8.11, lon: 98.21, at: [-35, -39], water: true, source: 'phuket_field.md §1 (open sea, 4 km clear)'},
-    {name: 'Phuket Bay', lat: 7.86, lon: 98.46, at: [28, 10], water: true, source: 'phuket_field.md §1 (open water inside the bay)'},
+    // the sea all round the tile: these sit on it, off the west and east edges
+    {name: 'Andaman, west of Mai Khao', lat: 8.11, lon: 98.21, at: [-62, -40], water: true, source: 'phuket_field.md §1 (open sea, 4 km clear)'},
+    {name: 'Phuket Bay', lat: 7.86, lon: 98.46, at: [60, 10], water: true, source: 'phuket_field.md §1 (open water inside the bay)'},
   ],
 };

@@ -1,10 +1,10 @@
 import {GROUND} from '../../Scene';
 import type {CityConfig} from '../../engine/types';
 import {PhuketLandmarks} from './Landmarks';
-import {ACTORS, BEACH_W, BEACH_Z, HEROES} from './actors';
+import {ACTORS, HEROES} from './actors';
 import {
-  AIRPORT, ANDAMAN, ANDAMAN_W, BANG_YAI, BANG_YAI_W, BATTLE, BAY, BAY_W, BIG_BUDDHA, BURMESE_CAMP, CHARTERED, CHINPRACHA, CORE, COVE, COVE_W, DIBUK_RD_Z, HEROINES, JUI_TUI, KATHU,
-  KRABI_RD_Z, LIPON, SAPHAN_HIN, MAI_KHAO, NORTH_ROAD, OLD_TOWN_X, PAK_PHRA_W, PAK_PHRA_Z, STOCKADE, THALANG_RD_Z, TRACK, coastX,
+  AIRPORT, BANG_YAI, BANG_YAI_W, BATTLE, BIG_BUDDHA, BURMESE_CAMP, CHARTERED, CHINPRACHA, CORE, DIBUK_RD_Z, EDGE, HEROINES, JUI_TUI, KATHU, KRABI_RD_Z, LANDING, LIPON,
+  MAI_KHAO, NORTH_BEACH_W, NORTH_BEACH_X, NORTH_ROAD, OLD_TOWN_X, SAPHAN_HIN, STOCKADE, THALANG_RD_Z, TRACK, WEST_BEACH_W,
 } from './places';
 import {STORY} from './timeline';
 
@@ -45,10 +45,7 @@ export const PHUKET: CityConfig = {
       [7, -40, 4.5, 5],
     ],
     rivers: [
-      {path: ANDAMAN, width: ANDAMAN_W},
-      {axis: 'x', pos: PAK_PHRA_Z, width: PAK_PHRA_W},
-      {path: BAY, width: BAY_W},
-      {path: COVE, width: COVE_W},
+      // the sea is all round the tile (Landmarks.tsx); inside it only the canal
       {path: BANG_YAI, width: BANG_YAI_W},
     ],
     bridges: [],
@@ -81,13 +78,14 @@ export const PHUKET: CityConfig = {
     forestCity: 1849,
     clearings: [
       // the cover turtles' beach on the west coast, open sand at hero scale
-      ...Array.from({length: Math.ceil((BEACH_Z[1] - BEACH_Z[0]) / 3) + 1}, (_, i) => {
-        const z = BEACH_Z[0] + i * 3;
-        return [coastX(z) + BEACH_W / 2, z, BEACH_W / 2 + 1.5, -1e9] as [number, number, number, number];
-      }),
-      ...HEROES.map((h) => [coastX(h.z) + 9, h.z, 13, -1e9] as [number, number, number, number]),
+      // the west beach (the Andaman shore) and Mai Khao's beach on the north shore, open sand
+      ...Array.from({length: 33}, (_, i) => [-EDGE + WEST_BEACH_W / 2, -EDGE + i * 3, WEST_BEACH_W / 2 + 1.2, -1e9] as [number, number, number, number]),
+      ...Array.from({length: Math.ceil((NORTH_BEACH_X[1] - NORTH_BEACH_X[0]) / 3) + 1}, (_, i) => [NORTH_BEACH_X[0] + i * 3, -EDGE + NORTH_BEACH_W / 2, NORTH_BEACH_W / 2 + 1.2, -1e9] as [number, number, number, number]),
+      // the cover's turtles at hero scale
+      ...HEROES.map((h) => [-EDGE + 9, h.z, 12, -1e9] as [number, number, number, number]),
       // Bowrey's forest track up to Luppoone, and the landing
       ...segs(TRACK, 3.0, -1e9),
+      [LANDING[0], LANDING[1], 3.5, -1e9],
       [LIPON[0], LIPON[1], 3, -1e9],
       // the 1785 field between the camp and the stockade
       [BURMESE_CAMP[0], BURMESE_CAMP[1], 4.5, -1e9],
@@ -128,7 +126,8 @@ export const PHUKET: CityConfig = {
     openGround: [
       // the airport by Mai Khao from 1979, and the beach in front of it
       {x0: AIRPORT[0] - 1.5, x1: AIRPORT[0] + 5, z0: AIRPORT[1] - 1.2, z1: AIRPORT[1] + 1.2},
-      {x0: MAI_KHAO[0] - 6, x1: MAI_KHAO[0] + 2, z0: MAI_KHAO[1] - 2, z1: MAI_KHAO[1] + 14},
+      {x0: NORTH_BEACH_X[0], x1: MAI_KHAO[0] + 1.5, z0: -EDGE, z1: -EDGE + NORTH_BEACH_W + 1},
+      {x0: -EDGE, x1: -EDGE + WEST_BEACH_W, z0: -EDGE, z1: EDGE},
     ],
     urban: {from: 1960, rate: 1.3},
     sprawl: {height: 0.8, tall: 0.04},
@@ -148,7 +147,7 @@ export const PHUKET: CityConfig = {
     ],
     ringRoadYear: 1e9,
     cars: [1967, 2026],
-    boats: [1500, 2026],
+    boats: [9998, 9999],
     finale: 'fireworks',
     life: {
       buffalo: [{x: 8, z: -20, r: 3.5, count: 5, from: 1700, to: 1960}],

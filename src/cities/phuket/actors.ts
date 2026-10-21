@@ -4,7 +4,7 @@
 // Landmarks.tsx draws from these; check_story projects them.
 import type {Actor, ActorCtx} from '../../engine/actors';
 import {lerp, ramp, smooth} from '../../lib';
-import {BANG_YAI, BURMESE_CAMP, DREDGE, LANDING, LIPON, MAI_KHAO, NORTH_ROAD, OLD_TOWN_X, SHIP_AT, STOCKADE, THALANG_RD_Z, TRACK, coastX} from './places';
+import {BANG_YAI, BRIDGE_X, BURMESE_CAMP, DREDGE, EDGE, LANDING, MAI_KHAO, MAINLAND_Z, NORTH_ROAD, OLD_TOWN_X, SHIP_AT, STOCKADE, THALANG_RD_Z, TRACK} from './places';
 import {STORY} from './timeline';
 
 type P = [number, number];
@@ -43,11 +43,9 @@ export const HEROES = [
 // sand behind, rather than vanishing ([local] on #59 measured a 0.2-s cut at 3.1-3.3 s)
 export const heroK = (t: number) => 1 - smooth(ramp(t, 2.2, 4.2));
 export const DIG_END = 4.2;
-// the west beach: a sand strip along the Andaman shore, wide enough to hold the cover's turtles
-export const BEACH_Z: [number, number] = [-38, 22];
-export const BEACH_W = 11;
-// x of a hero turtle's centre: it hauls out from the surf and crawls inland until it digs in
-export const heroX = (h: (typeof HEROES)[number], t: number) => coastX(h.z) - 4 + h.lag + 1.9 * Math.min(t, 3.0);
+// x of a hero turtle's centre: it hauls out of the sea over the tile's west edge (the Andaman
+// shore) and crawls inland up the beach until it digs in
+export const heroX = (h: (typeof HEROES)[number], t: number) => -EDGE - 3 + h.lag + 1.9 * Math.min(t, 3.0);
 
 // ------------------------------------------------------------------ 1675
 // Bowrey's ship rides in the bay; two of the Raja's elephants carry its captain up the forest
@@ -72,7 +70,7 @@ export const guardAt = (i: number, {Y, beat}: ActorCtx) => {
 export const tinBoatAt = (t: number, {Y}: ActorCtx) => {
   if (!tinOn(Y)) return null;
   const u = 0.5 - 0.5 * Math.cos(t * 0.9);
-  return {x: lerp(LANDING[0] + 1.5, SHIP_AT[0] - 2.2, u), z: lerp(LANDING[1] + 1.4, SHIP_AT[1] + 0.8, u), rot: Math.PI / 2};
+  return {x: lerp(LANDING[0] + 1.2, SHIP_AT[0] - 1.0, u), z: lerp(LANDING[1] - 2.0, SHIP_AT[1] + 2.4, u), rot: 0.3};
 };
 
 // ------------------------------------------------------------------ 1785
@@ -154,7 +152,7 @@ export const dredgeOn = (Y: number) => Y >= 1909 && Y < 1992;
 
 // ------------------------------------------------------------------ 1967
 // the first cars come over the bridge from the mainland and drive south past the heroines
-const ROAD_IN: P[] = [...NORTH_ROAD].reverse();
+const ROAD_IN: P[] = [[BRIDGE_X, MAINLAND_Z[0] + 4], ...[...NORTH_ROAD].reverse()];
 const ROAD_LEN = lengthOf(ROAD_IN);
 export const CARS = 5;
 export const carAt = (i: number, t: number, {Y, beat}: ActorCtx) => {
@@ -169,28 +167,25 @@ export const carAt = (i: number, t: number, {Y, beat}: ActorCtx) => {
 export const growing = (Y: number) => Y >= 1973 && Y <= 2015.5;
 
 // ------------------------------------------------------------------ the payoff
-// Mai Khao today: the leatherback mother goes back to the sea from her nest with her hatchlings,
-// and along the beach to the south people let young green turtles go (style frame
-// PhuketStyleMixedCallback, drawn smaller here so the beach holds them)
-export const payoffOn = (Y: number) => Y >= 2024 && Y < 2024.46;
-export const MOTHER = {z: MAI_KHAO[1] - 1.2, s: 2.0};
-export const motherX = (t: number, ctx: ActorCtx) => {
-  const c = coastX(MOTHER.z);
-  return c + 6 - Math.min(8.5, 1.5 * Math.max(0, t - beatAt('turtles', 0)) * (ctx.beat('turtles') > 0 ? 1 : 0));
-};
+// Mai Khao today, on the north shore: the leatherback mother goes back to the sea (north) from her
+// nest with her hatchlings, and west along the beach people let young green turtles go (style
+// frame PhuketStyleMixedCallback, drawn smaller here so the beach holds them)
+// from 2024 on, through the landing on today (it is the last thing moving before the card)
+export const payoffOn = (Y: number) => Y >= 2024;
+export const SHORE_Z = -EDGE;
+export const MOTHER = {x: MAI_KHAO[0] - 6, s: 2.0};
+// the mother's z: from her nest up the beach, down to the water and out
+export const motherZ = (t: number, ctx: ActorCtx) =>
+  SHORE_Z + 6 - Math.min(7, 1.2 * Math.max(0, t - beatAt('turtles', 0)) * (ctx.beat('turtles') > 0 ? 1 : 0));
 export const HATCH_N = 10;
 export const hatchAt = (i: number, t: number) => {
-  const z = MOTHER.z + 3.2 + (((i * 7) % HATCH_N) / HATCH_N) * 2.6;
-  const c = coastX(z);
+  const x = MOTHER.x - 3.2 - (((i * 7) % HATCH_N) / HATCH_N) * 2.8;
   const d = Math.max(0, t - beatAt('turtles', 0) - (i % 4) * 0.3);
-  const x = c + 6 - ((i * 0.37) % 1) * 1.5 - d * 1.3;
-  return x < c - 1.4 ? null : {x, z};
+  const z = SHORE_Z + 6 - ((i * 0.37) % 1) * 1.5 - d * 1.2;
+  return z < SHORE_Z - 1.4 ? null : {x, z};
 };
-export const RELEASE_N = 5;
-export const releaseAt = (i: number) => {
-  const z = MOTHER.z + 8.5 + i * 2.0;
-  return {x: coastX(z) + 3.4 + (i % 2) * 0.9, z};
-};
+export const RELEASE_N = 6;
+export const releaseAt = (i: number) => ({x: MOTHER.x - 8.5 - i * 1.6, z: SHORE_Z + 3.6 + (i % 2) * 0.9});
 
 const CENTRE: P = [-2, -4];
 export const ACTORS: Actor[] = [
@@ -202,7 +197,7 @@ export const ACTORS: Actor[] = [
     at: (t) => (heroK(t) > 0.02 ? [heroX(HEROES[0], t) + 2, 4, (HEROES[0].z + HEROES[1].z) / 2] : null),
   },
   // the two sinking into the sand after the hero window, so the cover never cuts to an empty frame
-  {id: 'heroesDig', during: [2.2, DIG_END - 0.2], size: 6, at: (t) => (heroK(t) > 0.02 ? [heroX(HEROES[0], t), 1.5, HEROES[0].z] : null)},
+  {id: 'heroesDig', during: [2.2, 3.1], size: 10, at: (t) => (heroK(t) > 0.02 ? [heroX(HEROES[0], t), 1.5, HEROES[0].z] : null)},
   {id: 'elephants', during: [beatAt('tin', 0.42), beatAt('tin', 0.97)], size: 2.2, at: (t, ctx) => {
     const e = elephantAt(0, ctx);
     return e ? [e.x, gy(ctx, e.x, e.z) + 1.8, e.z] : null;
@@ -227,13 +222,13 @@ export const ACTORS: Actor[] = [
     return null;
   }},
   {id: 'dredge', during: 'dredge', size: 3, at: (t, ctx) => (dredgeOn(ctx.Y) ? [DREDGE[0], 1.5, DREDGE[1]] : null)},
-  {id: 'firstCars', during: [beatAt('bridge', 0.04), beatAt('bridge', 0.95)], size: 1.4, minInFrame: 0.6, at: (t, ctx) => {
+  {id: 'firstCars', during: [beatAt('bridge', 0.04), beatAt('bridge', 0.95)], size: 1.3, minInFrame: 0.6, at: (t, ctx) => {
     const c = carAt(0, t, ctx);
     return c ? [c.x, 0.6, c.z] : null;
   }},
   {id: 'cityGrowing', during: 'growth', size: 12, at: (t, ctx) => (growing(ctx.Y) ? [CENTRE[0], 1.5, CENTRE[1]] : null)},
-  {id: 'turtlesReturn', role: 'callback', during: 'turtles', size: 3, at: (t, ctx) => (payoffOn(ctx.Y) ? [motherX(t, ctx), 0.6, MOTHER.z] : null)},
-  {id: 'release', during: [beatAt('turtles', 0.1), beatAt('turtles', 0.95)], size: 2.5, at: (t, ctx) => {
+  {id: 'turtlesReturn', role: 'callback', during: 'turtles', size: 3, at: (t, ctx) => (payoffOn(ctx.Y) ? [MOTHER.x, 0.6, motherZ(t, ctx)] : null)},
+  {id: 'release', during: [beatAt('turtles', 0.1), beatAt('today', 1)], size: 2.5, at: (t, ctx) => {
     if (!payoffOn(ctx.Y)) return null;
     const r = releaseAt(2);
     return [r.x, 1.2, r.z];

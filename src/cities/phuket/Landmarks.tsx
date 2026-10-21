@@ -3,19 +3,75 @@ import {Elephant} from '../../engine/parts';
 import type {LandmarkProps} from '../../engine/types';
 import {ramp, smooth} from '../../lib';
 import {
-  ARMY_COLS, ARMY_ROWS, BEACH_W, BEACH_Z, DIG_END, armyCentre, cannonK, carAt, CARS, columnAt, COLUMN, dredgeOn, ELEPHANTS, elephantAt, GUARDS, guardAt, HATCH_N, hatchAt, heroK, HEROES, heroX, MINERS,
-  minerAt, MOTHER, motherX, payoffOn, PITS, pitAt, pitK, RELEASE_N, releaseAt, SHOP_N, shopK, shopX, tinBoatAt, tinOn,
+  ARMY_COLS, ARMY_ROWS, DIG_END, armyCentre, cannonK, carAt, CARS, columnAt, COLUMN, dredgeOn, ELEPHANTS, elephantAt, GUARDS, guardAt, HATCH_N, hatchAt, heroK, HEROES, heroX, MINERS,
+  minerAt, MOTHER, motherZ, payoffOn, SHORE_Z, PITS, pitAt, pitK, RELEASE_N, releaseAt, SHOP_N, shopK, shopX, tinBoatAt, tinOn,
 } from './actors';
 import {Dredge} from './Dredge';
 import {Person} from './figures';
 import {GreenTurtle} from './GreenTurtle';
 import {
-  BIG_BUDDHA, BURMESE_CAMP, CHARTERED, CHINPRACHA, DIBUK_RD_Z, DREDGE, HEROINES, JUI_TUI, KATHU, KRABI_RD_Z, LANDING, SHIP_AT, STOCKADE, THALANG_RD_Z, coastX,
+  BIG_BUDDHA, BRIDGE_X, BRIDGE_Z, BURMESE_CAMP, CHARTERED, CHINPRACHA, DIBUK_RD_Z, DREDGE, EDGE, HEROINES, JUI_TUI, KATHU, KRABI_RD_Z, LANDING, MAINLAND_Z, NORTH_BEACH_W,
+  NORTH_BEACH_X, SEA_Y, SHIP_AT, STOCKADE, THALANG_RD_Z, WEST_BEACH_W,
 } from './places';
 import {SeaTurtle, Surf, TurtleTrack} from './SeaTurtle';
 
 type TH = LandmarkProps['terrainH'];
 const SAND = '#e6d4a4';
+const SEA = '#3f8fc0';
+
+// พังงา across ช่องปากพระ: a strip of wooded mainland north of the island, as a second slab
+const MAINLAND_TREES = Array.from({length: 70}, (_, i) => ({x: -46 + ((i * 37) % 93), z: MAINLAND_Z[0] + 1.5 + ((i * 53) % 13), s: 0.8 + ((i * 7) % 5) * 0.12}));
+const Mainland: React.FC = () => {
+  const d = MAINLAND_Z[1] - MAINLAND_Z[0];
+  return (
+    <group position={[0, 0, (MAINLAND_Z[0] + MAINLAND_Z[1]) / 2]}>
+      <mesh position={[0, -3, 0]} receiveShadow>
+        <boxGeometry args={[2 * EDGE, 6, d]} />
+        <meshStandardMaterial color="#6b4a2e" roughness={1} />
+      </mesh>
+      <mesh position={[0, 0.01, 0]} receiveShadow>
+        <boxGeometry args={[2 * EDGE, 0.04, d]} />
+        <meshStandardMaterial color="#5f8f45" roughness={1} />
+      </mesh>
+      <mesh position={[0, 0.03, d / 2 - 1.2]} receiveShadow>
+        <boxGeometry args={[2 * EDGE, 0.05, 2.4]} />
+        <meshStandardMaterial color={SAND} roughness={1} />
+      </mesh>
+      {MAINLAND_TREES.map((tr, i) => (
+        <mesh key={i} position={[tr.x, 0.9 * tr.s, tr.z - (MAINLAND_Z[0] + MAINLAND_Z[1]) / 2]} scale={tr.s} castShadow>
+          <coneGeometry args={[0.8, 1.9, 6]} />
+          <meshStandardMaterial color={i % 3 ? '#3f7d3a' : '#2f6a36'} roughness={1} />
+        </mesh>
+      ))}
+    </group>
+  );
+};
+
+// สะพานสารสิน (1967): a low concrete deck on piers over the strait, mainland to the island
+const Sarasin: React.FC = () => {
+  const len = BRIDGE_Z[1] - BRIDGE_Z[0];
+  const cz = (BRIDGE_Z[0] + BRIDGE_Z[1]) / 2;
+  return (
+    <group position={[BRIDGE_X, 0, cz]}>
+      <mesh position={[0, 0.35, 0]} castShadow receiveShadow>
+        <boxGeometry args={[1.0, 0.16, len + 0.6]} />
+        <meshStandardMaterial color="#b4b6b8" roughness={0.85} />
+      </mesh>
+      {[-1, 1].map((sd) => (
+        <mesh key={sd} position={[sd * 0.47, 0.5, 0]} castShadow>
+          <boxGeometry args={[0.06, 0.16, len + 0.6]} />
+          <meshStandardMaterial color="#e6e6e2" />
+        </mesh>
+      ))}
+      {Array.from({length: 6}, (_, i) => (
+        <mesh key={i} position={[0, (0.27 + SEA_Y) / 2, -len / 2 + ((i + 0.5) * len) / 6]} castShadow>
+          <boxGeometry args={[0.5, 0.27 - SEA_Y, 0.3]} />
+          <meshStandardMaterial color="#9a9c9e" roughness={0.9} />
+        </mesh>
+      ))}
+    </group>
+  );
+};
 
 // ------------------------------------------------------------------ small people
 // a body and a head; undyed cotton and indigo read as people against sand and grass
@@ -47,7 +103,7 @@ const Walker: React.FC<{x: number; z: number; rot: number; y: number; robe: stri
 
 // ------------------------------------------------------------------ 1675: the ship and the tin
 const Ship: React.FC<{t: number}> = ({t}) => (
-  <group position={[SHIP_AT[0], 0.05 * Math.sin(t * 1.1), SHIP_AT[1]]} rotation-y={0.2} scale={1.3}>
+  <group position={[SHIP_AT[0], SEA_Y + 0.05 * Math.sin(t * 1.1), SHIP_AT[1]]} rotation-y={0.2} scale={1.3}>
     <mesh position={[0, 0.35, 0]} castShadow>
       <boxGeometry args={[1.4, 0.7, 4.6]} />
       <meshStandardMaterial color="#5b3a22" roughness={0.8} />
@@ -71,7 +127,7 @@ const Ship: React.FC<{t: number}> = ({t}) => (
   </group>
 );
 const TinBoat: React.FC<{x: number; z: number; rot: number}> = ({x, z, rot}) => (
-  <group position={[x, 0.08, z]} rotation-y={rot}>
+  <group position={[x, SEA_Y + 0.08, z]} rotation-y={rot}>
     <mesh castShadow>
       <boxGeometry args={[0.5, 0.22, 1.4]} />
       <meshStandardMaterial color="#6a4a2a" />
@@ -186,7 +242,7 @@ const Mansion: React.FC<{x: number; z: number; color: string; k: number; w?: num
 // ------------------------------------------------------------------ 1967: the first cars
 const CAR_COLORS = ['#c0392b', '#2e86c1', '#f1c40f', '#ecf0f1', '#27ae60'];
 const Car: React.FC<{x: number; z: number; rot: number; y: number; c: string}> = ({x, z, rot, y, c}) => (
-  <group position={[x, y, z]} rotation-y={rot} scale={1.5}>
+  <group position={[x, y, z]} rotation-y={rot} scale={2.6}>
     <mesh position={[0, 0.22, 0]} castShadow>
       <boxGeometry args={[0.5, 0.24, 1.0]} />
       <meshStandardMaterial color={c} metalness={0.3} roughness={0.5} />
@@ -263,17 +319,22 @@ export const PhuketLandmarks: React.FC<LandmarkProps> = ({Y, t, terrainH, beat})
   return (
     <group>
       {/* ---- the cover: two turtles haul out and dig in */}
-      {/* the west beach along the Andaman, in every era */}
-      {Array.from({length: Math.ceil((BEACH_Z[1] - BEACH_Z[0]) / 2)}, (_, i) => {
-        const z = BEACH_Z[0] + i * 2 + 1;
-        const c = coastX(z);
-        return (
-          <mesh key={`b${i}`} position={[c + BEACH_W / 2 - 0.5, 0.025, z]} receiveShadow>
-            <boxGeometry args={[BEACH_W + 1, 0.05, 2.05]} />
-            <meshStandardMaterial color={SAND} roughness={1} />
-          </mesh>
-        );
-      })}
+      {/* the sea all round the island, and the mainland (พังงา) across the strait */}
+      <mesh position={[0, SEA_Y, 0]} rotation-x={-Math.PI / 2} receiveShadow>
+        <planeGeometry args={[1400, 1400]} />
+        <meshStandardMaterial color={SEA} roughness={0.15} metalness={0.25} />
+      </mesh>
+      <Mainland />
+      {/* the beaches, in every era: the Andaman shore on the west edge, Mai Khao on the north */}
+      <mesh position={[-EDGE + WEST_BEACH_W / 2, 0.025, 0]} receiveShadow>
+        <boxGeometry args={[WEST_BEACH_W, 0.05, 2 * EDGE]} />
+        <meshStandardMaterial color={SAND} roughness={1} />
+      </mesh>
+      <mesh position={[(NORTH_BEACH_X[0] + NORTH_BEACH_X[1]) / 2, 0.026, -EDGE + NORTH_BEACH_W / 2]} receiveShadow>
+        <boxGeometry args={[NORTH_BEACH_X[1] - NORTH_BEACH_X[0], 0.05, NORTH_BEACH_W]} />
+        <meshStandardMaterial color={SAND} roughness={1} />
+      </mesh>
+      {Y >= 1966.5 && <Sarasin />}
       {mk > 0.02 &&
         HEROES.map((h, i) => (
           // the sand each one throws up as it digs its body pit; it settles back after the cover
@@ -290,11 +351,11 @@ export const PhuketLandmarks: React.FC<LandmarkProps> = ({Y, t, terrainH, beat})
           const Body = h.kind === 'leatherback' ? SeaTurtle : GreenTurtle;
           return (
             <group key={i}>
-              <TurtleTrack x0={coastX(h.z)} x1={x - 1.2 * h.s} z={h.z} s={h.s * 0.45} />
+              <TurtleTrack x0={-EDGE} x1={x - 1.2 * h.s} z={h.z} s={h.s * 0.45} />
               <group position={[x, -sink, h.z]} rotation-y={Math.PI / 2} scale={h.s}>
                 <Body t={t + h.ph} />
               </group>
-              <Surf x={x - 0.6 * h.s} z={h.z} r={1.6 * h.s} t={t + h.ph} k={(1 - smooth(ramp(x, coastX(h.z) - 2, coastX(h.z) + 4))) * hk} />
+              <Surf x={x - 0.6 * h.s} z={h.z} r={1.6 * h.s} t={t + h.ph} k={(1 - smooth(ramp(x, -EDGE - 2, -EDGE + 4))) * hk} />
             </group>
           );
         })}
@@ -389,14 +450,14 @@ export const PhuketLandmarks: React.FC<LandmarkProps> = ({Y, t, terrainH, beat})
 
       {/* ---- 1909: the dredge on Tongkah Bay, drawn ~4x so it reads */}
       {dredgeOn(Y) && (
-        <group position={[DREDGE[0], 0, DREDGE[1]]} rotation-y={-0.6} scale={0.55}>
+        <group position={[DREDGE[0], SEA_Y, DREDGE[1]]} rotation-y={-0.6} scale={0.55}>
           <Dredge t={t} />
         </group>
       )}
 
       {/* ---- 1967: the heroines' monument and the first cars over the bridge */}
       {Y >= 1967 && <Heroines y={g(HEROINES[0], HEROINES[1])} />}
-      {cars.map((c, i) => (c ? <Car key={`car${i}`} x={c.x} z={c.z} rot={c.rot} y={g(c.x, c.z)} c={CAR_COLORS[i % CAR_COLORS.length]} /> : null))}
+      {cars.map((c, i) => (c ? <Car key={`car${i}`} x={c.x} z={c.z} rot={c.rot} y={c.z < -EDGE && c.z > BRIDGE_Z[0] ? 0.43 : g(c.x, c.z)} c={CAR_COLORS[i % CAR_COLORS.length]} /> : null))}
 
       {/* ---- 2002: the Big Buddha on เขานาคเกิด */}
       <BigBuddha y={g(BIG_BUDDHA[0], BIG_BUDDHA[1])} k={Y < 2002 ? 0 : smooth(ramp(Y, 2002, 2012))} />
@@ -405,16 +466,19 @@ export const PhuketLandmarks: React.FC<LandmarkProps> = ({Y, t, terrainH, beat})
       {payoff && (
         <group>
           {(() => {
-            const mx = motherX(t, ctx);
-            const c = coastX(MOTHER.z);
+            // heading north to the sea: the turtles face -z (rotation pi); their tracks run along z
+            const mz = motherZ(t, ctx);
+            const nest = SHORE_Z + 7;
             return (
               <group>
-                <TurtleTrack x0={mx + 1.2 * MOTHER.s} x1={c + 7} z={MOTHER.z} s={MOTHER.s * 0.45} />
-                <group position={[mx, 0, MOTHER.z]} rotation-y={-Math.PI / 2} scale={MOTHER.s}>
-                  <SeaTurtle t={t} swim={mx < c - 1} />
+                <group rotation-y={Math.PI / 2}>
+                  <TurtleTrack x0={-nest} x1={-(mz + 1.2 * MOTHER.s)} z={MOTHER.x} s={MOTHER.s * 0.45} />
                 </group>
-                <Surf x={mx} z={MOTHER.z} r={1.6 * MOTHER.s} t={t} k={smooth(ramp(-mx, -(c + 1), -(c - 3)))} />
-                <mesh position={[c + 7, 0.04, MOTHER.z + 4.4]} scale={[1.0, 0.04, 1.6]}>
+                <group position={[MOTHER.x, mz < SHORE_Z ? SEA_Y + 0.1 : 0, mz]} rotation-y={Math.PI} scale={MOTHER.s}>
+                  <SeaTurtle t={t} swim={mz < SHORE_Z + 0.5} />
+                </group>
+                <Surf x={MOTHER.x} z={mz} r={1.6 * MOTHER.s} t={t} k={smooth(ramp(-mz, -(SHORE_Z + 1), -(SHORE_Z - 3)))} />
+                <mesh position={[MOTHER.x - 4.6, 0.04, nest]} scale={[1.6, 0.04, 1.0]}>
                   <sphereGeometry args={[1, 12, 6]} />
                   <meshStandardMaterial color="#b99d6c" roughness={1} />
                 </mesh>
@@ -424,24 +488,23 @@ export const PhuketLandmarks: React.FC<LandmarkProps> = ({Y, t, terrainH, beat})
           {Array.from({length: HATCH_N}, (_, i) => {
             const h = hatchAt(i, t);
             return h ? (
-              <group key={`h${i}`} position={[h.x, 0, h.z]} rotation-y={-Math.PI / 2 + 0.2 * Math.sin(i)} scale={0.42}>
+              <group key={`h${i}`} position={[h.x, 0, h.z]} rotation-y={Math.PI + 0.2 * Math.sin(i)} scale={0.42}>
                 <SeaTurtle t={t + i * 1.3} rate={1.7} detail={false} />
               </group>
             ) : null;
           })}
           {Array.from({length: RELEASE_N}, (_, i) => {
             const r = releaseAt(i);
-            const c = coastX(r.z);
             const k = ((t + i * 0.83) * 0.16) % 1;
-            const tx = r.x - 1.2 - k * (r.x - c + 0.6);
+            const tz = r.z - 1.2 - k * (r.z - SHORE_Z + 0.6);
             return (
               <group key={`r${i}`}>
-                <group position={[r.x, 0, r.z]} rotation-y={-Math.PI / 2} scale={1.6}>
+                <group position={[r.x, 0, r.z]} rotation-y={Math.PI} scale={1.6}>
                   <Person t={t} i={i} />
                 </group>
-                {tx > c - 1 && (
-                  <group position={[tx, 0, r.z]} rotation-y={-Math.PI / 2} scale={0.4}>
-                    <GreenTurtle t={t + i} rate={1.2} swim={tx < c} />
+                {tz > SHORE_Z - 1 && (
+                  <group position={[r.x, tz < SHORE_Z ? SEA_Y + 0.1 : 0, tz]} rotation-y={Math.PI} scale={0.4}>
+                    <GreenTurtle t={t + i} rate={1.2} swim={tz < SHORE_Z} />
                   </group>
                 )}
               </group>

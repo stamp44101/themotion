@@ -17,7 +17,8 @@ export const CHINPRACHA: P = [-11.9, -10.3];
 export const JUI_TUI: P = [-12.4, -6.7];
 // วงเวียนสะพานหิน: land reclaimed from the dredge tailings; the 2452 dredge worked the bay off it
 export const SAPHAN_HIN: P = [5.0, 13.9];
-export const DREDGE: P = [24, 12];
+// the dredge works Tongkah Bay, which lies off the island's east shore here
+export const DREDGE: P = [54, 14];
 
 // คลองบางใหญ่: ~11 m wide (0.14 units). At true scale it enters the core at 7.890920,98.391739
 // ([-1.1, -17.3]) and leaves at 7.872326,98.390302 ([-3.0, 8.4]) for the bay. Upstream it comes from
@@ -42,75 +43,50 @@ export const CORE: P[] = [
   [-14.1, -13.8], [-0.8, -17.6], [4.8, -16.4], [9.2, -17.1], [11.2, -18.3], [14.0, -23.5],
 ];
 
+// ---- the island floats on the sea (owner, 21 ต.ค. 2569: "ให้แผ่นเขียวลอยอยู่บนพื้นน้ำทั้งหมด")
+// The tile is the island; the Andaman, the Pak Phra strait and Phuket Bay are one sea all round
+// it (Landmarks.tsx draws the sea and the mainland strip across the strait). So the coasts are the
+// tile's edges: the Andaman beaches on the west edge, Mai Khao and the strait on the north edge,
+// Phuket Bay and Tongkah Bay off the east edge.
+export const EDGE = 48;
+export const SEA_Y = -0.3;
+// the mainland (พังงา) across ช่องปากพระ, north of the tile
+export const MAINLAND_Z: [number, number] = [-74, -58];
+
 // ---- far places, pulled in along their bearings (real distance in the comment)
-// หาดไม้ขาว, the nesting beach's south end by the runway: 27 km at 339
-export const MAI_KHAO: P = [-15.7, -41.1];
+// หาดไม้ขาว, the nesting beach by the runway: 27 km at 339 -> on the north shore
+export const MAI_KHAO: P = [-17.0, -46.5];
 // the airport runway beside it: 27 km at 342
-export const AIRPORT: P = [-13.1, -40.9];
+export const AIRPORT: P = [-12.0, -43.5];
 // อนุสาวรีย์ท้าวเทพกระษัตรี ท้าวศรีสุนทร (2510): 11.7 km at 344
 export const HEROINES: P = [-8.0, -28.9];
 // อนุสาวรีย์ทุ่งถลางชนะศึก, the mapped monument to the 2328 battle (not โคกพม่า): 18 km at 334
 export const BATTLE: P = [-16.0, -33.4];
 // วัดพระนางสร้าง, by the Thai camp at บ้านเคียน: 17.8 km at 338
 export const PHRA_NANG_SANG: P = [-13.1, -32.5];
-// สะพานสารสิน over ช่องปากพระ, the island's north tip: 37 km at 344
-export const SARASIN: P = [-14.0, -46.5];
+// สะพานสารสิน over ช่องปากพระ, from the island's north shore to the mainland: 37 km at 344
+export const SARASIN: P = [-14.0, -53.0];
+export const BRIDGE_X = -14.0;
 // ศาลเจ้ากะทู้ (2368), the tin valley: 6.7 km at 309, drawn at 318 and 24 units out so its
 // bearings to the Thalang cluster (also compressed, harder) stay within 30 degrees
 export const KATHU: P = [-16.0, -17.8];
 // พระใหญ่ on เขานาคเกิด (2545): 10.4 km at 237
 export const BIG_BUDDHA: P = [-33.6, 21.7];
 
-// ---- water
-// The Andaman: a wide band whose east edge is the west coast. The coast runs from Mai Khao in the
-// north-north-west down to the hills under the Big Buddha.
-export const ANDAMAN: P[] = [
-  [-34, -56],
-  [-35, -38],
-  [-41, -27],
-  [-50, -13],
-  [-54, 0],
-  [-56, 20],
-  [-57, 56],
-];
-export const ANDAMAN_W = 28;
-// ช่องปากพระ along the north edge, the strait Sarasin crosses (660 m in life; 4 units here so the
-// island's north tip stays on the tile)
-export const PAK_PHRA_Z = -46;
-export const PAK_PHRA_W = 4;
-// อ่าวภูเก็ต: east of the town, then round the south-east under the Saphan Hin headland (reclaimed
-// from the dredge tailings, so land in every era here); a small cove takes the canal's mouth
-export const BAY: P[] = [
-  [33, -56],
-  [31, -10],
-  [29, 8],
-  [23, 31],
-  [8, 41],
-  [-6, 56],
-];
-export const BAY_W = 28;
-export const COVE: P[] = [
-  [4, 21],
-  [-2.2, 13.5],
-];
-export const COVE_W = 6;
-// the west coast's x at a given z (the Andaman band's east edge), for the beach scenes
-export const coastX = (z: number) => {
-  for (let i = 1; i < ANDAMAN.length; i++) {
-    const [ax, az] = ANDAMAN[i - 1];
-    const [bx, bz] = ANDAMAN[i];
-    if (z >= az && z <= bz) return ax + ((bx - ax) * (z - az)) / (bz - az) + ANDAMAN_W / 2;
-  }
-  return ANDAMAN[ANDAMAN.length - 1][0] + ANDAMAN_W / 2;
-};
+// ---- beaches: sand along the west edge (the Andaman beaches) and the north edge west of the
+// bridge (Mai Khao)
+export const WEST_BEACH_W = 9;
+export const NORTH_BEACH_X: [number, number] = [-48, -15.5];
+export const NORTH_BEACH_W = 8;
 
 // ---- story places (model positions for the beats, not geo pins)
 // Bowrey's Luppoone (ลิพอน, Thalang), "in the very middle of the Island": beside the later monument
 export const LIPON: P = [-7.5, -31.5];
-// where his ship lands, on the bay shore east of Thalang, and the forest track up to Luppoone
-export const LANDING: P = [20.5, -30];
-export const SHIP_AT: P = [26.5, -29];
-export const TRACK: P[] = [[20, -30], [14, -31.5], [8, -30.5], [2, -32], [-3, -31.2], LIPON];
+// his ship anchors off the north shore (he names no landing), and the forest track runs up to
+// Luppoone from the beach
+export const LANDING: P = [5, -46.5];
+export const SHIP_AT: P = [8, -54];
+export const TRACK: P[] = [[5, -46], [4, -41.5], [1, -37.5], [-3, -34], LIPON];
 // 2328: the Thai stockade at วัดพระนางสร้าง / บ้านเคียน (the primary sources' camp), the Burmese
 // camp on the open field to its west; the army withdraws north-west to its boats
 export const STOCKADE: P = [-12.0, -31.6];
@@ -122,5 +98,7 @@ export const THALANG_RD_Z = -8.6;
 export const DIBUK_RD_Z = -9.9;
 export const KRABI_RD_Z = -10.9;
 export const OLD_TOWN_X: [number, number] = [-13, -2.4];
-// ถนนเทพกระษัตรี north to the Sarasin bridge, through the heroines' roundabout
-export const NORTH_ROAD: P[] = [[-2.4, -12.6], [-5.5, -20], HEROINES, [-12.5, -38], [-14.0, -42], [-14.0, -48]];
+// ถนนเทพกระษัตรี north through the heroines' roundabout to the bridge
+export const NORTH_ROAD: P[] = [[-2.4, -12.6], [-5.5, -20], HEROINES, [-12.5, -38], [BRIDGE_X, -42], [BRIDGE_X, -48]];
+// the bridge itself, from the mainland over the strait to the island's shore
+export const BRIDGE_Z: [number, number] = [MAINLAND_Z[1], -48];

@@ -38,6 +38,14 @@ units: a line with banks, not a water body), and the town moved down it from Kat
 
 ### 1a. The tile (my call, see §7.2)
 
+**Owner, 21 ต.ค. 2569: the island floats on the sea** ("ให้แผ่นเขียวลอยอยู่บนพื้นน้ำทั้งหมด", after the
+in-tile sea bands looked odd). The tile is the island; one sea runs all round it past every edge,
+with the mainland (พังงา) as a second strip across the strait in the north. The coasts are the
+tile's edges: the Andaman beaches on the west, Mai Khao and Sarasin on the north, Phuket Bay and
+the dredge off the east. **75 s** (owner: "เส้นเรื่องดูรีบไปหมด"); the extra time went to the moving
+beats. The table below is the first plan, kept for the record; `src/cities/phuket/places.ts` is
+the current one.
+
 The story spans the whole island: the turtle beach (ไม้ขาว) in the north-west, Thalang and its
 battle in the north, the tin town in the south-east, the Big Buddha on the hills to the south-west.
 At 80 m/unit (`scripts/geo.mjs`, origin = the Charter bank corner 7.883662, 98.390734):
