@@ -27,19 +27,26 @@ const SHORE = SEA_X + SEA_W / 2; // x of the waterline
 // the cover: two mothers haul out of the surf the same night and crawl up the beach, a stroke at
 // a time, out of step. Their fore-flippers reach ~3.6 x scale to each side, so the two lanes sit
 // far enough apart that they never touch.
-const MOTHERS = [
+type Mother = {z: number; s: number; lag: number; ph: number; Body?: Species};
+const MOTHERS: Mother[] = [
   {z: -15, s: 6.8, lag: 0, ph: 0},
   {z: 22, s: 6.4, lag: -4, ph: 0.9},
 ];
-const turtle = (Body: Species): React.FC<{t: number}> => ({t}) => (
+// owner: a green turtle beside the leatherback. The leatherback is the bigger (2 m against 1 m in
+// life; drawn 1.3x here so the green one still reads), the green turtle a little behind it.
+const MIXED: Mother[] = [
+  {z: -15, s: 7.2, lag: 0, ph: 0, Body: SeaTurtle},
+  {z: 20, s: 5.6, lag: -3, ph: 0.9, Body: GreenTurtle},
+];
+const turtle = (Body: Species, mothers = MOTHERS): React.FC<{t: number}> => ({t}) => (
   <group>
-    {MOTHERS.map(({z, s, lag, ph}, i) => {
+    {mothers.map(({z, s, lag, ph, Body: Own = Body}, i) => {
       const x = SHORE - 7 + lag + Math.min(18, crawlAdvance(t + ph) * 3.8);
       return (
         <group key={i}>
           <TurtleTrack x0={SHORE} x1={x - 1.2 * s} z={z} s={s * 0.45} />
           <group position={[x, 0, z]} rotation-y={Math.PI / 2} scale={s}>
-            <Body t={t + ph} />
+            <Own t={t + ph} />
           </group>
           <Surf x={x - 0.6 * s} z={z} r={1.6 * s} t={t + ph} k={1 - smooth(ramp(x, SHORE - 2, SHORE + 4))} />
         </group>
@@ -252,3 +259,4 @@ export const PHUKET_TURTLE_CALLBACK = base(callback(SeaTurtle), CALLBACK_CAM, fa
 // the same two frames with the green turtle of the owner's photos, to compare
 export const PHUKET_GREEN = base(turtle(GreenTurtle), TURTLE_CAM, false, [[SHORE + 4, 2, 18]]);
 export const PHUKET_GREEN_CALLBACK = base(callback(GreenTurtle), CALLBACK_CAM, false, CALLBACK_SITES);
+export const PHUKET_MIXED = base(turtle(SeaTurtle, MIXED), TURTLE_CAM, false, [[SHORE + 4, -12, 16], [SHORE + 4, 20, 16]]);

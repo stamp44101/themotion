@@ -19,7 +19,7 @@ import {PHETCHABURI} from './cities/phetchaburi';
 import {CHIANGRAI} from './cities/chiangrai';
 import {CELEBRATION} from './styleframes/celebration';
 import {CHIANGRAI_CLOSE, CHIANGRAI_FRONT, CHIANGRAI_QUARTER} from './styleframes/chiangrai';
-import {PHUKET_DREDGE, PHUKET_GREEN, PHUKET_GREEN_CALLBACK, PHUKET_TURTLE, PHUKET_TURTLE_CALLBACK} from './styleframes/phuket';
+import {PHUKET_DREDGE, PHUKET_GREEN, PHUKET_GREEN_CALLBACK, PHUKET_MIXED, PHUKET_TURTLE, PHUKET_TURTLE_CALLBACK} from './styleframes/phuket';
 import {KHONKAEN_DINO, KHONKAEN_STUPA, KHONKAEN_TAMARIND} from './styleframes/khonkaen';
 import {LAMPANG_CHEDI, LAMPANG_ELEPHANT, LAMPANG_CARRIAGE, LAMPANG_HORSE} from './styleframes/lampang';
 import {DioramaComposition} from './engine/DioramaComposition';
@@ -48,6 +48,7 @@ const ChiangRaiStyleClose: React.FC = () => <DioramaComposition city={CHIANGRAI_
 const PhuketStyleTurtle: React.FC = () => <DioramaComposition city={PHUKET_TURTLE} />;
 const PhuketStyleDredge: React.FC = () => <DioramaComposition city={PHUKET_DREDGE} />;
 const PhuketStyleCallback: React.FC = () => <DioramaComposition city={PHUKET_TURTLE_CALLBACK} />;
+const PhuketStyleMixed: React.FC = () => <DioramaComposition city={PHUKET_MIXED} />;
 const PhuketStyleGreen: React.FC = () => <DioramaComposition city={PHUKET_GREEN} />;
 const PhuketStyleGreenCallback: React.FC = () => <DioramaComposition city={PHUKET_GREEN_CALLBACK} />;
 const KhonKaenStyleDino: React.FC = () => <DioramaComposition city={KHONKAEN_DINO} />;
@@ -85,6 +86,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="PhuketStyleTurtle" component={PhuketStyleTurtle} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="PhuketStyleDredge" component={PhuketStyleDredge} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="PhuketStyleCallback" component={PhuketStyleCallback} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="PhuketStyleMixed" component={PhuketStyleMixed} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="PhuketStyleGreen" component={PhuketStyleGreen} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="PhuketStyleGreenCallback" component={PhuketStyleGreenCallback} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="KhonKaenStyleDino" component={KhonKaenStyleDino} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
