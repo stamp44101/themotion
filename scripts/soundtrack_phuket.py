@@ -303,8 +303,20 @@ add(sfx, bell(523, 3.0, ratios=(1, 2.0, 3.0), decay=1.0), at(growth, 0.8), pan=-
 for k in range(6):
     m = int(0.3 * SR)
     add(sfx, filt(pink(m), "band", (150, 800)) * env_ar(m, 0.05, 0.25) * 0.4, turtles[0] + 0.6 + k * 0.7, pan=-0.1, gain=0.6)
-for _ in range(18):
-    add(sfx, splash(), rng.uniform(turtles[0] + 2.0, DUR - 4), pan=rng.uniform(-0.4, 0.2), gain=0.3)
+def plip():
+    """a hatchling reaching the water: a soft droplet 'plip' (a falling tone, no hiss on top)
+    over a short wash, so each one reads as its own event over the voices"""
+    w = filt(splash(), "low", 2400)
+    t = np.arange(len(w)) / SR
+    drop = np.sin(2 * np.pi * np.cumsum(1300 * np.exp(-t * 18) + 500) / SR) * np.exp(-t * 30)
+    return drop * 0.35 + w * 0.8
+
+
+# each splash its own event: spaced, not clumped, and over the voices rather than inside them
+t = turtles[0] + 2.0
+while t < DUR - 4:
+    add(sfx, plip(), t, pan=rng.uniform(-0.4, 0.2), gain=0.8)
+    t += rng.uniform(0.45, 0.9)
 steps(turtles[0], turtles[0] + 1.4, 0.2, 0.18, pan=0.4)
 add(sfx, babble(DUR - turtles[0] - 3.5, 1.3), turtles[0] + 0.4, pan=0.3, gain=1.1)
 add(sfx, babble(DUR - turtles[0] - 3.5, 0.9), turtles[0] + 0.9, pan=-0.3, gain=0.7)
