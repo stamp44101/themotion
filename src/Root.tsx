@@ -16,7 +16,9 @@ import {NAKHONSI} from './cities/nakhonsi';
 import {LAMPANG} from './cities/lampang';
 import {KHONKAEN} from './cities/khonkaen';
 import {PHETCHABURI} from './cities/phetchaburi';
+import {CHIANGRAI} from './cities/chiangrai';
 import {CELEBRATION} from './styleframes/celebration';
+import {CHIANGRAI_CLOSE, CHIANGRAI_FRONT, CHIANGRAI_QUARTER} from './styleframes/chiangrai';
 import {KHONKAEN_DINO, KHONKAEN_STUPA, KHONKAEN_TAMARIND} from './styleframes/khonkaen';
 import {LAMPANG_CHEDI, LAMPANG_ELEPHANT, LAMPANG_CARRIAGE, LAMPANG_HORSE} from './styleframes/lampang';
 import {DioramaComposition} from './engine/DioramaComposition';
@@ -35,9 +37,13 @@ const NakhonSi: React.FC = () => <DioramaComposition city={NAKHONSI} />;
 const Lampang: React.FC = () => <DioramaComposition city={LAMPANG} />;
 const KhonKaen: React.FC = () => <DioramaComposition city={KHONKAEN} />;
 const Phetchaburi: React.FC = () => <DioramaComposition city={PHETCHABURI} />;
+const ChiangRai: React.FC = () => <DioramaComposition city={CHIANGRAI} />;
 // shader-look preview (issue #27), for still-vs-still checks of the PR #53 blackout
 const PhetchaburiLook: React.FC = () => <DioramaComposition city={{...PHETCHABURI, look: 'shader'}} />;
 const Celebration: React.FC = () => <DioramaComposition city={CELEBRATION} />;
+const ChiangRaiStyleFront: React.FC = () => <DioramaComposition city={CHIANGRAI_FRONT} />;
+const ChiangRaiStyleQuarter: React.FC = () => <DioramaComposition city={CHIANGRAI_QUARTER} />;
+const ChiangRaiStyleClose: React.FC = () => <DioramaComposition city={CHIANGRAI_CLOSE} />;
 const KhonKaenStyleDino: React.FC = () => <DioramaComposition city={KHONKAEN_DINO} />;
 const KhonKaenStyleTamarind: React.FC = () => <DioramaComposition city={KHONKAEN_TAMARIND} />;
 const KhonKaenStyleStupa: React.FC = () => <DioramaComposition city={KHONKAEN_STUPA} />;
@@ -67,11 +73,15 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="Korat" component={Korat} durationInFrames={(KORAT.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="NakhonSi" component={NakhonSi} durationInFrames={(NAKHONSI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Celebration" component={Celebration} durationInFrames={60 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="ChiangRaiStyleFront" component={ChiangRaiStyleFront} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="ChiangRaiStyleQuarter" component={ChiangRaiStyleQuarter} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="ChiangRaiStyleClose" component={ChiangRaiStyleClose} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="KhonKaenStyleDino" component={KhonKaenStyleDino} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="KhonKaenStyleTamarind" component={KhonKaenStyleTamarind} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="KhonKaenStyleStupa" component={KhonKaenStyleStupa} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="KhonKaen" component={KhonKaen} durationInFrames={(KHONKAEN.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Phetchaburi" component={Phetchaburi} durationInFrames={(PHETCHABURI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="ChiangRai" component={ChiangRai} durationInFrames={(CHIANGRAI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="PhetchaburiLook" component={PhetchaburiLook} durationInFrames={(PHETCHABURI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Lampang" component={Lampang} durationInFrames={(LAMPANG.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="LampangStyleElephant" component={LampangStyleElephant} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />

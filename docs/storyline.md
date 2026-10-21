@@ -125,6 +125,18 @@ happens; this table decides how long each thing gets and how it is shown.
 - **A fact with nothing on screen goes in a sub line, not a beat.** An attributed fact carries
   สันนิษฐานว่า or ราว.
 
+### 3.6a What we do not show (owner, 20 ต.ค. 2569)
+- **In:**
+  - natural events with little loss of life or property (a landslide on empty hillside, a river
+    changing course, lightning splitting a chedi);
+  - wars and battles centuries back, which are the town's history, shown as armies meeting and
+    never as violence.
+- **Out:**
+  - anything within living memory that killed or injured people or cost many their homes;
+  - anything else that still hurts the people who live there, however strong the picture.
+
+  Chiang Rai: the 2485 bombing, the 2557 earthquake, the 2567 flood and Tham Luang are out.
+
 ### 3.7 Sound
 - The hero's sound comes first.
 - Every event gets its SFX on the beat.

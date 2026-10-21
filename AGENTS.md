@@ -113,6 +113,25 @@ Research and plan-tracing is worth doing on a strong model. Rendering, encoding,
 contact sheets and publishing are mechanical and belong on a cheap one — the
 render is GPU-bound anyway, so a bigger model buys nothing there.
 
+## Two agents on one city: the PR is the room (owner, 20 ต.ค. 2569)
+
+The cloud agent and the owner's local agent work a city through **one draft PR**, so the
+owner does not carry messages between them.
+
+- **Talk in the PR.** Comments on the city's draft PR, not in issues or chat. The cloud agent
+  is subscribed to the PR and is woken by every comment. The local agent watches it with
+  `/loop`, e.g. `/loop 15m check PR #<n> for new [cloud] comments addressed to [local]; do
+  the work and reply there`.
+- **Sign every comment** `[cloud]` or `[local]`: both post as the owner's account.
+- **Say who does what next**, so the two never build the same thing. By default:
+  - cloud: briefs, layout, landmarks, camera, soundtrack, checks, contact sheets;
+  - local: anything behind the container's walls (ONEP, OSM, Google Maps, Thai sites),
+    full renders on the GPU, `check_render`, encodes, release uploads.
+- **Only the owner decides:** the hero, the story beats, what is shown (`docs/storyline.md`
+  §3.6a), anything that spends money, merging, posting. When one is needed, write
+  `@stamp44101 ต้องตัดสินใจ: <the question, with the options>` (GitHub notifies the owner's
+  phone), and keep working on what does not depend on it. Everything else, settle between you.
+
 ## Verifying your own work
 
 Two scripts catch what used to be found only on a phone. Run both; neither is
@@ -125,7 +144,8 @@ optional.
   caption title wider than one line, the year curve never running backwards. `npm run render:<city>` runs the timing
   check itself and will not start if it fails. CI runs `npm run check` on every PR.
 - **After rendering:** `npm run encode -- <city>` makes the repo copy and the
-  upload copy and then checks all three files: light may not jump more than 8
+  one `_social` upload copy (TikTok, IG and Facebook) and then checks all three files
+  (the master too): light may not jump more than 8
   luma levels between frames or drop below 35 before the finale, the repo copy
   must be under 100 MB and tagged limited-range bt709. A render that fails is
   not handed over. `npm run check:render -- <file>` checks any file on its own.

@@ -392,28 +392,25 @@ matrix. Players and platform encoders assume limited-range bt709, so the upload
 can come back with shifted contrast and colour. This applies to every render in
 `renders/`, not just one city.
 
-Convert and tag explicitly for the upload copy:
+Convert and tag explicitly for the upload copy, **one file for TikTok, Instagram and
+Facebook** (owner's standard since Phetchaburi):
 
 ```bash
-ffmpeg -i out/<city>.mp4   -vf "scale=in_range=full:out_range=limited,format=yuv420p"   -c:v libx264 -preset slow -crf 17 -maxrate 20M -bufsize 40M   -profile:v high -level 4.2 -pix_fmt yuv420p   -color_range tv -colorspace bt709 -color_primaries bt709 -color_trc bt709   -x264-params "keyint=60:min-keyint=30:colorprim=bt709:transfer=bt709:colormatrix=bt709:range=tv"   -movflags +faststart -c:a aac -b:a 320k -ar 48000 out/<city>_tiktok.mp4
+ffmpeg -i out/<city>.mp4   -vf "scale=in_range=full:out_range=limited,format=yuv420p"   -c:v libx264 -preset slow -crf 21 -maxrate 8M -bufsize 16M   -profile:v high -level 4.0 -pix_fmt yuv420p   -color_range tv -colorspace bt709 -color_primaries bt709 -color_trc bt709   -x264-params "keyint=60:min-keyint=30:colorprim=bt709:transfer=bt709:colormatrix=bt709:range=tv"   -movflags +faststart -c:a aac -b:a 192k -ar 48000 -ac 2 out/<city>_social.mp4
 ```
 
-~17 Mbps, ~155 MB for 75 s. TikTok re-encodes everything to a few Mbps anyway,
-so the only thing that matters is giving its encoder a clean, high-bitrate,
-correctly-tagged source. Upload from the web rather than the phone app, which
+~7.5 Mbps, 1080×1920 30 fps, `high@4.0`, AAC 192k. **Why one file:** Instagram expects
+around 5 Mbps for a reel, and a file several times that gets stuck on "processing" and is
+then dropped without an error. TikTok re-encodes everything to a few Mbps anyway, so the
+~17 Mbps copy it used to get (`_tiktok`) bought nothing visible; what matters there is a
+clean, correctly-tagged source. Upload from the web rather than the phone app, which
 compresses before it ever reaches them.
 
-Keep the copies straight: `out/<city>.mp4` is the master,
-`renders/<city>.mp4` is the shareable copy (<100 MB), `out/<city>_tiktok.mp4`
-is the TikTok upload, `out/<city>_ig.mp4` is the Instagram and Facebook upload,
-and the chat preview is heavily squeezed (~1.8 Mbps) and is **not** an upload
-file. `scripts/encode.mjs` builds all of them from the master in one pass.
-
-**Instagram needs its own file; the TikTok one will not post.** TikTok takes a
-heavy source and re-encodes it, so ~17 Mbps costs nothing there. Instagram
-expects around 5 Mbps for a reel, and a file several times that gets stuck on
-"processing" and is then dropped without an error. The IG copy is the same
-picture, colour tags and frame rate at ~7.5 Mbps, `high@4.0`, AAC 192k.
+Keep the copies straight: `out/<city>.mp4` is the master, `renders/<city>.mp4` is the
+shareable copy (<100 MB), `out/<city>_social.mp4` is the upload for every platform, and the
+chat preview is heavily squeezed (~1.8 Mbps) and is **not** an upload file.
+`scripts/encode.mjs` builds them from the master in one pass. The finished `_social` file
+goes on the release as `<city>_social.mp4` (`<city>_look_social.mp4` for the shader look).
 
 ## Where the videos live
 
