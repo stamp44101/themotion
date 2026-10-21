@@ -91,12 +91,70 @@ const family = ({Body, mz, ms, lane, n, ph, size = 1.1}: Family, t: number, key:
 };
 const callback = (Body: Species): React.FC<{t: number}> => ({t}) =>
   family({Body, mz: -6, ms: 5.5, lane: [10, 23.75], n: 12, ph: 0}, t, 0);
-// owner's pick (21 ต.ค. 2569): both species. Each mother with her own hatchlings, in four lanes
-// from north to south: leatherback, her young, the green turtle's young, the green turtle.
+// owner's pick (21 ต.ค. 2569): both species. The field check (phuket_field.md §3.4) decides what
+// each does today: the leatherback still nests at Mai Khao, the green turtle no longer does and is
+// released there by people every Songkran. So the leatherback mother goes back to the sea with her
+// hatchlings, and beside her a line of people let young green turtles go at the waterline.
+// People are drawn ~6 units a metre (a little under the leatherback's hero scale, so they read as
+// people round the turtles, not giants over them), in Songkran shirts, spread along the beach; each
+// sets a young turtle down and it crawls into the surf.
+const SHIRTS = ['#e0503c', '#2f7fc1', '#f2b632', '#3aa37a', '#e86fa3', '#f4f1ea'];
+const Person: React.FC<{t: number; i: number}> = ({t, i}) => {
+  // a slow crouch to set the turtle down, then up again
+  const q = (t * 0.35 + i * 0.37) % 1;
+  const bend = q < 0.5 ? Math.sin(q * 2 * Math.PI) * 0.5 : 0;
+  const shirt = SHIRTS[i % SHIRTS.length];
+  const skin = ['#c68e5f', '#a8714a', '#d9a47a'][i % 3];
+  return (
+    <group>
+      {[-1, 1].map((sd) => (
+        <mesh key={sd} position={[sd * 0.1, 0.42 - bend * 0.12, 0]} castShadow>
+          <cylinderGeometry args={[0.07, 0.06, 0.84, 8]} />
+          <meshStandardMaterial color="#2c3440" />
+        </mesh>
+      ))}
+      <group position={[0, 0.84 - bend * 0.25, 0]} rotation-x={bend}>
+        <mesh position={[0, 0.3, 0]} castShadow>
+          <capsuleGeometry args={[0.17, 0.32, 4, 10]} />
+          <meshStandardMaterial color={shirt} roughness={0.8} />
+        </mesh>
+        <mesh position={[0, 0.72, 0.02]} castShadow>
+          <sphereGeometry args={[0.13, 12, 10]} />
+          <meshStandardMaterial color={skin} />
+        </mesh>
+        {/* arms reaching down and forward to the turtle */}
+        {[-1, 1].map((sd) => (
+          <mesh key={sd} position={[sd * 0.22, 0.28, 0.12]} rotation-x={-0.6 - bend * 0.6} castShadow>
+            <cylinderGeometry args={[0.045, 0.04, 0.6, 6]} />
+            <meshStandardMaterial color={skin} />
+          </mesh>
+        ))}
+      </group>
+    </group>
+  );
+};
+const RELEASE = Array.from({length: 6}, (_, i) => ({z: 17 + i * 5.2, ph: i * 0.83}));
 const callbackMixed: React.FC<{t: number}> = ({t}) => (
   <group>
-    {family({Body: SeaTurtle, mz: -20, ms: 4.6, lane: [-1, 7], n: 9, ph: 0}, t, 0)}
-    {family({Body: GreenTurtle, mz: 30, ms: 4.2, lane: [11, 18], n: 9, ph: 0.9}, t, 1)}
+    {family({Body: SeaTurtle, mz: -20, ms: 4.6, lane: [-2, 8], n: 9, ph: 0}, t, 0)}
+    {RELEASE.map(({z, ph}, i) => {
+      const px = SHORE + 7 + (i % 2) * 3;
+      // each young turtle is set down at the person's feet and crawls to the water, again and again
+      const k = ((t + ph) * 0.16) % 1;
+      const tx = px - 3 - k * 9;
+      return (
+        <group key={i}>
+          <group position={[px, 0, z]} rotation-y={-Math.PI / 2} scale={6}>
+            <Person t={t} i={i} />
+          </group>
+          {tx > SHORE - 3 && (
+            <group position={[tx, 0, z]} rotation-y={-Math.PI / 2} scale={1.0}>
+              <GreenTurtle t={t + ph} rate={1.2} swim={tx < SHORE - 1} />
+            </group>
+          )}
+        </group>
+      );
+    })}
   </group>
 );
 
@@ -273,8 +331,8 @@ export const PHUKET_GREEN = base(turtle(GreenTurtle), TURTLE_CAM, false, [[SHORE
 export const PHUKET_GREEN_CALLBACK = base(callback(GreenTurtle), CALLBACK_CAM, false, CALLBACK_SITES);
 export const PHUKET_MIXED = base(turtle(SeaTurtle, MIXED), TURTLE_CAM, false, [[SHORE + 4, -12, 16], [SHORE + 4, 20, 16]]);
 const MIXED_CALLBACK_CAM: Key[] = [
-  [0, -20, 1, 8, 175, -14, 42, 30],
-  [3, -21, 1, 8, 168, -12, 42, 30],
-  [6, -22, 1, 8, 160, -10, 41, 30],
+  [0, -19, 1, 9, 190, -14, 42, 30],
+  [3, -20, 1, 9, 182, -12, 42, 30],
+  [6, -21, 1, 9, 175, -10, 41, 30],
 ];
-export const PHUKET_MIXED_CALLBACK = base(callbackMixed, MIXED_CALLBACK_CAM, false, [[SHORE + 8, -16, 14], [SHORE + 8, 6, 14], [SHORE + 8, 28, 14]]);
+export const PHUKET_MIXED_CALLBACK = base(callbackMixed, MIXED_CALLBACK_CAM, false, [[SHORE + 8, -16, 14], [SHORE + 8, 6, 14], [SHORE + 8, 26, 14], [SHORE + 8, 42, 10]]);
