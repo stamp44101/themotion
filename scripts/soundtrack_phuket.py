@@ -111,8 +111,10 @@ t = 0.3
 while t < DUR - 6:
     i = int(t * SR)
     if tl.NIGHT[i] < 0.2 and not (siege[0] < t < siege[1]):
-        add(amb, chirp_bird(), t, pan=rng.uniform(-0.8, 0.8), gain=1.0 if Y[i] < 1900 else 0.45)
-    t += rng.exponential(0.34)
+        # rounded off at 2.8 kHz: the owner dislikes sharp highs, and an unfiltered chirp
+        # every 0.34 s put the clip's brightest moments in its first ten seconds
+        add(amb, filt(chirp_bird(), "low", 2800), t, pan=rng.uniform(-0.8, 0.8), gain=1.8 if Y[i] < 1900 else 0.9)
+    t += rng.exponential(0.5)
 cr = np.sin(2 * np.pi * 4300 * T) * (np.sin(2 * np.pi * 27 * T) > 0.2)
 gate = filt((np.sin(2 * np.pi * 1.6 * T) > 0.1).astype(float), "low", 40)
 crickets = filt(cr, "low", 3000) * gate * np.clip((tl.NIGHT - 0.25) / 0.35, 0, 1) * 0.03
@@ -246,7 +248,8 @@ def steps(t0, t1, every, gain, pan=0.0, soft=True):
 # 1675: the lifeguard's feet beside the elephants, tin knocking into the boat, gulls
 steps(at(tin, 0.42), at(tin, 0.97), 0.32, 0.22, pan=0.1)
 for _ in range(10):
-    add(sfx, clink(), rng.uniform(at(tin, 0.4), tin[1] - 0.2), pan=rng.uniform(0.3, 0.7), gain=0.5)
+    # tin lumps knocking in the boat: a dull metal knock, not a bright ceramic clink
+    add(sfx, filt(bell(rng.uniform(700, 1000), 0.3, ratios=(1, 2.32), decay=14), "low", 2400) * 0.4, rng.uniform(at(tin, 0.4), tin[1] - 0.2), pan=rng.uniform(0.3, 0.7), gain=0.5)
 for _ in range(3):
     add(sfx, filt(chirp_bird(), "low", 2600), rng.uniform(tin[0] + 3.4, tin[1]), pan=rng.uniform(0.2, 0.8), gain=0.7)
 # 1785: the camp's tents going up, the women's column marching out, shouts on both sides
@@ -275,7 +278,7 @@ for i in range(14):
     add(sfx, blip(500 - i * 10, 0.7), at(oldtown, p) + 0.06, pan=0.4 - i * 0.07)
 add(sfx, blip(240, 1.1), at(oldtown, 0.45), pan=-0.4)
 add(sfx, babble(oldtown[1] - oldtown[0], 1.2), oldtown[0] + 0.3, pan=0.0, gain=0.55)
-add(sfx, bicycle_bell(), at(oldtown, 0.8), pan=0.4, gain=0.6)
+add(sfx, filt(bicycle_bell(), "low", 3000), at(oldtown, 0.8), pan=0.4, gain=0.6)
 # 1909: gulls over the dredge
 for _ in range(3):
     add(sfx, filt(chirp_bird(), "low", 2600), rng.uniform(dredge[0], dredge[1]), pan=rng.uniform(-0.6, 0.6), gain=0.6)
