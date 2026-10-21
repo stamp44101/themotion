@@ -152,13 +152,15 @@ export const dredgeOn = (Y: number) => Y >= 1909 && Y < 1992;
 
 // ------------------------------------------------------------------ 1967
 // the first cars come over the bridge from the mainland and drive south past the heroines
-const ROAD_IN: P[] = [[BRIDGE_X, MAINLAND_Z[0] + 4], ...[...NORTH_ROAD].reverse()];
+// they start on the mainland just short of the bridge, so the first is on the deck as the beat
+// opens; spaced 7 apart so three cars read as traffic, not one striped block ([local], #59)
+const ROAD_IN: P[] = [[BRIDGE_X, MAINLAND_Z[1] - 4], ...[...NORTH_ROAD].reverse()];
 const ROAD_LEN = lengthOf(ROAD_IN);
-export const CARS = 5;
+export const CARS = 3;
 export const carAt = (i: number, t: number, {Y, beat}: ActorCtx) => {
   const p = beat('bridge');
   if (Y < 1967 || Y > 1967.46 || p <= 0 || p >= 1) return null;
-  const d = (t - beatAt('bridge', 0)) * 3.2 - i * 2.6;
+  const d = (t - beatAt('bridge', 0)) * 2.4 + 6 - i * 7;
   if (d < 0 || d > ROAD_LEN) return null;
   return along(ROAD_IN, d);
 };

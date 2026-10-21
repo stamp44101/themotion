@@ -19,7 +19,7 @@ export const STORY = buildStory({
     [19.9, -10, 1, -26, 90, 10, 37, 30],
     [27.9, -6, 1, -10, 70, 20, 39, 30],
     [35.3, 30, 1, 8, 90, 45, 37, 30],
-    [42.3, 0, 1, -32, 110, 10, 36, 30],
+    [42.2, 14, 1, -26, 130, 20, 40, 30],
     [49.9, -6, 1, -12, 160, 20, 36, 30],
     [57.9, -20, 1, -34, 130, -140, 37, 30],
     [75, -6, 2, -4, 240, -320, 36, 30],
@@ -94,13 +94,13 @@ export const STORY = buildStory({
       // the bucket dredge works Tongkah Bay off the east shore: chain turning, stack smoking
       id: 'dredge',
       kind: 'trade',
-      t: [35.6, 42.0],
+      t: [35.6, 41.6],
       year: {hold: 1909},
       caption: {t0: 35.4, title: 'เรือขุดแร่ในทะเล', sub: 'ลำแรกของโลก พ.ศ. 2452 กัปตันเอ็ดเวิร์ด ไมลส์ อ่าวทุ่งคา'},
-      callouts: [{t0: 37.0, t1: 41.8, label: 'อ่าวทุ่งคา', dx: -90, dy: -130, p: [DREDGE[0], 1.0, DREDGE[1]]}],
+      callouts: [{t0: 37.0, t1: 41.4, label: 'อ่าวทุ่งคา', dx: -90, dy: -130, p: [DREDGE[0], 1.0, DREDGE[1]]}],
       camera: [
         [35.8, DREDGE[0] - 4, 1, DREDGE[1], 48, 40, 36, 30],
-        [41.8, DREDGE[0] - 4, 1, DREDGE[1], 42, 66, 36, 30],
+        [41.5, DREDGE[0] - 4, 1, DREDGE[1], 42, 66, 36, 30],
       ],
     },
     {
@@ -113,12 +113,13 @@ export const STORY = buildStory({
       era: 'ปัจจุบัน',
       callouts: [
         {t0: 43.4, t1: 46.4, label: 'สะพานสารสิน', dx: 90, dy: -130, p: [SARASIN[0], 0.8, SARASIN[1]]},
-        {t0: 48.2, t1: 49.4, label: 'อนุสาวรีย์วีรสตรี', dx: 90, dy: -130, p: [HEROINES[0], 1.6, HEROINES[1]]},
       ],
       camera: [
-        [42.8, -13, 1, -54, 42, -10, 38, 30],
-        [46.2, -12, 1, -40, 46, -4, 37, 30],
-        [49.4, -9, 1, -31, 46, 4, 36, 30],
+        // tracking the middle car down the bridge and onto the island, the cars in the lower
+        // two-thirds of the frame, clear of the caption
+        [43.2, -14, 1, -63, 50, -10, 38, 30],
+        [46.0, -14, 1, -56, 46, -6, 37, 30],
+        [49.4, -13, 1, -48, 48, 0, 37, 30],
       ],
     },
     {
