@@ -315,6 +315,10 @@ export const PhuketLandmarks: React.FC<LandmarkProps> = ({Y, t, terrainH, beat})
   // ---- 1967
   const cars = Array.from({length: CARS}, (_, i) => carAt(i, t, ctx));
   const payoff = payoffOn(Y);
+  // the payoff arrives over its first ~1.3 s instead of popping in under the caption ([local] on
+  // #59 measured it as the clip's largest frame-to-frame jump at 58.2 s): the mother rises out of
+  // the sand at her nest, the hatchlings come up out of it, the crowd walks in along the beach
+  const arrive = smooth(ramp(beat('turtles'), 0, 0.15));
 
   return (
     <group>
@@ -474,7 +478,7 @@ export const PhuketLandmarks: React.FC<LandmarkProps> = ({Y, t, terrainH, beat})
                 <group rotation-y={Math.PI / 2}>
                   <TurtleTrack x0={-nest} x1={-(mz + 1.2 * MOTHER.s)} z={MOTHER.x} s={MOTHER.s * 0.45} />
                 </group>
-                <group position={[MOTHER.x, mz < SHORE_Z ? SEA_Y + 0.1 : 0, mz]} rotation-y={Math.PI} scale={MOTHER.s}>
+                <group position={[MOTHER.x, (mz < SHORE_Z ? SEA_Y + 0.1 : 0) - (1 - arrive) * 1.6 * MOTHER.s, mz]} rotation-y={Math.PI} scale={MOTHER.s}>
                   <SeaTurtle t={t} swim={mz < SHORE_Z + 0.5} />
                 </group>
                 <Surf x={MOTHER.x} z={mz} r={1.6 * MOTHER.s} t={t} k={smooth(ramp(-mz, -(SHORE_Z + 1), -(SHORE_Z - 3)))} />
@@ -488,7 +492,7 @@ export const PhuketLandmarks: React.FC<LandmarkProps> = ({Y, t, terrainH, beat})
           {Array.from({length: HATCH_N}, (_, i) => {
             const h = hatchAt(i, t);
             return h ? (
-              <group key={`h${i}`} position={[h.x, 0, h.z]} rotation-y={Math.PI + 0.2 * Math.sin(i)} scale={0.42}>
+              <group key={`h${i}`} position={[h.x, 0, h.z]} rotation-y={Math.PI + 0.2 * Math.sin(i)} scale={0.42 * smooth(ramp(arrive, (i % 5) * 0.12, 0.5 + (i % 5) * 0.12))}>
                 <SeaTurtle t={t + i * 1.3} rate={1.7} detail={false} />
               </group>
             ) : null;
@@ -499,10 +503,10 @@ export const PhuketLandmarks: React.FC<LandmarkProps> = ({Y, t, terrainH, beat})
             const tz = r.z - 1.2 - k * (r.z - SHORE_Z + 0.6);
             return (
               <group key={`r${i}`}>
-                <group position={[r.x, 0, r.z]} rotation-y={Math.PI} scale={1.6}>
+                <group position={[r.x - (1 - arrive) * (10 + i * 1.5), 0, r.z + (1 - arrive) * 2]} rotation-y={Math.PI - (1 - arrive) * 1.2} scale={1.6}>
                   <Person t={t} i={i} />
                 </group>
-                {tz > SHORE_Z - 1 && (
+                {arrive > 0.95 && tz > SHORE_Z - 1 && (
                   <group position={[r.x, tz < SHORE_Z ? SEA_Y + 0.1 : 0, tz]} rotation-y={Math.PI} scale={0.4}>
                     <GreenTurtle t={t + i} rate={1.2} swim={tz < SHORE_Z} />
                   </group>
