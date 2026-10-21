@@ -11,7 +11,9 @@
 import type {CityLayout} from './types';
 import {railSpan} from './world';
 
-export type ActorCtx = {Y: number; beat: (id: string) => number};
+/** `ground` is the terrain height (check_story passes the world's terrainH), so an actor on a
+ *  slope can declare its real height: one declared above the hill cannot be hidden by it */
+export type ActorCtx = {Y: number; beat: (id: string) => number; ground?: (x: number, z: number) => number};
 
 export type Actor = {
   id: string;
@@ -24,6 +26,9 @@ export type Actor = {
   /** share of its standing time it must be in frame (default 0.8; a train that crosses the
    *  whole tile only passes through the frame, 0.15) */
   minInFrame?: number;
+  /** docs/storyline.md: `hero` is the cover's standout thing at frame 0; `callback` is that
+   *  hero coming back in the payoff (the open loop closing) */
+  role?: 'hero' | 'callback';
 };
 
 const lerp = (a: number, b: number, u: number) => a + (b - a) * u;

@@ -107,8 +107,10 @@ export type CityLayout = {
    *  inside one, in any era. Random sprawl used to land on a chedi or a monument. */
   sites?: [number, number, number][];
   /** Hand-placed landmark parts with their own years, so nothing generated stands in a
-   *  viharn or a fort while it is up. Optional; `sites` covers the landmark's whole ground. */
-  footprints?: {fp: Footprint; from?: number; to?: number; label?: string}[];
+   *  viharn or a fort while it is up. Optional; `sites` covers the landmark's whole ground.
+   *  `onWall` marks a part built on the wall line (a หอรบ, a gate tower): check_story fails
+   *  any other footprint the wall runs through. */
+  footprints?: {fp: Footprint; from?: number; to?: number; label?: string; onWall?: boolean}[];
   towers: {x0: number; x1: number; z0: number; z1: number; extra: number}[];
   /** Year high-rises start: before it every modern building stays low-rise and its extra
    *  storeys (towers, the odd tall block) go up over the following years. Unset = tall from the start. */
@@ -165,4 +167,8 @@ export type CityConfig = {
    *  check_story can project each one through the camera for its beat (engine/actors.ts).
    *  Trains are registered by the engine from layout.trains. */
   actors?: Actor[];
+  /** Opening hook (experimental): show the finale first, then rewind to the start. About half of
+   *  viewers skipped every posted clip in its first 3 s while it showed a static forest tile.
+   *  `from`: story second shown first; `hold`: how long; `out`/`in`: veil fade times; `text`: veil line. */
+  hook?: {from: number; hold: number; out: number; in: number; text: string};
 };
