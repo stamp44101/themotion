@@ -54,39 +54,51 @@ const turtle = (Body: Species, mothers = MOTHERS): React.FC<{t: number}> => ({t}
     })}
   </group>
 );
-// the payoff: the mother turns back to the sea and her hatchlings scramble down the beach after her
-// the hatchlings run in their own lane beside the mother's track, not over her
-// (her fore-flippers sweep ~16 units out at this scale, so the lane starts clear of them)
-const MZ = -6;
-const HATCH = Array.from({length: 12}, (_, i) => ({z: 10 + ((i * 5) % 12) * 1.25, d: (i * 0.29) % 1, ph: i * 1.3}));
-const callback = (Body: Species): React.FC<{t: number}> => ({t}) => {
-  const s = 5.5;
-  const mx = SHORE + 7 - Math.min(13, crawlAdvance(t) * 3.2);
+// the payoff: the mother turns back to the sea and her hatchlings scramble down the beach after her.
+// A family = one mother and her own young. The hatchlings run in a lane beside the mother's track,
+// clear of her fore-flippers (they sweep ~3.6 x scale out on a leatherback, ~2.7 x on a green).
+type Family = {Body: Species; mz: number; ms: number; lane: [number, number]; n: number; ph: number; size?: number};
+const family = ({Body, mz, ms, lane, n, ph, size = 1.1}: Family, t: number, key: number) => {
+  const mx = SHORE + 7 - Math.min(13, crawlAdvance(t + ph) * 3.2);
+  const [z0, z1] = lane;
   return (
-    <group>
-      <TurtleTrack x0={mx + 1.2 * s} x1={SHORE + 16} z={MZ} s={s * 0.45} />
-      <group position={[mx, 0, MZ]} rotation-y={-Math.PI / 2} scale={s}>
-        <Body t={t} swim={mx < SHORE - 2} />
+    <group key={key}>
+      <TurtleTrack x0={mx + 1.2 * ms} x1={SHORE + 16} z={mz} s={ms * 0.45} />
+      <group position={[mx, 0, mz]} rotation-y={-Math.PI / 2} scale={ms}>
+        <Body t={t + ph} swim={mx < SHORE - 2} />
       </group>
-      <Surf x={mx} z={MZ} r={1.6 * s} t={t} k={smooth(ramp(-mx, -(SHORE + 1), -(SHORE - 4)))} />
-      {HATCH.map((h, i) => {
+      <Surf x={mx} z={mz} r={1.6 * ms} t={t + ph} k={smooth(ramp(-mx, -(SHORE + 1), -(SHORE - 4)))} />
+      {Array.from({length: n}, (_, i) => {
+        const z = z0 + (((i * 5) % n) / Math.max(1, n - 1)) * (z1 - z0);
+        const d = (i * 0.29) % 1;
+        const hp = i * 1.3 + ph;
         // they hatch from the nest up the beach and race for the water, quick little strokes
-        const x = SHORE + 17 - h.d * 7 - Math.min(22, crawlAdvance(t + h.ph, 1.7) * 0.55);
+        const x = SHORE + 17 - d * 7 - Math.min(22, crawlAdvance(t + hp, 1.7) * 0.55);
         if (x < SHORE - 3) return null;
         return (
-          <group key={i} position={[x, 0, h.z]} rotation-y={-Math.PI / 2 + 0.2 * Math.sin(h.ph)} scale={1.1}>
-            <Body t={t + h.ph} rate={1.7} />
+          <group key={i} position={[x, 0, z]} rotation-y={-Math.PI / 2 + 0.2 * Math.sin(hp)} scale={size}>
+            <Body t={t + hp} rate={1.7} />
           </group>
         );
       })}
       {/* the nest: a scuffed hollow in the sand up the beach */}
-      <mesh position={[SHORE + 16, 0.04, 17]} scale={[2.6, 0.05, 8]}>
+      <mesh position={[SHORE + 16, 0.04, (z0 + z1) / 2]} scale={[2.6, 0.05, (z1 - z0) / 2 + 1.5]}>
         <sphereGeometry args={[1, 12, 6]} />
         <meshStandardMaterial color="#b99d6c" roughness={1} />
       </mesh>
     </group>
   );
 };
+const callback = (Body: Species): React.FC<{t: number}> => ({t}) =>
+  family({Body, mz: -6, ms: 5.5, lane: [10, 23.75], n: 12, ph: 0}, t, 0);
+// owner's pick (21 ต.ค. 2569): both species. Each mother with her own hatchlings, in four lanes
+// from north to south: leatherback, her young, the green turtle's young, the green turtle.
+const callbackMixed: React.FC<{t: number}> = ({t}) => (
+  <group>
+    {family({Body: SeaTurtle, mz: -20, ms: 4.6, lane: [-1, 7], n: 9, ph: 0}, t, 0)}
+    {family({Body: GreenTurtle, mz: 30, ms: 4.2, lane: [11, 18], n: 9, ph: 0.9}, t, 1)}
+  </group>
+);
 
 // ------------------------------------------------------------------ B: the tin dredge
 const POND: [number, number] = [0, 2];
@@ -260,3 +272,9 @@ export const PHUKET_TURTLE_CALLBACK = base(callback(SeaTurtle), CALLBACK_CAM, fa
 export const PHUKET_GREEN = base(turtle(GreenTurtle), TURTLE_CAM, false, [[SHORE + 4, 2, 18]]);
 export const PHUKET_GREEN_CALLBACK = base(callback(GreenTurtle), CALLBACK_CAM, false, CALLBACK_SITES);
 export const PHUKET_MIXED = base(turtle(SeaTurtle, MIXED), TURTLE_CAM, false, [[SHORE + 4, -12, 16], [SHORE + 4, 20, 16]]);
+const MIXED_CALLBACK_CAM: Key[] = [
+  [0, -20, 1, 8, 175, -14, 42, 30],
+  [3, -21, 1, 8, 168, -12, 42, 30],
+  [6, -22, 1, 8, 160, -10, 41, 30],
+];
+export const PHUKET_MIXED_CALLBACK = base(callbackMixed, MIXED_CALLBACK_CAM, false, [[SHORE + 8, -16, 14], [SHORE + 8, 6, 14], [SHORE + 8, 28, 14]]);

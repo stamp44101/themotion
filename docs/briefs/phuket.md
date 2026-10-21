@@ -7,8 +7,11 @@ search wrappers, so every claim below carries **my** check status:
 - **Gemini เท่านั้น:** cited by Gemini, not yet found by me;
 - **ขัดแย้ง:** sources disagree.
 
-Hero: **the turtle, mother and hatchlings** (owner, "ก็ทั้งแม่ลูกนั่นแหละ"). Style frames:
-`PhuketStyleTurtle` (cover) and `PhuketStyleCallback` (payoff) in `src/styleframes/phuket.tsx`.
+Hero: **two turtles, a leatherback and a green turtle, mothers and hatchlings** (owner, 21 ต.ค.
+2569: "ใช้แบบผสมนี้แหละ"). Style frames in `src/styleframes/phuket.tsx`: `PhuketStyleMixed` (cover,
+both mothers hauling out) and `PhuketStyleMixedCallback` (payoff, each mother back to the sea with
+her own hatchlings in a lane beside her). The leatherback is drawn ~1.3x the green turtle (2 m vs
+1 m in life). The single-species frames stay registered for reference.
 
 ## 0. What the last clips say (docs/experiments.md)
 
@@ -97,13 +100,19 @@ No river crosses a wall (there is none).
 | ต.ค. 2563 – ก.พ. 2564 | **18 leatherback nests in Phuket**, "never seen in 20 years" (Phuket Marine Biological Center) | **ยืนยันแล้ว** (Trash Hero quoting PMBC) |
 | 2567 | nests at Mai Khao (14 ก.พ., 24 ก.พ., 137 eggs) | **ยืนยันแล้ว** (Phuket News) |
 
-### 3b. The turtle is a leatherback (เต่ามะเฟือง)
+### 3b. The turtles: a leatherback (เต่ามะเฟือง) and a green turtle (เต่าตนุ)
 
 Phuket's turtle is the leatherback: Mai Khao's own symbol ("ขอหาดไม้ขาวให้เต่ามะเฟือง"), the one
 whose return made the news, and the world's largest turtle (2–2.5 m, 500–900 kg): a car-sized
 animal, which is exactly the "big, surprising" hero the numbers ask for. Its shell is not plated:
 dark, leathery, seven ridges running nose to tail, white-speckled, long front flippers. **The style
 frame's turtle (a green turtle's scutes) is restyled to a leatherback** (`src/styleframes/SeaTurtle.tsx`).
+
+The owner then asked for both species on screen together. The green turtle (`GreenTurtle.tsx`)
+is modelled on the owner's photos: dark-brown plates with amber rays, cream-outlined scales on
+head and flippers. **The payoff caption must then cover both:** "หาดไม้ขาว บ้านของเต่าทะเล", with
+the leatherback record (18 nests, 2563–64) in the sub, plus a checked green-turtle fact (the
+Phuket Marine Biological Center's turtle releases at Mai Khao: year not yet verified, §7.4).
 
 ### 3c. Storyline worksheet
 
@@ -185,6 +194,9 @@ the grow shot, the hatchlings' patter in the payoff. Bridges between beats.
 2. **The tile** (§1a): the tin town at true scale with far places on their bearings (my plan),
    or the whole island compressed (~480 m/unit), which shows the island's shape but makes the
    town and the dredge tiny. I go with the first unless the owner wants the island outline.
+4. **The green turtle's fact for the payoff:** when the Mai Khao turtle release (ปล่อยเต่า,
+   PMBC / Sirinat) began and whether green turtles nest at Mai Khao today. Until checked, the
+   payoff sub names only the leatherback record.
 3. **Beat 2** stands on Bowrey. If his elephant export does not hold, beat 2 becomes the tin junks
    alone (still `arrive`, still moving).
 
