@@ -20,8 +20,11 @@ const SAND = '#e6d4a4';
 const SEA = '#3f8fc0';
 
 // พังงา across ช่องปากพระ: a strip of wooded mainland north of the island, as a second slab
-const MAINLAND_TREES = Array.from({length: 70}, (_, i) => ({x: -46 + ((i * 37) % 93), z: MAINLAND_Z[0] + 1.5 + ((i * 53) % 13), s: 0.8 + ((i * 7) % 5) * 0.12}));
-const Mainland: React.FC = () => {
+// trees stay off the approach road ([local] on #59: the traffic came off the bridge onto grass)
+const MAINLAND_TREES = Array.from({length: 70}, (_, i) => ({x: -46 + ((i * 37) % 93), z: MAINLAND_Z[0] + 1.5 + ((i * 53) % 13), s: 0.8 + ((i * 7) % 5) * 0.12})).filter(
+  (tr) => Math.abs(tr.x - BRIDGE_X) > 2.2,
+);
+const Mainland: React.FC<{bridge: boolean}> = ({bridge}) => {
   const d = MAINLAND_Z[1] - MAINLAND_Z[0];
   return (
     <group position={[0, 0, (MAINLAND_Z[0] + MAINLAND_Z[1]) / 2]}>
@@ -37,6 +40,14 @@ const Mainland: React.FC = () => {
         <boxGeometry args={[2 * EDGE, 0.05, 2.4]} />
         <meshStandardMaterial color={SAND} roughness={1} />
       </mesh>
+      {/* the approach road on the Phang Nga side, from the bridge head back off the tile; it is
+          laid with the bridge (the ferry used the shore) */}
+      {bridge && (
+        <mesh position={[BRIDGE_X, 0.06, 0]} receiveShadow>
+          <boxGeometry args={[DECK_W, 0.05, d]} />
+          <meshStandardMaterial color="#6f7276" roughness={0.9} />
+        </mesh>
+      )}
       {MAINLAND_TREES.map((tr, i) => (
         <mesh key={i} position={[tr.x, 0.9 * tr.s, tr.z - (MAINLAND_Z[0] + MAINLAND_Z[1]) / 2]} scale={tr.s} castShadow>
           <coneGeometry args={[0.8, 1.9, 6]} />
@@ -411,7 +422,7 @@ export const PhuketLandmarks: React.FC<LandmarkProps> = ({Y, t, terrainH, beat})
         <planeGeometry args={[1400, 1400]} />
         <meshStandardMaterial color={SEA} roughness={0.15} metalness={0.25} />
       </mesh>
-      <Mainland />
+      <Mainland bridge={Y >= 1967} />
       {/* the beaches, in every era: the Andaman shore on the west edge, Mai Khao on the north */}
       <mesh position={[-EDGE + WEST_BEACH_W / 2, 0.025, 0]} receiveShadow>
         <boxGeometry args={[WEST_BEACH_W, 0.05, 2 * EDGE]} />
