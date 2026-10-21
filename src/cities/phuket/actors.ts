@@ -195,9 +195,9 @@ export const ACTORS: Actor[] = [
     size: 14,
     at: (t) => (heroK(t) > 0.02 ? [heroX(HEROES[0], t) + 2, 4, (HEROES[0].z + HEROES[1].z) / 2] : null),
   },
-  {id: 'elephants', during: [beatAt('tin', 0.42), beatAt('tin', 0.97)], size: 1.8, at: (t, ctx) => {
+  {id: 'elephants', during: [beatAt('tin', 0.42), beatAt('tin', 0.97)], size: 2.2, at: (t, ctx) => {
     const e = elephantAt(0, ctx);
-    return e ? [e.x, gy(ctx, e.x, e.z) + 1.4, e.z] : null;
+    return e ? [e.x, gy(ctx, e.x, e.z) + 1.8, e.z] : null;
   }},
   {id: 'burmeseArmy', during: [beatAt('siege', 0.02), beatAt('siege', 0.98)], size: 3, at: (t, ctx) => {
     const a = armyCentre(ctx);

@@ -83,7 +83,7 @@ export const PHUKET: CityConfig = {
       // the cover turtles' beach on the west coast, open sand at hero scale
       ...HEROES.map((h) => [coastX(h.z) + 6, h.z, 15, -1e9] as [number, number, number, number]),
       // Bowrey's forest track up to Luppoone, and the landing
-      ...segs(TRACK, 1.8, -1e9),
+      ...segs(TRACK, 3.0, -1e9),
       [LIPON[0], LIPON[1], 3, -1e9],
       // the 1785 field between the camp and the stockade
       [BURMESE_CAMP[0], BURMESE_CAMP[1], 4.5, -1e9],

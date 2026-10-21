@@ -289,7 +289,7 @@ export const PhuketLandmarks: React.FC<LandmarkProps> = ({Y, t, terrainH, beat})
         ))}
       {elephants.map((e, i) =>
         e ? (
-          <group key={`e${i}`} position={[e.x, g(e.x, e.z), e.z]} rotation-y={e.rot} scale={0.75}>
+          <group key={`e${i}`} position={[e.x, g(e.x, e.z), e.z]} rotation-y={e.rot} scale={1.1}>
             <Elephant step={Math.sin(t * 5 + i)} howdah={i === 0} />
           </group>
         ) : null,
