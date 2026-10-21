@@ -24,20 +24,29 @@ const SEA_W = 28;
 const SHORE = SEA_X + SEA_W / 2; // x of the waterline
 
 // ------------------------------------------------------------------ A: the turtle (owner's pick)
-// the cover: the mother hauls out of the surf and crawls up the beach, a stroke at a time
-const turtle = (Body: Species): React.FC<{t: number}> => ({t}) => {
-  const s = 8.5;
-  const x = SHORE - 8 + Math.min(20, crawlAdvance(t) * 4.6);
-  return (
-    <group>
-      <TurtleTrack x0={SHORE} x1={x - 1.2 * s} z={2} s={s * 0.45} />
-      <group position={[x, 0, 2]} rotation-y={Math.PI / 2} scale={s}>
-        <Body t={t} />
-      </group>
-      <Surf x={x - 0.6 * s} z={2} r={1.6 * s} t={t} k={1 - smooth(ramp(x, SHORE - 2, SHORE + 4))} />
-    </group>
-  );
-};
+// the cover: two mothers haul out of the surf the same night and crawl up the beach, a stroke at
+// a time, out of step. Their fore-flippers reach ~3.6 x scale to each side, so the two lanes sit
+// far enough apart that they never touch.
+const MOTHERS = [
+  {z: -15, s: 6.8, lag: 0, ph: 0},
+  {z: 22, s: 6.4, lag: -4, ph: 0.9},
+];
+const turtle = (Body: Species): React.FC<{t: number}> => ({t}) => (
+  <group>
+    {MOTHERS.map(({z, s, lag, ph}, i) => {
+      const x = SHORE - 7 + lag + Math.min(18, crawlAdvance(t + ph) * 3.8);
+      return (
+        <group key={i}>
+          <TurtleTrack x0={SHORE} x1={x - 1.2 * s} z={z} s={s * 0.45} />
+          <group position={[x, 0, z]} rotation-y={Math.PI / 2} scale={s}>
+            <Body t={t + ph} />
+          </group>
+          <Surf x={x - 0.6 * s} z={z} r={1.6 * s} t={t + ph} k={1 - smooth(ramp(x, SHORE - 2, SHORE + 4))} />
+        </group>
+      );
+    })}
+  </group>
+);
 // the payoff: the mother turns back to the sea and her hatchlings scramble down the beach after her
 // the hatchlings run in their own lane beside the mother's track, not over her
 // (her fore-flippers sweep ~16 units out at this scale, so the lane starts clear of them)
@@ -217,10 +226,10 @@ const base = (Hero: React.FC<{t: number}>, camera: Key[], pond: boolean, sites: 
 // A: from the south-west, the sea in front, the turtle hauling out toward the camera's left
 const TURTLE_CAM: Key[] = [
   [0, -22, 2, 2, 260, -40, 36, 30],
-  [3, -18, 2, 2, 230, -38, 35, 30],
-  [6, -12, 3, 2, 120, -30, 32, 30],
+  [3, -18, 2, 4, 230, -38, 35, 30],
+  [6, -14, 3, 4, 175, -32, 33, 30],
 ];
-export const PHUKET_TURTLE = base(turtle(SeaTurtle), TURTLE_CAM, false, [[SHORE + 4, 2, 18]]);
+export const PHUKET_TURTLE = base(turtle(SeaTurtle), TURTLE_CAM, false, [[SHORE + 4, -12, 16], [SHORE + 4, 20, 16]]);
 // B: from the south-east, the dredge on its mine pond in the middle of the island
 export const PHUKET_DREDGE = base(
   Dredge,

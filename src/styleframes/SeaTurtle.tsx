@@ -11,10 +11,10 @@
 import React from 'react';
 import * as THREE from 'three';
 
-const HIDE = '#262c35';
-const HIDE_LIGHT = '#39414d';
-const SPECK = '#d9dde0';
-const BELLY = '#c9c2b8';
+const HIDE = '#3e4a5c';
+const HIDE_LIGHT = '#5a6880';
+const SPECK = '#eef1f3';
+const BELLY = '#ddd6cc';
 
 // one stroke of the crawl: 0 -> 1 is dig (fore-flippers forward and down), heave, settle, pause
 export const crawlPhase = (t: number, rate = 0.55) => (t * rate) % 1;
