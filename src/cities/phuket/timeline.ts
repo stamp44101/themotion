@@ -5,7 +5,42 @@
 // siege in the danger zone, one verb per beat, a wide grow shot, and the turtles back at Mai
 // Khao before the counter lands on today. 75 s, owner's call; the extra time is all action.
 import {buildStory} from '../../engine/story';
-import {BATTLE, CHINPRACHA, DREDGE, HEROINES, KATHU, LIPON, MAI_KHAO, SARASIN, STOCKADE} from './places';
+import {BATTLE, CHINPRACHA, DREDGE, KATHU, LIPON, MAI_KHAO, SARASIN, STOCKADE} from './places';
+
+type Key = [number, number, number, number, number, number, number, number];
+// A camera move from key a to key b that eases in and out: the keys in between follow a
+// smootherstep, the distance changes on a log scale (a zoom reads even), so the drone speeds up
+// and settles instead of whipping between two keys and stopping dead. The owner felt the early
+// cuts jerk ("กระชากนิดๆ"): the cover-to-ship move peaked at 116 deg/s and dropped to 8 within
+// 0.3 s. Returns the keys after a, up to and including b.
+// `lift` raises the drone mid-move (distance x (1 + lift) at the halfway point), so a long
+// crossing goes over the island instead of skimming the canopy.
+const glide = (a: Key, b: Key, n = 6, lift = 0): Key[] =>
+  Array.from({length: n}, (_, k) => {
+    const u = (k + 1) / n;
+    const e = u * u * u * (u * (u * 6 - 15) + 10);
+    const up = 1 + lift * Math.sin(Math.PI * u) ** 2;
+    return a.map((x, i) => (i === 0 ? x + (b[0] - a[0]) * u : i === 4 ? x * (b[4] / x) ** e * up : x + (b[i] - x) * e)) as Key;
+  });
+// both ends of every move between beats
+const between = (a: Key, b: Key, n = 6, lift = 0) => glide(a, b, n, lift).slice(0, -1);
+// the ends of the three early moves
+const COVER_OUT: Key = [3, -27, 1, -12, 270, -36, 36, 30];
+const AT_SHIP: Key = [5.8, 6, 1, -46, 56, -6, 40, 30];
+const TIN_END: Key = [9.0, -5, 1, -32, 56, 4, 42, 30];
+const SIEGE_IN: Key = [10.9, -16, 1, -35, 62, -14, 36, 30];
+const SIEGE_END: Key = [18.9, -14, 1, -33, 64, 22, 37, 30];
+const MINES_IN: Key = [21.0, -13, 1, -17, 56, 14, 38, 30];
+const MINES_END: Key = [27.0, -3, 1, -13, 56, 30, 38, 30];
+const TOWN_IN: Key = [28.8, -7, 1, -9, 40, 30, 42, 30];
+const TOWN_END: Key = [33.9, -7, 1, -9, 36, 6, 42, 30];
+const DREDGE_IN: Key = [36.3, DREDGE[0] - 4, 1, DREDGE[1], 48, 40, 36, 30];
+const DREDGE_END: Key = [41.0, DREDGE[0] - 4, 1, DREDGE[1], 42, 62, 36, 30];
+const BRIDGE_IN: Key = [43.9, -14, 1, -62, 50, -10, 38, 30];
+const BRIDGE_END: Key = [49.0, -13, 1, -49, 48, 0, 37, 30];
+const GROW_IN: Key = [51.2, -8, 1, -8, 180, 30, 37, 30];
+const GROW_END: Key = [56.9, -12, 1, -18, 190, -110, 37, 30];
+const TURTLES_IN: Key = [59.0, -29, 1, -45, 72, -160, 42, 30];
 
 export const STORY = buildStory({
   // 75 s (owner, 21 ต.ค. 2569: "เส้นเรื่องดูรีบไปหมด"); the extra 15 s go to the moving beats --
@@ -16,12 +51,14 @@ export const STORY = buildStory({
   after: 2026,
   // transitions between beats
   camera: [
-    [19.9, -10, 1, -26, 90, 10, 37, 30],
-    [27.9, -6, 1, -10, 70, 20, 39, 30],
-    [35.3, 30, 1, 8, 90, 45, 37, 30],
-    [42.2, 14, 1, -26, 130, 20, 40, 30],
-    [49.9, -6, 1, -12, 160, 20, 36, 30],
-    [57.9, -20, 1, -34, 130, -140, 37, 30],
+    ...glide(COVER_OUT, AT_SHIP, 7).slice(0, -1),
+    ...glide(TIN_END, SIEGE_IN, 5).slice(0, -1),
+    ...glide(SIEGE_END, MINES_IN, 5).slice(0, -1),
+    ...between(MINES_END, TOWN_IN, 5),
+    ...between(TOWN_END, DREDGE_IN, 7, 0.8),
+    ...between(DREDGE_END, BRIDGE_IN, 8, 1.4),
+    ...between(BRIDGE_END, GROW_IN, 6),
+    ...between(GROW_END, TURTLES_IN, 6),
     [75, -6, 2, -4, 240, -320, 36, 30],
   ],
   beats: [
@@ -38,12 +75,11 @@ export const STORY = buildStory({
       era: 'อยุธยา',
       callouts: [{t0: 8.3, t1: 9.3, label: 'ถลาง', dx: -90, dy: -130, p: [LIPON[0], 1.2, LIPON[1]]}],
       camera: [
-        [0, -18, 1, -8, 340, -40, 36, 30],
-        [3, -22, 1, -10, 270, -36, 36, 30],
-        [3.9, -12, 1, -24, 170, -20, 38, 30],
-        [4.9, 6, 1, -46, 56, -6, 40, 30],
-        [7.4, 1, 1, -38, 54, 0, 42, 30],
-        [9.3, -6, 1, -32, 56, 4, 42, 30],
+        [0, -24, 1, -10, 340, -40, 36, 30],
+        COVER_OUT,
+        AT_SHIP,
+        [7.6, 1, 1, -38, 54, 0, 42, 30],
+        TIN_END,
       ],
     },
     {
@@ -57,9 +93,9 @@ export const STORY = buildStory({
       caption: {t0: 9.7, title: 'ศึกถลาง พ.ศ. 2328', sub: 'ท้าวเทพกระษัตรี ท้าวศรีสุนทร นำชาวเมืองรับทัพพม่า (ขบวนหญิงแต่งเป็นชายตามตำนาน)'},
       callouts: [{t0: 11.6, t1: 15.0, label: 'ทุ่งถลางชนะศึก', dx: -90, dy: -130, p: [BATTLE[0], 0.8, BATTLE[1]]}],
       camera: [
-        [10.0, -16, 1, -35, 62, -14, 36, 30],
+        SIEGE_IN,
         [14.8, -15, 1, -33, 56, 6, 36, 30],
-        [19.4, -14, 1, -33, 64, 22, 37, 30],
+        SIEGE_END,
       ],
     },
     {
@@ -73,8 +109,8 @@ export const STORY = buildStory({
       era: 'รัตนโกสินทร์',
       callouts: [{t0: 21.6, t1: 25.0, label: 'กะทู้', dx: -90, dy: -130, p: [KATHU[0], 0.8, KATHU[1]]}],
       camera: [
-        [20.4, -13, 1, -17, 56, 14, 38, 30],
-        [27.4, -3, 1, -13, 56, 30, 38, 30],
+        MINES_IN,
+        MINES_END,
       ],
     },
     {
@@ -84,10 +120,10 @@ export const STORY = buildStory({
       t: [28.2, 35.0],
       year: [1901, 1906],
       caption: {t0: 28.0, title: 'ตึกแถวชิโน-ยูโรเปียน', sub: 'ยุคพระยารัษฎาฯ (คอซิมบี้) ถนนถลาง บ้านชินประชา พ.ศ. 2446'},
-      callouts: [{t0: 30.4, t1: 34.8, label: 'บ้านชินประชา', dx: -90, dy: -130, p: [CHINPRACHA[0], 1.2, CHINPRACHA[1]]}],
+      callouts: [{t0: 30.4, t1: 33.9, label: 'บ้านชินประชา', dx: -90, dy: -130, p: [CHINPRACHA[0], 1.2, CHINPRACHA[1]]}],
       camera: [
-        [28.4, -7, 1, -9, 40, 30, 42, 30],
-        [34.8, -7, 1, -9, 36, 6, 42, 30],
+        TOWN_IN,
+        TOWN_END,
       ],
     },
     {
@@ -99,8 +135,8 @@ export const STORY = buildStory({
       caption: {t0: 35.4, title: 'เรือขุดแร่ในทะเล', sub: 'ลำแรกของโลก พ.ศ. 2452 กัปตันเอ็ดเวิร์ด ไมลส์ อ่าวทุ่งคา'},
       callouts: [{t0: 37.0, t1: 41.4, label: 'อ่าวทุ่งคา', dx: -90, dy: -130, p: [DREDGE[0], 1.0, DREDGE[1]]}],
       camera: [
-        [35.8, DREDGE[0] - 4, 1, DREDGE[1], 48, 40, 36, 30],
-        [41.5, DREDGE[0] - 4, 1, DREDGE[1], 42, 66, 36, 30],
+        DREDGE_IN,
+        DREDGE_END,
       ],
     },
     {
@@ -117,9 +153,9 @@ export const STORY = buildStory({
       camera: [
         // tracking the middle car down the bridge and onto the island, the cars in the lower
         // two-thirds of the frame, clear of the caption
-        [43.2, -14, 1, -63, 50, -10, 38, 30],
-        [46.0, -14, 1, -56, 46, -6, 37, 30],
-        [49.4, -13, 1, -48, 48, 0, 37, 30],
+        BRIDGE_IN,
+        [46.2, -14, 1, -56, 46, -6, 37, 30],
+        BRIDGE_END,
       ],
     },
     {
@@ -131,9 +167,9 @@ export const STORY = buildStory({
       year: [1973, 2015],
       caption: {t0: 50.0, title: 'เมืองแร่สู่เมืองท่องเที่ยว', sub: 'เหมืองปิด หาดฝั่งตะวันตกกลายเป็นเมือง พระใหญ่บนเขานาคเกิด'},
       camera: [
-        [50.4, -8, 1, -8, 180, 30, 37, 30],
-        [54.0, -8, 1, -10, 200, -40, 37, 30],
-        [57.4, -12, 1, -18, 190, -110, 37, 30],
+        GROW_IN,
+        [54.2, -8, 1, -10, 200, -40, 37, 30],
+        GROW_END,
       ],
     },
     {
@@ -146,7 +182,7 @@ export const STORY = buildStory({
       caption: {t0: 58.0, title: 'ไม้ขาว บ้านของเต่าทะเล', sub: 'เต่ามะเฟืองยังขึ้นวางไข่ เต่าตนุปล่อยคืนทะเลทุกวันสงกรานต์'},
       callouts: [{t0: 59.6, t1: 63.4, label: 'หาดไม้ขาว', dx: 90, dy: -130, p: [MAI_KHAO[0] - 6, 0.6, MAI_KHAO[1]]}],
       camera: [
-        [58.4, -29, 1, -45, 72, -160, 42, 30],
+        TURTLES_IN,
         [62.6, -29, 1, -45, 68, -150, 42, 30],
         [66.8, -30, 1, -44, 70, -138, 42, 30],
       ],
