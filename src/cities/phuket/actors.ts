@@ -36,12 +36,18 @@ const gy = (ctx: ActorCtx, x: number, z: number) => ctx.ground?.(x, z) ?? 0;
 // Their fore-flippers reach ~3.6 x scale (leatherback) and ~2.7 x (green) to each side, so the
 // lanes sit far enough apart that they never touch.
 export const HEROES = [
-  {kind: 'leatherback' as const, z: -24, s: 7.0, lag: 0, ph: 0},
-  {kind: 'green' as const, z: 10, s: 5.6, lag: -2.5, ph: 0.9},
+  {kind: 'leatherback' as const, z: -27, s: 6.0, lag: 0, ph: 0},
+  {kind: 'green' as const, z: 5, s: 4.8, lag: -2.0, ph: 0.9},
 ];
-export const heroK = (t: number) => 1 - smooth(ramp(t, 2.2, 3.4));
+// the dig: from 2.2 s each sinks into its body pit over two seconds and leaves a mound of thrown
+// sand behind, rather than vanishing ([local] on #59 measured a 0.2-s cut at 3.1-3.3 s)
+export const heroK = (t: number) => 1 - smooth(ramp(t, 2.2, 4.2));
+export const DIG_END = 4.2;
+// the west beach: a sand strip along the Andaman shore, wide enough to hold the cover's turtles
+export const BEACH_Z: [number, number] = [-38, 22];
+export const BEACH_W = 11;
 // x of a hero turtle's centre: it hauls out from the surf and crawls inland until it digs in
-export const heroX = (h: (typeof HEROES)[number], t: number) => coastX(h.z) - 6 + h.lag + Math.min(14, 2.1 * Math.min(t, 3.4));
+export const heroX = (h: (typeof HEROES)[number], t: number) => coastX(h.z) - 4 + h.lag + 1.9 * Math.min(t, 3.0);
 
 // ------------------------------------------------------------------ 1675
 // Bowrey's ship rides in the bay; two of the Raja's elephants carry its captain up the forest
@@ -195,6 +201,8 @@ export const ACTORS: Actor[] = [
     size: 14,
     at: (t) => (heroK(t) > 0.02 ? [heroX(HEROES[0], t) + 2, 4, (HEROES[0].z + HEROES[1].z) / 2] : null),
   },
+  // the two sinking into the sand after the hero window, so the cover never cuts to an empty frame
+  {id: 'heroesDig', during: [2.2, DIG_END - 0.2], size: 6, at: (t) => (heroK(t) > 0.02 ? [heroX(HEROES[0], t), 1.5, HEROES[0].z] : null)},
   {id: 'elephants', during: [beatAt('tin', 0.42), beatAt('tin', 0.97)], size: 2.2, at: (t, ctx) => {
     const e = elephantAt(0, ctx);
     return e ? [e.x, gy(ctx, e.x, e.z) + 1.8, e.z] : null;

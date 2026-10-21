@@ -1,7 +1,7 @@
 import {GROUND} from '../../Scene';
 import type {CityConfig} from '../../engine/types';
 import {PhuketLandmarks} from './Landmarks';
-import {ACTORS, HEROES} from './actors';
+import {ACTORS, BEACH_W, BEACH_Z, HEROES} from './actors';
 import {
   AIRPORT, ANDAMAN, ANDAMAN_W, BANG_YAI, BANG_YAI_W, BATTLE, BAY, BAY_W, BIG_BUDDHA, BURMESE_CAMP, CHARTERED, CHINPRACHA, CORE, COVE, COVE_W, DIBUK_RD_Z, HEROINES, JUI_TUI, KATHU,
   KRABI_RD_Z, LIPON, SAPHAN_HIN, MAI_KHAO, NORTH_ROAD, OLD_TOWN_X, PAK_PHRA_W, PAK_PHRA_Z, STOCKADE, THALANG_RD_Z, TRACK, coastX,
@@ -38,7 +38,7 @@ export const PHUKET: CityConfig = {
     // above the town, เขานาคเกิด under the Big Buddha, the hills south toward Chalong, and
     // เขาพระแทว east of Thalang
     peaks: [
-      [-34, -6, 5.5, 7],
+      [-21, -4, 5, 4.5],
       [-18.6, -13.3, 1.7, 2.8],
       [BIG_BUDDHA[0], BIG_BUDDHA[1], 5.2, 6.5],
       [-18, 36, 4, 6.5],
@@ -81,7 +81,11 @@ export const PHUKET: CityConfig = {
     forestCity: 1849,
     clearings: [
       // the cover turtles' beach on the west coast, open sand at hero scale
-      ...HEROES.map((h) => [coastX(h.z) + 6, h.z, 15, -1e9] as [number, number, number, number]),
+      ...Array.from({length: Math.ceil((BEACH_Z[1] - BEACH_Z[0]) / 3) + 1}, (_, i) => {
+        const z = BEACH_Z[0] + i * 3;
+        return [coastX(z) + BEACH_W / 2, z, BEACH_W / 2 + 1.5, -1e9] as [number, number, number, number];
+      }),
+      ...HEROES.map((h) => [coastX(h.z) + 9, h.z, 13, -1e9] as [number, number, number, number]),
       // Bowrey's forest track up to Luppoone, and the landing
       ...segs(TRACK, 3.0, -1e9),
       [LIPON[0], LIPON[1], 3, -1e9],

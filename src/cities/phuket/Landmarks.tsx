@@ -3,7 +3,7 @@ import {Elephant} from '../../engine/parts';
 import type {LandmarkProps} from '../../engine/types';
 import {ramp, smooth} from '../../lib';
 import {
-  ARMY_COLS, ARMY_ROWS, armyCentre, cannonK, carAt, CARS, columnAt, COLUMN, dredgeOn, ELEPHANTS, elephantAt, GUARDS, guardAt, HATCH_N, hatchAt, heroK, HEROES, heroX, MINERS,
+  ARMY_COLS, ARMY_ROWS, BEACH_W, BEACH_Z, DIG_END, armyCentre, cannonK, carAt, CARS, columnAt, COLUMN, dredgeOn, ELEPHANTS, elephantAt, GUARDS, guardAt, HATCH_N, hatchAt, heroK, HEROES, heroX, MINERS,
   minerAt, MOTHER, motherX, payoffOn, PITS, pitAt, pitK, RELEASE_N, releaseAt, SHOP_N, shopK, shopX, tinBoatAt, tinOn,
 } from './actors';
 import {Dredge} from './Dredge';
@@ -15,6 +15,7 @@ import {
 import {SeaTurtle, Surf, TurtleTrack} from './SeaTurtle';
 
 type TH = LandmarkProps['terrainH'];
+const SAND = '#e6d4a4';
 
 // ------------------------------------------------------------------ small people
 // a body and a head; undyed cotton and indigo read as people against sand and grass
@@ -242,6 +243,7 @@ const BigBuddha: React.FC<{y: number; k: number}> = ({y, k}) =>
 export const PhuketLandmarks: React.FC<LandmarkProps> = ({Y, t, terrainH, beat}) => {
   const ctx = {Y, beat, ground: terrainH};
   const hk = heroK(t);
+  const mk = smooth(ramp(t, 2.2, 3.8)) * (1 - smooth(ramp(t, 6, 8.6)));
   const g = (x: number, z: number) => terrainH(x, z);
 
   // ---- 1675
@@ -261,10 +263,30 @@ export const PhuketLandmarks: React.FC<LandmarkProps> = ({Y, t, terrainH, beat})
   return (
     <group>
       {/* ---- the cover: two turtles haul out and dig in */}
+      {/* the west beach along the Andaman, in every era */}
+      {Array.from({length: Math.ceil((BEACH_Z[1] - BEACH_Z[0]) / 2)}, (_, i) => {
+        const z = BEACH_Z[0] + i * 2 + 1;
+        const c = coastX(z);
+        return (
+          <mesh key={`b${i}`} position={[c + BEACH_W / 2 - 0.5, 0.025, z]} receiveShadow>
+            <boxGeometry args={[BEACH_W + 1, 0.05, 2.05]} />
+            <meshStandardMaterial color={SAND} roughness={1} />
+          </mesh>
+        );
+      })}
+      {mk > 0.02 &&
+        HEROES.map((h, i) => (
+          // the sand each one throws up as it digs its body pit; it settles back after the cover
+          <mesh key={`mound${i}`} position={[heroX(h, DIG_END), 0, h.z]} scale={[1.7 * h.s * mk, 0.5 * h.s * mk, 1.5 * h.s * mk]} receiveShadow castShadow>
+            <sphereGeometry args={[1, 18, 8, 0, Math.PI * 2, 0, Math.PI / 2]} />
+            <meshStandardMaterial color={SAND} roughness={1} />
+          </mesh>
+        ))}
       {hk > 0.02 &&
         HEROES.map((h, i) => {
           const x = heroX(h, t);
-          const sink = (1 - hk) * 0.7 * h.s;
+          // it sinks under its own mound: never cut, it is covered
+          const sink = (1 - hk) * 1.1 * h.s;
           const Body = h.kind === 'leatherback' ? SeaTurtle : GreenTurtle;
           return (
             <group key={i}>
