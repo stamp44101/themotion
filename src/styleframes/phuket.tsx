@@ -7,7 +7,8 @@ import React, {useMemo} from 'react';
 import {KORAT} from '../cities/korat';
 import {buildStory} from '../engine/story';
 import type {CityConfig, LandmarkProps} from '../engine/types';
-import {lerp, ramp, smooth} from '../lib';
+import {SeaTurtle, Surf, TurtleTrack, crawlAdvance} from '../cities/phuket/SeaTurtle';
+import {ramp, smooth} from '../lib';
 
 type Key = [number, number, number, number, number, number, number, number];
 const story = (camera: Key[]) =>
@@ -18,77 +19,48 @@ const SEA_X = -38;
 const SEA_W = 28;
 const SHORE = SEA_X + SEA_W / 2; // x of the waterline
 
-// ------------------------------------------------------------------ A: the turtle
-const shell = <meshStandardMaterial color="#6b5a3a" flatShading roughness={0.8} />;
-const skin = <meshStandardMaterial color="#8c8a6a" flatShading roughness={0.9} />;
-const Flipper: React.FC<{x: number; z: number; side: number; ph: number; t: number; front: boolean}> = ({x, z, side, ph, t, front}) => {
-  const stroke = Math.sin(t * 2.6 + ph);
+// ------------------------------------------------------------------ A: the turtle (owner's pick)
+// the cover: the mother hauls out of the surf and crawls up the beach, a stroke at a time
+const Turtle: React.FC<{t: number}> = ({t}) => {
+  const s = 8.5;
+  const x = SHORE - 8 + Math.min(20, crawlAdvance(t) * 4.6);
   return (
-    <group position={[x, 0.35, z]} rotation-y={side * (front ? 0.5 + 0.45 * stroke : 0.9 + 0.25 * stroke)}>
-      <mesh position={[side * (front ? 0.9 : 0.5), 0, 0]} scale={[front ? 1.0 : 0.55, 0.12, front ? 0.38 : 0.3]} castShadow>
-        <sphereGeometry args={[1, 10, 6]} />
-        {skin}
-      </mesh>
+    <group>
+      <TurtleTrack x0={SHORE} x1={x - 1.2 * s} z={2} s={s * 0.45} />
+      <group position={[x, 0, 2]} rotation-y={Math.PI / 2} scale={s}>
+        <SeaTurtle t={t} />
+      </group>
+      <Surf x={x - 0.6 * s} z={2} r={1.6 * s} t={t} k={1 - smooth(ramp(x, SHORE - 2, SHORE + 4))} />
     </group>
   );
 };
-const Turtle: React.FC<{t: number}> = ({t}) => {
-  // hauls out of the surf and crawls inland: lunges with each flipper stroke, not a glide
-  const p = smooth(ramp(t, 0, 7.5));
-  const lunge = 0.25 * Math.max(0, Math.sin(t * 2.6));
-  const x = lerp(SHORE - 8, SHORE + 12, p) + lunge;
-  const s = 8.5;
-  const heave = 0.08 * Math.abs(Math.sin(t * 2.6));
+// the payoff: the mother turns back to the sea and her hatchlings scramble down the beach after her
+const HATCH = Array.from({length: 16}, (_, i) => ({z: 2 + (((i * 37) % 17) - 8) * 1.2, d: (i * 0.29) % 1, ph: i * 1.3}));
+const Callback: React.FC<{t: number}> = ({t}) => {
+  const s = 5.5;
+  const mx = SHORE + 7 - Math.min(13, crawlAdvance(t) * 3.2);
   return (
     <group>
-      {/* the track it leaves in the sand */}
-      <mesh position={[(SHORE - 2 + x) / 2, 0.03, 2]} receiveShadow>
-        <boxGeometry args={[Math.max(0.01, x - SHORE + 2), 0.02, 2.6 * s * 0.5]} />
-        <meshStandardMaterial color="#c9b48a" roughness={1} />
-      </mesh>
-      <group position={[x, heave * s, 2]} rotation-y={Math.PI / 2} scale={s}>
-        {/* carapace: a flattened dome with scutes, a lighter plastron under it */}
-        <mesh position={[0, 0.55, 0]} scale={[1.25, 0.5, 1.6]} castShadow>
-          <sphereGeometry args={[1, 14, 9, 0, Math.PI * 2, 0, Math.PI / 2]} />
-          {shell}
-        </mesh>
-        {[[0, 0.9, 0.55], [0, 0.98, -0.1], [0, 0.9, -0.75], [0.6, 0.78, 0.2], [-0.6, 0.78, 0.2], [0.6, 0.76, -0.5], [-0.6, 0.76, -0.5]].map(([sx, sy, sz], k) => (
-          <mesh key={k} position={[sx, sy, sz]} scale={[0.32, 0.06, 0.32]}>
-            <icosahedronGeometry args={[1, 0]} />
-            <meshStandardMaterial color="#4f4129" flatShading roughness={0.8} />
-          </mesh>
-        ))}
-        <mesh position={[0, 0.5, 0]} scale={[1.18, 0.12, 1.5]}>
-          <sphereGeometry args={[1, 12, 6]} />
-          <meshStandardMaterial color="#d9cfa8" roughness={0.9} />
-        </mesh>
-        {/* head and neck, lifting as it breathes */}
-        <group position={[0, 0.6 + 0.08 * Math.sin(t * 1.3), 1.75]} rotation-x={-0.15 + 0.1 * Math.sin(t * 1.3)}>
-          <mesh scale={[0.38, 0.32, 0.5]} castShadow>
-            <sphereGeometry args={[1, 10, 8]} />
-            {skin}
-          </mesh>
-          {[-0.2, 0.2].map((ex) => (
-            <mesh key={ex} position={[ex, 0.12, 0.3]}>
-              <sphereGeometry args={[0.06, 6, 5]} />
-              <meshStandardMaterial color="#1a1a14" />
-            </mesh>
-          ))}
-        </group>
-        {/* the big fore-flippers row together; the hind ones push alternately */}
-        <Flipper x={0.9} z={0.9} side={1} ph={0} t={t} front />
-        <Flipper x={-0.9} z={0.9} side={-1} ph={0} t={t} front />
-        <Flipper x={0.7} z={-1.2} side={1} ph={Math.PI} t={t} front={false} />
-        <Flipper x={-0.7} z={-1.2} side={-1} ph={Math.PI} t={t} front={false} />
+      <TurtleTrack x0={mx + 1.2 * s} x1={SHORE + 16} z={2} s={s * 0.45} />
+      <group position={[mx, 0, 2]} rotation-y={-Math.PI / 2} scale={s}>
+        <SeaTurtle t={t} swim={mx < SHORE - 2} />
       </group>
-      {/* surf running off its shell as it leaves the water */}
-      {t < 3 &&
-        Array.from({length: 10}, (_, i) => (
-          <mesh key={i} position={[x - 2 - (i % 3), 0.4 + ((t * 3 + i) % 1.2), 2 + (i - 5) * 0.6]}>
-            <sphereGeometry args={[0.18, 6, 5]} />
-            <meshStandardMaterial color="#e8f4f8" transparent opacity={0.8 * (1 - t / 3)} />
-          </mesh>
-        ))}
+      <Surf x={mx} z={2} r={1.6 * s} t={t} k={smooth(ramp(-mx, -(SHORE + 1), -(SHORE - 4)))} />
+      {HATCH.map((h, i) => {
+        // they hatch from the nest up the beach and race for the water, quick little strokes
+        const x = SHORE + 17 - h.d * 7 - Math.min(22, crawlAdvance(t + h.ph, 1.7) * 0.55);
+        if (x < SHORE - 3) return null;
+        return (
+          <group key={i} position={[x, 0, h.z]} rotation-y={-Math.PI / 2 + 0.2 * Math.sin(h.ph)} scale={1.6}>
+            <SeaTurtle t={t + h.ph} rate={1.7} />
+          </group>
+        );
+      })}
+      {/* the nest: a scuffed hollow in the sand up the beach */}
+      <mesh position={[SHORE + 16, 0.04, 2]} scale={[2.6, 0.05, 2.2]}>
+        <sphereGeometry args={[1, 12, 6]} />
+        <meshStandardMaterial color="#cdb88e" roughness={1} />
+      </mesh>
     </group>
   );
 };
@@ -256,4 +228,15 @@ export const PHUKET_DREDGE = base(
   ],
   true,
   [[POND[0], POND[1], 16]],
+);
+// A's payoff: mother back to the sea, the hatchlings after her (closer, the same south-west side)
+export const PHUKET_TURTLE_CALLBACK = base(
+  Callback,
+  [
+    [0, -19, 1, 2, 125, -14, 42, 30],
+    [3, -20, 1, 2, 118, -12, 42, 30],
+    [6, -21, 1, 2, 112, -10, 41, 30],
+  ],
+  false,
+  [[SHORE + 8, 2, 16]],
 );
