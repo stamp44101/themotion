@@ -1,6 +1,6 @@
 # City brief — Ubon Ratchathani / อุบลราชธานี
 
-Status: pass 2 (22 ต.ค. 2569). Pass 1 was a cloud web search. Pass 2 folds in the owner's Gemini
+Status: **v1 built** (22 ต.ค. 2569): `src/cities/ubon`, contact sheet `ubon_v1_contact.jpg`; the hero is the naga on the candle (owner: "ลุยต่อได้เลย"). Research pass 2: Pass 1 was a cloud web search. Pass 2 folds in the owner's Gemini
 research (`ubon_research_gemini.md`, verbatim) and re-checks the caption dates against it. Dates
 marked **ตรวจแล้ว** have at least two independent sources. The ONEP polygon and the OSM pins still
 need the workstation (ONEP refuses the cloud).
