@@ -5,7 +5,7 @@ import {ramp, smooth} from '../../lib';
 import {Person} from '../phuket/figures';
 import {
   BIG_LOOP, bridgeK, campK, CANDLE_S, CART_N, cartAt, caravanAt, commissionerAt, coverCandleK, exodusAt, ferryAt, fisherAt, FLOAT_N, floatAt, floodK,
-  houseK, JET_N, jetAt, LOOP, MONUMENT, NAGA_R, nagaOpening, nagaReturn, officeK, OPEN_END, raftAt, TOWN_N, townHouse, watLuangK,
+  houseK, JET_N, jetAt, LOOP, MONUMENT, OFFICE, NAGA_R, nagaOpening, nagaReturn, officeK, OPEN_END, raftAt, TOWN_N, townHouse, watLuangK,
 } from './actors';
 import {Naga} from './Naga';
 import {AIRFIELD, CANDLE_AT, DON_MOT_DAENG, munZ, RUNWAY_ROT, THUNG, THUNG_HALF, WAT_LUANG, WAT_SI_UBON, WAT_THUNG} from './places';
@@ -252,6 +252,11 @@ export const UbonLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH, b
         Y < 1960 &&
         Array.from({length: TOWN_N}, (_, i) => {
           const h = townHouse(i);
+          // a house gives way to the temple or office later built on its plot
+          const taken = ([[WAT_LUANG, 1792], [WAT_SI_UBON, 1855], [WAT_THUNG, 1841], [OFFICE, 1893]] as const).some(
+            ([p, from]) => Y >= from && Math.hypot(h.x - p[0], h.z - p[1]) < 2.4,
+          );
+          if (taken) return null;
           return (
             <group key={i} position={[h.x, terrainH(h.x, h.z), h.z]} rotation-y={h.rot}>
               <StiltHouse k={houseK(i, ctx)} s={h.s} />
@@ -306,7 +311,7 @@ export const UbonLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH, b
       })}
       {/* gated on its own scale: mounted at y-scale 0 it blacked out the shader cut (CLAUDE.md) */}
       {Y >= 1893 && officeK(ctx) > 0.02 && (
-        <group position={[3.6, 0, -3.6]} scale={[1, officeK(ctx), 1]}>
+        <group position={[OFFICE[0], 0, OFFICE[1]]} scale={[1, officeK(ctx), 1]}>
           <mesh position={[0, 0.8, 0]} castShadow receiveShadow>
             <boxGeometry args={[3.2, 1.6, 1.4]} />
             <meshStandardMaterial color="#f2eee4" emissive="#ffe2a8" emissiveIntensity={night * 0.3} />

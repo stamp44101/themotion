@@ -35,8 +35,10 @@ export const UBON: CityConfig = {
     bridges: [],
     noMoat: true,
     noWall: true,
-    // the north-eastern line from Si Sa Ket ends at Warin, on the south bank (1 เม.ย. 2473)
-    rail: {axis: 'x', pos: RAIL_Z, open: [1929.8, 1929.95], station: WARIN_STATION, stationYear: 1929.9, span: [-48, 6]},
+    // the north-eastern line from Si Sa Ket ends at Warin, on the south bank (1 เม.ย. 2473). The
+// engine raises a station over two years, so it goes up from 2470 and stands finished when the
+// first train pulls in; at 1929.9 it was a roof lying on the grass during the train's beat.
+    rail: {axis: 'x', pos: RAIL_Z, open: [1929.8, 1929.95], station: WARIN_STATION, stationYear: 1927.5, span: [-48, 6]},
     trains: SOUND_EVENTS.trains.map((tr) => ({...tr, dir: tr.dir as 1 | -1})),
     city: {hx: 10, hz: 7, outline: OLD_TOWN, moat: [1792, 1792.1], wall: [1792, 1792.1], gates: [1792, 1792.1], groundFrom: 1792.1},
     gates: [],
@@ -48,7 +50,7 @@ export const UBON: CityConfig = {
         [WAT_LUANG[0], WAT_LUANG[1], 1.9],
         [WAT_THUNG[0], WAT_THUNG[1], 1.6],
         [WAT_SI_UBON[0], WAT_SI_UBON[1], 1.6],
-        [3.6, -3.6, 2],
+        [0.6, -6.4, 2],
       ],
     },
     villages: {
@@ -81,7 +83,7 @@ export const UBON: CityConfig = {
       [WAT_LUANG[0], WAT_LUANG[1], 1.8],
       [WAT_THUNG[0], WAT_THUNG[1], 1.5],
       [WAT_SI_UBON[0], WAT_SI_UBON[1], 1.4],
-      [3.6, -3.6, 1.8],
+      [0.6, -6.4, 1.8],
     ],
     urban: {from: 1950, rate: 1.3},
     sprawl: {height: 0.9, tall: 0.05},

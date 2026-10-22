@@ -128,9 +128,10 @@ def paddle(t0, t1, every, gain, pan=0.0):
         d = rng.uniform(0.38, 0.55)
         n = int(d * SR)
         swish = filt(pink(n), "band", (220, 900)) * env_ar(n, d * 0.45, d * 0.5)
-        add(sfx, swish * 0.32, t, pan=pan + rng.uniform(-0.3, 0.3), gain=gain)
+        # about 5 dB down from v2 (owner: still too loud), the drip a little more
+        add(sfx, swish * 0.18, t, pan=pan + rng.uniform(-0.3, 0.3), gain=gain)
         if rng.random() < 0.35:
-            add(sfx, filt(splash(), "low", 1400) * 0.25, t + d * 0.7, pan=pan + rng.uniform(-0.3, 0.3), gain=gain)
+            add(sfx, filt(splash(), "low", 1400) * 0.12, t + d * 0.7, pan=pan + rng.uniform(-0.3, 0.3), gain=gain)
         t += every * rng.uniform(1.0, 1.6)
 
 

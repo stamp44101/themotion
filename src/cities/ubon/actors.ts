@@ -188,10 +188,13 @@ const ROAD_W_LEN = lengthOf(ROAD_W);
 export const commissionerAt = (i: number, {beat}: ActorCtx) => {
   const p = beat('frontier');
   if (p <= 0 || p >= 1.02) return null;
-  const d = lerp(26, ROAD_W_LEN, smooth(ramp(p, 0, 0.8))) - i * 1.5;
+  // spaced a full elephant-and-howdah apart, and they stop in file, not in a heap
+  const d = lerp(26, ROAD_W_LEN, smooth(ramp(p, 0, 0.8))) - i * 2.6;
   if (d < 0) return null;
-  return along(ROAD_W, Math.min(d, ROAD_W_LEN - i * 0.4));
+  return along(ROAD_W, Math.min(d, ROAD_W_LEN - i * 2.6));
 };
+// the commissioner's office stands north of the field, clear of the first town's ring of houses
+export const OFFICE: P = [0.6, -6.4]; // between ถนนอุปราช (x -1.8) and the 2503 road north
 export const officeK = ({beat, Y}: ActorCtx) => (Y >= 1894 ? 1 : smooth(ramp(beat('frontier'), 0.35, 0.8)));
 
 // ------------------------------------------------------------------ the candle processions
