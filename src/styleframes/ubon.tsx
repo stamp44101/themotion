@@ -168,6 +168,97 @@ const CandleHero: React.FC<LandmarkProps> = ({t, terrainH}) => {
   );
 };
 
+// 4. The naga of the candle comes alive (brief §3a, recommended): a giant carved candle stands
+// on the north bank; the naga wound round it uncoils, slides down and swims away up the Mun.
+// Gold wax at first, the scales warming to a living green-gold as it reaches the water.
+const CANDLE_AT: [number, number] = [0, -4];
+const CANDLE_S = 2.6;
+const NAGA_N = 70;
+const NAGA_GAP = 0.9;
+// the path the naga's body follows, by arc length: down a helix round the candle, out to the
+// bank, then upstream along the Mun
+const nagaPath = (u: number): [number, number, number] => {
+  const H = 15; // helix height
+  const helixLen = 70;
+  const [cx, cz] = CANDLE_AT;
+  if (u < helixLen) {
+    const k = u / helixLen;
+    const a = k * Math.PI * 5;
+    const r = 4.6 + k * 0.8;
+    return [cx + Math.cos(a) * r, 3 + H * (1 - k), cz + Math.sin(a) * r];
+  }
+  const v = u - helixLen;
+  const [bx, bz] = [cx + 5.4, cz];
+  const toRiver = 9;
+  if (v < toRiver) {
+    const k = v / toRiver;
+    return [bx + k * 4, 3 * (1 - k) + 0.6, bz + (munZ(bx + 4) - bz) * k];
+  }
+  const x = bx + 4 + (v - toRiver);
+  return [x, 0.6, munZ(x) + Math.sin(x * 0.45) * 1.2];
+};
+const NagaHero: React.FC<LandmarkProps> = ({t, terrainH}) => {
+  const head = 34 + t * 9; // already sliding at frame 0
+  const [cx, cz] = CANDLE_AT;
+  const segs = Array.from({length: NAGA_N}, (_, i) => {
+    const u = Math.max(0, head - i * NAGA_GAP);
+    const p = nagaPath(u);
+    const q = nagaPath(Math.max(0, u - 0.3));
+    const r = 1.7 * (1 - (i / NAGA_N) * 0.7);
+    return {p, q, r, wet: u > 79};
+  });
+  const [hp, hq] = [segs[0].p, segs[0].q];
+  const yaw = Math.atan2(hp[0] - hq[0], hp[2] - hq[2]);
+  return (
+    <>
+      <group position={[cx, terrainH(cx, cz), cz]} scale={CANDLE_S}>
+        <mesh position={[0, 0.5, 0]} castShadow receiveShadow>
+          <boxGeometry args={[4.4, 1, 3]} />
+          <meshStandardMaterial color="#8a2d1e" />
+        </mesh>
+        <mesh
+          position={[0, 1, 0]}
+          geometry={lathe([[0, 0], [1.1, 0], [1.2, 0.4], [0.9, 0.9], [1.0, 1.6], [0.75, 2.2], [0.8, 3.0], [0.55, 3.6], [0.6, 4.4], [0.35, 5.0], [0.38, 5.8], [0.18, 6.4], [0.06, 7.0], [0, 7.2]], 18)}
+          castShadow
+        >
+          <meshStandardMaterial color={WAX} roughness={0.45} metalness={0.15} />
+        </mesh>
+        {[0.9, 2.2, 3.6, 5.0].map((y, i) => (
+          <mesh key={y} position={[0, 1 + y, 0]} rotation-x={Math.PI / 2}>
+            <torusGeometry args={[0.95 - i * 0.18, 0.09, 8, 24]} />
+            <meshStandardMaterial color={WAX_DARK} />
+          </mesh>
+        ))}
+      </group>
+      {segs.map(({p, r, wet}, i) => (
+        <mesh key={i} position={p} scale={r} castShadow>
+          <sphereGeometry args={[1, 12, 10]} />
+          <meshStandardMaterial color={wet ? '#c9a23a' : i % 2 ? '#e2a536' : '#d4922a'} roughness={0.5} metalness={0.2} />
+        </mesh>
+      ))}
+      {/* the head: snout, a crest of five hoods' fan, eyes */}
+      <group position={[hp[0], hp[1] + 1.2, hp[2]]} rotation-y={yaw} scale={2.4}>
+        <mesh position={[0, 0.3, 0.9]} rotation-x={Math.PI / 2} castShadow>
+          <coneGeometry args={[0.8, 2.0, 10]} />
+          <meshStandardMaterial color="#e2a536" metalness={0.2} roughness={0.45} />
+        </mesh>
+        {[-2, -1, 0, 1, 2].map((k) => (
+          <mesh key={k} position={[k * 0.45, 1.5 - Math.abs(k) * 0.25, -0.3]} rotation-z={-k * 0.35} castShadow>
+            <coneGeometry args={[0.28, 1.6, 6]} />
+            <meshStandardMaterial color="#c0792a" />
+          </mesh>
+        ))}
+        {[-1, 1].map((sd) => (
+          <mesh key={sd} position={[sd * 0.45, 0.65, 1.0]}>
+            <sphereGeometry args={[0.16, 10, 8]} />
+            <meshBasicMaterial color="#d8402a" toneMapped={false} />
+          </mesh>
+        ))}
+      </group>
+    </>
+  );
+};
+
 // 3. Elephants from the Pha Taem panel, walking down to drink at the Mun
 const ElephantHero: React.FC<LandmarkProps> = ({t, terrainH}) => (
   <>
@@ -226,3 +317,4 @@ const base = (Landmarks: React.FC<LandmarkProps>): CityConfig => ({
 export const UBON_FISH = base(FishHero);
 export const UBON_CANDLE = base(CandleHero);
 export const UBON_ELEPHANT = base(ElephantHero);
+export const UBON_NAGA = base(NagaHero);

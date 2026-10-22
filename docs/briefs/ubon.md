@@ -1,8 +1,9 @@
 # City brief — Ubon Ratchathani / อุบลราชธานี
 
-Status: plan, pass 1 (22 ต.ค. 2569), cloud container, web search only. Dates marked
-**ตรวจแล้ว** have at least two sources; the rest are to be verified in pass 2 before any caption
-is written. The ONEP polygon and the OSM pins need the workstation (ONEP refuses the cloud).
+Status: pass 2 (22 ต.ค. 2569). Pass 1 was a cloud web search. Pass 2 folds in the owner's Gemini
+research (`ubon_research_gemini.md`, verbatim) and re-checks the caption dates against it. Dates
+marked **ตรวจแล้ว** have at least two independent sources. The ONEP polygon and the OSM pins still
+need the workstation (ONEP refuses the cloud).
 
 Why Ubon (owner, 22 ต.ค.): Isan is about a third of Thailand's population and 4 of our 16
 clips; the North is 6. Isan also holds our two best engagement reads: Korat (skip 32.9%) and
@@ -59,51 +60,111 @@ arcs are simple: before → founding → turn → rebirth → train → modern.
 
 ## 3. Story beats (60 s)
 
-Draft only. Every date is checked in pass 2.
+### 3.0 Facts for the captions (pass 2)
 
-| s | beat (kind) | on screen | date status |
+| fact | status | caption use |
+|---|---|---|
+| ผาแต้ม: fish (some read as ปลาบึก, up to 4 m), an elephant, hands; X-ray fish at ผาขาม | real; **age disputed**: 3,000–4,000 years (กรมศิลปากร, the park), 5,000–6,000 (some articles) | "หลายพันปี", never one number |
+| 2314: after หนองบัวลุ่มภู fell, พระวอ, ท้าวคำผง and the others led their people down the Mekong and the Mun to ดอนมดแดง | Gemini: ยืนยัน (พงศาวดารหัวเมืองมณฑลอีสาน, the province site) | sub line |
+| the great flood at ดอนมดแดง; the move to ห้วยแจระแม (บ้านท่าบ่อ), then ดงอู่ผึ้ง on the Mun's north bank | **year disputed: 2319 / 2321 / 2329** | show the flood, **no year in the caption** |
+| ดงอู่ผึ้ง: a forest of wild bee nests; the town sent ส่วยผึ้ง (beeswax) to Bangkok | Gemini, citing พงศาวดารหัวเมืองมณฑลอีสาน; to confirm | the bridge from bees to candles, sub line |
+| raised to เมืองอุบลราชธานีศรีวนาไลยประเทศราช; ท้าวคำผง becomes พระประทุมวรราชสุริยวงศ์, the first ruler | **2335, ตรวจแล้ว** (province, ข่าวสด, ศิลปวัฒนธรรม, Gemini citing จดหมายเหตุ ร.1). The exact day, 16 ก.ค., rests on that one archive record. 2324–25 is when the settlement began (จารึกวัดมหาวนาราม 2350) | caption "พ.ศ. 2335"; give the founder's name, not พระวอ–พระตา (§ cautions) |
+| วัดหลวง, the town's first temple, on the Mun bank | year disputed (2322 / 2334 / after 2335) | landmark, no year |
+| หอไตรกลางน้ำ, วัดทุ่งศรีเมือง, in the reign of Rama III | Gemini: กรมศิลปากร, ~2384–85 | landmark |
+| 2434: the มณฑลลาวกาว HQ at Ubon; ร.ศ. 112 (2436) makes Ubon a frontier town; กรมหลวงสรรพสิทธิประสงค์ arrives 10 ธ.ค. 2436 | Gemini: ยืนยัน; one cloud source agrees on 2434 | sub line or a short beat |
+| **2444: the first candle procession**, under กรมหลวงสรรพสิทธิประสงค์, in place of the rocket festival | **year ตรวจแล้ว** (Amarin TV, Thai Post; the province counts **125 years in 2569**). That a rocket killed someone is from one source (UBRU) | caption "พ.ศ. 2444"; the rocket accident stays out |
+| 1 เม.ย. 2473: the train reaches สถานีวารินทร์ on the south bank; people cross by boat and ferry | **ตรวจแล้ว** | beat |
+| 2487–88: Allied POWs build an airfield; townspeople (ยายไหล ศิริโสตร์) feed them; the POWs leave อนุสาวรีย์แห่งความดี on ทุ่งศรีเมือง | Gemini + ศิลปวัฒนธรรม | strong local story, but it is wartime suffering: a sub line at most, owner's call |
+| 2497: สะพานเสรีประชาธิปไตย, the first bridge over the Mun, 450 m | year ตรวจแล้ว (Wikipedia EN, gotoknow); the story of a public vote over its name is single-sourced and told differently | beat; no naming story |
+| 2508–2517: the USAF base (8th TFW, F-4) | **ตรวจแล้ว** | aircraft on the runway only |
+| 2569: the procession's 125th year in **2569, this year** | ตรวจแล้ว (Thai Post, Thansettakij) | the payoff caption |
+
+Cautions from the research (§5), all kept:
+- The founder of the town is ท้าวคำผง (พระประทุมวรราชสุริยวงศ์), not "พระวอ–พระตา". Those two
+  were the ancestors who led the migration and died before the town was founded.
+- Use "ขบวนการผู้มีบุญ", not "กบฏผีบุญ", if the 2444–45 rising is mentioned at all. It is out of
+  the picture either way.
+- Write แม่น้ำมูล, the official spelling.
+
+### 3.1 Beats
+
+| s | beat (kind) | on screen | caption |
 |---|---|---|---|
-| 0–3 | **hero** (legend) | title over the whole tile; the painted fish of ผาแต้ม swim up the Mun, big and centred | Pha Taem: fish (4 large, X-ray style, at ผาขาม) and an elephant are real. Age is disputed: 2,500 / 3,000 / 4,000 / 5,000–6,000 years. Say "หลายพันปี" |
-| 3–8 | legend | the fish become the river; people on the cliff painting hands and fish | as above |
-| 8–15 | arrive | เจ้าคำผง's people come down the Mun with carts and boats and build at ห้วยแจระแม | the move from Champasak and the camp at ดอนมดแดง, around 2313 |
-| 15–20 | disaster | a great flood drives them to higher ground at ดงอู่ผึ้ง, on the Mun's north bank | flood around 2319, by one source; to verify |
-| 20–27 | build | the town rises around ทุ่งศรีเมือง; Rama I names it อุบลราชธานี | **disputed: 2325 (ศิลปวัฒนธรรม) or 16 ก.ค. 2335 (ข่าวสด)**. Do not caption it until checked |
-| 27–33 | trade or fight | the headquarters of the Lao-Kao circle moves to Ubon (2434); the French frontier after 2436 | 2434 (one source) |
-| 33–39 | celebrate | the first candle processions replace the rocket festivals, under กรมหลวงสรรพสิทธิประสงค์ | around 2444, my arithmetic from "118 ปีเทียนอุบล" in 2562; to verify |
-| 39–44 | arrive | the train reaches Warin on the south bank, the bridge, the town crosses the river | **1 เม.ย. 2473, ตรวจแล้ว** (Wikipedia, station page) |
-| 44–50 | grow | the wide shot: the air base and the city spread over both banks | USAF 2508–2517, **ตรวจแล้ว** (8th TFW from 8 ธ.ค. 2508; squadrons left in 2517). Show only aircraft and the runway |
-| 50–56 | celebrate (payoff) | the candle procession through today's city; the fish **return** in the Mun as the callback | today |
-| 56–60 | today | the counter holds on 2569, finale card | |
+| 0–3 | **hero** (legend) | title over the whole tile; the hero moves, big and centred (§3a) | — |
+| 3–8 | legend | the painted fish and hands of ผาแต้ม, people painting the cliff | ภาพเขียนสีผาแต้ม · หลายพันปีก่อน |
+| 8–14 | arrive | boats, carts and elephants come down the Mun to ดอนมดแดง from the tile's north-west corner | ล่องลำน้ำมูล · พ.ศ. 2314 |
+| 14–19 | disaster | the Mun rises over the island camp; the people move to the high bank among the bee trees (ดงอู่ผึ้ง) | น้ำท่วมใหญ่ (no year) |
+| 19–26 | build | the town rises around ทุ่งศรีเมือง, วัดหลวง on the bank | เมืองอุบลราชธานี · พ.ศ. 2335 |
+| 26–31 | trade | the frontier town: the grid of roads, offices, the telegraph | หัวเมืองชายแดน · ร.ศ. 112 / 2436 |
+| 31–37 | celebrate | the first candle procession, bound candles on carts round ทุ่งศรีเมือง | แห่เทียนครั้งแรก · พ.ศ. 2444 |
+| 37–42 | arrive | the train reaches Warin; boats and the ferry cross the Mun | รถไฟถึงวาริน · พ.ศ. 2473 |
+| 42–48 | grow | the bridge (2497), the air base, the wide shot of both banks filling | — |
+| 48–56 | celebrate (payoff) | today's procession of giant carved candles, the hero returns | 125 ปี แห่เทียนอุบล |
+| 56–60 | today | the counter holds on 2569, the finale card | |
+
+The candle is both the town's best-known symbol and the clip's heart, and it appears three times:
+- the bee forest at 14 s;
+- the first procession at 31 s;
+- the payoff at 48 s.
+
+That is the "same framing, centuries apart" that makes Chiang Mai work, applied to one tradition.
 
 Out (`docs/storyline.md` §3.6a):
 - the 2562 and 2565 floods;
-- anything about the base within living memory beyond aircraft on a runway.
+- the rocket accident of 2444;
+- the ผู้มีบุญ rising;
+- base life beyond aircraft on a runway.
 
-The ผีบุญ rising (2444) is people killed, about 125 years ago. At most it is a sub line ("after the
-unrest of 2444"), and only if the candle date is tied to it in the sources.
+The POW story is the owner's call.
 
-### 3a. Hero options (to show as style frames before building)
+### 3a. Hero options
 
-The hero must be big, centred, moving and Ubon's own:
-1. **The painted fish of Pha Taem, alive (recommended).** Three or four giant red X-ray fish
-   swim up the Mun across the tile at frame 0. They are living things like Korat's dinosaurs, they
-   surprise, and they are the province's oldest picture. They come back in the payoff, swimming
-   past the candle procession.
-2. **The candle procession at hero scale.** A giant carved candle float rolls through the tile at
-   frame 0. It is the province's best-known symbol and it moves, but it is an object. Our
-   symbol-heroes (the carriage, the dessert tray) did not beat 45%.
-3. **Elephants from the Pha Taem painting** walking down to the Mun. They are alive and move,
-   but the elephant on the cliff is small and less known than the fish.
+The owner, on reading the research: "ประเพณีแห่เทียนเป็นสิ่งที่เด่น". The reads still say a
+static object loses. The options below are ranked by how close each is to Korat's hook:
 
-## 4. Landmarks (for the pins)
+1. **The naga on the giant candle comes alive (recommended).** A giant carved candle stands
+   at the centre of the tile. Its naga uncoils, slides down into the Mun and swims. In the payoff
+   it climbs back onto a candle in today's procession. The candle is Ubon's symbol; the naga is
+   the living, moving thing; and nagas are among the commonest carvings on Ubon candles. It is a
+   legend picture, so it carries no caption and no year.
+2. **The painted fish of ผาแต้ม.** Built as a style frame; the research scores it 9.5/10. It is a
+   true animal and the province's oldest picture, but it is not the candle.
+3. **นกหัสดีลิงค์**, the research's own first pick: an elephant-headed bird flying down to
+   ทุ่งศรีเมือง. It is uniquely Ubon and alive. But it is a cremation pyre, so it opens the clip on
+   a funeral; I would not lead with it.
+4. **The candle float itself, moving** (built as a style frame): the plainest, and the symbol
+   class that has lost every time.
 
-- ทุ่งศรีเมือง (the town field), ศาลหลักเมือง
-- วัดทุ่งศรีเมือง with its หอไตรกลางน้ำ (date to verify: a Rama III-era claim is unconfirmed)
-- วัดศรีอุบลรัตนาราม
-- วัดหลวง, said to be founded by เจ้าคำผง (to verify)
-- อนุสาวรีย์เทียนพรรษา on ทุ่งศรีเมือง
-- the Mun bridge to Warin, Warin station, the airport/air base
-- `far`: ผาแต้ม and โขงเจียม (the Mun meets the Mekong)
+## 4. Pins (Gemini §4, converted with `scripts/geo.mjs`)
+
+Origin: ทุ่งศรีเมือง, 15.230222, 104.857306. 80 m/unit, +x east, −z north. Every pin is to be checked
+on OSM by the workstation.
+
+| place | lat, lon | model |
+|---|---|---|
+| ทุ่งศรีเมือง (centre; ~340 × 220 m, i.e. 4.3 × 2.8 units) | 15.230222, 104.857306 | [0, 0] |
+| ศาลหลักเมือง | 15.228581, 104.857683 | [0.5, 2.3] |
+| วัดทุ่งศรีเมือง, หอไตรกลางน้ำ | 15.230000, 104.860833 | [4.7, 0.3] |
+| วัดศรีอุบลรัตนาราม | 15.227569, 104.856192 | [−1.5, 3.7] |
+| วัดหลวง (on the Mun bank) | 15.225346, 104.860424 | [4.2, 6.7] |
+| สะพานเสรีประชาธิปไตย | 15.222700, 104.857300 | [0, 10.4] |
+| สถานีอุบลราชธานี (วาริน) | 15.200500, 104.858700 | [1.9, 41.1] |
+| สนามบิน / กองบิน 21 | 15.251278, 104.870231 | [17.4, −29.1] |
+| บ้านท่าบ่อ / ห้วยแจระแม (first site after the flood) | 15.255142, 104.823857 | [−44.9, −34.4] |
+| ผาแต้ม (`far`) | 15.383333, 105.525000 | real [896, −212]; bearing ~77° |
+| ปากมูล, โขงเจียม (`far`) | 15.318161, 105.500944 | real [864, −122] |
+
+Real dimensions in metres:
+- the Mun at the bridge: ~190 m of water (2.4 units), and 250–350 m with its sandbars;
+- the old core: ~1.6–1.8 km along the river by ~1 km inland (1935 municipality: 1.65 km²);
+- the road grid: ถนนเขื่อนธานี follows the old moat line.
+
+So the tile holds:
+- the town on the north bank, around [0, 0];
+- the Mun ~10 units south of it;
+- Warin and the station near the south edge;
+- the airfield to the north-east;
+- the first site in the north-west corner, so the migration crosses the tile.
 
 ## 5. Grandeur
 
@@ -134,12 +195,24 @@ The hero must be big, centred, moving and Ubon's own:
 
 ## 7. Open questions
 
-1. **Owner:** which hero, after the style frames?
-2. **Pass 2 (cloud):** verify the founding year (2325 or 2335), the flood, the first candle
-   procession, the bridge year and วัดทุ่งศรีเมือง.
+1. **Owner:** which hero? I recommend the naga coming off the candle (§3a) and will build it as a style frame.
+   Also the owner's call: the POW story (อนุสาวรีย์แห่งความดี), as a sub line or not at all.
+2. **Done in pass 2:**
+   - the founding year: 2335;
+   - the first procession: 2444;
+   - the train: 2473;
+   - the bridge: 2497.
+
+   The flood year stays disputed, so its caption carries no year.
 3. **Workstation:** the ONEP polygon if one exists, the OSM pins for §4 and the Mun's centreline.
 4. **Phuket's read** (about 23 ต.ค.) tests a living, moving hero again. If it fails, revisit §3a
    before building.
+
+Sources (pass 2, besides `ubon_research_gemini.md`):
+- [Amarin TV, แห่เทียนพรรษา](https://www.amarintv.com/lifestyle/trendy/518787)
+- [ไทยโพสต์, 125 ปี แห่เทียนพรรษาเมืองอุบลฯ](https://www.thaipost.net/news-update/1043062/)
+- [Wikipedia, Seriprachathippatai 2497 Bridge](https://en.wikipedia.org/wiki/Seriprachathippatai_2497_Bridge)
+- [ศิลปวัฒนธรรม, อนุสาวรีย์แห่งความดี](https://www.silpa-mag.com/?p=40184)
 
 Sources (pass 1):
 - [ข่าวสด, อุบลราชธานี (ตอนจบ)](https://www.khaosod.co.th/lifestyle/news_2913775)
