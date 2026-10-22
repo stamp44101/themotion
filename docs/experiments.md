@@ -154,7 +154,7 @@ and the series' identity is **a green tile with one standout thing on it**. A ni
 the finale breaks the grid. The opening lever stays inside that frame: a hero that is big,
 surprising and, ideally, moving (see 1c), on the whole tile at frame 0.
 
-## 3. Storyline standard v1 (Phetchaburi) — to read
+## 3. Storyline standard v1 (Phetchaburi) — read: worse on every measure
 
 This is not one variable. Phetchaburi is the first clip built to the whole of
 `docs/storyline.md`, which draws on 1–1c and the owner's notes:
@@ -189,3 +189,109 @@ Caveat: the clip tests a package, so a gain cannot be pinned on one rule.
 - If skip rate moves and retention at 17 s does not, it is the other way round.
 
 From the next city on, change one thing at a time against this standard.
+
+### Result (read 21 Oct 08:54, just under a day in)
+
+**Skip rate 50.4%**, the worst of the five reads and back at the forest-tile baseline (~52%).
+5,632 views from 3,984 viewers, under half of a typical reel at the same age (the views curve
+sits at ~6.5K against ~13K for the typical reel), 12 follows. **Average watch 15 s of 60.**
+**Share 0.7%**, the lowest after Nakhon Si's 0.8%; likes 5.9%, saves 0.5%, reposts 0.7% (all
+"lower"); comments 0.3%, the only rate Instagram marks "higher". Counts: 249 likes, 12 comments,
+28 reposts, 29 shares, 21 saves. Views came from the Reels tab (62.3%), Feed (19.8%), Stories
+(6.8%), Explore (6.5%) and Profile (3.4%).
+
+Retention, read off the curve and so approximate: **~51% at 3 s**, ~38% at 7 s, **~24% at 17 s**,
+~20% at 27 s, ~9% at 55 s.
+
+| | predicted (above) | read |
+|---|---|---|
+| skip rate | toward Korat's 32.9% | 50.4% |
+| retention at 17 s | above 30–35% | ~24% |
+| average watch | above 18–21 s | 15 s |
+| shares | Korat's 1.3% or above | 0.7% |
+
+Reading:
+- **Both halves failed, so the caveat above cannot split them.** By its own rule, neither the
+  hook nor the middle worked; the package as a whole did worse than the clips built before it.
+- **The hero passed the check but not the eye.** `storyline.mjs` confirms a `hero` actor is
+  centred under the title for 0–2 s; it cannot tell whether the thing reads at phone size. On
+  the cover, Khao Wang is a green lump with grey halls, and the tray of ขนมหม้อแกง, the surprise,
+  is a small brown box at the corner; the piece that lifts out is a few pixels. In practice
+  it is the fourth static landmark or symbol on the tile (relic boat, carriage, stupa, hill and
+  tray), and those have landed at 43–50% every time. Korat's walking dinosaurs, three of them
+  filling the frame, remain the only clear win.
+- **The middle had motion and still lost people faster.** Porters from 3.4 s and the siege from
+  9 s kept actors on screen through 3–17 s, yet 17-s retention fell from Khon Kaen's ~34% to
+  ~24%. Motion that a viewer has to search for (small figures on a wide tile) does not hold
+  them; this is the same lesson as the hero, one beat later.
+- **Shares did not follow the province's symbol** (finding 6 predicted ≥ 1.3%). ขนมหม้อแกง was on
+  screen at both ends and shares were 0.7%. Finding 6 holds for Korat, Lampang and Khon Kaen and
+  fails here; it is weaker than it looked.
+- **Things this read cannot rule out:** the topic's own pull (a smaller audience for
+  Phetchaburi than for Korat or Khon Kaen), the posting time, and the lower reach itself, which
+  follows the skip rate rather than causing it.
+
+What it changes:
+- A hero has to be **big on the phone screen and visibly moving in the first second**, like
+  Korat's: large living things crossing the tile. A landmark with a small moving part is a
+  static landmark. The legibility rule (`scale × size ≥ 80 px`) was set for actors in a beat
+  and is too lax for a hero; measure Korat's dinosaurs at 0–2 s before setting a hero floor.
+- Chiang Rai's hero (วัดร่องขุ่น at hero scale, hands rising) is in the same static class, so
+  this read predicts a skip rate in the 43–50% band for it as built.
+
+## 4. Chiang Rai: a static landmark hero, to the standard — read: worst so far
+
+Built to the storyline standard like Phetchaburi. The hero is วัดร่องขุ่น at hero scale in the
+middle of the tile under the title, with hands rising in front of it, and it returns in the
+payoff ("เชียงรายเมืองศิลปะ"). The Phetchaburi read put it in the static class and predicted
+43–50%. Posted 21 Oct (~09:00 ICT); the look (plain or shader) was not logged.
+
+### Result (read 22 Oct 08:59, about a day in)
+
+**Skip rate 58.3%**, the worst of all six reads and above every clip in the forest-tile
+baseline (48–57%). 4,068 views from 2,676 viewers, about half of a typical reel at the same
+age (the views curve sits at ~4K against ~8K), 6 follows. **Average watch 16 s of 60.**
+**Share 0.5%**, the lowest yet; likes 6.5%, saves 0.6%, reposts 0.7% (all "lower"); comments
+0.4%, again the only rate marked "higher". Counts: 187 likes, 11 comments, 20 reposts, 14
+shares, 17 saves. Views came from the Reels tab (53.1%), Feed (24.2%), Stories (9.5%), Explore
+(7.5%) and Profile (4.4%).
+
+Retention, read off the curve and so approximate: **~48% at 3 s**, **~26% at 17 s**, ~14% at
+55 s, then the drop at the end.
+
+| | Korat | Lampang | Khon Kaen | Phetchaburi | **Chiang Rai** |
+|---|---|---|---|---|---|
+| hero | 3 walking dinosaurs | carriage, standing | stupa + small dinosaur | hill + tray | temple, hands rising |
+| skip rate | 32.9% | 44.9% | 44.7% | 50.4% | **58.3%** |
+| retention at 17 s | ~35% | ~30% | ~34% | ~24% | **~26%** |
+| average watch | 21 s | 18 s | 19 s | 15 s | **16 s** |
+| share | 1.3% | 1.2% | 1.4% | 0.7% | **0.5%** |
+| views from the Reels tab | — | 76.9% | 75.5% | 62.3% | **53.1%** |
+
+Reading:
+- **The static-hero prediction held in direction and missed in size.** It said 43–50%; the clip
+  landed 8 points worse. A landmark at hero scale is not neutral: the last two clips that led
+  with one (Phetchaburi, Chiang Rai) are the two worst reads.
+- **Reach is shrinking with the skip rate.** The Reels-tab share of views, which is the
+  algorithm showing the clip to non-followers, fell 77 → 76 → 62 → 53% across the last four
+  posts, while Feed and Stories (followers) rose to a third of the views. Instagram is testing
+  each clip on a smaller non-follower audience and dropping it sooner.
+- **The middle held about level with Phetchaburi** (~26% at 17 s against ~24%). Both are under
+  the 30–35% of the three clips before them. Whatever the standard added to 3–17 s has not
+  shown up in retention.
+- **Comments are "higher" for the second time running.** They are the one signal that has gone
+  up; people who stay engage with the story. The loss is in who stays.
+- **Things this read cannot rule out:** topic pull (Chiang Rai's audience, and a temple that is
+  famous for its looks being shown small), a run of weaker posts lowering the account's
+  standing, and the posting time.
+
+What it changes:
+- Treat the hero question as answered for landmarks: **do not open on a static landmark again**,
+  however large. Korat's walking animals are still the only opening that beat the baseline.
+- **Phuket is the next test of the moving hero.** Its cover is two sea turtles, a leatherback and
+  a green, crawling up the beach and digging in from frame 0, both large on the tile. It is
+  the closest opening to Korat's since Korat. Predicted: skip rate under 45% if motion of large
+  living things is the lever; if it also lands at 50% or worse, the account's falling reach
+  (above) is the stronger effect, and the next thing to test is not the hero but distribution
+  (posting time, cover, caption).
+- Log the look (plain or shader) with every post from Phuket on.
