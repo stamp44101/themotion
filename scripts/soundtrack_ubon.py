@@ -120,12 +120,18 @@ def steps(t0, t1, every, gain, pan=0.0):
 
 
 def paddle(t0, t1, every, gain, pan=0.0):
-    """a paddle dipping: a short low wash"""
+    """a paddle drawn through the water: a soft swish that swells in and trails off, with the odd
+    drip off the blade. It used to start in 20 ms and read as a knock ('ปั่กๆ', owner), so the
+    attack is slow now and nothing in it is percussive."""
     t = t0
     while t < t1:
-        n = int(0.22 * SR)
-        add(sfx, filt(pink(n), "band", (250, 1200)) * env_ar(n, 0.02, 0.18) * 0.5, t, pan=pan + rng.uniform(-0.3, 0.3), gain=gain)
-        t += every * rng.uniform(0.8, 1.2)
+        d = rng.uniform(0.38, 0.55)
+        n = int(d * SR)
+        swish = filt(pink(n), "band", (220, 900)) * env_ar(n, d * 0.45, d * 0.5)
+        add(sfx, swish * 0.32, t, pan=pan + rng.uniform(-0.3, 0.3), gain=gain)
+        if rng.random() < 0.35:
+            add(sfx, filt(splash(), "low", 1400) * 0.25, t + d * 0.7, pan=pan + rng.uniform(-0.3, 0.3), gain=gain)
+        t += every * rng.uniform(1.0, 1.6)
 
 
 def scales(t0, t1, gain):
