@@ -213,6 +213,14 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   glide at constant distance; a tracking shot that follows something moving (a train, a raft);
   a 1-1.5 s hold as each caption lands; the azimuth swinging around the city over the clip.
   `check_story.mjs` enforces the floors (`scripts/camera_stats.mjs`).
+- **The camera must not lurch (owner).** Phuket's first cut moved straight between keys: the
+  cover-to-ship move peaked at 116 deg/s and stopped dead within 0.3 s, and the owner felt the
+  early moves "กระชาก". `cameraStats` now measures jerk, the peak change in camera speed
+  (view swing + log-zoom + target slide, deg/s per second); `check_story` fails a city over
+  700. Ease every move between beats with `glide()` / `between()` from `src/engine/glide.ts`
+  (smootherstep, log-scale distance, optional `lift` over a long crossing): Phuket measures
+  332, Phetchaburi 621, Korat 1,320, Chiang Rai's drone dive 7,491. Cities posted before the
+  rule are waived to a warning.
 - **Low cameras look through forest.** Nakhon Sawan's shrine shot sat at 20 degrees elevation,
   36 units out, looking across the wooded old town: the owner saw only trees. Raising it to 34
   degrees (same azimuth and distance) showed the shrine, the crowd and the market. Below ~30
