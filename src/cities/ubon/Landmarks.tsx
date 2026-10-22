@@ -12,8 +12,9 @@ import {AIRFIELD, CANDLE_AT, DON_MOT_DAENG, munZ, RUNWAY_ROT, THUNG, THUNG_HALF,
 
 export {THUNG, WAT_LUANG} from './places';
 
-const WAX = '#e7a33c';
-const WAX_DARK = '#b8741f';
+// the candle is matte beeswax, the naga gilt with a clearcoat, so the two read apart
+const WAX = '#e9b95e';
+const WAX_DARK = '#c58f3a';
 const RIVER = '#4f8fb0';
 
 // ------------------------------------------------------------------ the carved candle
@@ -28,12 +29,12 @@ export const CarvedCandle: React.FC<{night: number; float?: boolean; white?: boo
       </mesh>
     )}
     <mesh position={[0, float ? 1 : 0, 0]} geometry={CANDLE_PROFILE} castShadow>
-      <meshStandardMaterial color={white ? '#f4efe3' : WAX} roughness={0.45} metalness={white ? 0 : 0.15} emissive="#ffb347" emissiveIntensity={night * 0.5} />
+      <meshStandardMaterial color={white ? '#f4efe3' : WAX} roughness={0.8} metalness={0} emissive="#ffb347" emissiveIntensity={night * 0.5} />
     </mesh>
     {[0.9, 2.2, 3.6, 5.0].map((y, i) => (
       <mesh key={y} position={[0, (float ? 1 : 0) + y, 0]} rotation-x={Math.PI / 2}>
         <torusGeometry args={[0.95 - i * 0.18, 0.09, 8, 24]} />
-        <meshStandardMaterial color={white ? '#d9a43a' : WAX_DARK} metalness={0.3} />
+        <meshStandardMaterial color={white ? '#d9a43a' : WAX_DARK} roughness={0.7} />
       </mesh>
     ))}
   </group>
@@ -148,7 +149,7 @@ export const UbonLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH, b
           <CarvedCandle night={night} />
         </group>
       )}
-      {open && <Naga pts={open} r={NAGA_R} jaw={0.35 + Math.sin(t * 2.2) * 0.25} night={night} />}
+      {open && <Naga pts={open} r={NAGA_R} jaw={0.35 + Math.sin(t * 2.2) * 0.25} night={night} t={t} />}
       {Y < 0 &&
         [0, 1, 2, 3].map((i) => {
           const f = fisherAt(i, t);
@@ -412,7 +413,7 @@ export const UbonLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH, b
           </group>
         </group>
       )}
-      {ret && <Naga pts={ret} r={NAGA_R * 0.55} jaw={0.3 + Math.sin(t * 2.4) * 0.25} night={night} />}
+      {ret && <Naga pts={ret} r={NAGA_R * 0.55} jaw={0.3 + Math.sin(t * 2.4) * 0.25} night={night} t={t} />}
 
       {/* today: the procession of carved candles round the field, with dancers */}
       {Array.from({length: FLOAT_N}, (_, i) => {
