@@ -93,6 +93,15 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   sound -- a soft pop per building as it rises, footsteps, voices, splashes, gulls -- keep the
   ambience 8-12 dB under the score, and meter the music bus against the effects bus per 3 s
   before calling a soundtrack done (effects at or above the music in every action beat).
+- **Every city plays at the same loudness: -16 LUFS, Korat's and Chiang Mai's level (owner).**
+  The old master normalised the *peak* and soft-clipped, so loudness followed how dense the mix
+  was: Korat and Chiang Mai, the two best-performing clips, sat at -16.0 LUFS with a 6 LU
+  loudness range, while Chiang Rai came out at -11.2 and Phetchaburi at -12.0, 4-5 LU louder
+  and flattened to 2.3-2.5 LU of range. `synth.master` now measures BS.1770 integrated
+  loudness, sets the mix to `TARGET_LUFS = -16` and limits only peaks above a -1 dBTP
+  ceiling; `scripts/check_loudness.mjs` (in `npm run check`) fails a new city off -16 ± 1 LU.
+  The clips posted before the rule are waived to a warning. Loudness is not dynamics: a mix
+  that is wall-to-wall dense stays flat at -16, so keep quiet passages in the score.
 - **The gaps between beats need sound too.** Phetchaburi wrote every cue inside a beat, so each
   1-1.4 s gap fell to the ambience bed, 5-6 dB under the clip, right before the fair. Carry
   each gap with a rising bridge into the next beat and land the downbeat (`bridge()` in

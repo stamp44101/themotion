@@ -11,7 +11,7 @@ import json
 
 import numpy as np
 from scipy.io import wavfile
-from scipy.signal import butter, fftconvolve, sosfilt
+from scipy.signal import butter, fftconvolve, lfilter, resample_poly, sosfilt
 
 SR = 44100
 DUR = 60.0
@@ -149,14 +149,73 @@ def reverb(x, seconds=3.0, decay=1.1, seed=3):
     return np.stack([fftconvolve(x[:, c], ir[:, c])[:N] for c in range(2)], axis=1)
 
 
+# ---------------------------------------------------------------- loudness
+# Every city is mastered to the same loudness, the level of the two best-performing clips:
+# Korat and Chiang Mai both measure -16.0 LUFS integrated with peaks near -0.8 dBFS. The old
+# master normalised the *peak* and soft-clipped, so a dense mix came out up to 5 LU louder and
+# flattened (Chiang Rai -11.2 LUFS, loudness range 2.3 LU, against Korat's 6.2).
+# `node scripts/check_loudness.mjs` (part of `npm run check`) measures the committed wavs.
+TARGET_LUFS = -16.0
+TRUE_PEAK = -1.0  # dBTP ceiling; AAC re-encoding overshoots a little, so leave 1 dB
+
+
+def _k_weight(x, fs=SR):
+    """ITU-R BS.1770 K-weighting (high shelf + high pass), coefficients for any sample rate."""
+    K = np.tan(np.pi * 1681.974450955533 / fs)
+    Vh = 10 ** (3.999843853973347 / 20)
+    Vb = Vh ** 0.4996667741545416
+    Q = 0.7071752369554196
+    a0 = 1 + K / Q + K * K
+    b = [(Vh + Vb * K / Q + K * K) / a0, 2 * (K * K - Vh) / a0, (Vh - Vb * K / Q + K * K) / a0]
+    a = [1, 2 * (K * K - 1) / a0, (1 - K / Q + K * K) / a0]
+    x = lfilter(b, a, x, axis=0)
+    K = np.tan(np.pi * 38.13547087602444 / fs)
+    Q = 0.5003270373238773
+    a0 = 1 + K / Q + K * K
+    return lfilter([1, -2, 1], [1, 2 * (K * K - 1) / a0, (1 - K / Q + K * K) / a0], x, axis=0)
+
+
+def lufs(x, fs=SR):
+    """Integrated loudness (BS.1770-4: 400 ms blocks, 75% overlap, -70 LUFS and -10 LU gates)."""
+    y = _k_weight(np.atleast_2d(x.T).T, fs)
+    n, hop = int(0.4 * fs), int(0.1 * fs)
+    z = np.array([(y[i:i + n] ** 2).mean(axis=0).sum() for i in range(0, len(y) - n + 1, hop)])
+    lk = -0.691 + 10 * np.log10(z + 1e-12)
+    z = z[lk > -70]
+    rel = -0.691 + 10 * np.log10(z.mean()) - 10
+    z = z[-0.691 + 10 * np.log10(z) > rel]
+    return -0.691 + 10 * np.log10(z.mean())
+
+
+def true_peak(x):
+    """dBTP: the sample peak after 4x oversampling."""
+    return 20 * np.log10(np.abs(resample_poly(x, 4, 1, axis=0)).max() + 1e-12)
+
+
+def _limit(x, ceil):
+    """Soft knee above half the ceiling: quiet passages untouched, nothing reaches `ceil`."""
+    k = ceil * 0.5
+    a = np.abs(x)
+    over = a > k
+    out = x.copy()
+    out[over] = np.sign(x[over]) * (k + (ceil - k) * np.tanh((a[over] - k) / (ceil - k)))
+    return out
+
+
 def master(path, music, amb, sfx, music_wet=0.45, sfx_wet=0.25):
-    """Reverb, fades, normalize, soft-clip, write 16-bit WAV."""
+    """Reverb, fades, loudness-normalise to TARGET_LUFS under a TRUE_PEAK ceiling, write 16-bit WAV."""
     mix = music * 0.75 + reverb(music, 3.2, 1.3, seed=5) * music_wet + amb + sfx * 0.9 + reverb(sfx, 2.0, 0.8, seed=9) * sfx_wet
     fade = np.minimum(1, T / 0.25) * np.clip((DUR - T) / 1.6, 0, 1)
     mix *= fade[:, None]
-    mix /= np.max(np.abs(mix)) + 1e-9
-    mix = np.tanh(mix * 1.15) / np.tanh(1.15) * 0.92
-    wavfile.write(path, SR, (mix * 32767).astype(np.int16))
+    # gain to the target, then limit only the peaks that would cross the ceiling; limiting
+    # costs a little loudness, so measure and correct again
+    ceil = 10 ** ((TRUE_PEAK - 0.5) / 20)
+    for _ in range(3):
+        mix *= 10 ** ((TARGET_LUFS - lufs(mix)) / 20)
+        if np.abs(mix).max() > ceil:
+            mix = _limit(mix, ceil)
+    wavfile.write(path, SR, np.round(np.clip(mix, -1, 1) * 32767).astype(np.int16))
+    print(f"  master: {lufs(mix):.1f} LUFS, true peak {true_peak(mix):.1f} dBTP -> {path}")
     return mix
 
 
