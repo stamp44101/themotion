@@ -313,25 +313,27 @@ const Head: React.FC<{jaw: number; night: number; t: number}> = ({jaw, night, t}
           </mesh>
           {/* the eyes: kind but dignified, between the hard red slits and round cartoon eyes
               (owner: not too cute). Almond-shaped, an amber iris with a round pupil, one
-              catchlight, lids a little lowered under a gold brow; they blink now and then */}
-          <group position={[k * 0.46, 0.44, 0.88]} rotation-y={k * 0.3} scale={[1, 0.78, 1]}>
+              catchlight, the lid resting on the top of the iris under a gold brow; they blink now and then */}
+          <group position={[k * 0.46, 0.44, 0.88]} rotation-y={k * 0.3} scale={[1, 0.85, 1]}>
             <mesh>
               <sphereGeometry args={[0.25, 20, 16]} />
               <meshStandardMaterial color="#f6efdc" roughness={0.3} />
             </mesh>
-            <mesh position={[0, 0, 0.2]} scale={[1, 1, 0.45]}>
-              <sphereGeometry args={[0.16, 18, 14]} />
+            {/* iris and pupil as caps on the eyeball, so the whole iris shows: about half the
+                eye's width, amber, with a round pupil in the middle */}
+            <mesh rotation-x={Math.PI / 2 - 0.22}>
+              <sphereGeometry args={[0.253, 28, 8, 0, Math.PI * 2, 0, 0.78]} />
               <meshStandardMaterial color="#c8861c" roughness={0.3} />
             </mesh>
-            <mesh position={[0, 0, 0.245]} scale={[1, 1, 0.45]}>
-              <sphereGeometry args={[0.085, 14, 10]} />
+            <mesh rotation-x={Math.PI / 2 - 0.22}>
+              <sphereGeometry args={[0.256, 24, 6, 0, Math.PI * 2, 0, 0.34]} />
               <meshStandardMaterial color="#120a04" roughness={0.2} />
             </mesh>
-            <mesh position={[0.045, 0.055, 0.275]}>
-              <sphereGeometry args={[0.028, 8, 6]} />
+            <mesh position={[0.05, 0.11, 0.235]}>
+              <sphereGeometry args={[0.03, 8, 6]} />
               <meshBasicMaterial color="#ffffff" toneMapped={false} />
             </mesh>
-            <mesh rotation-x={blink ? 0.35 : -1.25}>
+            <mesh rotation-x={blink ? 0.35 : -1.62}>
               <sphereGeometry args={[0.265, 20, 10, 0, Math.PI * 2, 0, Math.PI / 2]} />
               <meshPhysicalMaterial {...GILT} side={THREE.DoubleSide} />
             </mesh>
