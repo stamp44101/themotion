@@ -28,6 +28,12 @@ const COLUMN = 820; // caption column width in px (Overlay: SAFE.left..SAFE.righ
 // Camera rhythm floors. Every approved city clears them; see camera_stats.mjs for
 // what each number means and the review that set them.
 const CAM = {maxZoom: 0.65, minOrbit: 0.15, minAzSwept: 300, minMidWide: 100};
+// Camera jerk: the peak change in camera speed, deg/s per second (camera_stats.mjs). Phuket's
+// smoothstep glides measure 332, Nakhon Si 319, Phetchaburi 621; the owner felt Phuket's first
+// cut (600-3,300) lurch. Over JERK_MAX, ease the move with glide() in timeline.ts or move the
+// keys further apart. Posted before the rule (owner, 22 Oct), warn only:
+const JERK_MAX = 700;
+const JERK_WAIVED = new Set(['ayutthaya', 'chachoengsao', 'chiangrai', 'chonburi', 'khonkaen', 'korat', 'lampang', 'nakhonsawan']);
 // Cities that predate the camera rule. Re-tune their keys, then remove them here.
 const CAMERA_WAIVED = new Set(['chachoengsao']);
 // Posted before the cars-on-water rule; the owner is not re-rendering them. Its ring
@@ -214,6 +220,8 @@ for (const city of cities) {
   if (cam.azSwept < CAM.minAzSwept) camIssues.push(`azimuth sweeps ${Math.round(cam.azSwept)} degrees in total (min ${CAM.minAzSwept}): the city is only ever seen from one side`);
   if (cam.midWide < CAM.minMidWide) camIssues.push(`no wide shot between 15s and ${s(D - 8)} (widest distance ${Math.round(cam.midWide)}, need >= ${CAM.minMidWide}): pull back at least once so the viewer sees the city grow`);
   for (const m of camIssues) (CAMERA_WAIVED.has(city) ? warn : err)(`camera: ${m}.`);
+  if (cam.jerk > JERK_MAX)
+    (JERK_WAIVED.has(city) ? warn : err)(`camera: the move at ${s(cam.jerkAt)} lurches (speed changes by ${Math.round(cam.jerk)} deg/s per second, max ${JERK_MAX}). Ease it with glide() in timeline.ts, or give the keys more time between them.`);
 
   // grandeur (docs/grandeur.md)
   {
