@@ -260,6 +260,8 @@ const Head: React.FC<{jaw: number; night: number; t: number}> = ({jaw, night, t}
   const ph = (t % 1.7) / 1.7;
   const tongue = ph < 0.2 ? Math.sin((ph / 0.2) * Math.PI) : 0;
   const quiver = Math.sin(t * 3) * 0.02;
+  // a blink of 0.15 s every 3.2 s
+  const blink = t % 3.2 > 3.05;
   return (
     <group>
       {/* crown, brow and a short snout */}
@@ -309,15 +311,34 @@ const Head: React.FC<{jaw: number; night: number; t: number}> = ({jaw, night, t}
             <coneGeometry args={[0.055, 0.3, 6]} />
             <meshStandardMaterial color="#fffaf0" />
           </mesh>
-          {/* almond eyes under the brow */}
-          <mesh position={[k * 0.5, 0.42, 0.85]} rotation-y={k * 0.4} scale={[0.7, 0.6, 1.1]}>
-            <sphereGeometry args={[0.2, 16, 12]} />
-            <meshBasicMaterial color="#e8341c" toneMapped={false} />
-          </mesh>
-          <mesh position={[k * 0.62, 0.42, 0.9]} rotation-y={k * 1.0}>
-            <boxGeometry args={[0.035, 0.18, 0.04]} />
-            <meshBasicMaterial color="#1a0d05" />
-          </mesh>
+          {/* big, friendly eyes: white, a large dark iris, two catchlights, and a gold lid that
+              blinks now and then (the owner wanted them cute, not hard) */}
+          <group position={[k * 0.46, 0.44, 0.88]} rotation-y={k * 0.28}>
+            <mesh>
+              <sphereGeometry args={[0.3, 20, 16]} />
+              <meshStandardMaterial color="#fffaf0" roughness={0.3} />
+            </mesh>
+            <mesh position={[0, -0.01, 0.19]} scale={[1, 1.08, 0.5]}>
+              <sphereGeometry args={[0.22, 18, 14]} />
+              <meshStandardMaterial color="#3a2210" roughness={0.25} />
+            </mesh>
+            <mesh position={[0, -0.01, 0.26]} scale={[1, 1.08, 0.5]}>
+              <sphereGeometry args={[0.14, 14, 10]} />
+              <meshStandardMaterial color="#0d0704" roughness={0.2} />
+            </mesh>
+            <mesh position={[0.07, 0.08, 0.3]}>
+              <sphereGeometry args={[0.05, 10, 8]} />
+              <meshBasicMaterial color="#ffffff" toneMapped={false} />
+            </mesh>
+            <mesh position={[-0.06, -0.07, 0.3]}>
+              <sphereGeometry args={[0.024, 8, 6]} />
+              <meshBasicMaterial color="#ffffff" toneMapped={false} />
+            </mesh>
+            <mesh rotation-x={blink ? 0.35 : -1.4}>
+              <sphereGeometry args={[0.315, 20, 10, 0, Math.PI * 2, 0, Math.PI / 2]} />
+              <meshPhysicalMaterial {...GILT} side={THREE.DoubleSide} />
+            </mesh>
+          </group>
           {/* the round scroll on each cheek */}
           <group position={[k * 0.8, 0.05, 0.35]} rotation-y={(k * Math.PI) / 2}>
             <mesh castShadow>
