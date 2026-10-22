@@ -215,10 +215,14 @@ export const UbonLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH, b
         ) : null;
       })}
       {/* ดงอู่ผึ้ง: big trees hung with wild bee combs on the high bank */}
+      {/* cleared for the town one by one across the founding's first third, never all at once
+          (a one-frame pop here was a 9-level luma jump in check_render) */}
       {Y > 1774 &&
-        Y < 1792.3 &&
-        [[-4, -6], [4, -5], [-6, 2], [6, 3], [0, -8], [-2, 6]].map(([x, z], i) => (
-          <group key={i} position={[x, terrainH(x, z), z]}>
+        Y < 1793 &&
+        [[-4, -6], [4, -5], [-6, 2], [6, 3], [0, -8], [-2, 6]].map(([x, z], i) => {
+          const k = Y < 1792 ? 1 : 1 - smooth(ramp(beat('founding'), 0.04 + i * 0.05, 0.14 + i * 0.05));
+          return k <= 0.02 ? null : (
+          <group key={i} position={[x, terrainH(x, z), z]} scale={[k, k, k]}>
             <mesh position={[0, 1.6, 0]}>
               <cylinderGeometry args={[0.25, 0.35, 3.2, 7]} />
               <meshStandardMaterial color="#5b3d22" />
@@ -234,7 +238,8 @@ export const UbonLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH, b
               </mesh>
             ))}
           </group>
-        ))}
+          );
+        })}
 
       {/* 2335: the field and the first town round it */}
       {town && (
