@@ -263,7 +263,7 @@ Retention, read off the curve and so approximate: **~48% at 3 s**, **~26% at 17 
 |---|---|---|---|---|---|
 | hero | 3 walking dinosaurs | carriage, standing | stupa + small dinosaur | hill + tray | temple, hands rising |
 | skip rate | 32.9% | 44.9% | 44.7% | 50.4% | **58.3%** |
-| retention at 17 s | ~33% | ~30% | ~34% | ~24% | **~26%** |
+| retention at 17 s | ~35% | ~30% | ~34% | ~24% | **~26%** |
 | average watch | 21 s | 18 s | 19 s | 15 s | **16 s** |
 | share | 1.3% | 1.2% | 1.4% | 0.7% | **0.5%** |
 | views from the Reels tab | — | 76.9% | 75.5% | 62.3% | **53.1%** |
@@ -277,7 +277,7 @@ Reading:
   posts, while Feed and Stories (followers) rose to a third of the views. Instagram is testing
   each clip on a smaller non-follower audience and dropping it sooner.
 - **The middle held about level with Phetchaburi** (~26% at 17 s against ~24%). Both are under
-  the 30–34% of the three clips before them. Whatever the standard added to 3–17 s has not
+  the 30–35% of the three clips before them. Whatever the standard added to 3–17 s has not
   shown up in retention.
 - **Comments are "higher" for the second time running.** They are the one signal that has gone
   up; people who stay engage with the story. The loss is in who stays.
