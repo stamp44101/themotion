@@ -53,13 +53,12 @@ for t0, t1, notes, lvl in sections:
 
 
 def ponglang(t0, t1, step, amp, low=0, high=len(PENTA) - 1, start=4):
-    """โปงลาง phrases (struck wood) over the pentatonic, rounded off above 2.6 kHz: the ranat's
-    top partial and click are bright for wood, and the owner hears brightness as harsh"""
+    """โปงลาง phrases (struck wood) over the pentatonic."""
     i = start
     t = t0
     while t < t1:
         i = int(np.clip(i + rng.choice([-2, -1, -1, 0, 1, 1, 2]), low, high))
-        add(music, filt(ranat(PENTA[i], 0.6), "low", 2600, order=4), t, pan=rng.uniform(-0.4, 0.4), gain=amp)
+        add(music, ranat(PENTA[i], 0.6), t, pan=rng.uniform(-0.4, 0.4), gain=amp)
         t += step * rng.choice([1, 1, 2])
 
 
@@ -73,27 +72,11 @@ ponglang(pay[0], DUR - 2.5, BEAT / 2, 0.26, low=3)
 add(amb, filt(pink(N), "band", (150, 700)) * 0.05, 0, pan=-0.3)
 add(amb, filt(noise(N), "band", (200, 900)) * (0.5 + 0.5 * np.sin(2 * np.pi * 0.07 * T)) * 0.03, 0, pan=0.3)
 
-
-def soft_bird():
-    """a distant warbler, an octave under synth.chirp_bird: the 2.6-5.2 kHz chirps cut through
-    the cover at 25 dB over the bed ('บาดหู', owner), so these stay round and under 2 kHz"""
-    parts = []
-    for _ in range(rng.integers(2, 4)):
-        d = rng.uniform(0.07, 0.13)
-        n = int(d * SR)
-        t = np.arange(n) / SR
-        f0 = rng.uniform(1100, 1700)
-        sweep = f0 + rng.uniform(-300, 300) * (t / d)
-        parts.append(np.sin(2 * np.pi * np.cumsum(sweep) / SR) * np.sin(np.pi * t / d) ** 2)
-        parts.append(np.zeros(int(rng.uniform(0.04, 0.09) * SR)))
-    return filt(np.concatenate(parts), "low", 2000, order=4) * 0.12
-
-
 t = 0.3
 while t < DUR - 6:
     i = int(t * SR)
     if tl.NIGHT[i] < 0.2:
-        add(amb, soft_bird(), t, pan=rng.uniform(-0.8, 0.8), gain=0.35 if Y[i] < 1950 else 0.2)
+        add(amb, filt(chirp_bird(), "low", 2800), t, pan=rng.uniform(-0.8, 0.8), gain=1.6 if Y[i] < 1950 else 0.6)
     t += rng.exponential(0.5)
 cr = np.sin(2 * np.pi * 4300 * T) * (np.sin(2 * np.pi * 27 * T) > 0.2)
 gate = filt((np.sin(2 * np.pi * 1.6 * T) > 0.1).astype(float), "low", 40)
@@ -168,7 +151,7 @@ def scales(t0, t1, gain):
 # the cover: the naga uncoils down the candle, its body sliding, a breath, into the water
 scales(0.1, at(naga, 0.55), 1.3)
 add(sfx, filt(pink(int(1.4 * SR)), "low", 300) * env_ar(int(1.4 * SR), 0.5, 0.8) * 0.6, 0.8, gain=0.4)
-# splash and whoosh kept under 2.2 kHz: their 3-8 kHz tail was the hiss at 4.7 s (owner: บาดหู)
+# splash and whoosh kept under 2.2 kHz: their 3-8 kHz tail was the hiss at 4.7 s (owner: แสบหู)
 add(sfx, filt(splash(), "low", 1600, order=4), at(naga, 0.6), pan=0.1, gain=0.5)
 add(sfx, filt(whoosh(1.0, 0.7), "low", 2200, order=4), at(naga, 0.55) - 0.4, gain=0.3)
 paddle(at(naga, 0.45), naga[1] - 0.3, 0.55, 0.5, pan=-0.3)
@@ -241,7 +224,7 @@ while t < grow[1] - 0.2:
     add(sfx, blip(gain=0.5), t, pan=rng.uniform(-0.7, 0.7))
     t += rng.exponential(0.14)
 # the payoff: the naga rising out of the Mun, the procession's drums, khaen and crowd
-add(sfx, filt(splash(), "low", 2200, order=4), at(pay, 0.08) + 0.3, pan=-0.2, gain=0.9)
+add(sfx, splash(), at(pay, 0.08) + 0.3, pan=-0.2, gain=0.9)
 scales(at(pay, 0.12), at(pay, 0.9), 0.7)
 for i, t in enumerate(np.arange(pay[0] + 0.3, today[1], BEAT / 2)):
     add(sfx, drum(120, 62, 0.3, 0.7), t, pan=rng.uniform(-0.2, 0.2), gain=0.28 if i % 2 == 0 else 0.15)
