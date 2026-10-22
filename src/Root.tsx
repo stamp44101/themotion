@@ -26,6 +26,7 @@ import {KHONKAEN_DINO, KHONKAEN_STUPA, KHONKAEN_TAMARIND} from './styleframes/kh
 import {UBON_CANDLE, UBON_ELEPHANT, UBON_FISH, UBON_NAGA} from './styleframes/ubon';
 import {LAMPANG_CHEDI, LAMPANG_ELEPHANT, LAMPANG_CARRIAGE, LAMPANG_HORSE} from './styleframes/lampang';
 import {DioramaComposition} from './engine/DioramaComposition';
+import {NagaStudy} from './styleframes/NagaStudy';
 import {WAT_RAI_KHING_FRAMES, WatRaiKhing} from './landmarks/watraikhing/WatRaiKhing';
 
 const Korat: React.FC = () => <DioramaComposition city={KORAT} />;
@@ -92,6 +93,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="Celebration" component={Celebration} durationInFrames={60 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="UbonStyleFish" component={UbonStyleFish} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="UbonStyleCandle" component={UbonStyleCandle} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="UbonNagaStudy" component={NagaStudy} durationInFrames={4} fps={FPS} width={1080} height={1080} />
     <Composition id="UbonStyleNaga" component={UbonStyleNaga} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="UbonStyleElephant" component={UbonStyleElephant} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="ChiangRaiStyleFront" component={ChiangRaiStyleFront} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
