@@ -22,6 +22,7 @@ import {CELEBRATION} from './styleframes/celebration';
 import {CHIANGRAI_CLOSE, CHIANGRAI_FRONT, CHIANGRAI_QUARTER} from './styleframes/chiangrai';
 import {PHUKET_DREDGE, PHUKET_GREEN, PHUKET_GREEN_CALLBACK, PHUKET_MIXED, PHUKET_MIXED_CALLBACK, PHUKET_TURTLE, PHUKET_TURTLE_CALLBACK} from './styleframes/phuket';
 import {KHONKAEN_DINO, KHONKAEN_STUPA, KHONKAEN_TAMARIND} from './styleframes/khonkaen';
+import {UBON_CANDLE, UBON_ELEPHANT, UBON_FISH} from './styleframes/ubon';
 import {LAMPANG_CHEDI, LAMPANG_ELEPHANT, LAMPANG_CARRIAGE, LAMPANG_HORSE} from './styleframes/lampang';
 import {DioramaComposition} from './engine/DioramaComposition';
 import {WAT_RAI_KHING_FRAMES, WatRaiKhing} from './landmarks/watraikhing/WatRaiKhing';
@@ -57,6 +58,9 @@ const PhuketStyleGreenCallback: React.FC = () => <DioramaComposition city={PHUKE
 const KhonKaenStyleDino: React.FC = () => <DioramaComposition city={KHONKAEN_DINO} />;
 const KhonKaenStyleTamarind: React.FC = () => <DioramaComposition city={KHONKAEN_TAMARIND} />;
 const KhonKaenStyleStupa: React.FC = () => <DioramaComposition city={KHONKAEN_STUPA} />;
+const UbonStyleFish: React.FC = () => <DioramaComposition city={UBON_FISH} />;
+const UbonStyleCandle: React.FC = () => <DioramaComposition city={UBON_CANDLE} />;
+const UbonStyleElephant: React.FC = () => <DioramaComposition city={UBON_ELEPHANT} />;
 const LampangStyleElephant: React.FC = () => <DioramaComposition city={LAMPANG_ELEPHANT} />;
 const LampangStyleChedi: React.FC = () => <DioramaComposition city={LAMPANG_CHEDI} />;
 const LampangStyleCarriage: React.FC = () => <DioramaComposition city={LAMPANG_CARRIAGE} />;
@@ -83,6 +87,9 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="Korat" component={Korat} durationInFrames={(KORAT.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="NakhonSi" component={NakhonSi} durationInFrames={(NAKHONSI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Celebration" component={Celebration} durationInFrames={60 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="UbonStyleFish" component={UbonStyleFish} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="UbonStyleCandle" component={UbonStyleCandle} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="UbonStyleElephant" component={UbonStyleElephant} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="ChiangRaiStyleFront" component={ChiangRaiStyleFront} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="ChiangRaiStyleQuarter" component={ChiangRaiStyleQuarter} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="ChiangRaiStyleClose" component={ChiangRaiStyleClose} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
