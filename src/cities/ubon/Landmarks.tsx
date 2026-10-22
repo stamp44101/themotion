@@ -299,7 +299,8 @@ export const UbonLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH, b
           </group>
         );
       })}
-      {Y >= 1893 && (
+      {/* gated on its own scale: mounted at y-scale 0 it blacked out the shader cut (CLAUDE.md) */}
+      {Y >= 1893 && officeK(ctx) > 0.02 && (
         <group position={[3.6, 0, -3.6]} scale={[1, officeK(ctx), 1]}>
           <mesh position={[0, 0.8, 0]} castShadow receiveShadow>
             <boxGeometry args={[3.2, 1.6, 1.4]} />
@@ -349,7 +350,7 @@ export const UbonLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH, b
           </group>
         ) : null;
       })}
-      {Y >= 1953.4 && (
+      {Y >= 1953.4 && bridgeK(Y) > 0.02 && (
         <group position={[0, 0, munZ(0)]}>
           <mesh position={[0, 0.7, 0]} scale={[1, 1, bridgeK(Y)]} castShadow receiveShadow>
             <boxGeometry args={[1.1, 0.25, 5.6]} />
