@@ -8,11 +8,11 @@ import {between, type CameraKey} from '../../engine/glide';
 import {CANDLE_AT, DON_MOT_DAENG, munZ, THUNG, WARIN_STATION, WAT_LUANG} from './places';
 
 type Key = CameraKey;
-const NAGA_END: Key = [7.8, -15, 1, 11.5, 54, 185, 36, 30];
-const MIG_IN: Key = [9.4, DON_MOT_DAENG[0] - 3, 1, DON_MOT_DAENG[1] - 5, 60, 200, 40, 30];
-const MIG_END: Key = [14.0, DON_MOT_DAENG[0], 1, DON_MOT_DAENG[1] - 3, 56, 214, 38, 30];
-const FLOOD_IN: Key = [15.2, DON_MOT_DAENG[0] + 6, 1, DON_MOT_DAENG[1] - 1, 56, 220, 40, 30];
-const FLOOD_END: Key = [19.4, -8, 1, 7, 58, 232, 40, 30];
+const NAGA_END: Key = [7.8, 17, 1, munZ(17), 54, 185, 36, 30];
+const MIG_IN: Key = [9.4, DON_MOT_DAENG[0] + 2, 1, DON_MOT_DAENG[1] - 5, 60, 200, 40, 30];
+const MIG_END: Key = [14.0, DON_MOT_DAENG[0], 1, DON_MOT_DAENG[1] - 2, 56, 214, 38, 30];
+const FLOOD_IN: Key = [15.2, DON_MOT_DAENG[0] - 5, 1, DON_MOT_DAENG[1] + 2, 58, 220, 40, 30];
+const FLOOD_END: Key = [19.4, 9, 1, 7, 58, 232, 40, 30];
 const TOWN_IN: Key = [20.8, 1, 1, 3, 62, 240, 38, 30];
 const TOWN_END: Key = [26.4, 2, 1, 3, 54, 256, 36, 30];
 const FRONT_IN: Key = [27.8, -6, 1, 0, 64, 266, 40, 30];
@@ -57,7 +57,7 @@ export const STORY = buildStory({
         [0, CANDLE_AT[0], 7, CANDLE_AT[1], 330, 150, 34, 30],
         [2.4, CANDLE_AT[0] + 2, 6, CANDLE_AT[1] + 2, 110, 156, 33, 30],
         [4.4, 3, 2, 4, 64, 166, 40, 30],
-        [6.2, -8, 1, munZ(-8), 56, 175, 36, 30],
+        [6.2, 9, 1, munZ(9), 56, 175, 36, 30],
         NAGA_END,
       ],
     },

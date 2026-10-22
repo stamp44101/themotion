@@ -47,7 +47,8 @@ const coil = (c: Coil, u: number, up = false): V3 => {
   return [c.cx + Math.cos(a) * r, c.top - (c.top - c.bottom) * kk, c.cz + Math.sin(a) * r];
 };
 
-// the cover: spire to foot, then across the bank to the river, then upstream (west) on the Mun.
+// the cover: spire to foot, then across the bank to the river, then downstream (east) on the Mun,
+// toward where the founders will come from.
 // At frame 0 (k = OPEN_K0) the head is on the north-east side, facing the camera, with the body
 // wound up toward the spire; the coil ends on the south-east side, toward the river.
 const OPEN_K0 = 0.35;
@@ -71,7 +72,7 @@ const openingPath = (u: number): V3 => {
     return [OPEN_BANK[0], lerp(COVER.bottom, WATER_Y + NAGA_R * 0.55, Math.sqrt(k)), lerp(OPEN_BANK[1], OPEN_ENTRY[1], k)];
   }
   const w = v - OPEN_TO_RIVER;
-  const x = OPEN_ENTRY[0] - w;
+  const x = OPEN_ENTRY[0] + w;
   return [x, WATER_Y + NAGA_R * 0.55, munZ(x) + Math.sin(w * 0.35) * 0.6];
 };
 // head position along the path: it uncoils fast, crosses the bank, then swims slowly upstream
@@ -129,13 +130,13 @@ export const nagaReturn = (t: number, Y: number): V3[] | null => {
 // ------------------------------------------------------------------ the first people
 // ~3,000 years ago: fishers in dugouts on the Mun, the naga swimming past them
 export const fisherAt = (i: number, t: number) => {
-  const x = -2 - i * 4 + Math.sin(t * 0.4 + i) * 0.8;
+  const x = 8 + i * 4 + Math.sin(t * 0.4 + i) * 0.8;
   return {x, z: munZ(x) + (i % 2 ? 0.6 : -0.5), rot: i % 2 ? Math.PI / 2 : -Math.PI / 2};
 };
 
 // ------------------------------------------------------------------ 2314: the migration
-// carts and elephants down from the north to the island camp; rafts down the Mun from the west
-export const CARAVAN: P[] = [[-35, -9], [-32.5, -2], [-30, DON_MOT_DAENG[1] - 3.2]];
+// carts and elephants down from the north-east to the island camp; rafts up the Mun from the east
+export const CARAVAN: P[] = [[45, -20], [43.5, -12], [41.5, DON_MOT_DAENG[1] - 3.4]];
 const CARAVAN_LEN = lengthOf(CARAVAN);
 export const caravanAt = (i: number, {beat}: ActorCtx) => {
   const p = beat('migration');
@@ -147,7 +148,7 @@ export const caravanAt = (i: number, {beat}: ActorCtx) => {
 export const raftAt = (i: number, {beat}: ActorCtx) => {
   const p = beat('migration');
   if (p <= 0) return null;
-  const x = lerp(-39 - i * 2.6, DON_MOT_DAENG[0] - 1.6 - i * 1.4, smooth(ramp(p, 0.05, 0.8)));
+  const x = lerp(52 + i * 2.6, DON_MOT_DAENG[0] + 1.6 + i * 1.4, smooth(ramp(p, 0.05, 0.8)));
   return {x, z: munZ(x) + (i % 2 ? 0.5 : -0.4)};
 };
 // the camp's huts go up on the island
@@ -158,11 +159,11 @@ export const floodK = ({beat}: Pick<ActorCtx, 'beat'>) => {
   const p = beat('flood');
   return smooth(ramp(p, 0.02, 0.35)) * (1 - smooth(ramp(p, 0.75, 1)));
 };
-// the boats leave the drowned camp for the high north bank at ดงอู่ผึ้ง
+// the boats leave the drowned camp and go up the Mun to the high north bank at ดงอู่ผึ้ง
 export const exodusAt = (i: number, {beat}: ActorCtx) => {
   const p = beat('flood');
   if (p <= 0.12 || p >= 1) return null;
-  const x = lerp(DON_MOT_DAENG[0] + 2 - i * 1.6, -4 - i * 1.4, smooth(ramp(p, 0.15, 0.95)));
+  const x = lerp(DON_MOT_DAENG[0] - 2 + i * 1.6, 6 + i * 1.4, smooth(ramp(p, 0.15, 0.95)));
   return {x, z: munZ(x) - 0.4 + (i % 2) * 0.7};
 };
 
@@ -251,7 +252,7 @@ export const ACTORS: Actor[] = [
   {id: 'fishers', during: [beatAt('naga', 0.45), beatAt('naga', 1)], size: 1.6, at: (t, ctx) => {
     const n = nagaOpening(t);
     if (ctx.Y >= 0 || !n) return null;
-    const hx = Math.min(n[0][0], 0);
+    const hx = Math.max(n[0][0], 6);
     let best = fisherAt(0, t);
     for (let i = 1; i < 4; i++) {
       const f = fisherAt(i, t);

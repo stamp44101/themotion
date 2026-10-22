@@ -67,7 +67,7 @@ export const UBON: CityConfig = {
       [CANDLE_AT[0], CANDLE_AT[1], 10, -1e9],
       [CANDLE_AT[0] + 5, CANDLE_AT[1] + 6, 5, -1e9],
       // the river banks where the fishers and the naga are watched from
-      ...path(MUN.slice(0, 6) as [number, number][], 3.4, -1e9).map(([x, z, r, y]) => [x, z - 2.2, r, y] as [number, number, number, number]),
+      ...path(MUN.slice(10, 18) as [number, number][], 3.4, -1e9).map(([x, z, r, y]) => [x, z - 2.2, r, y] as [number, number, number, number]),
       // the island camp and the cart track down to it from the north
       [DON_MOT_DAENG[0], DON_MOT_DAENG[1] - 3, 5, -1e9],
       ...path(CARAVAN, 2.2, -1e9),

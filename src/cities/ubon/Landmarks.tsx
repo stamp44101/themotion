@@ -161,21 +161,20 @@ export const UbonLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH, b
 
       {/* 2314: the island camp, the rafts, the caravan */}
       {Y > 1700 && Y < 1800 && (
-        <mesh position={[DON_MOT_DAENG[0], 0.04, DON_MOT_DAENG[1]]} rotation-x={-Math.PI / 2} scale={[4.2, 1.5, 1]}>
-          <circleGeometry args={[1, 32]} />
-          <meshStandardMaterial color="#d8c08a" />
-        </mesh>
+        // the island lies along the Mun, which runs north-east here
+        <group position={[DON_MOT_DAENG[0], 0, DON_MOT_DAENG[1]]} rotation-y={0.63}>
+          <mesh position={[0, 0.04, 0]} rotation-x={-Math.PI / 2} scale={[4.2, 1.3, 1]}>
+            <circleGeometry args={[1, 32]} />
+            <meshStandardMaterial color="#d8c08a" />
+          </mesh>
+          {Y < 1795 &&
+            Array.from({length: 6}, (_, i) => (
+              <group key={i} position={[-2.5 + i, 0.05, i % 2 ? 0.35 : -0.35]} scale={0.8}>
+                <StiltHouse k={campK(i, ctx)} />
+              </group>
+            ))}
+        </group>
       )}
-      {Y > 1700 &&
-        Y < 1795 &&
-        Array.from({length: 6}, (_, i) => {
-          const k = campK(i, ctx);
-          return (
-            <group key={i} position={[DON_MOT_DAENG[0] - 2.5 + i, 0.05, DON_MOT_DAENG[1] + (i % 2 ? 0.4 : -0.4)]} scale={0.8}>
-              <StiltHouse k={k} />
-            </group>
-          );
-        })}
       {Array.from({length: 4}, (_, i) => {
         const r = raftAt(i, ctx);
         return r && Y < 1790 ? (
@@ -202,7 +201,7 @@ export const UbonLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH, b
 
       {/* the flood over the camp, and the boats leaving it */}
       {flood > 0.01 && (
-        <mesh position={[DON_MOT_DAENG[0] + 2, 0.12, DON_MOT_DAENG[1] - 0.5]} rotation-x={-Math.PI / 2} scale={[9 * flood + 2, 4 * flood + 1, 1]}>
+        <mesh position={[DON_MOT_DAENG[0], 0.12, DON_MOT_DAENG[1]]} rotation={[-Math.PI / 2, 0, 0.63]} scale={[9 * flood + 2, 4 * flood + 1, 1]}>
           <circleGeometry args={[1, 40]} />
           <meshStandardMaterial color={RIVER} transparent opacity={0.92} roughness={0.2} />
         </mesh>
@@ -255,7 +254,7 @@ export const UbonLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH, b
           );
         })}
       {town && (
-        <group position={[WAT_LUANG[0], terrainH(WAT_LUANG[0], WAT_LUANG[1]), WAT_LUANG[1]]} rotation-y={0.1}>
+        <group position={[WAT_LUANG[0], terrainH(WAT_LUANG[0], WAT_LUANG[1]), WAT_LUANG[1]]} rotation-y={Math.PI / 2}>
           <Sim k={watLuangK(ctx)} night={night} />
         </group>
       )}
