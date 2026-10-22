@@ -19,8 +19,8 @@ const Cam: React.FC<{az: number; el: number}> = ({az, el}) => {
   useLayoutEffect(() => {
     const a = (az * Math.PI) / 180;
     const e = (el * Math.PI) / 180;
-    const d = 13;
-    const target = new THREE.Vector3(0, 6.2, 1.2);
+    const d = 16;
+    const target = new THREE.Vector3(0, 7.2, 1.0);
     camera.position.set(target.x + Math.sin(a) * Math.cos(e) * d, target.y + Math.sin(e) * d, target.z + Math.cos(a) * Math.cos(e) * d);
     camera.lookAt(target);
     camera.updateProjectionMatrix();

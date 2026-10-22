@@ -110,7 +110,7 @@ const scaleMaps = (() => {
 })();
 
 // scales around the body, and how long one scale is in units of body radius
-const AROUND = 14;
+const AROUND = 20;
 
 /** A tube whose radius tapers along the body, with UVs for the scales and vertex colours for
  * back, belly and bands. */
@@ -122,7 +122,7 @@ const bodyGeometry = (F: Frame[], radius: (u: number) => number, r0: number, rad
   const idx: number[] = [];
   let arc = 0;
   const c = new THREE.Color();
-  const scaleLen = r0 * 0.42;
+  const scaleLen = r0 * 0.3;
   for (let i = 0; i < n; i++) {
     if (i > 0) arc += F[i].p.distanceTo(F[i - 1].p);
     const u = i / (n - 1);
@@ -132,14 +132,17 @@ const bodyGeometry = (F: Frame[], radius: (u: number) => number, r0: number, rad
       const ca = Math.cos(a);
       const sa = Math.sin(a);
       // flatten the belly a little, like a real snake
-      const rr = r * (ca < 0 ? 0.86 + 0.14 * (1 + ca) : 1);
+      const rr = r * (ca < 0 ? 0.86 + 0.14 * (1 + ca) : 1) * (arc > r0 * 1.7 && arc < r0 * 2.7 ? 1.08 : 1);
       const k = (i * (radial + 1) + j) * 3;
       pos[k] = F[i].p.x + (F[i].n.x * ca + F[i].b.x * sa) * rr;
       pos[k + 1] = F[i].p.y + (F[i].n.y * ca + F[i].b.y * sa) * rr;
       pos[k + 2] = F[i].p.z + (F[i].n.z * ca + F[i].b.z * sa) * rr;
-      const belly = THREE.MathUtils.smoothstep(-ca, -0.05, 0.25);
-      const stripe = Math.max(0, 1 - Math.abs(-ca - 0.02) / 0.16);
+      const belly = THREE.MathUtils.smoothstep(-ca, 0.45, 0.7);
+      const stripe = Math.max(0, 1 - Math.abs(-ca - 0.38) / 0.12);
       c.copy(BACK).lerp(BELLY, belly).lerp(STRIPE, stripe);
+      // the gold collar just behind the head, a little proud of the neck
+      const collar = arc > r0 * 1.7 && arc < r0 * 2.7;
+      if (collar) c.copy(STRIPE);
       // the belly plates: a line across the belly every scute
       if (belly > 0.7 && (arc / (r0 * 0.38)) % 1 < 0.14) c.lerp(SCUTE, 0.7);
       col[k] = c.r;
@@ -249,103 +252,113 @@ const Flame: React.FC<{
 );
 
 // The head, modelled pointing +z with its crown up (+y); unit = body radius at the neck.
-// Proportions after Thai nagas: one wedge from a broad crown to a long snout (about 3.4 long,
-// 1.7 wide), a gape that runs back to under the eye, large eyes set high behind the snout,
-// a crest rising from the brow and sweeping back about one head-height, กนก at the cheeks,
-// a beard under the jaw and a nose tip that curls up.
+// After the Isan gate nagas (a photogrammetry scan the owner sent): a short, compact head about
+// as wide as the neck, the mouth nearly closed, round scrolls at the cheeks, and above it one
+// solid crown flame tapering up like a spire, about twice the head's height, layered with กนก
+// up both edges. No whiskers.
 const Head: React.FC<{jaw: number; night: number; t: number}> = ({jaw, night, t}) => {
-  // the tongue flicks out for a third of a second every 1.7 s
   const ph = (t % 1.7) / 1.7;
   const tongue = ph < 0.2 ? Math.sin((ph / 0.2) * Math.PI) : 0;
-  const quiver = Math.sin(t * 3) * 0.03;
+  const quiver = Math.sin(t * 3) * 0.02;
   return (
     <group>
-      {/* crown and upper jaw: overlapping ellipsoids that read as one tapering wedge */}
-      <mesh position={[0, 0.18, 0.35]} scale={[0.85, 0.62, 0.95]} castShadow>
+      {/* crown, brow and a short snout */}
+      <mesh position={[0, 0.2, 0.3]} scale={[0.82, 0.68, 0.85]} castShadow>
         <sphereGeometry args={[1, 24, 16]} />
         <meshPhysicalMaterial {...GILT} />
       </mesh>
-      <mesh position={[0, 0.12, 1.25]} scale={[0.68, 0.48, 1.05]} castShadow>
-        <sphereGeometry args={[1, 22, 14]} />
+      <mesh position={[0, 0.08, 1.0]} scale={[0.58, 0.45, 0.72]} castShadow>
+        <sphereGeometry args={[1, 20, 14]} />
         <meshPhysicalMaterial {...GILT} />
       </mesh>
-      <mesh position={[0, 0.06, 2.15]} scale={[0.42, 0.3, 0.85]} castShadow>
-        <sphereGeometry args={[1, 18, 12]} />
+      <mesh position={[0, 0.05, 1.5]} scale={[0.4, 0.32, 0.42]} castShadow>
+        <sphereGeometry args={[1, 16, 12]} />
         <meshPhysicalMaterial {...GILT} />
-      </mesh>
-      {/* the roof of the open mouth */}
-      <mesh position={[0, -0.16, 1.55]} scale={[0.44, 0.1, 1.15]}>
-        <sphereGeometry args={[1, 14, 8]} />
-        <meshStandardMaterial {...RED} />
       </mesh>
       {/* the nose tip curling up */}
-      <Flame at={[0, 0.26, 2.72]} lean={-0.2} s={0.42} />
-      {/* lower jaw, hinged under the eye, with its fangs, the tongue and a beard */}
-      <group position={[0, -0.22, 0.45]} rotation-x={0.18 + jaw * 0.42}>
-        <mesh position={[0, -0.08, 1.15]} scale={[0.5, 0.17, 1.3]} castShadow>
+      <Flame at={[0, 0.25, 1.75]} lean={-0.3} s={0.32} />
+      {/* lower jaw, nearly closed; the tongue flicks out now and then */}
+      <group position={[0, -0.22, 0.4]} rotation-x={0.06 + jaw * 0.22}>
+        <mesh position={[0, -0.06, 0.75]} scale={[0.48, 0.17, 0.85]} castShadow>
           <sphereGeometry args={[1, 16, 10]} />
           <meshPhysicalMaterial {...GILT} />
         </mesh>
-        <mesh position={[0, 0.03, 1.15]} scale={[0.4, 0.07, 1.1]}>
+        <mesh position={[0, 0.04, 0.8]} scale={[0.38, 0.06, 0.7]}>
           <sphereGeometry args={[1, 12, 8]} />
           <meshStandardMaterial {...RED} />
         </mesh>
-        {[-1, 1].map((k) => (
-          <mesh key={k} position={[k * 0.24, 0.14, 2.0]} rotation-x={-0.15}>
-            <coneGeometry args={[0.05, 0.28, 6]} />
-            <meshStandardMaterial color="#fffaf0" />
-          </mesh>
-        ))}
         {tongue > 0.02 && (
-          <group position={[0, 0.06, 1.3 + tongue * 0.6]}>
+          <group position={[0, 0.04, 1.1 + tongue * 0.5]}>
             <mesh rotation-x={Math.PI / 2}>
-              <cylinderGeometry args={[0.04, 0.05, 0.8, 6]} />
+              <cylinderGeometry args={[0.035, 0.045, 0.6, 6]} />
               <meshStandardMaterial color="#b3261e" />
             </mesh>
             {[-1, 1].map((k) => (
-              <mesh key={k} position={[k * 0.05, 0, 0.48]} rotation-x={Math.PI / 2} rotation-z={k * 0.5}>
-                <cylinderGeometry args={[0.012, 0.03, 0.22, 5]} />
+              <mesh key={k} position={[k * 0.045, 0, 0.38]} rotation-x={Math.PI / 2} rotation-z={k * 0.5}>
+                <cylinderGeometry args={[0.01, 0.028, 0.2, 5]} />
                 <meshStandardMaterial color="#b3261e" />
               </mesh>
             ))}
           </group>
         )}
-        <Flame at={[0, -0.28, 0.6]} lean={-2.3} s={0.6} dark />
       </group>
-      {/* fangs from the upper jaw, long and curved back */}
-      {[-1, 1].map((k) => (
-        <mesh key={k} position={[k * 0.27, -0.32, 2.2]} rotation-x={Math.PI - 0.25}>
-          <coneGeometry args={[0.065, 0.48, 6]} />
-          <meshStandardMaterial color="#fffaf0" />
-        </mesh>
-      ))}
-      {/* large eyes set high behind the snout, slit pupils, brows flaring back as small flames */}
       {[-1, 1].map((k) => (
         <group key={k}>
-          <mesh position={[k * 0.5, 0.4, 1.05]} rotation-y={k * 0.35} scale={[0.75, 0.62, 1.15]}>
-            <sphereGeometry args={[0.24, 16, 12]} />
+          {/* fangs */}
+          <mesh position={[k * 0.25, -0.26, 1.45]} rotation-x={Math.PI - 0.2}>
+            <coneGeometry args={[0.055, 0.3, 6]} />
+            <meshStandardMaterial color="#fffaf0" />
+          </mesh>
+          {/* almond eyes under the brow */}
+          <mesh position={[k * 0.5, 0.42, 0.85]} rotation-y={k * 0.4} scale={[0.7, 0.6, 1.1]}>
+            <sphereGeometry args={[0.2, 16, 12]} />
             <meshBasicMaterial color="#e8341c" toneMapped={false} />
           </mesh>
-          <mesh position={[k * 0.64, 0.4, 1.1]} rotation-y={k * 1.0}>
-            <boxGeometry args={[0.04, 0.22, 0.05]} />
+          <mesh position={[k * 0.62, 0.42, 0.9]} rotation-y={k * 1.0}>
+            <boxGeometry args={[0.035, 0.18, 0.04]} />
             <meshBasicMaterial color="#1a0d05" />
           </mesh>
-          <Flame at={[k * 0.46, 0.55, 1.35]} lean={-1.25} splay={k * 0.3} s={0.48} />
-          {/* cheek flames behind the gape, sweeping back along the neck */}
-          <Flame at={[k * 0.95, -0.2, 0.15]} lean={-1.15} splay={k * 0.55} s={0.85} dark />
-          <Flame at={[k * 0.9, 0.2, -0.3]} lean={-1.3} splay={k * 0.5} s={0.7} dark />
-          {/* whiskers from the snout */}
-          <mesh position={[k * 0.48, -0.02, 2.1]} rotation-z={k * 1.25} rotation-x={0.7 + Math.sin(t * 2 + k) * 0.1}>
-            <cylinderGeometry args={[0.025, 0.01, 1.0, 5]} />
-            <meshStandardMaterial {...DARK_GILT} />
-          </mesh>
+          {/* the round scroll on each cheek */}
+          <group position={[k * 0.8, 0.05, 0.35]} rotation-y={(k * Math.PI) / 2}>
+            <mesh castShadow>
+              <torusGeometry args={[0.26, 0.09, 8, 20, Math.PI * 1.7]} />
+              <meshPhysicalMaterial {...GILT} />
+            </mesh>
+            <mesh>
+              <sphereGeometry args={[0.12, 10, 8]} />
+              <meshStandardMaterial {...DARK_GILT} />
+            </mesh>
+          </group>
         </group>
       ))}
-      {/* the crest (หงอน): rising from the brow and sweeping back, one head-height tall, with
-          two smaller flames behind it running on into the spine fin */}
-      <Flame at={[0, 0.6, 0.95]} lean={-0.55 + quiver} s={1.15} trim glow={0.08 + night * 0.5} />
-      <Flame at={[0, 0.66, 0.2]} lean={-0.85 + quiver} s={0.8} trim />
-      <Flame at={[0, 0.55, -0.45]} lean={-1.1 + quiver} s={0.6} />
+      {/* the crown: one solid flame mass tapering up like a spire, as wide as the head at its
+          foot and about twice its height, leaning a little back; กนก flames stand out from it in
+          rings, smaller toward the curled tip */}
+      <group position={[0, 0.6, 0.2]} rotation-x={-0.2 + quiver}>
+        <mesh position={[0, 1.1, 0]} scale={[0.62, 1, 0.8]} castShadow>
+          <coneGeometry args={[1.0, 2.2, 10]} />
+          <meshPhysicalMaterial {...GILT} emissive="#ffb347" emissiveIntensity={0.06 + night * 0.5} />
+        </mesh>
+        {[0, 1, 2, 3].map((i) => {
+          const y = 0.2 + i * 0.48;
+          const w = 1.0 * (1 - y / 2.2);
+          const n = 7 - i;
+          return Array.from({length: n}, (_, j) => {
+            const a = ((j + (i % 2) * 0.5) / n) * Math.PI * 2;
+            return (
+              <Flame
+                key={`${i}-${j}`}
+                at={[Math.sin(a) * w * 0.55, y, Math.cos(a) * w * 0.72]}
+                lean={0}
+                splay={a}
+                s={0.55 - i * 0.08}
+                dark={(i + j) % 2 === 1}
+              />
+            );
+          });
+        })}
+        <Flame at={[0, 2.05, 0]} lean={-0.2} s={0.45} />
+      </group>
     </group>
   );
 };
@@ -359,7 +372,7 @@ export const Naga: React.FC<{pts: V3[]; r: number; jaw?: number; night?: number;
   r,
   jaw = 0.3,
   night = 0,
-  fins = true,
+  fins = false,
   t = 0,
 }) => {
   const radius = (u: number) => r * (u < 0.04 ? 0.82 + u * 4.5 : Math.pow(1 - u, 0.7) * 1.05 + 0.04);
@@ -411,7 +424,7 @@ export const Naga: React.FC<{pts: V3[]; r: number; jaw?: number; night?: number;
           <meshPhysicalMaterial {...GILT} side={THREE.DoubleSide} />
         </mesh>
       )}
-      <group position={tail.p} quaternion={tq} scale={r * 0.9}>
+      <group position={tail.p} quaternion={tq} scale={r * 1.5}>
         <mesh geometry={FLAME} castShadow>
           <meshPhysicalMaterial {...GILT} />
         </mesh>
