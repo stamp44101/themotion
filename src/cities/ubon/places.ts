@@ -9,7 +9,9 @@ export const THUNG: P = [0, 0]; // ทุ่งศรีเมือง, ~340 x 
 export const THUNG_HALF: P = [1.4, 2.1]; // half-extents, x then z
 export const PILLAR: P = [0.6, 2.6]; // ศาลหลักเมือง (2515-19)
 export const WAT_THUNG: P = [4.7, 0.3]; // วัดทุ่งศรีเมือง, หอไตรกลางน้ำ (~2384)
-export const WAT_SI_UBON: P = [-1.9, 3.5]; // วัดศรีอุบลรัตนาราม (2398)
+// วัดศรีอุบลรัตนาราม (2398): OSM [-1.9, 3.5], drawn 1.1 further south-west (bearing 209 vs 208) so it
+// stands outside the ring of houses round the field instead of cutting into it (owner)
+export const WAT_SI_UBON: P = [-2.6, 4.6];
 export const WAT_LUANG: P = [3.8, 7.4]; // วัดหลวง, the town's first temple, on the bank (OSM [3.8, 7.8], kept off the water)
 // the old core: ~1.7 km along the river by ~1 km inland
 export const OLD_TOWN: P[] = [[-9, -4], [9, -4], [10, 6.8], [-10, 8.6]];

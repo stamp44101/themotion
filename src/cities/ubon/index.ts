@@ -90,16 +90,17 @@ export const UBON: CityConfig = {
     highRise: 1995,
     towers: [{x0: -6, x1: 8, z0: -14, z1: -5, extra: 3}],
     roads: [
-      // ถนนอุปราช down the west side of the field to the river, then the bridge road to Warin
-      {from: [-1.8, -20], to: [-1.8, 7.5], width: 0.9, year: 1900},
+      // laid out round the first town's ring of houses, never through it (owner): ถนนพโลรังฤทธิ์
+      // north of the field (today's parade road), ถนนศรีณรงค์ south of it east of วัดศรีอุบล,
+      // ถนนอุปราช down the west side, the bridge road between วัดศรีอุบล and วัดหลวง
+      {from: [-9, -4.6], to: [9, -4.6], width: 0.9, year: 1900},
+      {from: [-0.8, 4.0], to: [9, 4.0], width: 0.8, year: 1900},
+      {from: [-3.6, -20], to: [-3.6, -1.6], width: 0.9, year: 1900},
+      {from: [0.4, 4.0], to: [0.4, 7.4], width: 0.9, year: 1900},
       {from: [0, 12.6], to: [0.8, 35], width: 1.0, year: 1954.5},
-      // ถนนพโลรังฤทธิ์ (north of the field), ถนนศรีณรงค์ (south), ถนนเขื่อนธานี (the old earthwork)
-      {from: [-9, -2.6], to: [9, -2.6], width: 0.8, year: 1900},
-      {from: [-9, 2.6], to: [9, 2.6], width: 0.8, year: 1900},
-      {from: [-10, 5.4], to: [10, 5.4], width: 0.8, year: 1900},
       // the road west the commissioner came in on, and north to the airfield
-      {from: [-46, -1.2], to: [-9, -1.2], width: 0.9, year: 1893},
-      {from: [2.4, -2.6], to: [8, -40], width: 1.1, year: 1960},
+      {from: [-46, -1.2], to: [-5.2, -1.2], width: 0.9, year: 1893},
+      {from: [2.4, -4.6], to: [8, -40], width: 1.1, year: 1960},
     ],
     openGround: [
       {x0: THUNG[0] - 2.6, x1: THUNG[0] + 2.6, z0: THUNG[1] - 3.2, z1: THUNG[1] + 3.2},

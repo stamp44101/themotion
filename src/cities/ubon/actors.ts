@@ -3,7 +3,7 @@
 import type {Actor, ActorCtx} from '../../engine/actors';
 import {lerp, ramp, smooth} from '../../lib';
 import type {V3} from './Naga';
-import {CANDLE_AT, DON_MOT_DAENG, FERRY_X, munZ, THUNG, WAT_LUANG} from './places';
+import {CANDLE_AT, DON_MOT_DAENG, FERRY_X, munZ, THUNG, WAT_LUANG, WAT_SI_UBON, WAT_THUNG} from './places';
 import {STORY} from './timeline';
 
 type P = [number, number];
@@ -168,22 +168,38 @@ export const exodusAt = (i: number, {beat}: ActorCtx) => {
 };
 
 // ------------------------------------------------------------------ 2335: the town
-export const TOWN_N = 26;
+// The first town: a ring of stilt houses hugging the field (the real field is ~2.8 x 4.2 units,
+// half 1.4 x 2.1), then rows down toward the river. The ring stays whole for the town's whole
+// life (owner: later buildings must stand outside it, never cut into it), so the temples and the
+// office are placed clear of it, and a row plot that a later building will need is never built on.
+const RING_N = 12;
+export const RING = {rx: 2.5, rz: 3.1};
+// later buildings' plots [x, z, half-x, half-z]: วัดหลวง, วัดศรีอุบล, วัดทุ่งศรีเมือง, the office
+const PLOTS: [number, number, number, number][] = [
+  [WAT_LUANG[0], WAT_LUANG[1], 1.7, 1.2],
+  [WAT_SI_UBON[0], WAT_SI_UBON[1], 1.4, 1.0],
+  [WAT_THUNG[0], WAT_THUNG[1], 1.1, 1.1],
+  [0.6, -6.4, 1.7, 0.8],
+  [0.4, 6.3, 0.45, 2.4], // the bridge road
+];
+const ROWS: P[] = Array.from({length: 14}, (_, k) => [-8 + (k % 7) * 2.2, 5.4 + Math.floor(k / 7) * 1.6] as P).filter(
+  ([x, z]) => !PLOTS.some(([px, pz, hx, hz]) => Math.abs(x - px) < hx + 0.75 && Math.abs(z - pz) < hz + 0.65) && z < munZ(x) - 2.2,
+);
+export const TOWN_N = RING_N + ROWS.length;
 export const townHouse = (i: number): {x: number; z: number; rot: number; s: number} => {
-  // rows of stilt houses round the field and down to the river, the lord's hall on the north side
-  const ring = i < 14;
-  if (ring) {
-    const a = (i / 14) * Math.PI * 2;
-    return {x: Math.cos(a) * 3.6, z: Math.sin(a) * 4.2 - 0.3, rot: -a, s: 1};
+  if (i < RING_N) {
+    const a = (i / RING_N) * Math.PI * 2 + Math.PI / RING_N;
+    return {x: THUNG[0] + Math.cos(a) * RING.rx, z: THUNG[1] + Math.sin(a) * RING.rz, rot: -a, s: 0.9};
   }
-  const k = i - 14;
-  return {x: -6 + (k % 6) * 2.2, z: 5.2 + Math.floor(k / 6) * 1.6, rot: 0, s: 0.9};
+  const [x, z] = ROWS[i - RING_N];
+  return {x, z, rot: 0, s: 0.9};
 };
 export const houseK = (i: number, {beat, Y}: ActorCtx) => (Y >= 1793 ? 1 : smooth(ramp(beat('founding'), 0.04 + (i / TOWN_N) * 0.6, 0.12 + (i / TOWN_N) * 0.6)));
 export const watLuangK = ({beat, Y}: ActorCtx) => (Y >= 1793 ? 1 : smooth(ramp(beat('founding'), 0.55, 0.85)));
 
 // ------------------------------------------------------------------ 2436: the frontier town
-export const ROAD_W: P[] = [[-46, -1.2], [-20, -1.2], [-3.2, -1.2]];
+// it ends at the field's west side, outside the ring of houses
+export const ROAD_W: P[] = [[-46, -1.2], [-20, -1.2], [-5.2, -1.2]];
 const ROAD_W_LEN = lengthOf(ROAD_W);
 export const commissionerAt = (i: number, {beat}: ActorCtx) => {
   const p = beat('frontier');
@@ -199,11 +215,13 @@ export const officeK = ({beat, Y}: ActorCtx) => (Y >= 1894 ? 1 : smooth(ramp(bea
 
 // ------------------------------------------------------------------ the candle processions
 // a loop round the field: ~4.3 x 2.8 units of grass with a road round it
-export const LOOP = {hx: 2.6, hz: 3.2};
-const LOOP_LEN = 4 * (LOOP.hx + LOOP.hz);
-export const loopAt = (d: number) => {
-  let r = ((d % LOOP_LEN) + LOOP_LEN) % LOOP_LEN;
-  const {hx, hz} = LOOP;
+// the first carts ride the edge of the field itself, inside the ring of houses
+export const LOOP = {hx: 1.0, hz: 1.7};
+const loopLen = (hx: number, hz: number) => 4 * (hx + hz);
+const LOOP_LEN = loopLen(LOOP.hx, LOOP.hz);
+export const loopAt = (d: number, hx = LOOP.hx, hz = LOOP.hz) => {
+  const L = loopLen(hx, hz);
+  let r = ((d % L) + L) % L;
   const legs: [P, P][] = [[[-hx, hz], [hx, hz]], [[hx, hz], [hx, -hz]], [[hx, -hz], [-hx, -hz]], [[-hx, -hz], [-hx, hz]]];
   for (const [a, b] of legs) {
     const len = Math.hypot(b[0] - a[0], b[1] - a[1]);
@@ -219,11 +237,17 @@ export const cartAt = (i: number, t: number, {beat}: ActorCtx) => {
   return loopAt((t - beatAt('firstcandle', 0)) * 1.1 + i * (LOOP_LEN / CART_N));
 };
 export const FLOAT_N = 8;
-export const BIG_LOOP = 1.7; // today's floats ride a wider loop on the roads round the field
+// today's floats parade along the road just north of the field, west to east, between the great
+// candle (and the naga coiled on it) and the office; they swell in and shrink out at the ends of
+// the stretch instead of popping
+export const PARADE = {z: -4.6, x0: -11, x1: 11};
 export const floatAt = (i: number, t: number, {Y}: ActorCtx) => {
   if (Y < 2024.9) return null;
-  const q = loopAt((t - beatAt('payoff', 0)) * 1.4 + i * (LOOP_LEN / FLOAT_N));
-  return {x: THUNG[0] + (q.x - THUNG[0]) * BIG_LOOP, z: THUNG[1] + (q.z - THUNG[1]) * BIG_LOOP, rot: q.rot};
+  const L = PARADE.x1 - PARADE.x0;
+  const d = (((t - beatAt('payoff', 0)) * 1.4 + i * (L / FLOAT_N)) % L + L) % L;
+  const x = PARADE.x0 + d;
+  const k = Math.min(1, d / 1.5, (L - d) / 1.5);
+  return {x, z: PARADE.z, rot: Math.PI / 2, k};
 };
 
 // ------------------------------------------------------------------ the ferries, the jets

@@ -4,8 +4,8 @@ import type {LandmarkProps} from '../../engine/types';
 import {ramp, smooth} from '../../lib';
 import {Person} from '../phuket/figures';
 import {
-  BIG_LOOP, bridgeK, campK, CANDLE_S, CART_N, cartAt, caravanAt, commissionerAt, coverCandleK, exodusAt, ferryAt, fisherAt, FLOAT_N, floatAt, floodK,
-  houseK, JET_N, jetAt, LOOP, MONUMENT, OFFICE, NAGA_R, nagaOpening, nagaReturn, officeK, OPEN_END, raftAt, TOWN_N, townHouse, watLuangK,
+  bridgeK, campK, CANDLE_S, CART_N, cartAt, caravanAt, commissionerAt, coverCandleK, exodusAt, ferryAt, fisherAt, FLOAT_N, floatAt, floodK,
+  houseK, PARADE, JET_N, jetAt, MONUMENT, OFFICE, NAGA_R, nagaOpening, nagaReturn, officeK, OPEN_END, raftAt, TOWN_N, townHouse, watLuangK,
 } from './actors';
 import {Naga} from './Naga';
 import {AIRFIELD, CANDLE_AT, DON_MOT_DAENG, munZ, RUNWAY_ROT, THUNG, THUNG_HALF, WAT_LUANG, WAT_SI_UBON, WAT_THUNG} from './places';
@@ -252,11 +252,6 @@ export const UbonLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH, b
         Y < 1960 &&
         Array.from({length: TOWN_N}, (_, i) => {
           const h = townHouse(i);
-          // a house gives way to the temple or office later built on its plot
-          const taken = ([[WAT_LUANG, 1792], [WAT_SI_UBON, 1855], [WAT_THUNG, 1841], [OFFICE, 1893]] as const).some(
-            ([p, from]) => Y >= from && Math.hypot(h.x - p[0], h.z - p[1]) < 2.4,
-          );
-          if (taken) return null;
           return (
             <group key={i} position={[h.x, terrainH(h.x, h.z), h.z]} rotation-y={h.rot}>
               <StiltHouse k={houseK(i, ctx)} s={h.s} />
@@ -407,9 +402,9 @@ export const UbonLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH, b
 
       {/* 2542: the great candle at the centre of the field */}
       {Y >= 1999 && (
-        <group position={[MONUMENT[0], 0, MONUMENT[1]]} scale={1.15}>
+        <group position={[MONUMENT[0], 0, MONUMENT[1]]} scale={1.0}>
           <mesh position={[0, 0.4, 0]} receiveShadow>
-            <cylinderGeometry args={[1.6, 1.9, 0.8, 8]} />
+            <cylinderGeometry args={[1.25, 1.4, 0.8, 8]} />
             <meshStandardMaterial color="#e9e2d2" />
           </mesh>
           <group position={[0, 0.8, 0]}>
@@ -424,7 +419,7 @@ export const UbonLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH, b
         const f = floatAt(i, t, ctx);
         if (!f) return null;
         return (
-          <group key={i} position={[f.x, 0, f.z]} rotation-y={f.rot}>
+          <group key={i} position={[f.x, 0, f.z]} rotation-y={f.rot} scale={[f.k, f.k, f.k]}>
             <group scale={0.62}>
               <CarvedCandle night={night} />
             </group>
@@ -437,13 +432,14 @@ export const UbonLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH, b
         );
       })}
       {Y >= 2024.9 && (
-        // crowds lining the field
-        Array.from({length: 40}, (_, i) => {
-          const a = (i / 40) * Math.PI * 2;
-          const x = THUNG[0] + Math.cos(a) * (LOOP.hx * BIG_LOOP + 1.6);
-          const z = THUNG[1] + Math.sin(a) * (LOOP.hz * BIG_LOOP + 1.6);
+        // crowds lining both sides of the parade road, clear of the office and the great candle
+        Array.from({length: 44}, (_, i) => {
+          const x = PARADE.x0 + 0.6 + (i >> 1) * ((PARADE.x1 - PARADE.x0 - 1.2) / 21);
+          const z = PARADE.z + (i % 2 ? 1.5 : -1.5);
+          if (Math.abs(x - OFFICE[0]) < 2.3 && z < PARADE.z) return null;
+          if (Math.hypot(x - MONUMENT[0], z - MONUMENT[1]) < 4.2) return null;
           return (
-            <group key={i} position={[x, 0, z]} scale={0.7}>
+            <group key={i} position={[x, 0, z]} rotation-y={i % 2 ? Math.PI : 0} scale={0.7}>
               <Person t={0} i={i} />
             </group>
           );
