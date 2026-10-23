@@ -13,7 +13,7 @@ winget install OpenJS.NodeJS.LTS Git.Git
 # close and reopen PowerShell, then:
 git clone --filter=blob:none https://github.com/stamp44101/themotion.git
 cd themotion
-git checkout claude/busy-brown-ba1fp4
+git checkout main
 npm ci
 ```
 
@@ -23,7 +23,7 @@ brew install node@22 git
 echo 'export PATH="$(brew --prefix node@22)/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc
 git clone --filter=blob:none https://github.com/stamp44101/themotion.git
 cd themotion
-git checkout claude/busy-brown-ba1fp4
+git checkout main
 npm ci
 ```
 
