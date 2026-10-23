@@ -34,18 +34,20 @@ export const RECEPTION: P = [-3.8, 2.3]; // ตึกเลี้ยงรับ
 export const PHIMAN: P = [-5.6, 1.6]; // พระที่นั่งพิมานมงกุฎ, Rama IV (inside the wall; drawn between the halls)
 export const VICHAYEN: P = [-6.9, -6.6]; // บ้านวิชาเยนทร์ / บ้านหลวงรับราชทูต
 export const SAN_PAOLO: P = [18.3, 15.7]; // วัดสันเปาโล and its octagonal observatory tower
-export const PRATU_CHAI: P = [4.3, 15.1]; // ประตูชัย, south
+// ประตูชัย, south: OSM [4.3, 15.1]; drawn 1.7 west because the engine's straight north-south track
+// passes 0.9 from it here, where the real line, leaning ~12 degrees, runs ~5 units east of it
+export const PRATU_CHAI: P = [2.6, 15.1];
 export const POM_THA_PHO: P = [-0.9, -18.1]; // ป้อมท่าโพธิ์, on the river at the north
 export const POM_CHAI_CHANA: P = [12.5, 15.8]; // ป้อมชัยชนะสงคราม, south-east
 
-// ---- แม่น้ำลพบุรี: ~60 m at the palace (1.5 units), drawn 2.2. OSM centreline (ways 571946579,
+// ---- แม่น้ำลพบุรี: 52-62 m at the palace, 72 m south (OSM riverbank way 196480898), drawn 1.8. OSM centreline (ways 571946579,
 // 986386580) /40: in from the west along the north edge, turning at the north-west corner and
 // running SSW past the palace; extended to the tile edges
 export const RIVER: P[] = [
   [-56, -14], [-34, -14], [-19.4, -15.05], [-16.4, -15], [-14.1, -14.55], [-12.8, -13.4], [-11.6, -11.5],
   [-11.15, -9.8], [-11.9, -7], [-13.3, -2], [-14.6, 4.35], [-16.45, 13.6], [-19.35, 23.5], [-23, 36], [-26, 56],
 ];
-export const RIVER_W = 2.2;
+export const RIVER_W = 1.8;
 export const riverX = (z: number) => {
   for (let i = 8; i < RIVER.length - 1; i++) {
     const [x0, z0] = RIVER[i];

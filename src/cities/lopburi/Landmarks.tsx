@@ -304,12 +304,6 @@ export const LopburiLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH
           </group>
         </group>
       )}
-      {/* Narai's vihara in front of it, with pointed arches, from 1666 */}
-      {Y >= 1666 && (
-        <group position={[PRANG[0] + 3.2, g(...PRANG), PRANG[1]]} rotation-y={Math.PI / 2}>
-          <Hall w={1.6} d={2.2} h={0.9} />
-        </group>
-      )}
       {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => {
         const p = processionAt(i, t);
         return p ? (
@@ -330,7 +324,7 @@ export const LopburiLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH
         <Grow k={ramp(Y, 1250, 1320)} at={[WAT_MAHATHAT[0], g(...WAT_MAHATHAT), WAT_MAHATHAT[1]]}>
           <Prang color={LATERITE} s={1.25} />
           <mesh position={[0, 0.1, 0]} rotation-x={-Math.PI / 2}>
-            <ringGeometry args={[2.6, 2.9, 4]} />
+            <ringGeometry args={[1.8, 2.0, 4]} />
             <meshStandardMaterial color={BRICK} side={THREE.DoubleSide} />
           </mesh>
         </Grow>

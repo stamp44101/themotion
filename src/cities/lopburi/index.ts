@@ -48,7 +48,7 @@ export const LOPBURI: CityConfig = {
         [PRANG[0], PRANG[1], 4.6],
         [SAN_PHRA_KAN[0], SAN_PHRA_KAN[1], 3],
         [PRANG_KHAEK[0], PRANG_KHAEK[1], 2.6],
-        [WAT_MAHATHAT[0], WAT_MAHATHAT[1], 3.4],
+        [WAT_MAHATHAT[0], WAT_MAHATHAT[1], 2.2],
         [WAT_NAKHON_KOSA[0], WAT_NAKHON_KOSA[1], 2.2],
         [PX, PZ, 5.6],
         [VICHAYEN[0], VICHAYEN[1], 2],
@@ -72,10 +72,11 @@ export const LOPBURI: CityConfig = {
     ],
     paddies: [700, 1950],
     sites: [
-      [PRANG[0], PRANG[1], 4.2],
+      [PRANG[0], PRANG[1], 2.2],
       [SAN_PHRA_KAN[0], SAN_PHRA_KAN[1], 2.4],
       [PRANG_KHAEK[0], PRANG_KHAEK[1], 2.4],
-      [WAT_MAHATHAT[0], WAT_MAHATHAT[1], 3.2],
+      // OSM way 196252384: x 0.7-5.5, z 3.7-8.0; kept west of the track
+      [WAT_MAHATHAT[0], WAT_MAHATHAT[1], 2.0],
       [WAT_NAKHON_KOSA[0], WAT_NAKHON_KOSA[1], 2],
       [VICHAYEN[0], VICHAYEN[1], 1.8],
       [SAN_PAOLO[0], SAN_PAOLO[1], 1.2],
