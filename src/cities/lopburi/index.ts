@@ -105,7 +105,11 @@ export const LOPBURI: CityConfig = {
     finale: 'lanterns',
     life: {
       buffalo: [{x: -30, z: 30, r: 4, count: 6, from: 800, to: 1975}],
-      people: [{x: STATION[0] + 2.5, z: STATION[1] + 2, r: 1.4, count: 14, from: 1902, to: 2026}],
+      people: [
+        // Lavo's first townspeople round the stupa, so the clearing is not an empty lawn
+        {x: WAT_NAKHON_KOSA[0] - 3, z: WAT_NAKHON_KOSA[1] + 1.5, r: 2.2, count: 14, from: 657, to: 1300},
+        {x: STATION[0] + 2.5, z: STATION[1] + 2, r: 1.4, count: 14, from: 1902, to: 2026},
+      ],
     },
     cameraKeys: STORY.cameraKeys,
   },

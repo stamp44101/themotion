@@ -2,7 +2,7 @@
 // from the same functions.
 import type {Actor, ActorCtx} from '../../engine/actors';
 import {lerp, smooth} from '../../lib';
-import {PALACE, PIPE_FROM, PRANG, RECEPTION, RIVER, riverX, SAN_PHRA_KAN, WAT_NAKHON_KOSA} from './places';
+import {PALACE, PIPE_FROM, PRANG, RAIL_X, RECEPTION, RIVER, riverX, SAN_PHRA_KAN, WAT_NAKHON_KOSA} from './places';
 import {STORY} from './timeline';
 
 type P = [number, number];
@@ -80,14 +80,20 @@ export const hanumanAt = (t: number, ground = 0) => {
 };
 
 // ------------------------------------------------------------------ the troop
-// In the legend twenty macaques run round where he lands, then gather to him. From the
-// abandonment on (1688) they live round the prang and ศาลพระกาฬ; at the buffet they crowd the tables.
+// The macaques are the city's thread (PR #67 review): in the legend they run round where
+// Hanuman lands and gather to him; as Lavo clears the forest for its town they scatter out of
+// the clearing; when Narai's court leaves (1688) they file from the prang into the empty
+// palace; in 1901 they sit on the new track and on ศาลพระกาฬ and jump clear as the first train
+// comes up; at the buffet they crowd the tables. Between those, they live round the prang
+// and the shrine (they are not in the 1155-1685 beats: the forest still stood round Lavo).
 export const TROOP_N = 24;
+// where the scatter starts: the middle of the Lavo clearing, in front of the beat's camera
+export const LAVO_TROOP: P = [-1, -2];
+const palaceSpot = (i: number): P => [PALACE.x0 + 1.4 + (i % 6) * 1.05, PALACE.z0 + 1.3 + Math.floor(i / 6) * 1.05];
 export const monkeyAt = (i: number, t: number, Y: number) => {
   const a = (i / TROOP_N) * Math.PI * 2 + i * 0.37;
   const legend = t < beatAt('legend', 1);
   const pay = t >= beatAt('payoff', 0);
-  if (!legend && Y < 1688) return null;
   if (legend) {
     const r = 5 + (i % 4) * 1.4;
     const run = t > LAND_T ? Math.min(1, (t - LAND_T) / 3) : 0;
@@ -103,6 +109,35 @@ export const monkeyAt = (i: number, t: number, Y: number) => {
     const row = i % 3;
     const col = Math.floor(i / 3);
     return {x: PRANG[0] - 3 + col * 1.0, z: PRANG[1] + 3 + row * 1.3 + (col % 2) * 0.3, rot: row === 1 ? Math.PI : 0, hop: Math.sin(t * 4 + i) * 0.2, sit: true};
+  }
+  const lk = beatK('lavo', t);
+  if (lk >= 0 && lk <= 1) {
+    // foraging in the new clearing, then scattering outward as the houses go up
+    if (lk > 0.82) return null;
+    const out = smooth(Math.max(0, Math.min(1, (lk - 0.15) / 0.65)));
+    const r = 1.2 + (i % 4) * 0.7 + out * (7 + (i % 3) * 1.5);
+    const ang = a + (1 - out) * Math.sin(t * 0.6 + i) * 0.4;
+    return {x: LAVO_TROOP[0] + Math.cos(ang) * r, z: LAVO_TROOP[1] + Math.sin(ang) * r, rot: Math.atan2(Math.cos(ang), Math.sin(ang)), hop: Math.sin(t * 9 + i * 1.7), sit: false};
+  }
+  if (Y < 1688) return null;
+  const fk = beatK('fade', t);
+  if (fk >= 0 && fk <= 1) {
+    // a file from the prang over the fallen wall into the empty halls, then settled there
+    const [px, pz] = palaceSpot(i);
+    const u = smooth(Math.max(0, Math.min(1, (fk - 0.05 - (i % 8) * 0.03) / 0.6)));
+    const sx = PRANG[0] - 1 + Math.cos(a) * 1.5;
+    const sz = PRANG[1] + 2 + Math.sin(a) * 1.2;
+    if (u >= 1) return {x: px, z: pz, rot: a, hop: 0, sit: true};
+    return {x: lerp(sx, px, u), z: lerp(sz, pz, u), rot: Math.atan2(px - sx, pz - sz), hop: Math.sin(t * 9 + i * 1.7), sit: false};
+  }
+  const rk = beatK('railway', t);
+  if (rk >= 0 && rk <= 1 && i < 10) {
+    // on the sleepers between the prang and the shrine; they jump off east and west before the
+    // first train (from the south) reaches them, ~43.4 s (rk 0.5)
+    const z = PRANG[1] - 2.5 + (i % 5) * 1.2;
+    const side = i % 2 ? 1 : -1;
+    const off = smooth(Math.max(0, Math.min(1, (rk - 0.28 - (i % 5) * 0.02) / 0.12)));
+    return {x: RAIL_X + side * off * (1.6 + (i % 3) * 0.4), z, rot: off > 0 && off < 1 ? side * Math.PI / 2 : Math.PI, hop: off > 0 && off < 1 ? 1 : 0, sit: off === 0 || off === 1};
   }
   // everyday: half sit about the prang and the shrine, half wander between them
   const home = i % 2 ? SAN_PHRA_KAN : PRANG;
@@ -186,6 +221,7 @@ export const ACTORS: Actor[] = [
     const h = hanumanAt(t, gy(ctx, LAND[0], LAND[1]));
     return h ? [h.x, h.y + 4, h.z] : null;
   }},
+  {id: 'troopScatters', during: [beatAt('lavo', 0.05), beatAt('lavo', 0.8)], size: 3, at: (t, ctx) => (monkeyAt(0, t, ctx.Y) ? [LAVO_TROOP[0], 0.6, LAVO_TROOP[1]] : null)},
   {id: 'lavoBoats', during: [beatAt('lavo', 0.1), beatAt('lavo', 0.9)], size: 1.6, at: (t, ctx) => {
     const b = lavoBoatAt(1, t, ctx.Y);
     return b ? [b.x, 0.3, b.z] : null;
@@ -208,7 +244,12 @@ export const ACTORS: Actor[] = [
     const f = fleetAt(0, t);
     return f ? [f.x, 0.5, f.z] : null;
   }},
-  {id: 'monkeysMoveIn', during: [beatAt('fade', 0.2), beatAt('fade', 1)], size: 2.5, at: () => [PRANG[0], 1.5, PRANG[1]]},
+  // the troop: into the abandoned palace, then on the track as the first train comes
+  {id: 'troopToPalace', during: [beatAt('fade', 0.1), beatAt('fade', 1)], size: 2.5, at: (t, ctx) => {
+    const m = monkeyAt(3, t, ctx.Y);
+    return m ? [m.x, 0.6, m.z] : null;
+  }},
+  {id: 'troopOnRail', during: [beatAt('railway', 0.05), beatAt('railway', 0.6)], size: 2.5, at: () => [RAIL_X, 0.6, PRANG[1]]},
   {id: 'cityGrowing', during: [beatAt('growth', 0), beatAt('growth', 1)], size: 12, at: () => [8, 1.5, 0]},
   {id: 'hanumanReturns', role: 'callback', during: [RET[0] + 0.4, beatAt('payoff', 1)], size: 6, at: (t, ctx) => {
     const h = hanumanAt(t, gy(ctx, RET_LAND[0], RET_LAND[1]));
