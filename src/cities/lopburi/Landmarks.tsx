@@ -215,8 +215,8 @@ export const LopburiLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH
         })}
 
       {/* Dvaravati ลวปุระ: the stupa of วัดนครโกษา and the town's earthwork ring */}
-      {Y >= 660 && (
-        <Grow k={ramp(Y, 660, 820)} at={[WAT_NAKHON_KOSA[0], g(...WAT_NAKHON_KOSA), WAT_NAKHON_KOSA[1]]}>
+      {Y >= 657 && (
+        <Grow k={ramp(Y, 657, 686)} at={[WAT_NAKHON_KOSA[0], g(...WAT_NAKHON_KOSA), WAT_NAKHON_KOSA[1]]}>
           <mesh position={[0, 0.5, 0]} castShadow>
             <cylinderGeometry args={[1.3, 1.5, 1, 12]} />
             <meshStandardMaterial color={BRICK} flatShading />

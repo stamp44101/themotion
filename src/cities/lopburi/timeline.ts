@@ -72,7 +72,9 @@ export const STORY = buildStory({
       id: 'lavo',
       kind: 'build',
       t: [8.6, 14.4],
-      year: [650, 900],
+      // only 40 years: the engine clears the in-city forest over 1.2 years and the city ground
+      // over 1.5, so the curve must run slowly here or both snap in one frame (check_render)
+      year: [650, 690],
       caption: {t0: 8.4, title: 'ละโว้', sub: 'พุทธศตวรรษที่ 12–14 เมืองทวารวดีริมแม่น้ำลพบุรี เหรียญเงินเรียกชื่อว่า “ลวปุระ”'},
       era: 'ทวารวดี',
       callouts: [{t0: 11.2, t1: 14.2, label: 'วัดนครโกษา', dx: 90, dy: -130, p: [WAT_NAKHON_KOSA[0], 1.2, WAT_NAKHON_KOSA[1]]}],

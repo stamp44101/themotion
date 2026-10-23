@@ -39,10 +39,10 @@ export const LOPBURI: CityConfig = {
     // and ศาลพระกาฬ; the station stands finished before the first train
     rail: {axis: 'z', pos: RAIL_X, open: [1900.9, 1901.05], station: STATION, stationYear: 1898.5},
     trains: SOUND_EVENTS.trains.map((tr) => ({...tr, dir: tr.dir as 1 | -1})),
-    city: {hx: 20, hz: 19, outline: OLD_TOWN, moat: [1e9, 1e9], wall: [1e9, 1e9], gates: [1e9, 1e9], groundFrom: 660},
+    city: {hx: 20, hz: 19, outline: OLD_TOWN, moat: [1e9, 1e9], wall: [1e9, 1e9], gates: [1e9, 1e9], groundFrom: 653.5},
     gates: [],
     houses: {
-      built: [700, 120],
+      built: [656, 32],
       modern: [1905, 60],
       keepOut: [
         [PRANG[0], PRANG[1], 4.6],
@@ -63,7 +63,8 @@ export const LOPBURI: CityConfig = {
       ],
       built: [700, 1200],
     },
-    forestCity: 660,
+    // the forest goes 652-653.2 and the ground comes 653.5-655, at ~0.23 years a frame
+    forestCity: 652,
     clearings: [
       // where Hanuman lands and the troop runs, and the prang's ground
       [PRANG[0] + 6, PRANG[1] - 2, 9, -1e9],
