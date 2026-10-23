@@ -6,15 +6,17 @@ Sections 1, 2 and 5 (footprint, water, pins) are filled once the ONEP polygon an
 
 ## 1. Wall footprint
 
-[unknown]. Lopburi is an announced old town, so the ONEP shapefile should have it (needs the
-local agent, Thai connection). Gemini's rough extent: a rounded rectangle along the river,
-about 500–850 m east-west by 1,800–2,200 m north-south (not from a survey).
+ONEP เมืองเก่าลพบุรี, one ring of 95 points: **1.70 km², 1,709 m E–W × 1,540 m N–S**, centroid
+14.800683, 100.612775 (`lopburi_onep/`, measurements in its README). Not Gemini's 500–850 × 1,800–2,200 m
+strip: the zone is about as wide as it is tall and its west edge is on the far bank, so the river runs
+through it. OSM has no town wall line; a ditch along the north edge and two thin ponds along the east
+edge look like the moat in pieces (unconfirmed). The palace wall is on OSM (≈ 310 × 245 m).
 
 ## 2. Water
 
 | water | real size | notes |
 |---|---|---|
-| แม่น้ำลพบุรี | ~55–80 m wide at the palace (Gemini, measured off a map) | runs along the west side of the old town; the palace is on its east bank |
+| แม่น้ำลพบุรี | **~60 m at the palace** (OSM riverbank, 52–80 m across the town) | comes in from the west along the north edge, turns at the NW corner and runs SSW past the palace; ≈ 140 m from the palace wall to the water; centreline in `lopburi_onep/README.md` |
 | ทะเลชุบศร | a broad low basin NE of town; พระที่นั่งเย็น ~3.8 km out | the water source for Narai's clay pipes; today mostly fields and town |
 
 ## 3. Story beats (draft)
@@ -59,7 +61,8 @@ Every option is something large and moving on the whole tile from frame 0 that r
 
 ## 5. Pins
 
-Gemini's table (`lopburi_research_gemini.md` §4.2) to be checked against OSM by the local agent:
+**Checked against OSM** (`lopburi_onep/README.md`): all within 30 m except วัดพระศรีรัตนมหาธาตุ (92 m; use OSM
+14.798644, 100.613946). วงเวียนสระแก้ว is 2.3 km east of the centroid, outside the zone. Gemini's table:
 พระปรางค์สามยอด 14.8029, 100.6140 · ศาลพระกาฬ 14.8022, 100.6150 · วัดพระศรีรัตนมหาธาตุ 14.7987, 100.6148 ·
 ปรางค์แขก 14.8023, 100.6117 · พระนารายณ์ราชนิเวศน์ 14.7999, 100.6106 · บ้านวิชาเยนทร์ 14.8030, 100.6104 ·
 วัดสันเปาโล 14.7950, 100.6194 · สถานีลพบุรี 14.7988, 100.6151 · วงเวียนสระแก้ว 14.7997, 100.6342.
