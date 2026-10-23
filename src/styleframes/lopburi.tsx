@@ -21,9 +21,11 @@ const STORY = buildStory({
       t: [0, 8],
       year: [-1500, -1499],
       camera: [
-        [0, 4, 3, 0, 150, 140, 30, 30],
-        [3, 3, 4, 0, 72, 152, 26, 30],
-        [7, 2, 4, 0, 52, 165, 22, 30],
+        // frame 0 shows the whole floating tile with its soil edge (Korat opened at 320), then
+        // a slow push in to the landing
+        [0, 2, 2, 0, 320, 140, 34, 30],
+        [3, 4, 4, -2, 190, 148, 31, 30],
+        [8, 6, 5, -3, 105, 160, 28, 30],
       ],
     },
   ],
@@ -251,7 +253,7 @@ const Macaque: React.FC<{hop: number}> = ({hop}) => (
 
 const LAND_T = 2.4; // Hanuman touches down
 const LAND: [number, number] = [9, -4];
-const START: [number, number, number] = [0, 12, 30];
+const START: [number, number, number] = [0, 9, 26];
 
 const LopburiHero: React.FC<LandmarkProps> = ({t, terrainH}) => {
   // the leap: a parabola from the east edge of the tile to beside the prang
@@ -278,7 +280,7 @@ const LopburiHero: React.FC<LandmarkProps> = ({t, terrainH}) => {
   return (
     <>
       <PrangSamYot y={terrainH(0, 0)} />
-      <group position={[x, y, z]} rotation-y={yaw} scale={3.4}>
+      <group position={[x, y, z]} rotation-y={yaw} scale={4.6}>
         <Hanuman leap={flying ? 1 : Math.max(0, 1 - (t - LAND_T + 0.15) * 4)} t={t} />
       </group>
       {troop.map((m, i) => (
