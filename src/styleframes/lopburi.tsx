@@ -111,60 +111,70 @@ const KANOK = (() => {
 const BLUE = '#4f86d1';
 const ThaiHead: React.FC = () => (
   <group>
-    {/* the bald dome and a broad muzzle */}
+    {/* the bald dome, drawn up to a soft point like an onion, and a muzzle */}
     <mesh scale={[0.5, 0.52, 0.47]} castShadow><sphereGeometry args={[1, 24, 18]} /><meshStandardMaterial {...M} /></mesh>
-    <mesh position={[0, -0.16, 0.3]} scale={[0.36, 0.24, 0.26]} castShadow><sphereGeometry args={[1, 18, 12]} /><meshStandardMaterial color="#fbf1ec" roughness={0.55} /></mesh>
-    {/* red stripes over the dome */}
-    <group rotation-x={-0.55}>
-      {[-0.16, 0, 0.16].map((x) => (
+    <mesh position={[0, 0.38, -0.02]} scale={[0.3, 0.3, 0.29]} castShadow><sphereGeometry args={[1, 18, 12]} /><meshStandardMaterial {...M} /></mesh>
+    <mesh position={[0, 0.7, -0.04]} rotation-x={-0.2} castShadow><coneGeometry args={[0.1, 0.22, 12]} /><meshStandardMaterial {...M} /></mesh>
+    <mesh position={[0, -0.16, 0.3]} scale={[0.35, 0.23, 0.26]} castShadow><sphereGeometry args={[1, 18, 12]} /><meshStandardMaterial color="#fbf1ec" roughness={0.55} /></mesh>
+    {/* red stripes up over the dome to the point */}
+    <group position={[0, 0.38, -0.02]} rotation-x={-0.9}>
+      {[-0.13, 0, 0.13].map((x) => (
         <mesh key={x} position={[x, 0, 0]} rotation-y={Math.PI / 2}>
-          <torusGeometry args={[Math.sqrt(0.53 * 0.53 - x * x), 0.016, 5, 24, Math.PI * 0.72]} />
+          <torusGeometry args={[Math.sqrt(0.315 * 0.315 - x * x), 0.014, 5, 20, Math.PI * 0.85]} />
           <meshStandardMaterial color="#d2504a" />
         </mesh>
       ))}
     </group>
-    {/* the grin: red mouth, a row of teeth, two small fangs, a pink tongue */}
-    <mesh position={[0, -0.21, 0.5]} scale={[0.27, 0.13, 0.09]}><sphereGeometry args={[1, 18, 10]} /><meshStandardMaterial color="#b3261e" /></mesh>
-    <mesh position={[0, -0.28, 0.55]} scale={[0.13, 0.05, 0.05]}><sphereGeometry args={[1, 10, 6]} /><meshStandardMaterial color="#e8807a" /></mesh>
-    <mesh position={[0, -0.12, 0.575]} scale={[0.3, 0.045, 0.03]}><boxGeometry args={[1, 1, 1]} /><meshStandardMaterial color="#fffaf0" /></mesh>
+    {/* a friendly open smile: dark red inside, a row of teeth, two small fangs, the tongue */}
+    <mesh position={[0, -0.2, 0.53]} scale={[0.2, 0.09, 0.07]}><sphereGeometry args={[1, 18, 10]} /><meshStandardMaterial color="#7d2a22" /></mesh>
+    <mesh position={[0, -0.25, 0.565]} scale={[0.09, 0.035, 0.04]}><sphereGeometry args={[1, 10, 6]} /><meshStandardMaterial color="#e07a72" /></mesh>
+    <mesh position={[0, -0.14, 0.575]} scale={[0.24, 0.035, 0.03]}><boxGeometry args={[1, 1, 1]} /><meshStandardMaterial color="#fffaf0" /></mesh>
+    {/* the khon line framing the face, under the eyes and round the muzzle */}
+    <mesh position={[0, -0.04, 0.44]} rotation-z={Math.PI} scale={[1, 0.8, 1]}>
+      <torusGeometry args={[0.3, 0.011, 5, 28, Math.PI]} />
+      <meshStandardMaterial color={BLUE} />
+    </mesh>
     {[-1, 1].map((s) => (
       <group key={s}>
-        <mesh position={[s * 0.14, -0.17, 0.58]} rotation-x={Math.PI}><coneGeometry args={[0.03, 0.1, 5]} /><meshStandardMaterial color="#fffaf0" /></mesh>
+        <mesh position={[s * 0.11, -0.19, 0.58]} rotation-x={Math.PI}><coneGeometry args={[0.022, 0.06, 5]} /><meshStandardMaterial color="#fffaf0" /></mesh>
         {/* big round eyes, outlined, with a highlight */}
         <group position={[s * 0.15, 0.09, 0.4]} rotation-y={s * 0.2}>
           <mesh scale={[1, 1.1, 0.7]}><sphereGeometry args={[0.1, 16, 12]} /><meshStandardMaterial color="#ffffff" /></mesh>
           <mesh position={[s * -0.01, -0.005, 0.06]} scale={[1, 1.1, 0.5]}><sphereGeometry args={[0.062, 14, 10]} /><meshStandardMaterial color="#1a1410" /></mesh>
           <mesh position={[0.02 - s * 0.01, 0.03, 0.095]}><sphereGeometry args={[0.018, 8, 6]} /><meshBasicMaterial color="#ffffff" toneMapped={false} /></mesh>
-          <mesh rotation-x={0} scale={[1, 1.1, 1]}><torusGeometry args={[0.1, 0.01, 5, 20]} /><meshStandardMaterial color="#3a2a22" /></mesh>
+          <mesh scale={[1, 1.1, 1]}><torusGeometry args={[0.1, 0.01, 5, 20]} /><meshStandardMaterial color="#3a2a22" /></mesh>
         </group>
-        {/* red brow curls */}
+        {/* red brow curls and a pink line at the temple */}
         <mesh position={[s * 0.16, 0.22, 0.39]} rotation-z={s * 0.25}>
           <torusGeometry args={[0.07, 0.012, 5, 14, Math.PI * 0.9]} />
           <meshStandardMaterial color="#d2504a" />
         </mesh>
+        <group position={[s * 0.33, 0.1, 0.33]} rotation-y={s * 0.8}>
+          <mesh rotation-z={s * 0.4}><torusGeometry args={[0.09, 0.01, 5, 16, Math.PI * 0.8]} /><meshStandardMaterial color="#e27a8f" /></mesh>
+        </group>
         {/* blue spirals on the cheeks */}
-        <group position={[s * 0.4, -0.04, 0.33]} rotation-y={s * 0.85} scale={1.3}>
+        <group position={[s * 0.4, -0.04, 0.33]} rotation-y={s * 0.85} scale={1.2}>
           <mesh><torusGeometry args={[0.07, 0.012, 5, 18, Math.PI * 1.6]} /><meshStandardMaterial color={BLUE} /></mesh>
           <mesh rotation-z={1}><torusGeometry args={[0.035, 0.01, 5, 14, Math.PI * 1.4]} /><meshStandardMaterial color={BLUE} /></mesh>
         </group>
-        {/* gold กนก fanning at the ears */}
-        <group position={[s * 0.47, 0.12, 0.08]} rotation-y={s * 0.45} rotation-z={s * -0.45} scale={[-s * 0.68, 0.68, 0.68]}>
+        {/* gold กนก at the ears, small and close to the head */}
+        <group position={[s * 0.47, 0.08, 0.02]} rotation-y={s * 1.15} rotation-z={s * -0.25} scale={[-s * 0.45, 0.45, 0.45]}>
           <mesh geometry={KANOK} castShadow><meshStandardMaterial {...G} /></mesh>
         </group>
       </group>
     ))}
-    {/* the gold headband and its red jewel */}
+    {/* the gold headband, a darker pattern line along it, and its red jewel */}
     <mesh position={[0, 0.25, 0.03]} rotation-x={-0.12}>
       <cylinderGeometry args={[0.455, 0.475, 0.11, 28, 1, true]} />
       <meshStandardMaterial {...G} side={THREE.DoubleSide} />
     </mesh>
+    <mesh position={[0, 0.25, 0.03]} rotation-x={Math.PI / 2 - 0.12}>
+      <torusGeometry args={[0.472, 0.012, 5, 28]} />
+      <meshStandardMaterial color="#b9802a" metalness={0.5} roughness={0.35} />
+    </mesh>
     <mesh position={[0, 0.27, 0.48]} rotation-x={0.1}>
       <octahedronGeometry args={[0.06, 0]} />
       <meshStandardMaterial color="#c0392b" metalness={0.3} roughness={0.25} />
-    </mesh>
-    <mesh position={[0, 0.39, 0.4]} rotation-x={-0.35}>
-      <coneGeometry args={[0.05, 0.16, 6]} />
-      <meshStandardMaterial {...G} />
     </mesh>
   </group>
 );
@@ -335,6 +345,37 @@ const Hanuman: React.FC<{leap: number; t: number; face?: Face}> = ({leap, t, fac
           <Limb a={knee(s)} b={foot(s)} r={0.16} color={WHITE} />
         </group>
       ))}
+      {/* cream spirals on the chest and arms, as in the references */}
+      {face === 'thai' &&
+        [
+          [-0.22, 0.05, 0.42],
+          [0.2, -0.15, 0.4],
+          [0, -0.4, 0.38],
+        ].map(([dx, dy, dz], i) => (
+          <mesh key={i} position={chest.clone().add(v(dx, dy, dz))} rotation-x={-0.3}>
+            <torusGeometry args={[0.1, 0.015, 5, 16, Math.PI * 1.6]} />
+            <meshStandardMaterial color="#c9b78f" />
+          </mesh>
+        ))}
+      {/* ตรีเพชร, the trident, in the right hand */}
+      {face === 'thai' && (
+        <group position={hand(1).clone().add(v(0.15, 0, 0.1))}>
+          <mesh position={[0, 0.4, 0]}>
+            <cylinderGeometry args={[0.035, 0.035, 2.0, 8]} />
+            <meshStandardMaterial color="#b8862f" metalness={0.5} roughness={0.35} />
+          </mesh>
+          {[-1, 0, 1].map((k) => (
+            <mesh key={k} position={[k * 0.14, 1.55 - Math.abs(k) * 0.08, 0]} rotation-z={-k * 0.25}>
+              <coneGeometry args={[0.05, 0.42, 6]} />
+              <meshStandardMaterial color="#d8dde3" metalness={0.7} roughness={0.25} />
+            </mesh>
+          ))}
+          <mesh position={[0, 1.35, 0]}>
+            <boxGeometry args={[0.36, 0.06, 0.06]} />
+            <meshStandardMaterial color="#b8862f" metalness={0.5} roughness={0.35} />
+          </mesh>
+        </group>
+      )}
       <mesh castShadow>
         <tubeGeometry args={[tail, 24, 0.09, 8, false]} />
         <meshStandardMaterial color={WHITE} roughness={0.6} />
