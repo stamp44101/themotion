@@ -31,6 +31,23 @@ and two lines in `package.json` scripts. Nothing else.
 So two agents can build two different cities at the same time with essentially
 no overlap. Use a branch per city: `city/<name>`.
 
+### Branch names
+
+One branch per piece of work, opened as a PR against the default branch and deleted
+once merged. The prefix says what it touches:
+
+| prefix | for | example |
+|---|---|---|
+| `city/<name>` | one city or landmark reel, its soundtrack included | `city/ubon` |
+| `engine/<topic>` | `src/engine/` and `src/Overlay.tsx` (one at a time, below) | `engine/occupancy` |
+| `sound/<topic>` | `scripts/synth.py` and changes across soundtracks | `sound/loudness` |
+| `tools/<topic>` | checks, encode, render scripts, camera stats | `tools/jerk-check` |
+| `docs/<topic>` | docs only: README, briefs, `experiments.md`, `CLAUDE.md` | `docs/phuket-24h` |
+| `exp/<topic>` | an experiment that may be thrown away | `exp/korat-hook` |
+
+Unmerged work that is set aside is kept as a tag `archive/<branch-name>` and the branch
+deleted, so the branch list only shows work in progress.
+
 ## The one rule that matters
 
 **Only one agent touches `src/engine/` at a time.**
