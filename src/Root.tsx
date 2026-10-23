@@ -24,7 +24,7 @@ import {CHIANGRAI_CLOSE, CHIANGRAI_FRONT, CHIANGRAI_QUARTER} from './styleframes
 import {PHUKET_DREDGE, PHUKET_GREEN, PHUKET_GREEN_CALLBACK, PHUKET_MIXED, PHUKET_MIXED_CALLBACK, PHUKET_TURTLE, PHUKET_TURTLE_CALLBACK} from './styleframes/phuket';
 import {KHONKAEN_DINO, KHONKAEN_STUPA, KHONKAEN_TAMARIND} from './styleframes/khonkaen';
 import {UBON_CANDLE, UBON_ELEPHANT, UBON_FISH, UBON_NAGA} from './styleframes/ubon';
-import {LOPBURI_HANUMAN} from './styleframes/lopburi';
+import {HanumanFaces, LOPBURI_HANUMAN} from './styleframes/lopburi';
 import {LAMPANG_CHEDI, LAMPANG_ELEPHANT, LAMPANG_CARRIAGE, LAMPANG_HORSE} from './styleframes/lampang';
 import {DioramaComposition} from './engine/DioramaComposition';
 import {NagaStudy} from './styleframes/NagaStudy';
@@ -96,6 +96,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="UbonStyleFish" component={UbonStyleFish} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="UbonStyleCandle" component={UbonStyleCandle} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="UbonNagaStudy" component={NagaStudy} durationInFrames={4} fps={FPS} width={1080} height={1080} />
+    <Composition id="LopburiHanumanFaces" component={HanumanFaces} durationInFrames={2} fps={FPS} width={1800} height={760} />
     <Composition id="LopburiStyleHanuman" component={LopburiStyleHanuman} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="UbonStyleNaga" component={UbonStyleNaga} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="UbonStyleElephant" component={UbonStyleElephant} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />

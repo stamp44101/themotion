@@ -5,6 +5,9 @@
 // the prang at hero scale until the pins and the ONEP polygon come in.
 import React from 'react';
 import * as THREE from 'three';
+import {ThreeCanvas} from '@remotion/three';
+import {useThree} from '@react-three/fiber';
+import {AbsoluteFill, useCurrentFrame} from 'remotion';
 import {KORAT} from '../cities/korat';
 import {buildStory} from '../engine/story';
 import {lathe, PRANG} from '../engine/parts';
@@ -78,12 +81,119 @@ const Limb: React.FC<{a: THREE.Vector3; b: THREE.Vector3; r: number; color: stri
 };
 const v = (x: number, y: number, z: number) => new THREE.Vector3(x, y, z);
 
+const WHITE = '#f6f3ec';
+const GOLD = '#e0a93a';
+
+// ------------------------------------------------------------------ three faces to choose from
+// A cartoon: round, dot eyes. B between: a longer muzzle, almond eyes with an amber iris, brows,
+// a diadem with a short ยอด. C khon: the mask of the khon Hanuman, white with gold lines, big
+// gold-ringed eyes, the wide open mouth with a row of teeth and crystal fangs, กรรเจียก fanning
+// at the ears and a tall gold ยอด. Modelled facing +z, unit about the skull's radius x2.
+export type Face = 'cartoon' | 'middle' | 'khon';
+const M = {color: WHITE, roughness: 0.55} as const;
+const G = {color: GOLD, metalness: 0.55, roughness: 0.3} as const;
+export const HanumanHead: React.FC<{face: Face}> = ({face}) => {
+  if (face === 'cartoon')
+    return (
+      <group>
+        <mesh scale={[0.48, 0.5, 0.46]} castShadow><sphereGeometry args={[1, 18, 14]} /><meshStandardMaterial {...M} /></mesh>
+        <mesh position={[0, -0.12, 0.38]} scale={[0.32, 0.22, 0.24]} castShadow><sphereGeometry args={[1, 14, 10]} /><meshStandardMaterial {...M} /></mesh>
+        <mesh position={[0, -0.24, 0.5]} scale={[0.24, 0.12, 0.12]}><sphereGeometry args={[1, 12, 8]} /><meshStandardMaterial color="#b32a22" /></mesh>
+        {[-1, 1].map((s) => (
+          <group key={s}>
+            <mesh position={[s * 0.13, -0.16, 0.58]} rotation-x={Math.PI}><coneGeometry args={[0.04, 0.16, 5]} /><meshBasicMaterial color="#ffffff" toneMapped={false} /></mesh>
+            <mesh position={[s * 0.17, 0.08, 0.38]}><sphereGeometry args={[0.09, 12, 10]} /><meshStandardMaterial color="#fffaf0" /></mesh>
+            <mesh position={[s * 0.18, 0.08, 0.46]}><sphereGeometry args={[0.05, 10, 8]} /><meshStandardMaterial color="#2a1608" /></mesh>
+          </group>
+        ))}
+        <mesh position={[0, 0.2, 0]} rotation-x={Math.PI / 2 - 0.15}><torusGeometry args={[0.47, 0.06, 6, 24]} /><meshStandardMaterial {...G} /></mesh>
+        <mesh position={[0, 0.42, 0.36]} rotation-x={-0.3}><coneGeometry args={[0.08, 0.32, 6]} /><meshStandardMaterial {...G} /></mesh>
+      </group>
+    );
+  const khon = face === 'khon';
+  return (
+    <group>
+      {/* skull and a longer muzzle */}
+      <mesh scale={[0.46, 0.48, 0.44]} castShadow><sphereGeometry args={[1, 20, 16]} /><meshStandardMaterial {...M} /></mesh>
+      <mesh position={[0, -0.14, 0.36]} scale={[0.3, 0.2, 0.3]} castShadow><sphereGeometry args={[1, 16, 12]} /><meshStandardMaterial {...M} /></mesh>
+      {/* the mouth: open, red inside; khon shows a row of teeth and long crystal fangs */}
+      <mesh position={[0, -0.25, 0.5]} scale={[khon ? 0.27 : 0.2, khon ? 0.13 : 0.08, 0.14]}><sphereGeometry args={[1, 14, 8]} /><meshStandardMaterial color="#a8231c" /></mesh>
+      {khon &&
+        Array.from({length: 7}, (_, i) => (
+          <mesh key={i} position={[(i - 3) * 0.055, -0.2, 0.64 - Math.abs(i - 3) * 0.03]}>
+            <boxGeometry args={[0.045, 0.06, 0.03]} />
+            <meshStandardMaterial color="#fffaf0" />
+          </mesh>
+        ))}
+      {[-1, 1].map((s) => (
+        <group key={s}>
+          <mesh position={[s * (khon ? 0.2 : 0.12), -0.2, 0.56]} rotation-x={Math.PI} rotation-z={s * 0.15}>
+            <coneGeometry args={[khon ? 0.035 : 0.03, khon ? 0.24 : 0.13, 6]} />
+            <meshBasicMaterial color={khon ? '#e9f6ff' : '#ffffff'} toneMapped={false} />
+          </mesh>
+          {/* eyes: almond with an amber iris (B); big, round and gold-ringed (C) */}
+          <group position={[s * 0.17, 0.08, 0.37]} rotation-y={s * 0.25} scale={khon ? [1.25, 1.25, 1] : [1, 0.82, 1]}>
+            <mesh><sphereGeometry args={[0.1, 14, 12]} /><meshStandardMaterial color="#fffaf0" /></mesh>
+            <mesh position={[0, 0, 0.07]} scale={[1, 1, 0.5]}><sphereGeometry args={[0.062, 12, 10]} /><meshStandardMaterial color={khon ? '#1a0d05' : '#c8861c'} /></mesh>
+            <mesh position={[0, 0, 0.095]} scale={[1, 1, 0.5]}><sphereGeometry args={[0.032, 10, 8]} /><meshStandardMaterial color="#120a04" /></mesh>
+            <mesh position={[0.025, 0.03, 0.105]}><sphereGeometry args={[0.014, 6, 5]} /><meshBasicMaterial color="#ffffff" toneMapped={false} /></mesh>
+            {khon && (
+              <mesh rotation-x={0}><torusGeometry args={[0.105, 0.018, 6, 20]} /><meshStandardMaterial {...G} /></mesh>
+            )}
+          </group>
+          {/* brows sweeping up and out */}
+          <mesh position={[s * 0.18, 0.21, 0.4]} rotation-z={s * 0.3} scale={[0.14, 0.03, 0.05]}>
+            <sphereGeometry args={[1, 10, 6]} />
+            <meshStandardMaterial {...(khon ? G : M)} />
+          </mesh>
+          {/* khon: gold lines on the cheeks and the fanned ear ornaments (กรรเจียก) */}
+          {khon && (
+            <>
+              <mesh position={[s * 0.27, -0.06, 0.33]} rotation-y={s * 0.75} rotation-z={s * 0.6}>
+                <torusGeometry args={[0.1, 0.016, 5, 16, Math.PI * 1.5]} />
+                <meshStandardMaterial {...G} />
+              </mesh>
+              <group position={[s * 0.42, 0.0, 0.1]} rotation-y={s * 0.9} scale={1.5}>
+                {[0, 1, 2].map((k) => (
+                  <mesh key={k} position={[0, 0.1 + k * 0.07, -0.05 * k]} rotation-x={-0.3 - k * 0.2} scale={[0.13 - k * 0.025, 0.24 - k * 0.04, 0.02]}>
+                    <sphereGeometry args={[1, 10, 6]} />
+                    <meshStandardMaterial {...G} />
+                  </mesh>
+                ))}
+              </group>
+            </>
+          )}
+        </group>
+      ))}
+      {/* diadem; B has a short ยอด, C the tall tiered gold ยอด of the khon headdress */}
+      <mesh position={[0, 0.2, 0]} rotation-x={Math.PI / 2 - 0.15}><torusGeometry args={[0.46, khon ? 0.07 : 0.055, 6, 26]} /><meshStandardMaterial {...G} /></mesh>
+      {khon ? (
+        <group position={[0, 0.42, 0.02]}>
+          {[0, 1, 2, 3].map((k) => (
+            <group key={k} position={[0, k * 0.11, 0]}>
+              <mesh>
+                <cylinderGeometry args={[0.19 - k * 0.04, 0.24 - k * 0.045, 0.14, 14]} />
+                <meshStandardMaterial {...G} />
+              </mesh>
+              <mesh position={[0, -0.06, 0]} rotation-x={Math.PI / 2}>
+                <torusGeometry args={[0.24 - k * 0.045, 0.018, 6, 20]} />
+                <meshStandardMaterial color="#b9802a" metalness={0.5} roughness={0.35} />
+              </mesh>
+            </group>
+          ))}
+          <mesh position={[0, 0.6, 0]}><coneGeometry args={[0.07, 0.42, 10]} /><meshStandardMaterial {...G} /></mesh>
+        </group>
+      ) : (
+        <mesh position={[0, 0.45, 0.2]} rotation-x={-0.25}><coneGeometry args={[0.07, 0.26, 6]} /><meshStandardMaterial {...G} /></mesh>
+      )}
+    </group>
+  );
+};
+
 // ------------------------------------------------------------------ หนุมาน
 // White as in khon, a gold diadem and jewellery, the open mouth with crystal fangs, a long tail
 // curling up. Modelled facing +z, about 4 tall standing; `leap` 0 = crouched on landing, 1 = flying.
-const WHITE = '#f6f3ec';
-const GOLD = '#e0a93a';
-const Hanuman: React.FC<{leap: number; t: number}> = ({leap, t}) => {
+const Hanuman: React.FC<{leap: number; t: number; face?: Face}> = ({leap, t, face = 'cartoon'}) => {
   const k = leap;
   const hip = v(0, 1.5 - (1 - k) * 0.5, 0);
   const chest = v(0, 2.45 - (1 - k) * 0.55, 0.25 + k * 0.35);
@@ -151,45 +261,8 @@ const Hanuman: React.FC<{leap: number; t: number}> = ({leap, t}) => {
         <tubeGeometry args={[tail, 24, 0.09, 8, false]} />
         <meshStandardMaterial color={WHITE} roughness={0.6} />
       </mesh>
-      {/* the head: a round skull, a muzzle with the mouth open, crystal fangs, round eyes,
-          and the gold diadem with a small flame at the brow */}
       <group position={head} scale={1.25}>
-        <mesh scale={[0.48, 0.5, 0.46]} castShadow>
-          <sphereGeometry args={[1, 18, 14]} />
-          <meshStandardMaterial color={WHITE} roughness={0.55} />
-        </mesh>
-        <mesh position={[0, -0.12, 0.38]} scale={[0.32, 0.22, 0.24]} castShadow>
-          <sphereGeometry args={[1, 14, 10]} />
-          <meshStandardMaterial color={WHITE} roughness={0.55} />
-        </mesh>
-        <mesh position={[0, -0.24, 0.5]} scale={[0.24, 0.12, 0.12]}>
-          <sphereGeometry args={[1, 12, 8]} />
-          <meshStandardMaterial color="#b32a22" />
-        </mesh>
-        {[-1, 1].map((s) => (
-          <group key={s}>
-            <mesh position={[s * 0.13, -0.16, 0.58]} rotation-x={Math.PI}>
-              <coneGeometry args={[0.04, 0.16, 5]} />
-              <meshBasicMaterial color="#ffffff" toneMapped={false} />
-            </mesh>
-            <mesh position={[s * 0.17, 0.08, 0.38]}>
-              <sphereGeometry args={[0.09, 12, 10]} />
-              <meshStandardMaterial color="#fffaf0" />
-            </mesh>
-            <mesh position={[s * 0.18, 0.08, 0.46]}>
-              <sphereGeometry args={[0.05, 10, 8]} />
-              <meshStandardMaterial color="#2a1608" />
-            </mesh>
-          </group>
-        ))}
-        <mesh position={[0, 0.2, 0]} rotation-x={Math.PI / 2 - 0.15}>
-          <torusGeometry args={[0.47, 0.06, 6, 24]} />
-          <meshStandardMaterial color={GOLD} metalness={0.5} roughness={0.35} />
-        </mesh>
-        <mesh position={[0, 0.42, 0.36]} rotation-x={-0.3}>
-          <coneGeometry args={[0.08, 0.32, 6]} />
-          <meshStandardMaterial color={GOLD} metalness={0.5} roughness={0.35} />
-        </mesh>
+        <HanumanHead face={face} />
       </group>
     </group>
   );
@@ -340,4 +413,34 @@ export const LOPBURI_HANUMAN: CityConfig = {
   callouts: [],
   actors: [],
   gloom: () => 0,
+};
+
+// ------------------------------------------------------------------ the faces side by side
+const FaceCam: React.FC<{az: number}> = ({az}) => {
+  const {camera} = useThree();
+  React.useLayoutEffect(() => {
+    const a = (az * Math.PI) / 180;
+    camera.position.set(Math.sin(a) * 7, 0.6, Math.cos(a) * 7);
+    camera.lookAt(0, 0.25, 0);
+    camera.updateProjectionMatrix();
+  }, [az, camera]);
+  return null;
+};
+export const HanumanFaces: React.FC = () => {
+  const frame = useCurrentFrame();
+  const az = [0, 30][frame % 2];
+  return (
+    <AbsoluteFill style={{background: 'linear-gradient(180deg, #8fb3d9 0%, #e9e2d0 100%)'}}>
+      <ThreeCanvas width={1800} height={760} gl={{antialias: true, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 1.1}} camera={{fov: 30}}>
+        <FaceCam az={az} />
+        <hemisphereLight args={['#dfeaff', '#7a6a4a', 1.2]} />
+        <directionalLight position={[3, 5, 6]} intensity={2.2} />
+        {(['cartoon', 'middle', 'khon'] as Face[]).map((f, i) => (
+          <group key={f} position={[(i - 1) * 1.6, 0, 0]} scale={1.2}>
+            <HanumanHead face={f} />
+          </group>
+        ))}
+      </ThreeCanvas>
+    </AbsoluteFill>
+  );
 };
