@@ -295,3 +295,55 @@ What it changes:
   (above) is the stronger effect, and the next thing to test is not the hero but distribution
   (posting time, cover, caption).
 - Log the look (plain or shader) with every post from Phuket on.
+
+## 5. Phuket: a moving living hero, 75 s, shader look — read: second best
+
+The cover is two sea turtles, a leatherback and a green, crawling up the beach and digging in
+from frame 0, both large on the tile; they return in the payoff. Built to the storyline
+standard, **75 s** (the first long cut), posted **in the shader look** (~09:00 ICT, 22 Oct).
+The soundtrack was the first mastered to -16 LUFS, and the camera the first eased with
+`glide()` under the jerk limit. The 3-h read had skip 36.7%, average watch 24 s, saves 0.8%.
+
+### Result (read 23 Oct 09:00, about a day in)
+
+**Skip rate 38.7%** ("lower"), the best since Korat and 20 points better than Chiang Rai.
+8,976 views from 6,477 viewers, a little above a typical reel at the same age (the views curve
+sits just over the ~8K typical line), 14 follows. **Average watch 24 s of 75.** **Saves 0.8%**,
+the one rate marked "higher"; share 0.5%, likes 6.9%, reposts 0.8%, comments 0.2% (all
+"lower"). Counts: 469 likes, 14 comments, 53 reposts, 34 shares, 54 saves. Views came from the
+Reels tab (70.1%), Feed (14.4%), Explore (8.3%), Stories (3.7%) and Profile (2.5%).
+
+Retention, read off the curve and so approximate: **~69% at 3 s**, **~36% at 17 s**, ~19% at
+55 s and ~10% at the end (1:15).
+
+| | Korat | Lampang | Khon Kaen | Phetchaburi | Chiang Rai | **Phuket** |
+|---|---|---|---|---|---|---|
+| hero | 3 walking dinosaurs | carriage, standing | stupa + small dinosaur | hill + tray | temple, hands rising | **2 turtles crawling** |
+| length, look | 60 s | 60 s | 60 s | 60 s | 60 s, not logged | **75 s, shader** |
+| skip rate | 32.9% | 44.9% | 44.7% | 50.4% | 58.3% | **38.7%** |
+| retention at 17 s | ~35% | ~30% | ~34% | ~24% | ~26% | **~36%** |
+| average watch | 21 s | 18 s | 19 s | 15 s | 16 s | **24 s** |
+| share | 1.3% | 1.2% | 1.4% | 0.7% | 0.5% | **0.5%** |
+| views from the Reels tab | — | 76.9% | 75.5% | 62.3% | 53.1% | **70.1%** |
+
+Reading:
+- **The moving-hero prediction held.** It said under 45% if large living things in motion are
+  the lever; Phuket landed at 38.7%. The two clips that opened on animals moving across the
+  tile (Korat, Phuket) are the only two under 40%; every opening on something standing or built
+  is 45% or worse.
+- **Reach came back with the skip rate.** The Reels-tab share rose from 53% to 70%, so the
+  falling reach of the last two posts was the openings, not a decline of the account.
+- **The middle is the best yet:** ~36% at 17 s, level with Korat's ~35% and well above the
+  ~24–26% of the last two. The longest average watch of all six reads (24 s), though as a share
+  of the clip (32%) it is just under Korat's (21 of 60, 35%).
+- **Shares stayed at the bottom (0.5%), saves rose.** People keep it rather than send it on;
+  what makes a clip shareable is still open.
+- **Three things changed at once** (moving hero, 75 s, shader look), plus the new loudness and
+  camera easing. The skip rate is decided in the first 3 s, where only the hero and the look
+  differ; the hero is the likelier cause given Korat, but the shader look is not ruled out.
+
+What it changes:
+- **Open on large living things moving across the tile**, as Ubon now does with the naga
+  uncoiling down the candle from frame 0.
+- To separate the look from the hero, post one city in the plain look with a moving hero.
+- Keep logging length and look with every post.
