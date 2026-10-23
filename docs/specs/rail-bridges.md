@@ -115,6 +115,6 @@ It must report nothing for the six current cities. Verify that.
   crossing is unavoidable there; a bridge is the accepted compromise.
 
 ## Hand-off
-Open a PR from `engine/rail-bridges` into `claude/busy-brown-ba1fp4`. In it, include
+Open a PR from `engine/rail-bridges` into `main`. In it, include
 the crop sheet and the byte-identical result for Korat. Then tell Gemini, on PR #7,
 to merge the base branch into `city/nakhonsawan` once this lands.

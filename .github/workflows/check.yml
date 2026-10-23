@@ -2,7 +2,7 @@ name: check
 on:
   pull_request:
   push:
-    branches: [claude/busy-brown-ba1fp4]
+    branches: [main]
 jobs:
   story:
     runs-on: ubuntu-latest
