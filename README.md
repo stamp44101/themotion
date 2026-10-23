@@ -1,73 +1,83 @@
-# Chiang Mai Timelapse — เชียงใหม่ จากผืนป่า สู่นครแห่งล้านนา
+---
+name: "thai-city-timelapse"
+description: "Make a 9:16 history timelapse of a Thai city as a code-built 3D diorama — the city grows on a floating tile of land from legend to today, with a year counter, Thai captions, a synthesized score and SFX. Built with Remotion + Three.js. Use for ประวัติเมือง/จังหวัด timelapse reels."
+---
 
-A 60-second, 9:16 motion-graphics "hybrid timelapse" of Chiang Mai's history, built with [Remotion](https://www.remotion.dev/).
-A fixed camera looks west across the Ping River toward Doi Suthep while the city is founded, flourishes, falls, is rebuilt and modernises.
+# Thai City Timelapse
 
-Rendered video: [`chiangmai-timelapse.mp4`](https://github.com/stamp44101/themotion/releases/download/renders/chiangmai-timelapse.mp4) (1080×1920, 30 fps, Thai text, stereo ambience + score)
+คลิปแนวตั้งเล่าประวัติเมืองไทย (เชียงใหม่ โคราช อยุธยา ภูเก็ต อุบลฯ …) เป็นไดโอรามา 3 มิติ: ทั้งเมืองอยู่บนแผ่นดินลอยฟ้าที่เห็นชั้นดินด้านข้าง เริ่มจากป่าหรือตำนาน แล้วเมืองค่อยๆ ก่อ ขยาย ล่ม ฟื้น จนถึงวันนี้ ตัวเลขปี พ.ศ. วิ่ง คำบรรยายภาษาไทยขึ้นทีละจังหวะ กล้องโดรนบินรอบเมือง ภาพและเสียงสร้างจากโค้ดทั้งหมด
 
-Look: parallax camera moves (push-ins on the founding, the chedi collapse and the railway), drifting mist, sun rays, rain in the Burmese era, birds, film grain, vignette and light leaks on era changes.
+Reference episode: **นครราชสีมา** (`src/cities/korat/`): ไดโนเสาร์เดินบนแผ่นดินตั้งแต่เฟรมแรก, skip rate 32.9%, the best read so far. **ภูเก็ต** (`src/cities/phuket/`, 75 s): the reference for the storyline standard, skip rate 38.7%.
 
-Sound (all synthesized, synced to the picture): D-major pentatonic Lanna-flavoured score — pads, plucked phin-style melody, khong wong, klong drum, gongs on key moments; river, wind, birds by day / crickets by night following the day–night cycle; construction, temple bells, earthquake and collapse, steam and modern trains, plane, city traffic and songthaew horns, lantern chimes.
+Finished clips: the rolling release https://github.com/stamp44101/themotion/releases/tag/renders (one asset per city, replaced in place; `renders/` is gitignored).
 
-| Time | Era | Key moment |
-|---|---|---|
-| 0–3 s | Title | เชียงใหม่ |
-| 3–9 s | Before the city | Lawa settlements, Ping valley, Doi Suthep |
-| 9–14 s | Hariphunchai | Mon kingdom at Lamphun, rice fields spread |
-| 14–24 s | Founding, 1296 | King Mangrai digs the moat, raises walls and gates |
-| 24–29 s | Lanna golden age | Wat Phra That Doi Suthep, Wat Chedi Luang, Wat Chet Yot |
-| 29–37 s | Earthquake 1545, Burmese rule 1558–1774 | Chedi top collapses, city decays |
-| 37–43 s | King Kawila | City retaken and resettled (1796) |
-| 43–50 s | Joining Siam | Railway 1921, Doi Suthep road 1935 |
-| 50–56 s | Modern city | Sprawl, Nimman, airport, traffic |
-| 56–60 s | Today | Yi Peng lanterns — 730 years |
+## Fixed format (keep)
 
-## 3D isometric diorama version
+* **Frame:** 1080×1920, 30 fps, **60 s** (75 s only when the extra time is action on screen). Remotion + Three.js (`@remotion/three`), rendered `--gl=angle`.
+* **The look:** the whole city on a floating square tile with a soil cross-section, a CSS sky gradient behind, low-poly trees and houses, real shadows, a continuous day/night cycle. Two cuts: plain, and `look: 'shader'` (bloom at night only).
+* **Text:** Kanit. The top ~30% of the frame holds the year counter (พ.ศ. + ค.ศ.) and the caption; every caption title fits on one line at 74 px. Keep everything inside the TikTok safe area (`SAFE` in the Overlay).
+* **Clip shape:** intro title for 3 s with nothing else on screen → beats → the counter lands on today and holds → finale card. Captions and callouts end 4 s before the end.
+* **The story is beats** (`buildStory` in `timeline.ts`): each beat owns its seconds, a year range or a held year, one caption, one verb (`kind`), callouts and camera keys. The year curve is derived from the beats.
+* **The hero (`role: 'hero'`):** something large and *moving* on the whole tile from frame 0, which comes back in the payoff (`role: 'callback'`). Korat's walking dinosaurs, Phuket's crawling turtles, Ubon's naga uncoiling down a candle.
+* **Real geography:** the city's footprint is traced from the ONEP old-town shapefile, every dimension is written in metres first (80 m per unit), and every landmark gets its real lat/lon in `geo.ts`. Directions must match reality (±30°); distances may be compressed.
+* **Sound:** synthesized in Python (`scripts/synth.py` + `scripts/soundtrack_<city>.py`), cued on beats (`tl.beat("siege")`), mastered to **-16 LUFS**, true peak ≤ -1 dBTP.
+* **Delivery:** `out/<city>.mp4` master, `renders/<city>.mp4` repo copy (<100 MB), and `out/<city>_social.mp4`, one upload file for TikTok, Instagram and Facebook (x264 CRF 21, ~7.5 Mbps, tagged limited-range bt709).
 
-[`chiangmai-iso.mp4`](https://github.com/stamp44101/themotion/releases/download/renders/chiangmai-iso.mp4) — the same story and soundtrack as a Three.js diorama: Chiang Mai on a floating tile of land with a soil cross-section, low-poly trees, real shadows, a scripted drone camera and tilt-shift blur. Source in `src/iso/` (composition `ChiangMaiIso`, render with `npm run render:iso`).
+## Not fixed (vary every city)
 
-## Nakhon Ratchasima (Korat)
+* **The arc.** Default spine: legend or wilderness → first settlement → founding → a crisis (war, flood, fire, fall) → the railway or a modern turn → growth → today. Follow what the city actually has; a date with nothing to show on screen is a sub line, not a beat.
+* **The hero.** Pick from the city's own story: an animal, a creature from its legend, a procession. Large and moving beats standing; never open on a static landmark however big (Chiang Rai: 58.3% skip).
+* **The landmarks and their silhouettes** (`Landmarks.tsx`). Model the large recognisable form first, the icon second.
+* **The moving things** (`actors.ts`): armies, boats, trains, carts, processions. Each beat needs something happening.
+* **The palette of the score**: Lanna phin and khong wong, Isan khaen, phin and ponglang, central-Thai pi and ranat, the sea… and the small sounds that make the place: a soft pop per building, hooves, paddles, gulls, bells.
+* **The finale**: lanterns, fireworks, krathongs, a candle procession — whatever the city celebrates.
 
-[`korat.mp4`](https://github.com/stamp44101/themotion/releases/download/renders/korat.mp4) — built with the reusable diorama engine (`src/engine/`) from `src/cities/korat/`: dinosaurs, Ban Prasat, Sema and Phimai, King Narai's walled city, the 1826 Thao Suranari story, the first railway (1900), the monument (1934), Mittraphap Highway (1958), fireworks finale. Isan-flavoured score from `scripts/soundtrack_korat.py`.
+## Pipeline
 
-## Ayutthaya
+1. **Brief first.** Copy `docs/city-brief.template.md` to `docs/briefs/<city>.md`. Write a Gemini research request, check every date with a web search, and mark what is attributed (สันนิษฐานว่า) or disputed. Fill the storyline worksheet (`docs/storyline.md`).
+2. **Style frames.** Show the owner 2–3 opening frames (hero choices) before building anything.
+3. **Footprint and pins.** Trace the old-town polygon (ONEP, needs a Thai connection) into `docs/briefs/<city>_onep/`; convert every real coordinate with `node scripts/geo.mjs`; write `places.ts` and `geo.ts`.
+4. **Beats.** `src/cities/<city>/timeline.ts`: `buildStory({standard: 1, duration, beats})`. Hold a named year through its caption.
+5. **Layout, landmarks, actors.** `index.ts` (rivers, rail, roads, `sites`, `openGround`), `Landmarks.tsx`, `actors.ts`. Register the composition in `src/Root.tsx` and add `audio:<city>` / `render:<city>` to `package.json`.
+6. **Iterate on stills, never full renders.** `npx remotion still … --frame=N`, then a contact sheet with ffmpeg `hstack`/`vstack`. Moving things: `node scripts/actor_strips.mjs <city>`. Go through the plausibility checklist in `CLAUDE.md`.
+7. **Soundtrack.** `npm run audio:<city>`. Effects at or above the music in every action beat, ambience 8–12 dB under, a bridge across every gap between beats.
+8. **Check.** `npm run check`: typecheck, river paths, every `check_story` rule (captions, holds, callouts and actors in frame and readable, occlusion, geo bearings, terrain, camera jerk, storyline) and loudness.
+9. **Render once, encode, publish.** `npm run render:<city>` → `npm run encode -- <city>` (it fails loudly on flicker, dark nights or bad tagging) → `gh release upload renders renders/<city>.mp4 --clobber`.
+10. **After posting,** log the Instagram read at ~3 h and ~24 h in `docs/experiments.md` (skip rate, retention at 3 s and 17 s, average watch, share, Reels-tab share, look and length).
 
-[`ayutthaya.mp4`](https://github.com/stamp44101/themotion/releases/download/renders/ayutthaya.mp4) — 75 s, island city ringed by three rivers, with drone dives into street life (riverside, the international port, today): 1350 founding, Wat Phra Si Sanphet, 1569, the 1592 elephant duel, Wat Chaiwatthanaram (1630), the fall on 7 April 1767, ruins, World Heritage 1991. Score in central-Thai classical colours (`scripts/soundtrack_ayutthaya.py`).
+## Sound persona
 
-## Sukhothai
+Warm and regional, never harsh. Pentatonic score in the region's instruments, soft attacks, nothing bright above ~3 kHz in the foreground; the owner hears brightness as "แสบหู". The small sounds carry the charm: everything that appears or moves gets its own quiet sound. Same loudness every city (-16 LUFS, Korat's and Chiang Mai's level), with quiet passages kept in the score. **Code only:** no ElevenLabs, generated music or voice in a province clip.
 
-[`sukhothai.mp4`](https://github.com/stamp44101/themotion/releases/download/renders/sukhothai.mp4) — 75 s: Khmer Wat Phra Phai Luang, founding c. 1249, a market drone dive, Thai script per Inscription 1, Wat Mahathat's lotus-bud chedi, the triple walls, a Sangkhalok kiln dive, Wat Si Chum, the 1438 merger with Ayutthaya, ruins, historical park, World Heritage 1991, a cycling dive and a Loy Krathong night finale (krathongs on the moat, lanterns, fireworks). Score with khlui flute (`scripts/soundtrack_sukhothai.py`).
+## Ground rules
 
-## Phitsanulok
+* Never use a paid generator (Higgsfield, Comfy, any credit-based service) without the owner's explicit yes.
+* History is posted publicly: verify dates, and say which are approximate or disputed.
+* Nothing on open water but bridges and boats; nothing appears before it was built; directions from real coordinates. The full list of lessons is in `CLAUDE.md`.
 
-[`phitsanulok.mp4`](https://github.com/stamp44101/themotion/releases/download/renders/phitsanulok.mp4) — 75 s: the city of two rivers. Khmer-era
-Song Khwae at the confluence of the Nan and the Khwae Noi, Wat Chulamani, the casting of Phra
-Phuttha Chinnarat (attributed to 1357) and Wat Phra Si Rattana Mahathat, Borommatrailokanat moving
-the Ayutthaya capital here for 25 years (1463–1488), Naresuan's birth at the Chandra Palace (1555)
-and his years as uparaja (1571), the fall of Ayutthaya and the Burmese sack that burned and emptied
-the town, the railway (1907), the great fire of 2 January 1957 that took the whole central market
-quarter, and the modern city rebuilt around the same Buddha image. Central-Thai court score with pi
-reed and ranat (`scripts/soundtrack_phitsanulok.py`).
+## Commands
 
-The walled city uses a real footprint rather than the engine's default rectangle: a trapezoid traced
-off the ONEP old-town boundary map, 1,136 m x 2,921 m, long north-south along the Nan, which runs
-through the middle of it — Phitsanulok's other old nickname is "เมืองอกแตก", the city with a split chest.
+```bash
+npm install
+npm run studio                   # live preview
+npm run check                    # typecheck + every check, for every city
+npm run audio:<city>             # regenerate public/soundtrack_<city>.wav (python3 + numpy + scipy)
+npm run render:<city>            # check_story for the city, then out/<city>.mp4
+npm run encode -- <city>         # renders/<city>.mp4 + out/<city>_social.mp4, then checks both
+```
 
-Dates are footnoted in `src/cities/phitsanulok/timeline.ts`. Two to be aware of: the 1357 casting is
-*attributed* ("สันนิษฐานว่า") rather than documented, and the great fire is **1957**, not the 1955
-that English Wikipedia gives — Thai sources are unanimous on 2 January 2500 BE.
+3D renders in software in the cloud container (~35–50 min for 1800 frames); a GPU machine does it in about a minute (`docs/render-locally.md`).
 
-## All cities
-
-Every city after the Chiang Mai versions is built on the shared diorama engine (`src/engine/`) from its
-own folder, with a dated, sourced brief. The sections below describe a few of them in detail.
+## Cities
 
 | City | Source | Brief |
 |---|---|---|
-| Nakhon Ratchasima (Korat) | `src/cities/korat/` | `docs/briefs/korat.md` |
-| Ayutthaya | `src/cities/ayutthaya/` | `docs/briefs/ayutthaya.md` |
-| Sukhothai | `src/cities/sukhothai/` | `docs/briefs/sukhothai.md` |
-| Phitsanulok | `src/cities/phitsanulok/` | `docs/briefs/phitsanulok.md` |
+| Chiang Mai (2D, the first version) | `src/Scene.tsx`, `src/lib.ts` | — |
+| Chiang Mai (first 3D diorama) | `src/iso/` | — |
+| Nakhon Ratchasima (Korat) | `src/cities/korat/` | — |
+| Ayutthaya | `src/cities/ayutthaya/` | — |
+| Sukhothai | `src/cities/sukhothai/` | — |
+| Phitsanulok | `src/cities/phitsanulok/` | — |
 | Chachoengsao | `src/cities/chachoengsao/` | `docs/briefs/chachoengsao.md` |
 | Nakhon Sawan | `src/cities/nakhonsawan/` | `docs/briefs/nakhonsawan.md` |
 | Chonburi | `src/cities/chonburi/` | `docs/briefs/chonburi.md` |
@@ -76,55 +86,16 @@ own folder, with a dated, sourced brief. The sections below describe a few of th
 | Khon Kaen | `src/cities/khonkaen/` | `docs/briefs/khonkaen.md` |
 | Phetchaburi | `src/cities/phetchaburi/` | `docs/briefs/phetchaburi.md` |
 | Chiang Rai | `src/cities/chiangrai/` | `docs/briefs/chiangrai.md` |
+| Phuket (75 s) | `src/cities/phuket/` | `docs/briefs/phuket.md` |
 | Wat Rai Khing (landmark reel, 35 s) | `src/landmarks/watraikhing/` | `docs/briefs/watraikhing.md` |
 
-Finished clips are on the rolling release: https://github.com/stamp44101/themotion/releases/tag/renders
+Korat, Ayutthaya, Sukhothai and Phitsanulok predate the briefs; their dates are footnoted in each `timeline.ts`.
 
-### Build, check, render
+## Where things live
 
-```bash
-npm run check                    # typecheck + every check_story rule, for every city
-npm run audio:<city>             # regenerate the synthesized soundtrack (python3 + numpy + scipy)
-npm run render:<city>            # runs check_story for the city, then renders out/<city>.mp4
-npm run encode -- <city>         # renders/<city>.mp4 + out/<city>_social.mp4, then checks both
-```
-
-How to build a new city, and every lesson so far: `CLAUDE.md`. Working alongside other agents:
-`AGENTS.md`. Cities from Phetchaburi on are built to the storyline standard, `docs/storyline.md`.
-Rendering on a GPU machine: `docs/render-locally.md`.
-
-## Develop (the 2D Chiang Mai version)
-
-```bash
-npm install
-npm run studio   # live preview
-npm run audio    # regenerate public/soundtrack.wav (needs python3 + numpy + scipy)
-npm run render   # -> out/chiangmai-timelapse.mp4
-```
-
-Re-run `npm run audio` after changing the timing in `src/lib.ts` so the sound stays in sync.
-
-- `src/lib.ts` — year curve (seconds → year), captions, era labels, colour helpers
-- `src/geometry.ts` — perspective projection and procedurally placed trees, houses, buildings
-- `src/Scene.tsx` — the landscape and city
-- `src/Overlay.tsx` — year counter, Thai captions, callouts, timeline bar, intro/finale, grain/vignette/light leaks
-- `scripts/make_soundtrack.py` — procedural soundtrack; `scripts/export_timeline.mjs` feeds it the year/day–night timeline
-
-## Chonburi
-
-`Chonburi` is a 60-second coastal diorama following Sri Phalo and the fishing
-settlements, Ayutthaya-era Bang Pla Soi, the 1767 eastern mobilisation, Ban
-Saphan Bang Pla Soi, Ang Sila's convalescent buildings, the buffalo race and
-Bang Saen's 1943 resort development into the modern coastal city. The scene is
-in `src/cities/chonburi/`; research notes and disputed dates are in
-`docs/briefs/chonburi.md`.
-
-```bash
-npm run audio:chonburi
-npm run render:chonburi
-npm run encode -- chonburi
-```
-
-`render:chonburi` regenerates the procedural soundtrack before checking and
-rendering the film, so the committed `public/soundtrack_chonburi.wav` is always rebuilt from
-the script.
+* `src/engine/`: the reusable diorama (tile, terrain, trees, houses, walls, water, rail, roads, lighting, camera, story builder, occupancy map).
+* `src/cities/<city>/`: `timeline.ts` (beats), `index.ts` (layout), `places.ts`, `geo.ts`, `Landmarks.tsx`, `actors.ts`.
+* `src/Overlay.tsx`: year counter, captions, callouts, intro and finale.
+* `scripts/`: `synth.py` and the per-city soundtracks, `check_*.mjs`, `encode.mjs`, `geo.mjs`, `actor_strips.mjs`.
+* `docs/`: `storyline.md` (the standard), `experiments.md` (what the openings did on Instagram), `grandeur.md`, `render-locally.md`, `briefs/`.
+* `CLAUDE.md` is the engineering guide and every lesson so far. `AGENTS.md` is the protocol for working alongside other agents.
