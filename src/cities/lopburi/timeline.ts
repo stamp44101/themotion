@@ -60,7 +60,7 @@ export const STORY = buildStory({
       year: {hold: -1500},
       // the counter says ~3,500 years ago: that is the copper smelters on screen, not the
       // age of the Ramakien legend, so the sub says which is which (PR #67 review)
-      caption: {t0: 3.3, title: 'พระรามยกเมืองให้หนุมาน', sub: 'ตามตำนาน ส่วนตัวเลขปีคือยุคคนถลุงทองแดงริมแม่น้ำ'},
+      caption: {t0: 3.3, title: 'พระรามยกเมืองให้หนุมาน', sub: 'ตามตำนาน ส่วนตัวเลขปีคือยุคคนถลุงทองแดง'},
       era: 'ก่อนประวัติศาสตร์',
       camera: [
         [0, PRANG[0] + 4, 9, PRANG[1] + 9, 320, 140, 34, 30],
