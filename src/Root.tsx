@@ -27,6 +27,7 @@ import {UBON_CANDLE, UBON_ELEPHANT, UBON_FISH, UBON_NAGA} from './styleframes/ub
 import {LAMPANG_CHEDI, LAMPANG_ELEPHANT, LAMPANG_CARRIAGE, LAMPANG_HORSE} from './styleframes/lampang';
 import {DioramaComposition} from './engine/DioramaComposition';
 import {NagaStudy} from './styleframes/NagaStudy';
+import {SURIN_HERD, SURIN_LASSO, SURIN_WHITE} from './styleframes/surin';
 import {WAT_RAI_KHING_FRAMES, WatRaiKhing} from './landmarks/watraikhing/WatRaiKhing';
 
 const Korat: React.FC = () => <DioramaComposition city={KORAT} />;
@@ -65,6 +66,9 @@ const UbonStyleFish: React.FC = () => <DioramaComposition city={UBON_FISH} />;
 const UbonStyleCandle: React.FC = () => <DioramaComposition city={UBON_CANDLE} />;
 const UbonStyleElephant: React.FC = () => <DioramaComposition city={UBON_ELEPHANT} />;
 const UbonStyleNaga: React.FC = () => <DioramaComposition city={UBON_NAGA} />;
+const SurinStyleHerd: React.FC = () => <DioramaComposition city={SURIN_HERD} />;
+const SurinStyleLasso: React.FC = () => <DioramaComposition city={SURIN_LASSO} />;
+const SurinStyleWhite: React.FC = () => <DioramaComposition city={SURIN_WHITE} />;
 const LampangStyleElephant: React.FC = () => <DioramaComposition city={LAMPANG_ELEPHANT} />;
 const LampangStyleChedi: React.FC = () => <DioramaComposition city={LAMPANG_CHEDI} />;
 const LampangStyleCarriage: React.FC = () => <DioramaComposition city={LAMPANG_CARRIAGE} />;
@@ -95,6 +99,9 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="UbonStyleCandle" component={UbonStyleCandle} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="UbonNagaStudy" component={NagaStudy} durationInFrames={4} fps={FPS} width={1080} height={1080} />
     <Composition id="UbonStyleNaga" component={UbonStyleNaga} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="SurinStyleHerd" component={SurinStyleHerd} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="SurinStyleLasso" component={SurinStyleLasso} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="SurinStyleWhite" component={SurinStyleWhite} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="UbonStyleElephant" component={UbonStyleElephant} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="ChiangRaiStyleFront" component={ChiangRaiStyleFront} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="ChiangRaiStyleQuarter" component={ChiangRaiStyleQuarter} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
