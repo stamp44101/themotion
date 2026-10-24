@@ -347,3 +347,53 @@ What it changes:
   uncoiling down the candle from frame 0.
 - To separate the look from the hero, post one city in the plain look with a moving hero.
 - Keep logging length and look with every post.
+
+## 6. Ubon: the naga uncoiling down the candle, plain look, 60 s — read: best so far
+
+The cover is the candle-festival naga coiled on a wax candle at the middle of the tile,
+uncoiling down it from frame 0, large on the tile; it returns in the payoff. Built to the
+storyline standard, **60 s, plain look** (there is no shader cut of Ubon), mastered to
+-16 LUFS, camera eased with `glide()`. It isolates the question §5 left open: a moving hero
+**without** the shader look and without the 75 s length.
+
+### Result (read 24 Oct 08:54, just under a day in)
+
+**Skip rate 24.0%**, the best of all seven reads and 9 points under Korat. **65,888 views from
+47,464 viewers**, about 4-5x a typical reel at the same age (the curve is near 46K where the
+typical line is ~10K), **105 follows**. **Average watch 27 s of 60** (45%). Rates: share 1.1%,
+likes 8.4%, saves 0.4%, reposts 1.2%, comments 0.1%. Counts: 4.2K likes, 36 comments, 580
+reposts, 516 shares, 210 saves. Views came from the Reels tab (90.4%), Explore (5.6%), Feed
+(2.4%), Stories (0.6%) and Profile (0.4%).
+
+Retention, read off the curve and so approximate: **~82% at 3 s**, **~48% at 17 s**, ~37% at
+30 s, ~25% at 55 s and ~10% at the end.
+
+| | Korat | Lampang | Khon Kaen | Phetchaburi | Chiang Rai | Phuket | **Ubon** |
+|---|---|---|---|---|---|---|---|
+| hero | 3 walking dinosaurs | carriage, standing | stupa + small dinosaur | hill + tray | temple, hands rising | 2 turtles crawling | **naga uncoiling** |
+| length, look | 60 s | 60 s | 60 s | 60 s | 60 s, not logged | 75 s, shader | **60 s, plain** |
+| skip rate | 32.9% | 44.9% | 44.7% | 50.4% | 58.3% | 38.7% | **24.0%** |
+| retention at 17 s | ~35% | ~30% | ~34% | ~24% | ~26% | ~36% | **~48%** |
+| average watch | 21 s | 18 s | 19 s | 15 s | 16 s | 24 s | **27 s** |
+| share | 1.3% | 1.2% | 1.4% | 0.7% | 0.5% | 0.5% | **1.1%** |
+| views from the Reels tab | — | 76.9% | 75.5% | 62.3% | 53.1% | 70.1% | **90.4%** |
+
+Reading:
+- **The moving hero is the lever, not the shader look.** Ubon is plain and 60 s, and beat
+  Phuket (shader, 75 s) on every measure but saves. The three openings on a large living thing
+  moving across the tile (Korat, Phuket, Ubon) are the three under 40%; every opening on
+  something standing or built is 45% or worse.
+- **A local icon helps on top of motion.** The naga on the candle is Ubon's own festival image;
+  the dinosaurs and turtles are local too, but less singular. Plausible, not shown: one post.
+- **The middle held as well:** ~48% at 17 s, the first read above ~36%. The "half gone by 17 s"
+  pattern of every earlier clip did not hold here.
+- **Reach follows the skip rate:** 90% of views from the Reels tab, the highest share yet,
+  and the first clip far above the typical-reel line.
+- **Shares came back (1.1%)** after two posts at 0.5%; saves fell to 0.4%. A hometown icon
+  gets sent on; Phuket's was kept.
+
+What it changes:
+- **Open on a large, moving, city-specific living thing**: Lopburi's Hanuman leaping in with
+  the troop, from frame 0.
+- The plain look is enough; the shader look is optional, not the cause.
+- Keep logging length and look with every post.
