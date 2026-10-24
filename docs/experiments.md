@@ -348,13 +348,13 @@ What it changes:
 - To separate the look from the hero, post one city in the plain look with a moving hero.
 - Keep logging length and look with every post.
 
-## 6. Ubon: the naga uncoiling down the candle, plain look, 60 s — read: best so far
+## 6. Ubon: the naga uncoiling down the candle, shader look, 60 s — read: best so far
 
 The cover is the candle-festival naga coiled on a wax candle at the middle of the tile,
 uncoiling down it from frame 0, large on the tile; it returns in the payoff. Built to the
-storyline standard, **60 s, plain look** (there is no shader cut of Ubon), mastered to
--16 LUFS, camera eased with `glide()`. It isolates the question §5 left open: a moving hero
-**without** the shader look and without the 75 s length.
+storyline standard, **60 s, posted in the shader look** (owner), mastered to -16 LUFS,
+camera eased with `glide()`. Against Phuket it changes the hero and the length (75 -> 60 s);
+the look is the same, so it does not answer §5's look-or-hero question.
 
 ### Result (read 24 Oct 08:54, just under a day in)
 
@@ -371,7 +371,7 @@ Retention, read off the curve and so approximate: **~82% at 3 s**, **~48% at 17 
 | | Korat | Lampang | Khon Kaen | Phetchaburi | Chiang Rai | Phuket | **Ubon** |
 |---|---|---|---|---|---|---|---|
 | hero | 3 walking dinosaurs | carriage, standing | stupa + small dinosaur | hill + tray | temple, hands rising | 2 turtles crawling | **naga uncoiling** |
-| length, look | 60 s | 60 s | 60 s | 60 s | 60 s, not logged | 75 s, shader | **60 s, plain** |
+| length, look | 60 s | 60 s | 60 s | 60 s | 60 s, not logged | 75 s, shader | **60 s, shader** |
 | skip rate | 32.9% | 44.9% | 44.7% | 50.4% | 58.3% | 38.7% | **24.0%** |
 | retention at 17 s | ~35% | ~30% | ~34% | ~24% | ~26% | ~36% | **~48%** |
 | average watch | 21 s | 18 s | 19 s | 15 s | 16 s | 24 s | **27 s** |
@@ -379,10 +379,13 @@ Retention, read off the curve and so approximate: **~82% at 3 s**, **~48% at 17 
 | views from the Reels tab | — | 76.9% | 75.5% | 62.3% | 53.1% | 70.1% | **90.4%** |
 
 Reading:
-- **The moving hero is the lever, not the shader look.** Ubon is plain and 60 s, and beat
-  Phuket (shader, 75 s) on every measure but saves. The three openings on a large living thing
+- **The moving hero holds up a third time.** The three openings on a large living thing
   moving across the tile (Korat, Phuket, Ubon) are the three under 40%; every opening on
-  something standing or built is 45% or worse.
+  something standing or built is 45% or worse. Phuket and Ubon were both posted in the shader
+  look, so the look is still not separated from the hero; Korat, the other clip under 40%, did
+  not have its look logged.
+- **60 s did better than 75 s** with the same look: Ubon kept 45% of its length on average
+  against Phuket's 32%. One pair of posts, with different heroes, so a hint.
 - **A local icon helps on top of motion.** The naga on the candle is Ubon's own festival image;
   the dinosaurs and turtles are local too, but less singular. Plausible, not shown: one post.
 - **The middle held as well:** ~48% at 17 s, the first read above ~36%. The "half gone by 17 s"
@@ -395,5 +398,7 @@ Reading:
 What it changes:
 - **Open on a large, moving, city-specific living thing**: Lopburi's Hanuman leaping in with
   the troop, from frame 0.
-- The plain look is enough; the shader look is optional, not the cause.
+- Post Lopburi in the shader look too, so its read compares straight with Ubon's; to test the
+  look, a later city goes up in both looks, or in the plain look with a moving hero.
+- Prefer 60 s; use 75 s only for beats with action, as the owner's rule says.
 - Keep logging length and look with every post.
