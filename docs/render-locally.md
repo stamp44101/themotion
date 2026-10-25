@@ -97,6 +97,7 @@ gh release upload renders renders/<city>.mp4 out/<city>_social.mp4 --clobber
 ```
 
 The shader look's upload copy goes up as `<city>_look_social.mp4`.
+Render only the shader look (owner's rule, 26 Oct 2026): skip the plain cut unless the owner asks for it.
 
 Without the `gh` CLI, open the release page, choose Edit, delete the old asset
 and drop in the new file.

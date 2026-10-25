@@ -454,6 +454,10 @@ chat preview is heavily squeezed (~1.8 Mbps) and is **not** an upload file.
 `scripts/encode.mjs` builds them from the master in one pass. The finished `_social` file
 goes on the release as `<city>_social.mp4` (`<city>_look_social.mp4` for the shader look).
 
+**Render only the shader look (owner's rule, 26 Oct 2026).** Every clip is posted in the shader
+look, so a render is the shader cut alone (`look: 'shader'`); its upload copy goes on the release as
+`<city>_look_social.mp4`. Do not render or upload the plain cut unless the owner asks for it.
+
 ## Where the videos live
 
 `renders/` is **gitignored**. Video does not compress and git keeps every
