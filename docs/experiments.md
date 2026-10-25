@@ -408,8 +408,8 @@ What it changes:
 The cover is a white Hanuman leaping across the whole tile from frame 0 and landing by Phra
 Prang Sam Yot while a troop of macaques runs round him; the troop threads the story (out of
 the Lavo clearing, into the abandoned palace, onto the railway) and Hanuman returns at the
-monkey buffet. 60 s, built to the storyline standard. Look: not logged yet (both cuts were
-uploaded; record which one went up).
+monkey buffet. 60 s, built to the storyline standard, **posted in the shader look** (owner, 25
+Oct: every recent city has gone up in the shader look).
 
 ### Result (read 25 Oct 09:00, about a day in)
 
@@ -426,7 +426,7 @@ Retention, read off the curve and so approximate: **~77% at 3 s**, **~43% at 17 
 | | Korat | Phuket | Ubon | **Lopburi** |
 |---|---|---|---|---|
 | hero | 3 walking dinosaurs | 2 turtles crawling | naga uncoiling | **Hanuman leaping + troop** |
-| length, look | 60 s | 75 s, shader | 60 s, shader | **60 s, ?** |
+| length, look | 60 s | 75 s, shader | 60 s, shader | **60 s, shader** |
 | skip rate | 32.9% | 38.7% | 24.0% | **30.2%** |
 | retention at 17 s | ~35% | ~36% | ~48% | **~43%** |
 | average watch | 21 s | 24 s | 27 s | **21 s** |
@@ -447,3 +447,8 @@ What it changes:
 - Keep the hero a living, local icon (Surin's wild herd fits).
 - Give the 30-45 s stretch an actor as strong as the opening; Lopburi's troop on the rail was
   the right idea but small on screen.
+
+**Look, logged (owner, 25 Oct 2569):** every city posted recently went up in the **shader look**
+(Phuket, Ubon, Lopburi, and Surin to come). So the moving-hero reads of §5–§7 are all shader
+posts; the plain look has not been tested with a moving hero. Korat (the one plain-era clip
+under 40%) is the only evidence that the hero works without it.
