@@ -101,3 +101,25 @@ growth beat's sub line.
 
 ONEP polygon for Nan's old town (`docs/briefs/nan_onep/`), OSM river centreline and width
 through the town and past Chae Haeng, the pins above checked, and the rims' heights.
+
+## v1 build (25 Oct 2026)
+
+`src/cities/nan/` at 70 m/unit, origin = the ONEP temple-core centroid. Contact sheet:
+`nan_v1_contact.jpg` (0, 1.5, 5, 10, 15, 21, 27, 33, 39, 46, 52, 58, 66, 72 s).
+
+- **The river is drawn by Landmarks, not the engine**: the channel under the east wall (old
+  reach, drawn to the research) until the 2398 swing, then a strip pond to 2500, and today's OSM
+  course after it. Occupancy bands carry each with its years. High water (wider ribbon) for the
+  cover, the 2343 races and the payoff, so the boats float at hero scale.
+- **Approximate**: the wall line apart from the north stretch (no survey; drawn round the
+  temple core and inside today's river bend), the old channel, Wiang Nuea's place (2-3 km N,
+  sizes from the research), and the airfield (today's airport is 3.8 km out; drawn 2.7 km
+  with its bearing kept).
+- **Dates changed after checking**: the plane is captioned "เปิดใช้ราว พ.ศ. 2470" (Thai
+  Wikipedia: the airport opened 2470; Gemini's 15 May 2469 has no second source). The road is
+  in the growth sub without a year (Highway 101 built 2481 per Wikipedia; the March 2481 =
+  1939 opening is Gemini's).
+- Beats as §3 with these changes: the siege beat (fight, 1446.6-1452.2, so the town's houses go
+  up as the army comes), the bull is `legend`, the hero beat is `procession`, the return runs
+  1854.6-1860 (houses come back over 4 years). No separate road beat.
+- `npm run check`: 0 errors (grandeur and 75-s warnings). Soundtrack -16.0 LUFS.

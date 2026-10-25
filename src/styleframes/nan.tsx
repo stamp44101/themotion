@@ -7,7 +7,7 @@ import React from 'react';
 import {KORAT} from '../cities/korat';
 import {buildStory} from '../engine/story';
 import type {CityConfig, LandmarkProps} from '../engine/types';
-import {NanBoat} from './nanBoat';
+import {NanBoat} from '../cities/nan/boat';
 
 type P2 = [number, number];
 // north to south, the way the Nan flows

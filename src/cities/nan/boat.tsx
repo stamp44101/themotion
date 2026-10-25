@@ -1,9 +1,7 @@
 // Nan's naga race boat (เรือแข่งหัวพญานาค, docs/briefs/nan.md §4 A): a long, narrow dugout hull
 // with a raised naga head at the bow (open mouth, curled fangs, red eyes, a crest of flames)
 // and a tail sweeping up at the stern; two files of paddlers in one team shirt stroking in
-// time, a man standing amidships calling the stroke and a steersman at the stern. Moves in
-// the city's own folder once the city exists (check_story treats every folder in src/cities
-// as a city).
+// time, a man standing amidships calling the stroke and a steersman at the stern.
 import React, {useMemo} from 'react';
 import * as THREE from 'three';
 
