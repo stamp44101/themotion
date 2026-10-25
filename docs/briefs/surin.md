@@ -7,7 +7,7 @@ Research: `surin_research_request.md` → `surin_research_gemini.md` (Gemini, 24
 Style frames: `surin_styleframes.jpg` (rows A/B/C at 0, 2, 4, 8 s). The owner picked **A**: a herd
 of wild Asian elephants (a tusker, cows, two calves) walking across the forest tile from frame 0;
 they return in the payoff as the elephants of the round-up / the elephant buffet at the
-Phraya Surin Phakdi monument. Model: `SurinElephant` in `src/cities/surin/figures.tsx`.
+Phraya Surin Phakdi monument. Model: `SurinElephant` in `src/styleframes/surinFigures.tsx` (moves to `src/cities/surin/` with the city: check_story treats every folder there as a city).
 
 To do on the hero before the build: larger at frame 0 (it reads small on the whole tile),
 softer legs, the herd kept in the opening clearing for the whole title.
