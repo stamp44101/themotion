@@ -29,3 +29,32 @@ brick-spell legend of the white elephant hunt (a later addition).
 
 Open: the inner moat's size (Gemini gives 1,000 × 1,300 m and 1,540 × 2,280 m); the ONEP
 polygon (workstation).
+
+## §1 Footprint (from `surin_onep/README.md`, PR #69)
+
+40 m/unit (Lopburi's scale): the inner oval is 1,055 × 1,381 m = 26 × 35 units, the ONEP outer
+zone 2.5 × 1.9 km, the railway, the station and the elephant ground all fit on the ±48 tile.
+Origin = the **inner moat centre, 14.884570, 103.489456**; x east, z south.
+
+- Inner moat (พุทธศตวรรษที่ 12–13, dug before the Khmer town): the six-pond hull, the NE quarter
+  rounded; ~55 m wide = 1.4 units, with its earth rampart inside.
+- Outer moat (Khmer, สันนิษฐานว่า พุทธศตวรรษที่ 16–18): the ONEP polygon; its north side is
+  drawn along the railway, which the engine lays straight east–west (the real line rises ~8°).
+- Both moats are drawn by `Landmarks.tsx`, not the engine moat: the engine digs only the first
+  four edges of an outline moat (`ramp * 4` in `Water`), and Surin's oval has 12.
+
+## §3 Story worksheet (storyline standard v1)
+
+```
+Hero (0-3 s): a wild herd (tusker, cows, calves) crossing the forest tile   BIG ✓ IDENTITY ✓ MOVING ✓
+Hero sound: footfalls + a low rumble, a trumpet at 1.5 s
+Open loop: why elephants? -> the elephant buffet at the monument (payoff, ~47 s)
+First event (3-8 s): the herd walks past an iron-age moated village, smoke from the smelters
+Spectacle (12 s): the Khmer royal road: a caravan of elephants and carts, the outer moat dug
+Middle: the inner moat dug (build) / royal road (procession) / white elephant caught (discover)
+        / เมืองประทายสมันต์ (build) / the railway (arrive) / the elephant show moves to town (celebrate)
+Grow shot (41-46 s, 1962-2015): the town fills the outer moat and spreads to the station
+Payoff (46.8-54.6 s): the elephant buffet in front of the Phraya Surin Phakdi monument, the herd back
+Tagline: ถิ่นช้างใหญ่ ผ้าไหมงาม ประคำสวย (the provincial slogan)
+Sub lines only: the 2329 name เมืองสุรินทร์, three cultures (Khmer, Kuy, Lao), silk
+```

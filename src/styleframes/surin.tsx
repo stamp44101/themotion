@@ -7,7 +7,7 @@ import React from 'react';
 import * as THREE from 'three';
 import {KORAT} from '../cities/korat';
 import {buildStory} from '../engine/story';
-import {GREY_DARK, KuyRider, NECK, SurinElephant, WHITE_ELEPHANT, WHITE_SHADE} from './surinFigures';
+import {GREY_DARK, KuyRider, NECK, SurinElephant, WHITE_ELEPHANT, WHITE_SHADE} from '../cities/surin/figures';
 import type {CityConfig, LandmarkProps} from '../engine/types';
 
 const STORY = buildStory({
