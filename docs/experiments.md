@@ -402,3 +402,48 @@ What it changes:
   look, a later city goes up in both looks, or in the plain look with a moving hero.
 - Prefer 60 s; use 75 s only for beats with action, as the owner's rule says.
 - Keep logging length and look with every post.
+
+## 7. Lopburi: Hanuman leaping in with his troop, 60 s — read: third best, best shares
+
+The cover is a white Hanuman leaping across the whole tile from frame 0 and landing by Phra
+Prang Sam Yot while a troop of macaques runs round him; the troop threads the story (out of
+the Lavo clearing, into the abandoned palace, onto the railway) and Hanuman returns at the
+monkey buffet. 60 s, built to the storyline standard. Look: not logged yet (both cuts were
+uploaded; record which one went up).
+
+### Result (read 25 Oct 09:00, about a day in)
+
+**Skip rate 30.2%** ("lower"), the second best of all eight reads, after Ubon (24.0%) and
+ahead of Korat (32.9%). **54,436 views from 41,339 viewers**, about 4-5x a typical
+reel at the same age, **98 follows**. **Average watch 21 s of 60.** **Share 1.9%, the best of all
+eight reads** ("higher"); likes 6.0%, saves 0.3%, reposts 0.7%, comments 0.0% (all "lower").
+Views came from the Reels tab (89.0%), Explore (6.1%), Feed (2.7%), Stories (1.1%) and
+Profile (~0.5%).
+
+Retention, read off the curve and so approximate: **~77% at 3 s**, **~43% at 17 s**, ~32% at
+30 s, ~17% at 55 s and ~7% at the end.
+
+| | Korat | Phuket | Ubon | **Lopburi** |
+|---|---|---|---|---|
+| hero | 3 walking dinosaurs | 2 turtles crawling | naga uncoiling | **Hanuman leaping + troop** |
+| length, look | 60 s | 75 s, shader | 60 s, shader | **60 s, ?** |
+| skip rate | 32.9% | 38.7% | 24.0% | **30.2%** |
+| retention at 17 s | ~35% | ~36% | ~48% | **~43%** |
+| average watch | 21 s | 24 s | 27 s | **21 s** |
+| share | 1.3% | 0.5% | 1.1% | **1.9%** |
+| views from the Reels tab | — | 70.1% | 90.4% | **89.0%** |
+
+Reading:
+- **The moving-hero rule holds a fourth time.** Every opening on a large living thing moving
+  across the tile is under 40%; every standing or built opening is 45% or worse.
+- **A local legend gets shared.** Lopburi's monkeys and Hanuman are the city's own story and
+  the share rate is the best yet; Ubon's naga (also the city's own image) was second-best
+  among recent posts. Shares follow hometown identity more than the hook.
+- **The middle is strong but the end leaks:** 43% at 17 s is second only to Ubon, but average
+  watch (21 s) is below Ubon's 27 s: the curve falls faster after 30 s. The 30-45 s stretch
+  (fade, railway, growth) is where to look next.
+
+What it changes:
+- Keep the hero a living, local icon (Surin's wild herd fits).
+- Give the 30-45 s stretch an actor as strong as the opening; Lopburi's troop on the rail was
+  the right idea but small on screen.
