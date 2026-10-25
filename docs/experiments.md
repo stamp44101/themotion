@@ -347,3 +347,103 @@ What it changes:
   uncoiling down the candle from frame 0.
 - To separate the look from the hero, post one city in the plain look with a moving hero.
 - Keep logging length and look with every post.
+
+## 6. Ubon: the naga uncoiling down the candle, shader look, 60 s — read: best so far
+
+The cover is the candle-festival naga coiled on a wax candle at the middle of the tile,
+uncoiling down it from frame 0, large on the tile; it returns in the payoff. Built to the
+storyline standard, **60 s, posted in the shader look** (owner), mastered to -16 LUFS,
+camera eased with `glide()`. Against Phuket it changes the hero and the length (75 -> 60 s);
+the look is the same, so it does not answer §5's look-or-hero question.
+
+### Result (read 24 Oct 08:54, just under a day in)
+
+**Skip rate 24.0%**, the best of all seven reads and 9 points under Korat. **65,888 views from
+47,464 viewers**, about 4-5x a typical reel at the same age (the curve is near 46K where the
+typical line is ~10K), **105 follows**. **Average watch 27 s of 60** (45%). Rates: share 1.1%,
+likes 8.4%, saves 0.4%, reposts 1.2%, comments 0.1%. Counts: 4.2K likes, 36 comments, 580
+reposts, 516 shares, 210 saves. Views came from the Reels tab (90.4%), Explore (5.6%), Feed
+(2.4%), Stories (0.6%) and Profile (0.4%).
+
+Retention, read off the curve and so approximate: **~82% at 3 s**, **~48% at 17 s**, ~37% at
+30 s, ~25% at 55 s and ~10% at the end.
+
+| | Korat | Lampang | Khon Kaen | Phetchaburi | Chiang Rai | Phuket | **Ubon** |
+|---|---|---|---|---|---|---|---|
+| hero | 3 walking dinosaurs | carriage, standing | stupa + small dinosaur | hill + tray | temple, hands rising | 2 turtles crawling | **naga uncoiling** |
+| length, look | 60 s | 60 s | 60 s | 60 s | 60 s, not logged | 75 s, shader | **60 s, shader** |
+| skip rate | 32.9% | 44.9% | 44.7% | 50.4% | 58.3% | 38.7% | **24.0%** |
+| retention at 17 s | ~35% | ~30% | ~34% | ~24% | ~26% | ~36% | **~48%** |
+| average watch | 21 s | 18 s | 19 s | 15 s | 16 s | 24 s | **27 s** |
+| share | 1.3% | 1.2% | 1.4% | 0.7% | 0.5% | 0.5% | **1.1%** |
+| views from the Reels tab | — | 76.9% | 75.5% | 62.3% | 53.1% | 70.1% | **90.4%** |
+
+Reading:
+- **The moving hero holds up a third time.** The three openings on a large living thing
+  moving across the tile (Korat, Phuket, Ubon) are the three under 40%; every opening on
+  something standing or built is 45% or worse. Phuket and Ubon were both posted in the shader
+  look, so the look is still not separated from the hero; Korat, the other clip under 40%, did
+  not have its look logged.
+- **60 s did better than 75 s** with the same look: Ubon kept 45% of its length on average
+  against Phuket's 32%. One pair of posts, with different heroes, so a hint.
+- **A local icon helps on top of motion.** The naga on the candle is Ubon's own festival image;
+  the dinosaurs and turtles are local too, but less singular. Plausible, not shown: one post.
+- **The middle held as well:** ~48% at 17 s, the first read above ~36%. The "half gone by 17 s"
+  pattern of every earlier clip did not hold here.
+- **Reach follows the skip rate:** 90% of views from the Reels tab, the highest share yet,
+  and the first clip far above the typical-reel line.
+- **Shares came back (1.1%)** after two posts at 0.5%; saves fell to 0.4%. A hometown icon
+  gets sent on; Phuket's was kept.
+
+What it changes:
+- **Open on a large, moving, city-specific living thing**: Lopburi's Hanuman leaping in with
+  the troop, from frame 0.
+- Post Lopburi in the shader look too, so its read compares straight with Ubon's; to test the
+  look, a later city goes up in both looks, or in the plain look with a moving hero.
+- Prefer 60 s; use 75 s only for beats with action, as the owner's rule says.
+- Keep logging length and look with every post.
+
+## 7. Lopburi: Hanuman leaping in with his troop, 60 s — read: second best, best shares
+
+The cover is a white Hanuman leaping across the whole tile from frame 0 and landing by Phra
+Prang Sam Yot while a troop of macaques runs round him; the troop threads the story (out of
+the Lavo clearing, into the abandoned palace, onto the railway) and Hanuman returns at the
+monkey buffet. 60 s, built to the storyline standard. Look: not logged yet (both cuts were
+uploaded; record which one went up).
+
+### Result (read 25 Oct 09:00, about a day in)
+
+**Skip rate 30.2%** ("lower"), the second best of all eight reads, after Ubon (24.0%) and
+ahead of Korat (32.9%). **54,436 views from 41,339 viewers**, about 4-5x a typical
+reel at the same age, **98 follows**. **Average watch 21 s of 60.** **Share 1.9%, the best of all
+eight reads** ("higher"); likes 6.0%, saves 0.3%, reposts 0.7%, comments 0.0% (all "lower").
+Views came from the Reels tab (89.0%), Explore (6.1%), Feed (2.7%), Stories (1.1%) and
+Profile (~0.5%).
+
+Retention, read off the curve and so approximate: **~77% at 3 s**, **~43% at 17 s**, ~32% at
+30 s, ~17% at 55 s and ~7% at the end.
+
+| | Korat | Phuket | Ubon | **Lopburi** |
+|---|---|---|---|---|
+| hero | 3 walking dinosaurs | 2 turtles crawling | naga uncoiling | **Hanuman leaping + troop** |
+| length, look | 60 s | 75 s, shader | 60 s, shader | **60 s, ?** |
+| skip rate | 32.9% | 38.7% | 24.0% | **30.2%** |
+| retention at 17 s | ~35% | ~36% | ~48% | **~43%** |
+| average watch | 21 s | 24 s | 27 s | **21 s** |
+| share | 1.3% | 0.5% | 1.1% | **1.9%** |
+| views from the Reels tab | — | 70.1% | 90.4% | **89.0%** |
+
+Reading:
+- **The moving-hero rule holds a fourth time.** Every opening on a large living thing moving
+  across the tile is under 40%; every standing or built opening is 45% or worse.
+- **A local legend gets shared.** Lopburi's monkeys and Hanuman are the city's own story and
+  the share rate is the best yet; Ubon's naga (also the city's own image) was second-best
+  among recent posts. Shares follow hometown identity more than the hook.
+- **The middle is strong but the end leaks:** 43% at 17 s is second only to Ubon, but average
+  watch (21 s) is below Ubon's 27 s: the curve falls faster after 30 s. The 30-45 s stretch
+  (fade, railway, growth) is where to look next.
+
+What it changes:
+- Keep the hero a living, local icon (Surin's wild herd fits).
+- Give the 30-45 s stretch an actor as strong as the opening; Lopburi's troop on the rail was
+  the right idea but small on screen.
