@@ -80,12 +80,13 @@ const Animal: React.FC<{b: Beast; t: number; g: (x: number, z: number) => number
 
 // ------------------------------------------------------------------ A: the wild herd
 const HERD: Beast[] = [
-  {d: 0, side: 0, s: 3.3, speed: 0.9, ph: 0, tusks: true},
-  {d: -6, side: -4.5, s: 2.9, speed: 0.9, ph: 0.3, tusks: false},
-  {d: -7.5, side: 3.8, s: 2.8, speed: 0.9, ph: 0.6, tusks: false},
-  {d: -4.2, side: -1.6, s: 1.5, speed: 0.9, ph: 0.15, tusks: false},
-  {d: -12, side: 0.5, s: 2.7, speed: 0.9, ph: 0.45, tusks: true},
-  {d: -13, side: -5, s: 1.4, speed: 0.9, ph: 0.8, tusks: false},
+  // at hero scale (a ~14-unit tusker on the 96-unit tile) so the herd reads at frame 0
+  {d: 2, side: 0, s: 4.6, speed: 0.7, ph: 0, tusks: true},
+  {d: -6, side: -6, s: 4.0, speed: 0.7, ph: 0.3, tusks: false},
+  {d: -8, side: 5.5, s: 3.9, speed: 0.7, ph: 0.6, tusks: false},
+  {d: -3.5, side: -2.6, s: 2.0, speed: 0.7, ph: 0.15, tusks: false},
+  {d: -15, side: 0.5, s: 3.8, speed: 0.7, ph: 0.45, tusks: true},
+  {d: -15, side: -6.5, s: 1.9, speed: 0.7, ph: 0.8, tusks: false},
 ];
 const HerdHero: React.FC<LandmarkProps> = ({t, terrainH}) => (
   <>
