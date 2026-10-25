@@ -70,7 +70,7 @@ export const SURIN: CityConfig = {
         [-38, -34],
         [38, 40],
       ],
-      built: [1700, 200],
+      built: [1762.6, 160],
     },
     // the forest inside the moat goes 602-603.2 and the town ground comes 603.5-605, at ~0.33
     // years a frame (timeline.ts: the moat beat runs 600-640 over 4 s)
@@ -78,10 +78,11 @@ export const SURIN: CityConfig = {
     clearings: [
       // the grassland the herd crosses (and the iron-age village's fields)
       [-2, -4, 15, -1e9],
-      // the fields where the white elephant is run down
-      [-24, -4, 9, 1700],
+      // the fields where the white elephant is run down, cleared in the Khmer beat: at 1700
+      // they went in the 0.4-s gap before 2302 (541 years in 12 frames) and failed check_render
+      [-24, -4, 9, 1205],
     ],
-    paddies: [1700, 1960],
+    paddies: [1762.6, 1960],
     sites: [
       [LAK_MUEANG[0], LAK_MUEANG[1], 1.2],
       [OLD_HALL[0], OLD_HALL[1], 2.2],
@@ -120,7 +121,7 @@ export const SURIN: CityConfig = {
     boats: [1e9, 1e9],
     finale: 'lanterns',
     life: {
-      buffalo: [{x: -30, z: 30, r: 4, count: 6, from: 1700, to: 1980}],
+      buffalo: [{x: -30, z: 30, r: 4, count: 6, from: 1763, to: 1980}],
       people: [{x: STATION[0] + 2.5, z: STATION[1] + 2.4, r: 1.3, count: 12, from: 1926.1, to: 2026}],
       elephants: [
         {x: -36, z: 28, r: 3, count: 3, from: 1764, to: 1960},

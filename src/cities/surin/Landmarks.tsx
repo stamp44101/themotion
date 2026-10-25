@@ -281,7 +281,7 @@ const Stadium: React.FC = () => (
 );
 const FRUIT = ['#3f9a3a', '#e0402b', '#f2c230', '#7cc04a'];
 
-export const SurinLandmarks: React.FC<LandmarkProps> = ({Y, t, terrainH}) => {
+export const SurinLandmarks: React.FC<LandmarkProps> = ({Y, t, terrainH, beat}) => {
   const g = (x: number, z: number) => terrainH(x, z);
   const pay = Y >= 2024.9;
   const lasso = lassoK(t);
@@ -376,8 +376,9 @@ export const SurinLandmarks: React.FC<LandmarkProps> = ({Y, t, terrainH}) => {
       })}
 
       {/* 2302: the white elephant and the five headmen; the pond where it was caught */}
-      {Y > 1700 && Y < 1770 && (
-        <mesh position={[W_CATCH[0] - 3, 0.04, W_CATCH[1] + 3]} rotation-x={-Math.PI / 2} scale={[3, 2, 1]}>
+      {/* the pond grows in over the first 20% of the beat, not in one frame of the gap */}
+      {beat('white') > 0.01 && Y < 1770 && (
+        <mesh position={[W_CATCH[0] - 3, 0.04, W_CATCH[1] + 3]} rotation-x={-Math.PI / 2} scale={[3 * Math.min(1, beat('white') / 0.2), 2 * Math.min(1, beat('white') / 0.2), 1]}>
           <circleGeometry args={[1, 24]} />
           <meshStandardMaterial color={WATER} roughness={0.15} metalness={0.2} />
         </mesh>

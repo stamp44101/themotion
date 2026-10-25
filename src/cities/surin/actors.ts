@@ -51,10 +51,13 @@ const HERD = [
 ];
 export const HERD_N = HERD.length;
 export const herdAt = (i: number, t: number): Beast | null => {
-  if (t > beatAt('herd', 1) + 0.4) return null;
+  // the herd sinks away into the forest over 0.8 s at the end of its beat: dropping four
+  // screen-filling animals in one frame failed check_render (a 10.2 luma jump)
+  const fade = 1 - clamp01((t - (beatAt('herd', 1) - 0.4)) / 0.8);
+  if (fade < 0.03) return null;
   const h = HERD[i];
   const [x, z] = onLine(H_FROM, (H_TO[0] - H_FROM[0]) / H_LEN, (H_TO[1] - H_FROM[1]) / H_LEN, h.d + t * 0.7, h.side);
-  return {x, z, rot: H_HEAD, s: h.s, walk: t * 0.55 + h.ph, stride: 1, run: false, tusks: h.tusks};
+  return {x, z, rot: H_HEAD, s: h.s * fade, walk: t * 0.55 + h.ph, stride: 1, run: false, tusks: h.tusks};
 };
 
 // ------------------------------------------------------------------ the moat diggers
