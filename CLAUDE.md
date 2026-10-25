@@ -122,6 +122,11 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   in world units from `path[0]`. Water, boats, wall gaps, dry-land placement,
   roads/cars and rail bridges all use the same centreline geometry in
   `src/engine/river.ts`; `npm run check` exercises both path and legacy rivers.
+- **A boat never passes under a deck lower than itself.** Nan's v1 payoff raced the naga
+  boats down the river and straight through สะพานพัฒนาภาคเหนือ, whose deck sits at 0.42 against
+  a naga head ~2 units high; stills at other seconds never showed it and the owner caught it on
+  the render. Hand-moved boats stop at a finish short of any bridge (`payBoatAt` in
+  `src/cities/nan/actors.ts` finds the deck line along the river), or the bridge has to clear them.
 - **Every road bridges the water it crosses; cars drive only on built roads.** The engine's
   ring road is a rectangle around the tile centre, and Nakhon Sawan's centre is the confluence:
   three sides lay on the river, the road sank under the water at each bank and the cars drove
@@ -448,6 +453,10 @@ shareable copy (<100 MB), `out/<city>_social.mp4` is the upload for every platfo
 chat preview is heavily squeezed (~1.8 Mbps) and is **not** an upload file.
 `scripts/encode.mjs` builds them from the master in one pass. The finished `_social` file
 goes on the release as `<city>_social.mp4` (`<city>_look_social.mp4` for the shader look).
+
+**Render only the shader look (owner's rule, 26 Oct 2026).** Every clip is posted in the shader
+look, so a render is the shader cut alone (`look: 'shader'`); its upload copy goes on the release as
+`<city>_look_social.mp4`. Do not render or upload the plain cut unless the owner asks for it.
 
 ## Where the videos live
 
