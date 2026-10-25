@@ -7,7 +7,7 @@
 // 75 s: the extra time goes to the siege, the flood and the return (CLAUDE.md, 60/75 rule).
 import {buildStory} from '../../engine/story';
 import {between, type CameraKey} from '../../engine/glide';
-import {AIRFIELD, BOAT_MONUMENT, CHAE_HAENG, PHUMIN} from './places';
+import {AIRFIELD, CHAE_HAENG, PHUMIN} from './places';
 
 type Key = CameraKey;
 // [t, target x, y, z, distance, azimuth, elevation, fov]
@@ -30,8 +30,8 @@ const PL_IN: Key = [51.0, AIRFIELD[0], 2, AIRFIELD[1] + 1, 62, 352, 32, 30];
 const PL_END: Key = [54.8, AIRFIELD[0], 1, AIRFIELD[1] + 3, 52, 370, 32, 30];
 const GR_IN: Key = [56.6, 10, 1, 9, 185, 388, 38, 30];
 const GR_END: Key = [61.2, 12, 1, 10, 205, 408, 36, 30];
-const PAY_IN: Key = [63.2, BOAT_MONUMENT[0] - 0.2, 1, BOAT_MONUMENT[1] + 1.5, 60, 430, 30, 30];
-const PAY_END: Key = [69.4, BOAT_MONUMENT[0] + 0.2, 1, BOAT_MONUMENT[1] + 2.0, 46, 450, 28, 30];
+const PAY_IN: Key = [63.2, 21, 1, -10.5, 58, 430, 30, 30];
+const PAY_END: Key = [69.4, 15, 1, -2, 46, 450, 28, 30];
 
 export const STORY = buildStory({
   duration: 75,

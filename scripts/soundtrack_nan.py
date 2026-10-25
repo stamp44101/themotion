@@ -284,14 +284,17 @@ while t < grow[1] - 0.2:
     t += rng.exponential(0.14)
 # the payoff: the race under the bridge: the hero crew's drum and call, the other crews, the
 # crowd on both banks, a gong at the finish
-stroke(pay[0] + 0.1, today[1], 1.5, 0.95, pan=-0.1)
-stroke(pay[0] + 0.25, today[1], 1.45, 0.55, pan=0.3, call=True, drum_on=False)
-stroke(pay[0] + 0.5, at(pay, 0.8), 1.4, 0.3, pan=-0.4, call=False, drum_on=False)
+# the crews stop at the finish by the bridge (82% of the beat): a cheer goes up
+fin = at(pay, 0.82)
+stroke(pay[0] + 0.1, fin, 1.5, 0.95, pan=-0.1)
+stroke(pay[0] + 0.25, fin, 1.45, 0.55, pan=0.3, call=True, drum_on=False)
+stroke(pay[0] + 0.5, fin - 0.4, 1.4, 0.3, pan=-0.4, call=False, drum_on=False)
+add(sfx, crowd(2.4), fin - 0.2, pan=0.0, gain=0.35)
+add(sfx, gong(98, 3.0, 0.4), fin, pan=0.0)
 add(sfx, crowd(today[1] - pay[0] + 0.5), pay[0], pan=0.2, gain=0.3)
 add(sfx, babble(today[1] - pay[0], 1.1), pay[0] + 0.2, pan=0.3, gain=0.55)
 for k in range(4):
     add(sfx, filt(ching(), "low", 2400), at(pay, 0.15 + k * 0.22), pan=0.3, gain=0.3)
-add(sfx, gong(98, 3.0, 0.4), today[0] - 0.3, pan=0.0)
 
 # ---------------------------------------------------------------- the gaps between beats
 

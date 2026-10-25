@@ -134,3 +134,12 @@ through the town and past Chae Haeng, the pins above checked, and the rims' heig
 - Beat gaps rendered and measured: max luma jump 2.3/frame, darkest 70.7 (limits 8 / 35).
 - Music vs effects per 3 s: effects above the score in every window but the finale card;
   score raised to 0.9 (it sat 10-20 dB under). -16.0 LUFS, -1.6 dBTP.
+
+### v1c (owner, 25 Oct 2026): "เรือแข่งทะลุสะพาน"
+
+The payoff's boats ran down the course through the main bridge (deck 0.42 high, naga heads ~2).
+The race now finishes at the stand just upstream of the bridge: each boat eases to a stop with
+its head 1.6 short of the deck line, the hero first; the crews rest their paddles; the stroke
+sounds stop there with a cheer and a gong. Checked by sweeping every boat's hull against the deck
+line over 60-75 s (no crossing). Camera follows the boats down to the finish; luma over the beat
+max 1.7/frame, darkest 60.4.

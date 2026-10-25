@@ -249,22 +249,44 @@ export const planeAt = (t: number) => {
   return {x: AIRFIELD[0], z, y, rot: 0, pitch, prop: t * 40, rolling: k >= 0.42 && v < 1};
 };
 
-// ------------------------------------------------------------------ the payoff: the race under the bridge
-// two heats abreast on the high water, the hero boat in the lead
+// ------------------------------------------------------------------ the payoff: the race to the bridge
+// two heats abreast on the high water, the hero boat in the lead. The course finishes at the
+// judges' stand just upstream of สะพานพัฒนาภาคเหนือ: the deck is far too low for a naga head,
+// so no boat ever reaches the bridge (the v1 render drove the hero through it)
 const BRIDGE_MID: P = [(BRIDGE_MAIN[0][0] + BRIDGE_MAIN[1][0]) / 2, (BRIDGE_MAIN[0][1] + BRIDGE_MAIN[1][1]) / 2];
 export const PAY_D = arcTo(RIVER, BRIDGE_MID);
+/** distance along the river where it passes under the main bridge's deck line */
+const D_BRIDGE = (() => {
+  const [A, Bp] = BRIDGE_MAIN;
+  const side = (d: number) => {
+    const p = along(RIVER, d);
+    return Math.sign((Bp[0] - A[0]) * (p.z - A[1]) - (Bp[1] - A[1]) * (p.x - A[0]));
+  };
+  let d = PAY_D - 12;
+  while (side(d) === side(PAY_D - 12) && d < PAY_D + 12) d += 0.05;
+  return d;
+})();
+// a boat is 8.9 boat-units from its centre to the tip of the naga head
+const HALF = 8.9;
 export const PAY_N = 4;
+// how far behind the hero each boat finishes (the hero's crew wins the heat)
+const BEHIND = [0, 2.2, 8.5, 10.2];
 export const payBoatAt = (i: number, t: number): Boat | null => {
   const k = beatK('payoff', t);
   if (k < -0.05) return null;
   const hero = i === 0;
-  // a crowd of boats down the course: the first pair races under the bridge, the hero ahead
-  const d = PAY_D - 8 + clamp01(k) * 17 * (hero ? 1.08 : 1 - i * 0.03) - Math.floor(i / 2) * 9;
+  const s = hero ? 0.62 : 0.56;
+  // the finish: the hero's head stops 1.6 short of the deck line; it eases in over the beat
+  const fin = D_BRIDGE - 1.6 - HALF * 0.62 - BEHIND[i];
+  const u = clamp01(k / 0.82);
+  const d = fin - 15 * (1 - u) ** 2;
   const p = along(RIVER, d);
   const r = heading(RIVER, d, 4);
   const side = (i % 2 ? 1 : -1) * 0.66;
   const [sh, b] = SHIRTS[i % SHIRTS.length];
-  return {x: p.x + Math.cos(r) * side, z: p.z - Math.sin(r) * side, rot: r, s: hero ? 0.62 : 0.56, t: t + i * 0.29, shirt: sh, band: b, hero};
+  // past the finish the crews rest their paddles (the stroke stops, it does not run on in place)
+  const tEnd = STORY.at('payoff')[0] + 0.82 * (STORY.at('payoff')[1] - STORY.at('payoff')[0]);
+  return {x: p.x + Math.cos(r) * side, z: p.z - Math.sin(r) * side, rot: r, s, t: Math.min(t, tEnd) + i * 0.29, shirt: sh, band: b, hero};
 };
 
 const boatY = (b: Boat) => 1.5 * b.s + 0.6;
