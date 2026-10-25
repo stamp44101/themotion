@@ -317,6 +317,6 @@ for i in range(5):
     add(music, gong(rng.choice([110, 147, 165]), 2.4, 0.1), DUR - 4.2 + i * 0.7, pan=rng.uniform(-0.5, 0.5))
 
 # the score sits under the small sounds (owner: the effects are the charm)
-music *= 0.6
+music *= 0.9
 mix = master("public/soundtrack_nan.wav", music, amb, sfx)
 print("wrote public/soundtrack_nan.wav", {"flood": round(flood[0], 2), "payoff": round(pay[0], 2)})

@@ -81,7 +81,8 @@ export const NAN: CityConfig = {
       // the grass by the river where the settlers land and the rise of Chae Haeng
       [CHAE_HAENG[0], CHAE_HAENG[1], 6, 1359.5],
     ],
-    paddies: [1448, 1985],
+    // the valley floor goes to rice from the Lanna town on (Nan is a paddy basin)
+    paddies: [1448, 1800],
     sites: [
       [CHAE_HAENG[0], CHAE_HAENG[1], 2.8],
       [CHANG_KHAM[0] + 1.0, CHANG_KHAM[1], 2.6],
@@ -89,7 +90,7 @@ export const NAN: CityConfig = {
       [HOKHAM[0], HOKHAM[1], 1.5],
       [MING_MUEANG[0], MING_MUEANG[1], 1.3],
       [KHAO_NOI[0], KHAO_NOI[1] + 0.3, 1.8],
-      [BOAT_MONUMENT[0] - 1.3, BOAT_MONUMENT[1] - 2.4, 2.6],
+      [BOAT_MONUMENT[0] - 3.0, BOAT_MONUMENT[1] - 3.2, 2.6],
     ],
     footprints: [
       // the river: north and south reaches always, the channel under the east wall until the
@@ -109,9 +110,10 @@ export const NAN: CityConfig = {
       {fp: {band: [[AIRFIELD[0] - 1.6, AIRFIELD[1] + 2], [AIRFIELD[0] - 1.6, AIRFIELD[1] + 4], 1.4]}, from: 1926.5, to: 1990, label: 'hangar'},
       ...[BRIDGE_MAIN, BRIDGE_SOUTH, BRIDGE_NORTH].map((b, i) => ({fp: {band: [b[0], b[1], 1.2] as [P, P, number]}, from: [1972, 1990, 2004][i], label: `bridge ${i}`})),
     ],
-    urban: {from: 1950, rate: 2.0},
-    sprawl: {height: 0.8, tall: 0.04},
-    highRise: 2000,
+    // a low-rise town: no towers, the blocks stay two or three storeys
+    urban: {from: 1940, rate: 1.2},
+    sprawl: {height: 0.55, tall: 0},
+    highRise: 2015,
     towers: [],
     roads: [
       // the north road out of ประตูริม to the airfield (~2470)

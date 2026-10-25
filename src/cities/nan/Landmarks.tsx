@@ -390,7 +390,7 @@ const Phumin: React.FC<{Y: number; t: number; night: number; beat: LandmarkProps
         Array.from({length: 22}, (_, i) => {
           const u = i / 21;
           // head out at the north stair, the body under the hall, the tail out to the south
-          return [PHUMIN[0] + s * 1.15, 0.45 + 0.9 * Math.max(0, 1 - u * 6) + 0.05 * Math.sin(u * 9), PHUMIN[1] - 2.6 + u * 5.4] as [number, number, number];
+          return [PHUMIN[0] + s * 1.45, 0.45 + 0.9 * Math.max(0, 1 - u * 6) + 0.05 * Math.sin(u * 9), PHUMIN[1] - 2.6 + u * 5.4] as [number, number, number];
         }),
       ),
     [],
@@ -401,7 +401,7 @@ const Phumin: React.FC<{Y: number; t: number; night: number; beat: LandmarkProps
       {k > 0.25 && nagaPts.map((pts, i) => <Naga key={i} pts={pts} r={0.2} jaw={0.4} night={night} t={t} />)}
       <Grow k={k} at={[PHUMIN[0], 0, PHUMIN[1]]}>
         <mesh position={[0, 0.25, 0]} receiveShadow>
-          <boxGeometry args={[2.6, 0.5, 2.6]} />
+          <boxGeometry args={[2.3, 0.5, 2.3]} />
           <meshStandardMaterial color="#e9e0cc" roughness={0.9} />
         </mesh>
         {[0, Math.PI / 2].map((r) => (
@@ -588,6 +588,9 @@ const Bridge: React.FC<{ends: [P, P]; k: number}> = ({ends: [a, b], k}) => {
 };
 
 // ------------------------------------------------------------------ the payoff's grandstand and crowd
+// the stand on the west bank, set back from the high water and parallel to the course
+export const STAND: [number, number, number] = [BOAT_MONUMENT[0] - 3.0, 0, BOAT_MONUMENT[1] - 3.2];
+const STAND_ROT = -0.85;
 const RaceGround: React.FC<{Y: number; t: number}> = ({Y, t}) => {
   const k = ramp(Y, 2008, 2012);
   const crowd = clamp01((beatK('payoff', t) + 0.1) / 0.3);
@@ -595,7 +598,7 @@ const RaceGround: React.FC<{Y: number; t: number}> = ({Y, t}) => {
   return (
     <>
       {k > 0.02 && (
-        <Grow k={k} at={[mx - 1.3, 0, mz - 2.4]} rot={0.62}>
+        <Grow k={k} at={STAND} rot={STAND_ROT}>
           {/* the ปะรำพิธี on the west bank */}
           <mesh position={[0, 0.5, 0]} castShadow receiveShadow>
             <boxGeometry args={[1.4, 1.0, 4.4]} />

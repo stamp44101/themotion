@@ -123,3 +123,14 @@ through the town and past Chae Haeng, the pins above checked, and the rims' heig
   up as the army comes), the bull is `legend`, the hero beat is `procession`, the return runs
   1854.6-1860 (houses come back over 4 years). No separate road beat.
 - `npm run check`: 0 errors (grandeur and 75-s warnings). Soundtrack -16.0 LUFS.
+
+### v1b polish (25 Oct 2026), `nan_v1b_contact.jpg`
+
+- The cover: the hero boat (1.6x) starts mid-tile on the channel and runs past the future town
+  site; camera from the west-south-west so it is seen broadside.
+- Wat Phumin seen from the west (Chang Kham no longer in front); the nagas outside the base.
+- The valley goes to rice from 1448 (paddies to 1800); a low-rise modern town (no towers,
+  sprawl height 0.55); the grandstand set back on the west bank.
+- Beat gaps rendered and measured: max luma jump 2.3/frame, darkest 70.7 (limits 8 / 35).
+- Music vs effects per 3 s: effects above the score in every window but the finale card;
+  score raised to 0.9 (it sat 10-20 dB under). -16.0 LUFS, -1.6 dBTP.

@@ -80,7 +80,7 @@ export const highWater = (t: number) => {
 // behind it; along the river from its north edge
 export const HERO_S = 1.6;
 const SPEED = 4;
-const D0 = 20;
+const D0 = 32;
 export const heroBoatAt = (t: number): Boat | null => {
   const end = beatAt('hero', 1);
   const fade = 1 - clamp01((t - (end - 0.2)) / 0.8);

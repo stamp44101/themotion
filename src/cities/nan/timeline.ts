@@ -11,27 +11,27 @@ import {AIRFIELD, BOAT_MONUMENT, CHAE_HAENG, PHUMIN} from './places';
 
 type Key = CameraKey;
 // [t, target x, y, z, distance, azimuth, elevation, fov]
-const HERO_END: Key = [7.2, 15, 2, -9.5, 100, -20, 32, 30];
+const HERO_END: Key = [7.2, 8.5, 2, -2.5, 100, -20, 32, 30];
 const CH_IN: Key = [8.9, CHAE_HAENG[0] - 1, 1, CHAE_HAENG[1] - 1, 70, 42, 42, 30];
 const CH_END: Key = [12.0, CHAE_HAENG[0] - 1, 1, CHAE_HAENG[1] - 1, 64, 62, 42, 30];
 const BU_IN: Key = [13.6, 20, 1, 16, 92, 76, 40, 30];
-const BU_END: Key = [18.3, 3, 1, 1, 86, 100, 42, 30];
+const BU_END: Key = [18.3, 3, 1, 1, 86, 110, 42, 30];
 const SI_IN: Key = [20.1, -17, 1, -2, 80, 150, 40, 30];
-const SI_END: Key = [24.4, -11, 1, -2, 74, 166, 42, 30];
-const PH_IN: Key = [26.2, PHUMIN[0], 1, PHUMIN[1], 30, 180, 40, 30];
-const PH_END: Key = [30.2, PHUMIN[0], 1, PHUMIN[1], 26, 200, 38, 30];
-const RA_IN: Key = [32.0, 7.2, 1, -1, 40, 214, 34, 30];
-const RA_END: Key = [36.2, 7.2, 1, 1, 36, 230, 34, 30];
-const FL_IN: Key = [38.0, 2, 1, -8, 96, 240, 46, 30];
-const FL_END: Key = [42.8, 9, 1, -22, 104, 256, 46, 30];
-const RE_IN: Key = [44.6, 8, 1, -12, 104, 266, 46, 30];
-const RE_END: Key = [49.4, 3, 1, -1, 82, 284, 46, 30];
-const PL_IN: Key = [51.0, AIRFIELD[0], 2, AIRFIELD[1] + 1, 62, 300, 32, 30];
-const PL_END: Key = [54.8, AIRFIELD[0], 1, AIRFIELD[1] + 3, 52, 318, 32, 30];
-const GR_IN: Key = [56.6, 10, 1, 9, 185, 336, 38, 30];
-const GR_END: Key = [61.2, 12, 1, 10, 205, 356, 36, 30];
-const PAY_IN: Key = [63.2, BOAT_MONUMENT[0] - 0.2, 1, BOAT_MONUMENT[1] + 1.5, 60, 380, 32, 30];
-const PAY_END: Key = [69.4, BOAT_MONUMENT[0] + 0.2, 1, BOAT_MONUMENT[1] + 2.0, 46, 400, 30, 30];
+const SI_END: Key = [24.4, -11, 1, -2, 74, 176, 42, 30];
+const PH_IN: Key = [26.2, PHUMIN[0], 1, PHUMIN[1], 30, 236, 38, 30];
+const PH_END: Key = [30.2, PHUMIN[0], 1, PHUMIN[1], 26, 256, 36, 30];
+const RA_IN: Key = [32.0, 7.2, 1, -1, 48, 270, 36, 30];
+const RA_END: Key = [36.2, 7.2, 1, 1, 44, 286, 36, 30];
+const FL_IN: Key = [38.0, 2, 1, -8, 96, 296, 46, 30];
+const FL_END: Key = [42.8, 9, 1, -22, 104, 312, 46, 30];
+const RE_IN: Key = [44.6, 8, 1, -12, 104, 322, 46, 30];
+const RE_END: Key = [49.4, 3, 1, -1, 82, 338, 46, 30];
+const PL_IN: Key = [51.0, AIRFIELD[0], 2, AIRFIELD[1] + 1, 62, 352, 32, 30];
+const PL_END: Key = [54.8, AIRFIELD[0], 1, AIRFIELD[1] + 3, 52, 370, 32, 30];
+const GR_IN: Key = [56.6, 10, 1, 9, 185, 388, 38, 30];
+const GR_END: Key = [61.2, 12, 1, 10, 205, 408, 36, 30];
+const PAY_IN: Key = [63.2, BOAT_MONUMENT[0] - 0.2, 1, BOAT_MONUMENT[1] + 1.5, 60, 430, 30, 30];
+const PAY_END: Key = [69.4, BOAT_MONUMENT[0] + 0.2, 1, BOAT_MONUMENT[1] + 2.0, 46, 450, 28, 30];
 
 export const STORY = buildStory({
   duration: 75,
@@ -49,8 +49,8 @@ export const STORY = buildStory({
     ...between(RE_END, PL_IN, 4, 0.2),
     ...between(PL_END, GR_IN, 4, 0.2),
     ...between(GR_END, PAY_IN, 4, 0.2),
-    [73.4, 4, 2, 4, 220, 420, 36, 30],
-    [75, 4, 2, 4, 300, 432, 36, 30],
+    [73.4, 4, 2, 4, 220, 470, 36, 30],
+    [75, 4, 2, 4, 300, 482, 36, 30],
   ],
   beats: [
     {
@@ -62,8 +62,8 @@ export const STORY = buildStory({
       caption: {t0: 3.3, title: 'ล่องน้ำน่านลงจากเมืองปัว', sub: 'ตามพงศาวดาร พญาการเมืองพาผู้คนลงมาตั้งเมืองใหม่'},
       era: 'ราชวงศ์ภูคา',
       camera: [
-        [0, 12, 2, -12, 360, -55, 40, 30],
-        [3, 27, 2, -22, 160, -45, 35, 30],
+        [0, 17, 2, -12, 320, -55, 40, 30],
+        [3, 20, 2, -12, 160, -45, 35, 30],
         HERO_END,
       ],
     },
