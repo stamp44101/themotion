@@ -31,6 +31,7 @@ import {LAMPANG_CHEDI, LAMPANG_ELEPHANT, LAMPANG_CARRIAGE, LAMPANG_HORSE} from '
 import {DioramaComposition} from './engine/DioramaComposition';
 import {NagaStudy} from './styleframes/NagaStudy';
 import {SURIN_HERD, SURIN_LASSO, SURIN_WHITE} from './styleframes/surin';
+import {NAN_BOAT, NAN_RACE} from './styleframes/nan';
 import {WAT_RAI_KHING_FRAMES, WatRaiKhing} from './landmarks/watraikhing/WatRaiKhing';
 
 const Korat: React.FC = () => <DioramaComposition city={KORAT} />;
@@ -74,6 +75,8 @@ const UbonStyleNaga: React.FC = () => <DioramaComposition city={UBON_NAGA} />;
 const SurinStyleHerd: React.FC = () => <DioramaComposition city={SURIN_HERD} />;
 const SurinStyleLasso: React.FC = () => <DioramaComposition city={SURIN_LASSO} />;
 const SurinStyleWhite: React.FC = () => <DioramaComposition city={SURIN_WHITE} />;
+const NanStyleBoat: React.FC = () => <DioramaComposition city={NAN_BOAT} />;
+const NanStyleRace: React.FC = () => <DioramaComposition city={NAN_RACE} />;
 const LopburiStyleHanuman: React.FC = () => <DioramaComposition city={LOPBURI_HANUMAN} />;
 const LampangStyleElephant: React.FC = () => <DioramaComposition city={LAMPANG_ELEPHANT} />;
 const LampangStyleChedi: React.FC = () => <DioramaComposition city={LAMPANG_CHEDI} />;
@@ -110,6 +113,8 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="SurinStyleHerd" component={SurinStyleHerd} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="SurinStyleLasso" component={SurinStyleLasso} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="SurinStyleWhite" component={SurinStyleWhite} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="NanStyleBoat" component={NanStyleBoat} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="NanStyleRace" component={NanStyleRace} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="UbonStyleElephant" component={UbonStyleElephant} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="ChiangRaiStyleFront" component={ChiangRaiStyleFront} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="ChiangRaiStyleQuarter" component={ChiangRaiStyleQuarter} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />

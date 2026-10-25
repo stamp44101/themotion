@@ -11,7 +11,14 @@ white bull (1911), up to Wiang Nuea after the flood (2360), and back to the old 
 brick wall once the river had swung east (2398–2400). On a diorama this is the river itself
 moving and the town following it: action in every beat, not a list of dates.
 
-## §4 Hero — to decide (owner)
+## §4 Hero — decided (owner, 25 Oct 2026): **A, the naga race boat**
+
+Style frames: `nan_styleframes.jpg` (0, 2, 4, 8 s; row 1 one boat, row 2 three boats racing)
+and `nan_styleframe_A_close.jpg`. Model: `NanBoat` in `src/styleframes/nanBoat.tsx` (22 pairs of
+paddlers in time, a stroke caller, a steersman, the naga head and tail). Drawn at 2.4x so it reads
+on the whole tile; the opening river is drawn 14 units wide to float it.
+
+The options as offered:
 
 | | hero at frame 0 | callback in the payoff | for | against |
 |---|---|---|---|---|
