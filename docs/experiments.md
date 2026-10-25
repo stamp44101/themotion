@@ -403,7 +403,7 @@ What it changes:
 - Prefer 60 s; use 75 s only for beats with action, as the owner's rule says.
 - Keep logging length and look with every post.
 
-## 7. Lopburi: Hanuman leaping in with his troop, 60 s — read: third best, best shares
+## 7. Lopburi: Hanuman leaping in with his troop, 60 s — read: second best, best shares
 
 The cover is a white Hanuman leaping across the whole tile from frame 0 and landing by Phra
 Prang Sam Yot while a troop of macaques runs round him; the troop threads the story (out of
