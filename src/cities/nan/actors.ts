@@ -44,13 +44,57 @@ const arcTo = (pts: P[], q: P) => {
   });
   return best;
 };
-// heading along a path, smoothed over +-w units so a long boat turns through a bend
-const heading = (pts: P[], d: number, w = 3) => {
-  const a = along(pts, d - w);
-  const b = along(pts, d + w);
-  return Math.atan2(b.x - a.x, b.z - a.z);
-};
 const gy = (ctx: ActorCtx, x: number, z: number) => ctx.ground?.(x, z) ?? 0;
+
+// ------------------------------------------------------------------ boats on a course
+// The drawn river is a polyline with sharp corners; a boat follows the same line with the
+// corners rounded off (Chaikin), and both its stern and its bow stay on that line, like a train
+// on its track. The owner saw v1's hero boat "drift" through the opening bend: its centre was on
+// the line but its hull swung on a heading averaged over 12 units, out across the banks.
+const chaikin = (pts: P[], iters = 3): P[] => {
+  let q = pts;
+  for (let k = 0; k < iters; k++) {
+    const r: P[] = [q[0]];
+    for (let i = 0; i < q.length - 1; i++) {
+      const [ax, az] = q[i];
+      const [bx, bz] = q[i + 1];
+      r.push([0.75 * ax + 0.25 * bx, 0.75 * az + 0.25 * bz], [0.25 * ax + 0.75 * bx, 0.25 * az + 0.75 * bz]);
+    }
+    r.push(q[q.length - 1]);
+    q = r;
+  }
+  return q;
+};
+export const COURSE_OLD = chaikin(OLD_RIVER);
+/** The cover's course: the channel resampled every unit and averaged over +-WIN units, so a
+ *  hero-scale hull (tens of units long) fits its curves. The cover's high water is drawn along
+ *  this same course (Landmarks), wide enough to carry the hull, over the real meanders. */
+const smoothCourse = (pts: P[], len: number, win: number): P[] => {
+  const raw = Array.from({length: Math.floor(len) + 1}, (_, i) => along(pts, i));
+  return raw.map((_, i) => {
+    const lo = Math.max(0, i - win);
+    const hi = Math.min(raw.length - 1, i + win);
+    const n = hi - lo + 1;
+    let x = 0;
+    let z = 0;
+    for (let j = lo; j <= hi; j++) {
+      x += raw[j].x;
+      z += raw[j].z;
+    }
+    return [x / n, z / n] as P;
+  });
+};
+export const HERO_COURSE = smoothCourse(COURSE_OLD, 60, 14);
+export const COURSE = chaikin(RIVER);
+/** a boat whose centre is `d` along `path`, `half` units from centre to bow/stern, `side` off the line */
+const onCourse = (path: P[], d: number, half: number, side: number) => {
+  const bow = along(path, d + half);
+  const stern = along(path, d - half);
+  const rot = Math.atan2(bow.x - stern.x, bow.z - stern.z);
+  return {x: (bow.x + stern.x) / 2 + Math.cos(rot) * side, z: (bow.z + stern.z) / 2 - Math.sin(rot) * side, rot};
+};
+// the hull runs 8 boat-units each way from the centre
+const HULL = 8;
 
 export type Boat = {x: number; z: number; rot: number; s: number; t: number; shirt: string; band: string; hero?: boolean};
 export const SHIRTS: [string, string][] = [
@@ -66,8 +110,8 @@ export const SHIRTS: [string, string][] = [
 /** The river is drawn at high water for the boats: the cover, the 2343 races and the payoff
  *  (the races are run on the flood after the rains). Real width elsewhere (places RIVER_W). */
 export const HIGH_W = 2.6;
-/** wider still for the cover's hero boat (drawn 1.6x, a 2-unit beam) */
-export const HERO_W = 3.6;
+/** the cover's high water along HERO_COURSE: the hull (1.1x) stays within 1.6 of that line */
+export const HERO_W = 4.6;
 export const highWater = (t: number) => {
   const hero = 1 - clamp01((t - 6.6) / 2.0);
   const race = clamp01((beatK('race', t) + 0.15) / 0.15) * (1 - clamp01((beatK('race', t) - 1) / 0.15));
@@ -78,16 +122,17 @@ export const highWater = (t: number) => {
 // ------------------------------------------------------------------ the cover: down from Pua
 // the hero boat at 1x (16 units, a 20-m dugout drawn ~55x), the settlers' boats at 0.45x
 // behind it; along the river from its north edge
-export const HERO_S = 1.6;
-const SPEED = 4;
-const D0 = 32;
+// 1.1x: an 18-unit hull. At 1.6x (v1) no course could carry it through the Nan's meanders
+export const HERO_S = 1.1;
+const SPEED = 2.4;
+const D0 = 16;
 export const heroBoatAt = (t: number): Boat | null => {
   const end = beatAt('hero', 1);
   const fade = 1 - clamp01((t - (end - 0.2)) / 0.8);
   if (fade < 0.03 || t < 0) return null;
   const d = D0 + Math.min(t, end) * SPEED + Math.max(0, t - end) * SPEED * 0.4;
-  const p = along(OLD_RIVER, d);
-  return {x: p.x, z: p.z, rot: heading(OLD_RIVER, d, 6), s: HERO_S * fade, t, shirt: SHIRTS[0][0], band: SHIRTS[0][1], hero: true};
+  const p = onCourse(HERO_COURSE, d, HULL * HERO_S, 0);
+  return {x: p.x, z: p.z, rot: p.rot, s: HERO_S * fade, t, shirt: SHIRTS[0][0], band: SHIRTS[0][1], hero: true};
 };
 export const SETTLERS = 5;
 export const settlerAt = (i: number, t: number): Boat | null => {
@@ -95,11 +140,9 @@ export const settlerAt = (i: number, t: number): Boat | null => {
   if (t > end + 0.8) return null;
   const d = D0 + t * SPEED - 17 - i * 4.6;
   if (d < 0.5) return null;
-  const p = along(OLD_RIVER, d);
-  const r = heading(OLD_RIVER, d, 2);
-  const side = (i % 2 ? 1 : -1) * 0.55;
+  const p = onCourse(HERO_COURSE, d, HULL * 0.42, (i % 2 ? 1 : -1) * 0.55);
   const [sh, b] = SHIRTS[(i + 3) % SHIRTS.length];
-  return {x: p.x + Math.cos(r) * side, z: p.z - Math.sin(r) * side, rot: r, s: 0.42, t: t + i * 0.31, shirt: sh, band: b};
+  return {x: p.x, z: p.z, rot: p.rot, s: 0.42, t: t + i * 0.31, shirt: sh, band: b};
 };
 
 // ------------------------------------------------------------------ Wiang Phu Phiang Chae Haeng
@@ -187,17 +230,15 @@ export const circlerAt = (i: number, t: number) => {
 };
 
 // ------------------------------------------------------------------ the 2343 races, in the old channel
-export const RACE_D0 = arcTo(OLD_RIVER, [7.2, -6.4]);
+export const RACE_D0 = arcTo(COURSE_OLD, [7.2, -6.4]);
 export const RACE_N = 2;
 export const raceBoatAt = (i: number, t: number): Boat | null => {
   const k = beatK('race', t);
   if (k < -0.05 || k > 1.05) return null;
   const d = RACE_D0 + k * 13 * (1 + i * 0.05) - i * 0.6;
-  const p = along(OLD_RIVER, d);
-  const r = heading(OLD_RIVER, d, 3);
-  const side = (i ? 1 : -1) * 0.45;
+  const p = onCourse(COURSE_OLD, d, HULL * 0.42, (i ? 1 : -1) * 0.45);
   const [sh, b] = SHIRTS[i + 1];
-  return {x: p.x + Math.cos(r) * side, z: p.z - Math.sin(r) * side, rot: r, s: 0.42, t: t + i * 0.4, shirt: sh, band: b};
+  return {x: p.x, z: p.z, rot: p.rot, s: 0.42, t: t + i * 0.4, shirt: sh, band: b};
 };
 
 // ------------------------------------------------------------------ 2360: up to Wiang Nuea, and 2398 back
@@ -254,12 +295,12 @@ export const planeAt = (t: number) => {
 // judges' stand just upstream of สะพานพัฒนาภาคเหนือ: the deck is far too low for a naga head,
 // so no boat ever reaches the bridge (the v1 render drove the hero through it)
 const BRIDGE_MID: P = [(BRIDGE_MAIN[0][0] + BRIDGE_MAIN[1][0]) / 2, (BRIDGE_MAIN[0][1] + BRIDGE_MAIN[1][1]) / 2];
-export const PAY_D = arcTo(RIVER, BRIDGE_MID);
+export const PAY_D = arcTo(COURSE, BRIDGE_MID);
 /** distance along the river where it passes under the main bridge's deck line */
 const D_BRIDGE = (() => {
   const [A, Bp] = BRIDGE_MAIN;
   const side = (d: number) => {
-    const p = along(RIVER, d);
+    const p = along(COURSE, d);
     return Math.sign((Bp[0] - A[0]) * (p.z - A[1]) - (Bp[1] - A[1]) * (p.x - A[0]));
   };
   let d = PAY_D - 12;
@@ -280,13 +321,11 @@ export const payBoatAt = (i: number, t: number): Boat | null => {
   const fin = D_BRIDGE - 1.6 - HALF * 0.62 - BEHIND[i];
   const u = clamp01(k / 0.82);
   const d = fin - 15 * (1 - u) ** 2;
-  const p = along(RIVER, d);
-  const r = heading(RIVER, d, 4);
-  const side = (i % 2 ? 1 : -1) * 0.66;
+  const p = onCourse(COURSE, d, HULL * s, (i % 2 ? 1 : -1) * 0.66);
   const [sh, b] = SHIRTS[i % SHIRTS.length];
   // past the finish the crews rest their paddles (the stroke stops, it does not run on in place)
   const tEnd = STORY.at('payoff')[0] + 0.82 * (STORY.at('payoff')[1] - STORY.at('payoff')[0]);
-  return {x: p.x + Math.cos(r) * side, z: p.z - Math.sin(r) * side, rot: r, s, t: Math.min(t, tEnd) + i * 0.29, shirt: sh, band: b, hero};
+  return {x: p.x, z: p.z, rot: p.rot, s, t: Math.min(t, tEnd) + i * 0.29, shirt: sh, band: b, hero};
 };
 
 const boatY = (b: Boat) => 1.5 * b.s + 0.6;

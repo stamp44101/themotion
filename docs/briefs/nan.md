@@ -143,3 +143,16 @@ its head 1.6 short of the deck line, the hero first; the crews rest their paddle
 sounds stop there with a cheer and a gong. Checked by sweeping every boat's hull against the deck
 line over 60-75 s (no crossing). Camera follows the boats down to the finish; luma over the beat
 max 1.7/frame, darkest 60.4.
+
+### v1d (owner, 25 Oct 2026): the white lines and the drifting turn
+
+- **"เส้นขาวๆ ข้างเรือ"**: the wake was two long rigid white strips fixed to the hull; on a bend
+  they stayed straight and cut across the banks. Now a short V of fading wake off the stern.
+- **"เลี้ยวเหมือนดริฟท์"**: the hull's heading was averaged over 12 units while its centre
+  followed the polyline river, so a 25-unit hull swung across the banks. Every boat now keeps
+  its bow and stern on its course (a Chaikin-rounded centreline), like a train on its track.
+  The cover's hero could still not fit the Nan's real meanders (5.6 off the line at 1.6x), so:
+  hero 1.1x (18 units), on a course averaged over +-14 units, starting on the straight north
+  reach; the cover's high water (4.6 wide) is drawn along that same course over the real river,
+  then shrinks to it. Hull stays within 1.5 of the course (water half-width 2.3). Camera from
+  the east-north-east, broadside. Sequential render 0-10 s: luma max 1.4/frame, darkest 65.3.

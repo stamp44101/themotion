@@ -6,7 +6,7 @@ import {ramp} from '../../lib';
 import {Naga} from '../ubon/Naga';
 import {KuyRider, NECK, SurinElephant} from '../surin/figures';
 import {
-  along, armyAt, ARMY_COLS, ARMY_ROWS, beatK, bullAt, BULL_S, CH_MOAT, CIRCLE_N, circlerAt, clamp01, DIGGERS, diggerAt, fleerAt,
+  along, armyAt, COURSE, COURSE_OLD, HERO_COURSE, ARMY_COLS, ARMY_ROWS, beatK, bullAt, BULL_S, CH_MOAT, CIRCLE_N, circlerAt, clamp01, DIGGERS, diggerAt, fleerAt,
   floodK, HERO_W, HIGH_W, heroBoatAt, PAY_D, RACE_D0, highWater, palisadeK, PAY_N, payBoatAt, planeAt, PLANE_S, RACE_N, raceBoatAt, returnerAt, SETTLERS,
   settlerAt, TOWN_LEN, TOWN_RING, WALKERS, type Boat,
 } from './actors';
@@ -92,12 +92,14 @@ const Rivers: React.FC<{Y: number; t: number}> = ({Y, t}) => {
   const hw = highWater(t);
   // 2398: the river leaves the channel under the east wall for today's course
   const swing = clamp01((Y - 1855.15) / 1.6);
-  const base = RIVER_W + (HERO_W - RIVER_W) * hw.hero + (HIGH_W - RIVER_W) * hw.pay * (1 - hw.hero);
+  const base = RIVER_W + (HIGH_W - RIVER_W) * hw.pay;
   const north = RIVER.slice(0, 11);
   const south = RIVER.slice(17);
-  const oldW = (RIVER_W + (1.9 - RIVER_W) * hw.race + (HERO_W - RIVER_W) * hw.hero) * (1 - swing) + 0.42 * swing;
+  const oldW = (RIVER_W + (1.9 - RIVER_W) * hw.race) * (1 - swing) + 0.42 * swing;
   return (
     <>
+      {/* the cover's high water, along the hero boat's course over the real meanders */}
+      {hw.hero > 0.02 && <Ribbon pts={HERO_COURSE} w={HERO_W * hw.hero} y={0.1} banks={hw.hero > 0.5} />}
       <Ribbon pts={north} w={base} />
       <Ribbon pts={south} w={RIVER_W} />
       {Y < 1960 && <Ribbon pts={OLD_REACH} w={oldW} color={swing > 0.5 ? '#4f8fa6' : WATER} banks={swing < 0.9} />}
@@ -159,7 +161,7 @@ const Chedi: React.FC<{at: [number, number, number]; s: number; k: number; color
 // ------------------------------------------------------------------ the boats
 const BoatAt: React.FC<{b: Boat | null; pairs?: number}> = ({b, pairs}) =>
   b && b.s > 0.03 ? (
-    <group position={[b.x, 0.1, b.z]} rotation-y={b.rot} scale={b.s}>
+    <group position={[b.x, 0.14, b.z]} rotation-y={b.rot} scale={b.s}>
       <NanBoat t={b.t} shirt={b.shirt} band={b.band} pairs={pairs} />
     </group>
   ) : null;
@@ -627,7 +629,7 @@ const RaceGround: React.FC<{Y: number; t: number}> = ({Y, t}) => {
           // both banks, either side of the bridge
           const along0 = (i % 24) * 0.55 - 6.5;
           const side = i < 24 ? -1 : 1;
-          const p = along(RIVER, PAY_D + along0);
+          const p = along(COURSE, PAY_D + along0);
           const r = Math.atan2(Math.sin(p.rot), Math.cos(p.rot));
           const off = side * (HIGH_W / 2 + 0.55 + (i % 3) * 0.3);
           const px = p.x + Math.cos(r) * off;
@@ -708,7 +710,7 @@ export const NanLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terrainH: g,
       {beatK('race', t) > -0.05 &&
         beatK('race', t) < 1.05 &&
         Array.from({length: 26}, (_, i) => {
-          const p = along(OLD_RIVER, RACE_D0 + 2 + (i % 13) * 0.9);
+          const p = along(COURSE_OLD, RACE_D0 + 2 + (i % 13) * 0.9);
           const side = i < 13 ? 1 : -1;
           const off = side * (1.35 + (i % 2) * 0.3);
           return (

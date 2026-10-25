@@ -325,12 +325,15 @@ export const NanBoat: React.FC<{t: number; rate?: number; pairs?: number; shirt?
         <sphereGeometry args={[1, 12, 6]} />
         <meshStandardMaterial color="#ffffff" transparent opacity={0.6} depthWrite={false} />
       </mesh>
-      {[-1, 1].map((s) => (
-        <mesh key={s} position={[s * 1.6, 0.025, -L * 0.15]} rotation={[-Math.PI / 2, 0, s * 0.09]}>
-          <planeGeometry args={[0.35, L * 1.1]} />
-          <meshStandardMaterial color="#ffffff" transparent opacity={0.4} depthWrite={false} />
-        </mesh>
-      ))}
+      {/* a short V of wake off the stern quarters, fading out behind */}
+      {[-1, 1].map((s) =>
+        [0, 1, 2].map((j) => (
+          <mesh key={`${s}${j}`} position={[s * (0.75 + j * 0.45), 0.025, -L / 2 + 1.2 - j * 1.3]} rotation={[-Math.PI / 2, 0, s * 0.35]}>
+            <planeGeometry args={[0.22, 1.5]} />
+            <meshStandardMaterial color="#ffffff" transparent opacity={0.45 - j * 0.13} depthWrite={false} />
+          </mesh>
+        )),
+      )}
     </group>
   );
 };

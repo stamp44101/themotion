@@ -11,10 +11,10 @@ import {AIRFIELD, CHAE_HAENG, PHUMIN} from './places';
 
 type Key = CameraKey;
 // [t, target x, y, z, distance, azimuth, elevation, fov]
-const HERO_END: Key = [7.2, 8.5, 2, -2.5, 100, -20, 32, 30];
-const CH_IN: Key = [8.9, CHAE_HAENG[0] - 1, 1, CHAE_HAENG[1] - 1, 70, 42, 42, 30];
-const CH_END: Key = [12.0, CHAE_HAENG[0] - 1, 1, CHAE_HAENG[1] - 1, 64, 62, 42, 30];
-const BU_IN: Key = [13.6, 20, 1, 16, 92, 76, 40, 30];
+const HERO_END: Key = [7.2, 19.3, 2, -13.3, 95, 56, 32, 30];
+const CH_IN: Key = [8.9, CHAE_HAENG[0] - 1, 1, CHAE_HAENG[1] - 1, 70, 64, 42, 30];
+const CH_END: Key = [12.0, CHAE_HAENG[0] - 1, 1, CHAE_HAENG[1] - 1, 64, 78, 42, 30];
+const BU_IN: Key = [13.6, 20, 1, 16, 92, 90, 40, 30];
 const BU_END: Key = [18.3, 3, 1, 1, 86, 110, 42, 30];
 const SI_IN: Key = [20.1, -17, 1, -2, 80, 150, 40, 30];
 const SI_END: Key = [24.4, -11, 1, -2, 74, 176, 42, 30];
@@ -62,8 +62,8 @@ export const STORY = buildStory({
       caption: {t0: 3.3, title: 'ล่องน้ำน่านลงจากเมืองปัว', sub: 'ตามพงศาวดาร พญาการเมืองพาผู้คนลงมาตั้งเมืองใหม่'},
       era: 'ราชวงศ์ภูคา',
       camera: [
-        [0, 17, 2, -12, 320, -55, 40, 30],
-        [3, 20, 2, -12, 160, -45, 35, 30],
+        [0, 20, 2, -18, 270, 48, 40, 30],
+        [3, 25.6, 2, -20.7, 150, 52, 35, 30],
         HERO_END,
       ],
     },

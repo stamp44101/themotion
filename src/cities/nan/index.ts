@@ -1,7 +1,7 @@
 import {GROUND} from '../../Scene';
 import type {CityConfig} from '../../engine/types';
 import {NanLandmarks} from './Landmarks';
-import {ACTORS, CH_MOAT, HERO_W, HIGH_W} from './actors';
+import {ACTORS, CH_MOAT, HERO_COURSE, HERO_W, HIGH_W} from './actors';
 import {
   AIRFIELD, AIRFIELD_LEN, BOAT_MONUMENT, BRIDGE_MAIN, BRIDGE_NORTH, BRIDGE_SOUTH, CHAE_HAENG, CHANG_KHAM, GATES, HOKHAM, KHAO_NOI,
   KHUANG, MING_MUEANG, NEW_REACH, OLD_REACH, PHUMIN, RIVER, TOWN, WIANG_NUEA, WN_INNER, WN_OUTER,
@@ -26,7 +26,7 @@ const rect = (c: P, [w, h]: [number, number]): P[] => [
   [c[0] + w / 2, c[1] + h / 2],
   [c[0] - w / 2, c[1] + h / 2],
 ];
-const WATER_W = Math.max(HIGH_W, HERO_W) + 0.6;
+const WATER_W = HIGH_W + 0.6;
 
 export const NAN: CityConfig = {
   id: 'nan',
@@ -97,7 +97,9 @@ export const NAN: CityConfig = {
       // 2398 swing (then a strip pond, ท้องหลง, filled by 2500), today's reach after it
       ...band(RIVER.slice(0, 11), false, WATER_W, undefined, undefined, 'river north'),
       ...band(RIVER.slice(17), false, WATER_W, undefined, undefined, 'river south'),
-      ...band(OLD_REACH, false, HERO_W + 0.6, undefined, 1858, 'old channel'),
+      ...band(OLD_REACH, false, 2.4, undefined, 1858, 'old channel'),
+      // the cover's high water (the hero boat's course): open meadow along the river after it
+      ...band(HERO_COURSE, false, HERO_W + 0.6, undefined, 1360, 'cover high water'),
       ...band(OLD_REACH, false, 1.0, 1858, 1960, 'old channel pond'),
       ...band(NEW_REACH, false, WATER_W, 1855, undefined, 'river today'),
       ...band(CH_MOAT, true, 0.9, 1359, undefined, 'Chae Haeng moat'),
