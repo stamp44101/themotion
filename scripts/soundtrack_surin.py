@@ -13,6 +13,7 @@ import os
 sys.path.insert(0, os.path.dirname(__file__))
 import json  # noqa: E402
 import synth  # noqa: E402
+import elephant_voices as ev  # noqa: E402
 
 synth.init(json.load(open("out/timeline_surin.json"))["duration"])
 from synth import *  # noqa: E402,F403
@@ -123,8 +124,26 @@ def steps(t0, t1, every, gain, pan=0.0):
         t += every * rng.uniform(0.85, 1.15)
 
 
-def call(t0, gain, pan=0.0):
-    add(sfx, filt(trumpet_elephant(1.1), "low", 1800), t0, pan=pan, gain=gain)
+def call(t0, gain, pan=0.0, size=1.0):
+    """a trumpet call; size 1 = a big tusker, 0.7 = a cow, 0.4 = a calf (elephant_voices.py)"""
+    add(sfx, ev.trumpet(size), t0, pan=pan, gain=gain)
+
+
+def calf(t0, gain, pan=0.0):
+    add(sfx, ev.squeak(rng.uniform(0.28, 0.38)), t0, pan=pan, gain=gain)
+
+
+def low(t0, dur, gain, pan=0.0, size=1.0):
+    """the contact rumble that keeps a herd together"""
+    add(sfx, ev.rumble(size, dur), t0, pan=pan, gain=gain)
+
+
+def huff(t0, gain, pan=0.0):
+    add(sfx, ev.blow(), t0, pan=pan, gain=gain)
+
+
+def herd_chorus(t0, gain, pan=0.0, dur=3.0):
+    add(sfx, ev.chorus(dur), t0, pan=pan, gain=gain)
 
 
 def rumble(t0, dur, gain):
@@ -136,8 +155,13 @@ def rumble(t0, dur, gain):
 # iron-age village's furnaces crackling at the edge of the clearing
 tread(0.05, herd[1], 0.42, 0.55, pan=-0.1)
 rumble(0.0, 3.0, 0.5)
-call(1.5, 0.55, pan=-0.2)
-call(5.2, 0.3, pan=0.3)
+low(0.0, 2.2, 0.9)  # the herd's first sound, in the first frame
+call(1.5, 0.75, pan=-0.2, size=1.0)  # the tusker
+calf(2.3, 0.7, pan=0.25)
+calf(2.65, 0.55, pan=0.35)
+call(5.0, 0.55, pan=0.3, size=0.72)  # a cow answers
+huff(5.9, 0.6, pan=0.2)
+herd_chorus(herd[1] - 0.4, 0.45, pan=-0.1, dur=2.6)  # fading into the forest
 add(sfx, crackle(herd[1] - 3.2), 3.2, pan=0.4, gain=0.25)
 add(sfx, babble(herd[1] - 3.6, 0.5), 3.4, pan=0.4, gain=0.25)
 # the moat: hoes and baskets all round the ring, earth thrown up
@@ -150,7 +174,9 @@ add(sfx, babble(moat[1] - moat[0] - 0.6, 0.9), moat[0] + 0.3, pan=0.1, gain=0.4)
 tread(khmer[0] + 0.2, khmer[1] - 0.2, 0.5, 0.45, pan=-0.2)
 for t in np.arange(khmer[0] + 0.3, khmer[1] - 0.2, 0.55):
     add(sfx, creak(0.4), t, pan=0.3, gain=0.3)
-call(at(khmer, 0.3), 0.4, pan=-0.3)
+call(at(khmer, 0.3), 0.55, pan=-0.3, size=0.9)
+for k in range(3):
+    low(at(khmer, 0.1 + k * 0.3), 1.4, 0.55, pan=rng.uniform(-0.4, 0.4), size=0.9)
 for i in range(10):
     add(sfx, blip(rng.uniform(200, 280), 0.5), at(khmer, 0.15 + i * 0.07), pan=rng.uniform(-0.6, 0.6))
 # 2302: the white elephant's run, the headmen after it, the nooses, its call as it is held
@@ -160,7 +186,10 @@ rumble(white[0], at(white, 0.65) - white[0], 0.6)
 for k in range(4):
     n = int(0.35 * SR)
     add(sfx, filt(pink(n), "band", (300, 1400)) * env_ar(n, 0.1, 0.25) * 0.35, at(white, 0.45 + k * 0.05), pan=rng.uniform(-0.4, 0.4))
-call(at(white, 0.66), 0.7, pan=0.0)
+call(at(white, 0.2), 0.7, pan=-0.2, size=0.9)  # the white one, running
+call(at(white, 0.66), 0.85, pan=0.0, size=0.9)  # held by the nooses
+huff(at(white, 0.75), 0.6, pan=0.3)
+huff(at(white, 0.85), 0.5, pan=-0.3)
 add(sfx, babble(1.6, 1.2), at(white, 0.72), pan=0.2, gain=0.45)
 # 2306: the column from Ban Mueang Thi: feet, carts, elephants, voices; the town going up
 steps(prathai[0] + 0.2, at(prathai, 0.9), 0.22, 0.6, pan=0.3)
@@ -168,6 +197,9 @@ tread(prathai[0] + 0.3, at(prathai, 0.9), 0.55, 0.4, pan=0.2)
 for t in np.arange(prathai[0] + 0.4, at(prathai, 0.9), 0.6):
     add(sfx, creak(0.4), t, pan=0.4, gain=0.25)
 add(sfx, babble(prathai[1] - prathai[0] - 0.6, 1.0), prathai[0] + 0.3, pan=0.1, gain=0.45)
+low(at(prathai, 0.15), 1.8, 0.45, pan=0.3, size=0.85)
+huff(at(prathai, 0.4), 0.4, pan=0.4)
+call(at(prathai, 0.6), 0.35, pan=0.4, size=0.7)
 for i in range(24):
     add(sfx, blip(gain=0.6), at(prathai, 0.05 + i * 0.035), pan=rng.uniform(-0.6, 0.6))
 # 2469: the steam train from the west; shophouses going up along ถนนธนสาร
@@ -188,7 +220,8 @@ add(sfx, babble(2.0, 0.8), at(rail, 0.6), pan=0.2, gain=0.4)
 skor(show[0] + 0.2, show[1], 0.24)
 tread(show[0] + 0.2, show[1], 0.5, 0.4, pan=0.2)
 add(sfx, crowd(show[1] - show[0]), show[0], pan=0.1, gain=0.24)
-call(at(show, 0.4), 0.4, pan=0.3)
+herd_chorus(at(show, 0.2), 0.5, pan=0.3, dur=2.4)
+herd_chorus(at(show, 0.65), 0.4, pan=-0.2, dur=2.0)
 # the town spreading: a pop per block, the town's patter
 for k in range(10):
     add(sfx, blip(rng.uniform(200, 300), 0.8), at(grow, 0.02 + k * 0.04), pan=rng.uniform(-0.5, 0.5))
@@ -198,8 +231,15 @@ while t < grow[1] - 0.2:
     t += rng.exponential(0.14)
 # the payoff: the herd walks back to the buffet: footfalls, a call, the crowd, the band
 tread(pay[0] + 0.1, at(pay, 0.5), 0.4, 0.55, pan=-0.2)
-call(at(pay, 0.2), 0.55, pan=-0.2)
-call(at(pay, 0.65), 0.35, pan=0.3)
+call(at(pay, 0.2), 0.8, pan=-0.2, size=1.0)  # the tusker back at the table
+calf(at(pay, 0.35), 0.65, pan=0.3)
+calf(at(pay, 0.42), 0.5, pan=0.4)
+for k in range(5):
+    huff(at(pay, 0.5 + k * 0.08), 0.35, pan=rng.uniform(-0.4, 0.4))
+for k in range(14):  # munching fruit
+    n = int(0.12 * SR)
+    add(sfx, filt(noise(n), "band", (180, 900)) * env_ar(n, 0.01, 0.1) * 0.35, at(pay, 0.48 + k * 0.03), pan=rng.uniform(-0.4, 0.4))
+herd_chorus(today[0] - 1.2, 0.55, pan=0.0, dur=3.0)  # closing before the finale card
 skor(pay[0] + 0.3, today[1], 0.24)
 add(sfx, crowd(today[1] - pay[0] + 0.5), pay[0], pan=0.2, gain=0.26)
 add(sfx, babble(today[1] - pay[0], 1.1), pay[0] + 0.2, pan=0.3, gain=0.6)
