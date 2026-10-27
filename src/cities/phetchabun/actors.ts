@@ -106,10 +106,10 @@ export const WEDGE_FILL: P[] = (() => {
   for (let x = POOL[0] - 9; x <= POOL[0] + 9; x += step)
     for (let z = POOL[1] - 9; z <= POOL[1] + 9; z += step) {
       // distances to the course, with the arc each is measured at
-      const near = samples.map((q) => ({e: Math.hypot(q.p[0] - x, q.p[1] - z), d: q.d})).filter((q) => q.e < HIGH_W / 2 + 1.1);
-      if (!near.length || near.some((q) => q.e < HIGH_W / 2)) continue;
+      const near = samples.map((q) => ({e: Math.hypot(q.p[0] - x, q.p[1] - z), d: q.d})).filter((q) => q.e < HIGH_W / 2 + 1.4);
+      if (!near.length || near.some((q) => q.e < HIGH_W / 2 - 0.4)) continue;
       const ds = near.map((q) => q.d);
-      if (Math.max(...ds) - Math.min(...ds) > 6) out.push([x, z]);
+      if (Math.max(...ds) - Math.min(...ds) > 4) out.push([x, z]);
     }
   return out;
 })();

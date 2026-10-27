@@ -1,4 +1,6 @@
 import React, {useMemo} from 'react';
+import * as THREE from 'three';
+import {mergeGeometries} from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import {lathe, Viharn, Elephant} from '../../engine/parts';
 import type {LandmarkProps} from '../../engine/types';
 import {ramp} from '../../lib';
@@ -83,6 +85,41 @@ const Ribbon: React.FC<{pts: P[]; w: number; closed?: boolean; y?: number; color
         );
       })}
     </>
+  );
+};
+
+const WaterPatches: React.FC<{k: number; fill: boolean}> = ({k, fill}) => {
+  const r = (1 + (HIGH_W - 1) * k) / 2;
+  const geo = useMemo(() => {
+    // the ribbon's own top (same widths and taper as the Ribbon below it): a plane per segment and
+    // a disc per joint
+    const total = HIGH.slice(1).reduce((sum, b, i) => sum + Math.hypot(b[0] - HIGH[i][0], b[1] - HIGH[i][1]), 0);
+    let run = 0;
+    const top = HIGH.slice(1).flatMap((b, i) => {
+      const a = HIGH[i];
+      const len = Math.hypot(b[0] - a[0], b[1] - a[1]);
+      const at = run;
+      run += len;
+      const e = Math.min(1, Math.min(at, total - at) / HIGH_TAPER);
+      const w = 1 + (2 * r - 1) * e * e * (3 - 2 * e);
+      const rot = Math.atan2(b[0] - a[0], b[1] - a[1]);
+      return [
+        new THREE.PlaneGeometry(w, len).rotateX(-Math.PI / 2).rotateY(rot).translate((a[0] + b[0]) / 2, 0, (a[1] + b[1]) / 2),
+        new THREE.CircleGeometry(w / 2, 20).rotateX(-Math.PI / 2).translate(a[0], 0, a[1]),
+      ];
+    });
+    const discs = [
+      ...top,
+      ...HIGH_RAW.map(([x, z]) => new THREE.CircleGeometry(r, 28).rotateX(-Math.PI / 2).translate(x, 0, z)),
+      ...(fill ? WEDGE_FILL.map(([x, z]) => new THREE.CircleGeometry(0.45, 12).rotateX(-Math.PI / 2).translate(x, 0, z)) : []),
+    ];
+    return mergeGeometries(discs);
+  }, [r, fill]);
+  // the ribbon's box top is at 0.15 + 0.03
+  return (
+    <mesh geometry={geo} position={[0, 0.182, 0]} receiveShadow>
+      <meshStandardMaterial color={WATER} roughness={0.12} metalness={0.25} />
+    </mesh>
   );
 };
 
@@ -548,23 +585,11 @@ export const PhetchabunLandmarks: React.FC<LandmarkProps> = ({Y, t, night}) => {
   return (
     <>
       {hw > 0.02 && <Ribbon pts={HIGH} w={1 + (HIGH_W - 1) * hw} y={0.15} banks={false} taper={[HIGH_TAPER, 1]} />}
-      {/* the hairpin's thin land wedge filled in at the rite's high water */}
-      {hw > 0.5 && t > 30 &&
-        WEDGE_FILL.map(([x, z], i) => (
-          <mesh key={`wf${i}`} position={[x, 0.15, z]}>
-            <cylinderGeometry args={[0.3, 0.3, 0.06, 10]} />
-            <meshStandardMaterial color={WATER} roughness={0.12} metalness={0.25} />
-          </mesh>
-        ))}
-      {/* a round pool on each corner of the river's own line, so its sharp corners never poke out
-          of the smoothed high water, and the inside of the bend stays round */}
-      {hw > 0.02 &&
-        HIGH_RAW.map(([x, z], i) => (
-          <mesh key={`hc${i}`} position={[x, 0.15, z]} receiveShadow>
-            <cylinderGeometry args={[(1 + (HIGH_W - 1) * hw) / 2, (1 + (HIGH_W - 1) * hw) / 2, 0.06, 24]} />
-            <meshStandardMaterial color={WATER} roughness={0.12} metalness={0.25} />
-          </mesh>
-        ))}
+      {/* the hairpin's thin land wedge filled in at the rite's high water, and a round pool on each
+          corner of the river's own line (its sharp corners never poke out of the smoothed high
+          water): flat discs on the water's top face, no side walls, merged into one mesh, so the
+          shader look's ambient occlusion finds no seams to darken (the workstation's 8becca7 render) */}
+      {hw > 0.02 && <WaterPatches k={hw} fill={hw > 0.5 && t > 30} />}
       <Cover t={t} />
       <Image t={t} />
       <Procession t={t} />
