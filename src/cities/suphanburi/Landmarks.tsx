@@ -117,7 +117,9 @@ const LuangPhoTo: React.FC = () => (
 const PaLelai: React.FC<{Y: number; t: number}> = ({Y, t}) => {
   const k = hallK(t, Y);
   return (
-    <group position={[PALELAI[0], 0, PALELAI[1]]}>
+    // the image and the hall's open front face the camera of the 'palelai' beat (azimuth ~242: from
+    // the north-west); the workstation's render showed the back wall and then the roof hiding it
+    <group position={[PALELAI[0], 0, PALELAI[1]]} rotation-y={(242 * Math.PI) / 180}>
       <LuangPhoTo />
       {/* the hall goes up round the image: its back and side walls first, the roof last; it is
           open on the camera's side (the drone sees the image, not just roof) */}
@@ -133,7 +135,8 @@ const PaLelai: React.FC<{Y: number; t: number}> = ({Y, t}) => {
           <meshStandardMaterial color="#f1e9da" roughness={0.9} />
         </mesh>
       </Grow>
-      {k > 0.85 && (
+      {/* the roof goes on after the beat, so the image is seen while the hall rises */}
+      {Y > 1867 && (
         <mesh position={[0, 3.0, -0.1]} rotation-y={Math.PI / 2} scale={[1.6, 0.9, 1.7]} castShadow>
           <coneGeometry args={[1, 1, 4]} />
           <meshStandardMaterial color="#b0362a" flatShading roughness={0.7} side={THREE.DoubleSide} />
