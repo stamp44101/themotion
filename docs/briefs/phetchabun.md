@@ -6,7 +6,15 @@ Look: shader only (owner's rule from 26 Oct). Length: 60 s.
 The cover rule from `docs/experiments.md` §8–§9: **an event in the first 1–2 s** (a burst, a rise,
 a leap), the hero filling the middle of the cover frame; a walk or a glide is not enough.
 
-## §4 Hero — to decide (owner)
+## §4 Hero — decided (owner, 27 Oct 2026): **A, the image rising from the whirlpool**
+
+Style frames: `phetchabun_styleframes.jpg` (0, 0.5, 1, 2, 4, 8 s) and `phetchabun_styleframe_close.jpg`.
+Model: `MahaThammaracha`, `Whirlpool`, `Burst`, `Ripples`, `Halo` in `src/styleframes/phetchabunBuddha.tsx`
+(crowned Bayon-style Buddha in meditation, no pedestal, face toward the camera). Drawn 14 units tall at
+legend scale; the burst is already rising at frame 0 so the cover frame shows the event; the image rises
+upright over 0.25-2.25 s, never spinning; the halo opens at 1.6 s.
+
+The options as offered:
 
 | | the first second | callback in the payoff | for | against |
 |---|---|---|---|---|
