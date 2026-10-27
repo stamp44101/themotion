@@ -452,3 +452,110 @@ What it changes:
 (Phuket, Ubon, Lopburi, and Surin to come). So the moving-hero reads of §5–§7 are all shader
 posts; the plain look has not been tested with a moving hero. Korat (the one plain-era clip
 under 40%) is the only evidence that the hero works without it.
+
+## 8. Surin: a wild herd walking across the forest, 60 s — read: the moving-hero rule broke
+
+The cover is a herd of wild elephants (a tusker, cows, two calves) walking across a clearing
+on the whole forest tile from frame 0; they come back in the payoff at the elephant buffet in
+front of the founder's monument. 60 s, built to the storyline standard, **posted in the shader
+look**, -16 LUFS, with synthesised elephant calls added at the owner's request (trumpet,
+rumble, calf squeak) on the herd's beats.
+
+### Result (read 26 Oct 09:02, about a day in)
+
+**Skip rate 42.3%** ("higher"), the worst of the four moving-hero posts and the first of them
+over 40%. **5,686 views from 3,974 viewers**, under a typical reel at the same age (the curve
+flattens near 5K where the typical line is ~8-9K): about a tenth of Ubon's or Lopburi's reach.
+**7 follows. Average watch 18 s of 60.** Rates: likes 7.5% ("higher"), reposts 0.9%
+("higher"), comments 0.4% ("higher"), shares 0.4% ("lower"), saves 0.4% ("lower"). Views came
+from the Reels tab (66.7%), Feed (20.3%), Explore (5.3%), Stories (3.5%) and Profile (3.3%).
+
+Retention, read off the curve and so approximate: **~65% at 3 s**, **~35% at 17 s**, ~26% at
+30 s, ~17% at 55 s and ~5% at the end.
+
+| | Korat | Phuket | Ubon | Lopburi | **Surin** |
+|---|---|---|---|---|---|
+| hero | 3 walking dinosaurs | 2 turtles crawling | naga uncoiling | Hanuman leaping + troop | **elephant herd walking** |
+| length, look | 60 s | 75 s, shader | 60 s, shader | 60 s, shader | **60 s, shader** |
+| skip rate | 32.9% | 38.7% | 24.0% | 30.2% | **42.3%** |
+| retention at 17 s | ~35% | ~36% | ~48% | ~43% | **~35%** |
+| average watch | 21 s | 24 s | 27 s | 21 s | **18 s** |
+| share | 1.3% | 0.5% | 1.1% | 1.9% | **0.4%** |
+| views from the Reels tab | — | 70.1% | 90.4% | 89.0% | **66.7%** |
+| views | — | — | 65,888 | 54,436 | **5,686** |
+
+Reading:
+- **"Moving" is not enough; the first second has to be an event.** The herd moved from frame
+  0, but at a slow walk (0.7 units/s), grey on green, and the cover frame shows a small grey
+  cluster in a clearing (see the thumbnail in the insights). Ubon's naga uncoiled and Lopburi's
+  Hanuman leapt: both changed shape or position fast and large in the first two seconds.
+  Phuket's crawling turtles (38.7%) were the slowest of the earlier three and the weakest.
+  Read across the five: **the faster and bigger the first-second change, the lower the skip.**
+- **The reach collapse follows the skip rate:** 66.7% of views from the Reels tab against
+  ~90% for Ubon and Lopburi; most views came from followers' feeds, so the clip was not pushed
+  out to new viewers.
+- **People who stayed liked it** (likes, reposts and comments all "higher"), so the content
+  past the hook is not the problem; shares fell back to 0.4%, as Phuket's did.
+- Not separable from one post: the elephant being a less singular icon than the naga or
+  Hanuman, or day-to-day noise in distribution.
+
+What it changes:
+- **The cover's first 1-2 s must show a big, fast change** on the hero: a leap, an uncoiling,
+  a burst, a splash, not a walk. Measure it: the hero's on-screen displacement or size change
+  over 0-2 s, alongside `check_story`'s hero box.
+- **Nan (posted next) opens on the naga boat paddling down the river at 1.1x**, a steady glide
+  rather than a burst; its read will test this directly. If it lands above 40% too, the next
+  city's cover needs an explicit event in the first second.
+- Keep logging hero speed with every post from here on.
+
+## 9. Nan: the naga boat gliding down the river, 75 s — read: confirms §8
+
+The cover is the naga race boat (1.1x, 18 units) paddling down the Nan through forest from
+frame 0, seen broadside on a widened high-water course; it comes back in the payoff racing to
+the finish by the main bridge. **75 s** (the extra time went to the siege, the flood and the
+return), built to the storyline standard, **posted in the shader look**, -16 LUFS.
+
+### Result (read 27 Oct 08:41, about a day in)
+
+**Skip rate 41.5%** ("higher"). **7,273 views from 5,498 viewers**, under a typical reel at the
+same age (the curve flattens near 6.5K where the typical line is ~8-9K). **14 follows.**
+**Average watch 20 s of 75** (27%). Rates: likes 5.3%, shares 0.2%, saves 0.4%, reposts 0.5%
+(all "lower"), comments 0.2% ("typical"). Counts: 297 likes, 9 comments, 28 reposts, 8 shares,
+25 saves. Views came from the Reels tab (73.1%), Feed (14.6%), Explore (7.1%), Stories (3.0%)
+and Profile (1.7%).
+
+Retention, read off the curve and so approximate: **~66% at 3 s**, **~31% at 17 s**, ~25% at
+30 s, ~17% at 55 s and ~8% at the end (75 s).
+
+| | Ubon | Lopburi | Surin | **Nan** |
+|---|---|---|---|---|
+| hero | naga uncoiling | Hanuman leaping + troop | elephant herd walking | **naga boat gliding** |
+| first 2 s | big shape change | big fast leap | slow walk, small | **steady glide, small on the cover** |
+| length, look | 60 s, shader | 60 s, shader | 60 s, shader | **75 s, shader** |
+| skip rate | 24.0% | 30.2% | 42.3% | **41.5%** |
+| retention at 17 s | ~48% | ~43% | ~35% | **~31%** |
+| average watch | 27 s | 21 s | 18 s | **20 s** |
+| share | 1.1% | 1.9% | 0.4% | **0.2%** |
+| views from the Reels tab | 90.4% | 89.0% | 66.7% | **73.1%** |
+| views | 65,888 | 54,436 | 5,686 | **7,273** |
+
+Reading:
+- **§8 holds a second time.** Two covers that moved steadily from frame 0 (the herd walking,
+  the boat gliding) both skipped above 41% and fell under a typical reel; the two that made a
+  big, fast change in the first second (the naga uncoiling, Hanuman leaping) are the two best
+  reads of all nine. Motion is not the variable; **an event in the first second is.**
+- **The hero was small on the cover frame.** The insights thumbnail shows a wide forest tile
+  with the boat as a thin line on the river: 1.1x on a 96-unit tile. Ubon's naga and Lopburi's
+  Hanuman filled the middle of the frame.
+- **75 s did not buy watch time:** 20 s average, 27% of the length; Phuket (75 s) was 32%.
+- Shares are the lowest yet (0.2%): a race boat is Nan's, but not a story people pass on the way
+  they passed on the naga candle or Lopburi's monkeys.
+
+What it changes (from the next city, Phetchabun):
+- **The cover is an event, not a pose or a walk:** in the first 1-2 s the hero must change
+  shape, size or position fast and large (burst out of the ground, rise, leap, unfold, crash
+  in), and it must fill the middle of the cover frame (hero half-size >= 1/4 of the frame
+  width at frame 0, not just the 80-px legibility floor).
+- Prefer 60 s.
+- A hero that is a story people share (a legend, a festival image the town is known for)
+  over a symbol that is merely local.
