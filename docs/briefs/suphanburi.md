@@ -27,7 +27,7 @@ on the west side (the river-side wall was razed in the 16th century), Wat Khae o
 | hero | fight | 2135 (hold) | the duel at Don Chedi, the stupa rises (caption: ยุทธหัตถี ณ ตำบลหนองสาหร่าย, 18 ม.ค. 2135) |
 | boats | procession | 2447 | Rama V's boat trip up the Tha Chin, the stop at Wat Khae's landing under the tamarind (4 Aug 2447) |
 | rediscover | discover | 2456 | the jungle cleared at Don Chedi, the old stupa base found (Phraya Pariyat Sarutaphani) |
-| maillboats | trade | 2446–2504 | the red two-deck mail boats up the river to Sam Chuk, the riverside market |
+| mailboats | trade | 2446–2504 | the red two-deck mail boats up the river to Sam Chuk, the riverside market |
 | water | build | 2464–2475 | the Pho Phraya water gate across the Tha Chin; the plain turns to paddy |
 | road | arrive | 2493–2506 | Malaiman road from Nakhon Pathom; the railway to Suphanburi (opened 16 Jun 2506) |
 | growth | grow | 2507–2560 | the town spreads to the east bank; Banharn-Jamsai tower (2533–2537, 123.25 m); the new provincial hall |
