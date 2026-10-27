@@ -144,15 +144,37 @@ owner does not carry messages between them.
   is subscribed to the PR and is woken by every comment. The local agent watches it with
   `/loop`, e.g. `/loop 15m check PR #<n> for new [cloud] comments addressed to [local]; do
   the work and reply there`.
-- **Sign every comment** `[cloud]` or `[local]`: both post as the owner's account.
+- **Sign every comment** `[cloud]`, `[local]` or `[gemini]`: all post as the owner's account.
 - **Say who does what next**, so the two never build the same thing. By default:
-  - cloud: briefs, layout, landmarks, camera, soundtrack, checks, contact sheets;
+  - cloud: research requests, briefs, layout, landmarks, camera, soundtrack, checks, contact sheets;
+  - gemini: the research answer (below);
   - local: anything behind the container's walls (ONEP, OSM, Google Maps, Thai sites),
     full renders on the GPU, `check_render`, encodes, release uploads.
 - **Only the owner decides:** the hero, the story beats, what is shown (`docs/storyline.md`
   §3.6a), anything that spends money, merging, posting. When one is needed, write
   `@stamp44101 ต้องตัดสินใจ: <the question, with the options>` (GitHub notifies the owner's
   phone), and keep working on what does not depend on it. Everything else, settle between you.
+
+## Gemini does the research, in the same PR (owner, 27 ต.ค. 2569)
+
+Gemini runs from the owner's local machine (Gemini CLI, with `git` and `gh`) and takes the
+research step, so the owner no longer copies the request out and the answer back in.
+
+- **Its job:** read `docs/briefs/<city>_research_request.md` on the city's branch, research it,
+  and commit the answer as `docs/briefs/<city>_research_gemini.md` on the same branch. Keep the
+  request's format: the five parts, a confidence level on every row (ยืนยัน / สันนิษฐาน / ขัดแย้ง),
+  a link or a named document behind every year, and "ไม่พบ" rather than a guess.
+- **Where it may write:** `docs/briefs/` only. Never `src/`, `scripts/`, `public/`, `package.json`
+  or another branch; never merge, force-push or close a PR.
+- **Sign** commit messages and PR comments `[gemini]`. When the answer is pushed, say so in one
+  PR comment: the file, and the three things the cloud agent should look at first (the hero
+  options, anything ขัดแย้ง, anything ไม่พบ).
+- **The cloud agent** writes the request and opens the draft PR with a `[gemini]` task in it;
+  the push wakes it, and it checks the answer against the web before a caption uses it (Gemini's
+  research has been wrong on dates before: Phetchabun's tamarind fair and pillar years were
+  never found anywhere else).
+- **To start it**, the owner gives Gemini CLI the standing prompt in `docs/gemini-research.md`
+  with the PR number.
 
 ## Verifying your own work
 
