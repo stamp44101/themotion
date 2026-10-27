@@ -51,5 +51,5 @@ export const PHRA_RUP = u(133, 939); // วัดพระรูป
 export const BRIDGE_MALAIMAN: [P, P] = [u(640, -260), u(820, -190)];
 
 // ---- Don Chedi (19.7 km NNW, far: true): the field of the duel, drawn in the tile's north-west
-// corner, 323 degrees from the pillar (true bearing 330; distance compressed ~13x)
-export const FIELD: P = [-30, -40];
+// corner, 325 degrees from the pillar (true bearing 330; distance compressed ~13x)
+export const FIELD: P = [-28, -40];

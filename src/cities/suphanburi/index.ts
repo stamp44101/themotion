@@ -30,7 +30,8 @@ export const SUPHANBURI: CityConfig = {
     duration: STORY.duration,
   },
   layout: {
-    tile: {x0: -56, x1: 40, z0: -50, z1: 46},
+    // x0 -60: the giants' charge in the cover starts 29 units west of the field
+    tile: {x0: -60, x1: 40, z0: -50, z1: 46},
     // a flat plain: the first hills are ~29 km west (README item 4), off the tile
     peaks: [],
     rivers: [{path: RIVER, width: RIVER_W}],

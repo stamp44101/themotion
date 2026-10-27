@@ -285,8 +285,10 @@ const Duel: React.FC<{t: number}> = ({t}) => {
   const k = S / HERO_S;
   return (
     <group>
-      <mesh position={[FIELD[0], 0.03, FIELD[1]]} rotation-x={-Math.PI / 2} receiveShadow>
-        <circleGeometry args={[Math.max(3, 3.2 * S), 48]} />
+      {/* the trampled ground: an ellipse along the charge, kept inside the tile (the north edge is
+          10 units away; a round field of the giants' size ran off it) */}
+      <mesh position={[FIELD[0], 0.03, FIELD[1]]} rotation-x={-Math.PI / 2} scale={[Math.max(3, 3.0 * S), Math.min(8.5, Math.max(3, 3.0 * S)), 1]} receiveShadow>
+        <circleGeometry args={[1, 48]} />
         <meshStandardMaterial color="#c8b07c" roughness={1} />
       </mesh>
       <group position={[d.siam, 0, FIELD[1]]} rotation-y={Math.PI / 2} scale={S}>
