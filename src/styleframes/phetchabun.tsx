@@ -8,7 +8,7 @@ import React from 'react';
 import {KORAT} from '../cities/korat';
 import {buildStory} from '../engine/story';
 import type {CityConfig, LandmarkProps} from '../engine/types';
-import {Burst, Halo, MahaThammaracha, Ripples, Whirlpool} from './phetchabunBuddha';
+import {Burst, Halo, MahaThammaracha, Ripples, Whirlpool} from '../cities/phetchabun/buddha';
 
 type P2 = [number, number];
 const m = (x: number, z: number): P2 => [x / 40, z / 40];

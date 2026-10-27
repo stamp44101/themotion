@@ -9,7 +9,7 @@ a leap), the hero filling the middle of the cover frame; a walk or a glide is no
 ## §4 Hero — decided (owner, 27 Oct 2026): **A, the image rising from the whirlpool**
 
 Style frames: `phetchabun_styleframes.jpg` (0, 0.5, 1, 2, 4, 8 s) and `phetchabun_styleframe_close.jpg`.
-Model: `MahaThammaracha`, `Whirlpool`, `Burst`, `Ripples`, `Halo` in `src/styleframes/phetchabunBuddha.tsx`
+Model: `MahaThammaracha`, `Whirlpool`, `Burst`, `Ripples`, `Halo` in `src/cities/phetchabun/buddha.tsx`
 (crowned Bayon-style Buddha in meditation, no pedestal, face toward the camera). Drawn 14 units tall at
 legend scale; the burst is already rising at frame 0 so the cover frame shows the event; the image rises
 upright over 0.25-2.25 s, never spinning; the halo opens at 1.6 s.
@@ -26,7 +26,39 @@ Gemini's other two (Pho Khun Pha Mueang's war elephant leaping out of the burnin
 twin boxing champions' gloves punching the valley up) are left out: the first stages a city
 burning and a queen's suicide, the second is not history.
 
-## Story sketch for A (60 s, to verify and time)
+## v1 as built (27 Oct 2026, 60 s, shader look): `src/cities/phetchabun/`
+
+Contact sheet: `phetchabun_v1_contact.jpg` (0, 2.2, 5, 7, 11.5, 18, 21.5, 29, 33, 40, 47, 53 s).
+
+| beat | kind | s | year (BE) | on screen | caption hedge |
+|---|---|---|---|---|---|
+| hero | legend | 0–7.4 | ราว 2143 (hold) | whirlpool, golden burst, the image rises upright (14 units), halo; settles onto the raft | `ตำนานเล่าว่า`, counter `ราว` |
+| procession | procession | 7.7–12.6 | ราว 2143–2147 | raft with the image under four parasols, six rowing boats, down the Pa Sak to Wat Traiphum | — |
+| wall | build | 13.0–18.6 | ราว 2203–2227 | the brick wall rises round from the NW corner, four arrow-head forts, gates, two water gates; the town fills in | `สันนิษฐานว่ารัชกาลพระนารายณ์`, no year |
+| army | fight | 19.0–24.6 | 2370 (hold) | the Bangkok army (spears, two war elephants) comes up from the south and takes the camp; the palisade falls | camp site not known (drawn south of the town) |
+| capital | build | 25.0–30.6 | 2485.7–2487.7 | Nakhonban: roads cut, timber halls; roofs go after the House vote | 2486 / 2487 |
+| tamarind | trade | 31.0–36.4 | 2505–2523 | orchards on the plain, pickers, trucks south on Highway 21 | no year |
+| growth | grow | 36.8–42.6 | 2524–2561 | wide: the town over both banks, bridges | — |
+| payoff | celebrate | 43.0–52.6 | 2568 | อุ้มพระดำน้ำ at the pool: the governor wades in with the image in his arms, four officials, three dips (never under), crowd on the banks | — |
+
+**Layout (40 m/unit, origin the city pillar).** From Dr. Wisan Kositanon's "ป้อมปราการและกำแพงเก่า
+เมืองเพชรบูรณ์" (citing the Treasury Department's survey): the Ayutthaya town is a 500 m brick square
+EAST of the older Sukhothai earthwork (~800 m, Wat Mahathat at its centre); fort 1 is the city
+pillar's shrine (so the pillar is its south-west corner); ประตูชุมพล (W) and ประตูดาว (E) face each
+other; the Pa Sak enters by the north gate (วัดโพธิ์เย็น), passes Wat Traiphum and leaves by the
+ศาลเจ้าแม่ fort (Damrong 2447: "เอาน้ำป่าสักไว้กลางเมือง"). Drawn x -40..500 m, z -500..0 m (the west
+wall 40 m west of the pillar so it stays out of the river's bend). The Google pin for
+"แนวกำแพงเมืองเก่า" (-106, -485) falls on the drawn NW corner. The wall's exact line is approximate.
+
+**2370 (army):** Dr. Wisan ("ศึกเจ้าอนุวงศ์และเมืองหล่มสัก เมืองเพชรบูรณ์"): Chao Ratchawong (Ngao) passed
+through Phetchabun from Saraburi and camped at Ban Na Yom, Ban Taphon, Ban Sadiang, เมืองเพชรบูรณ์ and
+Lom Sak; the Bangkok armies (Chao Phraya Aphai Phuthon) took the camps, then the main camp at Lom Sak
+(Mar–May 2370). Shown as an army taking a camp, no fallen people.
+
+Dates not found on the web and kept out of captions: the first tamarind fair (Gemini: 2516), the
+Highway 21 opening (Gemini: 2511), the city pillar's year (2443 vs 2447), the 2318 Chakri retreat.
+
+## Story sketch for A (draft, before the build)
 
 The counter has to run forward from frame 0, so with A the clip opens in the legend's time
 (~2100 BE, Ayutthaya) on a tile that already carries what came before: the Sukhothai-era oval

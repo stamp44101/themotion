@@ -2,8 +2,13 @@
 // meditation in the Khmer Bayon style, bronze with a gilt sheen, NO pedestal (research §5.1: not a
 // generic Sukhothai image): a crown band (เทริด) with a conical cover over the ushnisha, long
 // earlobes to the shoulders, a necklace and armlets, hands in the lap. Height 1 at scale 1.
-// And the whirlpool it rises from at วังมะขามแฟบ. Moves to src/cities/phetchabun/ with the city.
+// And the whirlpool it rises from at วังมะขามแฟบ.
 import React from 'react';
+import * as THREE from 'three';
+import {glowTexture} from '../../engine/parts';
+
+let GLOW: THREE.Texture | null = null;
+const glow = () => (GLOW ??= glowTexture('rgba(255,240,190,1)', 'rgba(255,200,90,0.55)'));
 
 const BRONZE = '#a07a3e';
 const GILT = '#d6a446';
@@ -137,9 +142,9 @@ export const Halo: React.FC<{k: number}> = ({k}) =>
         <ringGeometry args={[0.72, 1, 40]} />
         <meshBasicMaterial color="#ffd36a" toneMapped={false} transparent opacity={0.55 * k} depthWrite={false} />
       </mesh>
-      <mesh position={[0, 0.48, -0.16]} scale={[0.5 * k, 0.62 * k, 1]}>
-        <circleGeometry args={[1, 40]} />
-        <meshBasicMaterial color="#ffe7a8" toneMapped={false} transparent opacity={0.18 * k} depthWrite={false} />
+      <mesh position={[0, 0.5, -0.16]} scale={[1.1 * k, 1.25 * k, 1]}>
+        <planeGeometry args={[1, 1]} />
+        <meshBasicMaterial map={glow()} color="#fff1c4" toneMapped={false} transparent opacity={0.85 * k} depthWrite={false} blending={THREE.AdditiveBlending} />
       </mesh>
     </group>
   ) : null;
