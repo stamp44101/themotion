@@ -42,8 +42,9 @@ export const SUPHANBURI: CityConfig = {
     city: {hx: 18.2, hz: 39, outline: TOWN, moat: [1e9, 1e9], wall: [1e9, 1e9], gates: [1e9, 1e9], groundFrom: 1300},
     gates: [],
     houses: {
-      // the town is old by the time of the duel: its houses stand from before the clip
-      built: [1400, 60],
+      // v2: the frontier town of the wars is sparse in 2135 (~13% of its houses) and fills over the
+      // palelai beat (1600-1866): houses go up at 1580 + rand^1.6 x 290
+      built: [1580, 290],
       // prob 1 with a far-off year: the engine's ramp on gone = Infinity is NaN (PR #69)
       abandon: {prob: 1, from: 3000, spread: 0, rebuild: 3001, rebuildSpread: 0},
       modern: [1950, 50],
@@ -57,7 +58,7 @@ export const SUPHANBURI: CityConfig = {
         [26, 22],
         [-40, 30],
       ],
-      built: [1400, 120],
+      built: [1600, 200],
     },
     forestCity: 1300,
     clearings: [
@@ -65,7 +66,7 @@ export const SUPHANBURI: CityConfig = {
       [PALELAI[0], PALELAI[1], 3.5, -1e9],
       [WAT_KHAE[0], WAT_KHAE[1], 3, -1e9],
     ],
-    paddies: [1400, 1990],
+    paddies: [1620, 1990],
     sites: [
       [PILLAR[0] + 0.5, PILLAR[1] - 0.3, 2.0],
       [MAHATHAT[0] + 0.8, MAHATHAT[1], 2.0],

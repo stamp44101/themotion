@@ -137,16 +137,8 @@ export const royalBoatAt = (i: number, t: number) => {
 };
 
 // ------------------------------------------------------------------ the found stupa
-export const DIGGERS = 12;
-export const diggerAt = (i: number, t: number) => {
-  const k = beatK('found', t);
-  if (k < -0.02 || k > 1.02) return null;
-  const a = (i / DIGGERS) * Math.PI * 2 + t * 0.25;
-  const r = 3.2 + (i % 2) * 0.6;
-  return {x: STUPA_AT[0] + Math.cos(a) * r, z: STUPA_AT[1] + Math.sin(a) * r, rot: -a, step: t * 1.4 + i * 0.41};
-};
-/** the jungle cleared off the mound (0 overgrown .. 1 clear) */
-export const clearK = (t: number, Y: number) => (Y > 1915 ? 1 : smooth(clamp01((beatK('found', t) - 0.1) / 0.7)));
+/** the jungle over the ruin, cleared when it was found under Rama VI (no beat of its own in v2) */
+export const clearK = (_t: number, Y: number) => smooth(clamp01((Y - 1912) / 2));
 
 // ------------------------------------------------------------------ the mail boats
 export const MAIL_N = 4;
@@ -212,6 +204,8 @@ export const ACTORS: Actor[] = [
     const d = duelAt(t);
     return [(d.siam + d.hongsa) / 2, 2 * d.S, FIELD[1]];
   }},
+  // the old town filling in the palelai beat's wide shot
+  {id: 'townFills', during: [beatAt('palelai', 0), beatAt('palelai', 1)], size: 10, at: () => [-5, 1, 3]},
   {id: 'builders', during: [beatAt('palelai', 0.05), beatAt('palelai', 0.95)], size: 2.2, at: (t) => {
     const b = builderAt(0, t);
     return b ? [b.x, 0.9, b.z] : null;
@@ -219,10 +213,6 @@ export const ACTORS: Actor[] = [
   {id: 'royalBoats', during: [beatAt('royal', 0.05), beatAt('royal', 0.95)], size: 2.2, at: (t) => {
     const b = royalBoatAt(0, t);
     return b ? [b.x, 0.8, b.z] : null;
-  }},
-  {id: 'diggers', during: [beatAt('found', 0.05), beatAt('found', 0.95)], size: 2.2, at: (t) => {
-    const d = diggerAt(0, t);
-    return d ? [d.x, 0.9, d.z] : null;
   }},
   {id: 'mailBoats', during: [beatAt('boats', 0.05), beatAt('boats', 0.95)], size: 2.2, at: (t) => {
     const b = mailBoatAt(0, t);

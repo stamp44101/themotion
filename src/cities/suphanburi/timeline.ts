@@ -13,21 +13,28 @@ type Key = CameraKey;
 // of the field looking south, so the stupa, the town and the river lie behind the giants
 export const HERO_S = 8;
 const HERO_END: Key = [7.2, FIELD[0] + 4, 4, FIELD[1] + 14, 190, 222, 34, 30];
-const PL_IN: Key = [8.6, PALELAI[0], 1, PALELAI[1], 54, 232, 36, 30];
-const PL_END: Key = [12.4, PALELAI[0], 1, PALELAI[1], 46, 252, 36, 30];
-const PR_IN: Key = [13.8, 10.5, 1, 6, 72, 268, 38, 30];
-const PR_END: Key = [18.4, WAT_KHAE[0] - 1, 1, WAT_KHAE[1] + 4, 60, 290, 38, 30];
-const DI_IN: Key = [19.8, FIELD[0], 1, FIELD[1] + 5, 54, 312, 38, 30];
-const DI_END: Key = [24.4, FIELD[0], 1, FIELD[1] + 5, 46, 334, 38, 30];
-const TR_IN: Key = [25.8, 11, 1, 1, 62, 356, 36, 30];
-const TR_END: Key = [30.4, 11, 1, 5, 54, 378, 36, 30];
-const RD_IN: Key = [31.8, WEST_GATE[0] - 4, 1, WEST_GATE[1] + 1, 66, 412, 36, 30];
-const RD_END: Key = [36.2, WEST_GATE[0] - 1, 1, WEST_GATE[1], 56, 432, 36, 30];
-const GR_IN: Key = [37.6, 0, 1, 0, 175, 448, 36, 30];
-const GR_END: Key = [42.4, 0, 1, -2, 195, 476, 36, 30];
-const PAY_IN: Key = [44.0, FIELD[0], 2.5, FIELD[1] + 2.5, 62, 504, 38, 30];
-const PAY_END: Key = [52.4, FIELD[0], 2.5, FIELD[1] + 2.5, 50, 518, 34, 30];
-const END: Key = [55.0, -10, 1, -10, 200, 556, 36, 30];
+// v2 (owner, 27 Oct: three flat posts; the clip must feel like Chiang Mai's 0 to 100): the middle
+// stays on the town and watches it fill, with wide shots that come back. The town is sparse in 2135
+// (the frontier town of the wars, its wall razed) and fills over the palelai beat; the east bank grows
+// from the road beat on; the landing is the whole tile at full size.
+// palelai: wide over the town from the west, Wat Pa Lelai in the foreground, the houses filling
+const PL_IN: Key = [8.8, -22, 1, 6, 96, 238, 38, 30];
+const PL_END: Key = [13.8, -20, 1, 6, 86, 258, 38, 30];
+// royal: along the town's river front, the old town dense behind the boats
+const PR_IN: Key = [15.2, 9, 1, 12, 78, 272, 40, 30];
+const PR_END: Key = [20.2, 11, 1, -12, 72, 292, 40, 30];
+const TR_IN: Key = [21.6, 10, 1, 2, 70, 302, 38, 30];
+const TR_END: Key = [26.2, 10, 1, 4, 62, 320, 38, 30];
+// road: the gate and the town from the west, the east bank starting beyond the river
+const RD_IN: Key = [27.6, WEST_GATE[0] - 7, 1, WEST_GATE[1] + 1, 84, 332, 38, 30];
+const RD_END: Key = [32.2, WEST_GATE[0] - 4, 1, WEST_GATE[1], 78, 350, 38, 30];
+// growth: the long wide shot, the town over both banks
+const GR_IN: Key = [33.6, 2, 1, 0, 165, 366, 36, 30];
+const GR_END: Key = [41.2, 2, 1, -2, 205, 404, 36, 30];
+const PAY_IN: Key = [43.0, FIELD[0], 2.5, FIELD[1] + 2.5, 62, 504, 38, 30];
+const PAY_END: Key = [51.4, FIELD[0], 2.5, FIELD[1] + 2.5, 50, 518, 34, 30];
+// the landing: the whole tile again, as on the cover, now the full city
+const END: Key = [54.2, -10, 1, -6, 270, 556, 34, 30];
 
 export const STORY = buildStory({
   duration: 60,
@@ -35,16 +42,15 @@ export const STORY = buildStory({
   before: 1300,
   after: 2026,
   camera: [
-    ...between(HERO_END, PL_IN, 4, 0.2),
-    ...between(PL_END, PR_IN, 4, 0.2),
-    ...between(PR_END, DI_IN, 4, 0.3),
-    ...between(DI_END, TR_IN, 4, 0.3),
-    ...between(TR_END, RD_IN, 4, 0.2),
+    ...between(HERO_END, PL_IN, 4, 0.1),
+    ...between(PL_END, PR_IN, 4),
+    ...between(PR_END, TR_IN, 4),
+    ...between(TR_END, RD_IN, 4),
     ...between(RD_END, GR_IN, 4),
     ...between(GR_END, PAY_IN, 4, 0.2),
     ...between(PAY_END, END, 4),
     END,
-    [60, -10, 1, -10, 270, 566, 36, 30],
+    [60, -10, 1, -6, 300, 566, 34, 30],
   ],
   beats: [
     {
@@ -63,13 +69,13 @@ export const STORY = buildStory({
       ],
     },
     {
-      // Luang Pho To restored (the hands remodelled over the knees, ~Rama IV: Matichon); builders
-      // on the scaffold, the hall going up round the image
+      // the town fills again round its temples (the houses come up over this beat), and Luang Pho To
+      // is restored (the hands remodelled over the knees, ~Rama IV: Matichon)
       id: 'palelai',
       kind: 'build',
-      t: [7.7, 12.6],
-      year: [1855, 1866],
-      caption: {t0: 7.5, title: 'หลวงพ่อโตวัดป่าเลไลยก์', sub: 'ราวสมัยรัชกาลที่ 4 บูรณะองค์พระพุทธรูปใหญ่นอกคูเมือง'},
+      t: [7.7, 14.0],
+      year: [1600, 1866],
+      caption: {t0: 7.5, title: 'เมืองเก่าฝั่งตะวันตกคืนชีพ', sub: 'บ้านเรือนเต็มคูเมือง ราวสมัยรัชกาลที่ 4 บูรณะหลวงพ่อโตวัดป่าเลไลยก์'},
       era: 'รัตนโกสินทร์',
       camera: [PL_IN, PL_END],
     },
@@ -78,44 +84,36 @@ export const STORY = buildStory({
       // The Bangkok Insight)
       id: 'royal',
       kind: 'procession',
-      t: [13.0, 18.6],
+      t: [14.4, 20.4],
       year: {hold: 1904},
-      caption: {t0: 12.8, title: 'เสด็จประพาสต้น', sub: 'พ.ศ. 2447 รัชกาลที่ 5 เสด็จทางเรือมาเมืองสุพรรณ แวะเสวยที่ท่าน้ำวัดแค'},
+      caption: {t0: 14.2, title: 'เสด็จประพาสต้น', sub: 'พ.ศ. 2447 รัชกาลที่ 5 เสด็จทางเรือมาเมืองสุพรรณ แวะเสวยที่ท่าน้ำวัดแค'},
       camera: [PR_IN, PR_END],
     },
     {
-      // Rama VI's reign: the ruined stupa found under the jungle at Don Chedi
-      id: 'found',
-      kind: 'discover',
-      t: [19.0, 24.6],
-      year: [1912.2, 1914.5],
-      caption: {t0: 18.8, title: 'พบซากเจดีย์ยุทธหัตถี', sub: 'สมัยรัชกาลที่ 6 พบเนินเจดีย์โบราณกลางป่าที่ดอนเจดีย์'},
-      camera: [DI_IN, DI_END],
-    },
-    {
-      // the mail boats up and down the Tha Chin, the riverside market
+      // the mail boats up and down the Tha Chin past the full old town
       id: 'boats',
       kind: 'trade',
-      t: [25.0, 30.6],
+      t: [20.8, 26.4],
       year: [1925, 1945],
-      caption: {t0: 24.8, title: 'เรือเมล์ล่องท่าจีน', sub: 'ก่อนมีถนน ผู้คนและข้าวเดินทางเข้ากรุงทางน้ำ ตลาดริมน้ำคึกคัก'},
+      caption: {t0: 20.6, title: 'เรือเมล์ล่องท่าจีน', sub: 'ก่อนมีถนน ผู้คนและข้าวเดินทางเข้ากรุงทางน้ำ ตลาดริมน้ำคึกคัก'},
       camera: [TR_IN, TR_END],
     },
     {
-      // Malaiman road in from the west through the old gate; buses and cars
+      // Malaiman road in from the west through the old gate; the east bank starts to build
       id: 'road',
       kind: 'arrive',
-      t: [31.0, 36.4],
-      year: [1950, 1965],
-      caption: {t0: 30.8, title: 'ถนนมาลัยแมนเข้าเมือง', sub: 'ถนนตัดผ่านทุ่งนาเข้าเมืองเก่า รถยนต์มาแทนเรือเมล์'},
+      t: [26.8, 32.4],
+      year: [1950, 1966],
+      caption: {t0: 26.6, title: 'ถนนมาลัยแมนเข้าเมือง', sub: 'ถนนตัดผ่านทุ่งนาเข้าเมืองเก่า รถยนต์มาแทนเรือเมล์ เมืองข้ามไปฝั่งตะวันออก'},
       camera: [RD_IN, RD_END],
     },
     {
+      // the long wide shot: the town over both banks, the tower rising, the dragon
       id: 'growth',
       kind: 'grow',
-      t: [36.8, 42.6],
-      year: [1966, 2018],
-      caption: {t0: 36.6, title: 'เมืองโตสองฝั่งท่าจีน', sub: 'สะพานข้ามน้ำ หอคอยชมเมือง และมังกรสวรรค์ข้างศาลหลักเมือง'},
+      t: [32.8, 41.4],
+      year: [1967, 2018],
+      caption: {t0: 32.6, title: 'เมืองโตสองฝั่งท่าจีน', sub: 'สะพานข้ามน้ำ หอคอยชมเมือง และมังกรสวรรค์ข้างศาลหลักเมือง'},
       era: 'ปัจจุบัน',
       camera: [GR_IN, GR_END],
     },
@@ -124,12 +122,12 @@ export const STORY = buildStory({
       // two elephants meet again before the stupa
       id: 'payoff',
       kind: 'celebrate',
-      t: [43.0, 52.6],
+      t: [41.8, 51.6],
       year: [2025, 2025.4],
-      caption: {t0: 42.8, t1: 54.2, title: 'งานอนุสรณ์ดอนเจดีย์', sub: 'ทุกเดือนมกราคม การแสดงยุทธหัตถีหน้าพระเจดีย์ ผู้คนมาร่วมรำลึก'},
+      caption: {t0: 41.6, t1: 54.0, title: 'งานอนุสรณ์ดอนเจดีย์', sub: 'ทุกเดือนมกราคม แสดงยุทธหัตถีหน้าเจดีย์ที่สร้างครอบซากเดิม ซึ่งพบสมัยรัชกาลที่ 6'},
       camera: [PAY_IN, PAY_END],
     },
-    {id: 'today', kind: 'today', t: [53.0, 54.4], year: [2025.6, 2026]},
+    {id: 'today', kind: 'today', t: [52.0, 54.6], year: [2025.6, 2026]},
   ],
 });
 

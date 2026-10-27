@@ -23,8 +23,8 @@ tl = Timeline("out/timeline_suphanburi.json")
 Y = tl.YEAR
 music, amb, sfx = stereo(), stereo(), stereo()
 B = tl.beat
-hero, pl, royal, found, boats, road, grow, pay, today = (
-    B("hero"), B("palelai"), B("royal"), B("found"), B("boats"), B("road"), B("growth"), B("payoff"), B("today"))
+hero, pl, royal, boats, road, grow, pay, today = (
+    B("hero"), B("palelai"), B("royal"), B("boats"), B("road"), B("growth"), B("payoff"), B("today"))
 at = lambda b, p: b[0] + p * (b[1] - b[0])
 
 # ---------------------------------------------------------------- score (D pentatonic, 88 bpm)
@@ -75,7 +75,7 @@ for t in np.arange(0.0, hero[1] - 0.5, BEAT / 2):
     add(music, drum(70, 48, 0.5, 0.9), t, pan=-0.1, gain=0.32 if int(t / (BEAT / 2)) % 2 == 0 else 0.18)
 flute(3.4, hero[1] + 0.3, 0.2, start=6)
 ranat_run(pl[0], royal[1], BEAT / 2, 0.15, prob=0.75)
-flute(found[0] + 0.3, found[1], 0.15, pan=-0.2)
+flute(royal[0] + 0.3, royal[1], 0.15, pan=-0.2)
 ranat_run(boats[0], grow[1], BEAT / 2, 0.14, prob=0.75)
 flute(pay[0] + 0.4, DUR - 3.0, 0.2, start=5)
 ranat_run(pay[0] + 2.0, DUR - 3.0, BEAT, 0.12, prob=0.6)
@@ -200,6 +200,11 @@ add(sfx, ev.trumpet(0.8), 1.8, pan=-0.2, gain=0.5)
 add(sfx, rise_tone(2.6, 1.0), 2.4, pan=0.0)
 add(sfx, gong(98, 3.0, 0.35), 4.2, pan=0.0)
 add(sfx, babble(hero[1] - 4.0, 0.6), 3.8, pan=0.3, gain=0.3)
+# the town filling again: a soft tok for each house as it goes up, across the whole beat
+t = pl[0] + 0.3
+while t < pl[1] - 0.2:
+    add(sfx, blip(rng.uniform(260, 420), 0.45), t, pan=rng.uniform(-0.7, 0.7))
+    t += rng.exponential(0.09)
 # Luang Pho To: mallets on the scaffold, a tok per course of the hall, voices, a temple bell
 for _ in range(20):
     add(sfx, hammer(0.6), rng.uniform(pl[0] + 0.1, pl[1] - 0.2), pan=rng.uniform(-0.6, 0.6))
@@ -219,14 +224,6 @@ for k in range(4):
     add(sfx, filt(ching(), "low", 2400), at(royal, 0.1 + k * 0.25), pan=0.3, gain=0.35)
 add(sfx, babble(royal[1] - royal[0], 0.8), royal[0], pan=0.2, gain=0.4)
 add(sfx, gong(110, 2.6, 0.3), at(royal, 0.9), pan=0.0)
-# Don Chedi found: hoes and baskets, voices, the old bricks knocked clean, a gong
-for _ in range(26):
-    add(sfx, drum(rng.uniform(150, 240), 110, 0.12, 0.3), rng.uniform(found[0] + 0.1, found[1] - 0.2), pan=rng.uniform(-0.7, 0.7), gain=0.35)
-for _ in range(10):
-    add(sfx, hammer(0.5), rng.uniform(found[0] + 0.3, found[1] - 0.3), pan=rng.uniform(-0.5, 0.5))
-steps(found[0] + 0.2, found[1] - 0.2, 0.26, 0.45, pan=-0.1)
-add(sfx, babble(found[1] - found[0] - 0.6, 0.8), found[0] + 0.3, pan=0.1, gain=0.35)
-add(sfx, gong(98, 3.0, 0.3), at(found, 0.8), pan=0.0)
 # the mail boats: low engine thrum passing, a bell at the landing, the market
 def boat_engine(dur=2.6, f=38):
     n = int(dur * SR)
@@ -285,7 +282,7 @@ def bridge(t0, t1):
         step = max(0.09, step * 0.85)
 
 
-order = [hero, pl, royal, found, boats, road, grow, pay]
+order = [hero, pl, royal, boats, road, grow, pay]
 for a_, b_ in zip(order, order[1:]):
     bridge(a_[1] - 0.9, b_[0] + 0.05)
     add(sfx, gong(98, 2.6, 0.2), b_[0], pan=0.05)

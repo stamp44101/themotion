@@ -6,7 +6,7 @@ import {ramp} from '../../lib';
 import {Walker} from '../nan/figures';
 import {Raft, RowBoat, Tamarind} from '../phetchabun/figures';
 import {
-  BUILDERS, builderAt, BUSES, busAt, clamp01, clearK, DIGGERS, diggerAt, DUEL_END, duelAt, hallK, IMPACT, MAIL_N, mailBoatAt, PAY_S,
+  BUILDERS, builderAt, BUSES, busAt, clamp01, clearK, DUEL_END, duelAt, hallK, IMPACT, MAIL_N, mailBoatAt, PAY_S,
   reenactAt, ROYAL_N, royalBoatAt, STUPA_AT, STUPA_H, stupaHeight, stupaRise,
 } from './actors';
 import {DRAGON, FIELD, MAHATHAT, MOAT, NORTH_FORT, PALELAI, PHRA_RUP, PILLAR, TOWER, WAT_KHAE, WEST_GATE} from './places';
@@ -254,7 +254,7 @@ const DonChedi: React.FC<{Y: number; t: number; night: number}> = ({Y, t, night}
       ) : (
         <Stupa H={STUPA_H} k={1} ruin={1} />
       )}
-      {/* the jungle that grew over the ruin, cleared in the 'found' beat */}
+      {/* the jungle that grew over the ruin, cleared when it was found (Rama VI) */}
       {!inDuel && rebuilt < 0.02 && overgrown > 0.02 &&
         Array.from({length: 8}, (_, i) => {
           const a = (i / 8) * Math.PI * 2;
@@ -441,14 +441,6 @@ export const SuphanburiLandmarks: React.FC<LandmarkProps> = ({Y, t, night}) => (
 
     <Duel t={t} />
     <DonChedi Y={Y} t={t} night={night} />
-    {Array.from({length: DIGGERS}, (_, i) => {
-      const d = diggerAt(i, t);
-      return d ? (
-        <group key={`d${i}`} position={[d.x, 0, d.z]} rotation-y={d.rot} scale={0.55}>
-          <Walker step={d.step} i={i} load={i % 3 === 0} />
-        </group>
-      ) : null;
-    })}
     <Fair t={t} night={night} />
 
     {Array.from({length: ROYAL_N}, (_, i) => {
