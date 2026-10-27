@@ -80,7 +80,7 @@ flute(pay[0] + 0.4, DUR - 3.0, 0.2, start=5)
 ranat_run(pay[0] + 2.0, DUR - 3.0, BEAT, 0.12, prob=0.6)
 
 # ---------------------------------------------------------------- ambience
-add(amb, filt(pink(N), "band", (150, 700)) * 0.09, 0, pan=-0.3)
+add(amb, filt(pink(N), "band", (150, 700)) * 0.25, 0, pan=-0.3)
 t = 0.3
 while t < DUR - 6:
     i = int(t * SR)
@@ -88,8 +88,8 @@ while t < DUR - 6:
         add(amb, filt(chirp_bird(), "low", 2400), t, pan=rng.uniform(-0.8, 0.8), gain=1.1 if Y[i] < 1950 else 0.45)
     t += rng.exponential(0.7)
 river = filt(pink(N), "band", (90, 500)) * (0.6 + 0.4 * filt(noise(N), "low", 0.4) * 4)
-add(amb, river * 0.09, 0, pan=0.2)
-add(amb, filt(pink(N), "low", 450) * np.clip((Y - 1965) / 50, 0, 1) * 0.07, 0)
+add(amb, river * 0.25, 0, pan=0.2)
+add(amb, filt(pink(N), "low", 450) * np.clip((Y - 1965) / 50, 0, 1) * 0.17, 0)
 
 # ---------------------------------------------------------------- the small sounds
 

@@ -5,7 +5,7 @@ import {ramp} from '../../lib';
 import {Walker} from '../nan/figures';
 import {
   ARMY_COLS, ARMY_ROWS, ARMY_S, armyAt, BUILDERS, builderAt, burstU, CAMP, CAMP_R, campFall, CAP_ROADS, capitalK, clamp01, dipAt, ESCORTS, escortAt,
-  GOV, haloK, HIGH, HIGH_W, highWater, imageAt, ORCHARDS, OFFICIALS, PICKERS, pickerAt, RAFT_DECK, raftAt, RING_LEN, RITE_SCALE, TRUCKS,
+  GOV, haloK, HIGH, HIGH_RAW, HIGH_TAPER, HIGH_W, highWater, imageAt, ORCHARDS, OFFICIALS, PICKERS, pickerAt, RAFT_DECK, raftAt, RING_LEN, RITE_SCALE, TRUCKS,
   truckAt, wallK, whirlK, WORKERS, workerAt, along, beatK,
 } from './actors';
 import {Burst, Halo, MahaThammaracha, Ripples, Whirlpool} from './buddha';
@@ -34,18 +34,27 @@ const edgesOf = (pts: P[], closed: boolean) =>
   closed ? pts.map((a, i) => [a, pts[(i + 1) % pts.length]] as [P, P]) : pts.slice(1).map((b, i) => [pts[i], b] as [P, P]);
 
 /** Water along `pts`, `w` wide, with rounded joints and sandy banks. */
-const Ribbon: React.FC<{pts: P[]; w: number; closed?: boolean; y?: number; color?: string; banks?: boolean}> = ({
+const Ribbon: React.FC<{pts: P[]; w: number; closed?: boolean; y?: number; color?: string; banks?: boolean; taper?: [number, number]}> = ({
   pts,
-  w,
+  w: w0,
   closed = false,
   y = 0.05,
   color = WATER,
   banks = true,
+  taper,
 }) => {
-  if (w < 0.04) return null;
+  if (w0 < 0.04) return null;
+  // `taper` [length, end width]: the width runs down to `end width` over `length` units at both ends
+  const E = edgesOf(pts, closed);
+  const total = E.reduce((sum, [a, b]) => sum + Math.hypot(b[0] - a[0], b[1] - a[1]), 0);
+  let run = 0;
   return (
     <>
-      {edgesOf(pts, closed).map(([a, b], i) => {
+      {E.map(([a, b], i) => {
+        const at = run;
+        run += Math.hypot(b[0] - a[0], b[1] - a[1]);
+        const e = taper ? Math.min(1, Math.min(at, total - at) / taper[0]) : 1;
+        const w = taper ? taper[1] + (w0 - taper[1]) * e * e * (3 - 2 * e) : w0;
         const len = Math.hypot(b[0] - a[0], b[1] - a[1]);
         if (len < 1e-3) return null;
         const ux = (b[0] - a[0]) / len;
@@ -535,7 +544,16 @@ export const PhetchabunLandmarks: React.FC<LandmarkProps> = ({Y, t, night}) => {
   const hw = highWater(t);
   return (
     <>
-      {hw > 0.02 && <Ribbon pts={HIGH} w={1 + (HIGH_W - 1) * hw} y={0.15} banks={false} />}
+      {hw > 0.02 && <Ribbon pts={HIGH} w={1 + (HIGH_W - 1) * hw} y={0.15} banks={false} taper={[HIGH_TAPER, 1]} />}
+      {/* a round pool on each corner of the river's own line, so its sharp corners never poke out
+          of the smoothed high water, and the inside of the bend stays round */}
+      {hw > 0.02 &&
+        HIGH_RAW.map(([x, z], i) => (
+          <mesh key={`hc${i}`} position={[x, 0.15, z]} receiveShadow>
+            <cylinderGeometry args={[(1 + (HIGH_W - 1) * hw) / 2, (1 + (HIGH_W - 1) * hw) / 2, 0.06, 24]} />
+            <meshStandardMaterial color={WATER} roughness={0.12} metalness={0.25} />
+          </mesh>
+        ))}
       <Cover t={t} />
       <Image t={t} />
       <Procession t={t} />

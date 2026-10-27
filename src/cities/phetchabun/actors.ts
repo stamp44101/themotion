@@ -81,6 +81,19 @@ export const HIGH: P[] = (() => {
   }
   return out;
 })();
+/** the high water narrows to the river's width over this many units at each end, so it never
+ *  stops in a step (a V on the bank at 46 s) */
+export const HIGH_TAPER = 5;
+/** the river line's own corners along the stretch (the engine draws its 1.0-wide river on it, with
+ *  sharp corners): a round pool on each keeps them from poking out of the smoothed high water as
+ *  V points (the workstation's 46 s still) */
+export const HIGH_RAW: P[] = (() => {
+  // only the corners well inside the full-width stretch (the ends taper, see HIGH_TAPER)
+  const lo = D_POOL - 9 + HIGH_TAPER + 1;
+  const hi = D_LANDING + 3 - HIGH_TAPER - 1;
+  const idx = RIVER.map((p, i) => ({i, d: arcTo(COURSE, p)})).filter((q) => q.d >= lo && q.d <= hi).map((q) => q.i);
+  return RIVER.slice(idx[0], idx[idx.length - 1] + 1);
+})();
 export const HIGH_W = 2.4;
 export const highWater = (t: number) => {
   const open = 1 - clamp01((beatK('procession', t) - 1.05) / 0.2);
@@ -183,7 +196,7 @@ export const armyAt = (col: number, row: number, t: number) => {
   const p = along(ARMY_PATH, d);
   const side = (col - (ARMY_COLS - 1) / 2) * 0.95;
   const walking = k < 0.97;
-  return {x: p.x + Math.cos(p.rot) * side, z: p.z - Math.sin(p.rot) * side, rot: p.rot, step: walking ? t * 1.5 + col * 0.3 + row * 0.17 : 0, elephant: row === 0 && (col === 1 || col === 2)};
+  return {x: p.x + Math.cos(p.rot) * side, z: p.z - Math.sin(p.rot) * side, rot: p.rot, step: walking ? t * 1.5 + col * 0.3 + row * 0.17 : 0, elephant: row === 0 && (col === 0 || col === ARMY_COLS - 1)};
 };
 /** the camp's palisade falls as the army reaches it (0 standing .. 1 down) */
 export const campFall = (t: number) => clamp01((beatK('army', t) - 0.5) / 0.25);
