@@ -5,7 +5,7 @@ import {ramp} from '../../lib';
 import {Walker} from '../nan/figures';
 import {
   ARMY_COLS, ARMY_ROWS, ARMY_S, armyAt, BUILDERS, builderAt, burstU, CAMP, CAMP_R, campFall, CAP_ROADS, capitalK, clamp01, dipAt, ESCORTS, escortAt,
-  GOV, haloK, HIGH, HIGH_RAW, HIGH_TAPER, HIGH_W, highWater, imageAt, ORCHARDS, OFFICIALS, PICKERS, pickerAt, RAFT_DECK, raftAt, RING_LEN, RITE_SCALE, TRUCKS,
+  GOV, haloK, HIGH, HIGH_RAW, WEDGE_FILL, HIGH_TAPER, HIGH_W, highWater, imageAt, ORCHARDS, OFFICIALS, PICKERS, pickerAt, RAFT_DECK, raftAt, RING_LEN, RITE_SCALE, TRUCKS,
   truckAt, wallK, whirlK, WORKERS, workerAt, along, beatK,
 } from './actors';
 import {Burst, Halo, MahaThammaracha, Ripples, Whirlpool} from './buddha';
@@ -528,7 +528,10 @@ const RiteCrowd: React.FC<{t: number}> = ({t}) => {
     const side = i % 2 ? 1 : -1;
     const off = HIGH_W / 2 + 0.6 + (i % 3) * 0.35;
     return {x: p.x + Math.cos(p.rot) * side * off, z: p.z - Math.sin(p.rot) * side * off, rot: p.rot + (side > 0 ? -Math.PI / 2 : Math.PI / 2), i};
-  });
+  }).filter(
+    // nobody stands on the water: not on another arm of the high water, nor on the filled hairpin
+    (p) => !HIGH.some(([x, z]) => Math.hypot(x - p.x, z - p.z) < HIGH_W / 2 + 0.25) && !WEDGE_FILL.some(([x, z]) => Math.hypot(x - p.x, z - p.z) < 0.6),
+  );
   return (
     <>
       {pts.map((p) => (
@@ -545,6 +548,14 @@ export const PhetchabunLandmarks: React.FC<LandmarkProps> = ({Y, t, night}) => {
   return (
     <>
       {hw > 0.02 && <Ribbon pts={HIGH} w={1 + (HIGH_W - 1) * hw} y={0.15} banks={false} taper={[HIGH_TAPER, 1]} />}
+      {/* the hairpin's thin land wedge filled in at the rite's high water */}
+      {hw > 0.5 && t > 30 &&
+        WEDGE_FILL.map(([x, z], i) => (
+          <mesh key={`wf${i}`} position={[x, 0.15, z]}>
+            <cylinderGeometry args={[0.3, 0.3, 0.06, 10]} />
+            <meshStandardMaterial color={WATER} roughness={0.12} metalness={0.25} />
+          </mesh>
+        ))}
       {/* a round pool on each corner of the river's own line, so its sharp corners never poke out
           of the smoothed high water, and the inside of the bend stays round */}
       {hw > 0.02 &&
