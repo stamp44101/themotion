@@ -65,6 +65,13 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   frame (the plain cut shows nothing). Gate every growing mesh on its own scale (`> 0.02`),
   not on the beat or year that drives it. Bisect on one still: a still is a fresh page, so a
   black still means per-frame overflow, not page reuse.
+- **The cover shows the land, with a giant on it (owner).** The cover's hero is drawn at legend
+  scale (Phetchabun's image 14 units tall, Suphanburi's war elephants 8x, ~26 units) and the
+  camera is far and high enough (Suphanburi: distance ~290, elevation ~27 degrees) that the whole
+  tile, its forest and its soil edge are in the frame round it. Suphanburi's first style frames
+  put hero-sized elephants in a close camera and showed no land; the owner has had to say this
+  more than once. A vertical frame is narrow (~17 degrees across at fov 30), so seeing a ~96-unit
+  tile takes a distance of ~280-330.
 - **Model a named landmark's silhouette before its icon.** Chonburi's first
   Khao Sam Muk shot put a small red shrine on a round green mound; the label was
   correct, but the place was not recognisable. The useful identity was the long

@@ -8,7 +8,15 @@ Gemini's and only good to a few hundred metres.
 Cover rule (experiments §8–9): **an event in the first 1–2 s**, the hero filling the middle of the
 cover frame; a walk or a glide is not enough. The payoff brings the hero back.
 
-## §4 Hero — options for the owner
+## §4 Hero — decided (owner, 27 Oct 2026): **A, the ยุทธหัตถี**
+
+Style frames (`suphanburi_styleframes_A1.jpg`, `_A2.jpg`; 0, 0.5, 1, 4.5, 8 s): the two war elephants at
+legend scale on the whole tile (A1 8x, A2 6x), already charging at frame 0, meeting tusk to tusk at
+0.55 s under a golden flash where the glaives cross, dust bursting; the Siamese elephant drives the
+other aside and the bell stupa rises behind. Models in `src/styleframes/suphanburiElephant.tsx`.
+The counter reads พ.ศ. 2135 (18 Jan 2135 BE is January 1593 CE, before the old Thai new year).
+
+The options as offered:
 
 | | the first second | the payoff (callback) | for | against |
 |---|---|---|---|---|
