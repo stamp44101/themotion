@@ -10,7 +10,7 @@ import {Walker} from '../cities/nan/figures';
 import {lathe} from '../engine/parts';
 import {buildStory} from '../engine/story';
 import type {CityConfig, LandmarkProps} from '../engine/types';
-import {Dust, Flash, SIDES, WarElephant} from './suphanburiElephant';
+import {Dust, Flash, SIDES, WarElephant} from '../cities/suphanburi/warElephant';
 
 type P2 = [number, number];
 // the field (a corner of the tile, as Don Chedi will be in the city build)

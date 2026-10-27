@@ -24,7 +24,27 @@ The options as offered:
 | B | the 135 m dragon of the Dragon Descendants Museum dives out of the clouds and coils round the city pillar shrine | the dragon building at the pillar shrine, Chinese New Year crowds | full-frame motion like Ubon's naga; it stands in the town itself | a modern building (opened ~2551, unverified), not a legend; the length and year are not confirmed on the web |
 | C | ขุนแผน chants under the giant tamarind at Wat Khae; the leaves turn into a swarm of golden wasps that fly at the camera; he rides off on ม้าสีหมอก | Wat Khae and the tamarind today | literature everyone knows; fantasy like Lopburi's Hanuman | fiction, not history; the swarm reads as a threat |
 
-## Story sketch for A (60 s, to verify and time)
+## v1 as built (27 Oct 2026, 60 s, shader look): `src/cities/suphanburi/`
+
+Contact sheet: `suphanburi_v1_contact.jpg` (0, 0.5, 5, 7, 10, 15.7, 21.3, 28, 33, 40, 46, 53 s). 50 m/unit,
+origin the city pillar; the town is ONEP zone 1; Don Chedi is drawn on the tile's north-west corner on
+its bearing (323 vs 330 degrees), the duel's stupa south of the field so the cover's camera (north,
+looking south) sees the giants, the stupa, the town and the Tha Chin together.
+
+| beat | kind | s | year (BE) | on screen | caption hedge |
+|---|---|---|---|---|---|
+| hero | fight | 0–7.4 | 2135 (hold) | the giants (8x) charge, clash, the stupa rises; they settle to the field's scale | site named หนองสาหร่าย, no argument |
+| palelai | build | 7.7–12.6 | 2398–2409 | Luang Pho To on its base, scaffold, the hall's walls rising (open on the camera side) | "ราวสมัยรัชกาลที่ 4" |
+| royal | procession | 13–18.6 | 2447 (hold) | the barge and six boats up the Tha Chin to Wat Khae | 4 Aug 2447 confirmed (Silpa-mag, The Bangkok Insight) |
+| found | discover | 19–24.6 | 2455–2457 | diggers clear the overgrown mound at Don Chedi | no year ("สมัยรัชกาลที่ 6") |
+| boats | trade | 25–30.6 | 2468–2488 | red two-deck mail boats up and down past the town | no year, no boat names (not confirmed) |
+| road | arrive | 31–36.4 | 2493–2508 | Malaiman road through the west gate, buses and cars | no year |
+| growth | grow | 36.8–42.6 | 2509–2561 | wide: the town over both banks, the tower, the dragon | no years (dragon's not confirmed) |
+| payoff | celebrate | 43–52.6 | 2568 | the fair: two elephants (2.2x) charge and meet twice before the stupa, crowd, lights | no year |
+
+The railway (Gemini: 16 Jun 2506) is left out: not confirmed on the web.
+
+## Story sketch for A (draft, before the build)
 
 Everything older than 2135 stands on the tile at frame 0: the Ayutthaya-era town on the west bank of
 the Tha Chin with Wat Mahathat's prang, Luang Pho To's temple south of it, the double earth ramparts

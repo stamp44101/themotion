@@ -1,10 +1,9 @@
 // The war elephants of the ยุทธหัตถี (docs/briefs/suphanburi.md §4 A): SurinElephant dressed for war,
 // with a caparison (ผ้าปกหลัง) in the side's colour, a gilt net on the forehead, gilt tusk rings, and
 // the rider on the neck holding the ของ้าว (glaive). The riders are small and have no faces (a royal
-// figure: research §5.3); nobody is struck and nobody falls. Moves to src/cities/suphanburi/ with the
-// city.
+// figure: research §5.3); nobody is struck and nobody falls.
 import React from 'react';
-import {NECK, SurinElephant} from '../cities/surin/figures';
+import {NECK, SurinElephant} from '../surin/figures';
 
 const GILT = '#d9a43a';
 export const SIDES = {
