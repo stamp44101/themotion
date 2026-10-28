@@ -37,6 +37,7 @@ import {SURIN_HERD, SURIN_LASSO, SURIN_WHITE} from './styleframes/surin';
 import {NAN_BOAT, NAN_RACE} from './styleframes/nan';
 import {PHETCHABUN_A1, PHETCHABUN_A2} from './styleframes/phetchabun';
 import {SUPHANBURI_A1, SUPHANBURI_A2} from './styleframes/suphanburi';
+import {UDON_A1, UDON_A2} from './styleframes/udonthani';
 import {WAT_RAI_KHING_FRAMES, WatRaiKhing} from './landmarks/watraikhing/WatRaiKhing';
 
 const Korat: React.FC = () => <DioramaComposition city={KORAT} />;
@@ -89,6 +90,8 @@ const PhetchabunStyleA1: React.FC = () => <DioramaComposition city={PHETCHABUN_A
 const PhetchabunStyleA2: React.FC = () => <DioramaComposition city={PHETCHABUN_A2} />;
 const SuphanburiStyleA1: React.FC = () => <DioramaComposition city={SUPHANBURI_A1} />;
 const SuphanburiStyleA2: React.FC = () => <DioramaComposition city={SUPHANBURI_A2} />;
+const UdonStyleA1: React.FC = () => <DioramaComposition city={UDON_A1} />;
+const UdonStyleA2: React.FC = () => <DioramaComposition city={UDON_A2} />;
 const LopburiStyleHanuman: React.FC = () => <DioramaComposition city={LOPBURI_HANUMAN} />;
 const LampangStyleElephant: React.FC = () => <DioramaComposition city={LAMPANG_ELEPHANT} />;
 const LampangStyleChedi: React.FC = () => <DioramaComposition city={LAMPANG_CHEDI} />;
@@ -131,6 +134,8 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="PhetchabunStyleA2" component={PhetchabunStyleA2} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="SuphanburiStyleA1" component={SuphanburiStyleA1} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="SuphanburiStyleA2" component={SuphanburiStyleA2} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="UdonStyleA1" component={UdonStyleA1} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="UdonStyleA2" component={UdonStyleA2} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="UbonStyleElephant" component={UbonStyleElephant} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="ChiangRaiStyleFront" component={ChiangRaiStyleFront} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="ChiangRaiStyleQuarter" component={ChiangRaiStyleQuarter} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
