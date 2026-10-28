@@ -20,6 +20,7 @@ import {SURIN} from './cities/surin';
 import {NAN} from './cities/nan';
 import {PHETCHABUN} from './cities/phetchabun';
 import {SUPHANBURI} from './cities/suphanburi';
+import {UDONTHANI} from './cities/udonthani';
 import {LOPBURI} from './cities/lopburi';
 import {PHETCHABURI} from './cities/phetchaburi';
 import {CHIANGRAI} from './cities/chiangrai';
@@ -57,6 +58,7 @@ const Surin: React.FC = () => <DioramaComposition city={SURIN} />;
 const Nan: React.FC = () => <DioramaComposition city={NAN} />;
 const Phetchabun: React.FC = () => <DioramaComposition city={PHETCHABUN} />;
 const Suphanburi: React.FC = () => <DioramaComposition city={SUPHANBURI} />;
+const Udonthani: React.FC = () => <DioramaComposition city={UDONTHANI} />;
 const Lopburi: React.FC = () => <DioramaComposition city={LOPBURI} />;
 const Phetchaburi: React.FC = () => <DioramaComposition city={PHETCHABURI} />;
 const ChiangRai: React.FC = () => <DioramaComposition city={CHIANGRAI} />;
@@ -156,6 +158,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="Nan" component={Nan} durationInFrames={(NAN.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Phetchabun" component={Phetchabun} durationInFrames={(PHETCHABUN.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Suphanburi" component={Suphanburi} durationInFrames={(SUPHANBURI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="Udonthani" component={Udonthani} durationInFrames={(UDONTHANI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="KhonKaen" component={KhonKaen} durationInFrames={(KHONKAEN.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Phetchaburi" component={Phetchaburi} durationInFrames={(PHETCHABURI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="ChiangRai" component={ChiangRai} durationInFrames={(CHIANGRAI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
