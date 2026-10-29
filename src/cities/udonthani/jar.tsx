@@ -76,14 +76,24 @@ const paintTexture = (k: number) => {
   return tex;
 };
 
-/** the jar, height 1 (scale it), painted to k; `glow` > 0 lights it from inside (the lantern) */
+/** the jar, height 1 (scale it), painted to k. `glow` > 0 makes it the lantern: self-lit and outside
+ *  tone mapping (CLAUDE.md: an emissive standard material washes out under ACES in daylight) */
 export const Jar: React.FC<{k: number; seg?: number; glow?: number}> = ({k, seg = 48, glow = 0}) => {
   const geo = useMemo(() => lathe(JAR, seg), [seg]);
   const q = Math.round(k * 120) / 120;
   const tex = useMemo(() => paintTexture(q), [q]);
+  const lit = useMemo(() => new THREE.Color(1, 1, 1), []);
+  if (glow > 0) {
+    lit.setRGB(1 + glow * 0.55, 1 + glow * 0.4, 1 + glow * 0.15);
+    return (
+      <mesh geometry={geo}>
+        <meshBasicMaterial map={tex} color={lit} toneMapped={false} side={THREE.DoubleSide} />
+      </mesh>
+    );
+  }
   return (
     <mesh geometry={geo} castShadow receiveShadow>
-      <meshStandardMaterial map={tex} roughness={0.85} side={THREE.DoubleSide} emissive={glow > 0 ? '#ffb45a' : '#000000'} emissiveMap={glow > 0 ? tex : null} emissiveIntensity={glow} />
+      <meshStandardMaterial map={tex} roughness={0.85} side={THREE.DoubleSide} />
     </mesh>
   );
 };

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import * as THREE from 'three';
-import {Elephant, Viharn} from '../../engine/parts';
+import {Elephant, glowTexture, Viharn} from '../../engine/parts';
 import type {LandmarkProps} from '../../engine/types';
 import {ramp} from '../../lib';
 import {Cart, Walker} from '../nan/figures';
@@ -354,10 +354,13 @@ const Dragon: React.FC<{t: number}> = ({t}) => (
 
 // ------------------------------------------------------------------ the fair (the payoff)
 const Fair: React.FC<{t: number; Y: number; night: number}> = ({t, Y, night}) => {
+  const halo = useMemo(() => glowTexture('rgba(255,236,190,1)', 'rgba(255,170,80,0.55)'), []);
   const k = beatK('payoff', t);
   if (Y < 2024.9 || k > 1.4) return null;
   const L = lanternK(t);
   const wheel = t * 0.35;
+  // lit as it rises, breathing like a flame inside
+  const pulse = L * (0.7 + 0.25 * Math.sin(t * 5) + 0.6 * night);
   return (
     <group position={[FIELD[0], 0, FIELD[1]]}>
       <mesh position={[0, 0.04, 0]} rotation-x={-Math.PI / 2} receiveShadow>
@@ -366,9 +369,23 @@ const Fair: React.FC<{t: number; Y: number; night: number}> = ({t, Y, night}) =>
       </mesh>
       {/* the jar back: a giant lantern on the field, lit from inside */}
       {L > 0.02 && (
-        <group scale={[2 * PAY_S, 2 * PAY_S * L, 2 * PAY_S]} rotation-y={t * 0.3}>
-          <Jar k={1} seg={36} glow={0.25 + night * 0.9} />
-        </group>
+        <>
+          <group scale={[2 * PAY_S, 2 * PAY_S * L, 2 * PAY_S]} rotation-y={t * 0.3}>
+            <Jar k={1} seg={36} glow={pulse} />
+          </group>
+          {/* the light it throws: a warm halo round it, a flame at the mouth, a pool on the ground */}
+          <sprite position={[0, PAY_S, 0]} scale={[7.5 * PAY_S * L, 7.5 * PAY_S * L, 1]}>
+            <spriteMaterial map={halo} transparent opacity={0.55 + 0.25 * night} depthWrite={false} toneMapped={false} />
+          </sprite>
+          <mesh position={[0, 2 * PAY_S * 0.93 * L, 0]} scale={[0.3 * PAY_S, (0.42 + 0.08 * Math.sin(t * 13)) * PAY_S, 0.3 * PAY_S]}>
+            <coneGeometry args={[1, 1.6, 10]} />
+            <meshBasicMaterial color="#ffcf6a" toneMapped={false} />
+          </mesh>
+          <mesh position={[0, 0.06, 0]} rotation-x={-Math.PI / 2}>
+            <circleGeometry args={[2.6 * PAY_S * L, 32]} />
+            <meshBasicMaterial color="#ffc46a" transparent opacity={0.35} toneMapped={false} depthWrite={false} />
+          </mesh>
+        </>
       )}
       {/* the Ferris wheel */}
       <group position={[-2.6, 2.6, 2.8]} rotation-y={0.9}>
