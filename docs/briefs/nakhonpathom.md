@@ -1,4 +1,4 @@
-# Nakhon Pathom (นครปฐม) — brief (v0, research stage)
+# Nakhon Pathom (นครปฐม) — brief (v1)
 
 Research: `nakhonpathom_research_request.md` → `nakhonpathom_research_gemini.md` ([gemini], pending).
 Map: `nakhonpathom_onep/` ([local], pending: the ONEP old-town polygon if Nakhon Pathom is one of the
@@ -98,7 +98,32 @@ The canal and the rail run side by side: keep the rail out of the canal's bed (`
 To check before modelling: OSM's chedi polygon is ~129 m across and likely includes the round cloister;
 the bell's own base diameter comes from Gemini's part 4.
 
-## Open questions (owner)
+
+## Decisions (owner, 29 Oct 2026)
+
+- **Hero: A1** (`nakhonpathom_styleframes_A1.jpg`): the golden bell closes over the old stupa at legend
+  scale (H_HERO 46 units) in the first 1.6 s, then settles to the town's scale (H_MID 6, ~4x true) as the
+  brick shell Rama IV began, and is the town's centre from there; it comes back lit over the fair.
+- The rest left to cloud ("เอาที่คิดว่าดี"): the counter starts at 2396 (the Dvaravati town and the
+  Phraya Phan legend stay off the captions: the reading-speed limit left no room for the legend in the
+  cover's sub, and it has nothing to show); no killing is shown anywhere.
+
+## Storyline worksheet (`docs/storyline.md` §5)
+
+```
+Hero (0-3 s): the golden bell rising round the old stupa   BIG ✓  IDENTITY ✓  MOVING ✓ (7 tiers in 0.9 s, spire, crown)  SURPRISING ✓ (a chedi inside a chedi)
+Hero sound: seven deep thuds rising in pitch as the tiers lock, a swell, the crown's bell and a gong
+Open loop: why is there an old chedi inside? -> the collapse and the crown (12-22 s); the chedi lit at the fair (43-53 s)
+First event (3-7 s, people): builders round the shell as it winds back; the canal dig begins
+Spectacle (by 12 s): the shell slumps in the July 2403 rains (11.9-17.2 s)
+Middle beats, one verb each: arrive (canal boats) / disaster / build (crown) / arrive (train) / procession (Wild Tiger Corps)
+Grow shot: 34.2-42.6 s, 2458-2561, distance 175-225
+Payoff (43-53 s, people + hero back): the 12th-month fair, the crowd walking round the lit chedi, a Ferris wheel
+Tagline: พระปฐมเจดีย์เสียดฟ้า สนามจันทร์งามล้น (the provincial slogan)
+Facts with nothing to show (sub lines only): the rename to นครปฐม (palace beat); Silpakorn, Phetkasem (grow)
+```
+
+## Open questions (answered 29 Oct, kept for the record)
 
 1. The hero: the encasing chedi (Gemini's first choice, and the handoff's) or one of Gemini's others
    (a giant Dvaravati Dharmachakra rolling in; Phra Ruang Rojanarit forming; a dove flying up the chedi's
