@@ -14,23 +14,66 @@ announced old towns, and OSM pins). Look: shader only. Length: 60 s. Standard: s
   Bangkok suburbs.
 - **Payoff:** the Phra Pathom Chedi fair (12th lunar month), crowds round the chedi.
 
-## Dates — checked on the web (29 Oct 2026, first pass)
+## Dates — Gemini's answer checked on the web (29 Oct 2026)
 
-| fact | status | sources |
+| fact | used as | status / sources |
 |---|---|---|
-| Rama IV begins the new chedi encasing the old one, 2396 (1853) | ยืนยัน (start year) | mgronline 9540000142120; Thairath travel 2958306; en.wikipedia Phra Pathommachedi |
-| works take ~17 years; finished 2413 (1870), under Rama V | ยืนยันบางส่วน (2413 in English sources; Thai sources give "17 ปี") | Thairath 2958306; en.wikipedia |
-| height 120.45 m to the crown | ยืนยัน | Thairath 2958306; silpa-mag ?p=144387 |
-| southern line Thonburi–Phetchaburi: service 1 Apr 2446, opened by Rama V 19 Jun 2446; Nakhon Pathom station (first named "Phra Pathom") opened with it | ยืนยัน (English sources; Thai/SRT source wanted) | en.wikipedia Southern Line; Nakhon Pathom railway station |
-| Sanam Chandra Palace finished 2450 after ~4 years | ยืนยันบางส่วน | KTC / Wongnai travel pages; Gemini to confirm with a Fine Arts Dept source |
-| Chedi Bucha canal dug | ไม่พบ yet (Gemini) | — |
-| renamed นครปฐม under Rama VI | ไม่พบ yet (Gemini) | — |
+| Dvaravati town (moat 2 × 3.6 km) east of today's chedi, Phra Prathon at its centre; 6th–11th c. CE | "เมืองทวารวดี" (no year) | Gemini (Fine Arts Dept, Silpakorn); the Asoka-era 235/300 BE dates are legend only, never on screen |
+| Phraya Kong / Phraya Phan legend | sub line at most, no killing shown | ตามตำนาน (Phongsawadan Nuea); Gemini advises against it as the hook |
+| town abandoned when the waterway shifted; Nakhon Chai Si re-founded on the Tha Chin, 2091/2092 | "ราว" / sub | สันนิษฐาน (Gemini; not checked) |
+| Mongkut (as a monk) finds the chedi in forest | "สมัยรัชกาลที่ 3" (no year) | Gemini: first visit year ไม่พบ |
+| Rama IV begins the new chedi encasing the old, 2396 | counter held at 2396 | ยืนยัน: mgronline 9540000142120; Thairath 2958306; en.wikipedia |
+| **the rising chedi collapses in days of heavy rain, early Jul 2403; relaid 19 Sep 2403** | a beat (natural event, no deaths recorded) | ยืนยัน: silpa-mag ?p=165453 ("ฝนตกหนักทั้งวันทั้งคืน อิฐ…เลื่อนซุดลงมารอบตัว"); Gemini gives 4 Jul and ~35 m reached |
+| Khlong Chedi Bucha dug with the works from 2396; named 2401; finished 2405 | "สมัยรัชกาลที่ 4" (no year) | ขัดแย้ง: Gemini (Phongsawadan R4, Prachum Phongsawadan 25) vs th.wikipedia's 2401; not found on the web |
+| the chedi crowned, 120.45 m, 2413 under Rama V | counter held at 2413 | ยืนยัน: Thairath 2958306; silpa-mag ?p=144387; en.wikipedia |
+| seat of Monthon Nakhon Chai Si moved from Tha Na to the chedi, ~2441–2442 | sub | สันนิษฐาน (Gemini; not checked) |
+| southern line: service 1 Apr 2446, opened by Rama V 19 Jun 2446; station first named "Phra Pathom" | counter held at 2446 | ยืนยัน: en.wikipedia Southern Line / Nakhon Pathom station; Gemini |
+| Sanam Chandra Palace built ~2450–2454 by Rama VI (as crown prince first) | "สมัยรัชกาลที่ 6" | ยืนยันบางส่วน: KTC/Wongnai give "finished 2450"; Gemini gives 2450–2454. Year kept off the caption |
+| town renamed เมืองนครปฐม, Royal Gazette 2 Jul 2456 | "2456" if a caption names it | ยืนยัน: nakhonpathom.go.th history (via search), Gemini |
+| Phra Ruang Rojanarit installed in the north viharn, 2458 | sub | Gemini (not checked) |
+| Phetkasem Highway past the chedi's south side, 2493 | grow beat | Gemini (not checked) |
+| Silpakorn Sanam Chandra campus opens Jun 2511 | sub / callout | Gemini (not checked) |
+| city municipality 19.85 km², 11 Nov 2542; provincial hall moved south 2546–2547 | grow beat | Gemini (not checked) |
+| Phra Pathom Chedi fair: 12th waxing to 5th waning of the 12th month, 9 days and nights | payoff | Gemini; attendance ไม่พบ |
+| slogan (2553): "ส้มโอหวาน ข้าวสารขาว ลูกสาวงาม ข้าวหลามหวานมัน สนามจันทร์งามล้น พุทธมณฑลคู่ธานี พระปฐมเจดีย์เสียดฟ้า สวยงามตาแม่น้ำท่าจีน" | tagline source: "พระปฐมเจดีย์เสียดฟ้า" | Gemini |
 
-## Open questions
+**Out (§3.6a):** the 2536 Kader toy factory fire (Sam Phran, 188 dead); contemporary politics.
 
-- How far to tell the Phraya Kong / Phraya Phan legend (patricide): Gemini's view, then the owner's.
-- Is Nakhon Pathom in ONEP's `oldtown_all.shp`? ([local])
-- The hero (owner decides after 2–3 style frames).
+## Dimensions (Gemini part 4; metres → units at 80 m/unit)
+
+| thing | real | units |
+|---|---|---|
+| chedi height | 120.45 m | 1.5 at true scale; drawn at legend scale for the cover (see below) |
+| chedi bell base | Ø 56.6 m (235.5 m round) | 0.7 |
+| round cloister | Ø ~179 m | 2.2 (so OSM's 129-m polygon is neither the base nor the cloister: use these) |
+| temple square inside the four roads | ~485 × 485 m | 6 |
+| old inner chedi (Dvaravati stupa + Khmer prang) | ~37 m stupa, ~84 m with the prang (Gemini; two figures) | — |
+| Khlong Chedi Bucha | 10–16 m wide, ~12–13 km to the Tha Chin | 0.2 (draw at the engine's minimum river width) |
+| Dvaravati moat | 2,000 × 3,600 m, W edge ~2 km E of the chedi | 25 × 45 |
+
+The true-scale chedi is 1.5 units high on a 96-unit tile: a speck. Phetchabun and Suphanburi drew their
+heroes at legend scale (14 and ~26 units) for the cover and the payoff; the chedi needs the same, and
+then the open question is whether it stays big through the middle (it is the town's centre in every beat)
+or shrinks to a landmark scale. Proposal: legend scale throughout (~20 units high), since it is the one
+thing the town grows round, and the grow shot reads as a city spreading out from under it.
+
+## Story outline (draft, for the owner) — storyline v2
+
+| s | beat (kind) | on screen |
+|---|---|---|
+| 0–3 | cover (hero) | forest tile, a small brick stupa with a prang top in the middle; in the first second the golden bell rises round it in tiers and closes over it |
+| … | `build` 2396: the chedi works, builders, the canal being dug east towards the Tha Chin | people, boats |
+| … | `disaster` 2403: heavy rain, the half-built chedi slumps; relaid as the bell | the spectacle, by 12 s |
+| … | `arrive` 2446: the first train; the station north of the canal; khao lam sellers | train actor |
+| … | `procession` Rama VI: Ratchadamnoen road west to Sanam Chandra, the Wild Tiger corps; Ya Le | marching corps |
+| … | `grow` 2493–2569: Phetkasem to the south, Silpakorn to the west, the municipality filling the tile | wide shot ≥ 7 s |
+| 45–54 | `celebrate` today: the 12th-month fair round the chedi, lights, crowds, the Ferris wheel | hero back as callback |
+| 54–60 | landing + finale: "นครปฐม — พระปฐมเจดีย์เสียดฟ้า" | |
+
+Question for the owner: the cover shows the encasing (2396), so the clip's chronology could start at
+2396 with the Dvaravati town and the legend folded into the first sub line; or open on the Dvaravati
+town (ราว พ.ศ. 1100) for one short beat before 2396. v2 rule 1 wants the tile mostly forest at the
+cover, and 2396 is exactly that (the old town abandoned for centuries).
 
 ## Map ([local], `nakhonpathom_onep/`, 30 Oct 2026) — what it means for the tile
 
@@ -54,3 +97,11 @@ The canal and the rail run side by side: keep the rail out of the canal's bed (`
 
 To check before modelling: OSM's chedi polygon is ~129 m across and likely includes the round cloister;
 the bell's own base diameter comes from Gemini's part 4.
+
+## Open questions (owner)
+
+1. The hero: the encasing chedi (Gemini's first choice, and the handoff's) or one of Gemini's others
+   (a giant Dvaravati Dharmachakra rolling in; Phra Ruang Rojanarit forming; a dove flying up the chedi's
+   height, from the "สูงชั่วนกเขาเหิน" legend). Style frames first.
+2. Start the counter at 2396, or give the Dvaravati town one short beat first.
+3. The legend of Phraya Kong / Phraya Phan: a sub line only (Gemini's advice), or not at all.
