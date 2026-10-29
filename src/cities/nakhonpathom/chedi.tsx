@@ -122,35 +122,36 @@ export const Chedi: React.FC<{shell: number; spire: number; crown: number; gold:
   );
 };
 
-/** the round base, and from `court` the square terrace, the round cloister and the four viharns */
+/** the round upper terrace (~92 m), and from `court` the walled square (~250 x 240 m), the round
+ *  gallery and the four viharns ([local]'s measurements on Esri imagery, PR #76) */
 export const Terrace: React.FC<{court: number}> = ({court}) => (
   <group>
     <mesh position={[0, 0.03, 0]} receiveShadow castShadow>
-      <cylinderGeometry args={[0.42, 0.44, 0.06, 64]} />
+      <cylinderGeometry args={[0.38, 0.4, 0.06, 64]} />
       <meshStandardMaterial color={LIME} roughness={0.9} />
     </mesh>
     {court > 0.02 && (
       <group scale={[1, court, 1]}>
         <mesh position={[0, 0.0125, 0]} receiveShadow>
-          <boxGeometry args={[1.85, 0.025, 1.85]} />
+          <boxGeometry args={[2.05, 0.025, 2.0]} />
           <meshStandardMaterial color="#cfc6b0" roughness={0.95} />
         </mesh>
-        {/* the round cloister (562 m round): a low wall under a red roof */}
+        {/* the round gallery (คตพระระเบียง, ~107-126 m across, measured on imagery): a low wall under a red roof */}
         <mesh position={[0, 0.04, 0]}>
-          <cylinderGeometry args={[0.745, 0.745, 0.05, 96, 1, true]} />
+          <cylinderGeometry args={[0.5, 0.5, 0.05, 96, 1, true]} />
           <meshStandardMaterial color={LIME} roughness={0.9} side={THREE.DoubleSide} />
         </mesh>
         <mesh position={[0, 0.066, 0]} rotation-x={-Math.PI / 2}>
-          <ringGeometry args={[0.715, 0.775, 96]} />
+          <ringGeometry args={[0.45, 0.525, 96]} />
           <meshStandardMaterial color={ROOF} roughness={0.8} side={THREE.DoubleSide} />
         </mesh>
         {[0, 1, 2, 3].map((q) => (
           <group key={q} rotation-y={(q * Math.PI) / 2}>
-            <mesh position={[0, 0.07, 0.5]} castShadow>
+            <mesh position={[0, 0.07, 0.52]} castShadow>
               <boxGeometry args={[0.16, 0.09, 0.12]} />
               <meshStandardMaterial color={LIME} roughness={0.9} />
             </mesh>
-            <mesh position={[0, 0.135, 0.5]} rotation-z={Math.PI / 4} castShadow>
+            <mesh position={[0, 0.135, 0.52]} rotation-z={Math.PI / 4} castShadow>
               <boxGeometry args={[0.09, 0.09, 0.13]} />
               <meshStandardMaterial color={ROOF} roughness={0.8} />
             </mesh>

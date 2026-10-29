@@ -44,9 +44,11 @@ announced old towns, and OSM pins). Look: shader only. Length: 60 s. Standard: s
 | thing | real | units |
 |---|---|---|
 | chedi height | 120.45 m | 1.5 at true scale; drawn at legend scale for the cover (see below) |
-| chedi bell base | **ขัดแย้ง:** Gemini gives Ø 56.6 m *and* 235.5 m round (= Ø 75 m); not found on the web. Working figure Ø ~75 m (photos put the bell's width at ~0.6 of the height); [local] to measure on satellite. The style frames used 56.6 | 0.9 |
-| round cloister | Ø ~179 m | 2.2 (so OSM's 129-m polygon is neither the base nor the cloister: use these) |
-| temple square inside the four roads | ~485 × 485 m | 6 |
+| chedi bell base | Ø ~80 m measured ([local], Esri z19, ±6), drawn 75 (235.5/π); Gemini's 56.6 is wrong | 0.9 |
+| round upper terrace (ลานประทักษิณบน) | Ø ~92 m measured | 1.15 |
+| round gallery (คตพระระเบียง) with the four viharns | Ø ~107 inner / ~126 outer measured; OSM's 129-m polygon is this ring. Gemini's 562-m perimeter fits nothing | 1.6 |
+| temple wall (the only square on imagery) | ~250 × 240 m, turned ~8° from north (drawn square to north) | 3.1 |
+| temple grounds inside the four roads | ~485 × 485 m (Gemini, 148 rai) | 6 |
 | old inner chedi (Dvaravati stupa + Khmer prang) | ~37 m stupa, ~84 m with the prang (Gemini; two figures) | — |
 | Khlong Chedi Bucha | 10–16 m wide, ~12–13 km to the Tha Chin | 0.2 (draw at the engine's minimum river width) |
 | Dvaravati moat | 2,000 × 3,600 m, W edge ~2 km E of the chedi | 25 × 45 |
