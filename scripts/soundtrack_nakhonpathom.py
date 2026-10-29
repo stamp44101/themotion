@@ -272,13 +272,10 @@ for i in range(6):
 for i in range(4):
     add(music, gong(rng.choice([110, 147, 165]), 2.4, 0.1), DUR - 4.0 + i * 0.8, pan=rng.uniform(-0.5, 0.5))
 
-# the score carries the clip and steps back only where something happens: the owner found v1's
-# score too quiet against Chiang Mai (music 7.9 LU under the effects over the whole clip; Korat
-# sits 2.7 above). Raised to Korat's balance, then ducked inside the action beats so the dig, the
-# collapse and the train still lead there (CLAUDE.md, the small sounds are the charm)
+# the score carries the clip at a steady level: the owner found v1's score too quiet against Chiang
+# Mai (music 7.9 LU under the effects over the whole clip; Korat sits 2.7 above), and heard 35% dips
+# in the action beats as odd ("ไม่หรี่เพลงได้ไหม มันแปลกๆอะ"), so it is raised and left alone
 music *= MUSIC_GAIN
-for b_ in (canal, collapse, train):
-    music *= (1 - 0.35 * bump(T, b_[0], b_[1], 0.4))[:, None]
 # the birds and the town bed come up with it, back to 8-12 dB under the score
 amb *= 2.3
 mix = master("public/soundtrack_nakhonpathom.wav", music, amb, sfx)
