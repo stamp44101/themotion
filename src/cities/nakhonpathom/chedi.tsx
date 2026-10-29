@@ -114,8 +114,9 @@ export const Chedi: React.FC<{shell: number; spire: number; crown: number; gold:
         </group>
       )}
       {crown > 0.02 && (
-        <mesh geometry={crownGeo} scale={[1, crown, 1]}>
-          <meshBasicMaterial color="#ffd66b" toneMapped={false} />
+        <mesh geometry={crownGeo} scale={[1, crown, 1]} castShadow>
+          {/* gilded, not self-lit: a basic material read as a candle flame on the spire ([local]) */}
+          <meshStandardMaterial color="#f0c35a" roughness={0.3} metalness={0.5} emissive="#ffb54a" emissiveIntensity={0.15 + 0.35 * lit} />
         </mesh>
       )}
     </group>

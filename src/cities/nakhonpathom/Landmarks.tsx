@@ -7,7 +7,7 @@ import {Walker} from '../nan/figures';
 import {RowBoat} from '../phetchabun/figures';
 import {
   along, BOATS, boatAt, BUILDERS, builderAt, CANAL_L, canalDug, chediAt, chediH, clamp01, CORPS, DEBRIS, debrisAt,
-  courtK, marcherAt, WALKERS, walkerAt, WHEEL, wheelK,
+  courtK, marcherAt, rainK, WALKERS, walkerAt, WHEEL, wheelK,
 } from './actors';
 import {Chedi, Terrace} from './chedi';
 import {
@@ -82,13 +82,35 @@ const Debris: React.FC<{t: number}> = ({t}) => (
   </>
 );
 
+/** the July 2403 rains: thin streaks falling round the chedi (the engine's rain reads faint at this distance) */
+const RAIN_N = 160;
+const Rain: React.FC<{t: number}> = ({t}) => {
+  const k = rainK(t);
+  if (k < 0.02) return null;
+  return (
+    <>
+      {Array.from({length: RAIN_N}, (_, i) => {
+        const a = (i * 2.399) % (Math.PI * 2);
+        const r = 1.5 + ((i * 7.31) % 1) * 9;
+        const y = 10 - ((t * 14 + i * 0.73) % 10);
+        return (
+          <mesh key={i} position={[Math.cos(a) * r, y, Math.sin(a) * r]} rotation-z={0.12}>
+            <boxGeometry args={[0.025, 0.9, 0.025]} />
+            <meshBasicMaterial color="#c9d6e2" transparent opacity={0.55 * k} depthWrite={false} toneMapped={false} />
+          </mesh>
+        );
+      })}
+    </>
+  );
+};
+
 const Builders: React.FC<{t: number}> = ({t}) => (
   <>
     {Array.from({length: BUILDERS}, (_, i) => {
       const b = builderAt(i, t);
       if (!b) return null;
       return (
-        <group key={i} position={[b.x, 0.06 * H_MID, b.z]} rotation-y={b.rot} scale={0.32}>
+        <group key={i} position={[b.x, 0, b.z]} rotation-y={b.rot} scale={0.32}>
           <Walker step={t * 1.4 + i * 0.37} i={i} load={i % 3 === 0} />
         </group>
       );
@@ -184,7 +206,15 @@ const Bridges: React.FC<{Y: number}> = ({Y}) => (
         ))}
       </group>
     )}
-    {Y > 1917.5 && <Box p={[STATION_RD[0][0], 0.16, -7.5]} s={[1.0, 0.1, 1.6]} c="#e6dfd0" />}
+    {/* the station road (a track from the line's opening, paved with the bridge in 1918) */}
+    {Y > 1903 && (
+      <Box
+        p={[STATION_RD[0][0], 0.05, (STATION_RD[0][1] + STATION_RD[1][1]) / 2]}
+        s={[0.7, 0.04, STATION_RD[0][1] - STATION_RD[1][1]]}
+        c={Y > 1917.5 ? '#6f7178' : '#a8916a'}
+      />
+    )}
+    {Y > 1917.5 && <Box p={[STATION_RD[0][0], 0.16, -7.5]} s={[1.0, 0.1, 1.8]} c="#e6dfd0" />}
   </>
 );
 
@@ -197,7 +227,7 @@ const Market: React.FC<{Y: number; night: number}> = ({Y, night}) => {
     <>
       {[MARKET_W, MARKET_E].map(([mx, mz], m) =>
         Array.from({length: 6}, (_, i) => (
-          <Grow key={`${m}${i}`} k={k} at={[mx - 2.2 + i * 0.9, 0, mz - 0.6]}>
+          <Grow key={`${m}${i}`} k={k} at={[mx - 2.2 + i * 0.9, 0, mz]}>
             {/* Chinese shophouses along the bank, red-tiled */}
             <Box p={[0, 0.4, 0]} s={[0.8, 0.8, 0.9]} c={i % 2 ? '#e4d7bf' : '#d9c7a4'} e={lit} />
             <Box p={[0, 0.86, 0]} s={[0.86, 0.12, 0.96]} c="#a3533a" />
@@ -305,7 +335,7 @@ const Fair: React.FC<{t: number; night: number}> = ({t, night}) => {
         const w = walkerAt(i, t);
         if (!w) return null;
         return (
-          <group key={i} position={[w.x, 0.06 * H_MID, w.z]} rotation-y={w.rot} scale={0.3}>
+          <group key={i} position={[w.x, w.y, w.z]} rotation-y={w.rot} scale={0.3}>
             <Walker step={t * 1.3 + i * 0.29} i={i} />
           </group>
         );
@@ -323,7 +353,7 @@ const Fair: React.FC<{t: number; night: number}> = ({t, night}) => {
         );
       })}
       {/* the Ferris wheel on the south side of the square */}
-      <group position={[WHEEL[0], 0, WHEEL[1]]} scale={k}>
+      <group position={[WHEEL[0], 0, WHEEL[1]]} scale={k} rotation-y={-Math.PI / 2}>
         {[-0.5, 0.5].map((x) => (
           <mesh key={x} position={[x * 0.6, 1.3, 0]} rotation-z={x > 0 ? -0.25 : 0.25}>
             <boxGeometry args={[0.12, 2.7, 0.12]} />
@@ -366,6 +396,7 @@ export const NakhonPathomLandmarks: React.FC<LandmarkProps> = ({Y, t, night}) =>
   <group>
     <ChediMain t={t} Y={Y} />
     <Debris t={t} />
+    <Rain t={t} />
     <Builders t={t} />
     <Canal t={t} />
     <Boats t={t} Y={Y} />

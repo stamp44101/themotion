@@ -25,7 +25,7 @@ const CANAL_DISCS: [number, number, number][] = CANAL_PATH.slice(1).flatMap(([bx
 
 // the town of the 1900s: round the chedi and north over the canal to the station
 const TOWN: P[] = [
-  [-10, -15], [8, -15], [12, -6], [11, 8], [3, 11], [-8, 10], [-12, 2], [-12, -8],
+  [-10, -11], [8, -11], [12, -6], [11, 8], [3, 11], [-8, 10], [-12, 2], [-12, -8],
 ];
 
 export const NAKHONPATHOM: CityConfig = {
@@ -51,7 +51,7 @@ export const NAKHONPATHOM: CityConfig = {
     noMoat: true,
     noWall: true,
     // the Southern Line (service 1 Apr 2446, opened 19 Jun 2446), E-W north of the canal
-    rail: {axis: 'x', pos: RAIL_Z, open: [1902.6, 1903.2], station: STATION, stationYear: 1903},
+    rail: {axis: 'x', pos: RAIL_Z, open: [1902.6, 1903.2], station: STATION, stationYear: 1901.5},
     trains: SOUND_EVENTS.trains.map((tr) => ({...tr, dir: tr.dir as 1 | -1})),
     city: {hx: 12, hz: 13, outline: TOWN, moat: [1e9, 1e9], wall: [1e9, 1e9], gates: [1e9, 1e9], groundFrom: 1856},
     gates: [],
@@ -91,6 +91,8 @@ export const NAKHONPATHOM: CityConfig = {
       [PRATHON[0], PRATHON[1], 2],
       [MARKET_W[0], MARKET_W[1], 2.6],
       [MARKET_E[0], MARKET_E[1], 2.6],
+      // the station road and its bridge (drawn in Landmarks.tsx)
+      [STATION_RD[0][0], -9, 2.2],
     ],
     openGround: [
       // the temple square (the fair ground)
@@ -105,8 +107,6 @@ export const NAKHONPATHOM: CityConfig = {
     roads: [
       // ถนนราชดำเนิน to the palace (Rama VI)
       ...segs(RATCHADAMNOEN, 0.8, 1908),
-      // from the north viharn over สะพานเจริญศรัทธา to the station
-      ...segs(STATION_RD, 0.7, 1918),
       // ถนนเพชรเกษม (2493)
       ...segs(PHETKASEM, 1.0, 1950),
       // the road east toward Phra Prathon
@@ -118,8 +118,8 @@ export const NAKHONPATHOM: CityConfig = {
     finale: 'fireworks',
     life: {
       people: [
-        {x: MARKET_W[0], z: MARKET_W[1] - 1.4, r: 1.6, count: 10, from: 1903, to: 2026},
-        {x: MARKET_E[0], z: MARKET_E[1] - 1.4, r: 1.6, count: 10, from: 1903, to: 2026},
+        {x: MARKET_W[0], z: MARKET_W[1] + 0.9, r: 0.5, count: 10, from: 1903, to: 2026},
+        {x: MARKET_E[0], z: MARKET_E[1] + 0.9, r: 0.5, count: 10, from: 1903, to: 2026},
       ],
       buffalo: [
         {x: -26, z: 22, r: 4, count: 6, from: 1850, to: 1985},

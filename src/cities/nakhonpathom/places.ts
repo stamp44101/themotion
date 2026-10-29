@@ -15,20 +15,22 @@ export const CHEDI: P = [0, 0]; // องค์พระปฐมเจดีย
 // the temple square inside the four roads (หน้าพระ ซ้ายพระ ขวาพระ หลังพระ), ~485 m a side, drawn
 // round the 4x chedi's square terrace
 export const TEMPLE_HALF = 6.4;
-// the Southern Line runs E-W 553 m north of the chedi; drawn 840 m out to clear the canal and market
-export const RAIL_Z = -10.5;
+// the Southern Line runs E-W 553 m north of the chedi; drawn 1 km out so the canal, its market rows and
+// the line each have their own strip ([local]'s v1 review: shophouses stood on the track)
+export const RAIL_Z = -12.5;
 // สถานีนครปฐม, OSM node 259729390 (553 m N): on the north side of the line
-export const STATION: P = [-4.6, -13.1];
+export const STATION: P = [-4.6, -15.1];
 export const PALACE: P = [-21, -1.1]; // พระราชวังสนามจันทร์, OSM way 96936815 (1.6 km W, 13 ha)
 export const SILPAKORN: P = [-29, 2.6]; // ม.ศิลปากร วิทยาเขตพระราชวังสนามจันทร์, OSM way 220825148 (2.2 km W)
 export const PRATHON: P = [49.8, 6.4]; // พระประโทณเจดีย์, OSM way 1227287978 (4.0 km E)
 // ถนนราชดำเนิน (ถนนต้นสน): straight from the chedi's west side to the palace's east gate (1908)
 export const RATCHADAMNOEN: P[] = [[-6.8, -0.6], [-17.6, -0.9]];
-// the road from the north viharn over สะพานเจริญศรัทธา (1918) to the station
-export const STATION_RD: P[] = [[-0.6, -6.6], [-0.6, -8.6]];
+// the road from the north viharn over สะพานเจริญศรัทธา (1918) toward the station: drawn in Landmarks.tsx,
+// not an engine road, so no car is routed over the canal (the engine only bridges its own rivers)
+export const STATION_RD: P[] = [[-0.6, -6.6], [-0.6, -11.4]];
 // ตลาดบน / ตลาดล่าง: along the canal north of the chedi, west and east of the station road
-export const MARKET_W: P = [-4.2, -8.8];
-export const MARKET_E: P = [3.6, -8.8];
+export const MARKET_W: P = [-4.2, -9.4];
+export const MARKET_E: P = [3.6, -9.4];
 // ถนนเพชรเกษม (1950): past the chedi's south side and on east past Phra Prathon
 export const PHETKASEM: P[] = [[-39, 13], [-14, 10.4], [12, 10.4], [40, 9.2], [57, 9.6]];
 // the payoff's fair ground: the temple square itself (the fair fills it and the roads round it)
@@ -47,7 +49,7 @@ export const CANAL_PATH: P[] = [
   [-34.4, -30.4], [-36.2, -28.6], [-39, -27.4],
 ];
 // where the line crosses the canal (a girder bridge is drawn there)
-export const RAIL_CANAL_X = -14.5;
+export const RAIL_CANAL_X = -19.1;
 
 // ---- far places: only bearings are kept (geo.ts, far: true)
 // เมืองนครไชยศรีเก่า / ตลาดท่านา on the Tha Chin, 13.8 km east, where the canal starts

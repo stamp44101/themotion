@@ -72,6 +72,12 @@ export const chediAt = (t: number): ChediState => {
   };
 };
 
+/** the July 2403 rains, in and out over the collapse beat */
+export const rainK = (t: number) => {
+  const k = beatK('collapse', t);
+  return smooth(clamp01(k / 0.12)) * smooth(clamp01((0.72 - k) / 0.15));
+};
+
 /** the walled square, gallery and viharns spreading out from the base through the crown beat */
 export const courtK = (t: number) => clamp01((beatK('crown', t) - 0.12) / 0.5);
 
@@ -93,7 +99,8 @@ export const debrisAt = (i: number, t: number) => {
 export const BUILDERS = 20;
 export const builderAt = (i: number, t: number) => {
   if (t < 5.6 || t > beatAt('crown', 0.9)) return null;
-  const R = 0.5 * H_MID + (i % 2) * 0.5;
+  // between the upper terrace's edge (0.38 H) and the gallery that comes later (0.45 H)
+  const R = (0.4 + (i % 2) * 0.03) * H_MID;
   const a = (i / BUILDERS) * Math.PI * 2 + t * 0.18 * (i % 2 ? 1 : -1);
   return {x: Math.cos(a) * R, z: Math.sin(a) * R, rot: a + (i % 2 ? 0 : Math.PI)};
 };
@@ -152,12 +159,16 @@ export const WALKERS = 46;
 export const walkerAt = (i: number, t: number) => {
   const k = beatK('payoff', t);
   if (k < 0) return null;
-  const R = (0.48 + (i % 3) * 0.06) * H_MID;
-  const a = (i / WALKERS) * Math.PI * 2 + t * 0.12;
-  return {x: Math.cos(a) * R, z: Math.sin(a) * R, rot: -a};
+  // a third on the upper terrace round the bell (0.32-0.38 H), the rest on the square outside the
+  // gallery (0.6-0.72 H): nobody walks through the gallery's wall or the viharns
+  const up = i % 3 === 0;
+  const R = (up ? 0.35 : 0.6 + (i % 4) * 0.04) * H_MID;
+  const a = (i / WALKERS) * Math.PI * 2 + t * (up ? 0.16 : 0.1);
+  return {x: Math.cos(a) * R, z: Math.sin(a) * R, y: up ? 0.06 * H_MID : 0, rot: -a};
 };
-/** the Ferris wheel on the square's south side */
-export const WHEEL: P = [0, 0.8 * H_MID];
+/** the Ferris wheel on the square's south side, its plane east-west, clear of the gallery (0.525 H) and
+ *  inside the wall (1.02 H): the rim (1.9) spans z 0.82 H +- 0.3 */
+export const WHEEL: P = [0, 0.82 * H_MID];
 export const wheelK = (t: number) => smooth(clamp01(beatK('payoff', t) / 0.15));
 
 export const ACTORS: Actor[] = [
