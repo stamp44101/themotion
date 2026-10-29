@@ -31,3 +31,26 @@ announced old towns, and OSM pins). Look: shader only. Length: 60 s. Standard: s
 - How far to tell the Phraya Kong / Phraya Phan legend (patricide): Gemini's view, then the owner's.
 - Is Nakhon Pathom in ONEP's `oldtown_all.shp`? ([local])
 - The hero (owner decides after 2–3 style frames).
+
+## Map ([local], `nakhonpathom_onep/`, 30 Oct 2026) — what it means for the tile
+
+No ONEP polygon (not an announced old town) and no Dvaravati moat in OSM; the town has no wall to trace,
+so it is an open town round the chedi, like Udon. Measured from the chedi (13.819673, 100.060078):
+
+| place | real | at 80 m/unit |
+|---|---|---|
+| Khlong Chedi Bucha | 233 m to the nearest bank, runs E–W just N of the chedi | ~3 units |
+| Nakhon Pathom station / Southern Line | 553 m N, line runs E–W | ~7 units N |
+| Sanam Chandra Palace (13 ha) | 1.6 km W | ~20 units W |
+| Silpakorn (Sanam Chandra campus) | 2.2 km W | ~27 units W |
+| Phra Prathon Chedi | 4.0 km E | ~50 units E |
+| Tha Chin at Nakhon Chai Si | 13.6 km E | far (`far: true`) |
+
+So the spine is an east–west strip: palace and university to the west, the chedi in the middle, the canal
+and the railway parallel to each other just north, Phra Prathon to the east. A 96-unit tile centred
+~1 km west of the chedi holds the palace and the university on one side and keeps Phra Prathon near
+the east edge; the Tha Chin / old Nakhon Chai Si is a far place (one of the two allowed, v2 rule 3).
+The canal and the rail run side by side: keep the rail out of the canal's bed (`check_story`).
+
+To check before modelling: OSM's chedi polygon is ~129 m across and likely includes the round cloister;
+the bell's own base diameter comes from Gemini's part 4.
