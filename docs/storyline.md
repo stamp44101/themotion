@@ -6,7 +6,7 @@ owner's notes, not from taste. Every city from Phetchaburi on declares
 `buildStory({standard: 1, ...})`, which turns on the checks in `scripts/storyline.mjs`
 (part of `npm run check`).
 
-Read §1 once. Use §2 and §5 every time.
+Read §1 once. Use §2, §5 and §7 (v2, the 0-to-100 spine) every time.
 
 ## 1. What the numbers say
 
@@ -144,7 +144,7 @@ happens; this table decides how long each thing gets and how it is shown.
 - Every event gets its SFX on the beat.
 - Ambience is a sequence of places, 8–12 dB under the score.
 - Nothing harsh above 5 kHz (the owner disliked sharp highs).
-- The whole mix sits around −14 dBFS RMS.
+- The whole mix is mastered to −16 LUFS (CLAUDE.md, `synth.master`).
 
 ### 3.8 Length
 - 60 s. A 75 s cut only when the extra time is action.
@@ -200,3 +200,31 @@ Record in `docs/experiments.md`, about 24 h after posting:
 Change one new thing per city after this standard. Phetchaburi is the first city built to it,
 so it tests the standard as a package against Korat and Lampang. The number it has to move is
 **retention at 17 s**, which was 30–35% on every clip so far.
+
+## 7. Standard v2: the town grows from 0 to 100 (owner, 27–29 ต.ค. 2569)
+
+Phetchabun, the Suphanburi v1 cut and the clips before them all passed v1 and still felt flat to the
+owner: the town stood full at frame 0, the camera hopped between far-off places, and growth was squeezed
+into one 6-s beat. The owner's reference is Chiang Mai: **you watch a place go from nothing to a city.**
+Suphanburi was rebuilt to it (v2), and Udon Thani was the first city built to it from the start.
+
+Rules (on top of §2–§6; the script does not test them yet, so the contact sheet does):
+1. **Start small.** At the cover the tile is mostly forest, water and fields: the town is a camp, a
+   village or a sparse old town (Suphanburi: ~13% of its houses in 2135; Udon: forest and the lake).
+   Set `houses.built` so the town fills *during* the middle beats, not before frame 0.
+2. **The middle happens in the growing town.** Each middle beat's event (a procession, a train, a
+   market, an airfield) stands in or at the edge of the town, so every beat also shows it bigger.
+3. **At most two far places** (a landmark tens of km out: Don Chedi, Ban Chiang). A third far beat is
+   cut or folded into a sub line (Suphanburi v2 dropped "พบซากเจดีย์" into the payoff's sub).
+4. **Wide shots come back:** at least three wide or medium-wide shots of the same town from a similar
+   side (the cover, one in the middle, the grow shot, the landing), so the growth reads as a before
+   and after.
+5. **The landing is the whole tile again,** at the cover's distance, now full of city: the 0 and the
+   100 in one clip.
+6. **The grow beat is long** (≥ 7 s) and wide (distance ≥ 160), the counter running fast only while
+   blocks are visibly going up.
+
+What the first read says (`experiments.md` §11): Suphanburi v2's like, save, share, repost and
+comment rates were all above a typical reel, the first time since Lopburi, while its skip rate (44%)
+was worse than Phetchabun's (37.7%): the spine pays the people who stay, and the hook still has to
+be won by the cover (§3.1, CLAUDE.md "The cover shows the land, with a giant on it").
