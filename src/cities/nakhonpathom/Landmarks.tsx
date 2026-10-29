@@ -7,7 +7,7 @@ import {Walker} from '../nan/figures';
 import {RowBoat} from '../phetchabun/figures';
 import {
   along, BOATS, boatAt, BUILDERS, builderAt, CANAL_L, canalDug, chediAt, chediH, clamp01, CORPS, DEBRIS, debrisAt,
-  marcherAt, WALKERS, walkerAt, WHEEL, wheelK,
+  courtK, marcherAt, WALKERS, walkerAt, WHEEL, wheelK,
 } from './actors';
 import {Chedi, Terrace} from './chedi';
 import {
@@ -38,7 +38,9 @@ const ChediMain: React.FC<{t: number; Y: number}> = ({t, Y}) => {
   const H = chediH(t);
   const s = chediAt(t);
   // the court (square terrace, cloister, viharns) goes up with the crown
-  const court = Y >= 1870.5 ? 1 : smooth01(clamp01((s.gold - 0.5) / 0.5)) * (t > 8 ? 1 : 0);
+  // spread out from the base over ~2 s: a flat slab grown by its height alone pops in at full width
+  // and jumped the frame's luma by 9 in one frame ([local]'s v1 render, 19.45 s)
+  const court = Y >= 1870.5 ? 1 : smooth01(courtK(t));
   return (
     <group>
       <group scale={H}>
@@ -245,8 +247,22 @@ const Corps: React.FC<{t: number}> = ({t}) => (
       const m = marcherAt(i, t);
       if (!m) return null;
       return (
-        <group key={i} position={[m.x, 0, m.z]} rotation-y={m.rot} scale={0.34}>
-          <Walker step={m.moving ? t * 2 + (i % 2) * 0.5 : 0} i={i} spear still={!m.moving} />
+        <group key={i} position={[m.x, 0, m.z]} rotation-y={m.rot} scale={0.5}>
+          {/* white drill uniforms read against the road (CLAUDE.md "figures must read as people") */}
+          <Walker step={m.moving ? t * 2 + (i % 2) * 0.5 : 0} i={[0, 4, 2][i % 3]} still={!m.moving} />
+          {/* the colour party at the head: a flag on a pole */}
+          {i < 2 && (
+            <group>
+              <mesh position={[0.35, 1.6, 0]}>
+                <cylinderGeometry args={[0.04, 0.04, 3.2, 6]} />
+                <meshStandardMaterial color="#d8d2c4" />
+              </mesh>
+              <mesh position={[0.35, 2.9, 0.45]}>
+                <boxGeometry args={[0.03, 0.6, 0.9]} />
+                <meshStandardMaterial color={i ? '#e2b33c' : '#b0261c'} />
+              </mesh>
+            </group>
+          )}
         </group>
       );
     })}

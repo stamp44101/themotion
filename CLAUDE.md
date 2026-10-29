@@ -65,6 +65,9 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   frame (the plain cut shows nothing). Gate every growing mesh on its own scale (`> 0.02`),
   not on the beat or year that drives it. Bisect on one still: a still is a fresh page, so a
   black still means per-frame overflow, not page reuse.
+- **A flat slab grown by its height pops in at full width.** Nakhon Pathom's white temple square was
+  gated on `scale-y > 0.02`, so its whole 11-unit footprint appeared in one frame and lifted the
+  frame's mean luma by 9 (`check_render` fails over 8). Grow a ground slab outward (x/z) or fade it.
 - **The cover shows the land, with a giant on it (owner).** The cover's hero is drawn at legend
   scale (Phetchabun's image 14 units tall, Suphanburi's war elephants 8x, ~26 units) and the
   camera is far and high enough (Suphanburi: distance ~290, elevation ~27 degrees) that the whole

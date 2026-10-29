@@ -29,8 +29,8 @@ const CR_END: Key = [21.8, 0, 3.6, 0, 42, 138, 33, 30];
 const TR_IN: Key = [23.4, -2, 1, -10, 58, 160, 36, 30];
 const TR_END: Key = [27.2, -4, 1, -9, 52, 180, 36, 30];
 // the march down Ratchadamnoen to Sanam Chandra
-const PL_IN: Key = [28.8, -10, 1, -1, 60, 204, 38, 30];
-const PL_END: Key = [32.8, -15, 1, -1, 54, 226, 38, 30];
+const PL_IN: Key = [28.8, -10, 1, -1, 46, 204, 40, 30];
+const PL_END: Key = [32.8, -15, 1, -1, 44, 226, 40, 30];
 // the long wide shot: the town over the whole tile
 const GR_IN: Key = [35.2, 8, 1, 2, 175, 250, 36, 30];
 const GR_END: Key = [42.2, 9, 1, 2, 225, 292, 35, 30];
@@ -122,7 +122,7 @@ export const STORY = buildStory({
       t: [28.2, 33.8],
       year: [1907, 1914],
       caption: {t0: 28.2, title: 'สร้างวังสนามจันทร์', sub: 'สมัยรัชกาลที่ 6 ตัดถนนตรงจากองค์พระสู่วัง กองเสือป่าฝึกซ้อม พระราชทานนามเมืองว่านครปฐม'},
-      callouts: [{label: 'พระราชวังสนามจันทร์', dx: -150, dy: -110, p: [PALACE[0], 1, PALACE[1]], t0: 30, t1: 33.4}],
+      callouts: [{label: 'พระราชวังสนามจันทร์', dx: -150, dy: -110, p: [PALACE[0] + 2, 1, PALACE[1]], t0: 31.6, t1: 33.6}],
       camera: [PL_IN, PL_END],
     },
     {

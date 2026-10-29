@@ -131,7 +131,7 @@ export const Terrace: React.FC<{court: number}> = ({court}) => (
       <meshStandardMaterial color={LIME} roughness={0.9} />
     </mesh>
     {court > 0.02 && (
-      <group scale={[1, court, 1]}>
+      <group scale={[0.25 + 0.75 * court, court, 0.25 + 0.75 * court]}>
         <mesh position={[0, 0.0125, 0]} receiveShadow>
           <boxGeometry args={[2.05, 0.025, 2.0]} />
           <meshStandardMaterial color="#cfc6b0" roughness={0.95} />

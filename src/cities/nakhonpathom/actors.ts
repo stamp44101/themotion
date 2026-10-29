@@ -72,6 +72,9 @@ export const chediAt = (t: number): ChediState => {
   };
 };
 
+/** the walled square, gallery and viharns spreading out from the base through the crown beat */
+export const courtK = (t: number) => clamp01((beatK('crown', t) - 0.12) / 0.5);
+
 /** the bricks thrown out as the shell slumps: brick i at t, or null */
 export const DEBRIS = 42;
 export const debrisAt = (i: number, t: number) => {
@@ -128,7 +131,7 @@ export const boatAt = (i: number, t: number) => {
 };
 
 // ------------------------------------------------------------------ the Wild Tiger Corps
-export const CORPS = 18;
+export const CORPS = 24;
 const RD = [...RATCHADAMNOEN, [PALACE[0] + 2.6, PALACE[1] + 0.2]] as P[];
 const RD_L = lengthOf(RD);
 /** marcher i on Ratchadamnoen, from the chedi to the palace gate; stops strung out at the gate */
@@ -136,7 +139,7 @@ export const marcherAt = (i: number, t: number) => {
   const k = beatK('palace', t);
   if (k < -0.05 || k > 1.1) return null;
   const head = lerp(3, RD_L - 0.4, smooth(clamp01((k + 0.05) / 0.95)));
-  const d = head - Math.floor(i / 2) * 0.9;
+  const d = head - Math.floor(i / 2) * 1.0;
   if (d < 0) return null;
   const p = along(RD, d);
   const side = i % 2 ? 0.3 : -0.3;
