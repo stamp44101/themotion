@@ -1,3 +1,5 @@
+// Draft: moves to src/cities/nakhonpathom/ with index.ts once the hero is chosen (check_story treats
+// every folder in src/cities/ as a finished city).
 // Real positions (docs/briefs/nakhonpathom_onep/README.md, PR #76; Gemini's pins in
 // docs/briefs/nakhonpathom_research_gemini.md §4): world units from Phra Pathom Chedi (OSM way
 // 260617833, 13.819673, 100.060078) at 80 m/unit. +x east, +z south. Pure data so actors.ts,
