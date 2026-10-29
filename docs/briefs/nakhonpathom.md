@@ -44,7 +44,7 @@ announced old towns, and OSM pins). Look: shader only. Length: 60 s. Standard: s
 | thing | real | units |
 |---|---|---|
 | chedi height | 120.45 m | 1.5 at true scale; drawn at legend scale for the cover (see below) |
-| chedi bell base | Ø 56.6 m (235.5 m round) | 0.7 |
+| chedi bell base | **ขัดแย้ง:** Gemini gives Ø 56.6 m *and* 235.5 m round (= Ø 75 m); not found on the web. Working figure Ø ~75 m (photos put the bell's width at ~0.6 of the height); [local] to measure on satellite. The style frames used 56.6 | 0.9 |
 | round cloister | Ø ~179 m | 2.2 (so OSM's 129-m polygon is neither the base nor the cloister: use these) |
 | temple square inside the four roads | ~485 × 485 m | 6 |
 | old inner chedi (Dvaravati stupa + Khmer prang) | ~37 m stupa, ~84 m with the prang (Gemini; two figures) | — |
