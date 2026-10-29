@@ -559,3 +559,53 @@ What it changes (from the next city, Phetchabun):
 - Prefer 60 s.
 - A hero that is a story people share (a legend, a festival image the town is known for)
   over a symbol that is merely local.
+
+## 10. Phetchabun: the giant Buddha rising out of the river, 60 s — read: best skip since Ubon, weak reach
+
+Cover: Phra Phuttha Maha Thammaracha rising out of the Pa Sak at legend scale, the first city built to
+§9's rule (an event in the first second, the hero filling the middle of the frame).
+
+### Result (owner's screenshots, 28 Oct 09:06, under a day in)
+
+Skip rate **37.7%** ("lower"), 5,845 views from 4,349 viewers, average watch **18 s**, 7 follows. 257
+likes, 13 comments, 31 reposts, 32 shares, 17 saves: share 0.7%, like 5.9%, save 0.4%, repost 0.7%
+(all "lower"), comment 0.3% ("higher"). Views from the Reels tab 70.7%, Feed 17.1%, Explore 6.7%,
+Stories 3.7%. The views curve sat under a typical reel from the first hours. Retention fell to ~50% by
+~5 s and ~30% by ~15 s, then slowly to the end.
+
+Reading: the cover rule worked for the first 3 s (the best skip rate since Lopburi), but the middle lost
+the viewers it kept: three flat posts in a row led the owner to the 0-to-100 rework (§11).
+
+## 11. Suphanburi v2: the war elephants' clash, then the town growing through the middle — read: hook weaker, engagement better
+
+The first city rebuilt to the 0-to-100 spine (the town sparse at the cover and filling beat by beat, wide
+shots coming back). Cover: the ยุทธหัตถี, two giant war elephants meeting tusk to tusk at 0.55 s.
+
+### Result (owner's screenshots, 29 Oct 09:14, about a day in)
+
+Skip rate **44.0%** ("higher"), 4,056 views from 2,779 viewers, average watch **15 s**, 8 follows. 232
+likes, 14 comments, 28 reposts, 24 shares, 23 saves: share 0.8%, like **8.0%**, save **0.8%**, repost
+1.0%, comment 0.5%, **all five "higher"** than a typical reel. Views from the Reels tab 47.5%, Feed
+35.4%, Stories 8.7%, Explore 5.0%, Profile 2.4%; the views curve about half a typical reel's. Retention
+~50% by ~5 s, ~30% by ~15 s.
+
+| | Phetchabun | Suphanburi v2 |
+|---|---|---|
+| cover | Buddha rising (shape change) | two elephants clash (impact) |
+| skip rate | 37.7% | **44.0%** |
+| retention at ~15 s | ~30% | ~30% |
+| average watch | 18 s | 15 s |
+| like / save / share | 5.9 / 0.4 / 0.7% | **8.0 / 0.8 / 0.8%** |
+| views from the Reels tab | 70.7% | **47.5%** |
+
+Reading (one post each, so a lean, not a rule):
+- **The people who stayed liked v2 more**: every engagement rate is higher than a typical reel, the first
+  time since Lopburi. The growing town is worth keeping.
+- **The hook did not land**: 6 points worse than Phetchabun. On the cover frame the elephants are on a
+  wide tile with the field off-centre; the clash is fast but reads small, and the title sits over it.
+  Instagram then kept the reel among followers (Feed 35%) instead of pushing it to the Reels tab.
+- Retention at 15 s did not move. The growth spine shows in likes and saves, not yet in watch time.
+
+Next (Udon Thani, built to both): the giant jar fills the middle of the frame and is painted in the
+first 1.6 s; the town grows from forest. Read skip rate against Phetchabun's 37.7% and the engagement
+rates against Suphanburi's.
