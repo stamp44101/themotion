@@ -26,6 +26,7 @@ B = tl.beat
 hero, canal, collapse, crown, train, palace, grow, pay, today = (
     B("hero"), B("canal"), B("collapse"), B("crown"), B("train"), B("palace"), B("growth"), B("payoff"), B("today"))
 at = lambda b, p: b[0] + p * (b[1] - b[0])
+MUSIC_GAIN = 3.0  # music 2.2 LU over the effects across the clip (Korat 2.7)
 
 # ---------------------------------------------------------------- score (D major pentatonic, 88 bpm)
 BEAT = 60 / 88
@@ -271,7 +272,14 @@ for i in range(6):
 for i in range(4):
     add(music, gong(rng.choice([110, 147, 165]), 2.4, 0.1), DUR - 4.0 + i * 0.8, pan=rng.uniform(-0.5, 0.5))
 
-# the score sits under the small sounds (owner: the effects are the charm)
-music *= 0.9
+# the score carries the clip and steps back only where something happens: the owner found v1's
+# score too quiet against Chiang Mai (music 7.9 LU under the effects over the whole clip; Korat
+# sits 2.7 above). Raised to Korat's balance, then ducked inside the action beats so the dig, the
+# collapse and the train still lead there (CLAUDE.md, the small sounds are the charm)
+music *= MUSIC_GAIN
+for b_ in (canal, collapse, train):
+    music *= (1 - 0.35 * bump(T, b_[0], b_[1], 0.4))[:, None]
+# the birds and the town bed come up with it, back to 8-12 dB under the score
+amb *= 2.3
 mix = master("public/soundtrack_nakhonpathom.wav", music, amb, sfx)
 print("wrote public/soundtrack_nakhonpathom.wav", {"collapse": round(collapse[0], 2), "payoff": round(pay[0], 2)})

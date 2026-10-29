@@ -103,6 +103,12 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   sound -- a soft pop per building as it rises, footsteps, voices, splashes, gulls -- keep the
   ambience 8-12 dB under the score, and meter the music bus against the effects bus per 3 s
   before calling a soundtrack done (effects at or above the music in every action beat).
+- **The score carries the clip; the effects lead only in the action beats (owner).** Reading the
+  rule above as "effects over the music everywhere", Nakhon Pathom v1 sat its score 7.9 LU under the
+  effects for the whole clip (Udon 5.7) and the owner found the music too quiet next to Chiang Mai,
+  although both play at -16 LUFS. Korat, the reference, has the music 2.7 LU *over* the effects.
+  Meter the buses as `master` weights them: music about 0 to +3 LU over the effects across the clip,
+  ducked (`music *= 1 - 0.35 * bump(...)`) inside the action beats so the effects lead there.
 - **Every city plays at the same loudness: -16 LUFS, Korat's and Chiang Mai's level (owner).**
   The old master normalised the *peak* and soft-clipped, so loudness followed how dense the mix
   was: Korat and Chiang Mai, the two best-performing clips, sat at -16.0 LUFS with a 6 LU
