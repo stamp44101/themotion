@@ -13,21 +13,15 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
   / save / share rates with Suphanburi v2's 8.0 / 0.8 / 0.8% (the 0-to-100 spine). Record it as
   `experiments.md` §12.
 
-## Next city (recommended to the owner, not yet chosen): Nakhon Pathom
-- Cover: the old, small Phra Pathom Chedi alone in forest, then the giant chedi rising over it in
-  tiers until it fills the middle of the frame (Rama IV's encasing). A big shape change in the first
-  second, and real scale (the tallest stupa in Thailand), not an enlarged one.
-- 0 to 100: Nakhon Chai Si abandoned in forest → the chedi built → the Chedi Bucha canal → the
-  southern railway → Sanam Chandra Palace (Rama VI) → Silpakorn University → the town joining the
-  Bangkok suburbs.
-- Payoff: the Phra Pathom Chedi fair (the 12th lunar month), crowds round the chedi.
-- Ask Gemini to judge how far to tell the Phraya Kong / Phraya Phan legend.
-- Alternatives offered: Samut Prakan (the 1893 Paknam incident at the forts, then the industrial
-  city and Suvarnabhumi; a battle, and Udon also opens on ร.ศ. 112), Prachuap / Hua Hin (railway and
-  Klai Kangwon; no strong first-second hero yet).
-- Steps: open a draft PR with `docs/briefs/<city>_research_request.md` for [gemini] (see
-  `docs/gemini-research.md`), ask [local] for the ONEP polygon and OSM pins, verify dates on the
-  web, style frames 2–3 options, owner picks, build, stills, owner passes, [local] renders.
+## Nakhon Pathom v1 (PR #76, draft): rendered, waiting on the owner
+- Cover A1 (owner): the golden bell closes over the old stupa at legend scale, then settles to ~4x
+  true size as the town grows round it; beats: canal + brick boats, the July 2403 collapse in the
+  rains, the 2413 crown, the 2446 train, the Wild Tiger Corps to Sanam Chandra, the grow shot, the
+  12th-month fair. Brief: `docs/briefs/nakhonpathom.md`.
+- [local] rendered adb965c: `check_render` ok (max jump 4.7, darkest 64.4); upload copy on the
+  `renders` release as `nakhonpathom_look_social.mp4`. Open by design: the train's steam puffs are
+  engine-wide (`engine/train-steam` if wanted).
+- Next: the owner watches it, says "Merge" and posts; record its 24-h read in `experiments.md`.
 
 ## Standing rules the owner gave in chat (also in CLAUDE.md / AGENTS.md)
 - Reply to the owner in Thai. Ask before merging; the owner says "Merge".
