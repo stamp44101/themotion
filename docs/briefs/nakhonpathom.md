@@ -105,3 +105,12 @@ the bell's own base diameter comes from Gemini's part 4.
    height, from the "สูงชั่วนกเขาเหิน" legend). Style frames first.
 2. Start the counter at 2396, or give the Dvaravati town one short beat first.
 3. The legend of Phraya Kong / Phraya Phan: a sub line only (Gemini's advice), or not at all.
+
+## Scale conflict to settle before the layout
+
+`places.ts` puts the canal ~140 m (1.7 units) north of the chedi, the station at 6.7 units N and the
+temple square at ±3 units. The cover's legend-scale chedi (A1: 52 units high, the bell ~24 units across)
+would bury the canal, the market and the station. So after the cover the chedi has to settle to a
+landmark scale that fits its square (bell ~2 units across, ~4.5 high, ~3x true), and come back to legend
+scale in the payoff as the callback (it rises over the lit fair). The town then visibly grows round a
+landmark of the right size, which v2 needs anyway.
