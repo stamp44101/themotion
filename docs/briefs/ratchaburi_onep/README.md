@@ -103,3 +103,13 @@ Coordinates are gem's own; I checked each name against OSM search (Nominatim) an
 Not a single cluster: 16 places in the town core, and the story's two far places are clear, each with several places of its own, Khao Ngu (Dvaravati caves, the Thung Khao Ngu battlefield, the stone park) and Khu Bua (the Dvaravati town, the Thai Yuan village, the pha chok centre, Rueang Kong Kiat kiln at 5.9 km). 11 places are in other districts, 14–51 km out (Ban Pong, Photharam, Pak Tho, Ban Kha, Damnoen Saduak, Suan Phueng). Under the two-far-places rule they can only be captions or a passing mention, not places the camera visits.
 
 **Needs Google pins / another source:** จวนหลวงยกกระบัตรเมืองราชบุรีเดิม (ย่านถนนวรเดช); ที่ตั้งเดิมโรงงานเครื่องปั้นดินเผาจีนแห่งแรก "เถ้าเซ่งหลี"; ท่าน้ำขนโอ่ง ("ท่าเรือโอ่ง–เรือมอญ") ริมแม่น้ำแม่กลองฝั่งตะวันตก. Gem-only points in town (east-bank wall and gates, the Vietnamese community and the St John Bosco church, Wat Khao Wang, Ratanakosin 1 kiln, the cable-stayed rail bridge) are plausible but not confirmed by OSM.
+
+## East-bank wall of พ.ศ. 2360: satellite search [local]
+Searched Esri World Imagery at zoom 18 over Khai Phanurangsi (Esri has no zoom-19 tiles here). Plot: `ratchaburi_east_wall_search.jpg`.
+
+- **No wall, fort or gate is visible** anywhere on the camp perimeter or inside it; OSM has none either.
+- **City pillar shrine:** the octagonal shrine on the image is OSM node 2408582421 ศาลเจ้าพ่อหลักเมืองราชบุรี, **13.54412, 99.82548** (gem's wall point is this node). A second OSM node "หลักเมือง" 7934264449 sits 200 m E at 13.54405, 99.82736.
+- **Camp outline:** OSM way 945665002 (landuse=military), about 720 m N–S × 915 m E–W, river on its west and south sides, split by the Southern Line / Phetkasem corridor.
+- **Two water features that might be moat remnants (unconfirmed):** A, an E–W tree-lined water strip about 220 × 22 m at 13.5456 N, 99.8219–99.8239 E; B, a N–S channel about 340 m long just west of the rail embankment, 99.8239 E, 13.5419–13.5450 N. They meet in an L at the rail line, but B runs right beside the road and rail and may simply be a drainage ditch; neither matches gem's ~200–240 × 800 m outline on its own.
+
+So there is no real outline to trace: place the wall from the documentary size, centred on the city pillar shrine and along the river, and label it approximate.
