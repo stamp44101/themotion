@@ -138,5 +138,19 @@ is built as proposed unless the owner changes it at the stills.
   ducked in the action beats (owner on Nakhon Pathom: the music was too quiet next to Chiang Mai;
   Korat, the reference, sits +2.7 LU). Meter the buses as `synth.master` weights them and write the
   measured figure here. `check_loudness` only tests the -16 LUFS total, not this balance.
+  **v1 measured: score +2.6 LU over the effects (MUSIC_GAIN 2.7), -16.0 LUFS, -2.2 dBTP.**
 - Mastered to -16 LUFS by `synth.master`; ambience 8–12 dB under the score; every thing that appears
   or moves gets a small sound.
+
+## v1 build (cloud, 30 Oct)
+
+- Origin = the middle of the 2360 walled town (the engine centres its wall on the origin); the wall is
+  drawn from the documented size (~800 × 240 m) east of the rail on the north bank of the eastward
+  reach, **approximate until [local] traces it**.
+- Beats: hero (legend, jar thrown, gone into the earth by 6.8 s) → yuan 2347 (procession down the west
+  bank to Khu Bua) → wall 2360 (build, ferries over the river) → koiki 2440 (trade) → train 2446
+  (arrive) → kiln 2476 (build) → jars 2484–2490 (trade, jar boats downriver) → growth 2493–2559 →
+  payoff 2566 (celebrate, the jar fountain in front of Koi Ki) → today.
+- Contact sheet: `ratchaburi_v1_contact.jpg` (1.5, 5.5, 10, 16, 22, 27.5, 32.5, 38, 45, 51.5, 57.5 s).
+- `npm run check` passes (one grandeur warning: the old town is small on the whole tile, by design at
+  the cover).
