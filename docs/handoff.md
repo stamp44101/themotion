@@ -30,9 +30,11 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
 - Started from the owner's chat with a Mueang Ratchaburi resident (30 ต.ค.): dragon jars, the Thai
   Yuan from Chiang Saen and their tin-chok skirts, the Koi Ki old market, a town of many peoples.
   Recorded in `docs/briefs/ratchaburi.md`; the owner is not asking the resident anything more.
-- Out to [gemini]: `ratchaburi_research_request.md`. Out to [local]: ONEP polygon + OSM pins into
-  `docs/briefs/ratchaburi_onep/`. Next for cloud: check the answer on the web, then style frames
-  (dragon jar vs the Thai Yuan journey) for the owner to pick.
+- [local]'s ONEP + OSM (0551c63) and [gemini]'s answer (ed35cdb) are in; dates checked into the
+  brief; storyline proposed (the town crosses the Mae Klong east in 2360 and back in 2440; one far
+  place, Khu Bua). Style frames A1/A2 (the dragon jar) are `docs/briefs/ratchaburi_styleframes_*.jpg`
+  from `src/styleframes/ratchaburi.tsx`. Waiting on the owner: the cover, and the storyline.
+  [local]: pin the story places OSM lacks (the 2360 wall, Koi Ki, Khok Mo kilns, the jar fountain).
 
 ## Standing rules the owner gave in chat (also in CLAUDE.md / AGENTS.md)
 - Reply to the owner in Thai. Ask before merging; the owner says "Merge".
