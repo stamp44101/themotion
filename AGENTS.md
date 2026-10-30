@@ -88,8 +88,9 @@ same PR**:
 1. **If a script can detect it, add the check.** `scripts/check_story.mjs`
    (story, captions, camera; runs before every render and in CI) or
    `scripts/check_render.mjs` (the finished file). Prefer an error to a warning.
-2. **If it needs judgement, add one line** to the lessons in `CLAUDE.md` or the
-   plausibility checklist, saying what went wrong and in which city.
+2. **If it needs judgement, write the lesson** in `docs/claude-full.md` (what went wrong, in which
+   city, the numbers) and add **one line** for it to the slim `CLAUDE.md`, or to the plausibility
+   checklist in both.
 
 A PR that fixes a review note without doing one of these is not finished.
 Rules already earned this way, all enforced by `npm run check` / `npm run encode`:
