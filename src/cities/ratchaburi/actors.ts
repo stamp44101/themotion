@@ -50,7 +50,7 @@ export const yuanAt = (i: number, t: number) => {
   const k = beatK('yuan', t);
   if (k < -0.08 || k > 1.25) return null;
   const head = lerp(22, 60, smooth(clamp01((k + 0.08) / 1.16)));
-  const d = head - i * 1.3;
+  const d = head - i * 1.8;
   if (d < 0 || d > YUAN_L) return null;
   if (k > 1.08) return null;
   const p = along(YUAN_ROAD, d);
@@ -118,7 +118,7 @@ export const strollerAt = (i: number, t: number) => {
 export const ACTORS: Actor[] = [
   {id: 'jarThrown', role: 'hero', during: [0, 2.5], size: 0.3 * H_HERO, at: () => [HERO[0], 0.45 * H_HERO, HERO[1]]},
   {id: 'jarSinks', during: [2.5, 6.8], size: 4, at: (t) => [HERO[0], Math.max(0.5, jarAt(t).h * 0.4), HERO[1]]},
-  {id: 'yuanColumn', during: [beatAt('yuan', 0.05), beatAt('yuan', 0.97)], size: 1.4, at: (t) => {
+  {id: 'yuanColumn', during: [beatAt('yuan', 0.05), beatAt('yuan', 0.97)], size: 2, at: (t) => {
     const w = yuanAt(4, t);
     return w ? [w.x, 0.6, w.z] : null;
   }},

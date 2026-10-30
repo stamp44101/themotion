@@ -42,8 +42,11 @@ export const STATION: P = [-8.6, 20.2]; // OSM node 259729391, on the west side 
 // the kiln quarter on the Chedi Hak road, west of the old town (Tao Hong Tai, OSM node 4585665489,
 // [-33.7, -0.1]); the first kiln's site is not known (ไม่พบ), the quarter stands for it
 export const KILNS: P = [-31, -1.4];
-// the jar landing below Koi Ki where the jar boats load
-export const LANDING: P = [-13.6, 5.2];
+// the jar landing where the jar boats load: just downstream of the rail bridge, so no loaded boat
+// passes under its deck (CLAUDE.md "a boat never passes under a deck lower than itself"; the black
+// bridge's deck is drawn near the water, [local]'s stills review). The boats start in the water here
+// and the stacked jars wait on the bank behind it.
+export const LANDING: P = [-4.6, 4.3];
 export const NEW_HALL: P = [-22.1, 21.2]; // the provincial hall since 2525, OSM way 951493985
 // ถนนเพชรเกษม (2493): in from the north-east, over the river at the Phetkasem bridge, on south-west
 export const PHETKASEM: P[] = [[44, -16], [10, -12], [-13.6, -8.8], [-24, -7], [-33, 8], [-42, 30], [-46, 48]];

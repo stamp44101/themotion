@@ -155,3 +155,14 @@ is built as proposed unless the owner changes it at the stills.
 - Contact sheet: `ratchaburi_v1_contact.jpg` (1.5, 5.5, 10, 16, 22, 27.5, 32.5, 38, 45, 51.5, 57.5 s).
 - `npm run check` passes (one grandeur warning: the old town is small on the whole tile, by design at
   the cover).
+
+## v1b: [local]'s stills review and the owner's jar photo (30 Oct)
+
+- **The jar after the owner's photo** of the dragon-jar monument (`ratchaburi_jar_reference.jpg`):
+  taller than wide with the shoulder high, matt brown, two gold bands at the shoulder and two near the
+  foot, a gold relief dragon across the belly in an S with its big head in profile in front, horns,
+  open jaw, long curling whiskers, four clawed legs. Strip: `ratchaburi_v1b_jar.jpg` (0, 1, 2.4 s,
+  the fountain at 51.5 s, a full-res close-up). Still low-poly; the hook reads as a gold dragon now.
+- **Jar boats:** the landing moved downstream of the rail bridge, so no loaded boat passes under its
+  deck (drawn near the water).
+- **Thai Yuan column:** figures 1.3x, carts 1.1x, strung 1.8 apart, camera in to 50.

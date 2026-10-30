@@ -18,8 +18,8 @@ export const H_FOUNT = 2.6;
 // the cover ends pulled back over the west bank as the jar goes into the earth
 const HERO_END: Key = [6.2, -24, 2, 0, 110, 220, 37, 30];
 // the Thai Yuan column coming down the west bank
-const CO_IN: Key = [7.9, -24, 1, -19, 60, 230, 40, 30];
-const CO_END: Key = [12.1, -25, 1, -2, 62, 252, 40, 30];
+const CO_IN: Key = [7.9, -24, 1, -25, 52, 230, 40, 30];
+const CO_END: Key = [12.1, -25, 1, -2, 52, 252, 40, 30];
 // the wall rising on the east bank
 const WL_IN: Key = [13.9, -3, 1, 2, 42, 270, 48, 30];
 const WL_END: Key = [18.6, -2.5, 1, 2, 40, 300, 46, 30];
@@ -34,7 +34,7 @@ const KL_IN: Key = [30.4, KILNS[0], 1, KILNS[1], 46, 384, 38, 30];
 const KL_END: Key = [34.3, KILNS[0], 1, KILNS[1], 40, 404, 36, 30];
 // the jar boats going downriver past Koi Ki
 const JB_IN: Key = [35.7, -6, 1, 5, 54, 414, 40, 30];
-const JB_END: Key = [39.8, 4, 1, 6, 60, 432, 40, 30];
+const JB_END: Key = [39.8, 8, 1, 6, 62, 432, 40, 30];
 // the long wide shot: the town over both banks
 const GR_IN: Key = [41.8, -8, 1, 4, 175, 444, 36, 30];
 const GR_END: Key = [47.6, -8, 1, 4, 220, 474, 35, 30];

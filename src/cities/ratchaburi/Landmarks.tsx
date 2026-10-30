@@ -78,7 +78,7 @@ const Column: React.FC<{t: number}> = ({t}) => (
       const w = yuanAt(i, t);
       if (!w) return null;
       return (
-        <group key={i} position={[w.x, 0, w.z]} rotation-y={w.rot} scale={w.cart ? 0.75 : 0.9}>
+        <group key={i} position={[w.x, 0, w.z]} rotation-y={w.rot} scale={w.cart ? 1.1 : 1.3}>
           {w.cart ? <Cart step={t * 1.6 + i} /> : <Walker step={t * 1.4 + i * 0.31} i={i} load={i % 3 === 0} />}
         </group>
       );
@@ -202,7 +202,7 @@ const JarBoats: React.FC<{t: number}> = ({t}) => (
 const LandingJars: React.FC<{Y: number}> = ({Y}) => {
   if (Y < 1941 || Y > 1990) return null;
   return (
-    <group position={[LANDING[0] - 0.6, 0, LANDING[1] + 1.1]}>
+    <group position={[LANDING[0] - 0.6, 0, LANDING[1] + 1.4]}>
       {Array.from({length: 10}, (_, j) => (
         <mesh key={j} position={[(j % 5) * 0.5, 0.22, Math.floor(j / 5) * 0.5]} scale={[0.22, 0.26, 0.22]} castShadow>
           <sphereGeometry args={[1, 10, 8]} />

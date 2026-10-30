@@ -112,7 +112,7 @@ export const RATCHABURI: CityConfig = {
       [OLD_HALL[0], OLD_HALL[1], 1.6],
       [FOUNTAIN[0], FOUNTAIN[1], 1.9],
       [PILLAR[0], PILLAR[1], 0.8],
-      [LANDING[0], LANDING[1] + 1.4, 1.4],
+      [LANDING[0] - 0.2, LANDING[1] + 1.8, 1.4],
       // Koi Ki's row (drawn in Landmarks.tsx)
       ...Array.from({length: 9}, (_, i) => [KOIKI[0][0] + 0.4 + i * 0.8, KOIKI[0][1], 0.6] as [number, number, number]),
     ],
