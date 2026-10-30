@@ -166,3 +166,14 @@ is built as proposed unless the owner changes it at the stills.
 - **Jar boats:** the landing moved downstream of the rail bridge, so no loaded boat passes under its
   deck (drawn near the water).
 - **Thai Yuan column:** figures 1.3x, carts 1.1x, strung 1.8 apart, camera in to 50.
+
+## v1c: the dragon drawn properly (owner: "ไม่สวยอ่า ไปเรียนวิธีวาดมังกรมาดีๆได้ไหม", 30 Oct)
+
+- `src/cities/ratchaburi/dragon.tsx`: the dragon is designed flat, as a potter lays a relief, then
+  wrapped onto the jar's skin. It follows the loong's nine resemblances (Sixthtone, "How to draw a
+  dragon"): a horse's head with a long muzzle and an upturned nose, deer antlers with tines, a big eye
+  under a heavy brow, a cow's ear, a snake's neck, a clam's pale belly plates, carp scales on the back,
+  eagle's talons (four legs, four talons each), a crest of spines, flame tufts at the elbows and the
+  tail, a flame mane, a beard, fangs, a curling tongue and two long whiskers. The body S-es across the
+  front of the belly under the head and round the back; the head faces the cover's camera.
+- Study composition `RatchaburiDragon` (close view); strip `ratchaburi_v1c_dragon.jpg`.

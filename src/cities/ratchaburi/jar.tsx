@@ -5,6 +5,7 @@ import React, {useMemo} from 'react';
 import * as THREE from 'three';
 import {lathe} from '../../engine/parts';
 import {Walker} from '../nan/figures';
+import {DragonRelief} from './dragon';
 
 type P2 = [number, number];
 const smooth = (x: number) => x * x * (3 - 2 * x);
@@ -35,144 +36,8 @@ const radiusAt = (y: number) => {
   return 0.3;
 };
 
-/** the dragon as it is on Ratchaburi's jars (the owner's photo of the monument): a gold relief across
- *  the belly in an S, its tail round the back, four legs with claws, a crest of fins, and a big head in
- *  profile in front with a snout, an open jaw, swept-back horns and long curling whiskers.
- *  Drawn in from its tail as u goes 0 -> 1. */
-const GOLD = '#e2a83c';
-const GOLD_D = '#b97a22';
-const Dragon: React.FC<{u: number}> = ({u}) => {
-  const curve = useMemo(() => {
-    const pts: THREE.Vector3[] = [];
-    const N = 90;
-    for (let i = 0; i <= N; i++) {
-      const s = i / N;
-      // across the belly in an S, as on the monument: the tail round the back, the head in front
-      const y = 0.4 + 0.11 * Math.sin(s * Math.PI * 3.2 + 0.6) + s * 0.12;
-      const a = -Math.PI * 1.4 * (1 - s);
-      const r = radiusAt(y) + 0.008;
-      pts.push(new THREE.Vector3(Math.cos(a) * r, y, Math.sin(a) * r));
-    }
-    return new THREE.CatmullRomCurve3(pts);
-  }, []);
-  if (u <= 0.02) return null;
-  const BEADS = 110;
-  const shown = Math.floor(BEADS * u);
-  const head = curve.getPointAt(Math.min(1, u));
-  const ahead = curve.getTangentAt(Math.min(1, u));
-  // a frame on the jar's skin: out (normal), along (tangent), up (their cross)
-  const frame = (p: THREE.Vector3, tan: THREE.Vector3) => {
-    const out = new THREE.Vector3(p.x, 0, p.z).normalize();
-    const up = new THREE.Vector3().crossVectors(out, tan).normalize();
-    const along = new THREE.Vector3().crossVectors(up, out).normalize();
-    return new THREE.Quaternion().setFromRotationMatrix(new THREE.Matrix4().makeBasis(out, up, along));
-  };
-  const hq = frame(head, ahead);
-  const LEGS = [0.45, 0.6, 0.82, 0.9];
-  return (
-    <group>
-      {Array.from({length: shown}, (_, i) => {
-        const s = (i / BEADS) * u;
-        const p = curve.getPointAt(s);
-        const q = frame(p, curve.getTangentAt(s));
-        // tapering to the tail, full behind the head
-        const f = (i + 1) / Math.max(1, shown);
-        const r = 0.024 + 0.046 * Math.min(1, f * 1.4);
-        return (
-          <group key={i} position={p} quaternion={q}>
-            {/* a flattened scale lying on the skin: thin outward, wide along the body */}
-            <mesh scale={[r * 0.55, r, r * 1.25]} castShadow>
-              <sphereGeometry args={[1, 10, 8]} />
-              <meshStandardMaterial color={i % 3 === 0 ? GOLD_D : GOLD} roughness={0.35} metalness={0.25} />
-            </mesh>
-            {i % 3 === 1 && (
-              <mesh position={[0, r * 1.05, 0]} rotation-x={-0.5}>
-                <coneGeometry args={[r * 0.35, r * 1.1, 4]} />
-                <meshStandardMaterial color="#c4501e" roughness={0.5} />
-              </mesh>
-            )}
-          </group>
-        );
-      })}
-      {/* four legs reaching down the skin, three claws each */}
-      {LEGS.map((ls, k) => {
-        if (ls > u - 0.03) return null;
-        const p = curve.getPointAt(ls);
-        const q = frame(p, curve.getTangentAt(ls));
-        return (
-          <group key={k} position={p} quaternion={q}>
-            <mesh position={[0, -0.055, k % 2 ? 0.02 : -0.02]} rotation-x={k % 2 ? 0.5 : -0.5}>
-              <cylinderGeometry args={[0.012, 0.016, 0.09, 6]} />
-              <meshStandardMaterial color={GOLD} roughness={0.35} metalness={0.25} />
-            </mesh>
-            {[-1, 0, 1].map((c) => (
-              <mesh key={c} position={[0, -0.1, c * 0.02 + (k % 2 ? 0.04 : -0.04)]} rotation-x={Math.PI + c * 0.4}>
-                <coneGeometry args={[0.007, 0.035, 4]} />
-                <meshStandardMaterial color="#f4ead0" roughness={0.4} />
-              </mesh>
-            ))}
-          </group>
-        );
-      })}
-      {/* the head at the shoulder, facing along the body: x out of the skin, y up, z forward */}
-      <group position={head} quaternion={hq} scale={[1, 2, 2]}>
-        {/* the snout turned in to follow the jar's curve, so the head lies on the skin */}
-        <group rotation-y={-0.5}>
-        <mesh position={[0.02, 0.01, 0.0]} scale={[0.06, 0.065, 0.075]} castShadow>
-          <sphereGeometry args={[1, 12, 10]} />
-          <meshStandardMaterial color={GOLD} roughness={0.35} metalness={0.25} />
-        </mesh>
-        {/* the long snout and the upturned nose */}
-        <mesh position={[0.03, 0.0, 0.11]} scale={[0.035, 0.035, 0.085]} castShadow>
-          <sphereGeometry args={[1, 10, 8]} />
-          <meshStandardMaterial color={GOLD} roughness={0.35} metalness={0.25} />
-        </mesh>
-        {/* the open lower jaw and the red mouth */}
-        <mesh position={[0.03, -0.05, 0.09]} rotation-x={0.5} scale={[0.035, 0.012, 0.06]}>
-          <sphereGeometry args={[1, 8, 6]} />
-          <meshStandardMaterial color={GOLD_D} roughness={0.4} />
-        </mesh>
-        <mesh position={[0.035, -0.028, 0.1]} scale={[0.028, 0.012, 0.045]}>
-          <sphereGeometry args={[1, 8, 6]} />
-          <meshStandardMaterial color="#b3261e" roughness={0.6} />
-        </mesh>
-        {[-1, 1].map((sd) => (
-          <group key={sd}>
-            {/* horns swept back */}
-            <mesh position={[0.02 + sd * 0.0, 0.07, -0.04 + sd * 0.0]} rotation-x={-1.0} rotation-z={sd * 0.35}>
-              <coneGeometry args={[0.01, 0.11, 5]} />
-              <meshStandardMaterial color="#f1e2b8" roughness={0.4} />
-            </mesh>
-            {/* glowing eyes */}
-            <mesh position={[0.055, 0.03, 0.04 + sd * 0.025]}>
-              <sphereGeometry args={[0.013, 8, 6]} />
-              <meshBasicMaterial color="#ff5a2a" toneMapped={false} />
-            </mesh>
-            {/* long whiskers trailing back */}
-            <group position={[0.04, sd * 0.02, 0.15]} rotation-x={sd > 0 ? 0.9 : 2.3}>
-              <mesh position={[0, 0.07, 0]}>
-                <cylinderGeometry args={[0.005, 0.004, 0.14, 5]} />
-                <meshStandardMaterial color={GOLD} roughness={0.35} metalness={0.25} />
-              </mesh>
-              <mesh position={[0, 0.15, 0.03]} rotation-x={0.8}>
-                <cylinderGeometry args={[0.004, 0.002, 0.1, 5]} />
-                <meshStandardMaterial color={GOLD} roughness={0.35} metalness={0.25} />
-              </mesh>
-            </group>
-          </group>
-        ))}
-        {/* the mane */}
-        {[0, 1, 2].map((m) => (
-          <mesh key={m} position={[0.0, 0.04 - m * 0.02, -0.06 - m * 0.02]} rotation-x={-1.4}>
-            <coneGeometry args={[0.018, 0.07, 4]} />
-            <meshStandardMaterial color="#c4501e" roughness={0.5} />
-          </mesh>
-        ))}
-        </group>
-      </group>
-    </group>
-  );
-};
+// turned so the head (design x ~ -0.1) faces the cover camera (azimuth ~200-208 deg); the payoff looks from ~180-192
+const FRONT = (229 * Math.PI) / 180;
 
 /** the gold bands: two lines round the shoulder and two near the foot (the monument's) */
 const Bands: React.FC<{k: number}> = ({k}) => {
@@ -253,10 +118,7 @@ export const Jar: React.FC<{t: number; H: number; potters: boolean; look?: JarLo
       </mesh>
       <Bands k={dragon} />
       {glaze < 0.9 && <Grooves t={t} k={k} />}
-      {/* turned so the head is in front for the cover's camera (azimuth ~200 deg, from the NNW) */}
-      <group rotation-y={1.6}>
-        <Dragon u={dragon} />
-      </group>
+      <DragonRelief u={dragon} radiusAt={radiusAt} theta0={FRONT} />
       <Fire t={t} k={s.fire} />
       {potters &&
         Array.from({length: 10}, (_, i) => {

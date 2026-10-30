@@ -124,3 +124,5 @@ const A2: React.FC<LandmarkProps> = ({t}) => (
 
 export const RATCHABURI_A1 = base('ratchaburi-a1', A1, SITE, 14, [310, 320, 350], 26, 20);
 export const RATCHABURI_A2 = base('ratchaburi-a2', A2, SITE2, 8, [230, 240, 270], 28, 13);
+// a close study of the dragon relief on the cover's jar (rendered at ~3 s, the dragon drawn in)
+export const RATCHABURI_DRAGON = base('ratchaburi-dragon', A1, SITE, 14, [125, 125, 125], 10, 20);
