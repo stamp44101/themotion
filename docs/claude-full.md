@@ -328,6 +328,17 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   A place tens of km out (Korat's Phimai, 50 km NE) is marked `far: true` and checked only
   against the `centre: true` point and other far places; its distance is compressed far more
   than the town's, so its bearing to a nearby landmark means nothing.
+- **The story names the places; the map only finds them (owner, via [local], Ratchaburi).**
+  The map step used to start from what OSM has, and OSM is dense only in town centres: it says
+  where things are, not what matters. Several cities ended up with every pin in one central
+  cluster and a dry storyline, and Ratchaburi's heart (Koi Ki market, the old dragon-jar kilns,
+  the Thai Yuan village) is not in OSM at all. So the research lists the **story places**
+  (`docs/gemini-research.md` part 6: name, era, why it matters, lat/lon, source; one per era,
+  not only the centre), [local] maps that list place by place (OSM, then Google Maps, the Fine
+  Arts register, satellite) and flags what it cannot pin rather than dropping it, and flags a
+  list that all falls within ~2 km so the storyline plans a far beat. Far places are still at
+  most two (`docs/storyline.md` §7 rule 3), reached by travel (the camera follows the river or
+  the rail out) and marked `far: true` in `geo.ts`, distances compressed, bearings true.
   Roads count too: Korat's Mittraphap Highway was drawn straight through the Thao Suranari
   Monument at Chumphon Gate, and a viewer from Korat pointed out it passes well west of the
   old town and the station. Route a named road by where it really runs, not to the nearest
