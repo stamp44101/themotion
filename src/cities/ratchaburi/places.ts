@@ -18,11 +18,14 @@ export const RIVER: P[] = [
 ];
 
 // the walled town of 2360 on the east bank (Gemini: 6 forts, 6 gates, ~5-6 sen x 20 sen, i.e.
-// ~200-240 x 800 m, along the river; Gemini's pin 13.5441, 99.8255 at its west end, inside today's
-// Phanurangsi camp). [local] has not traced it yet: drawn from the documented size along the north
-// bank of the river's eastward reach, east of the Southern Line. Approximate.
-export const WALL: P[] = [[-5, -1.6], [5, -1.6], [5, 2.0], [-5, 2.0]];
-export const PILLAR: P = [-3.4, 0.2]; // ศาลหลักเมือง, in the camp at the wall's west end
+// ~200-240 x 800 m, along the river). [local] found nothing of it on Esri z18 over today's
+// Phanurangsi camp (README, 89fb533): drawn from the documented size along the north bank of the
+// river's eastward reach, from just east of the Southern Line, round the city pillar. Approximate.
+// The engine draws the corner forts at +-hx, +-hz, so the outline is kept centred on the origin.
+export const WALL: P[] = [[-5.6, -2], [5.6, -2], [5.6, 2], [-5.6, 2]];
+// ศาลเจ้าพ่อหลักเมืองราชบุรี, OSM node 2408582421 (13.54412, 99.82548, i.e. [-5.4, 0.5]), drawn
+// 40 m in so it stands inside the wall's west end
+export const PILLAR: P = [-4.9, 0.5];
 
 // the old west-bank town (Jayarajapuri - Ayutthaya), round Wat Mahathat
 export const MAHATHAT: P = [-21, -2.8]; // the prang, OSM node 2578808283

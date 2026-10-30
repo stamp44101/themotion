@@ -51,7 +51,7 @@ export const RATCHABURI: CityConfig = {
     rail: {axis: 'z', pos: RAIL_X, open: [1902.6, 1903.2], station: STATION, stationYear: 1901.5},
     trains: SOUND_EVENTS.trains.map((tr) => ({...tr, dir: tr.dir as 1 | -1})),
     city: {
-      hx: 5,
+      hx: 5.6,
       hz: 2,
       outline: WALL,
       moat: [1e9, 1e9],
@@ -63,12 +63,13 @@ export const RATCHABURI: CityConfig = {
       groundFrom: 1817.1,
     },
     gates: [
-      {x: -2.5, z: -1.6, rot: 0, width: 0.6},
-      {x: 2.5, z: -1.6, rot: 0, width: 0.6},
-      {x: -2.5, z: 2.0, rot: 0, width: 0.6},
-      {x: 2.5, z: 2.0, rot: 0, width: 0.6},
-      {x: -5, z: 0.2, rot: Math.PI / 2, width: 0.6},
-      {x: 5, z: 0.2, rot: Math.PI / 2, width: 0.6},
+      // two gates on each long side, one at each end (6 gates, Gemini)
+      {x: -2, z: -2, rot: Math.PI / 2, width: 0.6},
+      {x: 2.4, z: -2, rot: Math.PI / 2, width: 0.6},
+      {x: -2, z: 2, rot: Math.PI / 2, width: 0.6},
+      {x: 2.4, z: 2, rot: Math.PI / 2, width: 0.6},
+      {x: -5.6, z: -0.8, rot: 0, width: 0.6},
+      {x: 5.6, z: 0, rot: 0, width: 0.6},
     ],
     houses: {
       // the walled town fills after 2360 and empties once the army has it (2440 on)
@@ -90,10 +91,10 @@ export const RATCHABURI: CityConfig = {
       ],
       built: [1790, 110],
     },
-    forestCity: 1817,
+    forestCity: 1810,
     clearings: [
       // the walled town's ground, cleared as the wall goes up
-      [0, 0.2, 9, 1816.5],
+      [0, 0, 9, 1806],
       // the cart track the Thai Yuan come down (open fields along it)
       ...YUAN_DISCS.map(([x, z]) => [x, z, 2.2, -1e9] as [number, number, number, number]),
       // the cover's jar stands on open fields

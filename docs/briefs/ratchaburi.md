@@ -144,9 +144,10 @@ is built as proposed unless the owner changes it at the stills.
 
 ## v1 build (cloud, 30 Oct)
 
-- Origin = the middle of the 2360 walled town (the engine centres its wall on the origin); the wall is
-  drawn from the documented size (~800 × 240 m) east of the rail on the north bank of the eastward
-  reach, **approximate until [local] traces it**.
+- Origin = the middle of the 2360 walled town (the engine centres its wall and corner forts on the
+  origin). [local] found nothing of the wall on Esri z18 (89fb533), so it is drawn from the documented
+  size (~900 × 320 m drawn, 6 gates) along the north bank of the eastward reach, east of the rail,
+  round the city pillar shrine (OSM node 2408582421). **Approximate.**
 - Beats: hero (legend, jar thrown, gone into the earth by 6.8 s) → yuan 2347 (procession down the west
   bank to Khu Bua) → wall 2360 (build, ferries over the river) → koiki 2440 (trade) → train 2446
   (arrive) → kiln 2476 (build) → jars 2484–2490 (trade, jar boats downriver) → growth 2493–2559 →

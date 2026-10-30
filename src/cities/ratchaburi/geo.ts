@@ -5,7 +5,7 @@ import {KHU_BUA, KILNS, MAHATHAT, OLD_HALL, PILLAR, STATION} from './places';
 // Koi Ki from Gemini's §4 (docs/briefs/ratchaburi_research_gemini.md).
 export const GEO: Geo = {
   points: [
-    {name: 'City pillar, 2360 walled town (origin side)', lat: 13.5441, lon: 99.8255, at: PILLAR, centre: true, source: 'Gemini §4 (Phanurangsi camp)'},
+    {name: 'City pillar shrine, 2360 walled town', lat: 13.54412, lon: 99.82548, at: PILLAR, centre: true, source: 'OSM node 2408582421'},
     {name: 'Wat Mahathat prang', lat: 13.5466, lon: 99.8144, at: MAHATHAT, source: 'OSM node 2578808283'},
     {name: 'Ratchaburi station', lat: 13.5306, lon: 99.8238, at: STATION, source: 'OSM node 259729391'},
     {name: 'Koi Ki old market', lat: 13.5402, lon: 99.8218, at: [-11.7, 8.6], source: 'Gemini §4'},
