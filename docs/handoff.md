@@ -8,7 +8,10 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
   `renders` release as `<city>_look_social.mp4`.
 - Udon Thani is the first city built to storyline v2 from the start; it has not been posted yet.
 
-## Waiting
+## Done
+- **Udon Thani's 24-h read** is `experiments.md` §12 (skip 41.4%, share 4.7%, the best yet).
+
+## Was waiting
 - **Udon Thani's 24-h read.** Compare its skip rate with Phetchabun's 37.7% (the cover) and its like
   / save / share rates with Suphanburi v2's 8.0 / 0.8 / 0.8% (the 0-to-100 spine). Record it as
   `experiments.md` §12.

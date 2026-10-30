@@ -609,3 +609,42 @@ Reading (one post each, so a lean, not a rule):
 Next (Udon Thani, built to both): the giant jar fills the middle of the frame and is painted in the
 first 1.6 s; the town grows from forest. Read skip rate against Phetchabun's 37.7% and the engagement
 rates against Suphanburi's.
+
+## 12. Udon Thani: the Ban Chiang jar painted in the first second, the town growing from forest — read: best shares and engagement yet, hook typical
+
+The first city built to both rules at once: the cover is an event (a giant Ban Chiang jar rising out of
+its dig and its red scrolls brushed on in 1.6 s, filling the middle of the frame) and the story is the
+0-to-100 spine (forest and a lake at the 1893 camp, the town filling the tile beat by beat). 60 s, shader
+look, -16 LUFS.
+
+### Result (owner's screenshots, 30 Oct 09:47, about a day in)
+
+Skip rate **41.4%** ("typical"), 6,186 views from 4,618 viewers, average watch **19 s**, **14 follows**.
+469 likes, 17 comments, 86 reposts, 86 shares, 40 saves: **share 4.7%**, like **9.8%**, save 0.8%, repost
+**1.8%**, comment 0.4%, **all five "higher"** than a typical reel. Views from the Reels tab 69.7%, Feed
+14.9%, Explore 6.7%, Stories 6.3%, Profile 1.1%; the views curve ran just under a typical reel's.
+Retention ~50% by ~5 s, ~30% by ~15 s, ~20% near the end.
+
+| | Phetchabun | Suphanburi v2 | **Udon Thani** |
+|---|---|---|---|
+| cover | Buddha rising (shape change) | two elephants clash (impact) | jar rising and painted (shape + colour change) |
+| spine | town full at frame 0 | 0 to 100 | 0 to 100 |
+| skip rate | **37.7%** | 44.0% | 41.4% |
+| retention at ~15 s | ~30% | ~30% | ~30% |
+| average watch | 18 s | 15 s | **19 s** |
+| like / save / share | 5.9 / 0.4 / 0.7% | 8.0 / 0.8 / 0.8% | **9.8 / 0.8 / 4.7%** |
+| repost | 0.7% | 1.0% | **1.8%** |
+| views from the Reels tab | **70.7%** | 47.5% | 69.7% |
+
+Reading (one post each, so a lean, not a rule):
+- **Shares jumped:** 4.7% is more than double the best before it (Lopburi 1.9%) and six times
+  Suphanburi's. Ban Chiang is a symbol people already share (a world heritage site, the province's
+  pride), and finding 6 (shares follow the city's own symbols) holds again, much more strongly.
+- **The 0-to-100 spine keeps paying the people who stay:** every engagement rate is "higher" for a
+  second post in a row, and average watch is the best since Lopburi.
+- **The hook is typical, not won:** 41.4%, between Phetchabun's 37.7% and Suphanburi's 44%. Reach held
+  up anyway (Reels tab 69.7%, back to Phetchabun's share), which the share rate probably bought.
+- Retention at 15 s still sits at ~30% on all three: the middle has not moved it yet.
+
+Next (Nakhon Pathom, built to both, PR #76): the golden bell closes over the old stupa in 1.6 s on the
+province's best-known symbol. Read the skip rate against 37.7-41.4% and the share rate against Udon's 4.7%.
