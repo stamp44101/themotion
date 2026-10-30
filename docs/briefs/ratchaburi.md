@@ -60,3 +60,12 @@ Payoff (45-54 s, people + hero back): [after research]
 Tagline: [after research]
 Facts with nothing to show (sub lines only): Suan Phueng; [after research]
 ```
+
+## Sound (owner's standing rules, apply from the first mix)
+
+- The score is loud and steady: about 0 to +3 LU **over** the effects across the whole clip, never
+  ducked in the action beats (owner on Nakhon Pathom: the music was too quiet next to Chiang Mai;
+  Korat, the reference, sits +2.7 LU). Meter the buses as `synth.master` weights them and write the
+  measured figure here. `check_loudness` only tests the -16 LUFS total, not this balance.
+- Mastered to -16 LUFS by `synth.master`; ambience 8–12 dB under the score; every thing that appears
+  or moves gets a small sound.
