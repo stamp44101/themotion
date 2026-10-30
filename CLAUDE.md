@@ -65,6 +65,9 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   frame (the plain cut shows nothing). Gate every growing mesh on its own scale (`> 0.02`),
   not on the beat or year that drives it. Bisect on one still: a still is a fresh page, so a
   black still means per-frame overflow, not page reuse.
+- **A flat slab grown by its height pops in at full width.** Nakhon Pathom's white temple square was
+  gated on `scale-y > 0.02`, so its whole 11-unit footprint appeared in one frame and lifted the
+  frame's mean luma by 9 (`check_render` fails over 8). Grow a ground slab outward (x/z) or fade it.
 - **The cover shows the land, with a giant on it (owner).** The cover's hero is drawn at legend
   scale (Phetchabun's image 14 units tall, Suphanburi's war elephants 8x, ~26 units) and the
   camera is far and high enough (Suphanburi: distance ~290, elevation ~27 degrees) that the whole
@@ -100,6 +103,12 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   sound -- a soft pop per building as it rises, footsteps, voices, splashes, gulls -- keep the
   ambience 8-12 dB under the score, and meter the music bus against the effects bus per 3 s
   before calling a soundtrack done (effects at or above the music in every action beat).
+- **The score carries the clip at a steady level (owner).** Reading the rule above as "effects over
+  the music everywhere", Nakhon Pathom v1 sat its score 7.9 LU under the effects for the whole clip
+  (Udon 5.7) and the owner found the music too quiet next to Chiang Mai, although both play at -16
+  LUFS. Korat, the reference, has the music 2.7 LU *over* the effects. Meter the buses as `master`
+  weights them and set the score about 0 to +3 LU over the effects across the clip. Do not duck it
+  in the action beats: the owner heard 35% dips there as odd ("ไม่หรี่เพลงได้ไหม มันแปลกๆอะ").
 - **Every city plays at the same loudness: -16 LUFS, Korat's and Chiang Mai's level (owner).**
   The old master normalised the *peak* and soft-clipped, so loudness followed how dense the mix
   was: Korat and Chiang Mai, the two best-performing clips, sat at -16.0 LUFS with a 6 LU
