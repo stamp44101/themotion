@@ -99,7 +99,13 @@ Gemini's answer predates part 6; its coordinates (4.2) give the list. [local]: c
 | Ban Yuan, St John Bosco | 2406 | 13.5342, 99.8173 | ? |
 | Khu Bua: Wat Khlong Suwannakhiri, Thai Yuan village, Kad Khu Bua | far place | 13.4864, 99.8357 | site yes, village as Thai Yuan no |
 
-## Hero options (owner decides after the style frames)
+## Hero (owner: A1, 30 Oct)
+
+The giant dragon jar thrown on the wheel on the west bank, ~30 units on the whole tile, the dragon
+coiling up to the shoulder by 2.4 s (`docs/briefs/ratchaburi_styleframes_A1.jpg`). The storyline above
+is built as proposed unless the owner changes it at the stills.
+
+### Options that were offered
 
 - **A. The dragon jar** (the resident's and Gemini's first pick).
 - **B.** Gemini's second: a ribbon of bats out of a limestone cave across the river (slogan: เพลินค้างคาวร้อยล้าน). The bat cave is Khao Chong Phran, ~20 km away: it would be the far place.
