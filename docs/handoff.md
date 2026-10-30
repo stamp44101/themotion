@@ -26,6 +26,14 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
   engine-wide (`engine/train-steam` if wanted).
 - Next: the owner watches it, says "Merge" and posts; record its 24-h read in `experiments.md`.
 
+## Ratchaburi v1 (branch `city/ratchaburi`, draft PR): research stage
+- Started from the owner's chat with a Mueang Ratchaburi resident (30 ต.ค.): dragon jars, the Thai
+  Yuan from Chiang Saen and their tin-chok skirts, the Koi Ki old market, a town of many peoples.
+  Recorded in `docs/briefs/ratchaburi.md`; the owner is not asking the resident anything more.
+- Out to [gemini]: `ratchaburi_research_request.md`. Out to [local]: ONEP polygon + OSM pins into
+  `docs/briefs/ratchaburi_onep/`. Next for cloud: check the answer on the web, then style frames
+  (dragon jar vs the Thai Yuan journey) for the owner to pick.
+
 ## Standing rules the owner gave in chat (also in CLAUDE.md / AGENTS.md)
 - Reply to the owner in Thai. Ask before merging; the owner says "Merge".
 - No paid generators; code-only audio at -16 LUFS; shader look only.
