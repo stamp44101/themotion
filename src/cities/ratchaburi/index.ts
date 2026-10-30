@@ -91,10 +91,11 @@ export const RATCHABURI: CityConfig = {
       ],
       built: [1790, 110],
     },
-    forestCity: 1810,
+    forestCity: 1790,
     clearings: [
-      // the walled town's ground, cleared as the wall goes up
-      [0, 0, 9, 1806],
+      // the walled town's ground: open fields from the start, so no patch of forest vanishes in one
+      // frame mid-clip ([local]'s render: luma jump 11.6 at 12.91 s when it was cleared in 1806)
+      [0, 0, 9, -1e9],
       // the cart track the Thai Yuan come down (open fields along it)
       ...YUAN_DISCS.map(([x, z]) => [x, z, 2.2, -1e9] as [number, number, number, number]),
       // the cover's jar stands on open fields
