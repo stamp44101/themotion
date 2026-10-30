@@ -61,6 +61,27 @@ Tagline: [after research]
 Facts with nothing to show (sub lines only): Suan Phueng; [after research]
 ```
 
+## Map ([local], commit 0551c63, `ratchaburi_onep/`)
+
+- **ONEP: an announced old town** (เมืองเก่าราชบุรี, OT_CODE 24): zone 1 is 1.56 km², ~1,770 × 1,450 m,
+  and takes in the Mae Klong bend; Wat Mahathat in its north-west, the national museum south of the bend.
+- **Mae Klong ~143 m wide through town** (110–208 m) → ~1.8 units at 80 m/unit.
+- Within ~2 km of the bend: Wat Mahathat, Tao Hong Tai (1.1 km W), Chedi Hak (1.8 km W), the Southern
+  Line rail bridge (13.5414, 99.8242), the Phetkasem road bridge, the station (2.2 km SE).
+- Far places (rule 3, at most two): Khao Ngu 4.8 km NW, Khu Bua 6–7 km S.
+- Not in OSM: the old wall/moat, Koi Ki market, older kilns, the Thai Yuan village as such.
+
+## Early web checks (cloud, 30 Oct; before Gemini's answer)
+
+| fact | status | source |
+|---|---|---|
+| Thai Yuan taken from Chiang Saen after its fall, settled at Saraburi and Ratchaburi (Khu Bua), 2347 | ยืนยัน (chronicle) | silpa-mag ?p=145605, citing พระราชพงศาวดารกรุงรัตนโกสินทร์ ร.1 ฉบับเจ้าพระยาทิพากรวงศ์; Thai PBS นารีสนทนา (คูบัว) |
+| Khu Bua tin-chok weaving, still taught; a revival centre | ยืนยัน | Thai PBS news 255677; ThaiJO Veridian 22424 |
+| the town had moat and walls straddling both banks of the Mae Klong | สันนิษฐาน (aerial photos; field check needed) | Sujit Wongthes, matichon news_1108468 |
+| provincial hall moved from the left (east) bank to the monthon office on the right (west) bank, 2440 | ยืนยันบางส่วน (one source so far) | silpa-mag ?p=138439 ("เคยย้ายพื้นที่เพียง 2 ครั้ง") |
+| first commissioner of Monthon Ratchaburi, 2438, seat on the right bank | ยืนยันบางส่วน | same; ร.ศ. 117 inspection report (ThaiJO sujthai 39074) |
+| Tao Hong Tai, Ratchaburi's first dragon-jar works, 2476, by a Chinese immigrant | สันนิษฐาน (the family's own account) | naewna; ThaiJO human_dru 258541 to read |
+
 ## Sound (owner's standing rules, apply from the first mix)
 
 - The score is loud and steady: about 0 to +3 LU **over** the effects across the whole clip, never
