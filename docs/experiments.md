@@ -648,3 +648,42 @@ Reading (one post each, so a lean, not a rule):
 
 Next (Nakhon Pathom, built to both, PR #76): the golden bell closes over the old stupa in 1.6 s on the
 province's best-known symbol. Read the skip rate against 37.7-41.4% and the share rate against Udon's 4.7%.
+
+## 13. Nakhon Pathom: the golden bell closing over the old stupa, the town growing round it — read: worst hook since the forest tiles, every rate lower
+
+Built to both rules like Udon (§12): the cover is an event (Rama IV's golden bell rising round the old
+brick stupa tier by tier and crowned in 1.6 s at legend scale) and the story is the 0-to-100 spine. 60 s,
+shader look, -16 LUFS, the score raised to sit over the effects (owner's A2).
+
+### Result (owner's screenshots, 31 Oct 10:08, about a day in)
+
+Skip rate **49.2%** ("higher"), 3,393 views from 2,365 viewers, average watch **17 s**, **1 follow**.
+155 likes, 2 comments, 14 reposts, 19 shares, 4 saves: share **0.8%**, like 6.3%, save 0.2%, repost 0.6%,
+comment 0.1%, **all five "lower"** than a typical reel. Views from the Reels tab 56.9%, Feed 26.9%,
+Stories 8.5%, Explore 5.2%, Profile 1.7%; the views curve flattened under a typical reel's within the
+first day. Retention ~50% by ~5 s, ~37% at ~15 s, ~25% at ~30 s, ~15% near the end.
+
+| | Phetchabun | Udon Thani | **Nakhon Pathom** |
+|---|---|---|---|
+| cover | Buddha rising (shape change) | jar rising and painted | golden bell closing over a stupa |
+| skip rate | **37.7%** | 41.4% | 49.2% |
+| retention at ~15 s | ~30% | ~30% | **~37%** |
+| average watch | 18 s | **19 s** | 17 s |
+| like / save / share | 5.9 / 0.4 / 0.7% | **9.8 / 0.8 / 4.7%** | 6.3 / 0.2 / 0.8% |
+| views from the Reels tab | **70.7%** | 69.7% | 56.9% |
+
+Reading (one post, a lean, not a rule):
+- **A building growing is still a building.** The bell closing over the stupa is a shape change, but
+  it reads as architecture, not as an event happening to something alive: skip 49.2%, back near the
+  forest-tile baseline (~52%) and worse than every moving-creature or rising-figure cover since. It
+  repeats the storyline finding that a standing structure, however big, does not hold the thumb.
+- **The middle held better than ever** (~37% at 15 s against ~30% on the three before), so the spine
+  (canal, collapse in the rains, crown, train, palace march) works for the people who stay; the loss is
+  all in the first seconds, and reach followed it (Reels tab down to 56.9%).
+- **Shares did not follow the symbol** this time: Phra Pathom Chedi is the province's best-known symbol,
+  yet shares fell to 0.8% (Udon's Ban Chiang 4.7%). The chedi is a national landmark more than a local
+  pride people pass on; finding 6 needs "a symbol the locals share", not just "the famous one".
+
+For Ratchaburi (PR #78, posting next): its cover is also an object being made (a jar thrown on a wheel)
+but with a gold dragon coiling round it. Read its skip rate against 49.2% (an object) and 37.7-41.4%
+(rising figure / creature); the dragon is the test of whether a creature on the object rescues the hook.
