@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="skill สำหรับ Claude Code ทำคลิปสอนประวัติศาสตร์ 60 วิ แบบ 1minutecity ไม่ต้องวาด ไม่ต้องเขียนโค้ดเอง ไม่มีค่าเครดิต AI">
+<meta property="og:title" content="1minutecity Skill · ทำคลิปประวัติเมือง 60 วิ เอง">
+<meta property="og:description" content="skill ชุดเดียวกับที่เพจใช้ทำทุกเมือง early bird ฿399 เฉพาะ 100 คนแรก">
+<meta property="og:image" content="/img/og.jpg">
+<meta name="theme-color" content="#0b0f1e">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>1minutecity Skill</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;800&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: the page reads like one of our clips at night: a starry sky over a floating tile of land, a gold year counter, phones standing on the tile. One deliberate dark look. */
+:root{
+  --sky-top:#0b0f1e; --sky-mid:#16203c; --sky-low:#2c3658; --horizon:#6a4c58; --dusk:#c98a6a;
+  --gold:#f6cf73; --gold-dim:#b8954a; --on-gold:#0b0f1e; --glow:rgba(246,207,115,.16);
+  --ink:#f3f1ea; --ink-2:#b9bfd2; --ink-3:#7d849c;
+  --panel:rgba(12,16,32,.72); --surface:rgba(255,255,255,.03); --line:rgba(246,207,115,.28); --line-soft:rgba(185,191,210,.12);
+  --dashed:rgba(185,191,210,.25); --seats-bg:rgba(12,16,32,.4); --meter-bg:rgba(246,207,115,.14);
+  --finale-end:#141a33; --footer-bg:#070a14; --shadow:rgba(0,0,0,.55);
+  --leaf:#3f8a3a; --river:#2e7fd8;
+  --display:"Kanit",system-ui,sans-serif; --body:"Kanit",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--sky-top);color:var(--ink);font-family:var(--body);font-weight:300;font-size:17px;line-height:1.65}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+a{color:var(--gold)}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.15}
+h2{font-size:clamp(28px,4.4vw,44px);font-weight:600}
+.kicker{font-weight:500;letter-spacing:.05em;color:var(--gold);font-size:14px;text-transform:uppercase}
+.bar{width:64px;height:5px;border-radius:3px;background:var(--gold)}
+section{padding-block:72px}
+
+/* hero */
+.hero{background:linear-gradient(180deg,var(--sky-top) 0%,var(--sky-mid) 55%,var(--sky-low) 85%,var(--horizon) 100%);padding-block:64px 0;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.hero-copy{display:flex;flex-direction:column;gap:20px;padding-bottom:72px;min-width:0}
+.counter{display:flex;align-items:baseline;gap:12px;font-family:var(--display)}
+.counter .era{font-size:26px;font-weight:600;color:var(--gold)}
+.counter .yr{font-size:clamp(56px,7vw,84px);font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:.9}
+.counter-sub{font-size:14px;color:var(--ink-3);margin-top:-14px;font-variant-numeric:tabular-nums}
+.hero h1{font-size:clamp(28px,3.1vw,42px);font-weight:600;line-height:1.22}
+.hero h1 .ln{display:block;white-space:nowrap}
+.hero p.lede{font-size:19px;color:var(--ink-2);max-width:34em;margin:0}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;text-align:center;gap:8px;font-family:var(--display);font-weight:500;font-size:18px;padding:14px 26px;border-radius:999px;text-decoration:none;border:2px solid var(--gold);transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.btn.solid{background:var(--gold);color:var(--on-gold)}
+.btn.ghost{color:var(--gold)}
+.phones{position:relative;height:600px;margin-bottom:-8px}
+.phone{position:absolute;width:220px;aspect-ratio:9/16;max-width:100%;border-radius:26px;overflow:hidden;border:5px solid #05070d;box-shadow:0 30px 60px var(--shadow)}
+.phone img,.phone video{width:100%;height:100%;object-fit:cover;display:block;background:#0c1020}
+.snd{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);white-space:nowrap;font-family:var(--body);font-size:13px;font-weight:500;color:#f3f1ea;background:rgba(12,16,32,.78);border:1px solid #f6cf73;border-radius:999px;padding:7px 14px;cursor:pointer}
+.snd:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.phone-cap{position:absolute;left:50%;width:280px;transform:translateX(-50%);bottom:28px;text-align:center;font-size:12px;color:var(--ink-2);z-index:3}
+.phone.p1{left:2%;bottom:70px;transform:rotate(-7deg)}
+.phone.p2{left:50%;bottom:60px;z-index:2;width:280px;transform:translateX(-50%)}
+.phone.p3{right:2%;bottom:90px;transform:rotate(7deg)}
+.soil{height:26px;background:linear-gradient(180deg,#6b4a2e,#4a3220 60%,#2d1f15)}
+
+/* proof strip */
+.proof{background:var(--sky-top)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.stat{background:var(--sky-top);padding:22px 20px;display:flex;flex-direction:column;gap:4px}
+.stat b{font-family:var(--display);font-size:34px;font-weight:600;color:var(--gold);font-variant-numeric:tabular-nums;line-height:1.1}
+.stat span{font-size:14px;color:var(--ink-2)}
+.big{display:flex;flex-wrap:wrap;align-items:end;gap:12px 32px;margin-bottom:28px}
+.big-num{display:flex;align-items:baseline;gap:12px;font-family:var(--display)}
+.big-num b{font-size:clamp(60px,11vw,120px);font-weight:800;line-height:.9;letter-spacing:-.02em;color:var(--gold);font-variant-numeric:tabular-nums}
+.big-num span{font-size:28px;font-weight:500}
+.big p{margin:0;max-width:26em;color:var(--ink-2);min-width:0}
+.fine{font-size:13px;color:var(--ink-3);margin-top:12px}
+
+/* timeline (how it's made) */
+.how{background:linear-gradient(180deg,var(--sky-top),var(--sky-mid))}
+.how-head{display:flex;flex-direction:column;gap:14px;margin-bottom:40px;max-width:40em}
+.track{position:relative;display:grid;gap:0}
+.track::before{content:"";position:absolute;left:94px;top:8px;bottom:8px;width:2px;background:var(--line)}
+.step{display:grid;grid-template-columns:80px 28px 1fr;gap:12px;align-items:start;padding-block:16px}
+.step .t{font-family:var(--mono);font-size:14px;color:var(--gold);text-align:right;padding-top:3px;font-variant-numeric:tabular-nums}
+.step .dot{width:14px;height:14px;border-radius:50%;background:var(--gold);border:3px solid var(--sky-top);margin-top:6px;margin-left:8px;position:relative;z-index:1}
+.step h3{font-size:21px;font-weight:500}
+.step p{margin:4px 0 0;color:var(--ink-2);max-width:36em}
+
+/* reel strip */
+.reel{background:var(--sky-mid)}
+.reel-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:16px;margin-bottom:28px}
+.strip{display:flex;gap:14px;overflow-x:auto;padding-bottom:12px;scroll-snap-type:x mandatory}
+.frame{flex:0 0 180px;display:flex;flex-direction:column;gap:8px;scroll-snap-align:start}
+.frame img{width:180px;aspect-ratio:9/16;object-fit:cover;border-radius:14px;display:block;border:1px solid var(--line)}
+.frame figcaption{font-size:13px;color:var(--ink-2);line-height:1.4}
+.frame figcaption b{display:block;color:var(--gold);font-family:var(--mono);font-weight:500;font-size:12px}
+
+/* what's inside */
+.inside{background:linear-gradient(180deg,var(--sky-mid),var(--sky-top))}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:36px}
+.col{display:flex;flex-direction:column;gap:10px;min-width:0}
+.col h3{font-size:20px;font-weight:500;color:var(--gold)}
+.col ul{margin:0;padding-left:1.1em;color:var(--ink-2);display:grid;gap:6px}
+.col li::marker{color:var(--gold-dim)}
+
+/* who */
+.who{background:var(--sky-top)}
+.who-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:32px}
+.who-card{border:1px solid var(--line);border-radius:18px;padding:26px;display:flex;flex-direction:column;gap:10px}
+.who-card h3{font-size:21px;font-weight:500}
+.who-card p{margin:0;color:var(--ink-2)}
+.who-card.no{border-style:dashed;border-color:var(--dashed)}
+.who-card.no h3{color:var(--ink-2)}
+
+/* pricing */
+.price{background:radial-gradient(120% 80% at 50% 0%,var(--sky-low),var(--sky-top) 70%)}
+.price-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:36px;align-items:stretch}
+.plan{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:30px;display:flex;flex-direction:column;gap:16px}
+.plan.feat{border:2px solid var(--gold)}
+.plan .name{font-family:var(--display);font-size:22px;font-weight:500}
+.plan .amt{font-family:var(--display);font-size:46px;font-weight:600;color:var(--gold);line-height:1}
+.plan .amt small{font-size:16px;color:var(--ink-3);font-weight:400}
+.plan ul{margin:0;padding-left:1.1em;color:var(--ink-2);display:grid;gap:6px;flex:1}
+.ph{display:inline-block;font-family:var(--mono);font-size:12px;color:#16192a;background:var(--dusk);padding:2px 8px;border-radius:6px;vertical-align:middle}
+
+.offer{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;margin-top:36px;align-items:start}
+.amt-row{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.was{font-family:var(--display);font-size:24px;color:var(--ink-3)}
+.note{color:var(--gold);font-weight:500}
+.pay{font-size:13px;color:var(--ink-3);text-align:center}
+.seats{border:1px solid var(--line);border-radius:22px;padding:28px;display:flex;flex-direction:column;gap:12px;background:var(--seats-bg)}
+.seats-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;font-family:var(--display)}
+.seats-head span{color:var(--ink-2)}
+.seats-head b{font-size:26px;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
+.meter{height:14px;border-radius:7px;background:var(--meter-bg);overflow:hidden}
+.meter i{display:block;height:100%;width:0;background:var(--gold);border-radius:7px;transition:width .8s ease}
+.ticks{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--ink-3);margin-top:-6px}
+.seats-sub{margin:0;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.seats-sub b{color:var(--gold)}
+.offer .plan .amt{font-size:56px}
+.perk{color:var(--gold)}
+.stairs{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:end;margin-bottom:6px}
+.stair{border:1px solid var(--line);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:2px;opacity:.55}
+
+.stair b{font-family:var(--display);font-size:26px;font-weight:600;line-height:1.1}
+.stair span{font-size:13px;color:var(--ink-2)}
+.stair.on{opacity:1;border:2px solid var(--gold)}.stair.on b{color:var(--gold)}
+/* faq */
+.faq{background:var(--sky-top)}
+details{border-bottom:1px solid var(--line);padding-block:18px}
+summary{cursor:pointer;font-family:var(--display);font-size:19px;font-weight:500;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::after{content:"+";color:var(--gold);font-size:24px;line-height:1}
+details[open] summary::after{content:"–"}
+summary:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+details p{color:var(--ink-2);margin:10px 0 0;max-width:42em}
+
+/* finale */
+.finale{background:linear-gradient(180deg,var(--sky-top),var(--finale-end));text-align:center}
+.finale .wrap{display:flex;flex-direction:column;align-items:center;gap:20px}
+.contact{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-items:center;font-family:var(--mono);font-size:15px;color:var(--ink-2)}
+.copy{font-family:var(--body);font-size:14px;background:none;border:1px solid var(--line);color:var(--gold);border-radius:999px;padding:6px 14px;cursor:pointer}
+.copy:focus-visible{outline:2px solid var(--gold)}
+footer{padding-block:28px;color:var(--ink-3);font-size:13px;text-align:center;background:var(--footer-bg)}
+
+
+/* polish: night sky, glow, surfaces */
+.hero,.finale{position:relative;isolation:isolate}
+.stars{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+.hero .hl{color:var(--gold)}
+.h1-sub{margin:-8px 0 0;font-family:var(--display);font-size:clamp(19px,2.2vw,24px);font-weight:400;color:var(--ink-2)}
+.phones::before{content:"";position:absolute;left:50%;top:46%;width:520px;height:520px;max-width:120%;transform:translate(-50%,-50%);background:radial-gradient(closest-side,var(--glow),transparent);z-index:0;pointer-events:none}
+.phone{z-index:1}.phone.p2{z-index:2}
+.counter .yr{text-shadow:0 0 40px rgba(246,207,115,.18)}
+.soil,.tile-edge{height:30px;background:linear-gradient(180deg,#3f7a35 0,#3f7a35 5px,#7a5634 5px,#5a3d25 55%,#33231a);box-shadow:0 18px 40px rgba(0,0,0,.45)}
+section+section{border-top:1px solid var(--line-soft)}
+.proof,.who,.faq{background:var(--sky-top)}
+.stats{background:var(--line-soft);border-color:var(--line-soft)}
+.stat{background:#0e1325}
+.big-num b{text-shadow:0 0 50px rgba(246,207,115,.2)}
+.col{background:var(--surface);border:1px solid var(--line-soft);border-radius:18px;padding:24px}
+.who-card{background:var(--surface)}
+.plan.feat{box-shadow:0 30px 90px var(--glow)}
+.btn.solid{box-shadow:0 8px 28px rgba(246,207,115,.25)}
+.frame img{box-shadow:0 18px 40px var(--shadow)}
+.step .dot{box-shadow:0 0 0 4px rgba(246,207,115,.12)}
+.finale{padding-block:96px 88px}
+.finale .counter .yr{font-size:clamp(72px,11vw,120px)}
+footer{border-top:0}
+
+/* hook: trust line, pain cards, value math, sticky buy bar */
+.trust{margin:0;font-size:14px;color:var(--ink-2)}
+.trust b{color:var(--gold);font-weight:600}
+.pain{background:var(--sky-top)}
+.pains{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:32px}
+.pain-card{background:var(--surface);border:1px solid var(--line-soft);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.pain-card b{font-family:var(--display);font-size:20px;font-weight:500}
+.pain-card p{margin:0;color:var(--ink-2)}
+.answer{margin:28px 0 0;font-size:19px;max-width:40em;color:var(--ink)}
+.math{text-align:center;font-size:14px;color:var(--ink-2);border-top:1px dashed var(--line-soft);padding-top:12px}
+.math b{color:var(--gold)}
+.ask{margin:0;text-align:center;font-size:14px;color:var(--ink-2)}
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(9,12,24,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.sticky-in{max-width:1080px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.sticky-in span{font-size:15px;color:var(--ink-2);min-width:0}
+.sticky-in b{color:var(--ink)}.sticky-in .js-left{color:var(--gold)}
+.sticky-in s{color:var(--ink-3)}
+.sticky .btn{padding:10px 22px;font-size:16px;white-space:nowrap}
+footer{padding-bottom:84px}
+
+/* price reveal: plays once when the section scrolls in; the resting page already shows the final state */
+.was{position:relative;text-decoration:none}
+.was::after{content:"";position:absolute;left:-4%;right:-4%;top:52%;height:3px;border-radius:2px;background:var(--ink-3);transform-origin:left;transform:scaleX(1)}
+.amt{font-variant-numeric:tabular-nums}
+.price.pre .was::after{transform:scaleX(0)}
+.seats.pre .stair,.price.pre .offer .plan li{opacity:0;transform:translateY(14px)}
+.seats.pre .meter i{width:0!important}
+.seats.pre .seats-head b,.seats.pre .seats-sub{opacity:.35}
+.price.play .was::after{transition:transform .5s cubic-bezier(.6,0,.2,1) .15s}
+.seats.play .stair,.price.play .offer .plan li{transition:opacity .5s ease,transform .5s cubic-bezier(.2,.8,.2,1)}
+.seats.play .stair:nth-child(1){transition-delay:.15s}.seats.play .stair:nth-child(2){transition-delay:.35s}
+.seats.play .seats-head b,.seats.play .seats-sub{transition:opacity .4s ease .5s}
+.price.play .offer .plan li:nth-child(1){transition-delay:.7s}.price.play .offer .plan li:nth-child(2){transition-delay:.8s}
+.price.play .offer .plan li:nth-child(3){transition-delay:.9s}.price.play .offer .plan li:nth-child(4){transition-delay:1s}
+.seats.play .meter i{transition:width 1.2s cubic-bezier(.2,.8,.2,1) .6s}
+.seats.play .stair.on{animation:flare 1.6s ease 1.4s}
+.price.play .amt{animation:land .45s cubic-bezier(.2,1.6,.4,1) 1.15s both}
+.price.play .plan.feat{animation:flare 1.6s ease 1.15s}
+@keyframes land{0%{transform:scale(1)}40%{transform:scale(1.12)}100%{transform:scale(1)}}
+@keyframes flare{0%{box-shadow:0 30px 90px var(--glow)}35%{box-shadow:0 0 0 2px var(--gold),0 30px 120px rgba(246,207,115,.38)}100%{box-shadow:0 30px 90px var(--glow)}}
+.inapp{border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:14px;color:var(--ink-2);background:rgba(246,207,115,.06);display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.inapp[hidden]{display:none}
+.inapp b{color:var(--ink)}
+@media (max-width:820px){
+  .pains{grid-template-columns:1fr}
+  .hero-grid,.who-grid,.price-grid,.offer{grid-template-columns:1fr}
+  .phones{height:420px;margin-inline:auto;width:100%;max-width:400px}
+  .phones{height:440px}.phone{width:160px}.phone.p2{width:200px;bottom:40px}.phone-cap{width:200px;bottom:14px}.phone.p1{left:0;bottom:60px}.phone.p3{right:0;bottom:70px}
+  .hero h1 .ln{white-space:normal}
+  .hero-copy{padding-bottom:0}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .cols{grid-template-columns:1fr}
+  .track::before{left:72px}
+  .step{grid-template-columns:58px 28px 1fr}
+}
+@media (prefers-reduced-motion:reduce){.btn{transition:none}}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+
+
+<header class="hero">
+  <canvas class="stars" aria-hidden="true"></canvas>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <div class="kicker">1minutecity · skill สำหรับ Claude Code</div>
+      <div>
+        <div class="counter"><span class="era">พ.ศ.</span><span class="yr" id="yr">2569</span></div>
+        <div class="counter-sub" id="ce">ค.ศ. 2026</div>
+      </div>
+      <div class="bar"></div>
+      <h1><span class="ln">คลิปสอนประวัติศาสตร์ 60 วิ</span><span class="ln">ที่มีคนดูรวมกว่า <span class="hl">6 แสน</span> ครั้ง</span></h1>
+      <p class="h1-sub">ตอนนี้คุณทำเองได้ ด้วย skill ชุดเดียวกับที่เราใช้</p>
+      <p class="lede">ไม่ต้องวาด ไม่ต้องเขียนโค้ดเอง ไม่มีค่าเครดิต AI บอก Claude ว่าอยากเล่าเมืองไหน ได้ไฟล์พร้อมลง TikTok, Reels และ Facebook</p>
+      <div class="cta-row">
+        <a class="btn solid" href="#price">รับราคา early bird ฿399</a>
+        <a class="btn ghost" href="https://www.instagram.com/1minute.city/" target="_blank" rel="noopener">ทักถามก่อนซื้อ</a>
+      </div>
+      <p class="trust"><b class="js-sold">78</b> คนจองแล้ว · เหลือ <b class="js-left">22</b> สิทธิ์ · จ่ายด้วย PromptPay สแกน QR ได้เลย</p>
+    </div>
+    <div class="phones">
+      <div class="phone p1" aria-hidden="true"><video src="media/lopburi_loop.mp4" poster="media/lopburi_poster.jpg" autoplay muted loop playsinline preload="auto"></video></div>
+      <div class="phone p2">
+        <video id="hero-vid" src="media/korat.mp4" poster="media/korat_poster.jpg" autoplay muted loop playsinline preload="auto" aria-label="คลิปนครราชสีมา 60 วินาที"></video>
+        <button class="snd" id="snd" type="button" aria-pressed="false">🔇 แตะเพื่อเปิดเสียง</button>
+      </div>
+      <div class="phone p3" aria-hidden="true"><video src="media/ubon_loop.mp4" poster="media/ubon_poster.jpg" autoplay muted loop playsinline preload="auto"></video></div>
+      <div class="phone-cap">นครราชสีมา · 131K วิว</div>
+    </div>
+  </div>
+  <div class="soil"></div>
+</header>
+
+<section class="proof">
+  <div class="wrap">
+    <div class="big">
+      <div class="big-num"><b id="views">633,207</b><span>วิว</span></div>
+      <p>ยอดวิวบน Instagram ของ 1minutecity จากคนดู 279,443 คน 93.4% ไม่ได้เป็นผู้ติดตาม คลิปถูกส่งไปหาคนใหม่</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>131K</b><span>วิว คลิปนครราชสีมา คลิปเดียว</span></div>
+      <div class="stat"><b>64,352</b><span>การกดถูกใจ คอมเมนต์ แชร์ และเซฟ</span></div>
+      <div class="stat"><b>32.9%</b><span>skip rate คลิปโคราช (ค่าเฉลี่ยเดิมของเพจ ~52%)</span></div>
+      <div class="stat"><b>0 ฿</b><span>ค่าเครดิต AI ต่อคลิป ภาพและเสียงสร้างจากโค้ด</span></div>
+    </div>
+    <p class="fine">ข้อมูลจาก Instagram Account insights ณ 28 ต.ค. 2569 ไม่รวม TikTok และ Facebook ผลของแต่ละช่องจะไม่เท่ากัน</p>
+  </div>
+</section>
+
+<section class="pain">
+  <div class="wrap">
+    <div style="display:flex;flex-direction:column;gap:14px;max-width:40em">
+      <div class="kicker">ปัญหาที่คนทำสื่อความรู้เจอ</div>
+      <h2>เนื้อหาดี แต่คนเลื่อนผ่านใน 3 วินาที</h2>
+    </div>
+    <div class="pains">
+      <div class="pain-card"><b>คนดูไม่หยุด</b><p>สไลด์กับตัวหนังสือบนพื้นเรียบ แพ้คลิปบันเทิงตั้งแต่วินาทีแรก</p></div>
+      <div class="pain-card"><b>จ้างทำแพง ทำเองไม่เป็น</b><p>โมชันกราฟิกทั้งเมืองต้องใช้ทั้งฝีมือและเวลา จ้างทีละคลิปก็ไม่คุ้มถ้าจะทำเป็นซีรีส์</p></div>
+      <div class="pain-card"><b>AI วิดีโอเผาเครดิต</b><p>สร้างใหม่ทีละรอบ ภาพเพี้ยน ข้อมูลผิด และต้องจ่ายทุกครั้งที่กด</p></div>
+    </div>
+    <p class="answer">1minutecity แก้ทั้งสามข้อ: เปิดด้วยของใหญ่ที่ขยับใน 3 วินาทีแรก สร้างจากโค้ดจึงทำซ้ำได้ไม่จำกัด และมีสคริปต์ตรวจวันที่ ทิศ และความถูกต้องก่อนเรนเดอร์</p>
+  </div>
+</section>
+
+<section class="how" id="how">
+  <div class="wrap">
+    <div class="how-head">
+      <div class="kicker">หนึ่งคลิป หกสิบวินาที</div>
+      <h2>skill พาทำทีละขั้น แบบที่เราทำจริงทุกคลิป</h2>
+      <p style="margin:0;color:var(--ink-2)">ทุกขั้นมีสคริปต์ตรวจในตัว ถ้าคำบรรยายล้นบรรทัด ป้ายชี้หลุดเฟรม หรือเสียงดังไม่เท่าคลิปก่อน มันจะบอกก่อนเรนเดอร์</p>
+    </div>
+    <div class="track">
+      <div class="step"><span class="t">0:00</span><span class="dot"></span><div><h3>บรีฟและเช็กข้อเท็จจริง</h3><p>เทมเพลตบรีฟพร้อมคำสั่งค้นคว้า ทุกวันที่ต้องยืนยันด้วยเว็บก่อนเขียน และติดป้าย "สันนิษฐานว่า" ให้เรื่องที่ยังถกเถียงกันอยู่</p></div></div>
+      <div class="step"><span class="t">0:03</span><span class="dot"></span><div><h3>เปิดด้วยฮีโร่ที่ขยับได้</h3><p>บทที่ 3 วินาทีแรกต้องมีของใหญ่ที่เคลื่อนไหว ไดโนเสาร์เดิน นาคคลายตัว หนุมานยกเมือง แล้วกลับมาอีกครั้งตอนจบ</p></div></div>
+      <div class="step"><span class="t">0:05</span><span class="dot"></span><div><h3>เล่าเป็นจังหวะ (beats)</h3><p>แต่ละจังหวะมีเหตุการณ์บนจอ มีปี มีคำบรรยาย มีมุมกล้อง ตัวนับปี พ.ศ. วิ่งตามเรื่องเองโดยไม่ต้องจูนมือ</p></div></div>
+      <div class="step"><span class="t">0:30</span><span class="dot"></span><div><h3>ไดโอรามา 3 มิติจากพิกัดจริง</h3><p>เมืองทั้งเมืองบนแผ่นดินลอยฟ้า ทิศของแม่น้ำและโบราณสถานตรงกับแผนที่จริง ต้นไม้ บ้าน รถไฟ ขบวนแห่ ไม่ทับกันและไม่ลงน้ำ</p></div></div>
+      <div class="step"><span class="t">0:45</span><span class="dot"></span><div><h3>ดนตรีและเสียงเอฟเฟกต์สังเคราะห์</h3><p>สคอร์จากโค้ด Python พิณ แคน ระนาด ป๊อปเบาๆ ทุกครั้งที่ตึกโผล่ ปรับความดังที่ -16 LUFS เท่ากันทุกคลิป</p></div></div>
+      <div class="step"><span class="t">0:60</span><span class="dot"></span><div><h3>ไฟล์เดียว ลงได้ทุกแพลตฟอร์ม</h3><p>1080×1920 30fps ติดแท็กสีถูกต้อง ไม่โดนบีบเพี้ยนบน TikTok, Instagram และ Facebook</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="reel" id="reel">
+  <div class="wrap">
+    <div class="reel-head">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div class="kicker">เฟรมจริงจากงานที่โพสต์แล้ว</div>
+        <h2>อุบลราชธานี และ ลพบุรี</h2>
+      </div>
+      <span style="color:var(--ink-3);font-size:14px">เลื่อนดูทางขวา →</span>
+    </div>
+    <div class="strip">
+      <figure class="frame" style="margin:0"><img src="img/ubon_cover.jpg" alt="แผ่นดินลอยฟ้าของอุบลฯ มีพระธาตุและนาคอยู่กลางป่า"><figcaption><b>0:00</b>ปกคลิป แผ่นดินทั้งผืนในเฟรมเดียว</figcaption></figure>
+      <figure class="frame" style="margin:0"><img src="img/ubon_title.jpg" alt="ชื่อเรื่องอุบลราชธานีเหนือพระธาตุ"><figcaption><b>0:01</b>ไตเติล 3 วินาที ไม่มีอะไรอื่นทับ</figcaption></figure>
+      <figure class="frame" style="margin:0"><img src="img/lop_hanuman.jpg" alt="หนุมานยักษ์ยืนในป่า ลพบุรี"><figcaption><b>0:04</b>ฮีโร่ขนาดตำนาน: หนุมานยกเมือง</figcaption></figure>
+      <figure class="frame" style="margin:0"><img src="img/lop_monkeys.jpg" alt="ฝูงลิงรอบพระปรางค์ยุคทวารวดี"><figcaption><b>0:12</b>ทุกจังหวะมีของเคลื่อนไหว</figcaption></figure>
+      <figure class="frame" style="margin:0"><img src="img/ubon_fair.jpg" alt="ขบวนแห่เทียนครั้งแรก พ.ศ. 2444"><figcaption><b>0:28</b>ปีค้างไว้ตรงกับคำบรรยาย</figcaption></figure>
+      <figure class="frame" style="margin:0"><img src="img/lop_train.jpg" alt="รถไฟสายเหนือผ่านพระปรางค์สามยอด"><figcaption><b>0:36</b>รถไฟมาถึง พร้อมป้ายชี้สถานที่</figcaption></figure>
+      <figure class="frame" style="margin:0"><img src="img/ubon_rail.jpg" alt="รถไฟถึงวารินชำราบ พ.ศ. 2473"><figcaption><b>0:41</b>กล้องตามสิ่งที่เคลื่อนที่</figcaption></figure>
+      <figure class="frame" style="margin:0"><img src="img/ubon_final.jpg" alt="เมืองอุบลฯ ปัจจุบันกับนาคทองกลับมาตอนจบ"><figcaption><b>0:55</b>เมืองโตเต็มพื้นที่ ฮีโร่กลับมาปิดเรื่อง</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="inside">
+  <div class="wrap">
+    <div style="display:flex;flex-direction:column;gap:14px;max-width:40em">
+      <div class="kicker">ในแพ็กมีอะไร</div>
+      <h2>ไม่ใช่แค่พรอมต์ แต่เป็นเครื่องยนต์ทั้งตัว</h2>
+    </div>
+    <div class="cols">
+      <div class="col"><h3>Skill + คู่มือ</h3><ul>
+        <li>ไฟล์ skill สำหรับ Claude Code พร้อมขั้นตอนทั้งหมด</li>
+        <li>เทมเพลตบรีฟและ worksheet เขียนสตอรี่</li>
+        <li>บทเรียนที่เราพลาดมาแล้ว 50+ ข้อ เขียนเป็นกฎให้ AI ทำตาม</li>
+      </ul></div>
+      <div class="col"><h3>เอนจินไดโอรามา</h3><ul>
+        <li>Remotion + Three.js พร้อมใช้</li>
+        <li>แม่น้ำ กำแพง คูเมือง รถไฟ ถนน ฝูงคน กลางวันกลางคืน</li>
+        <li>สคริปต์ตรวจ: safe area ของ TikTok, กล้องกระชาก, ของจมน้ำ, ทิศผิด</li>
+      </ul></div>
+      <div class="col"><h3>เสียงและการส่งออก</h3><ul>
+        <li>synth.py เครื่องดนตรีไทยและเสียงเอฟเฟกต์จากโค้ด</li>
+        <li>มาสเตอร์ -16 LUFS อัตโนมัติ</li>
+        <li>สคริปต์ encode ไฟล์อัปโหลดและไฟล์สำรอง</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="who">
+  <div class="wrap">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="kicker">เหมาะกับใคร</div>
+      <h2>สำหรับคนที่อยากเล่าเรื่องจริงให้คนดูจนจบ</h2>
+    </div>
+    <div class="who-grid">
+      <div class="who-card"><h3>เหมาะกับ</h3><p>ครูและผู้ทำสื่อการสอนประวัติศาสตร์ สังคม ภูมิศาสตร์ เพจท้องถิ่น อบจ. หรือหน่วยงานท่องเที่ยวที่อยากเล่าประวัติเมือง และครีเอเตอร์ที่อยากมีซีรีส์ของตัวเองโดยไม่ต้องจ่ายค่าเครดิตทุกคลิป</p></div>
+      <div class="who-card no"><h3>อาจยังไม่เหมาะ ถ้า</h3><p>ไม่อยากเปิด terminal เลย หรือไม่มีบัญชี Claude Code ระบบนี้ทำงานผ่านโค้ด ถึงจะไม่ต้องเขียนเอง แต่ต้องรันคำสั่งและรอเรนเดอร์ (เครื่องมีการ์ดจอ เรนเดอร์ราว 1–2 นาทีต่อคลิป)</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="price" id="price">
+  <div class="wrap">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="kicker">ราคาขั้นบันได</div>
+      <h2>ซื้อครั้งเดียว ทำได้ไม่จำกัดคลิป</h2>
+    </div>
+    <div class="offer">
+      <div class="plan feat">
+        <div class="name">1minutecity Skill</div>
+        <div class="amt-row">
+          <div class="amt" id="amt">฿399</div>
+          <s class="was" id="was">฿999</s>
+        </div>
+        <div class="note" id="note">Early bird สำหรับลูกค้า 100 คนแรกเท่านั้น</div>
+        <ul>
+          <li>ไฟล์ skill + เอนจินไดโอรามา + สคริปต์ตรวจทั้งหมด</li>
+          <li>synth.py เครื่องดนตรีไทยและเสียงเอฟเฟกต์จากโค้ด</li>
+          <li>โปรเจกต์โคราชตัวอย่างครบชุดไว้แกะดู</li>
+          <li class="perk" id="perk">Early bird: อัปเดต skill ฟรีทุกครั้งที่มีของใหม่</li>
+        </ul>
+        <a class="btn solid" id="buy" href="https://buy.stripe.com/9B6bJ0fX17S71GdaQ0gfu08" target="_blank" rel="noopener">สั่งซื้อ</a>
+        <div class="inapp" id="inapp" hidden>
+          <p style="margin:0"><b>หากไม่พบตัวเลือกพร้อมเพย์</b> ในหน้าชำระเงิน ให้กด <b>···</b> มุมขวาบน แล้วเลือก <b>เปิดในเบราว์เซอร์</b> (Safari หรือ Chrome) แล้วกดสั่งซื้ออีกครั้ง</p>
+          <button class="copy" id="copylink" type="button">คัดลอกลิงก์หน้านี้</button>
+        </div>
+        <div class="pay">ชำระผ่าน PromptPay (สแกน QR) หรือบัตร · ผ่านระบบ Stripe · ได้ไฟล์ทางอีเมลภายใน 24 ชม.</div>
+        <div class="math">ทำ 10 คลิป ตกคลิปละไม่ถึง <b>40 บาท</b> ทำ 50 คลิป ไม่ถึง <b>8 บาท</b></div>
+        <p class="ask">ยังไม่แน่ใจว่าเครื่องคุณใช้ได้ไหม? <a href="https://www.instagram.com/1minute.city/" target="_blank" rel="noopener">ทักถาม @1minute.city</a> ก่อนจ่ายได้เลย</p>
+      </div>
+      <div class="seats" aria-live="polite">
+        <div class="stairs" aria-label="ขั้นราคา"><div class="stair on" id="st1"><b>฿399</b><span>Early bird · 100 คนแรก</span></div><div class="stair" id="st2"><b>฿999</b><span>หลังจากนั้น</span></div></div>
+        <div class="seats-head"><span>สิทธิ์ early bird</span><b><span id="left">22</span> / 100 ที่เหลือ</b></div>
+        <div class="meter" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="meter"><i id="fill"></i></div>
+        <div class="ticks" aria-hidden="true"><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div>
+        <p class="seats-sub" id="sold-line">ขายไปแล้ว <b id="sold">78</b> สิทธิ์ · อัปเดตล่าสุด <span id="asof">31 ต.ค. 2569</span></p>
+        <p class="fine" style="margin:0">ครบ 100 สิทธิ์แล้วราคาขึ้นเป็น ฿999 ตัวเลขนี้นับจากยอดชำระจริงใน Stripe</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq">
+  <div class="wrap" style="max-width:820px">
+    <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:16px">
+      <div class="kicker">คำถามที่พบบ่อย</div>
+      <h2>ก่อนตัดสินใจ</h2>
+    </div>
+    <details><summary>จ่ายแล้วได้ของยังไง</summary><p>หลังจ่ายเงิน เราจะแชร์โฟลเดอร์ Google Drive ที่มีไฟล์ skill คู่มือภาษาไทย และโปรเจกต์ตัวอย่าง ไปที่ Gmail ที่คุณกรอกไว้ภายใน 24 ชั่วโมง อัปเดตใหม่จะขึ้นในโฟลเดอร์เดิม</p></details>
+    <details><summary>จ่ายเงินปลอดภัยไหม</summary><p>ระบบชำระเงินเป็นของ Stripe เลือกสแกน QR PromptPay ด้วยแอปธนาคาร หรือจ่ายด้วยบัตร ในแอปธนาคารจะเห็นชื่อผู้รับว่า STRIPE PAYMENTS (THAILAND) LTD ซึ่งเป็นตัวกลางรับเงินให้ 1minutecity</p></details>
+    <details><summary>ต้องเขียนโค้ดเป็นไหม</summary><p>ไม่ต้องเขียนเอง Claude Code เป็นคนเขียนตาม skill คุณต้องสั่งงาน ดูภาพนิ่งที่มันทำออกมา แล้วบอกว่าตรงไหนไม่ใช่ ควรใช้ terminal พื้นฐานได้</p></details>
+    <details><summary>ใช้กับเรื่องอื่นนอกจากประวัติเมืองได้ไหม</summary><p>skill ถูกออกแบบมาเพื่อเล่าประวัติเมืองและสถานที่ ใช้กับเมือง วัด หรือโบราณสถานได้ทันที เรื่องแนวอื่นปรับได้ แต่ต้องให้ Claude สร้างฉากใหม่เพิ่ม</p></details>
+    <details><summary>มีค่าใช้จ่ายรายคลิปไหม</summary><p>ไม่มีค่าเครดิต AI สร้างภาพหรือเสียง ค่าใช้จ่ายมีแค่การใช้งาน Claude ของคุณเอง</p></details>
+    <details><summary>เครื่องแบบไหนเรนเดอร์ได้</summary><p>เครื่องที่มีการ์ดจอเรนเดอร์คลิป 60 วินาทีได้ในราว 1–2 นาที (วัดจาก RTX 4070) เครื่องที่ไม่มีการ์ดจอก็ได้ แต่ใช้เวลาราว 35–50 นาที</p></details>
+    <details><summary>เอาคลิปที่ทำไปลงช่องตัวเองหรือรับงานได้ไหม</summary><p>ได้ คลิปที่คุณทำด้วย skill นี้เป็นของคุณ ลงช่องตัวเอง เปิดสร้างรายได้ หรือรับทำให้ลูกค้าได้เลย ไม่ต้องให้เครดิต (ถ้าแท็ก 1minutecity เราจะดีใจมาก) สิ่งที่ทำไม่ได้มีสองอย่าง คือขายต่อหรือแจกไฟล์ skill และเอนจิน และนำคลิปของเพจ 1minutecity เองไปลงซ้ำ ข้อมูลประวัติศาสตร์ในคลิปของคุณ คุณต้องตรวจเองก่อนโพสต์ skill มีขั้นตอนช่วยเช็กให้</p></details>
+  </div>
+</section>
+
+<section class="finale" id="contact">
+  <canvas class="stars" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="counter" style="justify-content:center"><span class="era">พ.ศ.</span><span class="yr">2569</span></div>
+    <div class="bar"></div>
+    <h2>เมืองต่อไป คุณเป็นคนเล่า</h2>
+    <a class="btn solid" href="https://buy.stripe.com/9B6bJ0fX17S71GdaQ0gfu08" target="_blank" rel="noopener">สั่งซื้อ early bird ฿399</a>
+    <p style="color:var(--ink-2);margin:0;max-width:32em">มีคำถาม ทักมาทาง Instagram ได้ที่</p>
+    <div class="contact">Instagram <a id="ct" href="https://www.instagram.com/1minute.city/" target="_blank" rel="noopener">@1minute.city</a><button class="copy" id="copybtn" type="button">คัดลอก</button></div>
+  </div>
+</section>
+<div class="tile-edge" aria-hidden="true"></div>
+<div class="sticky" id="sticky" hidden>
+  <div class="sticky-in">
+    <span><b>Early bird ฿399</b> <s>฿999</s> · เหลือ <b class="js-left">22</b> สิทธิ์</span>
+    <a class="btn solid" href="https://buy.stripe.com/9B6bJ0fX17S71GdaQ0gfu08" target="_blank" rel="noopener">ซื้อเลย</a>
+  </div>
+</div>
+<footer>1minutecity · ภาพทุกภาพในหน้านี้เป็นเฟรมจากคลิปที่สร้างด้วย skill นี้</footer>
+
+<script>
+// Launch offer. Update SOLD from the Stripe dashboard's paid count, then republish.
+var SOLD=78, SEATS=100, LINK_LAUNCH='https://buy.stripe.com/9B6bJ0fX17S71GdaQ0gfu08', LINK_FULL='#contact';
+(function(){
+  var sold=Math.min(SOLD,SEATS), left=SEATS-sold, over=sold>=SEATS;
+  document.getElementById('sold').textContent=sold;
+  document.querySelectorAll('.js-sold').forEach(function(e){e.textContent=sold;});
+  document.querySelectorAll('.js-left').forEach(function(e){e.textContent=left;});
+  if(!over){
+    var bar=document.getElementById('sticky'),hero=document.querySelector('.hero'),price=document.getElementById('price'),inHero=true,inPrice=false;
+    function upd(){bar.hidden=inHero||inPrice;}
+    new IntersectionObserver(function(e){inHero=e[0].isIntersecting;upd();}).observe(hero);
+    new IntersectionObserver(function(e){inPrice=e[0].isIntersecting;upd();},{threshold:.2}).observe(price);
+  }
+  document.getElementById('left').textContent=left;
+  var m=document.getElementById('meter'); m.setAttribute('aria-valuenow',sold);
+  requestAnimationFrame(function(){document.getElementById('fill').style.width=(sold/SEATS*100)+'%';});
+  document.getElementById('buy').href=over?LINK_FULL:LINK_LAUNCH;
+  if(over){
+    document.getElementById('amt').textContent='฿999';
+    document.getElementById('perk').hidden=true;
+    document.getElementById('st1').classList.remove('on');document.getElementById('st2').classList.add('on');
+    document.getElementById('was').hidden=true;
+    document.getElementById('note').textContent='Early bird ครบ 100 คนแล้ว ขอบคุณทุกคน';
+  }
+})();
+</script>
+<script>
+// sound starts only from a tap; the clip restarts so the viewer hears it from the title
+(function(){
+  var v=document.getElementById('hero-vid'),b=document.getElementById('snd');
+  b.addEventListener('click',function(){
+    if(v.muted){v.muted=false;v.currentTime=0;v.play().catch(function(){});b.textContent='🔊 ปิดเสียง';b.setAttribute('aria-pressed','true');}
+    else{v.muted=true;b.textContent='🔇 แตะเพื่อเปิดเสียง';b.setAttribute('aria-pressed','false');}
+  });
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.querySelectorAll('.phones video').forEach(function(x){x.removeAttribute('autoplay');x.pause();});}
+})();
+</script>
+<script>
+// a sparse night sky behind the hero and the finale, twinkling slowly like the clip's nights
+(function(){
+  var still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('canvas.stars').forEach(function(cv){
+    var ctx=cv.getContext('2d'),stars=[],dpr=Math.min(2,window.devicePixelRatio||1);
+    function size(){
+      var r=cv.getBoundingClientRect();cv.width=r.width*dpr;cv.height=r.height*dpr;
+      var n=Math.round(r.width*r.height/9000);stars=[];
+      for(var i=0;i<n;i++){var y=Math.pow(Math.random(),1.6);stars.push({x:Math.random(),y:y*0.8,r:(Math.random()*1.1+0.3)*dpr,p:Math.random()*6.3,s:0.4+Math.random()*1.2,a:0.35+Math.random()*0.55*(1-y)});}
+    }
+    function draw(t){
+      ctx.clearRect(0,0,cv.width,cv.height);
+      for(var i=0;i<stars.length;i++){var st=stars[i],k=still?1:0.65+0.35*Math.sin(t/1000*st.s+st.p);
+        ctx.globalAlpha=st.a*k;ctx.fillStyle=i%9?'#f3f1ea':'#f6cf73';ctx.beginPath();ctx.arc(st.x*cv.width,st.y*cv.height,st.r,0,6.283);ctx.fill();}
+      if(!still)requestAnimationFrame(draw);
+    }
+    size();addEventListener('resize',size);requestAnimationFrame(draw);
+  });
+})();
+</script>
+<script>
+// price reveal: ฿999 is struck through, the price counts down to ฿399, the seat meter fills.
+// Only arms when the section starts off screen, so a still or a reduced-motion view shows the final state.
+(function(){
+  var sec=document.getElementById('price'),amt=document.getElementById('amt');
+  if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  var final=amt.textContent,to=parseInt(final.replace(/\D/g,''),10),from=999,armed=false;
+  var io=new IntersectionObserver(function(es){
+    var e=es[0];
+    if(!armed){armed=true;if(e.isIntersecting){io.disconnect();return;}sec.classList.add('pre');amt.textContent='฿'+from;return;}
+    if(!e.isIntersecting)return;
+    io.disconnect();sec.classList.add('play');requestAnimationFrame(function(){sec.classList.remove('pre');});
+    var t0=null,dur=1100,delay=150;
+    function step(t){if(t0===null)t0=t;var p=Math.min(1,Math.max(0,(t-t0-delay)/dur)),e2=1-Math.pow(1-p,3);
+      amt.textContent='฿'+Math.round(from+(to-from)*e2);if(p<1)requestAnimationFrame(step);else amt.textContent=final;}
+    requestAnimationFrame(step);
+  },{threshold:.25});
+  io.observe(sec);
+})();
+</script>
+<script>
+// seat card: its own reveal, since on a phone it sits below the price card
+(function(){
+  var box=document.querySelector('.seats');
+  if(!box||!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  var left=document.getElementById('left'),sold=document.getElementById('sold'),L=+left.textContent,S=+sold.textContent,armed=false;
+  var io=new IntersectionObserver(function(es){
+    var e=es[0];
+    if(!armed){armed=true;if(e.isIntersecting){io.disconnect();return;}box.classList.add('pre');left.textContent=100;sold.textContent=0;return;}
+    if(!e.isIntersecting)return;
+    io.disconnect();box.classList.add('play');requestAnimationFrame(function(){box.classList.remove('pre');});
+    var t0=null,dur=1200,delay=600;
+    function step(t){if(t0===null)t0=t;var p=Math.min(1,Math.max(0,(t-t0-delay)/dur)),k=1-Math.pow(1-p,3);
+      left.textContent=Math.round(100+(L-100)*k);sold.textContent=Math.round(S*k);if(p<1)requestAnimationFrame(step);}
+    requestAnimationFrame(step);
+  },{threshold:.4});
+  io.observe(box);
+})();
+</script>
+<script>
+// Instagram, Facebook and LINE open links in their own browser, where Stripe drops PromptPay; say how to get out
+(function(){
+  if(!/Instagram|FBAN|FBAV|FB_IAB|Line\//i.test(navigator.userAgent))return;
+  var box=document.getElementById('inapp');box.hidden=false;
+  document.getElementById('copylink').addEventListener('click',function(){
+    var b=this,u=location.origin+'/';
+    try{navigator.clipboard.writeText(u).then(function(){b.textContent='คัดลอกแล้ว วางในเบราว์เซอร์ได้เลย';},function(){b.textContent=u;});}catch(e){b.textContent=u;}
+  });
+})();
+</script>
+<script>
+// hero counter rolls from legend to today, like the clip's year counter
+(function(){
+  var el=document.getElementById('yr'),ce=document.getElementById('ce');
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  var from=1199,to=2569,t0=null,dur=2600;
+  function f(t){if(!t0)t0=t;var p=Math.min(1,(t-t0)/dur);var e=1-Math.pow(1-p,3);var y=Math.round(from+(to-from)*e);
+    el.textContent=y;ce.textContent='ค.ศ. '+(y-543);if(p<1)requestAnimationFrame(f);}
+  requestAnimationFrame(f);
+})();
+document.getElementById('copybtn').addEventListener('click',function(){
+  var t=document.getElementById('ct').textContent,b=this;
+  function sel(){var r=document.createRange();r.selectNodeContents(document.getElementById('ct'));var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='เลือกข้อความแล้ว';}
+  try{navigator.clipboard.writeText(t).then(function(){b.textContent='คัดลอกแล้ว';},sel);}catch(e){sel();}
+});
+</script>
+
+</body>
+</html>
