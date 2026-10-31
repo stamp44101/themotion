@@ -1,0 +1,803 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "ถ้ำฤๅษีเขางู",
+    "era": "ยุคทวารวดี (ราว พ.ศ. 1100–1200)",
+    "status": "gem_only",
+    "gem_latlon": [
+     13.5749,
+     99.7773
+    ],
+    "osm": null,
+    "osm_offset_m": null
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.7773,
+     13.5749
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "ถ้ำฝาโถ เขางู",
+    "era": "ยุคทวารวดี (ราว พ.ศ. 1100–1300)",
+    "status": "gem_only",
+    "gem_latlon": [
+     13.5757,
+     99.775
+    ],
+    "osm": null,
+    "osm_offset_m": null
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.775,
+     13.5757
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "ถ้ำจีนและถ้ำจาม เขางู",
+    "era": "ยุคทวารวดี (ราว พ.ศ. 1100–1300)",
+    "status": "gem_only",
+    "gem_latlon": [
+     13.5743,
+     99.7729
+    ],
+    "osm": null,
+    "osm_offset_m": null
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.7729,
+     13.5743
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "เมืองโบราณคูบัวและวัดโขลงสุวรรณคีรี (โบราณสถานหมายเลข 18)",
+    "era": "ยุคทวารวดี (ราว พ.ศ. 1100–1600)",
+    "status": "gem_only",
+    "gem_latlon": [
+     13.4864,
+     99.8357
+    ],
+    "osm": null,
+    "osm_offset_m": null
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.8357,
+     13.4864
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "วัดมหาธาตุวรวิหารและกำแพงแก้วศิลาแลง",
+    "era": "ยุคชยราชปุรี–อยุธยาตอนต้น (พ.ศ. 1734 – ราว พ.ศ. 2000)",
+    "status": "osm_match",
+    "gem_latlon": [
+     13.5466,
+     99.8144
+    ],
+    "osm": "node/2578808283",
+    "osm_offset_m": 46
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.8144,
+     13.5466
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "แนวกำแพงเมืองและคูเมืองโบราณราชบุรีฝั่งตะวันตก",
+    "era": "ยุคชยราชปุรี–อยุธยา (พ.ศ. 1734–2360)",
+    "status": "gem_only",
+    "gem_latlon": [
+     13.5455,
+     99.8144
+    ],
+    "osm": null,
+    "osm_offset_m": null
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.8144,
+     13.5455
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "สระโกสินารายณ์ (เมืองโบราณศัมพูกปัฏฏนะ อ.บ้านโป่ง)",
+    "era": "ยุคชยราชปุรี–ลพบุรี (พ.ศ. 1734)",
+    "status": "osm_match",
+    "gem_latlon": [
+     13.8566,
+     99.8519
+    ],
+    "osm": "way/557360638",
+    "osm_offset_m": 394
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.8519,
+     13.8566
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "สมรภูมิศึกบางแก้ว–เขาชะงุ้ม (อ.โพธาราม)",
+    "era": "ยุคธนบุรี (พ.ศ. 2317)",
+    "status": "gem_only",
+    "gem_latlon": [
+     13.7179,
+     99.7512
+    ],
+    "osm": null,
+    "osm_offset_m": null
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.7512,
+     13.7179
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "สมรภูมิทุ่งเขางู",
+    "era": "ยุคต้นรัตนโกสินทร์ (พ.ศ. 2328)",
+    "status": "gem_only",
+    "gem_latlon": [
+     13.5688,
+     99.7757
+    ],
+    "osm": null,
+    "osm_offset_m": null
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.7757,
+     13.5688
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "ชุมชนไทยทรงดำบ้านหัวเขาจีน (ต.ห้วยยางโทน อ.ปากท่อ)",
+    "era": "ยุคต้นรัตนโกสินทร์ (พ.ศ. 2321–2335)",
+    "status": "gem_only",
+    "gem_latlon": [
+     13.337,
+     99.7413
+    ],
+    "osm": null,
+    "osm_offset_m": null
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.7413,
+     13.337
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "ชุมชนลาวครั่งบ้านช่องลาภ (ต.หนองพันจันทร์ อ.บ้านคา)",
+    "era": "ยุคต้นรัตนโกสินทร์ (ราว พ.ศ. 2321–2380)",
+    "status": "gem_only",
+    "gem_latlon": [
+     13.5002,
+     99.4215
+    ],
+    "osm": null,
+    "osm_offset_m": null
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.4215,
+     13.5002
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "ชุมชนไทพวนตำบลอ่างหิน (ย่านวัดอ่างหิน อ.ปากท่อ)",
+    "era": "ยุคต้นรัตนโกสินทร์ (ราว พ.ศ. 2321–2380)",
+    "status": "gem_only",
+    "gem_latlon": [
+     13.4955,
+     99.6498
+    ],
+    "osm": null,
+    "osm_offset_m": null
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.6498,
+     13.4955
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "หมู่บ้านไทยวนคูบัวและจิปาถะภัณฑ์สถานบ้านคูบัว (กาดวิถีชุมชนคูบัว)",
+    "era": "ยุครัชกาลที่ 1 – ปัจจุบัน (พ.ศ. 2347 – พ.ศ. 2560)",
+    "status": "gem_only",
+    "gem_latlon": [
+     13.4872,
+     99.8348
+    ],
+    "osm": null,
+    "osm_offset_m": null
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.8348,
+     13.4872
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "ศูนย์สืบทอดศิลปะผ้าจกราชบุรี (วัดแคทราย บ้านต้นแหน ต.คูบัว)",
+    "era": "ยุครัชกาลที่ 1 – ปัจจุบัน (มรดกผ้าจกตั้งแต่ พ.ศ. 2347)",
+    "status": "gem_only",
+    "gem_latlon": [
+     13.4749,
+     99.814
+    ],
+    "osm": null,
+    "osm_offset_m": null
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.814,
+     13.4749
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "ชุมชนชาวมอญบ้านม่วงและพิพิธภัณฑ์พื้นบ้านวัดม่วง (อ.บ้านโป่ง)",
+    "era": "ยุครัชกาลที่ 2 (พ.ศ. 2358)",
+    "status": "gem_only",
+    "gem_latlon": [
+     13.7697,
+     99.8437
+    ],
+    "osm": null,
+    "osm_offset_m": null
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.8437,
+     13.7697
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "กำแพงเมืองราชบุรีฝั่งตะวันออก 6 ป้อม 6 ประตู และศาลเจ้าพ่อหลักเมือง (ค่ายภาณุรังษี)",
+    "era": "ยุครัชกาลที่ 2 (พ.ศ. 2360)",
+    "status": "gem_only",
+    "gem_latlon": [
+     13.5441,
+     99.8255
+    ],
+    "osm": null,
+    "osm_offset_m": null
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.8255,
+     13.5441
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "ชุมชนบ้านญวนริมแม่กลองและรองอาสนวิหารนักบุญยอห์น บอสโก (ถ.คทาธร)",
+    "era": "ยุครัชกาลที่ 4 (พ.ศ. 2406)",
+    "status": "gem_only",
+    "gem_latlon": [
+     13.5342,
+     99.8173
+    ],
+    "osm": null,
+    "osm_offset_m": null
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.8173,
+     13.5342
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "ชุมชนคาทอลิกดอนมดตะนอย (วัดนักบุญอันตน อ.ดำเนินสะดวก)",
+    "era": "ยุครัชกาลที่ 4–5 (หลัง พ.ศ. 2406)",
+    "status": "gem_only",
+    "gem_latlon": [
+     13.5909,
+     99.9395
+    ],
+    "osm": null,
+    "osm_offset_m": null
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.9395,
+     13.5909
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "ชุมชนจีนตลาดริมน้ำและศาลเจ้าพ่อกวนอู (โรงเจเหล่าซินเฮงตั๊ว ถ.วรเดช)",
+    "era": "ยุครัชกาลที่ 4–5 – ปัจจุบัน",
+    "status": "gem_only",
+    "gem_latlon": [
+     13.5415,
+     99.8168
+    ],
+    "osm": null,
+    "osm_offset_m": null
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.8168,
+     13.5415
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "คลองดำเนินสะดวกและตลาดน้ำดำเนินสะดวก",
+    "era": "ยุครัชกาลที่ 4 – ยุคท่องเที่ยวสมัยใหม่ (ขุดคลอง พ.ศ. 2409–2411 และเปิดตลาดน้ำท่องเที่ยว พ.ศ. 2510)",
+    "status": "osm_far",
+    "gem_latlon": [
+     13.5198,
+     99.9601
+    ],
+    "osm": "way/183104592",
+    "osm_offset_m": 1850
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.9601,
+     13.5198
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "พระราชวังเขาสัตตนารถ (วัดเขาวัง ราชบุรี)",
+    "era": "ยุครัชกาลที่ 5 (พ.ศ. 2414–2420)",
+    "status": "gem_only",
+    "gem_latlon": [
+     13.5278,
+     99.7985
+    ],
+    "osm": null,
+    "osm_offset_m": null
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.7985,
+     13.5278
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "วัดขนอนและพิพิธภัณฑ์หนังใหญ่วัดขนอน (อ.โพธาราม)",
+    "era": "ยุครัชกาลที่ 5 (ราว พ.ศ. 2430)",
+    "status": "osm_far",
+    "gem_latlon": [
+     13.7253,
+     99.8355
+    ],
+    "osm": "way/558382841",
+    "osm_offset_m": 1016
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.8355,
+     13.7253
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "ตลาดเก่าโคยกี๊ (ย่านการค้าริมน้ำถนนวรเดช–พานิชเจริญ)",
+    "era": "ยุครัชกาลที่ 5 – ปัจจุบัน (รุ่งเรืองราว พ.ศ. 2440 และเปิดถนนคนเดิน 24 เม.ย. 2552)",
+    "status": "gem_only",
+    "gem_latlon": [
+     13.5402,
+     99.8218
+    ],
+    "osm": null,
+    "osm_offset_m": null
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.8218,
+     13.5402
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "สะพานจุฬาลงกรณ์ (สะพานดำ)",
+    "era": "ยุครัชกาลที่ 5 – สงครามโลกครั้งที่ 2 (เปิด 19 มิ.ย. 2446 และถูกทิ้งระเบิด 12 ก.พ. 2488)",
+    "status": "osm_match",
+    "gem_latlon": [
+     13.5412,
+     99.824
+    ],
+    "osm": "way/973495580",
+    "osm_offset_m": 21
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.824,
+     13.5412
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "สถานีรถไฟราชบุรี",
+    "era": "ยุครัชกาลที่ 5 (เปิดเดินรถ 1 เม.ย. 2446)",
+    "status": "osm_match",
+    "gem_latlon": [
+     13.5306,
+     99.8238
+    ],
+    "osm": "way/1002285951",
+    "osm_offset_m": 74
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.8238,
+     13.5306
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "ศาลารัฐบาลมณฑลราชบุรีและศาลากลางจังหวัดหลังเก่า (พิพิธภัณฑสถานแห่งชาติ ราชบุรี)",
+    "era": "ยุครัชกาลที่ 5–6 (ย้ายที่ว่าการกลับฝั่งตะวันตก พ.ศ. 2440 และสร้างอาคารสีชมพู พ.ศ. 2465)",
+    "status": "gem_only",
+    "gem_latlon": [
+     13.5411,
+     99.8177
+    ],
+    "osm": null,
+    "osm_offset_m": null
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.8177,
+     13.5411
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "ตลาดสนามหญ้าและหอนาฬิกาเมืองราชบุรี",
+    "era": "ยุคจัดตั้งเทศบาลเมือง (พ.ศ. 2478 – พ.ศ. 2503)",
+    "status": "gem_only",
+    "gem_latlon": [
+     13.54,
+     99.8206
+    ],
+    "osm": null,
+    "osm_offset_m": null
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.8206,
+     13.54
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "โรงโอ่งรัตนโกสินทร์ 1 (ย่านโรงโอ่งเก่าตำบลโคกหม้อ)",
+    "era": "ยุครุ่งเรืองโรงโอ่งมังกร – ปัจจุบัน (ทศวรรษ 2490–2546 ถึงปัจจุบัน)",
+    "status": "gem_only",
+    "gem_latlon": [
+     13.5662,
+     99.8298
+    ],
+    "osm": null,
+    "osm_offset_m": null
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.8298,
+     13.5662
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "โรงโอ่งเถ้าฮงไถ่ (ถ.เจดีย์หัก)",
+    "era": "ยุคขยายตัวโรงโอ่ง – ยุคเซรามิกร่วมสมัย (ก่อตั้ง พ.ศ. 2497 และพลิกโฉมหลัง พ.ศ. 2546)",
+    "status": "gem_only",
+    "gem_latlon": [
+     13.5428,
+     99.8054
+    ],
+    "osm": null,
+    "osm_offset_m": null
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.8054,
+     13.5428
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "โรงโอ่งเรืองคงเกียรติและศูนย์เรียนรู้ \"เรื่องของโอ่ง\" (ต.ดอนตะโก)",
+    "era": "ยุคสูงสุด 52 โรงโอ่ง – ยุคท่องเที่ยวเชิงเรียนรู้ (ทศวรรษ 2520–ปัจจุบัน)",
+    "status": "gem_only",
+    "gem_latlon": [
+     13.498,
+     99.794
+    ],
+    "osm": null,
+    "osm_offset_m": null
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.794,
+     13.498
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "สะพานธนะรัชต์",
+    "era": "ยุคพัฒนาเมืองสมัยใหม่ (พ.ศ. 2503)",
+    "status": "osm_match",
+    "gem_latlon": [
+     13.5414,
+     99.824
+    ],
+    "osm": "way/973495581",
+    "osm_offset_m": 60
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.824,
+     13.5414
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "สะพานสิริลักขณ์ (ทางหลวงหมายเลข 4 ถนนเพชรเกษม)",
+    "era": "ยุคขยายเมืองสู่ทางหลวงสายหลัก (พ.ศ. 2493 และสร้างสะพาน พ.ศ. 2523)",
+    "status": "osm_far",
+    "gem_latlon": [
+     13.5552,
+     99.8294
+    ],
+    "osm": "way/973495582",
+    "osm_offset_m": 1179
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.8294,
+     13.5552
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "ศาลากลางจังหวัดราชบุรีหลังใหม่ (ถ.สมบูรณ์กุล)",
+    "era": "ยุคขยายศูนย์ราชการสมัยใหม่ (ย้ายเข้าเมื่อ 13 มิ.ย. 2525)",
+    "status": "gem_only",
+    "gem_latlon": [
+     13.5292,
+     99.813
+    ],
+    "osm": null,
+    "osm_offset_m": null
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.813,
+     13.5292
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "อำเภอสวนผึ้ง (พื้นที่ชายแดนเทือกเขาตะนาวศรี)",
+    "era": "ยุคเหมืองแร่สู่เมืองท่องเที่ยวธรรมชาติ (ยกฐานะอำเภอ พ.ศ. 2524)",
+    "status": "osm_far",
+    "gem_latlon": [
+     13.5433,
+     99.34
+    ],
+    "osm": "relation/18934607",
+    "osm_offset_m": 575
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.34,
+     13.5433
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "วัดเขาช่องพราน (ถ้ำค้างคาวร้อยล้าน อ.โพธาราม)",
+    "era": "ยุคธรรมชาติและคำขวัญจังหวัด – ปัจจุบัน",
+    "status": "osm_far",
+    "gem_latlon": [
+     13.7108,
+     99.7591
+    ],
+    "osm": "way/558398004",
+    "osm_offset_m": 1479
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.7591,
+     13.7108
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "อุทยานหินเขางู (สะพานแขวนและหุบเขาเหมืองหินเก่า)",
+    "era": "ยุคฟื้นฟูภูมิทัศน์ร่วมสมัย (ทศวรรษ 2550–ปัจจุบัน)",
+    "status": "osm_match",
+    "gem_latlon": [
+     13.5688,
+     99.7757
+    ],
+    "osm": "node/5583404134",
+    "osm_offset_m": 26
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.7757,
+     13.5688
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "เขื่อนรัฐประชาพัฒนาและประติมากรรมโอ่งมังกรยักษ์พ่นน้ำ",
+    "era": "ยุคปัจจุบันและฉากจบ Payoff (พ.ศ. 2565–ปัจจุบัน)",
+    "status": "gem_only",
+    "gem_latlon": [
+     13.5406,
+     99.8206
+    ],
+    "osm": null,
+    "osm_offset_m": null
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.8206,
+     13.5406
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "สะพานรถไฟคานขึงคู่ขนานสะพานจุฬาลงกรณ์",
+    "era": "ยุครถไฟทางคู่ปัจจุบัน (เปิดเดินรถครบเส้นทาง 4 มิ.ย. 2567)",
+    "status": "gem_only",
+    "gem_latlon": [
+     13.5411,
+     99.824
+    ],
+    "osm": null,
+    "osm_offset_m": null
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.824,
+     13.5411
+    ]
+   }
+  }
+ ]
+}

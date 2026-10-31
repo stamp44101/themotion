@@ -74,6 +74,7 @@ layout + audit every hand-placed coordinate, camera keys last.
 - **Built things sit on the ground; the ground is level where a town stands.**
 - **Landmarks sit on the terrain** (`terrainH`), and so do their callouts.
 - **Directions come from real coordinates** (`geo.ts`, ≤ 30° off; route named roads where they really run).
+- **The story names the places; the map only finds them.** Research part 6 lists story places per era; [local] pins each, flags what OSM lacks.
 - **Grandeur is scale contrast** (`docs/grandeur.md`); the clip ends on something big.
 - **Every beat needs something happening on screen;** a date with nothing to show is a sub line.
 - **Every city is built to the storyline standard** (`standard: 1`, v2 0-to-100): hero at frame 0 + callback, motion through 3–17 s, one verb per beat, a grow shot, the counter lands on today.

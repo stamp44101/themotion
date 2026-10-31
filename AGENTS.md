@@ -150,7 +150,11 @@ owner does not carry messages between them.
   - cloud: research requests, briefs, layout, landmarks, camera, soundtrack, checks, contact sheets;
   - gemini: the research answer (below);
   - local: anything behind the container's walls (ONEP, OSM, Google Maps, Thai sites),
-    full renders on the GPU, `check_render`, encodes, release uploads.
+    full renders on the GPU, `check_render`, encodes, release uploads. The map follows the
+    story: the ONEP polygon first, then the **story places** from the research (part 6), one by
+    one, from OSM, else Google Maps, the Fine Arts Dept. register or satellite. Nothing is
+    dropped because OSM lacks it; a place nobody can pin is flagged in the README, not skipped.
+    If every story place falls within ~2 km, say so, so the storyline plans its far beat.
 - **Only the owner decides:** the hero, the story beats, what is shown (`docs/storyline.md`
   §3.6a), anything that spends money, merging, posting. When one is needed, write
   `@stamp44101 ต้องตัดสินใจ: <the question, with the options>` (GitHub notifies the owner's
@@ -163,7 +167,8 @@ research step, so the owner no longer copies the request out and the answer back
 
 - **Its job:** read `docs/briefs/<city>_research_request.md` on the city's branch, research it,
   and commit the answer as `docs/briefs/<city>_research_gemini.md` on the same branch. Keep the
-  request's format: the five parts, a confidence level on every row (ยืนยัน / สันนิษฐาน / ขัดแย้ง),
+  request's format: the five parts plus part 6, story places (name / era / why it matters / lat,lon /
+  source, at least one per era, not only the centre), a confidence level on every row (ยืนยัน / สันนิษฐาน / ขัดแย้ง),
   a link or a named document behind every year, and "ไม่พบ" rather than a guess.
 - **Where it may write:** `docs/briefs/` only. Never `src/`, `scripts/`, `public/`, `package.json`
   or another branch; never merge, force-push or close a PR.

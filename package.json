@@ -35,6 +35,8 @@
     "render:udonthani": "node scripts/check_story.mjs udonthani && remotion render Udonthani out/udonthani_look.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
     "audio:nakhonpathom": "node scripts/export_timeline.mjs src/cities/nakhonpathom/timeline.ts out/timeline_nakhonpathom.json && python3 scripts/soundtrack_nakhonpathom.py",
     "render:nakhonpathom": "node scripts/check_story.mjs nakhonpathom && remotion render Nakhonpathom out/nakhonpathom_look.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
+    "audio:ratchaburi": "node scripts/export_timeline.mjs src/cities/ratchaburi/timeline.ts out/timeline_ratchaburi.json && python3 scripts/soundtrack_ratchaburi.py",
+    "render:ratchaburi": "node scripts/check_story.mjs ratchaburi && remotion render Ratchaburi out/ratchaburi_look.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
     "render:phetchabun": "node scripts/check_story.mjs phetchabun && remotion render Phetchabun out/phetchabun_look.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
     "render:phuket": "node scripts/check_story.mjs phuket && remotion render Phuket out/phuket.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
     "render:chiangrai": "node scripts/check_story.mjs chiangrai && remotion render ChiangRai out/chiangrai.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
