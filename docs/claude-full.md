@@ -398,6 +398,14 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
 - **Light must never snap.** The day/night cycle in `lighting()` is continuous (no reset after the
   intro) and nights only dim to ~half. Do not add per-city light that jumps; `check_render.mjs`
   fails anything over 8 luma levels per frame or darker than 35 before the finale.
+- **Nothing grows on a year the counter jumps over.** Saraburi v1 (owner: "สถานีรถไฟมันดูโตแบบกระชาก"):
+  the engine grows the station over `stationYear .. +2` and the track over `rail.open`, and the year curve
+  ran 1804 -> 1897 in the 1.4 s between the Thai Yuan and the train beats, so both appeared in one or two
+  frames at 28.6-28.9 s. The same goes for a clearing or `forestCity` year inside a jump (a patch of
+  forest vanishes in a frame). Put every year-driven growth window inside the beat's own years (Saraburi
+  lays the track inside the 2440 hold, `open: [1897.0, 1897.16]`), or draw the thing in `Landmarks.tsx`
+  and grow it on `beat(id)` (Saraburi's station, with `stationYear: 1e9` so the engine's never shows);
+  clear town ground from the start (`-1e9`) rather than at a year between beats.
 - Use a fast/slow year curve so key events get screen time. For cities built with `buildStory` the
   curve is derived from the beats (above): drive motion with `beat(id)` and visibility with the
   year. Only the older key-list cities drive everything from the year.
