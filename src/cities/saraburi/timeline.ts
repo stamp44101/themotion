@@ -32,14 +32,16 @@ const RB_END: Key = [21.8, FX, 3, FZ, 42, 154, 37, 30];
 const YU_IN: Key = [23.0, -18, 1, -19, 72, 170, 38, 30];
 const YU_END: Key = [27.3, -30, 1, -25, 66, 194, 38, 30];
 // the first train pulls in at Pak Phriao; the town follows it
-const TR_IN: Key = [28.7, 0, 1, 1.5, 60, 208, 33, 30];
-const TR_END: Key = [33.3, 5, 1, 1.5, 48, 232, 35, 30];
+// looking east along the line from the west, so the train runs up the frame to the station the
+// whole beat ([local]'s render: side-on, it crossed the frame in the beat's last second)
+const TR_IN: Key = [28.7, -10, 1, 2, 80, 250, 30, 30];
+const TR_END: Key = [33.3, 3, 1, 2, 62, 266, 32, 30];
 // the Friendship Highway turns off at the fork
-const RD_IN: Key = [34.3, 11, 1, 6, 56, 244, 37, 30];
-const RD_END: Key = [38.4, 20, 1, 5, 66, 272, 38, 30];
+const RD_IN: Key = [34.3, 11, 1, 6, 56, 276, 37, 30];
+const RD_END: Key = [38.4, 20, 1, 5, 66, 296, 38, 30];
 // the long wide shot: the town over both banks, the cement hills cut white
-const GR_IN: Key = [39.8, -8, 2, -8, 165, 290, 36, 30];
-const GR_END: Key = [46.8, -8, 2, -8, 200, 326, 35, 30];
+const GR_IN: Key = [39.8, -8, 2, -8, 165, 306, 36, 30];
+const GR_END: Key = [46.8, -8, 2, -8, 200, 334, 35, 30];
 // flower alms at the Footprint
 const PY_IN: Key = [48.2, FX, 2.5, FZ + 3.5, 40, 346, 33, 30];
 const PY_END: Key = [54.0, FX, 2.5, FZ + 3.5, 34, 364, 31, 30];
@@ -177,5 +179,5 @@ export const ERAS = STORY.eras;
 // the first train comes in from Bangkok (the west, dir -1 runs toward +x) as the caption lands
 const [tr0] = STORY.at('train');
 export const SOUND_EVENTS = {
-  trains: [{t0: tr0 + 0.2, dur: 5.2, dir: -1, modern: false}] as {t0: number; dur: number; dir: number; modern: boolean; park?: number}[],
+  trains: [{t0: tr0 + 0.05, dur: 4.6, dir: -1, modern: false}] as {t0: number; dur: number; dir: number; modern: boolean; park?: number}[],
 };

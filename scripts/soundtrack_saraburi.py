@@ -207,9 +207,9 @@ while t < 1.0:
     add(sfx, hoof(0.9), t, pan=-0.2 + t * 0.3)
     t += 0.13
 add(sfx, splash() * 0.5, 1.0, pan=0.1)
-add(sfx, rise_tone(2.2, 1.2), 1.1, pan=0.0)
-add(sfx, gong(73, 4.0, 0.45), 1.2, pan=0.0)
-add(sfx, whoosh(1.4, 0.4), 1.25, pan=0.0)
+add(sfx, rise_tone(2.2, 1.2), 0.95, pan=0.0)
+add(sfx, gong(73, 4.0, 0.45), 1.0, pan=0.0)
+add(sfx, whoosh(1.4, 0.4), 1.05, pan=0.0)
 steps(0.1, 2.4, 0.22, 0.45, pan=-0.4)
 t = 2.2
 while t < 4.6:

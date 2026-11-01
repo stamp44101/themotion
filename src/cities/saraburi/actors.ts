@@ -51,7 +51,8 @@ export const L_HERO = 1.25 * D_HERO;
 export const L_REAL = 1.6;
 export const printAt = (t: number) => ({
   len: lerp(L_HERO, L_REAL, ramp(t, 4.3, 6.3)),
-  glow: ramp(t, 1.15, 1.5) * (1 - 0.5 * ramp(t, 2.4, 4.0)),
+  // the water lights the moment the muzzle touches it (0.95 s), full by 1.15 s ([local]'s render: still blue at 1.2 s)
+  glow: ramp(t, 0.95, 1.15) * (1 - 0.5 * ramp(t, 2.4, 4.0)),
 });
 export type DeerState = {x: number; z: number; rot: number; step: number; gait: number; drink: number; wound: number; s: number};
 /** the deer gallops in already mid-leap at frame 0, drinks at the heel by 1 s, the water flares at
@@ -215,7 +216,7 @@ export const ACTORS: Actor[] = [
     }
     return null;
   }},
-  {id: 'hallRises', during: [beatAt('train', 0.35), beatAt('train', 0.8)], size: 1.2, at: () => [OLD_HALL[0], 0.5, OLD_HALL[1]]},
+  {id: 'hallRises', during: [beatAt('train', 0.35), beatAt('train', 0.8)], size: 1.6, at: () => [OLD_HALL[0], 0.7, OLD_HALL[1]]},
   {id: 'townGrows', during: [beatAt('growth', 0), beatAt('growth', 1)], size: 12, at: () => [0, 1, 0]},
   {id: 'monks', during: [beatAt('payoff', 0.05), beatAt('payoff', 1)], size: 1, at: (t, c) => {
     const m = monkAt(2, t);

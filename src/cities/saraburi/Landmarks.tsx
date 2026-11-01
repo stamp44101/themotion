@@ -15,9 +15,9 @@ const smooth01 = (x: number) => x * x * (3 - 2 * x);
 const ramp = (x: number, a: number, b: number) => smooth01(clamp01((x - a) / (b - a)));
 
 // a growing mesh is gated on its own scale (CLAUDE.md: a mesh at scale 0 blacks out the shader look)
-const Grow: React.FC<{k: number; children: React.ReactNode; at: [number, number, number]; rot?: number}> = ({k, children, at, rot = 0}) =>
+const Grow: React.FC<{k: number; children: React.ReactNode; at: [number, number, number]; rot?: number; scale?: number}> = ({k, children, at, rot = 0, scale = 1}) =>
   k > 0.02 ? (
-    <group position={at} rotation-y={rot} scale={[1, Math.max(0.03, k), 1]}>
+    <group position={at} rotation-y={rot} scale={[scale, scale * Math.max(0.03, k), scale]}>
       {children}
     </group>
   ) : null;
@@ -45,7 +45,7 @@ const Cover: React.FC<{t: number; terrainH: TH}> = ({t, terrainH}) => {
     <>
       <group position={[FOOT[0], fy - 0.08 * pr.len, FOOT[1]]} scale={[pr.len, pr.len * 0.8, pr.len]}>
         <Footprint glow={pr.glow} />
-        <LightRings t={t} t0={1.2} r={0.55} />
+        <LightRings t={t} t0={1.0} r={0.55} />
       </group>
       {d && (
         <group position={[d.x, terrainH(d.x, d.z) + Math.abs(Math.sin(d.step)) * 0.22 * d.s * d.gait, d.z]} rotation-y={d.rot} scale={d.s}>
@@ -278,7 +278,7 @@ const PakPhriao: React.FC<{t: number; Y: number}> = ({t, Y}) => {
   return (
     <>
       <Viharn pos={[WAT_PAK_PHRIAO[0], 0, WAT_PAK_PHRIAO[1]]} k={Y > 1700 ? 1 : 0} scale={0.45} />
-      <Grow k={Y > 2018 ? 0 : k} at={[OLD_HALL[0], 0, OLD_HALL[1]]}>
+      <Grow k={Y > 2018 ? 0 : k} at={[OLD_HALL[0], 0, OLD_HALL[1]]} scale={1.5}>
         <Box p={[0, 0.35, 0]} s={[1.8, 0.7, 0.9]} c="#f1ece0" />
         <mesh position={[0, 0.85, 0]} rotation-y={Math.PI / 4} scale={[1.35, 0.35, 0.75]} castShadow>
           <coneGeometry args={[1, 1, 4]} />

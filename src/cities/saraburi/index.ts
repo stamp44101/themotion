@@ -69,7 +69,7 @@ export const SARABURI: CityConfig = {
       modern: [1965, 40],
       keepOut: [
         [PILLAR[0], PILLAR[1], 0.8],
-        [OLD_HALL[0], OLD_HALL[1], 1.2],
+        [OLD_HALL[0], OLD_HALL[1], 1.7],
       ],
     },
     villages: {
@@ -119,7 +119,7 @@ export const SARABURI: CityConfig = {
       [WAT_SUNG[0], WAT_SUNG[1], 1.2],
       [SAO_HAI_HALL[0], SAO_HAI_HALL[1], 1.2],
       [WAT_PAK_PHRIAO[0], WAT_PAK_PHRIAO[1], 1.1],
-      [OLD_HALL[0], OLD_HALL[1], 1.2],
+      [OLD_HALL[0], OLD_HALL[1], 1.7],
       [CEMENT[0], CEMENT[1], 2.6],
     ],
     openGround: [
