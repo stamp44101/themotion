@@ -45,7 +45,7 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
 - Owner picked **A1** (1 Nov). v1 built in `src/cities/saraburi/` on [local]'s map (8620269): contact
   sheet `docs/briefs/saraburi_v1_contact.jpg`, `npm run check` passes, soundtrack -16.0 LUFS (+1.1 LU).
   What is approximate is listed in the brief ("v1 build").
-- **Waiting on the owner to pass the stills.** Then [local]: `npm run render:saraburi` on the GPU,
+- Owner passed the stills (1 Nov) and asked for the render: handed to [local] on PR #80: `npm run render:saraburi` on the GPU,
   `npm run encode -- saraburi`, upload `saraburi_look_social.mp4` to the `renders` release.
 
 ## Next
