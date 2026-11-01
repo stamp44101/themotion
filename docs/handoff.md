@@ -33,6 +33,15 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
   Thai Yuan column (~25% at 15 s). Lesson for the next city: the first beat after the cover must be a
   big, close event, not a far procession.
 
+## Saraburi v1 (branch `city/saraburi`, draft PR): research stage
+- Started 1 Nov: the other half of the Thai Yuan journey Ratchaburi's resident named, the Buddha's
+  Footprint legend (the hunter and the healed deer), the seat moved from Sao Hai to Pak Phriao,
+  the cement hills. Brief v0: `docs/briefs/saraburi.md` (founding 2092 is a supposition; 2112 is
+  the first record).
+- Out to [gemini]: `saraburi_research_request.md`. Out to [local]: ONEP polygon (if any) + story
+  places into `docs/briefs/saraburi_onep/`. Next for cloud: check the answer on the web, then style
+  frames (the deer at the Footprint vs flower alms) for the owner to pick.
+
 ## Next
 - A new city in a new session (one city per session).
 - **Posting time (owner, 1 Nov): 19:00-21:00 from now on**, not the morning; the next read changes the
