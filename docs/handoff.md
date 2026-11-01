@@ -38,9 +38,12 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
   Footprint legend (the hunter and the healed deer), the seat moved from Sao Hai to Pak Phriao,
   the cement hills. Brief v0: `docs/briefs/saraburi.md` (founding 2092 is a supposition; 2112 is
   the first record).
-- Out to [gemini]: `saraburi_research_request.md`. Out to [local]: ONEP polygon (if any) + story
-  places into `docs/briefs/saraburi_onep/`. Next for cloud: check the answer on the web, then style
-  frames (the deer at the Footprint vs flower alms) for the owner to pick.
+- [gemini] answered (3226139); cloud checked it and proposed the storyline (05c057c): the deer at
+  the Footprint (reign of Songtham, no held year: the find is dated 2149 / 2165 / ~2166-67), the
+  mondop burned 2310 and rebuilt 2330, Thai Yuan at Sao Hai 2347, the train 2440 and the town moving
+  to Pak Phriao, the Friendship Highway 2501, flower alms as the payoff.
+- Style frames A1 / A2 (the deer) and B (flower alms) in `docs/briefs/saraburi_styleframes_*.jpg`;
+  **waiting on the owner's pick.** Out to [local]: ONEP + story places into `saraburi_onep/`.
 
 ## Next
 - A new city in a new session (one city per session).

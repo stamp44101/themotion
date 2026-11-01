@@ -104,6 +104,24 @@ Facts with nothing to show (sub lines only): first named 2112; the weeping pilla
 Open questions for the owner: the hero (A vs B, after the style frames); whether the weeping pillar is
 worth a moving beat (the log floating upstream) instead of a sub line.
 
+## Style frames (cloud, 1 Nov; `src/styleframes/saraburi.tsx`, props in `saraburi-props.tsx`)
+
+Each strip is frames 0, 42 (1.4 s) and 80 (2.7 s). Hill and river are placeholders until [local]'s
+centreline and pins land.
+
+- **A1** (`saraburi_styleframes_A1.jpg`), legend scale, 14 units at the shoulder, whole tile
+  (camera ~310 out): at frame 0 the deer is already galloping in with the arrow wound red on its
+  flank; by 1.4 s it is drinking at the heel of the print and the water turns gold; by 2.7 s gold
+  rings have run out over the slab, the wound has closed and the deer bounds away up the hill while
+  Bun kneels.
+- **A2** (`saraburi_styleframes_A2.jpg`), the same at 9 units, camera closer (~220): reads better
+  close up, less of the tile.
+- **B** (`saraburi_styleframes_B.jpg`), flower alms: yellow ดอกเข้าพรรษา sprays bursting open round
+  the print, monks in single file coming along the bank. It has no event in the first second, so
+  as Gemini said it works as the payoff, not the cover.
+- Known for v1: the deer's legs are straight sticks (a jointed gallop next), and the hunter starts
+  at the tile's west edge at frame 0.
+
 ## Story places (research part 6, for [local] to pin)
 
 | place | era | lat, lon (Gemini) | note |
