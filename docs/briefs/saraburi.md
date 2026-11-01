@@ -122,6 +122,33 @@ centreline and pins land.
 - Known for v1: the deer's legs are straight sticks (a jointed gallop next), and the hunter starts
   at the tile's west edge at frame 0.
 
+## v1 build (cloud, 1 Nov): the owner picked A1
+
+`src/cities/saraburi/` at 100 m/unit from the city pillar; contact sheet `saraburi_v1_contact.jpg`.
+`npm run check` passes (one grandeur warning: the town is 0.3% of the tile at the cover, on purpose for
+the 0-to-100 spine). Soundtrack -16.0 LUFS, the score +1.1 LU over the effects.
+
+Beats: hero 0-6.7 (the deer, ราว 2166) / procession 7.0-11.6 (elephants up the straight road, the first
+mondop) / fire 12.5-17.0 (2310) / rebuild 17.6-21.8 (2330) / yuan 23.0-27.3 (2347, boats to Ton Tan, Lanna
+houses) / train 28.7-33.3 (2440, the hall at Pak Phriao) / road 34.3-38.4 (2501, trucks) / growth 39.8-46.8
+(2503-2559, the town and the cement hills) / payoff 48.2-54.0 (flower alms, monks up the stairs, the deer
+back at the forest edge) / today.
+
+What is drawn approximately, and why:
+- **Railway** drawn straight east-west through the station's latitude (the engine's rail is straight):
+  right in town, up to ~1 km too far north at the tile's west edge, and it leaves due east instead of
+  turning NE for Kaeng Khoi. It never crosses the Pa Sak, as in reality.
+- **Station** drawn on the south side of the track, ~400 m from the real building (the engine's station
+  is 440 x 600 m at this scale and on the north side would reach the river).
+- **Pa Sak east of Pak Phriao** (3 points) drawn by hand NE toward Kaeng Khoi; [local]'s centreline
+  covers Sao Hai to Pak Phriao only.
+- **Far places:** the Footprint's hill at its real bearing (328) 4.8 km out instead of 24.6 km; the
+  cement hills at 37 instead of 48 deg. Hills drawn ~5-7x the real height so they read.
+- **Mondops** drawn ~7-8x true size (37 m real), Songtham's as one gilt spire, Rama I's as seven
+  green-and-gilt tiers; Phra Chao Suea's five-spire mondop is left out (no beat to show it).
+- **Sao Hai's hall** (Ban Phai Lom Noi, not found) drawn beside the 100-year market.
+- Friendship Highway drawn south of the straight rail, eastward (in truth NE beside the line).
+
 ## Story places (research part 6, for [local] to pin)
 
 | place | era | lat, lon (Gemini) | note |

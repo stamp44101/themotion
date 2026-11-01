@@ -1,4 +1,4 @@
-// Saraburi's cover props (style frames, 1 Nov 2026; docs/briefs/saraburi.md): the wounded deer
+// Saraburi's figures (style frames 1 Nov 2026, the city from the owner's pick of A1; docs/briefs/saraburi.md): the wounded deer
 // (เนื้อ) of the chronicle, the Footprint in its limestone slab, hunter Bun, the yellow ดอกเข้าพรรษา
 // sprays and a monk for the flower-alms payoff.
 import React, {useMemo} from 'react';

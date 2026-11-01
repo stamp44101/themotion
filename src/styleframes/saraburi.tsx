@@ -9,7 +9,7 @@
 // south) until [local]'s centreline lands.
 import React from 'react';
 import {KORAT} from '../cities/korat';
-import {Deer, Footprint, GlobbaSpray, Hunter, LightRings, Monk} from './saraburi-props';
+import {Deer, Footprint, GlobbaSpray, Hunter, LightRings, Monk} from '../cities/saraburi/figures';
 import {Burst} from '../cities/phetchabun/buddha';
 import {buildStory} from '../engine/story';
 import type {CityConfig, LandmarkProps} from '../engine/types';

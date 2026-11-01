@@ -33,7 +33,7 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
   Thai Yuan column (~25% at 15 s). Lesson for the next city: the first beat after the cover must be a
   big, close event, not a far procession.
 
-## Saraburi v1 (branch `city/saraburi`, draft PR): research stage
+## Saraburi v1 (branch `city/saraburi`, draft PR #80): stills for the owner
 - Started 1 Nov: the other half of the Thai Yuan journey Ratchaburi's resident named, the Buddha's
   Footprint legend (the hunter and the healed deer), the seat moved from Sao Hai to Pak Phriao,
   the cement hills. Brief v0: `docs/briefs/saraburi.md` (founding 2092 is a supposition; 2112 is
@@ -42,8 +42,11 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
   the Footprint (reign of Songtham, no held year: the find is dated 2149 / 2165 / ~2166-67), the
   mondop burned 2310 and rebuilt 2330, Thai Yuan at Sao Hai 2347, the train 2440 and the town moving
   to Pak Phriao, the Friendship Highway 2501, flower alms as the payoff.
-- Style frames A1 / A2 (the deer) and B (flower alms) in `docs/briefs/saraburi_styleframes_*.jpg`;
-  **waiting on the owner's pick.** Out to [local]: ONEP + story places into `saraburi_onep/`.
+- Owner picked **A1** (1 Nov). v1 built in `src/cities/saraburi/` on [local]'s map (8620269): contact
+  sheet `docs/briefs/saraburi_v1_contact.jpg`, `npm run check` passes, soundtrack -16.0 LUFS (+1.1 LU).
+  What is approximate is listed in the brief ("v1 build").
+- **Waiting on the owner to pass the stills.** Then [local]: `npm run render:saraburi` on the GPU,
+  `npm run encode -- saraburi`, upload `saraburi_look_social.mp4` to the `renders` release.
 
 ## Next
 - A new city in a new session (one city per session).
