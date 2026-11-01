@@ -45,8 +45,11 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
 - Owner picked **A1** (1 Nov). v1 built in `src/cities/saraburi/` on [local]'s map (8620269): contact
   sheet `docs/briefs/saraburi_v1_contact.jpg`, `npm run check` passes, soundtrack -16.0 LUFS (+1.1 LU).
   What is approximate is listed in the brief ("v1 build").
-- Owner passed the stills (1 Nov) and asked for the render: handed to [local] on PR #80: `npm run render:saraburi` on the GPU,
-  `npm run encode -- saraburi`, upload `saraburi_look_social.mp4` to the `renders` release.
+- Owner passed the stills (1 Nov). v1 rendered; owner: "เกือบดี", the station popped in and the
+  elephants had no call. Fixed in v1c (station grown on the beat, track laid in the 2440 hold, three
+  trumpets; lesson in CLAUDE.md), plus the flare on time and the train seen down the line.
+- [local] rendered v2 (head 6607189): `check_render` ok (max jump 3.0, darkest 57.3); upload copy on the
+  `renders` release as `saraburi_look_social.mp4`. Next: the owner watches it and says "Merge".
 
 ## Next
 - A new city in a new session (one city per session).
