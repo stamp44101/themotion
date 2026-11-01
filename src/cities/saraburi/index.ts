@@ -52,7 +52,10 @@ export const SARABURI: CityConfig = {
     noMoat: true,
     noWall: true,
     // Ayutthaya-Saraburi-Kaeng Khoi, opened 1 May 2440, drawn straight E-W (places.ts)
-    rail: {axis: 'x', pos: RAIL_Z, open: [1896.6, 1897.1], station: STATION, stationYear: 1896.5},
+    // the track is laid inside the 2440 hold (1897.0-1897.45 over the beat) so it grows on screen
+    // instead of in the frame the year curve crosses; the station is drawn in Landmarks.tsx (it grows on
+    // the beat's seconds), so the engine's own never shows (owner: "สถานีโตแบบกระชาก")
+    rail: {axis: 'x', pos: RAIL_Z, open: [1897.0, 1897.16], station: STATION, stationYear: 1e9},
     trains: SOUND_EVENTS.trains.map((tr) => ({...tr, dir: tr.dir as 1 | -1})),
     city: {
       hx: 6,
@@ -87,7 +90,9 @@ export const SARABURI: CityConfig = {
       ],
       built: [1640, 200],
     },
-    forestCity: 1890,
+    // Pak Phriao's ground is open fields from the start: trees cleared at a year the curve jumps over
+    // would vanish in one frame
+    forestCity: 1623,
     clearings: [
       // the hill's crown and the deer's run from the west (open ground from the start, so nothing
       // vanishes in one frame later)
@@ -108,7 +113,7 @@ export const SARABURI: CityConfig = {
       [SAMUHA[0], SAMUHA[1] - 0.5, 4.2, 1803],
       // Pak Phriao: Wat Pak Phriao (2321) and the town by the station
       [WAT_PAK_PHRIAO[0], WAT_PAK_PHRIAO[1], 1.4, -1e9],
-      [3, 0.5, 8, 1896],
+      [3, 0.5, 8, -1e9],
       // the cement works
       [CEMENT[0], CEMENT[1], 3.4, 1969],
     ],
@@ -121,6 +126,8 @@ export const SARABURI: CityConfig = {
       [WAT_PAK_PHRIAO[0], WAT_PAK_PHRIAO[1], 1.1],
       [OLD_HALL[0], OLD_HALL[1], 1.7],
       [CEMENT[0], CEMENT[1], 2.6],
+      // the station (drawn in Landmarks.tsx, 4.4 x 2.4 plus its platform)
+      [STATION[0], STATION[1] - 0.4, 2.8],
     ],
     openGround: [
       // the mondop's lawn and the stairs' foot, where the crowd stands for flower alms

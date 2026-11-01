@@ -7,7 +7,7 @@ import {
   mondop1K, mondop2K, printAt, truckAt, TRUCKS, YUAN_BOATS, yuanBoatAt,
 } from './actors';
 import {Deer, Footprint, GlobbaSpray, Hunter, LightRings, Monk} from './figures';
-import {CEMENT, CEMENT_HILLS, FOOT, OLD_HALL, SAO_HAI_HALL, SAO_HAI_MKT, WAT_PAK_PHRIAO, WAT_SUNG} from './places';
+import {CEMENT, CEMENT_HILLS, FOOT, OLD_HALL, SAO_HAI_HALL, SAO_HAI_MKT, STATION, WAT_PAK_PHRIAO, WAT_SUNG} from './places';
 import {D_HERO} from './timeline';
 
 type TH = LandmarkProps['terrainH'];
@@ -289,6 +289,24 @@ const PakPhriao: React.FC<{t: number; Y: number}> = ({t, Y}) => {
   );
 };
 
+// ------------------------------------------------------------------ Saraburi station (2440)
+/** drawn here, not by the engine: the engine grows its station over two years of the counter, which
+ *  the year curve crosses in a frame between beats (owner on the v1 render: "สถานีโตแบบกระชาก");
+ *  this one goes up on the train beat's own seconds, the engine's size and look */
+const Station: React.FC<{t: number; Y: number}> = ({t, Y}) => {
+  const k = Y < 1896.9 ? 0 : Y > 1898 ? 1 : ramp(beatK('train', t), 0.02, 0.4);
+  return (
+    <Grow k={k} at={[STATION[0], 0, STATION[1]]}>
+      <Box p={[0, 0.8, 0]} s={[4.4, 1.6, 2.4]} c="#ece4d0" />
+      <mesh position={[0, 1.95, 0]} rotation-y={Math.PI / 4} scale={[2.6, 0.7, 1.55]} castShadow>
+        <coneGeometry args={[1.2, 1, 4]} />
+        <meshStandardMaterial color="#a4442c" flatShading roughness={0.8} />
+      </mesh>
+      <Box p={[0, 0.08, -1.6]} s={[5.2, 0.16, 0.8]} c="#b9b2a2" />
+    </Grow>
+  );
+};
+
 // ------------------------------------------------------------------ the Friendship Highway
 const Trucks: React.FC<{t: number}> = ({t}) => (
   <>
@@ -400,6 +418,7 @@ export const SaraburiLandmarks: React.FC<LandmarkProps> = ({t, Y, terrainH}) => 
     <Yuan t={t} Y={Y} terrainH={terrainH} />
     <SaoHai t={t} Y={Y} />
     <PakPhriao t={t} Y={Y} />
+    <Station t={t} Y={Y} />
     <Trucks t={t} />
     <Cement Y={Y} t={t} terrainH={terrainH} />
     <Flowers t={t} Y={Y} terrainH={terrainH} />

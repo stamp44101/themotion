@@ -148,6 +148,19 @@ def stomp(gain=1.0):
     return filt(drum(rng.uniform(45, 60), 32, 0.35, 0.9), "low", 400) * gain
 
 
+def trumpet(gain=1.0, dur=1.1):
+    """an elephant's call: a brassy blare that slides up and breaks, kept under 2.2 kHz"""
+    n = int(dur * SR)
+    t = np.arange(n) / SR
+    u = t / dur
+    f = 290 + 330 * np.sin(np.pi * np.clip(u * 1.4, 0, 1)) ** 0.7 + 18 * np.sin(2 * np.pi * 9 * t)
+    ph = 2 * np.pi * np.cumsum(f) / SR
+    x = sum(np.sin(k * ph) / k ** 0.8 for k in range(1, 9))
+    x += 0.35 * filt(noise(n), "band", (400, 1600))
+    env = np.clip(t / 0.06, 0, 1) * np.clip((dur - t) / 0.35, 0, 1)
+    return filt(x, "low", 2200) * env * 0.22 * gain
+
+
 def rise_tone(dur, gain):
     n = int(dur * SR)
     t = np.arange(n) / SR
@@ -226,6 +239,10 @@ for k in range(10):
 for k in range(8):
     add(sfx, blip(rng.uniform(280, 420), 0.6), at(proc, 0.45 + k * 0.06), pan=rng.uniform(-0.3, 0.3))
 add(sfx, babble(proc[1] - proc[0] - 0.6, 0.6), proc[0] + 0.3, pan=-0.2, gain=0.25)
+# the elephants' calls (owner on the v1 render: "ช้าง เสียงร้องหาย")
+add(sfx, trumpet(1.0, 1.2), at(proc, 0.08), pan=-0.3)
+add(sfx, trumpet(0.8, 0.9), at(proc, 0.45), pan=0.2)
+add(sfx, trumpet(0.9, 1.1), at(proc, 0.8), pan=0.0)
 # 2310: the fire takes the mondop, the roof falls in
 add(sfx, crackle(fire[1] - fire[0] + 0.4, 0.55), fire[0] + 0.2, pan=0.0)
 add(sfx, whoosh(1.6, 0.6), at(fire, 0.12), pan=0.1)
