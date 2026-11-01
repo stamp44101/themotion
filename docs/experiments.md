@@ -687,3 +687,46 @@ Reading (one post, a lean, not a rule):
 For Ratchaburi (PR #78, posting next): its cover is also an object being made (a jar thrown on a wheel)
 but with a gold dragon coiling round it. Read its skip rate against 49.2% (an object) and 37.7-41.4%
 (rising figure / creature); the dragon is the test of whether a creature on the object rescues the hook.
+
+## 14. Ratchaburi: a dragon jar thrown on the wheel, the town that crossed its river twice — read: the hook came back, shares second best, the middle sagged
+
+Built to both rules, and the first city whose story started from a resident's account (the jar was the
+resident's own pick). The cover: a giant jar thrown on a wheel at legend scale with a gold dragon relief
+coiling on (drawn after the nine resemblances and the owner's photo of the jar monument). 60 s, shader
+look, -16 LUFS, score +2.6 LU over the effects. Posted in the morning, like every clip before it.
+
+### Result (owner's screenshots, 1 Nov 10:05, about a day in)
+
+Skip rate **42.0%** ("lower"), 4,191 views from 3,078 viewers, average watch **14 s**, 2 follows.
+183 likes, 11 comments, 38 reposts, 133 shares, 5 saves: share **4.1%** and repost **1.2%** "higher";
+like 5.7%, save 0.2%, comment 0.3% "lower". Views from the Reels tab 60.8%, Feed 18.7%, Stories 11.1%,
+Explore 5.8%, Profile 1.4%; the views curve ran under a typical reel's. Retention ~50% by ~5 s, a second
+drop from ~45% to ~30% between ~8 and ~12 s, ~25% at ~15 s, ~15% at ~30 s, ~10% near the end.
+
+| | Udon Thani | Nakhon Pathom | **Ratchaburi** |
+|---|---|---|---|
+| cover | jar rising and painted | gold bell over a stupa | jar thrown, dragon coiling on |
+| skip rate | 41.4% | 49.2% | **42.0%** |
+| retention at ~15 s | ~30% | **~37%** | ~25% |
+| average watch | **19 s** | 17 s | 14 s |
+| like / save / share | **9.8 / 0.8 / 4.7%** | 6.3 / 0.2 / 0.8% | 5.7 / 0.2 / 4.1% |
+| repost | **1.8%** | 0.6% | 1.2% |
+| views from the Reels tab | **69.7%** | 56.9% | 60.8% |
+
+Reading (one post each, a lean, not a rule):
+- **The creature on the object won the hook back:** 42.0% against Nakhon Pathom's 49.2%, level with Udon.
+  Both jars (Ban Chiang, the dragon jar) beat the building; the one that changes shape *and* carries
+  something alive or painted reads as an event.
+- **Shares follow the locals' own symbol:** 4.1%, second only to Udon's 4.7%, and both are symbols the
+  province's people pass on (the resident named the dragon jar unprompted); Nakhon Pathom's national
+  landmark got 0.8%. Finding 6 sharpens to "the symbol the locals themselves would name".
+- **The middle sagged where the story went small:** the second drop (~45% to ~30%) sits on the Thai
+  Yuan column (7.4-12.8 s), small figures walking through forest, and the 15-s retention fell to ~25%
+  (Nakhon Pathom's eventful middle held ~37%). Average watch 14 s, the lowest of the spine clips.
+  Next city: the first beat after the cover needs a big, close event, not a far procession.
+
+### Posting time changes from the next city (owner, 1 Nov)
+
+The owner now posts between **19:00 and 21:00** instead of the morning. Every read up to §14 is a
+morning post, so the next read changes two things at once (the city and the hour): compare its skip and
+reach with care, and keep the evening slot fixed from then on so later cities compare cleanly.
