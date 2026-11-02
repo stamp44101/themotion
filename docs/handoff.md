@@ -53,14 +53,19 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
 - [local] rendered v2 (head 6607189): `check_render` ok (max jump 3.0, darkest 57.3); upload copy on the
   `renders` release as `saraburi_look_social.mp4`. Owner posted it 1 Nov 20:00 and said merge (2 Nov).
 
-## Surat Thani v1 (PR #81, draft): the loop experiment, waiting on [local]'s render
+## Surat Thani v1 (PR #81, draft): the loop experiment, rendered, waiting on the owner
 - Owner (2 Nov): cloud and [local] loop through the PR to the render, cloud standing in for the owner's
   picks. Cloud picked the cover **A1, the coconut monkey** (Gemini ranked it 4th; the reasons are in
   `docs/briefs/suratthani.md`), built v1 on [local]'s map (a67d83d) and Gemini's research (df8eb1b), had a
   second model review the contact sheet, fixed its notes and passed the stills (780e4fb, `npm run check` 0
-  errors, -16.0 LUFS, +1.7 LU). Handed to [local] for the full render.
-- Next: [local] renders and comments; cloud checks the frames; the owner watches, merges and posts at
-  19:00-21:00, then the 24-h read goes in `experiments.md` §16.
+  errors, -16.0 LUFS, +1.7 LU).
+- [local] rendered 780e4fb (= 5902c1e in picture and sound): `check_render` ok (max jump 6.4 at 8.64 s,
+  darkest 59.5); upload copy on the `renders` release as `suratthani_look_social.mp4`; moving checks and
+  audio spectrograms in `shots/suratthani/` (f4dba7c). Cloud checked the frames: nothing to fix. The loop
+  ran from the request to the render in about 70 minutes with no owner input.
+- Open notes for the owner: the giant palm leaves the frame as it settles (its shrink is barely seen); the
+  junks overlap in perspective at ~6 s.
+- Next: the owner watches, says "Merge" and posts at 19:00-21:00; the 24-h read goes in `experiments.md` §16.
 
 ## Next
 - A new city in a new session (one city per session).
