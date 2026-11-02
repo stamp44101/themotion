@@ -43,3 +43,27 @@ Out (§3.6a): the Japanese landing of 8 Dec 2484 (people died, remembered), Typh
 Why A first: every cover that held (Korat 32.9%, Phetchabun 37.7%, Udon 41.4%, Ratchaburi 42.0%) had the
 symbol itself change or move; the creature covers (Korat) are the best ever; Saraburi failed because the
 animal was not the symbol. The monkey is both.
+
+## Style frames (cloud, 2 Nov; `src/styleframes/suratthani.tsx`, figures in `src/cities/suratthani/figures.tsx`)
+
+Strips are frames 0, 30, 42, 66, 80 (0 / 1.0 / 1.4 / 2.2 / 2.7 s). River and bay are placeholders.
+- **A1** (`suratthani_styleframes_A1.jpg`): palm 34 units on the whole tile (camera ~310); the monkey
+  climbs from frame 0, is at the crown by 1.0 s, spins the coconut, drops it into the Tapi by 2.4 s; the
+  handler leans back on the rope.
+- **A2** (`suratthani_styleframes_A2.jpg`): the same at 24 units, camera ~230.
+- **B** (`suratthani_styleframes_B.jpg`): a rambutan tree springing up, its fruit flushing red, one giant
+  rambutan rolling out. Reads small on the whole tile and the event is slow.
+
+### Cloud's pick for the owner: **A1** (loop experiment)
+
+- The owner picked the legend-scale, whole-tile frame (A1) for every city since Phetchabun (Suphanburi,
+  Udon, Nakhon Pathom, Ratchaburi, Saraburi), and has said more than once that the cover shows the land
+  with a giant on it (CLAUDE.md).
+- The data: creature and shape-change covers held the thumb (Korat 32.9%, Phetchabun 37.7%, Udon 41.4%,
+  Ratchaburi 42.0%); Saraburi's deer failed because the symbol (the Footprint) did not move. Here the
+  creature is the symbol and it moves from frame 0 (≥ 30 px/s up the trunk on the stills).
+- B is an object, reads small, and its event starts late: like Gemini on Saraburi's flowers, it is kept
+  for the payoff idea (rambutan in the festival), not the cover.
+- For v1: the monkey bigger (~0.3 of the palm), finer fronds, the coconut landing clearly in the water,
+  the monkey's face turned to camera; portrayal gentle (the 2563 PETA row over coconut monkeys: the
+  handler never pulls hard, the monkey is shown working, not punished).
