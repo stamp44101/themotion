@@ -8,7 +8,7 @@
 // closes the clip with the monkey back on a palm.
 import {between, type CameraKey} from '../../engine/glide';
 import {buildStory} from '../../engine/story';
-import {CHAIYA, LANDING, NARIT, PALM_BASE, PALM_OVER, SHIPYARD, SRI_SURAT, STATION, THA_KHAM} from './places';
+import {CHAIYA, LANDING, PALM_BASE, PALM_OVER, SHIPYARD, SRI_SURAT, STATION, THA_KHAM} from './places';
 
 type Key = CameraKey;
 // [t, target x, y, z, distance, azimuth, elevation, fov]
@@ -151,7 +151,7 @@ export const STORY = buildStory({
       t: [44.4, 53.6],
       year: {hold: 2025},
       caption: {t0: 44.4, t1: 53.8, title: 'ชักพระ ทอดผ้าป่า แข่งเรือ', sub: 'วันออกพรรษา เรือพนมพระล่องแม่น้ำตาปี ลิงกังยังขึ้นมะพร้าว'},
-      callouts: [{label: 'สะพานนริศ', dx: 150, dy: -130, p: [NARIT[0], 0.5, NARIT[1]], t0: 48.6, t1: 51.6}],
+      callouts: [{label: 'แม่น้ำตาปี', dx: -150, dy: -120, p: [0.6, 0.2, -4.0], t0: 48.6, t1: 51.6}],
       camera: [PY_IN, PY_END],
     },
     {id: 'today', kind: 'today', t: [54.0, 55.8], year: [2025.6, 2026]},

@@ -116,11 +116,11 @@ export const splashK = (t: number) => (t - NUT_DROP - NUT_FALL) / 1.1;
 // in from the open bay at the tile's north-east, west along the bay to Laem Pho
 const SHIP_PATH: P[] = [[60, -76], [30, -72], [0, -70], [-20, -69.5], [LAEM_PHO[0] + 3, LAEM_PHO[1] - 8]];
 const SHIP_L = lengthOf(SHIP_PATH);
-export const SHIPS = 4;
+export const SHIPS = 3;
 export const shipAt = (i: number, t: number) => {
-  if (t < 2.4 || t > beatAt('fight', 0.3)) return null;
-  const k = clamp01((t - 2.4) / 5.2);
-  const d = lerp(0.25, 0.97, smooth(k)) * SHIP_L - i * 7;
+  if (t < 3.0 || t > beatAt('fight', 0.3)) return null;
+  const k = clamp01((t - 3.0) / 4.6);
+  const d = lerp(0.3, 0.97, smooth(k)) * SHIP_L - i * 14;
   if (d < 0) return null;
   return {...along(SHIP_PATH, d), sail: 1};
 };
@@ -157,13 +157,13 @@ export const SLIP_DIR = Math.atan2(PALM_OVER[0] - SHIPYARD[0] - 1.6, PALM_OVER[1
 // ------------------------------------------------------------------ Tha Thong moves to Ban Don
 const DOWN_L = lengthOf(TAPI_DOWN);
 const LANDING_AT = atAlong(TAPI_DOWN, LANDING);
-export const MOVE_BOATS = 7;
+export const MOVE_BOATS = 5;
 /** boats with the town's families coming up the lower reach to the Ban Don landing, 1.8 apart */
 export const moveBoatAt = (i: number, t: number) => {
   const k = beatK('move', t);
   if (k < -0.06 || k > 1.1) return null;
   const head = lerp(LANDING_AT + 14, LANDING_AT + 2.5, smooth(clamp01((k + 0.06) / 0.85)));
-  const d = Math.max(head + i * 1.8, LANDING_AT + 2.5 + i * 0.9);
+  const d = Math.max(head + i * 3.0, LANDING_AT + 2.5 + i * 2.8);
   if (d > DOWN_L - 1) return null;
   const p = along(TAPI_DOWN, d);
   // upstream: they face back along the path
@@ -231,7 +231,7 @@ export const monkeyBack = (t: number) => {
   const k = beatK('payoff', t);
   if (k < 0) return null;
   const grow = ramp(k, 0, 0.12);
-  const u = 0.25 + 0.45 * ramp(k, 0.1, 0.55);
+  const u = 0.2 + 0.32 * ramp(k, 0.1, 0.55);
   return {u, grow, climb: k < 0.55 ? t * 9 : 0.6, look: k > 0.55 ? Math.sin(t * 1.4) * 0.6 : 0};
 };
 

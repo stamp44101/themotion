@@ -32,8 +32,10 @@ export const COAST: P[] = [
   [-64, -63], [-46, -64.5], [-37, -59.3], [-30, -64], [-20, -64], [-4, -61], [2, -59.7], [9, -62.5], [14, -54], [24, -55],
   [29.5, -50], [31, -44.5], [38, -43], [42, -40.2], [47, -40.5], [56, -45.5], [64, -48],
 ];
-export const SEA_W = 18;
-export const SEA_PATH: P[] = COAST.map(([x, z]) => [x, z - SEA_W / 2 + 0.2]);
+export const SEA_W = 44;
+// one wide path whose south edge is the coast and whose north edge lies beyond the tile, so no bank strip
+// shows out in the bay; it runs past both tile edges
+export const SEA_PATH: P[] = [[-90, COAST[0][1]], ...COAST, [90, COAST[COAST.length - 1][1]]].map(([x, z]) => [x, z - SEA_W / 2 + 0.2] as P);
 
 // ---- Ban Don, the town on the Tapi's south-east bank
 export const PILLAR: P = [0, 0];

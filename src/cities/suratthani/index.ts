@@ -44,9 +44,8 @@ export const SURATTHANI: CityConfig = {
       {path: TAPI_UP, width: TAPI_UP_W},
       {path: TAPI_DOWN, width: TAPI_DOWN_W},
       {path: LAMPHU_CH, width: LAMPHU_CH_W},
-      // Bandon Bay: a wide path whose south edge is the coast, and a band beyond it
+      // Bandon Bay: one wide path whose south edge is the coast
       {path: SEA_PATH, width: SEA_W},
-      {axis: 'x', pos: -84, width: 28},
     ],
     bridges: [
       // สะพานศรีสุราษฎร์ over the lower reach (1 Oct 2556) and สะพานศรีตาปี by the pillar (29 Jul 2562)

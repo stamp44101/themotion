@@ -338,8 +338,8 @@ const Landing: React.FC<{t: number; Y: number}> = ({t, Y}) => {
   return (
     <group position={[LANDING[0] + 0.7, 0, LANDING[1]]} rotation-y={-0.45}>
       {/* the timber landing stage out over the water */}
-      <Box p={[-0.9, 0.18, 0]} s={[1.8, 0.1, 0.9]} c="#8a6a48" />
-      {[-1.6, -0.3].map((x) => (
+      <Box p={[-0.45, 0.18, 0]} s={[1.0, 0.1, 0.8]} c="#8a6a48" />
+      {[-0.85, -0.1].map((x) => (
         <Box key={x} p={[x, 0.08, 0]} s={[0.1, 0.2, 0.9]} c="#5a4630" />
       ))}
       {/* the welcome arch with its flags, up for the visit */}

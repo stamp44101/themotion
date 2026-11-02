@@ -125,3 +125,37 @@ Tagline: "เมืองร้อยเกาะ เงาะอร่อย �
 Facts with nothing to show (sub lines only): Kanchanadit → Mueang Chaiya 2442; the name after Surat and the
   Tapti in India; school rambutan 2469; Suan Mokkh 2475
 ```
+
+## v1 build (cloud, 2 Nov)
+
+`src/cities/suratthani/` at 150 m/unit from the city pillar, on [local]'s map (a67d83d); contact sheet
+`suratthani_v1_contact.jpg`. `npm run check` passes (one grandeur warning: the old town is 0.5% of the tile at
+the cover, on purpose for the 0-to-100 spine). Soundtrack -16.0 LUFS, the score +1.7 LU over the effects.
+
+Beats: hero/trade 0-6.6 (the monkey, then the junks, ราว 1300) / fight 7.4-11.6 (Chaiya, 2328) / shipyard
+12.8-17.4 (ราว 2375) / move 18.2-22.6 (Rama IV, the counter runs 2398-2409) / royal 23.6-28.1 (2458) / train
+29.6-34.0 (2459) / growth 35.6-43.0 (2478-2559) / payoff 44.4-53.6 (Chak Phra, 2568) / today.
+
+What is drawn approximately, and why:
+- **Tha Kham and Phun Phin** (11 km W) are pulled in to the tile's west edge at their true bearings; the
+  Southern Line is drawn straight north-south there (the engine's rail is straight).
+- **Chaiya** (31 km NW) stands on the tile's north-west shore at its bearing; the stupa drawn ~5 units tall.
+- **Bandon Bay**: the coast from OSM, simplified; the Tapi's west arm and the second channel north of the bend
+  are not drawn (only the town arm and the narrow channel round Ko Lamphu).
+- **The shipyard** has no pin (Gemini, [local]): drawn on the town bank below the landing.
+- **The callback palm** stands on the west bank opposite Saphan Narit instead of on Ko Lamphu, so it shares
+  the frame with the boats.
+- Boats, barges and the phanom phra boats are drawn ~10x true size so they read.
+
+Review by a second model (as AGENTS.md asks): eight notes on the first sheet. Fixed: the move beat's boats
+overlapped into a strip that read as people in the river; bank strips across the bay (the sea is now one
+wide path); the junks overlapped and one showed under the intro title; the landing deck reached mid-channel;
+the "สะพานนริศ" callout pointed at the boats (now "แม่น้ำตาปี"); the callback monkey sat in the caption area.
+Left: the pale squares by Chaiya are the engine's field plots; the finale card is the engine's.
+
+### Cloud's pass on the stills, for the owner (loop experiment)
+
+Passed (2 Nov). The owner's past notes were checked one by one against the sheet: the cover shows the land
+with the giant on it; nothing pops on a year the counter jumps over (station and track grow inside the 2459
+hold); the camera never lurches (jerk under 700); the small sounds are there for every beat; the score is
+steady and not ducked. Handed to [local] for the full render.
