@@ -730,3 +730,48 @@ Reading (one post each, a lean, not a rule):
 The owner now posts between **19:00 and 21:00** instead of the morning. Every read up to §14 is a
 morning post, so the next read changes two things at once (the city and the hour): compare its skip and
 reach with care, and keep the evening slot fixed from then on so later cities compare cleanly.
+
+## 15. Saraburi: the hunter's deer drinking at the Footprint — read: hook back to Nakhon Pathom's, shares the lowest since the forest tiles
+
+Built to both rules from the research stage (no resident's account this time; Gemini's research and the
+royal chronicle). The cover: the chronicle's wounded deer at legend scale galloping in at frame 0,
+drinking at the Footprint by 1 s, the water flaring gold, the wound closing, hunter Bun kneeling (owner's
+pick A1 of three style frames). 60 s, shader look, -16 LUFS, score +1.1 LU over the effects. **The first
+clip posted in the evening slot** (1 Nov, 20:00).
+
+### Result (owner's screenshots, 2 Nov 09:27, ~13.5 h in — not a full 24 h)
+
+Skip rate **49.3%** ("higher"), 3,268 views from 2,331 viewers, average watch **15 s**, 3 follows.
+87 likes, 6 comments, 11 reposts, 10 shares, 5 saves: like 3.6%, share **0.4%**, save 0.2%, repost
+0.5%, comment 0.2%, all "lower". Views from the Reels tab 68.1%, Feed 20.9%, Stories 5.3%, Explore 4.0%,
+Profile 1.0%; the views curve ran under a typical reel's and was flat overnight. Retention ~50% by ~4 s,
+~40% at ~6 s, ~30% at ~10 s, ~25% at ~15 s, ~20% at ~30 s, ~15% near the end.
+
+| | Udon Thani | Nakhon Pathom | Ratchaburi | **Saraburi** |
+|---|---|---|---|---|
+| cover | jar rising and painted | gold bell over a stupa | jar thrown, dragon coiling on | deer drinks at the Footprint |
+| posted | morning | morning | morning | **evening (20:00)**, read at ~13.5 h |
+| skip rate | 41.4% | 49.2% | 42.0% | **49.3%** |
+| retention at ~15 s | ~30% | ~37% | ~25% | ~25% |
+| average watch | 19 s | 17 s | 14 s | 15 s |
+| like / save / share | 9.8 / 0.8 / 4.7% | 6.3 / 0.2 / 0.8% | 5.7 / 0.2 / 4.1% | **3.6 / 0.2 / 0.4%** |
+| repost | 1.8% | 0.6% | 1.2% | 0.5% |
+| views from the Reels tab | 69.7% | 56.9% | 60.8% | 68.1% |
+
+Reading (one post, two things changed at once — the city and the hour — and a 13.5-h read; a lean, not
+a rule):
+- **A moving creature is not enough if the symbol is not what moves.** The deer gallops from frame 0, but
+  Saraburi's symbol is the Footprint, which at frame 0 was a pale slab beside the animal; the jars that
+  won the hook (Udon, Ratchaburi) *were* the symbol and they changed shape. Skip 49.3% sits with Nakhon
+  Pathom's 49.2%, not with the jars' 41-42%. Next cover: the symbol itself is what moves.
+- **Shares need a symbol the locals would pass on, and a local voice behind the story.** 0.4% is the
+  lowest share rate since the forest tiles. Ratchaburi's 4.1% came from a resident's own pick; Saraburi's
+  story came from the chronicle and research, about a national pilgrimage shrine, with nobody from the
+  town in it. This adds weight to §14's "the symbol the locals themselves would name": ask a resident first
+  when the owner can.
+- **The middle held about like Ratchaburi's** (~25% at 15 s, 15 s average): the big, close first event
+  (elephants on the road, then the fire by 12.5 s) did not lift it above the column of §14, so the hook
+  and the share problem are the cover's and the subject's, not the middle's.
+- **The evening slot cannot be read apart from the city yet.** Reach was under a typical reel and flat
+  overnight; keep 19:00-21:00 fixed for the next cities so the hour stops being a variable, and read at a
+  full 24 h.

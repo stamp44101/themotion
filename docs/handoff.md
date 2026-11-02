@@ -10,6 +10,8 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
 
 ## Done
 - **Udon Thani's 24-h read** is `experiments.md` §12 (skip 41.4%, share 4.7%, the best yet).
+- **Saraburi's read** (posted 1 Nov 20:00, read at ~13.5 h) is `experiments.md` §15: skip 49.3%,
+  share 0.4%, the lowest shares since the forest tiles; the deer moved but the symbol (the Footprint) did not.
 - **Nakhon Pathom's 24-h read** is `experiments.md` §13 (skip 49.2%, every rate lower; the middle held
   best yet at ~37% at 15 s). A building growing still reads as a building.
 
