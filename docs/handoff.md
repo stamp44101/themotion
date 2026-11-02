@@ -65,6 +65,10 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
   ran from the request to the render in about 70 minutes with no owner input.
 - Open notes for the owner: the giant palm leaves the frame as it settles (its shrink is barely seen); the
   junks overlap in perspective at ~6 s.
+- The owner asked for a detail pass; [local] found five things (hollow hulls, the monkey in the fronds at
+  both ends, overlapping junks, a slab-like rail bridge), cloud fixed them (v1b, brief), and [local]
+  re-rendered 37b2ccb: `check_render` ok (max jump 2.9, darkest 59.4), all five confirmed on the render
+  (`shots/suratthani/v1b_*`, 7fe7861). Left, optional: one junk passes under the caption at 7-8 s.
 - Next: the owner watches, says "Merge" and posts at 19:00-21:00; the 24-h read goes in `experiments.md` §16.
 
 ## Next
