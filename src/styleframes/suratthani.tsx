@@ -24,7 +24,7 @@ const ease = (u: number) => {
 
 const HeroA: React.FC<{t: number; H: number; terrainH: LandmarkProps['terrainH']}> = ({t, H, terrainH}) => {
   const y0 = terrainH(BASE[0], BASE[1]);
-  const M = 0.24 * H; // the monkey, legend scale
+  const M = 0.3 * H; // the monkey, legend scale
   // climb: halfway up at frame 0, at the crown by 1.1 s (eased in the last 0.3 s)
   const u = t < 1.1 ? 0.42 + (0.86 - 0.42) * (t / 1.1 - 0.25 * ease((t - 0.8) / 0.3) * ((t - 0.8) / 1.1)) : 0.86;
   const climbing = t < 1.1 ? 1 : 0;

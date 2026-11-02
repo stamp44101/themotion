@@ -79,16 +79,20 @@ export const CoconutPalm: React.FC<{sway?: number; nuts?: number; seed?: number}
               {pts.slice(1).map((p, k) => (
                 <Seg key={k} a={pts[k]} b={p} r0={0.012} r1={0.008} color={c} />
               ))}
-              {/* leaflets: a flat wide blade along the rib */}
-              {pts.slice(1).map((p, k) => {
-                const m: V = [(p[0] + pts[k][0]) / 2, (p[1] + pts[k][1]) / 2 - 0.01, (p[2] + pts[k][2]) / 2];
-                return (
-                  <mesh key={'l' + k} position={m} rotation-y={-az} rotation-z={-0.2 - k * 0.25} scale={[0.15, 0.012, 0.11 - k * 0.025]} castShadow>
-                    <boxGeometry args={[1, 1, 1]} />
-                    <meshStandardMaterial color={c} flatShading />
-                  </mesh>
-                );
-              })}
+              {/* leaflets: narrow blades either side of the rib, drooping, shorter toward the tip */}
+              {pts.slice(1).flatMap((p, k) =>
+                [-1, 1].map((side) => {
+                  const m: V = [(p[0] + pts[k][0]) / 2, (p[1] + pts[k][1]) / 2 - 0.012, (p[2] + pts[k][2]) / 2];
+                  return (
+                    <group key={'l' + k + side} position={m} rotation-y={-az}>
+                      <mesh position={[0, -0.01, side * 0.045]} rotation-x={side * 0.55} rotation-z={-0.2 - k * 0.25} scale={[0.14, 0.006, 0.075 - k * 0.015]} castShadow>
+                        <boxGeometry args={[1, 1, 1]} />
+                        <meshStandardMaterial color={c} flatShading />
+                      </mesh>
+                    </group>
+                  );
+                }),
+              )}
             </group>
           );
         })}
