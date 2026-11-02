@@ -35,7 +35,7 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
   Thai Yuan column (~25% at 15 s). Lesson for the next city: the first beat after the cover must be a
   big, close event, not a far procession.
 
-## Saraburi v1 (branch `city/saraburi`, draft PR #80): stills for the owner
+## Saraburi v1: merged (PR #80) and posted (1 Nov, 20:00)
 - Started 1 Nov: the other half of the Thai Yuan journey Ratchaburi's resident named, the Buddha's
   Footprint legend (the hunter and the healed deer), the seat moved from Sao Hai to Pak Phriao,
   the cement hills. Brief v0: `docs/briefs/saraburi.md` (founding 2092 is a supposition; 2112 is
@@ -51,7 +51,7 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
   elephants had no call. Fixed in v1c (station grown on the beat, track laid in the 2440 hold, three
   trumpets; lesson in CLAUDE.md), plus the flare on time and the train seen down the line.
 - [local] rendered v2 (head 6607189): `check_render` ok (max jump 3.0, darkest 57.3); upload copy on the
-  `renders` release as `saraburi_look_social.mp4`. Next: the owner watches it and says "Merge".
+  `renders` release as `saraburi_look_social.mp4`. Owner posted it 1 Nov 20:00 and said merge (2 Nov).
 
 ## Next
 - A new city in a new session (one city per session).
