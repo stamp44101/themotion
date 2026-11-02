@@ -149,7 +149,7 @@ export const ClimbingMonkey: React.FC<{climb: number; look?: number; twist?: num
       <Seg a={[-0.17, 0.7, 0.08]} b={[-0.14, 0.95 + reachL, 0.3]} r0={0.055} r1={0.045} color={FUR} />
       <Seg
         a={[0.17, 0.7, 0.08]}
-        b={[0.14 + rArmUp * 0.12, 0.95 + reachR * (1 - rArmUp) + rArmUp * 0.45, 0.3 - rArmUp * 0.05]}
+        b={[0.14 - rArmUp * 0.1, 0.95 + reachR * (1 - rArmUp) - rArmUp * 0.3, 0.3 - rArmUp * 0.62]}
         r0={0.055}
         r1={0.045}
         color={FUR}

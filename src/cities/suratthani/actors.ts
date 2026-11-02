@@ -71,42 +71,52 @@ export const monkeyAt = (t: number, ground = 0): MonkeyState | null => {
   // it climbs away down the far side as the palm settles: gone by 5.6 s
   const s = MONKEY_K * H * (1 - ramp(t, 4.0, 5.6));
   if (s < 0.15) return null;
-  const u = t < 1.1 ? 0.42 + 0.44 * smooth(clamp01(t / 1.1) * 0.85 + 0.15 * clamp01(t / 1.1) ** 2) : 0.86;
+  // up the camera side of the trunk (halfway at frame 0), past the fronds by ~0.95 s, then it sits up on
+  // top of the crown facing the camera ([local]'s detail pass: under the crown it was hidden in the leaves)
+  const u = 0.38 + 0.54 * smooth(clamp01(t / 1.0));
+  const top = ramp(t, 0.8, 1.1);
   const [lx, ly] = trunkLocal(u);
   const [lx2, ly2] = trunkLocal(Math.min(1, u + 0.02));
+  const [cx, cy] = trunkLocal(1);
   const c = Math.cos(LEAN);
   const sn = Math.sin(LEAN);
-  // the palm's local +x maps to (cos LEAN, -sin LEAN) in (x, z); the monkey clings on the camera side
-  const side = 0.045 * H;
+  // the palm's local +x maps to (cos LEAN, -sin LEAN) in (x, z); its local +z, (sin LEAN, cos LEAN), faces the camera
+  const side = 0.045 * H * (1 - top);
+  const ax = lerp(lx, cx, top);
   return {
-    x: PALM_BASE[0] + lx * H * c + side * sn,
-    y: ground + ly * H - 0.25 * s,
-    z: PALM_BASE[1] - lx * H * sn + side * c,
-    tilt: -Math.atan2(lx2 - lx, ly2 - ly),
-    climb: t < 1.1 ? t * 13 + 0.6 : 0.6,
-    twist: ramp(t, 1.0, 1.25) * (1 - ramp(t, 1.95, 2.25)),
-    look: ramp(t, 1.9, 2.2) * -0.9,
+    x: PALM_BASE[0] + ax * H * c + side * sn,
+    y: ground + lerp(ly * H - 0.25 * s, cy * H + 0.03 * H, top),
+    z: PALM_BASE[1] - ax * H * sn + side * c,
+    tilt: -Math.atan2(lx2 - lx, ly2 - ly) * (1 - top),
+    climb: t < 1.0 ? t * 13 + 0.6 : 0.6,
+    twist: ramp(t, 1.05, 1.3) * (1 - ramp(t, 1.95, 2.25)),
+    look: ramp(t, 1.9, 2.2) * 0.9,
     s,
   };
 };
-/** the coconut: spun at the crown 1.1-1.9 s, then a free fall into the river by ~2.45 s */
+/** the coconut: in the monkey's hands in front of its chest 1.1-1.9 s, spun free, then a free fall into
+ *  the river by ~2.45 s */
 export const NUT_DROP = 1.9;
 export const NUT_FALL = 0.55;
 export const coconutAt = (t: number, ground = 0) => {
-  if (t > NUT_DROP + NUT_FALL) return null;
+  if (t < 1.05 || t > NUT_DROP + NUT_FALL) return null;
+  const m = monkeyAt(Math.min(t, NUT_DROP), ground);
+  if (!m) return null;
   const H = palmH(t);
-  const [lx, ly] = trunkLocal(1);
-  const x0 = PALM_BASE[0] + lx * H * Math.cos(LEAN);
-  const z0 = PALM_BASE[1] - lx * H * Math.sin(LEAN) + 0.05 * H;
-  const y0 = ground + ly * H - 0.07 * H;
+  // the hands: 0.4 of the monkey in front of it (toward the camera) at chest height
+  const fx = Math.sin(LEAN);
+  const fz = Math.cos(LEAN);
+  const x0 = m.x + fx * 0.42 * m.s;
+  const z0 = m.z + fz * 0.42 * m.s;
+  const y0 = m.y + 0.62 * m.s;
   const f = Math.max(0, t - NUT_DROP);
   const u = f / NUT_FALL;
   return {
     x: lerp(x0, PALM_OVER[0], u),
     z: lerp(z0, PALM_OVER[1], u),
     y: Math.max(0.2, y0 - (y0 - 0.2) * u * u),
-    spin: t > 1.1 ? (Math.min(t, NUT_DROP) - 1.1) * 22 + f * 6 : 0,
-    r: 0.055 * H,
+    spin: (Math.min(t, NUT_DROP) - 1.05) * 22 + f * 6,
+    r: 0.05 * H,
   };
 };
 /** the splash where the coconut lands, 0..1 over 1.1 s */
@@ -120,9 +130,12 @@ export const SHIPS = 3;
 export const shipAt = (i: number, t: number) => {
   if (t < 3.0 || t > beatAt('fight', 0.3)) return null;
   const k = clamp01((t - 3.0) / 4.6);
-  const d = lerp(0.3, 0.97, smooth(k)) * SHIP_L - i * 14;
+  const d = lerp(0.3, 0.97, smooth(k)) * SHIP_L - i * 19;
   if (d < 0) return null;
-  return {...along(SHIP_PATH, d), sail: 1};
+  const p = along(SHIP_PATH, d);
+  // alternately to seaward of the line, so no two hulls line up end to end in the camera
+  const off = i === 1 ? -5 : i === 2 ? -2.5 : 0;
+  return {x: p.x, z: p.z + off, rot: p.rot, sail: 1};
 };
 
 // ------------------------------------------------------------------ Chaiya burns, 2328
@@ -226,12 +239,13 @@ export const racerAt = (i: number, t: number) => {
   return {x: p.x + Math.cos(p.rot) * off, z: p.z - Math.sin(p.rot) * off, rot: p.rot + Math.PI};
 };
 /** the monkey back on a palm on Ko Lamphu over the boats (the callback) */
-export const CALLBACK_H = 5;
+export const CALLBACK_H = 7;
+export const CALLBACK_MONKEY = 2.2;
 export const monkeyBack = (t: number) => {
   const k = beatK('payoff', t);
   if (k < 0) return null;
   const grow = ramp(k, 0, 0.12);
-  const u = 0.2 + 0.32 * ramp(k, 0.1, 0.55);
+  const u = 0.12 + 0.3 * ramp(k, 0.1, 0.55);
   return {u, grow, climb: k < 0.55 ? t * 9 : 0.6, look: k > 0.55 ? Math.sin(t * 1.4) * 0.6 : 0};
 };
 

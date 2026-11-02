@@ -4,12 +4,12 @@ import type {LandmarkProps} from '../../engine/types';
 import {NanBoat} from '../nan/boat';
 import {Hall, RowBoat} from '../phetchabun/figures';
 import {
-  BARGES, bargeAt, beatK, burmese, CALLBACK_H, clamp01, coconutAt, FERRIES, ferryAt, fireK, hullK, launchK, LEAN, monkeyAt,
+  BARGES, bargeAt, beatK, burmese, CALLBACK_H, CALLBACK_MONKEY, clamp01, coconutAt, FERRIES, ferryAt, fireK, hullK, launchK, LEAN, monkeyAt,
   monkeyBack, MOVE_BOATS, moveBoatAt, OYSTER_HUTS, oysterK, palmH, PHRA_BOATS, phraAt, RACERS, racerAt, ramp, shipAt, SHIPS, siamese,
   SLIP_DIR, splashK, welcomeK,
 } from './actors';
 import {Ball, ClimbingMonkey, CoconutPalm, NUT, Seg, Splash} from './figures';
-import {CHAIYA, LANDING, MARKET, PALM2, PALM_BASE, PALM_OVER, SHIPYARD, SHRINE, STATION} from './places';
+import {CHAIYA, LANDING, MARKET, PALM2, PALM_BASE, PALM_OVER, SHIPYARD, SHRINE, STATION, TAPI_UP_W, THA_KHAM} from './places';
 
 type TH = LandmarkProps['terrainH'];
 
@@ -98,7 +98,7 @@ const Ships: React.FC<{t: number}> = ({t}) => (
       const s = shipAt(i, t);
       if (!s) return null;
       return (
-        <group key={i} position={[s.x, 0.05 + Math.sin(t * 1.3 + i) * 0.06, s.z]} rotation-y={s.rot} rotation-z={Math.sin(t * 1.1 + i) * 0.03} scale={3.2}>
+        <group key={i} position={[s.x, 0.05 + Math.sin(t * 1.3 + i) * 0.06, s.z]} rotation-y={s.rot} rotation-z={Math.sin(t * 1.1 + i) * 0.03} scale={2.3}>
           <Junk sail={s.sail} dhow={i % 2 === 1} />
         </group>
       );
@@ -231,29 +231,41 @@ const Chaiya: React.FC<{t: number; Y: number; terrainH: TH}> = ({t, Y, terrainH}
 const Hull: React.FC<{k: number}> = ({k}) => {
   if (k < 0.02) return null;
   const ribs = 7;
+  // the keel, then ribs; from k 0.45 the planking closes over them and by 0.8 the ribs are hidden: a
+  // launched hull is a solid boat with a deck, never an open frame
+  const plank = Math.min(1, Math.max(0, (k - 0.45) / 0.35));
   return (
     <group>
-      {/* the keel, then ribs, then planking as k passes 0.5 */}
       <Box p={[0, 0.12, 0]} s={[0.12, 0.12, 3.0 * Math.min(1, k * 2)]} c="#6b4a2a" />
-      {Array.from({length: ribs}, (_, i) => {
-        if (i / ribs > k * 1.8) return null;
-        const z = -1.3 + (i * 2.6) / (ribs - 1);
-        const w = 0.55 * Math.cos(((z / 1.6) * Math.PI) / 2.2);
-        return (
-          <group key={i} position={[0, 0.12, z]}>
-            <Seg a={[-w, 0.55, 0]} b={[0, 0, 0]} r0={0.04} r1={0.04} color="#8a6440" />
-            <Seg a={[w, 0.55, 0]} b={[0, 0, 0]} r0={0.04} r1={0.04} color="#8a6440" />
-          </group>
-        );
-      })}
-      {k > 0.5 && (
-        <mesh position={[0, 0.38, 0]} scale={[0.6, 0.38 * Math.min(1, (k - 0.5) * 2.2), 1.6]} castShadow>
-          <sphereGeometry args={[1, 12, 8, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2]} />
-          <meshStandardMaterial color="#6e4a2c" side={2} roughness={0.8} />
-        </mesh>
+      {plank < 1 &&
+        Array.from({length: ribs}, (_, i) => {
+          if (i / ribs > k * 1.8) return null;
+          const z = -1.3 + (i * 2.6) / (ribs - 1);
+          const w = 0.55 * Math.cos(((z / 1.6) * Math.PI) / 2.2);
+          return (
+            <group key={i} position={[0, 0.12, z]}>
+              <Seg a={[-w, 0.55, 0]} b={[0, 0, 0]} r0={0.04} r1={0.04} color="#8a6440" />
+              <Seg a={[w, 0.55, 0]} b={[0, 0, 0]} r0={0.04} r1={0.04} color="#8a6440" />
+            </group>
+          );
+        })}
+      {plank > 0.02 && (
+        <>
+          {/* the planked hull: the lower half of a long ellipsoid, closed by a deck */}
+          <mesh position={[0, 0.52, 0]} scale={[0.62, 0.42 * plank, 1.62]} castShadow>
+            <sphereGeometry args={[1, 16, 10, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2]} />
+            <meshStandardMaterial color="#6e4a2c" roughness={0.8} />
+          </mesh>
+          <mesh position={[0, 0.52, 0]} rotation-x={-Math.PI / 2} scale={[0.6, 1.58, 1]}>
+            <circleGeometry args={[1, 20]} />
+            <meshStandardMaterial color="#a07a4e" roughness={0.9} />
+          </mesh>
+          {/* a raised stern and a gunwale stripe */}
+          <Box p={[0, 0.66, -1.25]} s={[0.7, 0.28 * plank, 0.5]} c="#7a5634" />
+        </>
       )}
       {k > 0.85 && (
-        <mesh position={[0, 1.3, 0.2]}>
+        <mesh position={[0, 1.4, 0.2]}>
           <cylinderGeometry args={[0.04, 0.04, 1.8, 6]} />
           <meshStandardMaterial color="#3a2a1a" />
         </mesh>
@@ -280,7 +292,7 @@ const Shipyard: React.FC<{t: number; Y: number; terrainH: TH}> = ({t, Y, terrain
         <Seg key={i} a={[1.9 + i * 0.12, 0.08 + i * 0.12, -3.4]} b={[1.9 + i * 0.12, 0.08 + i * 0.12, -1.6]} r0={0.07} r1={0.07} color="#7a5a34" />
       ))}
       {/* two slips running down into the water */}
-      {[-0.9, 0.9].map((x, i) => (
+      {[-1.35, 1.35].map((x, i) => (
         <group key={i} position={[x, 0, 0]}>
           <Box p={[0, 0.03, 0.3]} s={[0.9, 0.06, 3.6]} c="#9a7a54" />
           <group position={[0, 0, i === 0 ? 1.8 * l : 0]}>
@@ -390,6 +402,48 @@ const Station: React.FC<{t: number; Y: number}> = ({t, Y}) => {
     <Grow k={k} at={[STATION[0], 0, STATION[1]]} rot={Math.PI / 2} scale={0.85}>
       <Hall roof={1} />
     </Grow>
+  );
+};
+
+/** สะพานจุลจอมเกล้า: three steel truss spans over the Tapi at Tha Kham (80 + 60 + 60 m), drawn over the
+ *  engine's low girder so it reads as a bridge; it goes up with the track inside the 2459 hold */
+const TRUSS_LEN = TAPI_UP_W + 1.6;
+const Truss: React.FC<{Y: number}> = ({Y}) => {
+  const k = Math.max(0, Math.min(1, (Y - 1916.0) / 0.16));
+  if (k < 0.02) return null;
+  const spans = [0.4, 0.3, 0.3];
+  const steel = '#3b4650';
+  let z0 = -TRUSS_LEN / 2;
+  return (
+    <group position={[THA_KHAM[0], 0.15, THA_KHAM[1]]} scale={[1, k, 1]}>
+      {spans.map((f, i) => {
+        const L = f * TRUSS_LEN;
+        const a = z0;
+        z0 += L;
+        const h = i === 0 ? 1.0 : 0.8;
+        return (
+          <group key={i}>
+            {[-0.88, 0.88].map((x) => (
+              <group key={x}>
+                <Seg a={[x, 0.05, a]} b={[x, h, a + 0.25 * L]} r0={0.05} r1={0.05} color={steel} />
+                <Seg a={[x, h, a + 0.25 * L]} b={[x, h, a + 0.75 * L]} r0={0.05} r1={0.05} color={steel} />
+                <Seg a={[x, h, a + 0.75 * L]} b={[x, 0.05, a + L]} r0={0.05} r1={0.05} color={steel} />
+                <Seg a={[x, 0.05, a + 0.25 * L]} b={[x, h, a + 0.5 * L]} r0={0.035} r1={0.035} color={steel} />
+                <Seg a={[x, h, a + 0.5 * L]} b={[x, 0.05, a + 0.75 * L]} r0={0.035} r1={0.035} color={steel} />
+                <Seg a={[x, 0.05, a + 0.25 * L]} b={[x, h, a + 0.25 * L]} r0={0.03} r1={0.03} color={steel} />
+                <Seg a={[x, 0.05, a + 0.75 * L]} b={[x, h, a + 0.75 * L]} r0={0.03} r1={0.03} color={steel} />
+              </group>
+            ))}
+            {/* the top bracing across */}
+            {[0.25, 0.5, 0.75].map((u) => (
+              <Seg key={u} a={[-0.88, h, a + u * L]} b={[0.88, h, a + u * L]} r0={0.03} r1={0.03} color={steel} />
+            ))}
+            {/* the piers between the spans */}
+            {i > 0 && <Box p={[0, -0.25, a]} s={[2.0, 0.6, 0.35]} c="#9b8f7a" />}
+          </group>
+        );
+      })}
+    </group>
   );
 };
 
@@ -506,13 +560,18 @@ const ChakPhra: React.FC<{t: number; Y: number; terrainH: TH}> = ({t, Y, terrain
       <group position={[PALM2[0], g2, PALM2[1]]} rotation-y={-0.6} scale={CALLBACK_H}>
         <CoconutPalm sway={Math.sin(t * 1.5)} nuts={4} seed={1} />
       </group>
-      {mb && mb.grow > 0.02 && (
-        <group position={[PALM2[0] + 0.16 * mb.u * mb.u * CALLBACK_H * Math.cos(-0.6), g2 + mb.u * CALLBACK_H - 0.25 * 3.4, PALM2[1] - 0.16 * mb.u * mb.u * CALLBACK_H * Math.sin(-0.6) + 0.045 * CALLBACK_H * Math.cos(-0.6)]} rotation-y={-0.6}>
-          <group rotation-y={Math.PI} scale={3.4 * mb.grow}>
+      {mb && mb.grow > 0.02 && (() => {
+        // the trunk point at height fraction u (the palm leans along (cos -0.6, -sin -0.6)), the monkey on
+        // its south (camera) side, upright, its face to the camera
+        const lx = 0.16 * mb.u * mb.u * CALLBACK_H;
+        const x = PALM2[0] + lx * Math.cos(-0.6);
+        const z = PALM2[1] - lx * Math.sin(-0.6) + 0.045 * CALLBACK_H + 0.12 * CALLBACK_MONKEY;
+        return (
+          <group position={[x, g2 + mb.u * CALLBACK_H - 0.2 * CALLBACK_MONKEY, z]} rotation-y={Math.PI} scale={CALLBACK_MONKEY * mb.grow}>
             <ClimbingMonkey climb={mb.climb} look={mb.look} />
           </group>
-        </group>
-      )}
+        );
+      })()}
       {/* the market stalls and lamps along Na Mueang */}
       {Array.from({length: 8}, (_, i) => (
         <Box key={`st${i}`} p={[MARKET[0] + 0.5 + (i % 4) * 0.9, 0.25, MARKET[1] + 1.6 + Math.floor(i / 4) * 1.0]} s={[0.7, 0.5, 0.6]} c={i % 2 ? '#f1c232' : '#efe9dc'} />
@@ -531,6 +590,7 @@ export const SuratThaniLandmarks: React.FC<LandmarkProps> = ({t, Y, terrainH}) =
     <Landing t={t} Y={Y} />
     <Barges t={t} />
     <Station t={t} Y={Y} />
+    <Truss Y={Y} />
     <Bay t={t} Y={Y} />
     <ChakPhra t={t} Y={Y} terrainH={terrainH} />
   </group>

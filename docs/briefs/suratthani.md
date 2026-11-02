@@ -159,3 +159,19 @@ Passed (2 Nov). The owner's past notes were checked one by one against the sheet
 with the giant on it; nothing pops on a year the counter jumps over (station and track grow inside the 2459
 hold); the camera never lurches (jerk under 700); the small sounds are there for every beat; the score is
 steady and not ducked. Handed to [local] for the full render.
+
+## v1b (cloud, 2 Nov): the owner's detail pass, via [local] (bf5af11)
+
+[local] went through the v1 render at 0.5 s steps for the owner and found five things; all fixed:
+1. **Hollow boats:** the shipyard hulls were open rib frames, also after launch. Now the ribs show only on
+   the slip; the planking closes over them and a launched hull is a solid boat with a deck. The slips stand
+   2.7 apart, so the two hulls never overlap.
+2. **The callback monkey** hung under the crown with fronds through its body. Now it hugs the trunk below the
+   crown on the camera side, upright, facing the camera (palm 7 tall, monkey 2.2).
+3. **The cover monkey** was hidden in the frond skirt and its raised arm read as a stick. Now it climbs past
+   the leaves by ~1 s and sits up on top of the crown facing the camera; the coconut is a round green nut in
+   its hands in front of its chest (the arm comes round, not up), spun and dropped into the Tapi.
+4. **The junks** overlapped into one long hull and sat behind the caption. They are smaller (2.3), 19 apart
+   along the course and staggered to seaward; the camera at 6.6 s looks further out over the bay.
+5. **The rail bridge** read as two slabs. Chulachomklao's three steel truss spans (80 + 60 + 60 m) are drawn
+   over the engine's girder in `Landmarks.tsx`, going up with the track inside the 2459 hold.

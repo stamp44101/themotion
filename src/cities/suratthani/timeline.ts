@@ -19,7 +19,7 @@ const [CX, CZ] = CHAIYA;
 const [SX, SZ] = SHIPYARD;
 const [TX, TZ] = THA_KHAM;
 // the cover pulls back and swings north-west over the bay as the junks come in toward Laem Pho
-const HERO_END: Key = [6.6, -26, 2, -57, 86, 318, 31, 30];
+const HERO_END: Key = [6.6, -24, 2, -63, 96, 318, 35, 30];
 // Chaiya burning, the two armies on the shore
 const FI_IN: Key = [7.4, CX + 3.5, 1.5, CZ + 5, 64, 316, 34, 30];
 const FI_END: Key = [11.6, CX + 3.5, 1.5, CZ + 5, 56, 296, 34, 30];
