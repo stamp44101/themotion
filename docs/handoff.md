@@ -10,6 +10,8 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
 
 ## Done
 - **Udon Thani's 24-h read** is `experiments.md` §12 (skip 41.4%, share 4.7%, the best yet).
+- **Saraburi's read** (posted 1 Nov 20:00, read at ~13.5 h) is `experiments.md` §15: skip 49.3%,
+  share 0.4%, the lowest shares since the forest tiles; the deer moved but the symbol (the Footprint) did not.
 - **Nakhon Pathom's 24-h read** is `experiments.md` §13 (skip 49.2%, every rate lower; the middle held
   best yet at ~37% at 15 s). A building growing still reads as a building.
 
@@ -32,6 +34,24 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
 - 24-h read is `experiments.md` §14: skip 42.0%, share 4.1% (second best), the middle sagged on the
   Thai Yuan column (~25% at 15 s). Lesson for the next city: the first beat after the cover must be a
   big, close event, not a far procession.
+
+## Saraburi v1: merged (PR #80) and posted (1 Nov, 20:00)
+- Started 1 Nov: the other half of the Thai Yuan journey Ratchaburi's resident named, the Buddha's
+  Footprint legend (the hunter and the healed deer), the seat moved from Sao Hai to Pak Phriao,
+  the cement hills. Brief v0: `docs/briefs/saraburi.md` (founding 2092 is a supposition; 2112 is
+  the first record).
+- [gemini] answered (3226139); cloud checked it and proposed the storyline (05c057c): the deer at
+  the Footprint (reign of Songtham, no held year: the find is dated 2149 / 2165 / ~2166-67), the
+  mondop burned 2310 and rebuilt 2330, Thai Yuan at Sao Hai 2347, the train 2440 and the town moving
+  to Pak Phriao, the Friendship Highway 2501, flower alms as the payoff.
+- Owner picked **A1** (1 Nov). v1 built in `src/cities/saraburi/` on [local]'s map (8620269): contact
+  sheet `docs/briefs/saraburi_v1_contact.jpg`, `npm run check` passes, soundtrack -16.0 LUFS (+1.1 LU).
+  What is approximate is listed in the brief ("v1 build").
+- Owner passed the stills (1 Nov). v1 rendered; owner: "เกือบดี", the station popped in and the
+  elephants had no call. Fixed in v1c (station grown on the beat, track laid in the 2440 hold, three
+  trumpets; lesson in CLAUDE.md), plus the flare on time and the train seen down the line.
+- [local] rendered v2 (head 6607189): `check_render` ok (max jump 3.0, darkest 57.3); upload copy on the
+  `renders` release as `saraburi_look_social.mp4`. Owner posted it 1 Nov 20:00 and said merge (2 Nov).
 
 ## Next
 - A new city in a new session (one city per session).

@@ -82,6 +82,7 @@ layout + audit every hand-placed coordinate, camera keys last.
 - **Beats own their seconds; the year curve is derived** (`buildStory`): motion on `beat(id)`, visibility on the year.
 - **A forest-only opening reads dark and green** (`ambient(Y)`, open ground).
 - **Light must never snap** (≤ 8 luma per frame, > 35 before the finale).
+- **Nothing grows on a year the counter jumps over** (station, track, clearings): grow it inside the beat's years or on `beat(id)`.
 
 ## Physical plausibility checklist (before calling a city done)
 Nothing on open water but bridges/boats/houseboats · the wall opens with a water gate where a river
