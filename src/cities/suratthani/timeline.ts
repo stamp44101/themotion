@@ -73,8 +73,8 @@ export const STORY = buildStory({
       caption: {t0: 3.3, t1: 6.85, title: 'ท่าเรือศรีวิชัยที่ไชยา', sub: 'ราว พ.ศ. 1300 สำเภาจีน อินเดีย อาหรับ แวะแหลมโพธิ์'},
       era: 'ศรีวิชัย',
       camera: [
-        [0, (PALM_BASE[0] + PALM_OVER[0]) / 2, 0.8 * H_HERO, PALM_BASE[1] + 1, 285, 336, 22, 30],
-        [3, (PALM_BASE[0] + PALM_OVER[0]) / 2 - 2, 0.7 * H_HERO, PALM_BASE[1] - 4, 250, 330, 25, 30],
+        [0, (PALM_BASE[0] + PALM_OVER[0]) / 2, 0.98 * H_HERO, PALM_BASE[1] + 1, 285, 336, 22, 30],
+        [3, (PALM_BASE[0] + PALM_OVER[0]) / 2 - 2, 0.85 * H_HERO, PALM_BASE[1] - 4, 250, 330, 25, 30],
         HERO_END,
       ],
     },
