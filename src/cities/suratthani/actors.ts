@@ -59,7 +59,7 @@ const on = (c: ActorCtx, x: number, z: number, dy: number): [number, number, num
 /** the palm leans ESE from the west bank so its crown hangs over the river */
 export const LEAN = Math.atan2(-(PALM_OVER[1] - PALM_BASE[1]), PALM_OVER[0] - PALM_BASE[0]);
 /** the palm at legend scale through the cover, settling to a real palm (~4 units) as the ships come in */
-export const palmH = (t: number) => lerp(H_HERO, 4, ramp(t, 4.0, 5.8));
+export const palmH = (t: number) => lerp(H_HERO, 2.4, ramp(t, 4.0, 5.8));
 /** the monkey's size: 0.38 of the palm (legend), then it climbs down out of sight with the settle */
 export const MONKEY_K = 0.38;
 /** the trunk's centreline in the palm's frame (lean toward local +x), height fraction u (figures.tsx) */
@@ -68,7 +68,8 @@ export type MonkeyState = {x: number; y: number; z: number; tilt: number; climb:
 /** halfway up at frame 0, at the crown by 1.1 s, spins the coconut 1.1-1.9 s, watches it fall */
 export const monkeyAt = (t: number, ground = 0): MonkeyState | null => {
   const H = palmH(t);
-  const s = MONKEY_K * H;
+  // it climbs away down the far side as the palm settles: gone by 5.6 s
+  const s = MONKEY_K * H * (1 - ramp(t, 4.0, 5.6));
   if (s < 0.15) return null;
   const u = t < 1.1 ? 0.42 + 0.44 * smooth(clamp01(t / 1.1) * 0.85 + 0.15 * clamp01(t / 1.1) ** 2) : 0.86;
   const [lx, ly] = trunkLocal(u);
@@ -132,13 +133,13 @@ export const burmese = (t: number) => {
   if (k < -0.1 || k > 1.15) return null;
   // they hold the burning town, then fall back north to the shore
   const back = ramp(k, 0.65, 1.0) * 2.5;
-  return {at: [CHAIYA[0] + 1, CHAIYA[1] + 2.6 - back] as P, face: [CHAIYA[0] + 1, CHAIYA[1] + 20] as P};
+  return {at: [CHAIYA[0] + 6, CHAIYA[1] + 2.4 - back] as P, face: [CHAIYA[0] + 6, CHAIYA[1] + 20] as P};
 };
 export const siamese = (t: number) => {
   const k = fightK(t);
   if (k < -0.1 || k > 1.15) return null;
   const z = lerp(CHAIYA[1] + 11, CHAIYA[1] + 6.2, smooth(clamp01(k / 0.75)));
-  return {at: [CHAIYA[0] + 1.5, z] as P, face: [CHAIYA[0] + 1, CHAIYA[1]] as P};
+  return {at: [CHAIYA[0] + 6.5, z] as P, face: [CHAIYA[0] + 6, CHAIYA[1]] as P};
 };
 /** the fire over Chaiya's houses: up fast, dying as the Burmese fall back */
 export const fireK = (t: number) => {
@@ -225,12 +226,12 @@ export const racerAt = (i: number, t: number) => {
   return {x: p.x + Math.cos(p.rot) * off, z: p.z - Math.sin(p.rot) * off, rot: p.rot + Math.PI};
 };
 /** the monkey back on a palm on Ko Lamphu over the boats (the callback) */
-export const CALLBACK_H = 8;
+export const CALLBACK_H = 5;
 export const monkeyBack = (t: number) => {
   const k = beatK('payoff', t);
   if (k < 0) return null;
   const grow = ramp(k, 0, 0.12);
-  const u = 0.35 + 0.5 * ramp(k, 0.1, 0.55);
+  const u = 0.25 + 0.45 * ramp(k, 0.1, 0.55);
   return {u, grow, climb: k < 0.55 ? t * 9 : 0.6, look: k > 0.55 ? Math.sin(t * 1.4) * 0.6 : 0};
 };
 

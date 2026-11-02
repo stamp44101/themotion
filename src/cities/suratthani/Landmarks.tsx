@@ -158,7 +158,7 @@ const Borommathat: React.FC = () => {
   );
 };
 const CHAIYA_HOUSES: [number, number][] = Array.from({length: 14}, (_, i) => [
-  CHAIYA[0] - 4 + (i % 5) * 2.1 + ((i * 7) % 3) * 0.3,
+  CHAIYA[0] - 7.5 + (i % 5) * 2.1 + ((i * 7) % 3) * 0.3,
   CHAIYA[1] + 3.2 + Math.floor(i / 5) * 1.9,
 ]);
 const Flames: React.FC<{k: number; t: number; seed: number}> = ({k, t, seed}) => {
@@ -362,7 +362,7 @@ const Barges: React.FC<{t: number}> = ({t}) => (
       const b = bargeAt(i, t);
       if (!b) return null;
       return (
-        <group key={i} position={[b.x, 0.02, b.z]} rotation-y={b.rot} scale={i === 0 ? 0.14 : 0.11}>
+        <group key={i} position={[b.x, 0.02, b.z]} rotation-y={b.rot} scale={i === 0 ? 0.2 : 0.15}>
           <NanBoat t={t + i * 0.3} pairs={i === 0 ? 18 : 14} shirt={i === 0 ? '#c0392b' : '#efe9dc'} band={GILT} L={16} />
           {i === 0 && (
             // the royal pavilion amidships: red and gilt, a tiered roof
@@ -507,8 +507,8 @@ const ChakPhra: React.FC<{t: number; Y: number; terrainH: TH}> = ({t, Y, terrain
         <CoconutPalm sway={Math.sin(t * 1.5)} nuts={4} seed={1} />
       </group>
       {mb && mb.grow > 0.02 && (
-        <group position={[PALM2[0] + 0.16 * mb.u * mb.u * CALLBACK_H * Math.cos(-0.6), g2 + mb.u * CALLBACK_H - 0.25 * 2.6, PALM2[1] - 0.16 * mb.u * mb.u * CALLBACK_H * Math.sin(-0.6) + 0.045 * CALLBACK_H * Math.cos(-0.6)]} rotation-y={-0.6}>
-          <group rotation-y={Math.PI} scale={2.6 * mb.grow}>
+        <group position={[PALM2[0] + 0.16 * mb.u * mb.u * CALLBACK_H * Math.cos(-0.6), g2 + mb.u * CALLBACK_H - 0.25 * 3.4, PALM2[1] - 0.16 * mb.u * mb.u * CALLBACK_H * Math.sin(-0.6) + 0.045 * CALLBACK_H * Math.cos(-0.6)]} rotation-y={-0.6}>
+          <group rotation-y={Math.PI} scale={3.4 * mb.grow}>
             <ClimbingMonkey climb={mb.climb} look={mb.look} />
           </group>
         </group>
