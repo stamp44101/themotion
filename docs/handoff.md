@@ -1,4 +1,4 @@
-# Handoff: where the work stands (29 ต.ค. 2569)
+# Handoff: where the work stands (2 พ.ย. 2569)
 
 For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is the current standard),
 `docs/experiments.md` (§10–11 are the latest reads), then this file.
@@ -10,8 +10,8 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
 
 ## Done
 - **Udon Thani's 24-h read** is `experiments.md` §12 (skip 41.4%, share 4.7%, the best yet).
-- **Saraburi's read** (posted 1 Nov 20:00, read at ~13.5 h) is `experiments.md` §15: skip 49.3%,
-  share 0.4%, the lowest shares since the forest tiles; the deer moved but the symbol (the Footprint) did not.
+- **Saraburi's read** (posted 1 Nov 20:00) is `experiments.md` §15: at 24 h skip 48.9%, share 0.4%,
+  like 4.3%, 4,349 views, all rates "lower"; the deer moved but the symbol (the Footprint) did not.
 - **Nakhon Pathom's 24-h read** is `experiments.md` §13 (skip 49.2%, every rate lower; the middle held
   best yet at ~37% at 15 s). A building growing still reads as a building.
 
@@ -52,6 +52,15 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
   trumpets; lesson in CLAUDE.md), plus the flare on time and the train seen down the line.
 - [local] rendered v2 (head 6607189): `check_render` ok (max jump 3.0, darkest 57.3); upload copy on the
   `renders` release as `saraburi_look_social.mp4`. Owner posted it 1 Nov 20:00 and said merge (2 Nov).
+
+## Surat Thani v1 (PR #81, draft): the loop experiment, waiting on [local]'s render
+- Owner (2 Nov): cloud and [local] loop through the PR to the render, cloud standing in for the owner's
+  picks. Cloud picked the cover **A1, the coconut monkey** (Gemini ranked it 4th; the reasons are in
+  `docs/briefs/suratthani.md`), built v1 on [local]'s map (a67d83d) and Gemini's research (df8eb1b), had a
+  second model review the contact sheet, fixed its notes and passed the stills (780e4fb, `npm run check` 0
+  errors, -16.0 LUFS, +1.7 LU). Handed to [local] for the full render.
+- Next: [local] renders and comments; cloud checks the frames; the owner watches, merges and posts at
+  19:00-21:00, then the 24-h read goes in `experiments.md` §16.
 
 ## Next
 - A new city in a new session (one city per session).
