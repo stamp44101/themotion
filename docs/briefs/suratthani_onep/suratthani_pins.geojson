@@ -1,0 +1,347 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.3217049,
+     9.1391892
+    ]
+   },
+   "properties": {
+    "group": "town",
+    "name": "ศาลหลักเมืองสุราษฎร์ธานี (origin)",
+    "source": "OSM way 167081575 (Google 9.13916, 99.32165, 6 m)",
+    "note": "",
+    "from_pillar_m": 0,
+    "bearing": "N"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.3321371,
+     9.1327378
+    ]
+   },
+   "properties": {
+    "group": "town",
+    "name": "ศาลากลางจังหวัด (current, ถ.ดอนนก)",
+    "source": "Google",
+    "note": "Google returns only the current hall",
+    "from_pillar_m": 1350,
+    "bearing": "SE"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.3202931,
+     9.1360563
+    ]
+   },
+   "properties": {
+    "group": "town",
+    "name": "ที่ว่าการอำเภอเมืองสุราษฎร์ธานี (riverfront)",
+    "source": "Google",
+    "note": "candidate for the old riverfront hall — NOT confirmed",
+    "from_pillar_m": 380,
+    "bearing": "SW"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.3227906,
+     9.1434466
+    ]
+   },
+   "properties": {
+    "group": "town",
+    "name": "ท่าเทียบเรือสุราษฎร์ธานี / ท่าเรือบ้านดอน (night ferry to Ko Tao)",
+    "source": "OSM node 2502419676 ferry_terminal (Google 9.14395, 99.32296, 60 m)",
+    "note": "on the town arm, 0.5 km N of the pillar",
+    "from_pillar_m": 486,
+    "bearing": "N"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.3290565,
+     9.1431473
+    ]
+   },
+   "properties": {
+    "group": "town",
+    "name": "ศาลเจ้ากวนอู (Chinese shrine, old market)",
+    "source": "Google",
+    "note": "",
+    "from_pillar_m": 919,
+    "bearing": "NE"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.3259984,
+     9.1457405
+    ]
+   },
+   "properties": {
+    "group": "town",
+    "name": "ตลาดศาลเจ้า",
+    "source": "Google",
+    "note": "",
+    "from_pillar_m": 865,
+    "bearing": "NE"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.3323268,
+     9.1557797
+    ]
+   },
+   "properties": {
+    "group": "town",
+    "name": "ตลาดล่าง (area)",
+    "source": "Google (area centre); OSM way 954791632",
+    "note": "area, not a building",
+    "from_pillar_m": 2174,
+    "bearing": "NE"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.3155913,
+     9.1375087
+    ]
+   },
+   "properties": {
+    "group": "town",
+    "name": "เกาะลำพู (park island)",
+    "source": "OSM way 242787629",
+    "note": "outline in suratthani_osm.geojson",
+    "from_pillar_m": 697,
+    "bearing": "W"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.3186534,
+     9.1368002
+    ]
+   },
+   "properties": {
+    "group": "town",
+    "name": "Riverfront reach by Ko Lamphu (Chak Phra / long-boat race)",
+    "source": "Google 'ริมน้ำแม่น้ำตาปี'",
+    "note": "approximate: the reach between Ko Lamphu and the pillar",
+    "from_pillar_m": 427,
+    "bearing": "SW"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.2305827,
+     9.1039732
+    ]
+   },
+   "properties": {
+    "group": "crossing",
+    "name": "สถานีรถไฟสุราษฎร์ธานี (Phun Phin)",
+    "source": "OSM way 937312515 (Google 9.10414, 99.23048)",
+    "note": "",
+    "from_pillar_m": 10745,
+    "bearing": "W"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.2236832,
+     9.1128657
+    ]
+   },
+   "properties": {
+    "group": "crossing",
+    "name": "สะพานจุลจอมเกล้า (Tha Kham)",
+    "source": "OSM way 1330203990 (Google 9.11288, 99.22374)",
+    "note": "OSM tags it as a road bridge (ถ.ราษฎร์บำรุง); the OSM railway crosses the Tapi at the same spot (9.11282, 99.22381)",
+    "from_pillar_m": 11160,
+    "bearing": "W"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.3205033,
+     9.140017
+    ]
+   },
+   "properties": {
+    "group": "crossing",
+    "name": "สะพานศรีตาปี (road)",
+    "source": "Google",
+    "note": "next to the pillar",
+    "from_pillar_m": 161,
+    "bearing": "NW"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.3236418,
+     9.1456231
+    ]
+   },
+   "properties": {
+    "group": "crossing",
+    "name": "สะพานนริศ (road)",
+    "source": "Google",
+    "note": "",
+    "from_pillar_m": 743,
+    "bearing": "N"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.1847363,
+     9.3845961
+    ]
+   },
+   "properties": {
+    "group": "far",
+    "name": "วัดพระบรมธาตุไชยา",
+    "source": "Google (OSM node 4425033192, 76 m)",
+    "note": "",
+    "from_pillar_m": 31032,
+    "bearing": "NW"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.5562219,
+     9.2286241
+    ]
+   },
+   "properties": {
+    "group": "far",
+    "name": "ท่าทอง (Kanchanadit) — area",
+    "source": "Google 'ท่าทอง'",
+    "note": "area name only; no pin for the old-town site found",
+    "from_pillar_m": 27607,
+    "bearing": "E"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.7449648,
+     9.3291555
+    ]
+   },
+   "properties": {
+    "group": "far",
+    "name": "ท่าเรือดอนสัก (Raja ferry)",
+    "source": "OSM node 4704126649 (Raja Ferry office on Google 9.31955, 99.73992)",
+    "note": "Google's 'ท่าเรือดอนสัก' hit (9.502, 99.784) is off the coast; not used",
+    "from_pillar_m": 51042,
+    "bearing": "NE"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.9342809,
+     9.5362747
+    ]
+   },
+   "properties": {
+    "group": "far",
+    "name": "ท่าเรือหน้าทอน, Ko Samui (Nathon)",
+    "source": "Google (OSM way 320110920, 0.4 km)",
+    "note": "",
+    "from_pillar_m": 80378,
+    "bearing": "NE"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.143039,
+     9.1342049
+    ]
+   },
+   "properties": {
+    "group": "far",
+    "name": "ท่าอากาศยานสุราษฎร์ธานี",
+    "source": "Google",
+    "note": "OSM's first hit for the same query was Samui airport — not used",
+    "from_pillar_m": 19644,
+    "bearing": "W"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.3609862,
+     8.8054766
+    ]
+   },
+   "properties": {
+    "group": "far",
+    "name": "โรงเรียนนาสาร (first school-rambutan tree)",
+    "source": "Google (the school)",
+    "note": "the tree itself is not pinned separately",
+    "from_pillar_m": 37152,
+    "bearing": "S"
+   }
+  }
+ ]
+}
