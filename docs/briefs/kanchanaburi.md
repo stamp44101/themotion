@@ -172,3 +172,9 @@ spans exactly where the rail crosses the drawn Khwae Yai (entry (-27.99, -25.75)
 bank, and the 2486 camera is aimed between the bridge and the approach so the work train is in frame. Checked on 16 stills across the three
 crossings (2486 at 20 / 21.7 / 23 / 23.7 / 24.3 / 25 s, the mended line at 34.3 / 35 / 35.7 / 36.3 s, the festival at 48 / 48.7 / 49.3 /
 50.3 / 51.3 / 52.3 s): every train is on the rail or on the bridge deck. Open: a bright specular glare on the water at ~36.3 s (2505).
+
+### v1g: the glare on the water at ~36 s (the owner saw it; [local] confirmed on the v1f render)
+
+At the end of the mended-line beat the camera sat low (elevation 26, azimuth 246-250) and the sun's specular swept the river as a blown-out
+white sheet (35.9-36.1 s). Fix: the mended-line camera is higher and turned a little (elevation 34, azimuth 270 -> 262); on stills at
+35.0, 35.5, 35.7, 35.9, 36.1 and 36.3 s the water stays a flat blue with no white sheet. `npm run check`: 0 errors.

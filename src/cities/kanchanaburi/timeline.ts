@@ -32,8 +32,8 @@ const BK_END: Key = [29.2, BX, 1.5, BZ, 24, 356, 26, 30];
 const DR_IN: Key = [30.8, DON_RAK[0] + 0.5, 0.8, DON_RAK[1], 16, 330, 28, 30];
 const DR_END: Key = [32.2, DON_RAK[0] + 0.5, 0.8, DON_RAK[1], 14, 318, 28, 30];
 // the straight spans, the line mended: the train crosses again
-const MD_IN: Key = [33.8, BX, 1.5, BZ, 32, 270, 26, 30];
-const MD_END: Key = [36.4, BX, 1.5, BZ, 36, 246, 26, 30];
+const MD_IN: Key = [33.8, BX, 1.5, BZ, 32, 270, 34, 30];
+const MD_END: Key = [36.4, BX, 1.5, BZ, 36, 262, 34, 30];
 // the long wide shot: the town spreading along the river toward the station and the new hall
 const GR_IN: Key = [38.0, -6, 2, -8, 80, 210, 36, 30];
 const GR_END: Key = [42.4, -2, 2, -2, 130, 160, 36, 30];
