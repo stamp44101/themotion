@@ -127,8 +127,8 @@ export const elephantAt = (i: number, t: number) => {
 // ------------------------------------------------------------------ the modern train (growth) and the festival's lit boat
 export const modernTrainAt = (t: number) => {
   const [a, b] = STORY.at('growth');
-  if (t < a + 0.2 || t > b) return null;
-  return along(RAIL, 34 + ramp(t, a + 0.2, b) * 40);
+  if (t < a + 0.2 || t > b + 2.0) return null;
+  return along(RAIL, 34 + ramp(t, a + 0.2, b + 2.0) * 36);
 };
 export const litBoatAt = (t: number) => {
   const [a, b] = STORY.at('payoff');
@@ -247,7 +247,7 @@ export const ACTORS: Actor[] = [
   },
   {
     id: 'modern-train',
-    during: 'growth',
+    during: [STORY.at('growth')[0], STORY.at('growth')[1] + 2.0],
     size: 3,
     minInFrame: 0.3,
     at: (t, c) => {

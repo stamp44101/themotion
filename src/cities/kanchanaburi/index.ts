@@ -29,12 +29,12 @@ export const KANCHANABURI: CityConfig = {
     duration: STORY.duration,
   },
   layout: {
-    tile: {x0: -48, x1: 34, z0: -46, z1: 34},
+    tile: {x0: -44, x1: 24, z0: -42, z1: 26},
     peaks: [
       // the hills west of the Khwae Yai and the limestone at Chong Kai, kept low
-      [-44, -10, 2.6, 6],
+      [-39, -6, 2.6, 6],
       [-14, 22, 2.2, 4],
-      [24, -30, 2.0, 7],
+      [17, -30, 2.0, 7],
     ],
     rivers: [
       {path: KHWAE_YAI, width: KHWAE_YAI_W},
@@ -62,12 +62,12 @@ export const KANCHANABURI: CityConfig = {
       keepOut: [[PAPER_MILL[0] + 1.4, PAPER_MILL[1] + 0.6, 1.0], [STATION[0] + 0.9, STATION[1] - 0.4, 1.4]],
     },
     villages: {
-      centers: [[-14, 6], [8, 14], [-30, 8], [14, -8], [-8, 26], [-38, -20], [6, -26]],
+      centers: [[-14, 6], [8, 14], [-30, 8], [14, -8], [-8, 20], [-36, -12], [6, -26]],
       built: [1700, 140],
     },
     forestCity: 1700,
     clearings: [
-      [LX, LZ, 5, -1e9],
+      [LX, LZ, 7.5, -1e9],
       [BRIDGE[0], BRIDGE[1], 7, -1e9],
       [0, 0, 5, -1e9],
       [STATION[0], STATION[1], 3, -1e9],
@@ -83,7 +83,7 @@ export const KANCHANABURI: CityConfig = {
     ],
     openGround: [{x0: -7.4, x1: -4.0, z0: -14.6, z1: -12.0}],
     urban: {from: 1948, rate: 0.9},
-    urbanBox: {x0: -22, x1: 30, z0: -34, z1: 26},
+    urbanBox: {x0: -22, x1: 22, z0: -34, z1: 24},
     sprawl: {height: 0.6, tall: 0.03},
     highRise: 2000,
     towers: [],

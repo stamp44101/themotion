@@ -140,3 +140,13 @@ at 100 m/unit, the pillar as origin; the rivers and the rail are the OSM lines s
 - **Autoloop notes:** the second-model review of the contact sheet was **not** run for this city (cost); cloud
   reviewed the sheet itself: the cover reads smaller than Surat's palm because the tile is large; the bridge is
   moved tighter by the title-safe check (the hero must sit inside x 20-80%), so a bigger cover would fail it.
+
+### v1c: the map fix (cloud, 3 Nov, after the owner's "แผนที่เละ")
+
+The owner saw the map looking messy. Causes found on the stills and fixed (`kanchanaburi_v1c_map_fix.jpg`): the tile was
+82 x 80 units with the story in its middle (now 68 x 68); the rivers were true width and read as thin ribbons (the Khwae Yai
+4.6, the Khwae Noi 3.0, the Mae Klong 5.0, about 1.5-2x real, as Surat's Tapi); the Khwae Yai path carried a rectangular
+U-bend from the OSM simplification outside the story (cut: it now enters from the west edge); the Khwae Noi and the Mae
+Klong ran off the south edge (cut at it); the railway began outside the tile and hung over its edge (now starts at the tile
+edge and ends before the Khwae Noi); Lat Ya moved to (-37, -36) and its clearing widened (the column was hidden by trees).
+`npm run check`: 0 errors.
