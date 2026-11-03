@@ -33,7 +33,7 @@ mended, a festival) with the war as one beat.
 | 2467: อำเภอเมือง's office is at Pak Phraek "ในกำแพงเมืองเก่า" | ยืนยัน | proof the wall stood | kanchanaburi.go.th |
 | Kwai bridge: wooden bridge then steel bridge, 11 spans (the curved ones came later), official opening **25 Dec 2486** | ยืนยัน for the opening (Wikipedia th + TAT agree) | held 2486 | th.wikipedia; thai.tourismthailand.org |
 | the bridge bombed several times from **Nov 2487**, the middle span broken; closed 2488 | ยืนยัน for Nov 2487; the exact 2488 day is for the research | spectacle | th.wikipedia; TAT |
-| repaired by the Thai government in **2489** (the straight-edged spans are the post-war ones) | ยืนยัน (Wikipedia th) but Wikipedia th also lists 2491 and 2495 as other dates: **ขัดแย้ง**, research must say what each is | use 2489 only after the research agrees | th.wikipedia |
+| bridge repaired with straight-edged spans | **ขัดแย้ง, unresolved**: Wikipedia th / kanchanaburi.center say 2489; a Facebook history says 2491; Gemini says the Thai government bought the line 2489 (16 Oct), the line reopened to Kanchanaburi 24 Jun 2492 and over the bridge to Wang Pho 1 Apr 2495. My web search (3 Nov) did not confirm 2495 | **no year on the repair beat**; the caption says only "ซ่อมโดยรัฐบาลไทย"; the counter runs through 2489–2495 without a hold | th.wikipedia; kanchanaburi.center; Gemini part 5 |
 | bridge length 322.90 m | ยืนยัน (Wikipedia th; check SRT) | dimension for the model | th.wikipedia |
 | Kwai bridge week + Red Cross fair, 27 Nov–7 Dec 2568 | ยืนยัน | payoff; the first year of the festival is for research | kapook, thailandfestival.org |
 
@@ -58,3 +58,44 @@ Payoff (45-54 s): the festival night, fireworks over the bridge, the train on it
 Tagline: ............
 Facts with nothing to show: ............
 ```
+
+## Research checked (cloud, 3 Nov; Gemini's answer `kanchanaburi_research_gemini.md`, [local]'s map `kanchanaburi_onep/`)
+
+- **Confirmed by Gemini and by my search:** the seat moved to Pak Phraek 8 Mar 2374 (the city pillar inscription,
+  จ.ศ. 1193; the celebration was in 2375); the bridge opened officially 25 Dec 2486 (province, TAT), the timber
+  bridge was finished Feb 2486 and the steel one Apr-Jun 2486 (POW and Hellfire Pass sources): the held year 2486 is
+  safe for "the bridge"; first bombing 29 Nov 2487, heavy raids Feb-Jun 2488; **the Khwae Yai was the Mae Klong
+  until 2503** (renamed after the film), so a caption before 2503 never says แควใหญ่; the film was shot in
+  Sri Lanka, not here.
+- **Festival this year:** 27 Nov-7 Dec 2569 (kapook, phutawankan; the m-culture calendar lists 25 Nov, so no
+  dates on screen). Gemini's "first festival 2523" is **not corroborated**: the festival is only "the annual
+  fair" in a caption.
+- **Names:** the hero of Pak Phraek is พ.ท. บุญผ่อง สิริเวชชะพันธ์; สิริโอสถ is the family's shop. A sub line may
+  name the shop, never the man's rank without the check.
+- **Map ([local], b2e66d5):** the old town is an announced old town: a 210 x 520 m rectangle parallel to the
+  Khwae Yai, the SW (long) side on the river; 6 forts, 8 gates, only the front gate survives. The Khwae Yai
+  and Khwae Noi meet at the pillar's river front, then run as the Mae Klong to the SE. The bridge is 3.7 km
+  NW of the pillar, so the tile carries two scales: the walled town at the centre and the bridge at the
+  edge (decide in the layout).
+
+## Cloud's decisions for the owner (autoloop, 3 Nov)
+
+- **Hero: A1, the steam train on the Kwai bridge at legend scale, moving from frame 0.** Reasons: Gemini ranks
+  it first; it is the province's one global symbol; both Gemini and the data ask for a moving symbol (§15:
+  the deer moved but the Footprint did not; here the train *is* the symbol and it moves); the owner has picked
+  the legend-scale whole-tile cover for every city since Phetchabun. Callback at the end: the festival night
+  with the train crossing again under fireworks.
+- **War weight (decided by cloud, owner's rule from Saraburi: no events with deaths remembered):** one beat, 4-5 s,
+  the engineering and the bridge: the middle span falls (no planes shown close, no people), then a quiet hold on
+  the white rows of Don Rak, no music sting. Nothing of the prisoners' suffering. The nod to the people of
+  Pak Phraek is a sub line (the Siri-osot shop).
+- **Storyline (v2, first draft):** 0-3 hero train on the bridge; 3-9 **2328 Lat Ya**: elephants and cannon smoke
+  at the old seat (big, close; the Nine Armies, no held year beyond 2328); 9-17 **2374** the town floats down
+  on rafts and the Pak Phraek wall rises round the river-front rectangle (held 2374; the build verb);
+  17-25 the river meets the railhead: **2486** timber then steel bridge grown by tiny figures (held 2486);
+  25-30 the bridge breaks, the middle spans fall (held 2488), then Don Rak; 30-36 the Thai line mended
+  (no year), the straight spans; 36-44 **grow shot**: the town leaves the wall along the river and Saeng Chuto road,
+  the dam lake fills the north (Srinagarind 2523); 44-54 payoff: the festival night, fireworks, the train crosses
+  again, the hero back; the counter lands on 2569. Tagline: for the owner's taste, "ที่ที่แม่น้ำสองสายมาพบกัน".
+- **Facts with nothing to show (sub lines):** Ban Kao pottery; Prasat Mueang Singh; the river renamed 2503;
+  the Siri-osot shop; the paper mill 2481.
