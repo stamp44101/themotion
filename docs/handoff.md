@@ -53,6 +53,14 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
 - [local] rendered v2 (head 6607189): `check_render` ok (max jump 3.0, darkest 57.3); upload copy on the
   `renders` release as `saraburi_look_social.mp4`. Owner posted it 1 Nov 20:00 and said merge (2 Nov).
 
+## Kanchanaburi v0 (3 Nov, owner: "ลุย" from the shortlist)
+- Picked from five candidates (Kanchanaburi, Samut Songkhram, Chiang Mai, Chanthaburi, Nong Khai). Hook:
+  the Kwai bridge with a train. Brief v0 `docs/briefs/kanchanaburi.md` (dates checked: seat moved to Pak
+  Phraek 2374, bridge opened 25 Dec 2486, bombed from Nov 2487, mended 2489 but th.wikipedia also lists 2491 and
+  2495: ขัดแย้ง). Research request `docs/briefs/kanchanaburi_research_request.md` written for [gemini].
+- Open for the owner: how much of the war the clip carries (brief, "Sensitivity"). Next: [gemini] answers;
+  [local] pins the ONEP polygon and story places; then cloud proposes the storyline.
+
 ## Next
 - A new city in a new session (one city per session).
 - **Posting time (owner, 1 Nov): 19:00-21:00 from now on**, not the morning; the next read changes the
