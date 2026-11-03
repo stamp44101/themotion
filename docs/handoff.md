@@ -1,4 +1,4 @@
-# Handoff: where the work stands (29 ต.ค. 2569)
+# Handoff: where the work stands (2 พ.ย. 2569)
 
 For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is the current standard),
 `docs/experiments.md` (§10–11 are the latest reads), then this file.
@@ -10,8 +10,8 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
 
 ## Done
 - **Udon Thani's 24-h read** is `experiments.md` §12 (skip 41.4%, share 4.7%, the best yet).
-- **Saraburi's read** (posted 1 Nov 20:00, read at ~13.5 h) is `experiments.md` §15: skip 49.3%,
-  share 0.4%, the lowest shares since the forest tiles; the deer moved but the symbol (the Footprint) did not.
+- **Saraburi's read** (posted 1 Nov 20:00) is `experiments.md` §15: at 24 h skip 48.9%, share 0.4%,
+  like 4.3%, 4,349 views, all rates "lower"; the deer moved but the symbol (the Footprint) did not.
 - **Nakhon Pathom's 24-h read** is `experiments.md` §13 (skip 49.2%, every rate lower; the middle held
   best yet at ~37% at 15 s). A building growing still reads as a building.
 
@@ -58,8 +58,28 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
   the Kwai bridge with a train. Brief v0 `docs/briefs/kanchanaburi.md` (dates checked: seat moved to Pak
   Phraek 2374, bridge opened 25 Dec 2486, bombed from Nov 2487, mended 2489 but th.wikipedia also lists 2491 and
   2495: ขัดแย้ง). Research request `docs/briefs/kanchanaburi_research_request.md` written for [gemini].
-- Open for the owner: how much of the war the clip carries (brief, "Sensitivity"). Next: [gemini] answers;
-  [local] pins the ONEP polygon and story places; then cloud proposes the storyline.
+- **Autoloop (owner, 3 Nov), like Surat Thani:** cloud decides in the owner's place and writes why in the
+  brief. War weight decided by cloud: no suffering shown, one beat (the bridge breaks, the Thai government
+  mends it), a short quiet memorial. Next: [gemini] answers; [local] pins the ONEP polygon and story
+  places; then cloud proposes the storyline.
+
+## Surat Thani v1 (PR #81, draft): the loop experiment, rendered, waiting on the owner
+- Owner (2 Nov): cloud and [local] loop through the PR to the render, cloud standing in for the owner's
+  picks. Cloud picked the cover **A1, the coconut monkey** (Gemini ranked it 4th; the reasons are in
+  `docs/briefs/suratthani.md`), built v1 on [local]'s map (a67d83d) and Gemini's research (df8eb1b), had a
+  second model review the contact sheet, fixed its notes and passed the stills (780e4fb, `npm run check` 0
+  errors, -16.0 LUFS, +1.7 LU).
+- [local] rendered 780e4fb (= 5902c1e in picture and sound): `check_render` ok (max jump 6.4 at 8.64 s,
+  darkest 59.5); upload copy on the `renders` release as `suratthani_look_social.mp4`; moving checks and
+  audio spectrograms in `shots/suratthani/` (f4dba7c). Cloud checked the frames: nothing to fix. The loop
+  ran from the request to the render in about 70 minutes with no owner input.
+- Open notes for the owner: the giant palm leaves the frame as it settles (its shrink is barely seen); the
+  junks overlap in perspective at ~6 s.
+- The owner asked for a detail pass; [local] found five things (hollow hulls, the monkey in the fronds at
+  both ends, overlapping junks, a slab-like rail bridge), cloud fixed them (v1b, brief), and [local]
+  re-rendered 37b2ccb: `check_render` ok (max jump 2.9, darkest 59.4), all five confirmed on the render
+  (`shots/suratthani/v1b_*`, 7fe7861). Left, optional: one junk passes under the caption at 7-8 s.
+- Next: the owner watches, says "Merge" and posts at 19:00-21:00; the 24-h read goes in `experiments.md` §16.
 
 ## Next
 - A new city in a new session (one city per session).

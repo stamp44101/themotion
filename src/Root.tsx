@@ -24,6 +24,7 @@ import {UDONTHANI} from './cities/udonthani';
 import {NAKHONPATHOM} from './cities/nakhonpathom';
 import {RATCHABURI} from './cities/ratchaburi';
 import {SARABURI} from './cities/saraburi';
+import {SURATTHANI} from './cities/suratthani';
 import {LOPBURI} from './cities/lopburi';
 import {PHETCHABURI} from './cities/phetchaburi';
 import {CHIANGRAI} from './cities/chiangrai';
@@ -45,6 +46,7 @@ import {UDON_A1, UDON_A2} from './styleframes/udonthani';
 import {NKP_A1, NKP_A2, NKP_B} from './styleframes/nakhonpathom';
 import {RATCHABURI_A1, RATCHABURI_A2, RATCHABURI_DRAGON} from './styleframes/ratchaburi';
 import {SARABURI_A1, SARABURI_A2, SARABURI_B} from './styleframes/saraburi';
+import {SURAT_A1, SURAT_A2, SURAT_B} from './styleframes/suratthani';
 import {WAT_RAI_KHING_FRAMES, WatRaiKhing} from './landmarks/watraikhing/WatRaiKhing';
 
 const Korat: React.FC = () => <DioramaComposition city={KORAT} />;
@@ -68,6 +70,7 @@ const Udonthani: React.FC = () => <DioramaComposition city={UDONTHANI} />;
 const Nakhonpathom: React.FC = () => <DioramaComposition city={NAKHONPATHOM} />;
 const Ratchaburi: React.FC = () => <DioramaComposition city={RATCHABURI} />;
 const Saraburi: React.FC = () => <DioramaComposition city={SARABURI} />;
+const SuratThani: React.FC = () => <DioramaComposition city={SURATTHANI} />;
 const Lopburi: React.FC = () => <DioramaComposition city={LOPBURI} />;
 const Phetchaburi: React.FC = () => <DioramaComposition city={PHETCHABURI} />;
 const ChiangRai: React.FC = () => <DioramaComposition city={CHIANGRAI} />;
@@ -112,6 +115,9 @@ const RatchaburiDragon: React.FC = () => <DioramaComposition city={RATCHABURI_DR
 const SaraburiStyleA1: React.FC = () => <DioramaComposition city={SARABURI_A1} />;
 const SaraburiStyleA2: React.FC = () => <DioramaComposition city={SARABURI_A2} />;
 const SaraburiStyleB: React.FC = () => <DioramaComposition city={SARABURI_B} />;
+const SuratStyleA1: React.FC = () => <DioramaComposition city={SURAT_A1} />;
+const SuratStyleA2: React.FC = () => <DioramaComposition city={SURAT_A2} />;
+const SuratStyleB: React.FC = () => <DioramaComposition city={SURAT_B} />;
 const LopburiStyleHanuman: React.FC = () => <DioramaComposition city={LOPBURI_HANUMAN} />;
 const LampangStyleElephant: React.FC = () => <DioramaComposition city={LAMPANG_ELEPHANT} />;
 const LampangStyleChedi: React.FC = () => <DioramaComposition city={LAMPANG_CHEDI} />;
@@ -165,6 +171,9 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="SaraburiStyleA1" component={SaraburiStyleA1} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="SaraburiStyleA2" component={SaraburiStyleA2} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="SaraburiStyleB" component={SaraburiStyleB} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="SuratStyleA1" component={SuratStyleA1} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="SuratStyleA2" component={SuratStyleA2} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="SuratStyleB" component={SuratStyleB} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="UbonStyleElephant" component={UbonStyleElephant} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="ChiangRaiStyleFront" component={ChiangRaiStyleFront} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="ChiangRaiStyleQuarter" component={ChiangRaiStyleQuarter} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
@@ -189,6 +198,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="Nakhonpathom" component={Nakhonpathom} durationInFrames={(NAKHONPATHOM.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Ratchaburi" component={Ratchaburi} durationInFrames={(RATCHABURI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Saraburi" component={Saraburi} durationInFrames={(SARABURI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="SuratThani" component={SuratThani} durationInFrames={(SURATTHANI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="KhonKaen" component={KhonKaen} durationInFrames={(KHONKAEN.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Phetchaburi" component={Phetchaburi} durationInFrames={(PHETCHABURI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="ChiangRai" component={ChiangRai} durationInFrames={(CHIANGRAI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
