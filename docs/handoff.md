@@ -61,6 +61,11 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
 - **v1 built (3 Nov, PR #83):** research and [local]'s map landed (f654118, b2e66d5); cloud picked the cover A1
   (the train on the bridge) and built v1 (`npm run check` 0 errors, -16.0 LUFS); the render goes to [local]. What is
   approximate is in the brief ("v1 build"): no roads or cars yet, the bridge drawn 1.4x, the wall's axis guessed.
+- **Kanchanaburi rendered (v1e, e2272b9, PR #83 draft):** [local] rendered it (`check_render` ok, max jump 7.9 at 28 s, darkest 49.7);
+  upload copy on the `renders` release as `kanchanaburi_look_social.mp4`; cloud checked the frames and the dense 4.0-6.2 s strip: nothing to fix. Two
+  bugs found after v1: the map's look (v1c) and the cover train on the water (v1e, found by [local]). Next: the owner watches, says "Merge" and
+  posts at 19:00-21:00; the 24-h read goes in `experiments.md` §17. Open for a v1f: roads and cars (need engine bridges), the Saeng Chuto road,
+  the sprawl's uniform orange blocks, the cover's size (held to the title-safe box).
 - **Autoloop (owner, 3 Nov), like Surat Thani:** cloud decides in the owner's place and writes why in the
   brief. War weight decided by cloud: no suffering shown, one beat (the bridge breaks, the Thai government
   mends it), a short quiet memorial. Next: [gemini] answers; [local] pins the ONEP polygon and story
