@@ -150,3 +150,9 @@ U-bend from the OSM simplification outside the story (cut: it now enters from th
 Klong ran off the south edge (cut at it); the railway began outside the tile and hung over its edge (now starts at the tile
 edge and ends before the Khwae Noi); Lat Ya moved to (-37, -36) and its clearing widened (the column was hidden by trees).
 `npm run check`: 0 errors.
+
+### v1d: after [local]'s first render (3 Nov, 449a6e5)
+
+[local]'s render passed (`check_render` max jump 7.9 at 28 s, darkest 46.5). Two things cloud saw on his frames and fixed: the
+cover's train read thin (scaled 0.22 -> 0.32 of the bridge on the cover only), and at 2374 the new wall hid under the trees
+(the camera at elevation 36 -> 44-46 and aimed at the wall, so the gate, the forts and the wall show). `npm run check`: 0 errors.

@@ -376,7 +376,7 @@ const Bridge: React.FC<LandmarkProps> = ({t, Y, beat, terrainH}) => {
     <group position={[ox, y0, oz]} rotation-y={phi} scale={L}>
       <KwaiBridge grow={grow} repaired={mended} broken={broken} />
       {showTrain && u !== null && (
-        <group position={[u, DECK + 0.007, 0]} scale={0.22}>
+        <group position={[u, DECK + 0.007, 0]} scale={hero ? 0.32 : 0.22}>
           <SteamLoco wagons={3} t={t} />
           <group position={[0.62, 0.3, 0]}>
             <Smoke t={t} speed={1} />

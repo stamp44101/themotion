@@ -20,8 +20,8 @@ const HERO_END: Key = [6.6, LX + 4, 1.5, LZ + 6, 96, 150, 34, 30];
 const FI_IN: Key = [7.4, LX + 3, 1.5, LZ + 5, 64, 140, 34, 30];
 const FI_END: Key = [11.6, LX + 3, 1.5, LZ + 5, 52, 118, 33, 30];
 // the town floats down the Khwae Yai on rafts to the confluence, the wall rises round the new town
-const MV_IN: Key = [12.8, -9, 1, -7, 44, 104, 36, 30];
-const MV_END: Key = [16.6, -2, 1, 0, 34, 70, 36, 30];
+const MV_IN: Key = [12.8, -6, 1, -4, 46, 104, 44, 30];
+const MV_END: Key = [16.6, 0, 1, 0, 34, 70, 46, 30];
 // the bridge site, built pier by pier: tiny figures, timber then steel
 const BR_IN: Key = [18.4, BX, 1.5, BZ, 34, 40, 30, 30];
 const BR_END: Key = [26.0, BX, 1.5, BZ, 30, 16, 28, 30];
