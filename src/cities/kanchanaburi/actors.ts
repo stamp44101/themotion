@@ -27,8 +27,8 @@ export const along = (pts: P[], d: number) => {
 };
 
 // ------------------------------------------------------------------ the bridge and its train
-/** a real Kwai bridge is 322.9 m (3.23 units); drawn 1.4x so it spans the river, drawn 1.25x wide */
-export const BRIDGE_REAL = 4.4;
+/** a real Kwai bridge is 322.9 m (3.23 units); drawn 6.3 so it spans the drawn river where the rail crosses it */
+export const BRIDGE_REAL = 6.3;
 /** the bridge's unit direction (local +x): along the line, toward the south-south-west */
 export const DIR: P = [Math.sin(BRIDGE_YAW), Math.cos(BRIDGE_YAW)];
 export const [HERO_FADE0, HERO_FADE1] = [4.2, 6.0];
@@ -113,7 +113,7 @@ export const workTrainAt = (t: number) => {
   const [a, b] = STORY.at('bridge');
   if (t < a + 0.4 || t > b - 0.4) return null;
   const p = ramp(t, a + 0.6, b - 0.6);
-  const r = along(RAIL, railBridgeAt - 9 + p * 5);
+  const r = along(RAIL, railBridgeAt - 12 + p * 6);
   return r;
 };
 

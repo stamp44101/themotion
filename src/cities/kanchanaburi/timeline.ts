@@ -23,8 +23,8 @@ const FI_END: Key = [11.6, LX + 3, 1.5, LZ + 5, 52, 118, 33, 30];
 const MV_IN: Key = [12.8, -6, 1, -4, 46, 104, 44, 30];
 const MV_END: Key = [16.6, 0, 1, 0, 34, 70, 46, 30];
 // the bridge site, built pier by pier: tiny figures, timber then steel
-const BR_IN: Key = [18.4, BX, 1.5, BZ, 34, 40, 30, 30];
-const BR_END: Key = [26.0, BX, 1.5, BZ, 30, 16, 28, 30];
+const BR_IN: Key = [18.4, BX + 2.5, 1.5, BZ - 2.5, 40, 40, 30, 30];
+const BR_END: Key = [26.0, BX + 1.5, 1.5, BZ - 1.5, 36, 16, 28, 30];
 // the middle spans fall
 const BK_IN: Key = [27.2, BX, 1.5, BZ, 28, 10, 27, 30];
 const BK_END: Key = [29.2, BX, 1.5, BZ, 24, 356, 26, 30];

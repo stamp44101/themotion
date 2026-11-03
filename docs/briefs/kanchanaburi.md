@@ -162,3 +162,13 @@ cover's train read thin (scaled 0.22 -> 0.32 of the bridge on the cover only), a
 The cover train kept crossing after the bridge had begun to shrink, so for ~0.6 s it ran on the river with no bridge under it.
 Fix: it now rides the bridge to 0.9 of its length by ~4.1 s and stays on it while the bridge shrinks away, so it is always on
 the bridge or gone (checked on stills at 4.0 / 4.7 / 5.0 / 5.3 / 5.7 / 5.9 s). The finale train was already fine.
+
+### v1f: the 2486 train on the water (the owner's catch, 23.8-24.8 s; found again by [local])
+
+The bridge was 4.4 units long and centred on the real site, but the rail ran over the drawn river for 5.3 units (the river is drawn wide and
+the line meets it at a slant), so the work train stood on the water before the bridge and "snapped" back onto the rail. Fix: the bridge now
+spans exactly where the rail crosses the drawn Khwae Yai (entry (-27.99, -25.75), exit (-30.45, -21.02)) with half a unit of bank at each end
+(length 6.3, centre (-29.1, -23.4), bearing from the rail), the cover bridge is scaled 3.8x to keep its 24 units, the work train stops on the
+bank, and the 2486 camera is aimed between the bridge and the approach so the work train is in frame. Checked on 16 stills across the three
+crossings (2486 at 20 / 21.7 / 23 / 23.7 / 24.3 / 25 s, the mended line at 34.3 / 35 / 35.7 / 36.3 s, the festival at 48 / 48.7 / 49.3 /
+50.3 / 51.3 / 52.3 s): every train is on the rail or on the bridge deck. Open: a bright specular glare on the water at ~36.3 s (2505).

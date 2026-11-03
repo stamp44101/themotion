@@ -30,8 +30,10 @@ export const RAIL: P[] = [
   [22.0, 11.0], [-5.5, -16.0], [-17.7, -27.9], [-20.6, -29.2], [-24.0, -29.1], [-27.0, -27.4], [-28.8, -24.4], [-29.9, -22.2],
   [-31.3, -19.2], [-31.4, -16.1], [-26.1, 7.7], [-23.9, 17.2], [-23.9, 19.6],
 ];
-export const BRIDGE: P = [-29.0, -23.6]; // the Kwai bridge (14.041, 99.504)
-export const BRIDGE_YAW = Math.atan2(-29.9 + 28.8, -22.2 + 24.4); // the line's bearing over the bridge
+// the Kwai bridge (14.041, 99.504), drawn to span exactly where the rail runs over the drawn Khwae Yai: the rail enters
+// the water at (-27.99, -25.75) and leaves it at (-30.45, -21.02) (5.3 units), plus 0.5 of bank at each end
+export const BRIDGE: P = [-29.1, -23.4];
+export const BRIDGE_YAW = Math.atan2(-0.461, 0.887); // the line's bearing over the bridge
 export const STATION: P = [-6.0, -16.1];
 export const DON_RAK: P = [-5.7, -13.3];
 export const CHONG_KAI: P = [-17.5, 16.0];
@@ -45,4 +47,4 @@ export const M81_END: P = [27.2, -72.3]; // 7.7 km NNE: off the tile, the road l
 // Lat Ya (17.9 km NW) and Khao Chon Kai are far off the tile: drawn at its NW corner as a far place
 export const LAT_YA: P = [-37, -36];
 // the legend-scale cover bridge sits on the real site and is shown only on the cover and in the finale
-export const HERO_K = 5.5; // the cover bridge is 5.5x the drawn one (24 units: it must sit inside the title-safe box)
+export const HERO_K = 3.8; // the cover bridge is 3.8x the drawn one (24 units: it must sit inside the title-safe box)
