@@ -2,7 +2,7 @@
 // same functions.
 import type {Actor, ActorCtx} from '../../engine/actors';
 import {lerp, smooth} from '../../lib';
-import {BRIDGE, BRIDGE_YAW, HERO_K, KHWAE_YAI, LAT_YA, RAIL, type P} from './places';
+import {BRIDGE, BRIDGE_YAW, DON_RAK, HERO_K, KHWAE_YAI, LAT_YA, RAIL, WALL, type P} from './places';
 import {STORY} from './timeline';
 
 export const clamp01 = (v: number) => Math.max(0, Math.min(1, v));
@@ -34,7 +34,7 @@ export const DIR: P = [Math.sin(BRIDGE_YAW), Math.cos(BRIDGE_YAW)];
 export const [HERO_FADE0, HERO_FADE1] = [4.2, 6.0];
 const [md0] = STORY.at('mend');
 const [py0] = STORY.at('payoff');
-export const CROSS = {hero: 0, mend: md0 + 0.4, festival: py0 + 3.4};
+export const CROSS = {hero: 0, mend: md0 + 0.2, festival: py0 + 3.4};
 /** scale of the bridge at second t as a multiple of the real one: the cover's giant, gone by 6 s, real from
  *  the 2486 beat, and swelling back to a callback in the festival */
 export const bridgeK = (t: number) => {
@@ -47,8 +47,7 @@ export const bridgeLen = (t: number) => BRIDGE_REAL * bridgeK(t);
 export const bridgeOrigin = (k: number): P => [BRIDGE[0] - (DIR[0] * BRIDGE_REAL * k) / 2, BRIDGE[1] - (DIR[1] * BRIDGE_REAL * k) / 2];
 /** where the engine is along the bridge, in bridge lengths (0 = the near end, 1 = the far end), or null */
 export const trainU = (t: number): number | null => {
-  const speed = 0.34;
-  for (const t0 of [CROSS.hero, CROSS.mend, CROSS.festival]) {
+  for (const [t0, speed] of [[CROSS.hero, 0.25], [CROSS.mend, 0.34], [CROSS.festival, 0.34]]) {
     const u = -0.2 + (t - t0) * speed;
     if (t >= t0 && u <= 1.25) return u;
   }
@@ -79,7 +78,7 @@ export const raftAt = (i: number, t: number) => {
   const [a, b] = STORY.at('move');
   const p = ramp(t, a, a + 0.62 * (b - a));
   // the last 9 units of the river down to the confluence, spaced out
-  const d = PATH_LEN - 4 - (1 - p) * 26 - i * 1.5;
+  const d = PATH_LEN - 3 - (1 - p) * 9 - i * 1.2;
   return along(KHWAE_YAI, d);
 };
 export const raftsOn = (t: number) => {
@@ -111,18 +110,71 @@ export const workTrainAt = (t: number) => {
   const [a, b] = STORY.at('bridge');
   if (t < a + 0.4 || t > b - 0.4) return null;
   const p = ramp(t, a + 0.6, b - 0.6);
-  const r = along(RAIL, railBridgeAt - 24 + p * 17);
+  const r = along(RAIL, railBridgeAt - 9 + p * 5);
   return r;
 };
 
 // ------------------------------------------------------------------ the elephants of Lat Ya (2328)
 export const elephantAt = (i: number, t: number) => {
   const [a, b] = STORY.at('fight');
-  if (t < a - 0.3 || t > b + 1.5) return null;
+  if (t < a - 1.6 || t > b + 1.5) return null;
   const k = (t - a) / (b - a);
   const ang = 0.9 + i * 2.1 + k * 1.6;
   const r = 1.6 + 0.5 * i;
   return {x: LAT_YA[0] + 1.0 + Math.cos(ang) * r, z: LAT_YA[1] + 1.2 + Math.sin(ang) * r * 0.8, rot: ang + Math.PI / 2};
+};
+
+// ------------------------------------------------------------------ the modern train (growth) and the festival's lit boat
+export const modernTrainAt = (t: number) => {
+  const [a, b] = STORY.at('growth');
+  if (t < a + 0.2 || t > b) return null;
+  return along(RAIL, 34 + ramp(t, a + 0.2, b) * 40);
+};
+export const litBoatAt = (t: number) => {
+  const [a, b] = STORY.at('payoff');
+  if (t < a || t > b) return null;
+  const d0 = atAlong(KHWAE_YAI, BRIDGE) + 3;
+  return along(KHWAE_YAI, d0 + ramp(t, a, b) * 12);
+};
+const atAlong = (pts: P[], p: P) => {
+  let best = 0;
+  let bd = Infinity;
+  let acc = 0;
+  for (let i = 1; i < pts.length; i++) {
+    const [ax, az] = pts[i - 1];
+    const [bx, bz] = pts[i];
+    const dx = bx - ax;
+    const dz = bz - az;
+    const len = Math.hypot(dx, dz);
+    const u = clamp01(((p[0] - ax) * dx + (p[1] - az) * dz) / (len * len));
+    const d = Math.hypot(p[0] - ax - u * dx, p[1] - az - u * dz);
+    if (d < bd) {
+      bd = d;
+      best = acc + u * len;
+    }
+    acc += len;
+  }
+  return best;
+};
+
+/** the Burmese column marching up to Lat Ya, six in a line (soldier i is 0.55 behind the one in front) */
+export const columnAt = (i: number, t: number) => {
+  const [a, b] = STORY.at('fight');
+  if (t < a - 1.6 || t > b + 0.6) return null;
+  const p = ramp(t, a - 1.6, b);
+  return {x: LAT_YA[0] + 11 - p * 6.5 + i * 0.4, z: LAT_YA[1] + 9 - p * 4.5 + i * 0.35};
+};
+
+/** the builders carrying posts and bricks round the new wall, five in a line along its SW side */
+export const builderAt = (i: number, t: number) => {
+  const [a, b] = STORY.at('move');
+  if (t < a + 0.2 || t > b + 0.2) return null;
+  const p = ramp(t, a + 0.2, b);
+  // along the SW wall (WALL[0] -> WALL[1]), then back along the NE side
+  const A = WALL[0];
+  const Bq = WALL[1];
+  const u = Math.max(0, Math.min(1, p * 1.1 - i * 0.07));
+  return {x: A[0] + (Bq[0] - A[0]) * u + 0.4, z: A[1] + (Bq[1] - A[1]) * u - 0.3};
 };
 
 const on = (c: ActorCtx, x: number, z: number, dy: number): [number, number, number] => [x, (c.ground?.(x, z) ?? 0) + dy, z];
@@ -130,11 +182,22 @@ const on = (c: ActorCtx, x: number, z: number, dy: number): [number, number, num
 export const ACTORS: Actor[] = [
   {
     id: 'cover-train',
-    during: [0, 3.0],
+    during: [0, 5.0],
     role: 'hero',
     size: 6,
     minInFrame: 0.5,
-    at: (t, c) => (t > 3.6 ? null : trainWorld(t, c.ground ?? (() => 0))),
+    at: (t, c) => (t > 6.0 ? null : trainWorld(t, c.ground ?? (() => 0))),
+  },
+  {
+    id: 'cover-smoke',
+    during: [0, 6.0],
+    size: 5,
+    minInFrame: 0.4,
+    at: (t, c) => {
+      if (t > 6.0) return null;
+      const w = trainWorld(t, c.ground ?? (() => 0));
+      return w ? [w[0] - DIR[0] * 1.5, w[1] + 2.0, w[2] - DIR[1] * 1.5] : null;
+    },
   },
   {
     id: 'mended-train',
@@ -161,6 +224,16 @@ export const ACTORS: Actor[] = [
       return e ? on(c, e.x, e.z, 0.6) : null;
     },
   })),
+  {
+    id: 'builders',
+    during: 'move',
+    size: 1.5,
+    minInFrame: 0.5,
+    at: (t, c) => {
+      const w = builderAt(0, t);
+      return w ? on(c, w.x, w.z, 0.3) : null;
+    },
+  },
   {id: 'wall-rise', during: 'move', size: 3, minInFrame: 0.3, at: (t, c) => on(c, -0.3, -0.2, 1.0)},
   {
     id: 'work-train',
@@ -173,11 +246,43 @@ export const ACTORS: Actor[] = [
     },
   },
   {
+    id: 'modern-train',
+    during: 'growth',
+    size: 3,
+    minInFrame: 0.3,
+    at: (t, c) => {
+      const w = modernTrainAt(t);
+      return w ? on(c, w.x, w.z, 0.8) : null;
+    },
+  },
+  {
+    id: 'lit-boat',
+    during: 'payoff',
+    size: 2,
+    minInFrame: 0.3,
+    at: (t, c) => {
+      const w = litBoatAt(t);
+      return w ? on(c, w.x, w.z, 0.5) : null;
+    },
+  },
+  {id: 'bridge-grow', during: 'bridge', size: 3, minInFrame: 0.5, at: (t, c) => on(c, BRIDGE[0], BRIDGE[1], 1.0)},
+  {
     id: 'falling-span',
-    during: 'break',
     size: 2,
     minInFrame: 0.5,
+    during: 'break',
     at: (t, c) => (t >= STORY.at('break')[0] && t <= STORY.at('break')[1] ? on(c, BRIDGE[0], BRIDGE[1], 0.5) : null),
+  },
+  {id: 'incense', during: 'rest', size: 2, minInFrame: 0.5, at: (t, c) => on(c, DON_RAK[0] + 0.5, DON_RAK[1], 1.6)},
+  {
+    id: 'column',
+    during: 'fight',
+    size: 2,
+    minInFrame: 0.4,
+    at: (t, c) => {
+      const w = columnAt(0, t);
+      return w ? on(c, w.x, w.z, 0.3) : null;
+    },
   },
   ...Array.from({length: RAFTS}, (_, i): Actor => ({
     id: `raft${i}`,

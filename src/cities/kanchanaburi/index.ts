@@ -71,7 +71,7 @@ export const KANCHANABURI: CityConfig = {
       [BRIDGE[0], BRIDGE[1], 7, -1e9],
       [0, 0, 5, -1e9],
       [STATION[0], STATION[1], 3, -1e9],
-      [-5.7, -13.3, 2.2, -1e9],
+      [-5.7, -13.3, 3.6, -1e9],
     ],
     paddies: [1700, 1990],
     sites: [

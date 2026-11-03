@@ -5,7 +5,7 @@ import React from 'react';
 import type {LandmarkProps} from '../../engine/types';
 import {Ball} from '../suratthani/figures';
 import {DECK, Elephant, KwaiBridge, Smoke, SteamLoco} from './figures';
-import {BRIDGE_REAL, DIR, ACTORS as _A, bridgeK, bridgeOrigin, clamp01, elephantAt, raftAt, raftsOn, ramp, trainU, workTrainAt} from './actors';
+import {BRIDGE_REAL, DIR, ACTORS as _A, bridgeK, bridgeOrigin, clamp01, builderAt, columnAt, elephantAt, litBoatAt, modernTrainAt, raftAt, raftsOn, ramp, trainU, workTrainAt} from './actors';
 import {DON_RAK, KHWAE_NOI, KHWAE_YAI, LAT_YA, PAPER_MILL, PIER, RAIL, STATION, BRIDGE} from './places';
 import {STORY} from './timeline';
 void _A;
@@ -199,15 +199,107 @@ const Elephants: React.FC<{t: number; terrainH: LandmarkProps['terrainH']}> = ({
   </group>
 );
 
+const Column: React.FC<{t: number; terrainH: LandmarkProps['terrainH']}> = ({t, terrainH}) => (
+  <group>
+    {[0, 1, 2, 3, 4, 5].map((i) => {
+      const w = columnAt(i, t);
+      if (!w) return null;
+      const bob = 0.05 * Math.abs(Math.sin(t * 7 + i));
+      return (
+        <group key={i} position={[w.x, terrainH(w.x, w.z) + bob, w.z]} scale={1.5}>
+          <mesh position={[0, 0.22, 0]} castShadow>
+            <capsuleGeometry args={[0.07, 0.22, 4, 8]} />
+            <meshStandardMaterial color={i % 2 ? '#7a2f2a' : '#2f3b63'} flatShading />
+          </mesh>
+          <mesh position={[0, 0.46, 0]}>
+            <sphereGeometry args={[0.06, 8, 6]} />
+            <meshStandardMaterial color="#c8a27a" flatShading />
+          </mesh>
+        </group>
+      );
+    })}
+  </group>
+);
+
+const Builders: React.FC<{t: number; terrainH: LandmarkProps['terrainH']}> = ({t, terrainH}) => (
+  <group>
+    {[0, 1, 2, 3, 4].map((i) => {
+      const w = builderAt(i, t);
+      if (!w) return null;
+      return (
+        <group key={i} position={[w.x, terrainH(w.x, w.z) + 0.04 * Math.abs(Math.sin(t * 6 + i)), w.z]} scale={1.8}>
+          <mesh position={[0, 0.22, 0]} castShadow>
+            <capsuleGeometry args={[0.07, 0.22, 4, 8]} />
+            <meshStandardMaterial color={i % 2 ? '#f4f1ea' : '#2f3b63'} flatShading />
+          </mesh>
+          <mesh position={[0, 0.46, 0]}>
+            <sphereGeometry args={[0.06, 8, 6]} />
+            <meshStandardMaterial color="#c8a27a" flatShading />
+          </mesh>
+        </group>
+      );
+    })}
+  </group>
+);
+
+const Incense: React.FC<{p: number; t: number; terrainH: LandmarkProps['terrainH']}> = ({p, t, terrainH}) => {
+  if (p < 0.05) return null;
+  const y0 = terrainH(DON_RAK[0], DON_RAK[1]);
+  return (
+    <group position={[DON_RAK[0] + 0.5, y0 + 0.1, DON_RAK[1]]} scale={1.6}>
+      {[0, 1, 2, 3, 4, 5].map((i) => {
+        const age = (t * 0.5 + i / 6) % 1;
+        return <Ball key={i} p={[Math.sin(i * 2.1) * 0.9 + age * 0.15, age * 1.1, Math.cos(i * 1.7) * 0.7]} s={0.05 + age * 0.12} color="#e8e6e0" basic opacity={(1 - age) * 0.5 * p} detail={1} />;
+      })}
+    </group>
+  );
+};
+
 const WorkTrain: React.FC<{t: number; terrainH: LandmarkProps['terrainH']}> = ({t, terrainH}) => {
   const w = workTrainAt(t);
   if (!w) return null;
   return (
-    <group position={[w.x, terrainH(w.x, w.z) + 0.1, w.z]} rotation-y={w.rot - Math.PI / 2} scale={1.6}>
+    <group position={[w.x, terrainH(w.x, w.z) + 0.1, w.z]} rotation-y={w.rot - Math.PI / 2} scale={2.4}>
       <SteamLoco wagons={2} t={t} />
       <group position={[0.62, 0.3, 0]}>
         <Smoke t={t} speed={1} />
       </group>
+    </group>
+  );
+};
+
+const ModernTrain: React.FC<{t: number; terrainH: LandmarkProps['terrainH']}> = ({t, terrainH}) => {
+  const w = modernTrainAt(t);
+  if (!w) return null;
+  return (
+    <group position={[w.x, terrainH(w.x, w.z) + 0.1, w.z]} rotation-y={w.rot - Math.PI / 2} scale={3}>
+      <mesh position={[0.3, 0.2, 0]} castShadow>
+        <boxGeometry args={[0.9, 0.3, 0.26]} />
+        <meshStandardMaterial color="#2f5a8a" flatShading />
+      </mesh>
+      <mesh position={[1.25, 0.2, 0]} castShadow>
+        <boxGeometry args={[0.9, 0.3, 0.26]} />
+        <meshStandardMaterial color="#e5d9b6" flatShading />
+      </mesh>
+    </group>
+  );
+};
+
+const LitBoat: React.FC<{t: number; terrainH: LandmarkProps['terrainH']}> = ({t, terrainH}) => {
+  const w = litBoatAt(t);
+  if (!w) return null;
+  return (
+    <group position={[w.x, Math.max(terrainH(w.x, w.z), 0) + 0.25, w.z]} rotation-y={w.rot} scale={1.8}>
+      <mesh castShadow>
+        <boxGeometry args={[0.5, 0.14, 1.6]} />
+        <meshStandardMaterial color="#8a2f24" flatShading />
+      </mesh>
+      {[-0.6, -0.2, 0.2, 0.6].map((z, i) => (
+        <mesh key={i} position={[0, 0.3, z]}>
+          <sphereGeometry args={[0.1, 8, 6]} />
+          <meshBasicMaterial color={i % 2 ? '#ffd36b' : '#ff8a5b'} toneMapped={false} />
+        </mesh>
+      ))}
     </group>
   );
 };
@@ -276,10 +368,10 @@ const Bridge: React.FC<LandmarkProps> = ({t, Y, beat, terrainH}) => {
   const ez = oz + DIR[1] * L;
   const y0 = Math.max(terrainH(ox, oz), terrainH(ex, ez), 0.2) + 0.02 * L;
   const grow = hero ? 1 : Math.min(1, beat('bridge') / 0.85);
-  const mended = beat('mend') > 0.25;
+  const mended = beat('mend') > 0.08;
   const broken = mended ? 0 : ramp(beat('break'), 0, 0.8);
   const u = trainU(t);
-  const showTrain = u !== null && (hero ? t < 3.6 : !(Y >= 1944.9 && !mended));
+  const showTrain = u !== null && (hero ? t < 6.0 : !(Y >= 1944.9 && !mended));
   const phi = Math.atan2(-DIR[1], DIR[0]);
   return (
     <group position={[ox, y0, oz]} rotation-y={phi} scale={L}>
@@ -308,7 +400,12 @@ export const KanchanaburiLandmarks: React.FC<LandmarkProps> = (props) => {
       <Rafts t={t} terrainH={terrainH} />
       <Elephants t={t} terrainH={terrainH} />
       <WorkTrain t={t} terrainH={terrainH} />
-      <Cemetery p={ramp(t, 30.7, 31.4)} Y={Y} terrainH={terrainH} />
+      <Column t={t} terrainH={terrainH} />
+      <Builders t={t} terrainH={terrainH} />
+      <Incense p={ramp(beat('rest'), 0, 0.4)} t={t} terrainH={terrainH} />
+      <ModernTrain t={t} terrainH={terrainH} />
+      <LitBoat t={t} terrainH={terrainH} />
+      <Cemetery p={ramp(beat('rest'), 0.0, 0.5)} Y={Y} terrainH={terrainH} />
       <Mill Y={Y} terrainH={terrainH} />
       <Skywalk Y={Y} terrainH={terrainH} />
     </>

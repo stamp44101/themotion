@@ -21,21 +21,22 @@ const FI_IN: Key = [7.4, LX + 3, 1.5, LZ + 5, 64, 140, 34, 30];
 const FI_END: Key = [11.6, LX + 3, 1.5, LZ + 5, 52, 118, 33, 30];
 // the town floats down the Khwae Yai on rafts to the confluence, the wall rises round the new town
 const MV_IN: Key = [12.8, -9, 1, -7, 44, 104, 36, 30];
-const MV_END: Key = [17.4, -2, 1, 0, 34, 70, 36, 30];
+const MV_END: Key = [16.6, -2, 1, 0, 34, 70, 36, 30];
 // the bridge site, built pier by pier: tiny figures, timber then steel
 const BR_IN: Key = [18.4, BX, 1.5, BZ, 34, 40, 30, 30];
 const BR_END: Key = [26.0, BX, 1.5, BZ, 30, 16, 28, 30];
 // the middle spans fall
 const BK_IN: Key = [27.2, BX, 1.5, BZ, 28, 10, 27, 30];
-const BK_END: Key = [30.2, BX, 1.5, BZ, 24, 356, 26, 30];
+const BK_END: Key = [29.2, BX, 1.5, BZ, 24, 356, 26, 30];
 // Don Rak: a quiet hold on the rows of white markers
-const DR_IN: Key = [30.9, DON_RAK[0] + 0.5, 0.8, DON_RAK[1], 16, 330, 28, 30];
+const DR_IN: Key = [30.8, DON_RAK[0] + 0.5, 0.8, DON_RAK[1], 16, 330, 28, 30];
+const DR_END: Key = [32.2, DON_RAK[0] + 0.5, 0.8, DON_RAK[1], 14, 318, 28, 30];
 // the straight spans, the line mended: the train crosses again
-const MD_IN: Key = [31.5, BX, 1.5, BZ, 32, 270, 26, 30];
-const MD_END: Key = [35.0, BX, 1.5, BZ, 36, 246, 26, 30];
+const MD_IN: Key = [33.8, BX, 1.5, BZ, 32, 270, 26, 30];
+const MD_END: Key = [36.4, BX, 1.5, BZ, 36, 246, 26, 30];
 // the long wide shot: the town spreading along the river toward the station and the new hall
-const GR_IN: Key = [35.8, -2, 2, -4, 110, 210, 36, 30];
-const GR_END: Key = [43.0, 0, 2, -2, 190, 160, 36, 30];
+const GR_IN: Key = [38.0, -6, 2, -8, 80, 210, 36, 30];
+const GR_END: Key = [42.4, -2, 2, -2, 130, 160, 36, 30];
 // the festival night at the bridge
 const PY_IN: Key = [44.4, BX, 1.5, BZ, 40, 120, 30, 30];
 const PY_END: Key = [53.6, BX, 4, BZ, 80, 90, 28, 30];
@@ -51,13 +52,12 @@ export const STORY = buildStory({
   camera: [
     ...between(HERO_END, FI_IN, 4, 0.05),
     ...between(FI_END, MV_IN, 4, 0.3),
-    ...between(MV_END, BR_IN, 4, 0.2),
+    ...between(MV_END, BR_IN, 5, 0.3),
     ...between(BR_END, BK_IN, 4),
-    ...between(BK_END, DR_IN, 4),
-    DR_IN,
-    ...between(DR_IN, MD_IN, 2),
+    ...between(BK_END, DR_IN, 6, 0.4),
+    ...between(DR_END, MD_IN, 6, 0.4),
     ...between(MD_END, GR_IN, 5, 0.3),
-    ...between(GR_END, PY_IN, 4, 0.3),
+    ...between(GR_END, PY_IN, 7, 0.5),
     ...between(PY_END, END, 4),
     END,
     [60, -6, 4, -2, 330, 40, 30, 30],
@@ -72,8 +72,8 @@ export const STORY = buildStory({
       caption: {t0: 3.3, t1: 6.85, title: 'เมืองหน้าด่านแห่งสยาม', sub: 'ด่านพระเจดีย์สามองค์ ทางผ่านของทัพและรถไฟ'},
       era: 'ด่านตะวันตก',
       camera: [
-        [0, BX + 1, 10, BZ - 2, 170, 330, 24, 30],
-        [3, BX + 1, 9, BZ - 1, 150, 326, 26, 30],
+        [0, BX + 1, 9, BZ - 2, 150, 243, 24, 30],
+        [3, BX + 1, 8, BZ - 1, 135, 238, 26, 30],
         HERO_END,
       ],
     },
@@ -94,10 +94,10 @@ export const STORY = buildStory({
       // come down the river on rafts, the wall of six forts and eight gates rises round the new town
       id: 'move',
       kind: 'procession',
-      t: [12.8, 17.4],
+      t: [12.8, 16.6],
       year: {hold: 1831},
-      caption: {t0: 12.8, t1: 17.6, title: 'ย้ายเมืองมาปากแพรก', sub: 'พ.ศ. 2374 รัชกาลที่ 3 สร้างกำแพงเมืองริมน้ำ ที่แม่น้ำสองสายมาพบกัน'},
-      callouts: [{label: 'ปากแพรก', dx: 140, dy: -150, p: [PIER[0] + 1, 1.0, PIER[1]], t0: 14.6, t1: 17.2}],
+      caption: {t0: 12.8, t1: 16.8, title: 'ย้ายเมืองมาปากแพรก', sub: 'พ.ศ. 2374 รัชกาลที่ 3 สร้างกำแพงเมืองริมน้ำ ที่แม่น้ำสองสายมาพบกัน'},
+      callouts: [{label: 'ปากแพรก', dx: 140, dy: -150, p: [PIER[0] + 1, 1.0, PIER[1]], t0: 14.4, t1: 16.4}],
       camera: [MV_IN, MV_END],
     },
     {
@@ -115,19 +115,28 @@ export const STORY = buildStory({
       // the raids of Nov 1944 to Jun 1945 drop the middle spans (held on 2488, the year of the heavy raids)
       id: 'break',
       kind: 'disaster',
-      t: [27.2, 30.6],
+      t: [27.2, 29.4],
       year: {hold: 1945},
-      caption: {t0: 27.2, t1: 30.8, title: 'สะพานถูกระเบิด', sub: 'พ.ศ. 2488 ช่วงกลางพังลงแม่น้ำ'},
+      caption: {t0: 27.2, t1: 29.6, title: 'สะพานถูกระเบิด', sub: 'พ.ศ. 2488 ช่วงกลางพังลงแม่น้ำ'},
       camera: [BK_IN, BK_END],
+    },
+    {
+      // a quiet moment at Don Rak (Chong Kai's rows too): nothing of the prisoners' suffering shown
+      id: 'rest',
+      kind: 'discover',
+      t: [30.8, 32.2],
+      year: [1945.6, 1946],
+      caption: {t0: 30.8, t1: 32.4, title: 'สุสานดอนรัก', sub: 'ระลึกถึงผู้ที่ไม่ได้กลับบ้าน'},
+      camera: [DR_IN, DR_END],
     },
     {
       // the Thai government buys the line and mends the bridge with straight spans; no year is named
       // (2489 / 2491 / 2495 disagree), the counter runs through them
       id: 'mend',
       kind: 'arrive',
-      t: [31.5, 35.0],
+      t: [33.8, 36.4],
       year: [1946, 1962],
-      caption: {t0: 31.5, t1: 35.2, title: 'ซ่อมสะพานเสร็จ', sub: 'รัฐบาลไทยซ่อมด้วยโครงเหล็กตรง รถไฟข้ามอีกครั้ง'},
+      caption: {t0: 33.8, t1: 36.6, title: 'ซ่อมสะพานเสร็จ', sub: 'รัฐบาลไทยซ่อมด้วยโครงเหล็กตรง รถไฟข้ามอีกครั้ง'},
       camera: [MD_IN, MD_END],
     },
     {
@@ -135,10 +144,10 @@ export const STORY = buildStory({
       // Ban Bo (2498), the municipality from 2.08 km2 (2478) to 9.16 (2517)
       id: 'growth',
       kind: 'grow',
-      t: [35.8, 43.0],
+      t: [38.0, 42.4],
       year: [1962, 2016],
-      caption: {t0: 35.8, t1: 43.2, title: 'เมืองโตตามลำน้ำ', sub: 'เทศบาล 9 ตร.กม. ถนนแสงชูโต เขื่อนศรีนครินทร์ สกายวอล์คหน้าเมือง'},
-      callouts: [{label: 'สถานีกาญจนบุรี', dx: -150, dy: -130, p: [STATION[0], 0.8, STATION[1]], t0: 38.0, t1: 41.6}],
+      caption: {t0: 38.0, t1: 42.6, title: 'เมืองโตตามลำน้ำ', sub: 'เทศบาล 9 ตร.กม. ถนนแสงชูโต เขื่อนศรีนครินทร์ สกายวอล์คหน้าเมือง'},
+      callouts: [{label: 'สถานีกาญจนบุรี', dx: -150, dy: -130, p: [STATION[0], 0.8, STATION[1]], t0: 39.4, t1: 42.2}],
       era: 'ปัจจุบัน',
       camera: [GR_IN, GR_END],
     },
