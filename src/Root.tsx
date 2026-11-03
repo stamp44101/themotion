@@ -25,6 +25,7 @@ import {NAKHONPATHOM} from './cities/nakhonpathom';
 import {RATCHABURI} from './cities/ratchaburi';
 import {SARABURI} from './cities/saraburi';
 import {SURATTHANI} from './cities/suratthani';
+import {KANCHANABURI} from './cities/kanchanaburi';
 import {LOPBURI} from './cities/lopburi';
 import {PHETCHABURI} from './cities/phetchaburi';
 import {CHIANGRAI} from './cities/chiangrai';
@@ -72,6 +73,7 @@ const Nakhonpathom: React.FC = () => <DioramaComposition city={NAKHONPATHOM} />;
 const Ratchaburi: React.FC = () => <DioramaComposition city={RATCHABURI} />;
 const Saraburi: React.FC = () => <DioramaComposition city={SARABURI} />;
 const SuratThani: React.FC = () => <DioramaComposition city={SURATTHANI} />;
+const Kanchanaburi: React.FC = () => <DioramaComposition city={KANCHANABURI} />;
 const Lopburi: React.FC = () => <DioramaComposition city={LOPBURI} />;
 const Phetchaburi: React.FC = () => <DioramaComposition city={PHETCHABURI} />;
 const ChiangRai: React.FC = () => <DioramaComposition city={CHIANGRAI} />;
@@ -205,6 +207,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="Nakhonpathom" component={Nakhonpathom} durationInFrames={(NAKHONPATHOM.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Ratchaburi" component={Ratchaburi} durationInFrames={(RATCHABURI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Saraburi" component={Saraburi} durationInFrames={(SARABURI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="Kanchanaburi" component={Kanchanaburi} durationInFrames={(KANCHANABURI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="SuratThani" component={SuratThani} durationInFrames={(SURATTHANI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="KhonKaen" component={KhonKaen} durationInFrames={(KHONKAEN.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Phetchaburi" component={Phetchaburi} durationInFrames={(PHETCHABURI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />

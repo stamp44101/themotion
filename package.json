@@ -39,6 +39,8 @@
     "render:ratchaburi": "node scripts/check_story.mjs ratchaburi && remotion render Ratchaburi out/ratchaburi_look.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
     "audio:saraburi": "node scripts/export_timeline.mjs src/cities/saraburi/timeline.ts out/timeline_saraburi.json && python3 scripts/soundtrack_saraburi.py",
     "render:saraburi": "node scripts/check_story.mjs saraburi && remotion render Saraburi out/saraburi_look.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
+    "audio:kanchanaburi": "node scripts/export_timeline.mjs src/cities/kanchanaburi/timeline.ts out/timeline_kanchanaburi.json && python3 scripts/soundtrack_kanchanaburi.py",
+    "render:kanchanaburi": "node scripts/check_story.mjs kanchanaburi && remotion render Kanchanaburi out/kanchanaburi_look.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
     "audio:suratthani": "node scripts/export_timeline.mjs src/cities/suratthani/timeline.ts out/timeline_suratthani.json && python3 scripts/soundtrack_suratthani.py",
     "render:suratthani": "node scripts/check_story.mjs suratthani && remotion render SuratThani out/suratthani_look.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
     "render:phetchabun": "node scripts/check_story.mjs phetchabun && remotion render Phetchabun out/phetchabun_look.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",

@@ -4,6 +4,7 @@
 // along +x, one unit = the bridge's whole length, deck at y = DECK.
 import React, {useMemo} from 'react';
 import {Ball, Seg} from '../suratthani/figures';
+export {Ball, Seg};
 
 type V = [number, number, number];
 export const STEEL = '#2c3036';
@@ -14,8 +15,8 @@ const SPANS = 11;
 const PITCH = 1 / SPANS;
 const ARCH = 0.052;
 
-/** span i (0..10) runs x in [i*PITCH, (i+1)*PITCH]; the repaired ones (8, 9, 10 here) are straight. */
-export const isStraight = (i: number, repaired: boolean) => repaired && i >= 8;
+/** span i (0..10) runs x in [i*PITCH, (i+1)*PITCH]; the repaired ones (4, 5, 6: the bombed middle) are straight. */
+export const isStraight = (i: number, repaired: boolean) => repaired && i >= 4 && i <= 6;
 
 const Span: React.FC<{i: number; straight: boolean; broken?: number}> = ({i, straight, broken = 0}) => {
   const x0 = i * PITCH;
@@ -66,9 +67,8 @@ export const KwaiBridge: React.FC<{grow?: number; repaired?: boolean; broken?: n
     {Array.from({length: SPANS + 1}, (_, i) => {
       const s = Math.max(0, Math.min(1, grow * (SPANS + 1) - i * 0.9));
       if (s < 0.02) return null;
-      const gone = broken > 0 && (i === 5 || i === 6) && !repaired;
       return (
-        <mesh key={i} position={[i * PITCH, (DECK - 0.01) / 2 - (gone ? 0.0 : 0), 0]} scale={[1, s, 1]} castShadow>
+        <mesh key={i} position={[i * PITCH, (DECK - 0.01) / 2, 0]} scale={[1, s, 1]} castShadow>
           <boxGeometry args={[0.012, DECK + 0.01, 0.034]} />
           <meshStandardMaterial color={PIER} flatShading roughness={0.95} />
         </mesh>
@@ -78,7 +78,6 @@ export const KwaiBridge: React.FC<{grow?: number; repaired?: boolean; broken?: n
       const s = grow * (SPANS + 1) - i * 0.9 - 1;
       if (s < 0.2) return null;
       const down = broken > 0 && !repaired && i >= 4 && i <= 6;
-      if (repaired && i >= 4 && i <= 6 && i < 8 && false) return null;
       return <Span key={i} i={i} straight={isStraight(i, repaired)} broken={down ? broken : 0} />;
     })}
   </group>
@@ -161,5 +160,24 @@ export const Smoke: React.FC<{t: number; speed: number; count?: number}> = ({t, 
       const o = (1 - age) * 0.8;
       return <Ball key={i} p={[-age * 0.75 * (speed > 0 ? 1 : 0) - 0.05, age * 0.35, 0.01 * Math.sin(i * 3)]} s={s} color="#dcdcd8" basic opacity={o} detail={1} />;
     })}
+  </group>
+);
+
+// ---------------------------------------------------------------- a war elephant (1 unit long), facing +x
+const GREY = '#7d7b78';
+export const Elephant: React.FC<{step?: number}> = ({step = 0}) => (
+  <group>
+    <Ball p={[0, 0.5, 0]} s={[0.5, 0.36, 0.3]} color={GREY} />
+    <Ball p={[0.46, 0.62, 0]} s={[0.2, 0.2, 0.2]} color={GREY} />
+    <Seg a={[0.6, 0.55, 0]} b={[0.74, 0.18, 0]} r0={0.07} r1={0.04} color={GREY} />
+    <Ball p={[0.5, 0.64, 0.17]} s={[0.04, 0.13, 0.13]} color="#8d8a86" />
+    <Ball p={[0.5, 0.64, -0.17]} s={[0.04, 0.13, 0.13]} color="#8d8a86" />
+    {[[-0.28, 0.14], [-0.28, -0.14], [0.28, 0.14], [0.28, -0.14]].map(([x, z], i) => (
+      <Seg key={i} a={[x, 0.4, z]} b={[x + 0.06 * Math.sin(step + i * 1.7), 0.02, z]} r0={0.07} r1={0.06} color="#6f6d6a" />
+    ))}
+    <mesh position={[0, 0.88, 0]}>
+      <boxGeometry args={[0.34, 0.12, 0.3]} />
+      <meshStandardMaterial color="#b0382c" flatShading />
+    </mesh>
   </group>
 );
