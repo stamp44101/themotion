@@ -775,3 +775,28 @@ a rule):
 - **The evening slot cannot be read apart from the city yet.** Reach was under a typical reel and flat
   overnight; keep 19:00-21:00 fixed for the next cities so the hour stops being a variable, and read at a
   full 24 h.
+
+### The 24-h read (owner's screenshots, 2 Nov 20:05, ~24 h after the 1 Nov 20:00 post)
+
+Skip rate **48.9%** ("higher"), 4,349 views from 3,129 viewers, average watch **15 s**, 5 follows. 140 likes,
+6 comments, 21 reposts, 14 shares, 11 saves: like 4.3%, share **0.4%**, save 0.3%, repost 0.6%, comment 0.2%,
+all five "lower". Views from the Reels tab 69.2%, Feed 18.0%, Stories 6.2%, Explore 4.5%, Profile 1.2%; the
+views curve stayed under a typical reel's (~4.4K against ~5K+ at the same age). Retention ~50% by ~4 s, ~45%
+at ~6 s, ~33% at ~12 s, ~28% at ~15 s, ~22% at ~30 s, ~15% near the end.
+
+| | 13.5-h read | **24-h read** |
+|---|---|---|
+| views / viewers | 3,268 / 2,331 | **4,349 / 3,129** |
+| skip rate | 49.3% | **48.9%** |
+| average watch | 15 s | 15 s |
+| like / save / share | 3.6 / 0.2 / 0.4% | **4.3 / 0.3 / 0.4%** |
+| repost / comment | 0.5 / 0.2% | 0.6 / 0.2% |
+| follows | 3 | 5 |
+| views from the Reels tab | 68.1% | 69.2% |
+
+Reading: the full day confirms the 13.5-h lean rather than changing it. Every rate moved by a few tenths and
+none crossed into "typical"; the hook stays with Nakhon Pathom's 49.2% (the symbol that does not move), and
+shares stay at the forest-tile floor. The views curve kept climbing slowly overnight (the evening post did not
+die after the first hours), but it never caught a typical reel, so the hour cannot be blamed or credited yet.
+Next (Surat Thani, PR #81): the cover's mover *is* the symbol (the coconut monkey climbs from frame 0); read its
+skip rate against 48.9% here and 41-42% for the jars, in the same 19:00-21:00 slot.
