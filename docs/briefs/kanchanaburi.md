@@ -156,3 +156,9 @@ edge and ends before the Khwae Noi); Lat Ya moved to (-37, -36) and its clearing
 [local]'s render passed (`check_render` max jump 7.9 at 28 s, darkest 46.5). Two things cloud saw on his frames and fixed: the
 cover's train read thin (scaled 0.22 -> 0.32 of the bridge on the cover only), and at 2374 the new wall hid under the trees
 (the camera at elevation 36 -> 44-46 and aimed at the wall, so the gate, the forts and the wall show). `npm run check`: 0 errors.
+
+### v1e: the cover train on the water (found by [local] on the v1c render, 4.9-5.5 s)
+
+The cover train kept crossing after the bridge had begun to shrink, so for ~0.6 s it ran on the river with no bridge under it.
+Fix: it now rides the bridge to 0.9 of its length by ~4.1 s and stays on it while the bridge shrinks away, so it is always on
+the bridge or gone (checked on stills at 4.0 / 4.7 / 5.0 / 5.3 / 5.7 / 5.9 s). The finale train was already fine.

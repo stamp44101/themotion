@@ -47,6 +47,9 @@ export const bridgeLen = (t: number) => BRIDGE_REAL * bridgeK(t);
 export const bridgeOrigin = (k: number): P => [BRIDGE[0] - (DIR[0] * BRIDGE_REAL * k) / 2, BRIDGE[1] - (DIR[1] * BRIDGE_REAL * k) / 2];
 /** where the engine is along the bridge, in bridge lengths (0 = the near end, 1 = the far end), or null */
 export const trainU = (t: number): number | null => {
+  // the cover train rides the bridge to its far end and stays on it while the bridge shrinks away, so it is
+  // never on the water without a bridge under it ([local]'s catch on the v1c render, 4.9-5.5 s)
+  if (t >= CROSS.hero && t < HERO_FADE1) return Math.min(0.9, -0.2 + (t - CROSS.hero) * 0.27);
   for (const [t0, speed] of [[CROSS.hero, 0.25], [CROSS.mend, 0.34], [CROSS.festival, 0.34]]) {
     const u = -0.2 + (t - t0) * speed;
     if (t >= t0 && u <= 1.25) return u;
