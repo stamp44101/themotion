@@ -99,3 +99,23 @@ Facts with nothing to show: ............
   again, the hero back; the counter lands on 2569. Tagline: for the owner's taste, "ที่ที่แม่น้ำสองสายมาพบกัน".
 - **Facts with nothing to show (sub lines):** Ban Kao pottery; Prasat Mueang Singh; the river renamed 2503;
   the Siri-osot shop; the paper mill 2481.
+
+## Style frames (cloud, 3 Nov; `src/styleframes/kanchanaburi.tsx`, figures in `src/cities/kanchanaburi/figures.tsx`)
+
+River, banks and trees are placeholders. A1 strip is frames 0 / 36 / 75 (0 / 1.2 / 2.5 s).
+- **A1** (`kanchanaburi_styleframes_A1.jpg`): the bridge 60 units across the whole tile (camera ~300), eight
+  curved arches and three straight spans, a steam engine with three wagons and a smoke trail already on the
+  bridge at frame 0, crossing at about 12 units/s and clear of the far end by 2.5 s.
+- **A2** (first panel of `kanchanaburi_styleframes_A2_B.jpg`): the same at 44 units, camera ~220; the bridge
+  is cropped by the tile, which loses the whole-tile read.
+- **B** (the other three panels, frames 20 / 55 / 100): the bridge rises pier by pier and span by span and
+  the train arrives at 2 s. It reads well, and its rising bridge is kept for the 2486 beat, not the cover.
+
+### Cloud's pick for the owner: **A1** (autoloop)
+
+- A moving symbol at frame 0 on the whole tile (the owner's pick for every city since Phetchabun; §15's lesson).
+- The engine reads at about 70 px long on the 1080 frame at 1.2 s: enough, and the next version scales the
+  locomotive up a little more (a legend-scale cheat of 0.22 of the bridge, real is ~0.06).
+- A2 loses the whole-tile read; B starts with an empty river, so the first frame shows nothing moving.
+- For v1: the real river bends (two rivers meet at the pillar), wider smoke, a whistle with the first beat, the
+  engine stays on screen to 3 s, and the placeholder grid becomes the forest of 1850.
