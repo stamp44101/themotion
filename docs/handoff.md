@@ -58,6 +58,9 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
   the Kwai bridge with a train. Brief v0 `docs/briefs/kanchanaburi.md` (dates checked: seat moved to Pak
   Phraek 2374, bridge opened 25 Dec 2486, bombed from Nov 2487, mended 2489 but th.wikipedia also lists 2491 and
   2495: ขัดแย้ง). Research request `docs/briefs/kanchanaburi_research_request.md` written for [gemini].
+- **v1 built (3 Nov, PR #83):** research and [local]'s map landed (f654118, b2e66d5); cloud picked the cover A1
+  (the train on the bridge) and built v1 (`npm run check` 0 errors, -16.0 LUFS); the render goes to [local]. What is
+  approximate is in the brief ("v1 build"): no roads or cars yet, the bridge drawn 1.4x, the wall's axis guessed.
 - **Autoloop (owner, 3 Nov), like Surat Thani:** cloud decides in the owner's place and writes why in the
   brief. War weight decided by cloud: no suffering shown, one beat (the bridge breaks, the Thai government
   mends it), a short quiet memorial. Next: [gemini] answers; [local] pins the ONEP polygon and story

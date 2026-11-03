@@ -39,7 +39,7 @@ const GR_IN: Key = [38.0, -6, 2, -8, 80, 210, 36, 30];
 const GR_END: Key = [42.4, -2, 2, -2, 130, 160, 36, 30];
 // the festival night at the bridge
 const PY_IN: Key = [44.4, BX, 1.5, BZ, 40, 120, 30, 30];
-const PY_END: Key = [53.6, BX, 4, BZ, 80, 90, 28, 30];
+const PY_END: Key = [53.6, BX, 5, BZ, 105, 90, 28, 30];
 // the whole tile again
 const END: Key = [55.8, -6, 4, -2, 300, 60, 30, 30];
 
@@ -72,8 +72,8 @@ export const STORY = buildStory({
       caption: {t0: 3.3, t1: 6.85, title: 'เมืองหน้าด่านแห่งสยาม', sub: 'ด่านพระเจดีย์สามองค์ ทางผ่านของทัพและรถไฟ'},
       era: 'ด่านตะวันตก',
       camera: [
-        [0, BX + 1, 9, BZ - 2, 150, 243, 24, 30],
-        [3, BX + 1, 8, BZ - 1, 135, 238, 26, 30],
+        [0, BX + 1, 9, BZ - 2, 135, 243, 24, 30],
+        [3, BX + 1, 8, BZ - 1, 125, 238, 26, 30],
         HERO_END,
       ],
     },

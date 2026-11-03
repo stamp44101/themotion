@@ -46,4 +46,4 @@ export const M81_END: P = [27.2, -72.3]; // 7.7 km NNE: off the tile, the road l
 // Lat Ya (17.9 km NW) and Khao Chon Kai are far off the tile: drawn at its NW corner as a far place
 export const LAT_YA: P = [-40, -38];
 // the legend-scale cover bridge sits on the real site and is shown only on the cover and in the finale
-export const HERO_K = 7; // the cover bridge is 7x the real one
+export const HERO_K = 5.5; // the cover bridge is 5.5x the drawn one (24 units: it must sit inside the title-safe box)

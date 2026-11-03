@@ -27,8 +27,8 @@ export const along = (pts: P[], d: number) => {
 };
 
 // ------------------------------------------------------------------ the bridge and its train
-/** a real Kwai bridge is 322.9 m: 3.23 units at 100 m/unit */
-export const BRIDGE_REAL = 3.23;
+/** a real Kwai bridge is 322.9 m (3.23 units); drawn 1.4x so it spans the river, drawn 1.25x wide */
+export const BRIDGE_REAL = 4.4;
 /** the bridge's unit direction (local +x): along the line, toward the south-south-west */
 export const DIR: P = [Math.sin(BRIDGE_YAW), Math.cos(BRIDGE_YAW)];
 export const [HERO_FADE0, HERO_FADE1] = [4.2, 6.0];
@@ -40,7 +40,7 @@ export const CROSS = {hero: 0, mend: md0 + 0.2, festival: py0 + 3.4};
 export const bridgeK = (t: number) => {
   if (t < HERO_FADE1) return HERO_K * (1 - ramp(t, HERO_FADE0, HERO_FADE1));
   if (t < py0) return 1;
-  return 1 + 1.4 * ramp(t, py0 + 0.6, py0 + 4.0);
+  return 1 + 3.2 * ramp(t, py0 + 0.6, py0 + 5.0);
 };
 export const bridgeLen = (t: number) => BRIDGE_REAL * bridgeK(t);
 /** the bridge's west end (local x = 0) for scale k: its centre stays on the real site */

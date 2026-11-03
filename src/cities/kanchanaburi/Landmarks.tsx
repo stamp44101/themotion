@@ -6,7 +6,7 @@ import type {LandmarkProps} from '../../engine/types';
 import {Ball} from '../suratthani/figures';
 import {DECK, Elephant, KwaiBridge, Smoke, SteamLoco} from './figures';
 import {BRIDGE_REAL, DIR, ACTORS as _A, bridgeK, bridgeOrigin, clamp01, builderAt, columnAt, elephantAt, litBoatAt, modernTrainAt, raftAt, raftsOn, ramp, trainU, workTrainAt} from './actors';
-import {DON_RAK, KHWAE_NOI, KHWAE_YAI, LAT_YA, PAPER_MILL, PIER, RAIL, STATION, BRIDGE} from './places';
+import {DON_RAK, KHWAE_NOI, LAT_YA, PAPER_MILL, PIER, RAIL, STATION, BRIDGE} from './places';
 import {STORY} from './timeline';
 void _A;
 
@@ -27,7 +27,6 @@ const dToPath = (p: P, path: P[]) => {
 
 // ---------------------------------------------------------------- the track, in 2-unit pieces
 const KHWAE_NOI_W2 = 1.1;
-const KHWAE_YAI_W2 = 2.2;
 type Piece = {x: number; z: number; rot: number; d: number; deck: boolean};
 const bridgeAt = (() => {
   // distance along RAIL of the Kwai bridge
@@ -62,7 +61,7 @@ const PIECES: Piece[] = (() => {
       const d = Math.abs(acc + s + 1 - bridgeAt);
       // the bridge itself is drawn as the bridge; skip the pieces under it
       if (d < BRIDGE_REAL * 0.55) continue;
-      out.push({x, z, rot, d, deck: dToPath([x, z], KHWAE_NOI) < KHWAE_NOI_W2 || dToPath([x, z], KHWAE_YAI) < KHWAE_YAI_W2});
+      out.push({x, z, rot, d, deck: dToPath([x, z], KHWAE_NOI) < KHWAE_NOI_W2});
     }
     acc += len;
   }

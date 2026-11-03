@@ -119,3 +119,24 @@ River, banks and trees are placeholders. A1 strip is frames 0 / 36 / 75 (0 / 1.2
 - A2 loses the whole-tile read; B starts with an empty river, so the first frame shows nothing moving.
 - For v1: the real river bends (two rivers meet at the pillar), wider smoke, a whistle with the first beat, the
   engine stays on screen to 3 s, and the placeholder grid becomes the forest of 1850.
+
+## v1 build (cloud, 3 Nov; `src/cities/kanchanaburi/`, contact sheet `kanchanaburi_v1_contact.jpg`)
+
+`npm run check` (check_story): 0 errors; soundtrack -16.0 LUFS, score +2.1 LU over the effects. Built on [local]'s map
+at 100 m/unit, the pillar as origin; the rivers and the rail are the OSM lines simplified to 35 m.
+
+- **Beats (60 s):** cover 0-6.6 (the train on the bridge, 5.5x the drawn bridge, shrinking away 4.2-6 s) ·
+  2328 Lat Ya 7.4-11.6 (elephants, a column, cannon smoke; far place at the tile's NW corner) · 2374 rafts and the
+  wall 12.8-16.6 (the ONEP rectangle, wall grown in the held year) · 2486 bridge 18.4-26 (piers, arches, the
+  track laid outward from the bridge, the station, a work train) · 2488 raids 27.2-29.4 (the middle three spans
+  fall, a grey grade) · Don Rak 30.8-32.2 (white rows, incense, one bell, no sting) · mended line 33.8-36.4 (no year,
+  straight spans) · growth 38-42.4 · bridge week 44.4-53.6 (the bridge swells 4.2x as the callback, the train
+  crosses, a lit boat, fireworks).
+- **What is approximate (the owner may ask):** the bridge is drawn 1.4x its real length so it spans the drawn
+  river (the Khwae Yai is drawn 1.25x wide); the wall's long side is a guess at the wall's NW-SE axis from the front
+  gate and the river (no OSM wall); the market (ตลาดปากแพรก) sits at the wall's NW end by hand; **no roads or cars** (every
+  road here crosses a river and needs an engine bridge: a v1b job); the Skywalk (2022) and the paper mill (2478) are
+  plain boxes; the station is a simple building. The Saeng Chuto road and the dam lake are not drawn.
+- **Autoloop notes:** the second-model review of the contact sheet was **not** run for this city (cost); cloud
+  reviewed the sheet itself: the cover reads smaller than Surat's palm because the tile is large; the bridge is
+  moved tighter by the title-safe check (the hero must sit inside x 20-80%), so a bigger cover would fail it.
