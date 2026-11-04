@@ -55,6 +55,8 @@ Each measured against §17's rule at frame 0 (the symbol moves and fills ~1/3 of
 
 Why A1 over A2: it keeps the land under the giant (the owner's cover rule since Phetchabun) while still passing the size rule.
 
+**Owner picked A1 (4 Nov).** B's rising lake goes to the first event after the cover (3-9 s).
+
 ## Storyline worksheet (`docs/storyline.md` §5) — first guess, before research
 
 ```
