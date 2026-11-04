@@ -1,4 +1,4 @@
-# Handoff: where the work stands (2 พ.ย. 2569)
+# Handoff: where the work stands (4 พ.ย. 2569)
 
 For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is the current standard),
 `docs/experiments.md` (§10–11 are the latest reads), then this file.
@@ -93,7 +93,16 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
 - Early read (3 Nov 22:32, a few hours in): `experiments.md` §16: skip 47.4%, share 0.5%, average watch 11 s. **A true 24-h read is still owed**
   (screenshots on 4 Nov at about the post's hour; the post time was not recorded).
 
+## Kanchanaburi: merged (PR #83, 4 Nov) and posted
+- 24-h read (owner's screenshots, 00:44) is `experiments.md` §17: **skip 58.6%, the worst of all reads**, share 0.1% (the lowest),
+  like 4.2%, 2,999 views, all rates "lower". The train moved but was a thin strip on a far tile at frame 0; the Kwai bridge is famous,
+  not local. Lesson: the symbol that moves must fill ~1/3 of the frame at second 0 (check it on the style frame), and a resident's pick
+  for shares. v1f/v1g (bridge deck, camera over the glare) were merged after the posted render; no re-post planned.
+
 ## Next
+- **Proposed next city (4 Nov): Chiang Mai** (the owner's own city: a resident's pick of the symbol, a local audience to share it),
+  second choice **Nong Khai** (a naga rising from the Mekong, Ubon's best-ever cover pattern). Waiting on the owner's pick; dates to be
+  verified on the web in the brief.
 - A new city in a new session (one city per session).
 - **Posting time (owner, 1 Nov): 19:00-21:00 from now on**, not the morning; the next read changes the
   city and the hour at once (`experiments.md` §14).
