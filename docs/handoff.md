@@ -100,9 +100,12 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
   for shares. v1f/v1g (bridge deck, camera over the glare) were merged after the posted render; no re-post planned.
 
 ## Next
-- **Proposed next city (4 Nov): Chiang Mai** (the owner's own city: a resident's pick of the symbol, a local audience to share it),
-  second choice **Nong Khai** (a naga rising from the Mekong, Ubon's best-ever cover pattern). Waiting on the owner's pick; dates to be
-  verified on the web in the brief.
+- **Proposed next city (4 Nov, corrected):** Chiang Mai is **not** new: it was the first clip (`src/ChiangMaiTimelapse.tsx`,
+  before the engine; baseline skip 48.7%). Buriram and Nakhon Phanom were also posted (baseline) but have no folder in `src/cities/`.
+  Done so far: the 25 in `src/cities/` + Chiang Mai, Buriram, Nakhon Phanom + the Wat Rai Khing reel. Options put to the owner:
+  **Chiang Mai v2** (a remake to storyline v2 on the engine, as Suphanburi v2; the owner's own city, a resident's pick of the
+  symbol), or a new city: **Samut Songkhram** (the railway market's umbrellas folding as the train passes) or one from the east
+  (Chanthaburi, Trat). Nong Khai is weaker after Nakhon Phanom (the Mekong) and Ubon/Nan (nagas). Waiting on the owner.
 - A new city in a new session (one city per session).
 - **Posting time (owner, 1 Nov): 19:00-21:00 from now on**, not the morning; the next read changes the
   city and the hour at once (`experiments.md` §14).
