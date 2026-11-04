@@ -1,0 +1,659 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.53081,
+     14.01964
+    ]
+   },
+   "properties": {
+    "name": "ORIGIN ศาลหลักเมือง",
+    "role": "origin"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.2989,
+     13.9813
+    ]
+   },
+   "properties": {
+    "name": "แหล่งโบราณคดีบ้านเก่า",
+    "era": "ยุคหินใหม่ (~4000-3500 ปีก่อน)",
+    "note": "หม้อสามขา ริมแควน้อย; เชลยดัตช์ค้นพบ 2486",
+    "gemini_lat": 13.9813,
+    "gemini_lon": 99.2989,
+    "dist_km": 25.41,
+    "bearing": 260.4,
+    "compass": "W"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.7294,
+     14.0706
+    ]
+   },
+   "properties": {
+    "name": "แหล่งโบราณคดีบ้านดอนตาเพชร",
+    "era": "ยุคเหล็ก (~2300 ปีก่อน)",
+    "note": "ชุมทางค้าโลกยุคเหล็ก อ.พนมทวน; ลูกปัดสิงโต",
+    "gemini_lat": 14.0706,
+    "gemini_lon": 99.7294,
+    "dist_km": 22.17,
+    "bearing": 75.3,
+    "compass": "ENE"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.7847,
+     13.9039
+    ]
+   },
+   "properties": {
+    "name": "โบราณสถานพงตึก",
+    "era": "ทวารวดี (พศว.11-16)",
+    "note": "เมืองท่าริมแม่กลอง อ.ท่ามะกา; ตะเกียงโรมัน",
+    "gemini_lat": 13.9039,
+    "gemini_lon": 99.7847,
+    "dist_km": 30.27,
+    "bearing": 115.0,
+    "compass": "ESE"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.243501,
+     14.038841
+    ]
+   },
+   "properties": {
+    "name": "ปราสาทเมืองสิงห์",
+    "era": "ขอมบายน (~พ.ศ.1724-1761)",
+    "note": "ปราสาทศิลาแลงริมแควน้อย อ.ไทรโยค",
+    "gemini_lat": 14.038841,
+    "gemini_lon": 99.243501,
+    "dist_km": 31.1,
+    "bearing": 273.9,
+    "compass": "W"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     98.3867,
+     15.3019
+    ]
+   },
+   "properties": {
+    "name": "ด่านพระเจดีย์สามองค์",
+    "era": "อยุธยา-ปัจจุบัน",
+    "note": "ช่องเขาชายแดน เส้นทางเดินทัพ + ปลายทางรถไฟในเขตไทย",
+    "gemini_lat": 15.3019,
+    "gemini_lon": 98.3867,
+    "dist_km": 187.84,
+    "bearing": 319.0,
+    "compass": "NW"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.399609,
+     14.118198
+    ]
+   },
+   "properties": {
+    "name": "เมืองกาญจนบุรีเก่า (ลาดหญ้า วัดขุนแผน)",
+    "era": "อยุธยา-รัตนโกสินทร์ต้น (1998-2374)",
+    "note": "เมืองเดิมก่อนย้ายมาปากแพรก เนิน 180x360 ม.",
+    "gemini_lat": 14.118198,
+    "gemini_lon": 99.399609,
+    "dist_km": 17.87,
+    "bearing": 307.6,
+    "compass": "NW"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.39091,
+     14.13074
+    ]
+   },
+   "properties": {
+    "name": "เขาชนไก่ (สมรภูมิทุ่งลาดหญ้า)",
+    "era": "ร.1 ศึกเก้าทัพ (2328)",
+    "note": "ภูเขาโดดเหนือเมืองเก่า; ค่ายชักปีกกา",
+    "gemini_lat": 14.13074,
+    "gemini_lon": 99.39091,
+    "dist_km": 19.47,
+    "bearing": 309.1,
+    "compass": "NW"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.3547,
+     14.1872
+    ]
+   },
+   "properties": {
+    "name": "อุทยานประวัติศาสตร์สงคราม 9 ทัพ (ช่องสะเดา)",
+    "era": "ร.1 (2328)",
+    "note": "ทุ่งสมรภูมิเก้าทัพ",
+    "gemini_lat": 14.1872,
+    "gemini_lon": 99.3547,
+    "dist_km": 26.55,
+    "bearing": 314.3,
+    "compass": "NW"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     98.65,
+     14.665
+    ]
+   },
+   "properties": {
+    "name": "สมรภูมิท่าดินแดง/สามสบ",
+    "era": "ร.1 (2329)",
+    "note": "ค่ายพม่าริมแควน้อย อ.สังขละบุรี",
+    "gemini_lat": 14.665,
+    "gemini_lon": 98.65,
+    "dist_km": 118.81,
+    "bearing": 306.9,
+    "compass": "NW"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.52991,
+     14.01942
+    ]
+   },
+   "properties": {
+    "name": "ประตูเมืองปากแพรก (กำแพงเมือง ร.3)",
+    "era": "ร.3 (8 มี.ค.2374)",
+    "note": "ประตูเมืองหน้า + อนุสาวรีย์ ร.3; กำแพง 210x520 ม.",
+    "gemini_lat": 14.01942,
+    "gemini_lon": 99.52991,
+    "dist_km": 0.1,
+    "bearing": 255.9,
+    "compass": "WSW"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.53081,
+     14.01964
+    ]
+   },
+   "properties": {
+    "name": "ศาลหลักเมืองกาญจนบุรี (origin)",
+    "era": "ร.3 (2374)",
+    "note": "จุดฝังหลักเมือง + ที่ตั้งศาลากลางเก่า (ถึง 2498)",
+    "gemini_lat": 14.01964,
+    "gemini_lon": 99.53081,
+    "dist_km": 0.0,
+    "bearing": 0.0,
+    "compass": "N"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.5305,
+     14.0185
+    ]
+   },
+   "properties": {
+    "name": "ที่ตั้งศาลากลางเก่า (ในกำแพง)",
+    "era": "ร.3-2498",
+    "note": "ในกำแพงเมืองเก่า ด้านใต้ถนนหลักเมือง",
+    "gemini_lat": 14.0185,
+    "gemini_lon": 99.5305,
+    "dist_km": 0.13,
+    "bearing": 194.9,
+    "compass": "SSW"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.5292,
+     14.0205
+    ]
+   },
+   "properties": {
+    "name": "ตลาดเก่าถนนปากแพรก + ร้านสิริโอสถ",
+    "era": "ร.3-WWII (2374-2488)",
+    "note": "ถนนการค้าแรกนอกกำแพงเหนือ; บ้าน พ.ท.บุญผ่อง",
+    "gemini_lat": 14.0205,
+    "gemini_lon": 99.5292,
+    "dist_km": 0.2,
+    "bearing": 298.7,
+    "compass": "WNW"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.5262,
+     14.0247
+    ]
+   },
+   "properties": {
+    "name": "วัดเทวสังฆาราม (วัดเหนือ)",
+    "era": "ร.1-3 (2347)",
+    "note": "วัดคู่เมืองด้านเหนือริมแควใหญ่",
+    "gemini_lat": 14.0247,
+    "gemini_lon": 99.5262,
+    "dist_km": 0.75,
+    "bearing": 318.3,
+    "compass": "NW"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.5273,
+     14.0232
+    ]
+   },
+   "properties": {
+    "name": "วัดถาวรวราราม (วัดญวน)",
+    "era": "ร.3 (2377)",
+    "note": "วัดญวนอนัมนิกาย ย้ายมาพร้อมเมือง",
+    "gemini_lat": 14.0232,
+    "gemini_lon": 99.5273,
+    "dist_km": 0.55,
+    "bearing": 316.1,
+    "compass": "NW"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.5278,
+     14.0185
+    ]
+   },
+   "properties": {
+    "name": "ท่าเรือเก่าปากแพรก / สกายวอล์ค (จุดบรรจบสองสี)",
+    "era": "ร.3-ปัจจุบัน (สกายวอล์ค 2565)",
+    "note": "แควใหญ่+แควน้อย รวมเป็นแม่กลอง; พลับพลา ร.5",
+    "gemini_lat": 14.0185,
+    "gemini_lon": 99.5278,
+    "dist_km": 0.35,
+    "bearing": 248.8,
+    "compass": "WSW"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.5312,
+     14.0183
+    ]
+   },
+   "properties": {
+    "name": "โรงงานกระดาษไทย กาญจนบุรี",
+    "era": "2478-2481",
+    "note": "กระดาษ/ธนบัตรจากไม้ไผ่ ติดกำแพงเมืองเหนือ; ปล่องไฟอิฐ",
+    "gemini_lat": 14.0183,
+    "gemini_lon": 99.5312,
+    "dist_km": 0.15,
+    "bearing": 164.1,
+    "compass": "SSE"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.9109,
+     13.8177
+    ]
+   },
+   "properties": {
+    "name": "สถานีชุมทางหนองปลาดุก",
+    "era": "WWII (2485)",
+    "note": "กม.0.00 ทางรถไฟสายมรณะ อ.บ้านโป่ง จ.ราชบุรี",
+    "gemini_lat": 13.8177,
+    "gemini_lon": 99.9109,
+    "dist_km": 46.75,
+    "bearing": 118.5,
+    "compass": "ESE"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.5042,
+     14.0401
+    ]
+   },
+   "properties": {
+    "name": "ที่ตั้งสะพานไม้เดิม",
+    "era": "WWII (ก.พ.2486)",
+    "note": "สะพานไม้ชั่วคราว ~100 ม. ท้ายน้ำจากสะพานเหล็ก",
+    "gemini_lat": 14.0401,
+    "gemini_lon": 99.5042,
+    "dist_km": 3.66,
+    "bearing": 308.2,
+    "compass": "NW"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.504,
+     14.041
+    ]
+   },
+   "properties": {
+    "name": "สะพานข้ามแม่น้ำแคว (สะพานเหล็ก)",
+    "era": "WWII-ปัจจุบัน (2486, ซ่อม 2495)",
+    "note": "เหล็กโค้ง 11 ช่วง; ช่วง4-6 ถูกระเบิด ซ่อมเป็นเหลี่ยม 2 ช่วง; ยาว 322.9 ม.",
+    "gemini_lat": 14.041,
+    "gemini_lon": 99.504,
+    "dist_km": 3.74,
+    "bearing": 309.2,
+    "compass": "NW"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.5253,
+     14.0342
+    ]
+   },
+   "properties": {
+    "name": "สถานีรถไฟกาญจนบุรี",
+    "era": "ร.5-ปัจจุบัน",
+    "note": "ตรงข้ามสุสานดอนรัก",
+    "gemini_lat": 14.0342,
+    "gemini_lon": 99.5253,
+    "dist_km": 1.72,
+    "bearing": 339.7,
+    "compass": "NNW"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.166,
+     14.106
+    ]
+   },
+   "properties": {
+    "name": "ถ้ำกระแซ / สะพานมรณะวังโพ",
+    "era": "WWII (2486)",
+    "note": "สะพานไม้เลียบหน้าผาริมแควน้อย",
+    "gemini_lat": 14.106,
+    "gemini_lon": 99.166,
+    "dist_km": 40.53,
+    "bearing": 283.6,
+    "compass": "WNW"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     98.945274,
+     14.360524
+    ]
+   },
+   "properties": {
+    "name": "ช่องเขาขาด (Hellfire Pass)",
+    "era": "WWII (2486)",
+    "note": "ช่องเขาหินที่เชลยสกัดด้วยมือ (รางรื้อแล้ว)",
+    "gemini_lat": 14.360524,
+    "gemini_lon": 98.945274,
+    "dist_km": 73.58,
+    "bearing": 300.8,
+    "compass": "WNW"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     98.5432,
+     14.9453
+    ]
+   },
+   "properties": {
+    "name": "คองคอยตา (Konkoita)",
+    "era": "WWII (17 ต.ค.2486)",
+    "note": "จุดรางไทย-พม่าบรรจบ กม.262.87 (จมใต้เขื่อนวชิราลงกรณ)",
+    "gemini_lat": 14.9453,
+    "gemini_lon": 98.5432,
+    "dist_km": 147.67,
+    "bearing": 313.9,
+    "compass": "NW"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.52556,
+     14.03167
+    ]
+   },
+   "properties": {
+    "name": "สุสานทหารสัมพันธมิตรดอนรัก",
+    "era": "หลัง WWII (2489-)",
+    "note": "หน้าสถานีกาญจนบุรี; อัฐิ 6,982 นาย",
+    "gemini_lat": 14.03167,
+    "gemini_lon": 99.52556,
+    "dist_km": 1.45,
+    "bearing": 336.9,
+    "compass": "NNW"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.5146,
+     14.0052
+    ]
+   },
+   "properties": {
+    "name": "สุสานช่องไก่ (เขาปูน)",
+    "era": "หลัง WWII",
+    "note": "ริมขวาแควน้อย; อัฐิ 1,740 นาย",
+    "gemini_lat": 14.0052,
+    "gemini_lon": 99.5146,
+    "dist_km": 2.37,
+    "bearing": 227.6,
+    "compass": "SW"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.1037,
+     14.2427
+    ]
+   },
+   "properties": {
+    "name": "สถานีรถไฟน้ำตก (ท่าเสา)",
+    "era": "ร.ฟ.ท. (1 ก.ค.2501)",
+    "note": "ปลายทางปัจจุบันสายมรณะ กม.194.24",
+    "gemini_lat": 14.2427,
+    "gemini_lon": 99.1037,
+    "dist_km": 52.29,
+    "bearing": 298.1,
+    "compass": "WNW"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.5484,
+     14.0044
+    ]
+   },
+   "properties": {
+    "name": "ศาลากลางใหม่ (บ้านบ่อ ถนนแสงชูโต)",
+    "era": "2498-ปัจจุบัน",
+    "note": "ย้ายออกจากกำแพงเก่า ~3 กม. ไป ทต.ต.อ.; ดึงเมืองขยาย",
+    "gemini_lat": 14.0044,
+    "gemini_lon": 99.5484,
+    "dist_km": 2.54,
+    "bearing": 131.6,
+    "compass": "SE"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.1283,
+     14.4086
+    ]
+   },
+   "properties": {
+    "name": "เขื่อนศรีนครินทร์ (เจ้าเณร)",
+    "era": "2523",
+    "note": "กั้นแควใหญ่ อ.ศรีสวัสดิ์",
+    "gemini_lat": 14.4086,
+    "gemini_lon": 99.1283,
+    "dist_km": 61.13,
+    "bearing": 314.7,
+    "compass": "NW"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.144,
+     14.3676
+    ]
+   },
+   "properties": {
+    "name": "น้ำตกเอราวัณ",
+    "era": "2518",
+    "note": "อุทยานฯเอราวัณ อ.ศรีสวัสดิ์",
+    "gemini_lat": 14.3676,
+    "gemini_lon": 99.144,
+    "dist_km": 56.77,
+    "bearing": 312.7,
+    "compass": "NW"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     98.5969,
+     14.7994
+    ]
+   },
+   "properties": {
+    "name": "เขื่อนวชิราลงกรณ (เขาแหลม)",
+    "era": "2527",
+    "note": "กั้นแควน้อย อ.ทองผาภูมิ",
+    "gemini_lat": 14.7994,
+    "gemini_lon": 98.5969,
+    "dist_km": 132.56,
+    "bearing": 310.6,
+    "compass": "NW"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.556,
+     14.085
+    ]
+   },
+   "properties": {
+    "name": "จุดสิ้นสุดมอเตอร์เวย์ M81",
+    "era": "2568-2569",
+    "note": "ด่านกาญจนบุรี ต.หนองขาว/แก่งเสี้ยน; ทางด่วนเข้าเมือง",
+    "gemini_lat": 14.085,
+    "gemini_lon": 99.556,
+    "dist_km": 7.72,
+    "bearing": 20.6,
+    "compass": "NNE"
+   }
+  }
+ ]
+}

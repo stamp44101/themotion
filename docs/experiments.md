@@ -800,3 +800,47 @@ shares stay at the forest-tile floor. The views curve kept climbing slowly overn
 die after the first hours), but it never caught a typical reel, so the hour cannot be blamed or credited yet.
 Next (Surat Thani, PR #81): the cover's mover *is* the symbol (the coconut monkey climbs from frame 0); read its
 skip rate against 48.9% here and 41-42% for the jars, in the same 19:00-21:00 slot.
+
+## 16. Surat Thani: the coconut monkey climbing from frame 0, the town that grew from a shipyard — early read (~2-4 h in): hook slightly better than Saraburi, middle the weakest yet
+
+The first autoloop city (cloud picked the cover for the owner: style frame A1, the legend-scale coconut monkey on a palm
+at the Tapi mouth, the creature *is* the symbol and it moves from frame 0, so it answers §15's lesson). 60 s, shader look,
+-16 LUFS, score +1.7 LU over the effects. PR #81 merged 3 Nov 18:25 and the clip went up that evening; **the exact post time
+was not recorded**, so this is an early read, not a 24-h read.
+
+### Result (owner's screenshots, 3 Nov 22:32, a few hours after the evening post: ~2-4 h in)
+
+Skip rate **47.4%** (the one rate marked "lower", in green, i.e. better than a typical reel), 3,026 views from 2,242 viewers,
+average watch **11 s**, 0 follows. 94 likes, 2 comments, 11 reposts, 11 shares, 6 saves: like 4.0%, share **0.5%**, save 0.3%,
+repost 0.5%, comment 0.1%, all "lower". Views from the Reels tab 63.3%, Feed 20.8%, Stories 9.3%, Explore 4.4%, Profile 1.4%.
+Retention (read off the chart, about +/- 3 points): ~33% at ~6 s, ~22% at ~10 s, ~18% at ~15 s, ~12% at ~30 s, ~2% at the end.
+Cover thumbnail: the palm with the monkey on its crown over the green tile, the title above.
+
+| | Udon Thani | Ratchaburi | Saraburi (24 h) | **Surat Thani (early)** |
+|---|---|---|---|---|
+| cover | jar rising and painted | jar thrown, dragon coiling on | deer drinks at the Footprint | **coconut monkey climbs a giant palm** |
+| posted | morning | morning | evening (20:00) | **evening, 3 Nov** |
+| read at | ~1 day | ~1 day | 24 h | **~2-4 h** |
+| skip rate | 41.4% | 42.0% | 48.9% | **47.4%** |
+| retention at ~15 s | ~30% | ~25% | ~28% | **~18%** |
+| average watch | 19 s | 14 s | 15 s | **11 s** |
+| like / save / share | 9.8 / 0.8 / 4.7% | 5.7 / 0.2 / 4.1% | 4.3 / 0.3 / 0.4% | **4.0 / 0.3 / 0.5%** |
+| repost | 1.8% | 1.2% | 0.6% | 0.5% |
+| views | ~1 day | ~1 day | 4,349 | **3,026 in a few hours** |
+| views from the Reels tab | 69.7% | 60.8% | 69.2% | 63.3% |
+
+Reading (one post, an early read, and a clip built by the loop; a lean, not a rule):
+- **The mover being the symbol helped, but by a small step.** Skip 47.4% is 1.5 points under Saraburi's 48.9% and the first
+  "lower" skip since the jars, but it stays 5-6 points over the jars' 41-42%. The monkey climbs from frame 0, but at the cover
+  it is a small figure on a very large palm; the jars changed shape *and* filled the frame. Next: the symbol that moves also
+  fills the frame at second 0.
+- **The middle is the weakest yet.** Retention ~18% at 15 s and an 11 s average are the lowest since the forest tiles
+  (Ratchaburi ~25% / 14 s). After the cover the clip goes to Srivijaya's ships, the burning of Chaiya and a shipyard: far,
+  small events (§14's lesson again: the first beat after the cover must be big and close). Compare with Kanchanaburi, whose
+  second beat is elephants and cannon at Lat Ya.
+- **Reach came fast.** 3,026 views in a few hours is about Saraburi's 13.5-h total (3,268), and 9.3% came from Stories, the
+  highest share of any city so far: the evening slot and the reposts (11) may carry it. The curve cannot be judged before a full day.
+- **Shares 0.5% sit at the forest-tile floor**, with nobody from the town in the story (as §15): the loop had no resident's pick.
+
+**Still to do:** a true 24-h read from screenshots taken on 4 Nov around the same hour as the post; replace this section's
+"early read" with it, keeping this table row.

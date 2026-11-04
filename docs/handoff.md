@@ -53,6 +53,24 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
 - [local] rendered v2 (head 6607189): `check_render` ok (max jump 3.0, darkest 57.3); upload copy on the
   `renders` release as `saraburi_look_social.mp4`. Owner posted it 1 Nov 20:00 and said merge (2 Nov).
 
+## Kanchanaburi v0 (3 Nov, owner: "ลุย" from the shortlist)
+- Picked from five candidates (Kanchanaburi, Samut Songkhram, Chiang Mai, Chanthaburi, Nong Khai). Hook:
+  the Kwai bridge with a train. Brief v0 `docs/briefs/kanchanaburi.md` (dates checked: seat moved to Pak
+  Phraek 2374, bridge opened 25 Dec 2486, bombed from Nov 2487, mended 2489 but th.wikipedia also lists 2491 and
+  2495: ขัดแย้ง). Research request `docs/briefs/kanchanaburi_research_request.md` written for [gemini].
+- **v1 built (3 Nov, PR #83):** research and [local]'s map landed (f654118, b2e66d5); cloud picked the cover A1
+  (the train on the bridge) and built v1 (`npm run check` 0 errors, -16.0 LUFS); the render goes to [local]. What is
+  approximate is in the brief ("v1 build"): no roads or cars yet, the bridge drawn 1.4x, the wall's axis guessed.
+- **Kanchanaburi rendered (v1e, e2272b9, PR #83 draft):** [local] rendered it (`check_render` ok, max jump 7.9 at 28 s, darkest 49.7);
+  upload copy on the `renders` release as `kanchanaburi_look_social.mp4`; cloud checked the frames and the dense 4.0-6.2 s strip: nothing to fix. Two
+  bugs found after v1: the map's look (v1c) and the cover train on the water (v1e, found by [local]). Next: the owner watches, says "Merge" and
+  posts at 19:00-21:00; the 24-h read goes in `experiments.md` §17. Open for a v1f: roads and cars (need engine bridges), the Saeng Chuto road,
+  the sprawl's uniform orange blocks, the cover's size (held to the title-safe box).
+- **Autoloop (owner, 3 Nov), like Surat Thani:** cloud decides in the owner's place and writes why in the
+  brief. War weight decided by cloud: no suffering shown, one beat (the bridge breaks, the Thai government
+  mends it), a short quiet memorial. Next: [gemini] answers; [local] pins the ONEP polygon and story
+  places; then cloud proposes the storyline.
+
 ## Surat Thani v1 (PR #81, draft): the loop experiment, rendered, waiting on the owner
 - Owner (2 Nov): cloud and [local] loop through the PR to the render, cloud standing in for the owner's
   picks. Cloud picked the cover **A1, the coconut monkey** (Gemini ranked it 4th; the reasons are in
@@ -70,6 +88,10 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
   re-rendered 37b2ccb: `check_render` ok (max jump 2.9, darkest 59.4), all five confirmed on the render
   (`shots/suratthani/v1b_*`, 7fe7861). Left, optional: one junk passes under the caption at 7-8 s.
 - Next: the owner watches, says "Merge" and posts at 19:00-21:00; the 24-h read goes in `experiments.md` §16.
+
+## Surat Thani: merged (PR #81, 3 Nov 18:25) and posted that evening
+- Early read (3 Nov 22:32, a few hours in): `experiments.md` §16: skip 47.4%, share 0.5%, average watch 11 s. **A true 24-h read is still owed**
+  (screenshots on 4 Nov at about the post's hour; the post time was not recorded).
 
 ## Next
 - A new city in a new session (one city per session).
