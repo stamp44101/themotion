@@ -100,12 +100,11 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
   for shares. v1f/v1g (bridge deck, camera over the glare) were merged after the posted render; no re-post planned.
 
 ## Next
-- **Proposed next city (4 Nov, corrected):** Chiang Mai is **not** new: it was the first clip (`src/ChiangMaiTimelapse.tsx`,
-  before the engine; baseline skip 48.7%). Buriram and Nakhon Phanom were also posted (baseline) but have no folder in `src/cities/`.
-  Done so far: the 25 in `src/cities/` + Chiang Mai, Buriram, Nakhon Phanom + the Wat Rai Khing reel. Options put to the owner:
-  **Chiang Mai v2** (a remake to storyline v2 on the engine, as Suphanburi v2; the owner's own city, a resident's pick of the
-  symbol), or a new city: **Samut Songkhram** (the railway market's umbrellas folding as the train passes) or one from the east
-  (Chanthaburi, Trat). Nong Khai is weaker after Nakhon Phanom (the Mekong) and Ubon/Nan (nagas). Waiting on the owner.
+- **Sakon Nakhon v0 (4 Nov; owner picked it over Tak):** brief `docs/briefs/sakonnakhon.md`, research request for [gemini]
+  `docs/briefs/sakonnakhon_research_request.md`, style frames `docs/briefs/sakonnakhon_styleframes.jpg` (A1 indigo cloth on the
+  whole tile, cloud's pick; A2 closer; B the Nong Han legend). **Hybrid loop (owner, 4 Nov):** the loop runs research, map, build,
+  render and QA, but the owner picks the cover and passes the 0-6 s stills; write down the post time. Next: owner picks the cover;
+  [gemini] answers; [local] pins the lake, the old town and the story places (`sakonnakhon_onep/`).
 - A new city in a new session (one city per session).
 - **Posting time (owner, 1 Nov): 19:00-21:00 from now on**, not the morning; the next read changes the
   city and the hour at once (`experiments.md` §14).
