@@ -57,6 +57,7 @@ layout + audit every hand-placed coordinate, camera keys last.
 - **Real city footprints are not rectangles** (`city.outline` from ONEP); a new footprint means new camera keys.
 - **A still is not proof that a moving thing shows in the render.** Moving things are `actors`; ≥ 80 px readable; not behind trees or hills.
 - **Figures must read as people** (white/indigo/undyed; strung out, not stacked).
+- **A borrowed figure brings its own story;** open it before reusing it (Phetchabun's raft carries a dais and parasols).
 - **A/B engine changes still vs still,** never against an encoded frame.
 - **A destroyed capital's walls read as ruins** (`city.ruinStrength`).
 - **Nothing goes on open water** except bridges, boats, houseboats; audit hand-placed parts too.
