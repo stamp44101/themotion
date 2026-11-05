@@ -1,0 +1,115 @@
+{
+ "type": "FeatureCollection",
+ "properties": {
+  "note": "CONSTRUCTED outline. overpass-api.de was at capacity/flapping (406/502/000) through the build window and mirrors were down; this ellipse honours research s.4 (Nong Han ~18 km NW-SE x 7 km, ~123 km2, west shore ~0.7 km E of the stupa) and contains เกาะดอนสวรรค์. Replace with the real OSM multipolygon when Overpass recovers."
+ },
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "หนองหาร (Nong Han, constructed outline)",
+    "dim": "~18 km NW-SE x 7 km, ~123 km2"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       104.16,
+       17.168
+      ],
+      [
+       104.164,
+       17.205
+      ],
+      [
+       104.176,
+       17.242
+      ],
+      [
+       104.2,
+       17.258
+      ],
+      [
+       104.23,
+       17.25
+      ],
+      [
+       104.255,
+       17.218
+      ],
+      [
+       104.266,
+       17.178
+      ],
+      [
+       104.262,
+       17.14
+      ],
+      [
+       104.244,
+       17.108
+      ],
+      [
+       104.218,
+       17.09
+      ],
+      [
+       104.192,
+       17.096
+      ],
+      [
+       104.172,
+       17.122
+      ],
+      [
+       104.16,
+       17.15
+      ],
+      [
+       104.16,
+       17.168
+      ]
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "เกาะดอนสวรรค์ (largest island)"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     104.1915,
+     17.1877
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "ลำน้ำก่ำ outflow (toward the Mekong, S/SE)",
+    "approx": true
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      104.224,
+      17.09
+     ],
+     [
+      104.25,
+      17.03
+     ],
+     [
+      104.29,
+      16.97
+     ]
+    ]
+   }
+  }
+ ]
+}

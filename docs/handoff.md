@@ -1,4 +1,4 @@
-# Handoff: where the work stands (2 พ.ย. 2569)
+# Handoff: where the work stands (5 พ.ย. 2569)
 
 For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is the current standard),
 `docs/experiments.md` (§10–11 are the latest reads), then this file.
@@ -93,7 +93,25 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
 - Early read (3 Nov 22:32, a few hours in): `experiments.md` §16: skip 47.4%, share 0.5%, average watch 11 s. **A true 24-h read is still owed**
   (screenshots on 4 Nov at about the post's hour; the post time was not recorded).
 
+## Kanchanaburi: merged (PR #83, 4 Nov) and posted
+- 24-h read (owner's screenshots, 00:44) is `experiments.md` §17: **skip 58.6%, the worst of all reads**, share 0.1% (the lowest),
+  like 4.2%, 2,999 views, all rates "lower". The train moved but was a thin strip on a far tile at frame 0; the Kwai bridge is famous,
+  not local. Lesson: the symbol that moves must fill ~1/3 of the frame at second 0 (check it on the style frame), and a resident's pick
+  for shares. v1f/v1g (bridge deck, camera over the glare) were merged after the posted render; no re-post planned.
+
 ## Next
+- **Sakon Nakhon v0 (4 Nov; owner picked it over Tak):** brief `docs/briefs/sakonnakhon.md`, research request for [gemini]
+  `docs/briefs/sakonnakhon_research_request.md`, style frames `docs/briefs/sakonnakhon_styleframes.jpg` (A1 indigo cloth on the
+  whole tile, cloud's pick; A2 closer; B the Nong Han legend). **Hybrid loop (owner, 4 Nov):** the loop runs research, map, build,
+  render and QA, but the owner picks the cover and passes the 0-6 s stills; write down the post time. **Owner picked A1 (4 Nov).** [gemini] answered (072ac04), [local] pinned the map (0d5524c); cloud checked the years and
+  proposed the storyline in the brief (5 Nov). v1 built (5 Nov): check 0 errors, -16.0 LUFS; what is approximate is in the brief ("v1 build").
+  **Owner passed the 0-11 s stills (5 Nov).** [local] rendered c04190d and found Tha Rae reading as "mushrooms" (the
+  borrowed Phetchabun relic raft); cloud fixed it (v1b 5cb698e: plain rafts, a church town; lesson in CLAUDE.md), [local]
+  re-rendered 06cc018: `check_render` ok (max jump 5.4, darkest 53.4), upload copy on the `renders` release as
+  `sakonnakhon_look_social.mp4`. **Owner said "merge" (5 Nov); merged as PR #84.** Next: post at 19:00-21:00, **write down the
+  post time**, and record the 24-h read as `experiments.md` §18 (the first hybrid-loop city: owner picked the cover and passed
+  the 0-11 s stills). Earlier plan:
+  [gemini] answers; [local] pins the lake, the old town and the story places (`sakonnakhon_onep/`).
 - A new city in a new session (one city per session).
 - **Posting time (owner, 1 Nov): 19:00-21:00 from now on**, not the morning; the next read changes the
   city and the hour at once (`experiments.md` §14).

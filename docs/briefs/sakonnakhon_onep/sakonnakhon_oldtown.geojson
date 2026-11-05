@@ -1,0 +1,43 @@
+{
+ "type": "FeatureCollection",
+ "properties": {
+  "note": "CONSTRUCTED from research s.4 dims (1.3x1.5 km, near-square, double moat, EAST edge on Nong Han west shore). OSM has no wall/moat polygon; refine east edge to the real lake shore once lake polygon is in."
+ },
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "เมืองโบราณหนองหารหลวง (old-town plan, constructed)",
+    "dim": "~1.3 km E-W x 1.5 km N-S",
+    "note": "east side meets the lake"
+   },
+   "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+     [
+      [
+       104.14838874989853,
+       17.159017212002823
+      ],
+      [
+       104.16061125010147,
+       17.159017212002823
+      ],
+      [
+       104.16061125010147,
+       17.17258278799718
+      ],
+      [
+       104.14838874989853,
+       17.17258278799718
+      ],
+      [
+       104.14838874989853,
+       17.159017212002823
+      ]
+     ]
+    ]
+   }
+  }
+ ]
+}

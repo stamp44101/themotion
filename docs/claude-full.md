@@ -209,6 +209,11 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   posts beside the laterite towers. Undyed cotton, white or indigo against the sand reads at
   once. A file of walkers driven to the end of a path must stop strung out, not all on the
   last point: the procession stacked 18 figures on one spot, then vanished.
+- **A borrowed figure brings its own story.** Sakon Nakhon's 2427 rafts reused Phetchabun's `Raft`, which carries
+  the relic's gilt dais and four tiered parasols; scaled 2x with Walkers on it, [local] read the row of rafts at Tha Rae
+  as "gold and white mushrooms on stalks". Before reusing a figure from another city, open it and check that nothing
+  in it belongs to that city's story; and people sitting on a raft or a boat are seated figures, not Walkers (their
+  thin legs read as stalks once scaled up).
 - When A/B-ing an engine change, compare **still vs still**. A still against a
   frame pulled from an encoded render differs everywhere from compression alone
   and tells you nothing.

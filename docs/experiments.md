@@ -844,3 +844,46 @@ Reading (one post, an early read, and a clip built by the loop; a lean, not a ru
 
 **Still to do:** a true 24-h read from screenshots taken on 4 Nov around the same hour as the post; replace this section's
 "early read" with it, keeping this table row.
+
+## 17. Kanchanaburi: the steam train on the Kwai bridge, the walled town at the two rivers — read: the worst hook of all reads, shares the lowest yet
+
+The second autoloop city (cloud picked the cover for the owner: style frame A1, the steam train crossing the Kwai bridge at
+"legend scale", moving from frame 0, then the bridge shrinking away 4.2-6 s). 60 s, shader look, -16 LUFS. Posted in the evening
+slot; **the exact post time was not recorded**. The owner gave these screenshots as the 24-h read. The upload copy was v1e or
+v1f; PR #83 was merged afterwards (4 Nov), with v1f/v1g fixes that came after the posted render.
+
+### Result (owner's screenshots, 00:44, given as the 24-h read)
+
+Skip rate **58.6%** ("higher"), 2,999 views from 2,127 viewers, average watch **25 s**, 1 follow. 94 likes, 3 comments,
+16 reposts, 3 shares, 5 saves: like 4.2%, share **0.1%**, save 0.2%, repost 0.7%, comment 0.1%, all "lower". Views from the
+Reels tab 58.9%, Feed 22.0%, Stories 11.0%, Explore 6.4%, Profile 1.1%. The views curve ran under a typical reel's from the
+first hours and flattened (~3K against ~5K+ at the same age). Retention (read off the chart, about +/- 3 points): ~46% at
+~3 s, ~36% at ~5 s, ~30% at ~8 s, ~22% at ~12 s, ~21% at ~15 s, ~16% at ~30 s, ~12% at ~47 s, ~2% at the end. The 25 s
+average does not match that curve (its area is nearer 12-13 s); Instagram likely counts rewatches, so do not compare it.
+Cover thumbnail: the whole tile seen from far, the river and the bridge in the middle, the train a thin dark strip on it.
+
+| | Ubon | Udon Thani | Ratchaburi | Chiang Rai | Saraburi (24 h) | Surat Thani (early) | **Kanchanaburi** |
+|---|---|---|---|---|---|---|---|
+| cover | naga uncoils down the candle | jar rising and painted | jar thrown, dragon on | static landmark | deer at the Footprint | monkey climbs a palm | **train crosses the bridge** |
+| symbol fills the frame at 0 s | yes | yes | yes | no | no (slab) | no (small on a big palm) | **no (a thin strip on a far tile)** |
+| skip rate | 24.0% | 41.4% | 42.0% | 58.3% | 48.9% | 47.4% | **58.6%** |
+| retention at ~15 s | — | ~30% | ~25% | ~26% (17 s) | ~28% | ~18% | **~21%** |
+| like / save / share | 8.4 / 0.4 / 1.1% | 9.8 / 0.8 / 4.7% | 5.7 / 0.2 / 4.1% | 6.5 / 0.6 / 0.5% | 4.3 / 0.3 / 0.4% | 4.0 / 0.3 / 0.5% | **4.2 / 0.2 / 0.1%** |
+| views from the Reels tab | 90%+ | 69.7% | 60.8% | 53.1% | 69.2% | 63.3% | **58.9%** |
+
+Reading (one post, the post time unknown; a lean, but it lines up with every read since Ubon):
+- **The worst hook of all reads (58.6%, just over Chiang Rai's 58.3%).** The train moved from frame 0, but at frame 0 it was a
+  thin strip on a far tile: the title-safe check (hero inside x 20-80%) and the whole-tile cover pushed the camera out until the
+  symbol was small. A moving thing that does not fill the frame reads as a static tile, the class that has always landed at
+  48-58%. The covers that won (Ubon's naga, the jars, Phetchabun's Buddha) changed shape *and* filled the frame. **Next cover:
+  measure the symbol at frame 0 before building: at least ~1/3 of the frame's height or width, and it is the thing that moves;
+  if the title-safe box and the whole tile cannot both hold it, the symbol wins and the tile is cropped.**
+- **A famous symbol is not a local one.** The Kwai bridge is known to everyone and photographed everywhere; nobody passes on a
+  picture of it. Share 0.1% is the lowest of any read, below Saraburi's pilgrimage shrine (0.4%). Every high share read
+  (Udon 4.7%, Ratchaburi 4.1%) had a symbol the town owns. With §15 and §16, three cities in a row built without a resident's pick
+  sit at 0.1-0.5%.
+- **The middle held better than the hook** (~21% at 15 s, flat 16-12% from 30 s to near the end; Surat Thani was ~18% at
+  15 s): the walled town, the bridge breaking and being mended kept those who stayed. The problem is the first 3 s and the subject.
+- **Reach follows the skip rate again:** the Reels-tab share (58.9%) is the lowest since Chiang Rai.
+- **The autoloop picked two covers in a row that missed the frame-filling rule** (Surat Thani's small monkey, Kanchanaburi's thin
+  train). The loop's cover pick needs the frame-0 size check above, or the owner picks the cover.
