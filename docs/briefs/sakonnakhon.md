@@ -117,3 +117,23 @@ Tagline (draft): "เมืองที่ย้อมแผ่นดินเ�
 Sound: cloth snaps and drips, a khaen line for the cover; water rising for the legend; a temple gong for the stupa; cart wheels and
 elephants for 2381; paddles for the rafts; aircraft drone and wind for the drops; the procession's drums and พิณ for the payoff.
 Owner gate next: **the 0-6 s stills** (and the legend beat to 11 s) before any render.
+
+## v1 build (5 Nov; `src/cities/sakonnakhon/`, `scripts/soundtrack_sakonnakhon.py`)
+
+`npm run check` for the city: 0 errors (warnings: the old town is 1.4% of the tile; the payoff beat is 3.4 s). Soundtrack
+-16.0 LUFS, score +0.9 LU over the effects. What is approximate or drawn for the screen:
+- **Scale and compression:** 100 m/unit, origin the stupa. Nong Han is drawn 0.55x about the town's shore point, so ดอนสวรรค์
+  (4.8 km ENE) and ท่าแร่ (10.8 km NNE) come in with it. Narai Cheng Weng (6.6 km WNW) and the Phu Phan hills, the palace and
+  the Seri Thai cave (10-22 km SW) are drawn at the tile's edges. The lake outline is [local]'s constructed one; พระธาตุดุม is
+  drawn 160 m west to stay off its coarse shore.
+- **The old town:** [local]'s constructed 1.3 x 1.5 km square; one moat is drawn, not two; no masonry wall (earth ramparts).
+- **The legend:** a town on the plain where the lake will be sinks and the water spreads out from it; the counter reads
+  "ราว 2,500 ปีก่อน" through the cover and the legend (the Urangkhathat sets the tale in the Buddha's time) and the caption
+  says ตำนาน. The legend town is named only as หนองหารหลวง.
+- **Sizes:** the stupa (24 m), the Khom bridge (16.5 m) and the wax castles are drawn many times true size so they read.
+- **No held year** on the Khmer town (ราวพุทธศตวรรษที่ 16), the Lan Xang stupa or Sakon Thawapi; held years: 2370, 2381,
+  2427, 2487. The procession's first year (2485 per Gemini) is not on screen.
+- **Not shown:** the execution of 2370 (only the column leaving), Kasetsart's campus (its position was not pinned), the
+  sluice gates, the longboat race.
+- **Hero:** the cloth goes white → green → indigo (Gemini §2), stacked-diamond tied pattern; it shrinks into the lake by 6.4 s.
+  Callback: the indigo cloth hung on its bamboo frame at the head of the procession route.
