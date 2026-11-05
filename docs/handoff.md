@@ -105,7 +105,8 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
   whole tile, cloud's pick; A2 closer; B the Nong Han legend). **Hybrid loop (owner, 4 Nov):** the loop runs research, map, build,
   render and QA, but the owner picks the cover and passes the 0-6 s stills; write down the post time. **Owner picked A1 (4 Nov).** [gemini] answered (072ac04), [local] pinned the map (0d5524c); cloud checked the years and
   proposed the storyline in the brief (5 Nov). v1 built (5 Nov): check 0 errors, -16.0 LUFS; what is approximate is in the brief ("v1 build").
-  Next: the owner's 0-6 s stills gate (`docs/briefs/sakonnakhon_v1_gate.jpg`), then [local] renders. Earlier plan:
+  **Owner passed the 0-11 s stills (5 Nov, "ผ่าน").** Next: [local] renders e2a316d+
+  (`npm run render:sakonnakhon`, then `npm run encode -- sakonnakhon`); cloud checks the frames (the rafts, the legend town's exit at 11.6 s). Earlier plan:
   [gemini] answers; [local] pins the lake, the old town and the story places (`sakonnakhon_onep/`).
 - A new city in a new session (one city per session).
 - **Posting time (owner, 1 Nov): 19:00-21:00 from now on**, not the morning; the next read changes the

@@ -137,3 +137,6 @@ Owner gate next: **the 0-6 s stills** (and the legend beat to 11 s) before any r
   sluice gates, the longboat race.
 - **Hero:** the cloth goes white → green → indigo (Gemini §2), stacked-diamond tied pattern; it shrinks into the lake by 6.4 s.
   Callback: the indigo cloth hung on its bamboo frame at the head of the procession route.
+
+**Owner passed the 0-11 s stills (5 Nov).** To check on the render: the rafts read as one crowded platform; the legend town
+leaves at 11.6 s while the camera moves away (a pop if it is still in frame); the line under the counter reads ยุคก่อนประวัติศาสตร์.
