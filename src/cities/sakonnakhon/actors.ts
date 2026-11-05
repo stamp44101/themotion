@@ -109,12 +109,12 @@ export const arriveAt = (i: number, t: number) => {
 };
 
 // ------------------------------------------------------------------ 2427: the rafts to Tha Rae
-export const RAFTS = 6;
+export const RAFTS = 5;
 const RAFT_L = lengthOf(RAFT_PATH);
 export const raftAt = (i: number, t: number) => {
   const k = beatK('cross', t);
   if (k < 0 || k > 1.2) return null;
-  const d = lerp(0, RAFT_L - 0.4, smooth(clamp01(k / 0.66))) - i * 1.6;
+  const d = lerp(0, RAFT_L - 0.4, smooth(clamp01(k / 0.66))) - i * 3.4;
   if (d < 0) return null;
   return along(RAFT_PATH, d);
 };

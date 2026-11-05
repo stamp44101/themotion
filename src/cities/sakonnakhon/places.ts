@@ -59,7 +59,8 @@ export const DON_SAWAN: P = squeeze([40.6, -25.5]); // เกาะดอนส�
 export const LEGEND_AT: P = [DON_SAWAN[0] - 4, DON_SAWAN[1] + 5];
 export const THA_RAE: P = (([x, z]) => [x, z - 2.4] as P)(squeeze([39.6, -100.2])); // บ้านท่าแร่, on the north shore
 // the raft crossing of 2427: from the town's shore round the lake's west side to Tha Rae
-export const RAFT_PATH: P[] = [[8.6, -6], [10.6, -16], [12.6, -30], [16.4, -42], [21.6, -50], [24.4, -53]];
+// it ends on the water off the landing: the rafts never sit on the shore
+export const RAFT_PATH: P[] = [[8.6, -6], [10.6, -16], [12.6, -30], [16.4, -42], [21.0, -49.4]];
 
 // ---- far places: drawn at the tile's edges (geo.ts, far: true)
 export const NARAI: P = [-44, -22]; // พระธาตุนารายณ์เจงเวง, 6.6 km WNW

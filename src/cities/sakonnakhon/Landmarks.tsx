@@ -4,7 +4,6 @@ import {Elephant, glowTexture, lathe, Prang, Viharn} from '../../engine/parts';
 import type {LandmarkProps} from '../../engine/types';
 import {ramp} from '../../lib';
 import {Cart, Walker} from '../nan/figures';
-import {Raft} from '../phetchabun/figures';
 import {
   airlinerAt, ARRIVE_N, arriveAt, BANNER_AT, bannerK, beatK, blueFront, BRAHMINS, brahminAt, castleAt, CASTLES, chuteAt, CHUTES,
   clamp01, CLOTH_H, CLOTH_W, dyeFront, emptyK, heroScale, khmerK, lakeK, LEAVE_N, leaveAt, LEGEND_AT, liftK, PAY_S, planeAt,
@@ -435,6 +434,20 @@ const Arriving: React.FC<{t: number}> = ({t}) => (
 );
 
 // ------------------------------------------------------------------ 2427: the rafts and Tha Rae
+/** a seated passenger: a white or indigo shirt and a dark head, no legs (the Walker on stalks read as mushrooms) */
+const Sitter: React.FC<{c: string}> = ({c}) => (
+  <group>
+    <mesh position={[0, 0.16, 0]} castShadow>
+      <cylinderGeometry args={[0.1, 0.13, 0.32, 8]} />
+      <meshStandardMaterial color={c} roughness={0.9} />
+    </mesh>
+    <mesh position={[0, 0.39, 0]} castShadow>
+      <sphereGeometry args={[0.08, 10, 8]} />
+      <meshStandardMaterial color="#3a2a20" roughness={0.9} />
+    </mesh>
+  </group>
+);
+
 const Rafts: React.FC<{t: number}> = ({t}) => (
   <>
     {Array.from({length: RAFTS}, (_, i) => {
@@ -442,44 +455,82 @@ const Rafts: React.FC<{t: number}> = ({t}) => (
       if (!r) return null;
       return (
         <group key={i} position={[r.x, 0.02 + Math.sin(t * 2 + i) * 0.03, r.z]} rotation-y={r.rot + Math.PI / 2}>
-          <group scale={2.0}>
-            <Raft />
-          </group>
-          {[-0.6, 0, 0.6].map((x, j) => (
-            <group key={j} position={[x, 0.66, 0]} scale={0.7}>
-              <Walker step={0} i={i + j} still />
+          {/* a plain bamboo raft (the Phetchabun relic raft carries a gilt dais and parasols) */}
+          {Array.from({length: 7}, (_, k) => (
+            <mesh key={k} position={[0, 0.26, (k - 3) * 0.26]} rotation-z={Math.PI / 2} castShadow>
+              <cylinderGeometry args={[0.13, 0.13, 2.6, 6]} />
+              <meshStandardMaterial color="#c2a66a" roughness={0.9} />
+            </mesh>
+          ))}
+          {/* a family on each raft, sitting, and one poling at the stern */}
+          {[[-0.45, -0.2], [0, 0.15], [0.4, -0.15]].map(([x, z], j) => (
+            <group key={j} position={[x, 0.38, z]} scale={1.1}>
+              <Sitter c={(i + j) % 3 === 0 ? '#2f3b63' : '#f4f1ea'} />
             </group>
           ))}
+          <group position={[1.1, 0.38, 0]} rotation-z={0.35 * Math.sin(t * 2.2 + i)}>
+            <Box p={[0, 0.5, 0]} s={[0.04, 1.6, 0.04]} c="#8a6a3e" />
+          </group>
         </group>
       );
     })}
   </>
 );
 
+/** the Tha Rae church: a long nave with a pitched roof, a bell tower and spire at the lake end, a cross */
+const Church: React.FC<{big: number; lit?: string}> = ({big, lit}) => {
+  const L = 2.6 + big * 1.2;
+  const W = 1.0 + big * 0.3;
+  const H = 0.9 + big * 0.3;
+  return (
+    <group>
+      <Box p={[0, H / 2, 0]} s={[W, H, L]} c="#f3eee4" e={lit} />
+      <mesh position={[0, H + 0.28, 0]} rotation-z={Math.PI / 4} scale={[1, 1, 1]} castShadow>
+        <boxGeometry args={[W * 0.72, W * 0.72, L]} />
+        <meshStandardMaterial color="#9b4a33" roughness={0.8} />
+      </mesh>
+      {/* the bell tower at the lake (south) end, and its spire and cross */}
+      <Box p={[0, H * 0.9, L / 2 + 0.3]} s={[0.7, H * 1.8, 0.7]} c="#f6f2ea" e={lit} />
+      <mesh position={[0, H * 1.8 + 0.6, L / 2 + 0.3]} rotation-y={Math.PI / 4} castShadow>
+        <coneGeometry args={[0.45, 1.2, 4]} />
+        <meshStandardMaterial color="#7d8790" roughness={0.6} flatShading />
+      </mesh>
+      <Box p={[0, H * 1.8 + 1.45, L / 2 + 0.3]} s={[0.05, 0.5, 0.05]} c="#e9e3d2" />
+      <Box p={[0, H * 1.8 + 1.55, L / 2 + 0.3]} s={[0.28, 0.05, 0.05]} c="#e9e3d2" />
+    </group>
+  );
+};
+
+/** a two-storey French-Vietnamese shophouse row: rendered walls, a tiled roof */
+const Shophouses: React.FC<{lit?: string; c: string}> = ({lit, c}) => (
+  <group>
+    <Box p={[0, 0.4, 0]} s={[1.9, 0.8, 0.7]} c={c} e={lit} ei={0.4} />
+    <Box p={[0, 0.84, 0]} s={[2.0, 0.08, 0.8]} c="#8e4a32" />
+    {[-0.7, -0.23, 0.23, 0.7].map((x) => (
+      <Box key={x} p={[x, 0.55, 0.36]} s={[0.18, 0.22, 0.02]} c="#5d6b6f" />
+    ))}
+  </group>
+);
+
 const ThaRae: React.FC<{t: number; Y: number; night: number}> = ({t, Y, night}) => {
   const k = thaRaeK(t, Y);
   if (k < 0.02) return null;
-  // the cathedral by the shore (the 1880s chapel grows into the church), and the grid of streets behind it
+  // the church by the shore (the chapel of the 1880s grows into today's cathedral), and the grid of streets behind it
   const big = smooth01(ramp(Y, 1950, 1960));
+  const lit = night > 0.3 ? '#ffd9a0' : undefined;
+  const walls = ['#efe2c4', '#e8d3a6', '#f1ece2', '#e3c995'];
   return (
     <group position={[THA_RAE[0], 0, THA_RAE[1]]} scale={1.6}>
-      <Grow k={k} at={[0, 0, 1.4]}>
-        <Box p={[0, 0.5 + big * 0.3, 0]} s={[1.0 + big * 0.6, 1 + big * 0.6, 2.2 + big]} c="#f1ece2" e={night > 0.3 ? '#ffd9a0' : undefined} />
-        <mesh position={[0, 1.6 + big * 0.9, -1.0 - big * 0.4]} castShadow>
-          <coneGeometry args={[0.32, 1.4 + big, 4]} />
-          <meshStandardMaterial color="#c9c3b6" flatShading />
-        </mesh>
-        <Box p={[0, 2.5 + big * 1.5, -1.0 - big * 0.4]} s={[0.05, 0.5, 0.05]} c="#e8e2d0" />
-        <Box p={[0, 2.6 + big * 1.5, -1.0 - big * 0.4]} s={[0.3, 0.05, 0.05]} c="#e8e2d0" />
+      <Grow k={k} at={[0, 0, 0.9]}>
+        <Church big={big} lit={lit} />
       </Grow>
       {Array.from({length: 12}, (_, i) => {
-        const gx = (i % 4) - 1.5;
-        const gz = Math.floor(i / 4);
+        const gx = (i % 3) - 1;
+        const gz = Math.floor(i / 3);
+        if (gx === 0 && gz === 0) return null; // the church's square
         return (
-          <Grow key={i} k={clamp01(k * 1.4 - i * 0.03)} at={[gx * 1.3, 0, -0.6 - gz * 1.2]}>
-            <group scale={0.55}>
-              <Hut c="#b49a78" />
-            </group>
+          <Grow key={i} k={clamp01(k * 1.4 - i * 0.03)} at={[gx * 2.3, 0, -0.9 - gz * 1.15]}>
+            <Shophouses lit={lit} c={walls[i % walls.length]} />
           </Grow>
         );
       })}
