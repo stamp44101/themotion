@@ -71,3 +71,49 @@ Payoff (45-54 s): the wax castle procession at night, dancers in indigo, hero cl
 Tagline: ............
 Facts with nothing to show: 2476 (เมือง → จังหวัด)
 ```
+
+## Research checked (5 Nov; Gemini 072ac04, [local]'s map 0d5524c)
+
+Cloud re-checked the headline years on the web (5 Nov):
+
+| fact | Gemini | cloud's check | caption use |
+|---|---|---|---|
+| เมืองสกลนคร, Ratchawong (Kham) made พระยาประจันตประเทศธานี, **17 Aug 2381** (จ.ศ. 1200); 2386 is a known mis-conversion | ยืนยัน | ยืนยัน (ipthailand GI doc, Dailynews, Gemini's chronicle) | **held 2381** |
+| สกลทวาปี raised ~2369 (Rama III); after the Anouvong war its governor was executed and most people taken south, only ข้าพระธาตุ left | ขัดแย้ง for 2369; ยืนยัน for 2370 | the war is ยืนยัน (Vientiane taken 2370, silpa-mag); **Sakon Thawapi's year not confirmed independently** | **no year on Sakon Thawapi**; the leaving beat holds 2370 ("หลังศึกเจ้าอนุวงศ์"); **no execution shown** |
+| Khmer town of หนองหารหลวง, prasat at เชิงชุม, inscription สน.1 (K.369), นารายณ์เจงเวง, พระธาตุดุม, สะพานขอม (11 openings), สระพังทอง | ยืนยัน (พ.ศ. ศตวรรษที่ 16-17) | art-historical dating | no held year ("ราวพุทธศตวรรษที่ 16") |
+| the Lan Xang stupa over the prasat, ~2109 | ยืนยัน for the structure; the year is from legend/chronicle | approximate | no held year ("สมัยล้านช้าง") |
+| Tha Rae: ~40 Catholic families cross Nong Han by raft with Fr. Xavier Guego and Khru Than, **2427** (1884), grid plan | ยืนยัน | ยืนยัน (ThaiJO; Chula thesis 2427-2508; silpa-mag) | **held 2427** |
+| Seri Thai in the Phu Phan hills under Tiang Sirikhan, **2487-2488**; parachute drops at night; the cave camp; **no plane lands at the cave** | ยืนยัน | general history (Pridi Institute) | held 2487, parachutes over the hills |
+| airport 2528, Kasetsart Chalermphrakiat 2539 (north shore), new city hall 2541, Phu Phan palace 2518 | ยืนยัน | not re-checked | grow shot, no holds |
+| natural indigo cloth GI **สช 58100068, 2558** (filed 2549) | ยืนยัน | ยืนยัน (ThaiJO cites the registration) | payoff sub line |
+| wax castle procession: province-level from **2485** | ยืนยัน | **not found** on the web | **no year**; the payoff uses today's festival (20-26 Oct 2569) |
+| the lake legend: tell it as **เมืองหนองหารหลวง**, label ตำนาน; never name เอกชะทีตา (Udon's Kumphawapi tells the same tale); the widow's house became **ดอนสวรรค์** | ตำนาน | agreed | caption "ตำนาน" |
+
+**The dye goes green first (Gemini §2, from the GI dyers):** cloth lifted from the หม้อนิล is yellow-green and turns blue in
+the air within seconds. v1's cover: white cloth → green as the dye climbs → blue sweeping up behind it. Pattern: ลายสะเก็ดธรรม
+(stacked diamonds) or เกล็ดเต่า (a sharp lattice that reads at small sizes), not the placeholder diamonds.
+
+## Storyline (proposed by cloud, 5 Nov; storyline v2, 60 s)
+
+Map ([local]): origin the stupa; the old-town square (~1.3 × 1.5 km, double moat) with its east side on Nong Han's west shore;
+the lake to the E/ENE (18 × 7 km, NW-SE), ดอนสวรรค์ 4.8 km ENE; the Phu Phan hills to the SW. The tile is compressed: the lake,
+Tha Rae (10.8 km NNE) and Phu Phan (10-22 km SW) are pulled in toward the town (stated as approximate in v1).
+
+| s | beat (one verb) | on screen | year |
+|---|---|---|---|
+| 0-6 | **dye** (cover A1) | the giant cloth climbs white → green → indigo with the tied pattern; the ring of indigo runs out and becomes the lake as the cloth shrinks away | counter starts, no hold |
+| 6-11 | **sink** (ตำนาน) | the first big, close event: a town on the shore sinks and the lake rises over it; one mound stays: ดอนสวรรค์ | legend, no year |
+| 11-17 | **build** | the Khmer square with its double moat, the laterite prasat rising at the centre (spectacle by 12 s), สะพานขอม, a Brahmin procession over it, นารายณ์เจงเวง and พระธาตุดุม | ราวพุทธศตวรรษที่ 16 |
+| 17-22 | **close over** | the Lan Xang lotus-bud stupa closes over the prasat (the secret inside) | สมัยล้านช้าง |
+| 22-27 | **leave** | after the Anouvong war the town empties: a column led away south; a ring of ข้าพระธาตุ houses stays round the stupa | hold 2370 |
+| 27-33 | **arrive** | Ratchawong Kham's Tai Yo come from the east with carts and elephants; the square fills; เมืองสกลนคร | hold 2381 |
+| 33-38 | **cross** | ~40 families raft across Nong Han to the north shore; Tha Rae's grid and church rise | hold 2427 |
+| 38-43 | **drop** | night over Phu Phan: planes drop parachutes, fires answer from the hills (Seri Thai) | hold 2487 |
+| 43-49 | **grow** | the grow shot: the town spreads NW along ถ.นิตโย, the airport, the campus on the north shore, boats on the lake | 2500 → 2560 |
+| 49-56 | **procession** (payoff) | Ok Phansa night: golden wax castles roll from the clock tower to the lit stupa, dancers in indigo, longboats on Nong Han; the indigo cloth hangs again over the route (hero back) | lands on 2569 |
+| 56-60 | finale title | nothing on screen | 2569 |
+
+Tagline (draft): "เมืองที่ย้อมแผ่นดินเป็นสีคราม". Facts with nothing to show: 2476 (เมือง → จังหวัด), 2478 (registered monuments).
+Sound: cloth snaps and drips, a khaen line for the cover; water rising for the legend; a temple gong for the stupa; cart wheels and
+elephants for 2381; paddles for the rafts; aircraft drone and wind for the drops; the procession's drums and พิณ for the payoff.
+Owner gate next: **the 0-6 s stills** (and the legend beat to 11 s) before any render.
