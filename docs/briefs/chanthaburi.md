@@ -140,3 +140,45 @@ Sound: the lap's whine and glint chimes for the cover; pots cracking, an elephan
 oars; stone blocks for Noen Wong; a church bell for 2452; bugles and a flag rope for 2436/2447; the market's murmur and the
 tick of tweezers for the payoff.
 Owner gate next: **the 0-11 s stills** before any render.
+
+## v1 build (6 Nov; `src/cities/chanthaburi/`, `scripts/soundtrack_chanthaburi.py`)
+
+`npm run check` for the city: 0 errors (warnings: the build and return beats run 3.6 s, the occupy beat 2.8 s; the 2436/2447
+pair shares one caption, 30.2-36.0 s). Soundtrack (code only): -16.0 LUFS, score +0.8 LU over the effects, ambience 11 dB
+under the score. Stills for the owner's gate: `chanthaburi_v1_gate.jpg` (0-11 s), later beats `chanthaburi_v1_contact.jpg`.
+What is approximate or drawn for the screen:
+- **Scale and compression:** 100 m/unit, origin the city pillar. The town core (within 1.4 km of the pillar) is true scale.
+  Everything further out is pulled in along its true bearing (`places.ts` `squeeze`: the first 1.4 km true, every km beyond
+  drawn as 250 m): Noen Wong (5.5 km SW) is drawn ~2.5 km out (and 140 m further NW so it clears the river), Khao Ploi Waen
+  (7.7 km W) ~3 km, Samet Ngam ~3.6 km, the mouth (16.5 km SSW) ~5 km. The lower river is the OSM centreline squeezed the
+  same way and simplified; upstream and through the town it is OSM, nudged ~75 m east in the town reach so the waterfront
+  (west bank) and Wat Chanthanaram / the cathedral (east bank) keep their banks. The river is drawn 150 m wide (real 50-80 m),
+  the estuary 440 m (real 800-1,000 m). The Gulf fills the tile's south edge (coast drawn straight).
+- **The Ban Lum wall:** ONEP gives ~1 x 2 km round today's ค่ายตากสิน and no orientation; drawn 0.98 x 2.0 km with the long side
+  N-S on the river's west bank, the pillar at its SE corner, a moat on three sides (the river is the fourth), one gate (south)
+  drawn for the 2310 beat. Its build has no held year (counter runs 2199-2231, "สมัยพระนารายณ์"). It comes down in 2377 and its
+  houses empty (92%); they come back in 2419. **That the wall's stones were carried to Noen Wong is the storyline's picture,
+  not a sourced fact.**
+- **2310:** the attack is drawn at the south gate (the gate's side is not recorded); 12 pots, 24 soldiers with torches, the
+  elephant with a howdah breaks the timber doors; nobody falls. The engine's day cycle puts night at 9.7-12.1 s, so the pots
+  break at night and the gate falls at first light (not all night as the chronicle has it). The fleet is 6 junks with no
+  count on screen and no shipyard named; it sails from the town landing, not from Samet Ngam.
+- **2377:** Noen Wong drawn true size (560 x 600 m, ONEP) on a low rise, laterite walls, a gate gap in each side, a small
+  hall for Wat Yothanimit; the two mouth forts (west headland, east bank) rise off-camera in this beat and show in the grow
+  shot. A small wooden church stands on the west bank from ~2254 and moves to the east bank in 2377 (positions drawn).
+- **2419:** the waterfront row is 18 wooden houses along the west bank from south of ถ.ท่าหลวง to above the market; the chedi
+  on Khao Ploi Waen appears with it (built 2398; the counter skips that year).
+- **2436 / 2447:** the French building in the camp (gem's unchecked pin, drawn 50 m off the shrine) and ตึกแดง with the brick
+  tower at the mouth; a French column marches in and out, a steamer leaves down the river; the Siamese flag of 2447 is the
+  white elephant on red. The tower is not named (not called a jail).
+- **The cathedral** is drawn ~1.35x (and the spires ~5x true height) so it reads; "ราว 2452" (the year is not confirmed); the
+  spires come down at ~2484 and go back at ~2546-2549 inside the grow shot with no year on screen (2483/2552 not confirmed).
+- **Roads** (years approximate, all inside beats): ถ.ศรีจันทร์ ~2453, ถ.ท่าหลวง with its bridge ~2493, the road west ~2503,
+  the road down to the mouth ~2513. No Sukhumvit by name. Orchards (5 patches) on the hills in the grow shot.
+- **Hero:** the A2 lap and stone moved from the style frames with a ~16-unit lap (0.62 S, so its legs stay off the river); the
+  crust is rounded brown-black lumps with red laterite dirt that hug the stone; the ไม้ทวน is a brown stick with a dark red-brown
+  shellac lump on the stone's table, its end in a notched jamb peg at the bench's right; at 2.2 s the stick lets go, the stone
+  lifts, turns, and flies west to settle on Khao Ploi Waen (5.8 s). Callback: the same stone over Si Chan road at dusk.
+- **Not shown:** Mueang Phaniat, the 2254 arrival, Trat 2449/2450, the 2511 fire story, the bridge at the mouth.
+- **Still to look at on the render:** the waterfront row reads as one low brown strip from the 40-50-unit cameras; Noen Wong
+  is small behind trees in the move beat; the gem on Khao Ploi Waen at 6 s is a speck; the 2447 Siamese flag is small.
