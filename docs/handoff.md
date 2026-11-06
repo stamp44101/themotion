@@ -115,6 +115,12 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
   save 0.4% and repost 0.9% all "higher" (the first since the forest tiles), share 0.4%, average watch 12 s, 2,662 views. The post
   time was not written down. Lesson for the next cover: no blank canvas at frame 0; a symbol half-made by hand that changes shape. Earlier plan:
   [gemini] answers; [local] pins the lake, the old town and the story places (`sakonnakhon_onep/`).
+- **Chanthaburi v0 (6 Nov; owner: "ลุย" on cloud's pick over Yasothon and Ang Thong):** branch `city/chanthaburi`. Brief
+  `docs/briefs/chanthaburi.md` (dates checked: Taksin 2310, the French 2436-2447; not yet found: the Noen Wong move, the
+  cathedral's year, when gem cutting began), research request for [gemini] `docs/briefs/chanthaburi_research_request.md`,
+  style frames `docs/briefs/chanthaburi_styleframes.jpg` (A1 blue sapphire cut on a lap, cloud's pick; A2 the same in yellow;
+  B ทุบหม้อข้าว, better as the 3-9 s event). Hybrid loop like Sakon Nakhon. Next: the owner picks the cover; [gemini] answers;
+  [local] pins the town, the river and the story places (`chanthaburi_onep/`).
 - A new city in a new session (one city per session).
 - **Posting time (owner, 1 Nov): 19:00-21:00 from now on**, not the morning; the next read changes the
   city and the hour at once (`experiments.md` §14).
