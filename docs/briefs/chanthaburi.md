@@ -57,6 +57,8 @@ changes shape.
   soldiers move on the gate (drawn by day here; the clip has it at night, with torches). It moves and is close, but at
   thumbnail size it reads as "pots and a wall", not the town's own symbol; better as the first event (3-9 s).
 
+**Owner picked A1 (6 Nov): the blue sapphire.** B's pot smashing goes to the first event after the cover (3-9 s).
+
 What is placeholder in the frames: the lap and its stand are drawn, not modelled from a real cutter's bench; the pavilion
 is deeper than a true brilliant so its point reads; there is no hand (the stone is "being cut" by the lap alone).
 
@@ -81,7 +83,6 @@ the flag and the buildings, then the flag lowered.
 
 ## Open questions
 
-- Blue or yellow (A1 or A2) — owner/resident.
 - The present cathedral's year; the wooden church before it.
 - Did the town really move to Noen Wong in ~2377, and when did it move back?
 - When did gem mining (Khao Ploi Waen, Bang Kha Cha) and cutting start, and when did the gem market street form?
