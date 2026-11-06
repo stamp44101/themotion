@@ -128,6 +128,9 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
   waterfront side. v1c (owner): the smash retimed into the engine's night (pots 10.0-10.6 s, gate 10.85-11.1 s,
   night peak 10.9 s), a big flagpole and a close camera for the 2447 flag change, a close camera on the 2419 landing. Stills: `docs/briefs/chanthaburi_v1_gate.jpg` (0-11 s) and `chanthaburi_v1_contact.jpg` (13-52 s); what is drawn for
   the screen is in the brief's "## v1 build". No render yet. **Next: the owner passes the 0-11 s stills**, then one render.
+  **Owner passed the 0-11 s stills (6 Nov, v1c).** Next: [local] renders PR #86 (`npm run render:chanthaburi`, then
+  `npm run encode -- chanthaburi`), `check_render`, upload to the `renders` release; owner watches, says "Merge", posts 19:00-21:00 and
+  writes down the post time; the 24-h read goes in `experiments.md` §19.
 - A new city in a new session (one city per session).
 - **Posting time (owner, 1 Nov): 19:00-21:00 from now on**, not the morning; the next read changes the
   city and the hour at once (`experiments.md` §14).

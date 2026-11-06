@@ -213,3 +213,5 @@ What is approximate or drawn for the screen:
 - **Not shown:** Mueang Phaniat, the 2254 arrival, Trat 2449/2450, the 2511 fire story, the bridge at the mouth.
 - **Still to look at on the render:** the sky goes to dusk and night at 4-5 s (engine cycle); the first pots break at the
   dusk edge (night 0.05 at 10.0 s).
+
+**Owner passed the 0-11 s stills (6 Nov, v1c 3e96ebe).** Next: [local] renders and runs `check_render`, uploads `chanthaburi_look_social.mp4` to the `renders` release; then the owner watches, says "Merge" and posts at 19:00-21:00 (**write down the post time**).
