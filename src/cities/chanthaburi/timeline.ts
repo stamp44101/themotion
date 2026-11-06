@@ -21,9 +21,9 @@ const HERO_END: Key = [3.9, -19, 4, -2, 92, -54, 26, 30];
 // the Ban Lum wall rising, the hill and its stone still in the corner of the frame, then in to the wall and the landing
 const BU_IN: Key = [5.2, -16, 2, -3, 82, -46, 30, 30];
 const BU_MID: Key = [7.4, -3, 1, -4, 64, -16, 32, 30];
-const BU_END: Key = [9.2, -1, 1, -3, 56, 8, 34, 30];
+const BU_END: Key = [8.9, -1, 1, -3, 56, 8, 34, 30];
 // 2310: the pots and the south gate at night, from the fields to the south
-const SM_IN: Key = [10.8, GATE[0] + 0.2, 1, GATE[1] + 2.6, 32, 26, 30, 30];
+const SM_IN: Key = [10.0, GATE[0] + 0.2, 1, GATE[1] + 2.6, 32, 22, 30, 30];
 const SM_END: Key = [15.6, GATE[0] - 0.2, 1, GATE[1] + 0.6, 30, 44, 32, 30];
 // the fleet down the lower river to the mouth
 const SA_IN: Key = [17.2, -11, 1, 22, 56, 70, 32, 30];
@@ -33,14 +33,17 @@ const MV_IN: Key = [22.2, -10, 1, 5.5, 50, 128, 34, 30];
 const MV_END: Key = [25.6, -16, 1, 10, 42, 112, 38, 30];
 // 2419: back to Ban Lum, the waterfront row
 const RT_IN: Key = [26.8, -9, 1, 6, 46, 132, 34, 30];
-const RT_MID: Key = [28.3, 3.5, 1, 7.5, 42, 154, 34, 30];
-const RT_END: Key = [29.6, 4, 1, 7.5, 40, 160, 34, 30];
+// in close on the landing for a second: the boats and the people walking up to their doors
+const RT_MID: Key = [28.4, 5.4, 0.8, 7.6, 27, 156, 32, 30];
+const RT_END: Key = [29.6, 5.4, 0.8, 7.4, 26, 162, 32, 30];
 // 2436: the French flag over the camp
 const OC_IN: Key = [30.6, 0.8, 1, -1.0, 34, 188, 32, 30];
 const OC_END: Key = [32.8, 0.8, 1, -0.8, 32, 204, 32, 30];
 // 2447: the flag comes down, the ship leaves down the river
-const LV_IN: Key = [33.6, 1.6, 1, 2.4, 50, 216, 34, 30];
-const LV_END: Key = [35.8, 2.2, 1, 8.0, 62, 236, 34, 30];
+// in on the camp's flagpole: the tricolour comes down, the elephant flag goes up; then out after the steamer
+const LV_IN: Key = [33.6, 1.2, 2.6, -0.4, 28, 220, 22, 30];
+const LV_MID: Key = [35.0, 1.4, 2.6, -0.2, 29, 228, 22, 30];
+const LV_END: Key = [35.9, 2.6, 1.6, 1.6, 36, 236, 26, 30];
 // ราว 2452: the cathedral across the river from the waterfront
 const RS_IN: Key = [37.0, CATHEDRAL[0] + 0.4, 2.0, CATHEDRAL[1], 34, 244, 22, 30];
 const RS_END: Key = [40.6, CATHEDRAL[0] + 0.6, 2.2, CATHEDRAL[1], 30, 256, 22, 30];
@@ -154,7 +157,7 @@ export const STORY = buildStory({
       kind: 'arrive',
       t: [33.2, 36.0],
       year: {hold: 1904},
-      camera: [LV_IN, LV_END],
+      camera: [LV_IN, LV_MID, LV_END],
     },
     {
       // the present cathedral, Gothic, twin spires, on the east bank (laid 2449, blessed 2452: not confirmed, so "ราว")

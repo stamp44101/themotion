@@ -165,7 +165,18 @@ the score.
 - **The cathedral beat** is filmed from the waterfront side across the river (azimuth 244-256, elevation 22): the west front
   with both spires and the nave read.
 - Smaller, smoother crust lumps (a pebble skin) on the cover; Noen Wong's rise cleared of trees from Narai's time (fields)
-  so the camp reads; the payoff stone drawn 1.6x larger over Si Chan road; the pots appear only in 2310. Stills for the owner's gate: `chanthaburi_v1_gate.jpg` (0-11 s), later beats `chanthaburi_v1_contact.jpg`.
+  so the camp reads; the payoff stone drawn 1.6x larger over Si Chan road; the pots appear only in 2310.
+
+**v1c fixes (owner, 6 Nov):**
+- **The smash is in the dark.** The engine's 6 s day cycle (`lighting()`, src/lib.ts) puts a night peak at 10.92 s (night
+  0.40, the engine's depth). The beat is retimed onto it: the pots break at 10.00-10.60 s (night 0.05 → 0.33), the elephant
+  charges at 10.42 s (0.25), the gate's doors go down at 10.85-11.13 s (0.40 → 0.37), the torches pour in from 11.1 s (0.38);
+  the 2310 hold still runs the whole beat (9.8-16.0 s). The camera arrives on the gate at 10.0 s (eased from 8.9 s).
+- **2447:** the camp's flagpole is 4.6 tall with 2.0-wide flags turned to face the camera; the camera holds in on it
+  (distance ~28) through 33.6-35.0 s: the tricolour comes down (33.3-34.3 s), then the white-elephant flag goes up
+  (34.5-35.6 s, a bugle on it); the steamer is drawn 1.5x and pulls away from the landing from 34.0 s.
+- **2419:** the camera comes in on the landing (distance ~26) for 28.4-29.6 s; the people walking up to their doors are
+  drawn 1.25x (the figures read ~100+ px) and the arriving boats 1.25x, with their passengers seated in them. Stills for the owner's gate: `chanthaburi_v1_gate.jpg` (0-11 s), later beats `chanthaburi_v1_contact.jpg`.
 What is approximate or drawn for the screen:
 - **Scale and compression:** 100 m/unit, origin the city pillar. The town core (within 1.4 km of the pillar) is true scale.
   Everything further out is pulled in along its true bearing (`places.ts` `squeeze`: the first 1.4 km true, every km beyond
@@ -200,5 +211,5 @@ What is approximate or drawn for the screen:
   shellac lump on the stone's table, its end in a notched jamb peg at the bench's right; at 2.2 s the stick lets go, the stone
   lifts, turns, and flies west to settle on Khao Ploi Waen (3.8 s). Callback: the same stone over Si Chan road at dusk.
 - **Not shown:** Mueang Phaniat, the 2254 arrival, Trat 2449/2450, the 2511 fire story, the bridge at the mouth.
-- **Still to look at on the render:** the 2447 Siamese flag and the steamer are small; the people at the waterfront in 2419
-  are small at the 40-unit camera; the sky still goes to dusk and night at 4-5 s (engine cycle).
+- **Still to look at on the render:** the sky goes to dusk and night at 4-5 s (engine cycle); the first pots break at the
+  dusk edge (night 0.05 at 10.0 s).

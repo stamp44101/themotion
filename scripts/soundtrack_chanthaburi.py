@@ -242,22 +242,23 @@ for k in range(3):
     add(sfx, creak(0.6) * 0.5, at(build, 0.3 + 0.2 * k), pan=0.3)
 for k in range(10):
     add(sfx, blip(rng.uniform(240, 360), 0.5), at(build, 0.4 + k * 0.05), pan=rng.uniform(-0.5, 0.5))
-# 2310: torches, the pots cracking one after another, the elephant, the timber gate, the column pouring in
+# 2310 (in the engine's night, ~10.9 s): torches, the pots cracking one after another (10.0-10.6 s), the elephant's
+# charge and trumpet, the timber gate (10.85-11.1 s), the column pouring in
 add(sfx, crackle(smash[1] - smash[0]), smash[0], pan=0.2, gain=0.28)
 for i in range(12):
-    add(sfx, crack(0.9), at(smash, 0.04 + i * 0.024), pan=-0.5 + i / 11)
-add(sfx, filt(trumpet_elephant(1.4), "low", 2000), at(smash, 0.3), pan=0.3, gain=0.7)
-t = at(smash, 0.3)
-while t < at(smash, 0.46):
+    add(sfx, crack(0.9), at(smash, 0.032 + i * 0.0088), pan=-0.5 + i / 11)
+add(sfx, filt(trumpet_elephant(1.2), "low", 2000), at(smash, 0.09), pan=0.3, gain=0.7)
+t = at(smash, 0.1)
+while t < at(smash, 0.17):
     add(sfx, thud(0.6, 60), t, pan=0.2)
-    t += 0.3
-add(sfx, filt(drum(70, 40, 0.8, 1.0), "low", 800), at(smash, 0.46), pan=0.0, gain=0.6)
-add(sfx, creak(0.9) * 0.8, at(smash, 0.46), pan=0.0)
+    t += 0.15
+add(sfx, filt(drum(70, 40, 0.8, 1.0), "low", 800), at(smash, 0.17), pan=0.0, gain=0.6)
+add(sfx, creak(0.9) * 0.8, at(smash, 0.17), pan=0.0)
 for k in range(5):
-    add(sfx, thud(0.4, rng.uniform(100, 160)), at(smash, 0.47 + k * 0.012), pan=rng.uniform(-0.3, 0.3))
-add(sfx, filt(trumpet_elephant(1.0), "low", 2000), at(smash, 0.5), pan=0.1, gain=0.5)
-add(sfx, crowd(smash[1] - at(smash, 0.5)), at(smash, 0.5), pan=0.0, gain=0.3)
-t = at(smash, 0.5)
+    add(sfx, thud(0.4, rng.uniform(100, 160)), at(smash, 0.18 + k * 0.008), pan=rng.uniform(-0.3, 0.3))
+add(sfx, filt(trumpet_elephant(1.0), "low", 2000), at(smash, 0.24), pan=0.1, gain=0.5)
+add(sfx, crowd(smash[1] - at(smash, 0.22)), at(smash, 0.22), pan=0.0, gain=0.3)
+t = at(smash, 0.22)
 while t < smash[1] - 0.2:
     add(sfx, footstep(0.6), t, pan=rng.uniform(-0.3, 0.3))
     t += 0.18
@@ -305,14 +306,15 @@ while t < at(occ, 0.75):
     add(sfx, footstep(0.6), t, pan=0.1)
     t += 0.2
 add(sfx, rope(1.2), at(occ, 0.3), pan=0.3)
-add(sfx, rope(1.0), at(leave, 0.08), pan=0.3)
-add(sfx, rope(1.0), at(leave, 0.48), pan=0.3)
-add(sfx, filt(steam_whistle(1.3), "low", 1500), at(leave, 0.5), pan=-0.3, gain=0.35)
+add(sfx, rope(1.0), at(leave, 0.08), pan=0.3, gain=1.4)
+add(sfx, rope(1.0), at(leave, 0.48), pan=0.3, gain=1.4)
+add(sfx, bugle([72, 76, 79, 84]), at(leave, 0.5), pan=0.2, gain=0.8)  # the Siamese salute as the flag goes up
+add(sfx, filt(steam_whistle(1.3), "low", 1500), at(leave, 0.3), pan=-0.3, gain=0.35)
 t = leave[0] + 0.1
 while t < at(leave, 0.55):
     add(sfx, footstep(0.5), t, pan=-0.1)
     t += 0.2
-t = at(leave, 0.5)
+t = at(leave, 0.3)
 while t < leave[1]:
     add(sfx, chuff(), t, pan=-0.3, gain=0.15)
     t += 0.3

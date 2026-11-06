@@ -86,7 +86,8 @@ export const POTS = 12;
 export const POT_Z = GATE[1] + 2.9;
 export const potX = (i: number) => GATE[0] + (i - (POTS - 1) / 2) * 0.62;
 /** 0 standing, 0..1 flying apart, > 1 gone */
-export const potBreak = (i: number, t: number) => (beatK('smash', t) - (0.04 + i * 0.024)) / 0.06;
+/** the pots break one after another at 10.0-10.6 s, in the engine's night (peak ~10.9 s) */
+export const potBreak = (i: number, t: number) => (beatK('smash', t) - (0.032 + i * 0.0088)) / 0.045;
 export const SOLDIERS = 24;
 const soldierHome = (i: number): P => [GATE[0] + ((i % 8) - 3.5) * 0.62, POT_Z + 0.9 + Math.floor(i / 8) * 0.62];
 /** each soldier's path: from his row behind the pots, over the causeway, in through the gate */
@@ -96,7 +97,7 @@ export const soldierAt = (i: number, t: number) => {
   const home = soldierHome(i);
   const path: P[] = [home, [GATE[0] + (home[0] - GATE[0]) * 0.25, GATE[1] + 1.6], [GATE[0] + ((i % 3) - 1) * 0.35, GATE[1] - 0.6], [GATE[0] + ((i % 5) - 2) * 0.7, GATE[1] - 3.4]];
   const L = lengthOf(path);
-  const start = 0.5 + (i % 8) * 0.012 + Math.floor(i / 8) * 0.04;
+  const start = 0.21 + (i % 8) * 0.012 + Math.floor(i / 8) * 0.04;
   const d = L * smooth((k - start) / 0.42);
   return {...along(path, d), moving: k > start && k < start + 0.42, rot0: Math.PI};
 };
@@ -107,11 +108,12 @@ export const elephantAt = (t: number) => {
   if (k < -0.1 || k > 1.2) return null;
   const L = lengthOf(ELE_PATH);
   const L2 = lengthOf(ELE_PATH.slice(0, 3));
-  const d = k < 0.46 ? L2 * smooth((k - 0.28) / 0.18) : L2 + (L - L2) * smooth((k - 0.56) / 0.4);
-  return {...along(ELE_PATH, d), moving: (k > 0.28 && k < 0.46) || (k > 0.56 && k < 0.96)};
+  // charges at 10.4-10.85 s, the doors go down at 10.85-11.1 s, then it walks in
+  const d = k < 0.17 ? L2 * smooth((k - 0.1) / 0.07) : L2 + (L - L2) * smooth((k - 0.22) / 0.4);
+  return {...along(ELE_PATH, d), moving: (k > 0.1 && k < 0.17) || (k > 0.22 && k < 0.62)};
 };
 /** the gate's timber doors fall in as the elephant reaches them */
-export const gateFall = (t: number) => smooth((beatK('smash', t) - 0.45) / 0.08);
+export const gateFall = (t: number) => smooth((beatK('smash', t) - 0.17) / 0.045);
 
 // ------------------------------------------------------------------ 2310: the fleet sails to the sea
 export const FLEET_PATH: P[] = [[3.0, 12.3], [2.2, 13.6], ...LOWER, ...ESTUARY.slice(1, 3), [-19.0, 50.6], [-19.4, 53.0]];
@@ -229,8 +231,9 @@ const SHIP_L = lengthOf(SHIP_PATH);
 export const steamerAt = (t: number) => {
   const k = beatK('leave', t);
   if (k < 0 || k > 1.1) return null;
-  const d = lerp(0, SHIP_L - 0.5, smooth(clamp01((k - 0.5) / 0.6)));
-  return {...along(SHIP_PATH, d), moving: k > 0.5};
+  // pulls away from the camp's landing slowly while the flags change, then fades out past the beat's end
+  const d = Math.min(SHIP_L - 0.5, Math.max(0, k - 0.3) * 5.5);
+  return {...along(SHIP_PATH, d), moving: k > 0.3, fade: 1 - smooth((k - 1.0) / 0.12)};
 };
 export const tuekDaengK = (t: number, Y: number) => (Y > 1894 ? 1 : smooth(beatK('occupy', t) / 0.4));
 
@@ -277,12 +280,12 @@ export const ACTORS: Actor[] = [
     const j = landingJunkAt(0, t);
     return j ? [j.x, 0.8, j.z] : null;
   }},
-  {id: 'potsSmashed', during: [beatAt('smash', 0.02), beatAt('smash', 0.35)], size: 3.6, at: () => [GATE[0], 0.5, POT_Z]},
-  {id: 'elephantAtGate', during: [beatAt('smash', 0.28), beatAt('smash', 0.6)], size: 1.6, at: (t) => {
+  {id: 'potsSmashed', during: [beatAt('smash', 0.02), beatAt('smash', 0.16)], size: 3.6, at: () => [GATE[0], 0.5, POT_Z]},
+  {id: 'elephantAtGate', during: [beatAt('smash', 0.08), beatAt('smash', 0.4)], size: 1.6, at: (t) => {
     const e = elephantAt(t);
     return e ? [e.x, 1.0, e.z] : null;
   }},
-  {id: 'torchesPourIn', during: [beatAt('smash', 0.55), beatAt('smash', 0.98)], size: 2, at: (t) => {
+  {id: 'torchesPourIn', during: [beatAt('smash', 0.25), beatAt('smash', 0.95)], size: 2, at: (t) => {
     const s = soldierAt(12, t);
     return s ? [s.x, 0.8, s.z] : null;
   }},
@@ -305,7 +308,7 @@ export const ACTORS: Actor[] = [
     }
     return null;
   }},
-  {id: 'waterfrontRow', during: [beatAt('return', 0.58), beatAt('return', 0.98)], size: 2, at: () => [rowSpots[4].x, 0.6, rowSpots[4].z]},
+  {id: 'waterfrontRow', during: [beatAt('return', 0.58), beatAt('return', 0.98)], size: 1.2, at: () => [rowSpots[6].x, 0.6, rowSpots[6].z]},
   {id: 'boatsArrive', during: [beatAt('return', 0.6), beatAt('return', 0.98)], size: 1.2, at: (t) => {
     const b = arrivingBoatAt(0, t);
     return b ? [b.x, 0.5, b.z] : null;
@@ -314,12 +317,12 @@ export const ACTORS: Actor[] = [
     const f = frenchAt(0, t);
     return f ? [f.x, 0.8, f.z] : null;
   }},
-  {id: 'frenchFlag', during: [beatAt('occupy', 0.25), beatAt('leave', 0.4)], size: 1.2, at: () => [FRENCH_HOUSE[0], 3.0, FRENCH_HOUSE[1]]},
-  {id: 'shipLeaves', during: [beatAt('leave', 0.5), beatAt('leave', 1)], size: 1.6, at: (t) => {
+  {id: 'frenchFlag', during: [beatAt('occupy', 0.25), beatAt('leave', 0.4)], size: 1.2, at: () => [FRENCH_HOUSE[0] + 1.2, 3.6, FRENCH_HOUSE[1] + 0.5]},
+  {id: 'shipLeaves', during: [beatAt('leave', 0.35), beatAt('leave', 1)], size: 1.6, at: (t) => {
     const s = steamerAt(t);
     return s ? [s.x, 0.8, s.z] : null;
   }},
-  {id: 'siamFlag', during: [beatAt('leave', 0.4), beatAt('leave', 0.9)], size: 1.2, at: () => [FRENCH_HOUSE[0], 3.0, FRENCH_HOUSE[1]]},
+  {id: 'siamFlag', during: [beatAt('leave', 0.4), beatAt('leave', 0.9)], size: 1.2, at: () => [FRENCH_HOUSE[0] + 1.2, 4.0, FRENCH_HOUSE[1] + 0.5]},
   {id: 'cathedralRises', during: [beatAt('raise', 0.02), beatAt('raise', 0.85)], size: 2.4, at: () => [CATHEDRAL[0] + 1.6, 2.0, CATHEDRAL[1]]},
   {id: 'townGrows', during: [beatAt('grow', 0), beatAt('grow', 1)], size: 16, at: () => [-6, 1.5, 4]},
   {id: 'marketCrowd', during: [beatAt('trade', 0.02), STORY.at('today')[1]], size: 1.4, at: (t) => {

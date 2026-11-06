@@ -463,9 +463,9 @@ const Boats: React.FC<{t: number; Y: number}> = ({t, Y}) => (
     })}
     {(() => {
       const s = steamerAt(t);
-      if (!s || Y < 1904) return null;
+      if (!s || Y < 1904 || s.fade < 0.02) return null;
       return (
-        <group position={[s.x, 0.02, s.z]} rotation-y={s.rot} scale={0.7}>
+        <group position={[s.x, 0.02, s.z]} rotation-y={s.rot} scale={1.05 * s.fade}>
           <Steamer />
         </group>
       );
@@ -566,10 +566,10 @@ const flagTexture = (kind: 'fr' | 'siam') => {
   return tex;
 };
 
-const Flag: React.FC<{tex: THREE.Texture; h: number; up: number; t: number}> = ({tex, h, up, t}) =>
+const Flag: React.FC<{tex: THREE.Texture; h: number; up: number; t: number; w?: number}> = ({tex, h, up, t, w = 1.2}) =>
   up < 0.02 ? null : (
-    <mesh position={[0.62, 0.8 + (h - 1.2) * up, 0]} rotation-y={0.12 * Math.sin(t * 3)}>
-      <planeGeometry args={[1.2, 0.8]} />
+    <mesh position={[w / 2 + 0.03, 0.8 + (h - 0.8 - (w / 1.5) * 0.5 - 0.05) * up, 0]} rotation-y={0.12 * Math.sin(t * 3)}>
+      <planeGeometry args={[w, w / 1.5]} />
       <meshStandardMaterial map={tex} side={THREE.DoubleSide} roughness={0.9} />
     </mesh>
   );
@@ -627,13 +627,19 @@ const French: React.FC<{t: number; Y: number}> = ({t, Y}) => {
           ))}
         </group>
       )}
-      <group position={[FRENCH_HOUSE[0] + 1.2, 0, FRENCH_HOUSE[1] + 0.5]}>
-        <mesh position={[0, 1.5, 0]}>
-          <cylinderGeometry args={[0.035, 0.04, 3.0, 6]} />
-          <meshStandardMaterial color="#dcd8cc" />
+      {/* the camp's flagpole: 4.6 tall, 2.0-wide flags, turned to face the leave beat's camera */}
+      <group position={[FRENCH_HOUSE[0] + 1.2, 0, FRENCH_HOUSE[1] + 0.5]} rotation-y={0.8}>
+        <mesh position={[0, 2.3, 0]} castShadow>
+          <cylinderGeometry args={[0.06, 0.08, 4.6, 8]} />
+          <meshStandardMaterial color="#efece4" />
         </mesh>
-        <Flag tex={fr} h={3.0} up={ff} t={t} />
-        <Flag tex={siam} h={3.0} up={Y > 1904 ? sf : 0} t={t} />
+        <mesh position={[0, 4.62, 0]}>
+          <sphereGeometry args={[0.1, 8, 6]} />
+          <meshStandardMaterial color="#d9b24a" metalness={0.5} />
+        </mesh>
+        <Box p={[0, 0.1, 0]} s={[0.5, 0.2, 0.5]} c="#b8b0a0" />
+        <Flag tex={fr} h={4.6} up={ff} t={t} w={2.0} />
+        <Flag tex={siam} h={4.6} up={Y > 1904 ? sf : 0} t={t} w={2.0} />
       </group>
       {Array.from({length: FRENCH}, (_, i) => {
         const f = frenchAt(i, t);
@@ -717,7 +723,7 @@ const Waterfront: React.FC<{t: number; Y: number}> = ({t, Y}) => {
         const w = bankWalkerAt(i, t);
         if (!w || Y > 1877) return null;
         return (
-          <group key={`w${i}`} position={[w.x, 0, w.z]} rotation-y={w.rot} scale={0.5}>
+          <group key={`w${i}`} position={[w.x, 0, w.z]} rotation-y={w.rot} scale={0.62}>
             <Walker step={t * 1.5 + i * 0.4} i={i} load={i % 4 === 0} still={!w.moving} />
           </group>
         );
@@ -726,7 +732,7 @@ const Waterfront: React.FC<{t: number; Y: number}> = ({t, Y}) => {
         const b = arrivingBoatAt(i, t);
         if (!b || Y > 1877) return null;
         return (
-          <group key={`b${i}`} position={[b.x, 0.03, b.z]} rotation-y={b.rot}>
+          <group key={`b${i}`} position={[b.x, 0.03, b.z]} rotation-y={b.rot} scale={1.25}>
             <Box p={[0, 0.1, 0]} s={[0.36, 0.16, 1.3]} c="#5a3a22" />
             {[-0.3, 0.25].map((z, q) => (
               <group key={q} position={[0, 0.12, z]} scale={0.4}>
