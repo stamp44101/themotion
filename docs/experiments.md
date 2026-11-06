@@ -887,3 +887,53 @@ Reading (one post, the post time unknown; a lean, but it lines up with every rea
 - **Reach follows the skip rate again:** the Reels-tab share (58.9%) is the lowest since Chiang Rai.
 - **The autoloop picked two covers in a row that missed the frame-filling rule** (Surat Thani's small monkey, Kanchanaburi's thin
   train). The loop's cover pick needs the frame-0 size check above, or the owner picks the cover.
+
+## 18. Sakon Nakhon: a giant cloth dyed indigo at frame 0, the town that sank into Nong Han — read: hook between the jars and Kanchanaburi, three engagement rates "higher" for the first time since the forest tiles
+
+The first **hybrid-loop** city (owner, 4 Nov): the loop ran research, map, build, render and QA; the owner picked the cover
+(style frame A1: a giant undyed cloth with its foot in an indigo pot, dyed white → green → indigo in the first 1.6 s, the tied
+pattern left white, on the whole tile) and passed the 0-11 s stills. The cover was measured against §17's rule: the cloth is
+~35% of the frame's height at frame 0. 60 s, shader look, -16 LUFS, score +1.0 LU over the effects. PR #84 merged 5 Nov; posted
+in the evening slot on 5 Nov (**the exact post time was not written down again**).
+
+### Result (owner's screenshots, 6 Nov 21:03, about a day after the evening post)
+
+Skip rate **53.1%** ("higher"), 2,662 views from 1,850 viewers, average watch **12 s**, 2 follows. 98 likes, 2 comments,
+17 reposts, 8 shares, 7 saves: like **5.0% ("higher")**, save **0.4% ("higher")**, repost **0.9% ("higher")**, share 0.4%,
+comment 0.1% ("lower"). Views from the Reels tab 55.3%, Feed 26.8%, Stories 9.8%, Explore 6.1%. The views curve ran under a
+typical reel's from the first hours (~2.6K against ~4.3K at the same age). Retention (read off the chart, about +/- 3 points):
+~42% at ~4 s, ~31% at ~7 s, ~26% at ~10 s, ~22% at ~14 s, ~17% at ~21 s, ~13% at ~29 s, ~10% at ~43 s, ~8% near the end.
+Cover thumbnail: the dyed cloth on its bamboo frame over the pot, the title above, the tile round it.
+
+| | Udon Thani | Ratchaburi | Saraburi | Surat Thani (early) | Kanchanaburi | **Sakon Nakhon** |
+|---|---|---|---|---|---|---|
+| cover | jar painted | jar thrown, dragon on | deer at the Footprint | monkey on a palm | train on the bridge | **cloth dyed indigo** |
+| who picked the cover | owner | owner (a resident's symbol) | owner | loop | loop | **owner (hybrid)** |
+| symbol fills the frame at 0 s | yes | yes | no | no | no | **yes (~35% of the height)** |
+| skip rate | 41.4% | 42.0% | 48.9% | 47.4% | 58.6% | **53.1%** |
+| retention at ~14-15 s | ~30% | ~25% | ~28% | ~18% | ~21% | **~22%** |
+| average watch | 19 s | 14 s | 15 s | 11 s | (25 s, rewatches) | **12 s** |
+| like / save / share | 9.8 / 0.8 / 4.7% | 5.7 / 0.2 / 4.1% | 4.3 / 0.3 / 0.4% | 4.0 / 0.3 / 0.5% | 4.2 / 0.2 / 0.1% | **5.0 / 0.4 / 0.4%** |
+| repost | 1.8% | 1.2% | 0.6% | 0.5% | 0.7% | **0.9%** |
+| rates marked "higher" (green) | — | — | 0 | skip only | 0 | **like, save, repost** |
+| views from the Reels tab | 69.7% | 60.8% | 69.2% | 63.3% | 58.9% | **55.3%** |
+
+Reading (one post, the post time unknown, the first hybrid clip; a lean, not a rule):
+- **The owner's pick and the size rule moved the hook back up, but only halfway.** 53.1% is 5.5 points better than Kanchanaburi's
+  58.6% and still 11-12 points over the jars' 41-42%. The symbol filled the frame and changed colour, so §17's rule was met; what
+  the jars had and the cloth did not is **a thing being made by a hand you can feel** (a pot thrown, a jar painted by a brush) and a
+  shape that changes, not only a colour. At thumbnail size the frame-0 picture is a **plain white sheet on a frame**: blank, not a
+  promise. Next cover: the first frame already shows the symbol half-made and unmistakable (no blank canvas), and its change is
+  of shape, not just colour.
+- **Those who stayed liked it more than any recent clip.** Like, save and repost are marked "higher" than a typical reel for the
+  first time since the forest tiles; Saraburi, Surat Thani and Kanchanaburi had every engagement rate "lower". The hybrid loop's
+  owner gates (the cover and the 0-11 s stills) and the local symbol show here, not in the hook.
+- **Shares stay at the floor (0.4%)** with no resident in the story, as §15-§17; indigo is the town's own, but nobody from Sakon
+  named it. The two high-share reads (Udon 4.7%, Ratchaburi 4.1%) still stand alone.
+- **The middle sagged early:** from ~42% at 4 s to ~26% at 10 s, through the legend (6-11 s), which is a lake spreading over a small
+  town: the first event after the cover was big but far, not close (§14's lesson). The average watch (12 s) is one of the lowest.
+- **Reach follows the skip rate:** the Reels-tab share (55.3%) is the lowest of the six, and the curve stayed under a typical reel.
+- **Surat Thani's 24-h read was not taken** (owner, 6 Nov: the moment had passed); §16 stays an early read.
+
+**Still to do:** write down the post time; for the next city, a frame-0 symbol that is half-made by hand and changes shape, a
+close first event at 3-9 s, and, if possible, a resident who names the symbol.

@@ -1,4 +1,4 @@
-# Handoff: where the work stands (5 พ.ย. 2569)
+# Handoff: where the work stands (6 พ.ย. 2569)
 
 For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is the current standard),
 `docs/experiments.md` (§10–11 are the latest reads), then this file.
@@ -90,8 +90,8 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
 - Next: the owner watches, says "Merge" and posts at 19:00-21:00; the 24-h read goes in `experiments.md` §16.
 
 ## Surat Thani: merged (PR #81, 3 Nov 18:25) and posted that evening
-- Early read (3 Nov 22:32, a few hours in): `experiments.md` §16: skip 47.4%, share 0.5%, average watch 11 s. **A true 24-h read is still owed**
-  (screenshots on 4 Nov at about the post's hour; the post time was not recorded).
+- Early read (3 Nov 22:32, a few hours in): `experiments.md` §16: skip 47.4%, share 0.5%, average watch 11 s. The 24-h read
+  was not taken (owner, 6 Nov: the moment had passed); Sakon Nakhon's read stands in (§18).
 
 ## Kanchanaburi: merged (PR #83, 4 Nov) and posted
 - 24-h read (owner's screenshots, 00:44) is `experiments.md` §17: **skip 58.6%, the worst of all reads**, share 0.1% (the lowest),
@@ -110,7 +110,10 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
   re-rendered 06cc018: `check_render` ok (max jump 5.4, darkest 53.4), upload copy on the `renders` release as
   `sakonnakhon_look_social.mp4`. **Owner said "merge" (5 Nov); merged as PR #84.** Next: post at 19:00-21:00, **write down the
   post time**, and record the 24-h read as `experiments.md` §18 (the first hybrid-loop city: owner picked the cover and passed
-  the 0-11 s stills). Earlier plan:
+  the 0-11 s stills).
+- **Sakon Nakhon's ~24-h read (6 Nov 21:03) is `experiments.md` §18:** skip 53.1% (Kanchanaburi 58.6%, the jars 41-42%), like 5.0%,
+  save 0.4% and repost 0.9% all "higher" (the first since the forest tiles), share 0.4%, average watch 12 s, 2,662 views. The post
+  time was not written down. Lesson for the next cover: no blank canvas at frame 0; a symbol half-made by hand that changes shape. Earlier plan:
   [gemini] answers; [local] pins the lake, the old town and the story places (`sakonnakhon_onep/`).
 - A new city in a new session (one city per session).
 - **Posting time (owner, 1 Nov): 19:00-21:00 from now on**, not the morning; the next read changes the
