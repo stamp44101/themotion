@@ -89,3 +89,54 @@ the flag and the buildings, then the flag lowered.
 - Did the town really move to Noen Wong in ~2377, and when did it move back?
 - When did gem mining (Khao Ploi Waen, Bang Kha Cha) and cutting start, and when did the gem market street form?
 - The old town's real footprint (it is not a walled square; [local] to check the ONEP old-town record for Chanthabun).
+
+## Research checked (6 Nov; Gemini 3ebcc98, [local]'s map a6f89ad)
+
+Gemini's links are mostly site homepages, so cloud re-checked the years that go on screen:
+
+| fact | Gemini | [local] / cloud's check | caption use |
+|---|---|---|---|
+| Ban Lum laterite wall, ~1 × 2 km, round today's ค่ายตากสิน (Narai's reign) | ยืนยัน, "2200" | ONEP §5.2.1 puts the wall in the camp (local); **no exact year** | "สมัยพระนารายณ์", no held year |
+| Taksin takes the town, night of 14→15 Jun 2310, ทุบหม้อข้าว, the elephant พังคีรีบัญชร at the gate | ตามพงศาวดาร | 2310 ยืนยัน; the pots are in the chronicle (พันจันทนุมาศ), not in the VOC letters (silpa-mag) | **held 2310**, "ตามพงศาวดาร" |
+| a fleet built at Ban Samet Ngam, sails ~Oct 2310 | "100 ships, 5,000 men" | the 5-month stay ยืนยัน; **100 ships and the shipyard not confirmed** (the Samet Ngam wreck, found 2523, is only "possibly" Taksin's: silpa-mag ?p=92560) | sail beat with no count; "อู่ต่อเรือ" not named |
+| Noen Wong fort, the Laem Sing forts, the church crosses to the east bank, **2377** | ยืนยัน | Noen Wong is a Rama III fort (mgronline); the church's move in 2377 ยืนยัน (trueplookpanya); the fort's year from Gemini/ONEP | **held 2377** |
+| the town back at Ban Lum **2419**; Rama V visits that year | "not found" for the move | ONEP ผ.2 gives 2419 (local); the 2419 visit ยืนยัน (silpa-mag ?p=164363) | **held 2419** |
+| the French hold the town **2436-2447**; Tuek Daeng and the tower at the mouth | ยืนยัน | ยืนยัน (ONEP, SWU, Matichon) | **held 2436, 2447**; the tower is not called a jail on screen |
+| the present cathedral, laid 2449, blessed 2452 | ยืนยัน | **not confirmed** independently (en.wikipedia says 1909) | "ราว 2452" until confirmed |
+| the spires taken down in the war (2483) and put back (2552) | ยืนยัน | the removal in WWII ยืนยัน (silpa-mag ?p=3280); **2483 and 2552 not confirmed** | shown in the grow shot, no held year |
+| gem market on Si Chan road; **heat treatment born from a market fire in 2511 (สามเมือง แก้วแหวน)** | ยืนยัน | **not found anywhere**: dropped | payoff shows today's market only |
+| บุษราคัม (yellow sapphire) is the town's own stone (Khao Ploi Waen, Bang Kha Cha) | ยืนยัน; Gemini recommends A2 | matches the owner's pick | cover A2 |
+| Sukhumvit road reaches the town 2498-2510; orchards replace pepper | ยืนยัน | not re-checked | grow shot, no held year |
+| Mueang Phaniat ~พุทธศตวรรษที่ 12-15, 1 × 2 km earthworks, 5 km SE | ยืนยัน | (silpa-mag) | sub line only (see below) |
+
+Cover detail from Gemini §2 for v1: the rough stone is a rounded, dull brown-black pebble with red laterite dirt in its cracks
+(not a crystal); the cutter's tool is the ไม้ทวน, a brown wooden stick with dark red-brown shellac (ครั่ง) holding the stone, and a
+jamb peg beside the lap. v1 gives the cover a ไม้ทวน held at an angle against the lap.
+
+## Storyline (proposed by cloud, 6 Nov; storyline v2, 60 s)
+
+Map ([local]): origin the city pillar (ศาลหลักเมือง, Ban Lum); the river runs N→S past the town, bends SE round the old-town strip
+(ONEP 0.45 km², ~1.2 × 0.57 km, mostly west bank; the cathedral at its SE end on the east bank), then SSW to the mouth 16.5 km
+away. The tile is compressed: the mouth, Noen Wong (5.5 km SW) and Khao Ploi Waen (7.7 km W) are pulled in.
+
+| s | beat (one verb) | on screen | year |
+|---|---|---|---|
+| 0-6 | **cut** (cover A2) | the yellow sapphire is cut on the lap; the crust falls off; the gem lifts, shrinks and settles into the hills to the west (Khao Ploi Waen), the tile and the river bend come into view | counter starts, no hold |
+| 6-10 | **build** | the laterite wall and moat rise on the west bank at Ban Lum, junks at the landing | สมัยพระนารายณ์ (no hold) |
+| 10-16 | **smash** | night: soldiers before the wall smash their pots, the elephant breaks the gate, torches pour in (the first big, close event; spectacle by 12 s) | **hold 2310** |
+| 16-21 | **sail** | junks built along the lower river, the fleet sails down to the mouth and out to sea | 2310 → |
+| 21-26 | **move** | forts rise on both sides of the mouth; the wall's stones are carried up to Noen Wong; the small church crosses to the east bank | **hold 2377** |
+| 26-30 | **return** | people come back down to Ban Lum; the wooden waterfront row grows along the river | **hold 2419** |
+| 30-36 | **occupy / leave** | a French flag over the camp in town and the red house at the mouth; then the flag comes down and the Siamese flag goes up | **hold 2436**, **hold 2447** |
+| 36-41 | **raise** | the cathedral's twin spires rise on the east bank across from the waterfront | ราว 2452 |
+| 41-48 | **grow** | the grow shot: the town spreads west along the new road, orchards cover the hills; the spires come down in the war and go back up | 2480 → 2560 |
+| 48-56 | **trade** (payoff) | the weekend gem market on Si Chan road: crowds at the tables, stones held up to the light; the yellow gem back over the street | lands on 2569 |
+| 56-60 | finale title | nothing on screen | 2569 |
+
+Tagline (draft): "เมืองที่เจียระไนตัวเองมาสามร้อยปี". Facts with nothing to show (sub lines): Mueang Phaniat (ราวพุทธศตวรรษที่ 12-15,
+the town before the river); the Catholic Vietnamese arrive (2254, not checked); Trat held until 2449/2450.
+War weight (as Kanchanaburi): no one hurt on screen; the smash is pots and a gate; the French beat is flags and buildings.
+Sound: the lap's whine and glint chimes for the cover; pots cracking, an elephant's trumpet and a timber gate for 2310; sails and
+oars; stone blocks for Noen Wong; a church bell for 2452; bugles and a flag rope for 2436/2447; the market's murmur and the
+tick of tweezers for the payoff.
+Owner gate next: **the 0-11 s stills** before any render.

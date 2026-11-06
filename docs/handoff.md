@@ -119,7 +119,9 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
   `docs/briefs/chanthaburi.md` (dates checked: Taksin 2310, the French 2436-2447; not yet found: the Noen Wong move, the
   cathedral's year, when gem cutting began), research request for [gemini] `docs/briefs/chanthaburi_research_request.md`,
   style frames `docs/briefs/chanthaburi_styleframes.jpg` (A1 blue sapphire cut on a lap, cloud's pick; A2 the same in yellow;
-  B ทุบหม้อข้าว, better as the 3-9 s event). Hybrid loop like Sakon Nakhon. **Owner picked A2, the yellow sapphire (6 Nov; first A1).** PR #86 (draft). Next: [gemini] answers;
+  B ทุบหม้อข้าว, better as the 3-9 s event). Hybrid loop like Sakon Nakhon. **Owner picked A2, the yellow sapphire (6 Nov; first A1).** PR #86 (draft). [gemini] answered (3ebcc98), [local] pinned the map (a6f89ad); cloud checked the years and proposed the
+  storyline in the brief (6 Nov; dropped Gemini's unconfirmed 2511 market-fire story and the 100-ship count). Next: v1 build, then
+  the 0-11 s stills for the owner. Earlier plan: [gemini] answers;
   [local] pins the town, the river and the story places (`chanthaburi_onep/`).
 - A new city in a new session (one city per session).
 - **Posting time (owner, 1 Nov): 19:00-21:00 from now on**, not the morning; the next read changes the
