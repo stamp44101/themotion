@@ -14,12 +14,14 @@ type Key = CameraKey;
 const [HX, HZ] = HERO_AT;
 // the cover: the giant lap and the yellow stone on the tile, the whole tile round it (owner's cover rule)
 const C0: Key = [0, HX + 6, 29, HZ + 5, 300, 18, 13, 30];
-const C1: Key = [3, HX + 6, 29.5, HZ + 5, 306, 24, 14, 30];
-// the gem settles on Khao Ploi Waen; the camera comes down onto the fields west of the river
-const HERO_END: Key = [5.8, -22, 4, 1, 96, 32, 26, 30];
-// the Ban Lum wall rising (from the south-east, the river and the landing in front)
-const BU_IN: Key = [7.0, -3, 1, -5, 66, 48, 32, 30];
-const BU_END: Key = [9.6, -3, 1, -4, 58, 70, 34, 30];
+const C1: Key = [2.0, HX + 6, 29.5, HZ + 5, 304, 22, 14, 30];
+// the gem comes down onto Khao Ploi Waen at the tile's west edge; the camera, from the south-west, already has the river
+// bend where the wall rises beyond it
+const HERO_END: Key = [3.9, -19, 4, -2, 92, -54, 26, 30];
+// the Ban Lum wall rising, the hill and its stone still in the corner of the frame, then in to the wall and the landing
+const BU_IN: Key = [5.2, -16, 2, -3, 82, -46, 30, 30];
+const BU_MID: Key = [7.4, -3, 1, -4, 64, -16, 32, 30];
+const BU_END: Key = [9.2, -1, 1, -3, 56, 8, 34, 30];
 // 2310: the pots and the south gate at night, from the fields to the south
 const SM_IN: Key = [10.8, GATE[0] + 0.2, 1, GATE[1] + 2.6, 32, 26, 30, 30];
 const SM_END: Key = [15.6, GATE[0] - 0.2, 1, GATE[1] + 0.6, 30, 44, 32, 30];
@@ -28,10 +30,11 @@ const SA_IN: Key = [17.2, -11, 1, 22, 56, 70, 32, 30];
 const SA_END: Key = [20.6, -17, 1, 43, 60, 100, 30, 30];
 // 2377: the column carries the wall to Noen Wong
 const MV_IN: Key = [22.2, -10, 1, 5.5, 50, 128, 34, 30];
-const MV_END: Key = [25.6, -14, 1, 8.5, 46, 116, 36, 30];
+const MV_END: Key = [25.6, -16, 1, 10, 42, 112, 38, 30];
 // 2419: back to Ban Lum, the waterfront row
 const RT_IN: Key = [26.8, -9, 1, 6, 46, 132, 34, 30];
-const RT_END: Key = [29.6, 4, 1, 7, 40, 160, 34, 30];
+const RT_MID: Key = [28.3, 3.5, 1, 7.5, 42, 154, 34, 30];
+const RT_END: Key = [29.6, 4, 1, 7.5, 40, 160, 34, 30];
 // 2436: the French flag over the camp
 const OC_IN: Key = [30.6, 0.8, 1, -1.0, 34, 188, 32, 30];
 const OC_END: Key = [32.8, 0.8, 1, -0.8, 32, 204, 32, 30];
@@ -39,8 +42,8 @@ const OC_END: Key = [32.8, 0.8, 1, -0.8, 32, 204, 32, 30];
 const LV_IN: Key = [33.6, 1.6, 1, 2.4, 50, 216, 34, 30];
 const LV_END: Key = [35.8, 2.2, 1, 8.0, 62, 236, 34, 30];
 // ราว 2452: the cathedral across the river from the waterfront
-const RS_IN: Key = [37.0, CATHEDRAL[0] + 1, 1.8, CATHEDRAL[1], 38, 296, 26, 30];
-const RS_END: Key = [40.6, CATHEDRAL[0] + 1.2, 1.8, CATHEDRAL[1], 34, 282, 28, 30];
+const RS_IN: Key = [37.0, CATHEDRAL[0] + 0.4, 2.0, CATHEDRAL[1], 34, 244, 22, 30];
+const RS_END: Key = [40.6, CATHEDRAL[0] + 0.6, 2.2, CATHEDRAL[1], 30, 256, 22, 30];
 // the grow shot: the whole tile
 const GR_IN: Key = [42.0, -5, 1, 10, 160, 300, 34, 30];
 const GR_END: Key = [47.2, -5, 1, 10, 200, 334, 34, 30];
@@ -53,9 +56,11 @@ const END: Key = [55.4, -6, 4, 9, 280, 378, 22, 30];
 export const STORY = buildStory({
   duration: 60,
   standard: 1,
-  before: 1640,
+  before: 1650,
   after: 2026,
   camera: [
+    ...between(C1, HERO_END, 6),
+    HERO_END,
     ...between(HERO_END, BU_IN, 4),
     ...between(BU_END, SM_IN, 4),
     ...between(SM_END, SA_IN, 5, 0.3),
@@ -77,29 +82,30 @@ export const STORY = buildStory({
       // settles on Khao Ploi Waen to the west, where the stone is dug (Gemini §2)
       id: 'hero',
       kind: 'discover',
-      t: [0, 6.0],
-      year: [1640, 1652],
-      caption: {t0: 3.2, t1: 6.2, title: 'บุษราคัมเมืองจันท์', sub: 'เจียระไนพลอยดิบจากเขาพลอยแหวน'},
+      // no caption and no counter on the gem: the cut is done under the title (counter fades in at 3 s, on the wall), so no
+      // year is paired with the stone (the trade is recorded only from ~2365)
+      t: [0, 3.0],
+      year: [1650, 1654],
       era: 'อยุธยา',
-      camera: [C0, C1, HERO_END],
+      camera: [C0, C1],
     },
     {
       // the Ban Lum laterite wall and moat (Narai's reign: no held year; ONEP §5.2.1), junks at the landing
       id: 'build',
       kind: 'build',
-      t: [6.2, 9.8],
+      t: [3.2, 9.4],
       year: [1656, 1688],
-      caption: {t0: 6.3, title: 'กำแพงศิลาแลงบ้านลุ่ม', sub: 'สมัยพระนารายณ์ ตั้งเมืองฝั่งตะวันตกของแม่น้ำจันท์'},
-      camera: [BU_IN, BU_END],
+      caption: {t0: 3.4, title: 'กำแพงศิลาแลงบ้านลุ่ม', sub: 'สมัยพระนารายณ์ ตั้งเมืองฝั่งตะวันตกของแม่น้ำจันท์'},
+      camera: [BU_IN, BU_MID, BU_END],
     },
     {
       // 14->15 Jun 2310, night: the pots smashed before the walls (the chronicle's story), the elephant พังคีรีบัญชร
       // breaks the gate, the torches pour in. Nobody is hurt on screen.
       id: 'smash',
       kind: 'fight',
-      t: [10.2, 16.0],
+      t: [9.8, 16.0],
       year: {hold: 1767},
-      caption: {t0: 10.2, title: 'ทุบหม้อข้าวตีเมืองจันท์', sub: 'พ.ศ. 2310 ตามพงศาวดาร พระยาตากให้ทหารทุบหม้อข้าวก่อนเข้าตีเมือง'},
+      caption: {t0: 9.8, title: 'ทุบหม้อข้าวตีเมืองจันท์', sub: 'พ.ศ. 2310 ตามพงศาวดาร พระยาตากให้ทหารทุบหม้อข้าวก่อนเข้าตีเมือง'},
       era: 'ธนบุรี',
       camera: [SM_IN, SM_END],
     },
@@ -131,7 +137,7 @@ export const STORY = buildStory({
       t: [26.2, 29.8],
       year: {hold: 1876},
       caption: {t0: 26.2, title: 'กลับมาริมแม่น้ำจันท์', sub: 'พ.ศ. 2419 ย้ายเมืองกลับบ้านลุ่ม เรือนไม้เรียงริมน้ำ'},
-      camera: [RT_IN, RT_END],
+      camera: [RT_IN, RT_MID, RT_END],
     },
     {
       // the French hold the town as surety after ร.ศ. 112: their flag over the camp in town (2436)

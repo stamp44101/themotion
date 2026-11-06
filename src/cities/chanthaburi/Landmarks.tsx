@@ -5,7 +5,7 @@ import type {LandmarkProps} from '../../engine/types';
 import {ramp} from '../../lib';
 import {Walker} from '../nan/figures';
 import {
-  AZ, beatK, CARRIERS, carrierAt, churchCrossK, clamp01, CUT_END, doneK, elephantAt, FLEET, frenchAt, FRENCH, frenchFlag,
+  ARRIVING_BOATS, arrivingBoatAt, AZ, bankWalkerAt, beatK, CARRIERS, ringAt, carrierAt, churchCrossK, clamp01, CUT_END, doneK, elephantAt, FLEET, frenchAt, FRENCH, frenchFlag,
   frenchHouseK, gateFall, GEM_BACK, gemAt, gemBackK, hillGemK, JUNKS_AT_LANDING, junkAt, landingJunkAt, LAP_H, LAP_R, lapK,
   MARKET_ON, MARKET_PEOPLE, mouthFortK, naveK, nwFortK, orchardK, potBreak, POTS, potX, POT_Z, RETURNERS, returnerAt, ROW, rowK,
   rowSpots, shopperAt, siamFlag, smooth, soldierAt, SOLDIERS, spireK, steamerAt, tuekDaengK, wallK,
@@ -84,8 +84,8 @@ const CRUST: Spot[] = (() => {
   let k = 0;
   const rings: [number, number, number, number][] = [
     // [radius, y, normal y, count]
-    [0.0, 1.13, 1, 1], [0.38, 1.12, 0.95, 6], [0.7, 1.05, 0.7, 10], [0.98, 0.94, 0.25, 14], [0.98, 0.8, -0.2, 14],
-    [0.74, 0.62, -0.6, 12], [0.45, 0.36, -0.75, 9], [0.18, 0.14, -0.85, 5],
+    [0.0, 1.13, 1, 1], [0.3, 1.12, 0.95, 7], [0.58, 1.08, 0.8, 12], [0.84, 1.0, 0.5, 16], [0.99, 0.92, 0.15, 20], [0.99, 0.82, -0.2, 20],
+    [0.8, 0.66, -0.55, 17], [0.58, 0.47, -0.7, 13], [0.36, 0.28, -0.8, 9], [0.14, 0.11, -0.85, 5],
   ];
   for (const [rr, y, ny, count] of rings) {
     for (let j = 0; j < count; j++) {
@@ -95,7 +95,7 @@ const CRUST: Spot[] = (() => {
       const side = 0.5 + 0.5 * Math.cos(a - 0.6);
       const tf = -2.6 + (0.35 * hash(k) + 0.65 * side) * (CUT_END + 2.6);
       const red = hash(k + 77) < 0.28;
-      out.push({p: [Math.cos(a) * rr, y, Math.sin(a) * rr], n: [Math.cos(a) * nr, ny, Math.sin(a) * nr], tf, r: red ? 0.09 + hash(k + 50) * 0.05 : 0.17 + hash(k + 50) * 0.07, red});
+      out.push({p: [Math.cos(a) * rr, y, Math.sin(a) * rr], n: [Math.cos(a) * nr, ny, Math.sin(a) * nr], tf, r: red ? 0.07 + hash(k + 50) * 0.04 : 0.14 + hash(k + 50) * 0.05, red});
       k++;
     }
   }
@@ -103,7 +103,7 @@ const CRUST: Spot[] = (() => {
 })();
 
 const lumpGeo = (i: number) => {
-  const g = new THREE.IcosahedronGeometry(1, 1);
+  const g = new THREE.IcosahedronGeometry(1, 2);
   const p = g.attributes.position;
   for (let v = 0; v < p.count; v++) {
     const f = 0.82 + hash(i * 31 + v) * 0.3;
@@ -240,9 +240,11 @@ const Hero: React.FC<{t: number; terrainH: LandmarkProps['terrainH']}> = ({t, te
   const g = gemAt(t);
   const done = doneK(t);
   const spin = done * (t - CUT_END) * 0.8;
-  const hk = t > 5.8 ? hillGemK(t) : 1;
-  const onHill = smooth((t - 5.0) / 0.8);
-  const y = g.y * (1 - onHill) + (terrainH(KHAO_PLOI_WAEN[0], KHAO_PLOI_WAEN[1]) + 0.2) * onHill;
+  const hk = hillGemK(t);
+  const onHill = smooth((t - 3.2) / 0.6);
+  const hillY = terrainH(KHAO_PLOI_WAEN[0], KHAO_PLOI_WAEN[1]);
+  const ring = ringAt(t);
+  const y = g.y * (1 - onHill) + (hillY + 0.2) * onHill;
   const gemTop = LAP_H + 0.08 * LAP_R + 1.12 * HERO_S;
   return (
     <>
@@ -251,11 +253,17 @@ const Hero: React.FC<{t: number; terrainH: LandmarkProps['terrainH']}> = ({t, te
           <Lap t={t} gemTop={gemTop} />
         </group>
       )}
+      {ring >= 0 && hk > 0.05 && (
+        <mesh position={[KHAO_PLOI_WAEN[0], hillY + 0.3, KHAO_PLOI_WAEN[1]]} rotation-x={-Math.PI / 2} scale={1.5 + 6 * ring}>
+          <ringGeometry args={[0.85, 1, 48]} />
+          <meshBasicMaterial color="#ffe08a" toneMapped={false} transparent opacity={0.8 * (1 - ring) * hk} side={THREE.DoubleSide} depthWrite={false} />
+        </mesh>
+      )}
       {g.s * hk > 0.05 && (
         <group position={[g.x, y, g.z]} rotation-y={AZ} scale={g.s * hk}>
           <group rotation-x={0.2 - 0.1 * done}>
             <Gem t={t} crust spin={spin} glow={0.25 * onHill} />
-            {done > 0.02 && t < 4.6 && <Glint p={[0.3, 1.16, 0.25]} s={0.9 * Math.sin(clamp01((t - CUT_END - 0.4) / 0.9) * Math.PI)} />}
+            {done > 0.02 && <Glint p={[0.3, 1.16, 0.25]} s={(0.9 * Math.abs(Math.sin((t - CUT_END - 0.4) * 2.2))) * (t > CUT_END + 0.4 ? 1 : 0)} />}
           </group>
         </group>
       )}
@@ -312,11 +320,11 @@ const Gate: React.FC<{t: number; Y: number}> = ({t, Y}) => {
 
 // ------------------------------------------------------------------ 2310: pots, soldiers with torches, the elephant
 const POT: [number, number][] = [[0, 0], [0.3, 0], [0.45, 0.12], [0.52, 0.35], [0.5, 0.58], [0.38, 0.74], [0.3, 0.8], [0.33, 0.86], [0.3, 0.88]];
-const Smash: React.FC<{t: number; night: number}> = ({t, night}) => {
+const Smash: React.FC<{t: number; Y: number; night: number}> = ({t, Y, night}) => {
   const potGeo = useMemo(() => lathe(POT, 16), []);
   const halo = useMemo(() => glowTexture('rgba(255,230,160,1)', 'rgba(255,140,40,0.5)'), []);
   const k = beatK('smash', t);
-  if (k < -0.15 || k > 1.25) return null;
+  if (Y < 1766.9 || k < -0.15 || k > 1.25) return null;
   const P = 0.6;
   return (
     <>
@@ -692,10 +700,39 @@ const Waterfront: React.FC<{t: number; Y: number}> = ({t, Y}) => {
       {rowSpots.map((s, j) => {
         const k = rowK(j, t, Y);
         if (k < 0.02) return null;
+        // local +x points away from the river (west); local z runs along the bank
         return (
-          <group key={j} position={[s.x, 0, s.z]} rotation-y={s.rot} scale={[1, k, 1]}>
-            <Box p={[0, 0.32, 0]} s={[0.72, 0.64, 0.62]} c={j % 3 ? '#6e4b2e' : '#7d5634'} />
-            <Gable w={0.8} l={0.7} h={0.32} y={0.64} c={j % 2 ? '#8b8f92' : '#6f5040'} />
+          <group key={j} position={[s.x, 0, s.z]} rotation-y={s.rot + Math.PI} scale={[1, k, 1]}>
+            {[[-0.25, -0.2], [-0.25, 0.2], [0.25, -0.2], [0.25, 0.2]].map(([x, z], q) => (
+              <Box key={q} p={[x - 0.1, 0.12, z]} s={[0.06, 0.24, 0.06]} c="#3b2a1a" />
+            ))}
+            <Box p={[-0.1, 0.52, 0]} s={[0.8, 0.56, 0.52]} c={j % 3 === 0 ? '#9a6a3e' : j % 3 === 1 ? '#7b5232' : '#8d5f38'} />
+            <Box p={[-0.1, 0.62, 0.27]} s={[0.5, 0.2, 0.02]} c="#3a2614" />
+            <Gable w={0.62} l={0.95} h={0.34} y={0.8} c={j % 2 ? '#8b8f92' : '#9a4a30'} />
+            <Box p={[-0.62, 0.26, 0]} s={[0.3, 0.04, 0.4]} c="#6b4a2a" />
+          </group>
+        );
+      })}
+      {Array.from({length: 2 * ROW}, (_, i) => {
+        const w = bankWalkerAt(i, t);
+        if (!w || Y > 1877) return null;
+        return (
+          <group key={`w${i}`} position={[w.x, 0, w.z]} rotation-y={w.rot} scale={0.5}>
+            <Walker step={t * 1.5 + i * 0.4} i={i} load={i % 4 === 0} still={!w.moving} />
+          </group>
+        );
+      })}
+      {Array.from({length: ARRIVING_BOATS}, (_, i) => {
+        const b = arrivingBoatAt(i, t);
+        if (!b || Y > 1877) return null;
+        return (
+          <group key={`b${i}`} position={[b.x, 0.03, b.z]} rotation-y={b.rot}>
+            <Box p={[0, 0.1, 0]} s={[0.36, 0.16, 1.3]} c="#5a3a22" />
+            {[-0.3, 0.25].map((z, q) => (
+              <group key={q} position={[0, 0.12, z]} scale={0.4}>
+                <Walker step={0} i={i * 2 + q} still load={q === 0} />
+              </group>
+            ))}
           </group>
         );
       })}
@@ -743,7 +780,7 @@ const Cathedral: React.FC<{t: number; Y: number; night: number}> = ({t, Y, night
               [-1, 1].map((s) => <Box key={`${x}${s}`} p={[x, 0.55, s * 0.56]} s={[0.14, 0.5, 0.02]} c="#3c5a8a" e="#ffcf7a" ei={night * 0.9} />),
             )}
             {[-1, 1].map((s) => (
-              <Box key={s} p={[0.15, 0.8, s * 0.36]} s={[0.44, 1.6, 0.44]} c={WALLC} />
+              <Box key={s} p={[0.15, 0.8, s * 0.4]} s={[0.44, 1.6, 0.4]} c={WALLC} />
             ))}
             <Box p={[0.15, 0.6, 0]} s={[0.4, 1.2, 0.3]} c={WALLC} />
             <mesh position={[-0.08, 0.95, 0]} rotation-z={Math.PI / 2}>
@@ -753,8 +790,8 @@ const Cathedral: React.FC<{t: number; Y: number; night: number}> = ({t, Y, night
           </group>
           {spire > 0.02 &&
             [-1, 1].map((s) => (
-              <mesh key={s} position={[0.15, 1.6 * nave + 0.75 * spire, s * 0.36]} scale={[1, spire, 1]} castShadow>
-                <coneGeometry args={[0.25, 1.5, 8]} />
+              <mesh key={s} position={[0.15, 1.6 * nave + 0.85 * spire, s * 0.4]} scale={[1, spire, 1]} castShadow>
+                <coneGeometry args={[0.24, 1.7, 8]} />
                 <meshStandardMaterial color="#5d6670" flatShading roughness={0.6} />
               </mesh>
             ))}
@@ -856,7 +893,7 @@ const Market: React.FC<{t: number; Y: number; night: number}> = ({t, Y, night}) 
       })}
       {/* the hero back: the yellow sapphire over the street, turning, catching the lamps */}
       {bk > 0.02 && (
-        <group position={[GEM_BACK[0], GEM_BACK[1] - 0.6, GEM_BACK[2]]} scale={1.1 * bk}>
+        <group position={[GEM_BACK[0], GEM_BACK[1] - 0.6, GEM_BACK[2]]} scale={1.8 * bk}>
           <group rotation-x={0.25}>
             <Gem t={9} crust={false} spin={t * 0.9} glow={0.25 + 0.35 * night} />
           </group>
@@ -882,7 +919,7 @@ export const ChanthaburiLandmarks: React.FC<LandmarkProps> = ({Y, t, night, terr
     <Sea />
     <Moat Y={Y} />
     <Gate t={t} Y={Y} />
-    <Smash t={t} night={night} />
+    <Smash t={t} Y={Y} night={night} />
     <Boats t={t} Y={Y} />
     <NoenWong t={t} Y={Y} terrainH={terrainH} />
     <MouthForts t={t} Y={Y} />

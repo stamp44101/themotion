@@ -44,11 +44,14 @@ export const LAP_H = 0.35 * HERO_S;
 /** the cut is done: the gem lifts off the lap */
 export const doneK = (t: number) => smooth((t - CUT_END) / 1.2);
 /** the lap, its stand and the dop stick shrink away */
-export const lapK = (t: number) => 1 - smooth((t - 3.9) / 1.3);
+export const lapK = (t: number) => 1 - smooth((t - 2.4) / 1.0);
 /** the gem flies west and settles on Khao Ploi Waen */
-export const flyK = (t: number) => smooth((t - 3.8) / 2.0);
+export const flyK = (t: number) => smooth((t - 2.3) / 1.5);
 /** the gem on the hill fades into it once the wall is going up */
-export const hillGemK = (t: number) => 1 - smooth((t - 7.2) / 1.0);
+export const hillGemK = (t: number) => 1 - smooth((t - 6.6) / 1.0);
+/** the glint ring that runs out over the hill as the stone lands, and pulses while it sits there */
+export const ringAt = (t: number) => (t < 3.6 ? -1 : ((t - 3.6) / 1.1) % 1);
+export const GEM_ON_HILL_S = 3.4;
 const FWD = 0.2 * LAP_R;
 /** where the gem sits on the lap (its culet), world */
 const GEM_ON_LAP: [number, number] = [HERO_AT[0] + Math.sin(AZ) * FWD, HERO_AT[1] + Math.cos(AZ) * FWD];
@@ -57,11 +60,11 @@ export const KPW_TOP = 5.4; // Khao Ploi Waen's crown (layout.peaks)
 export const gemAt = (t: number) => {
   const f = flyK(t);
   const yLap = LAP_H + 0.08 * LAP_R + doneK(t) * 0.3 * HERO_S;
-  const s = lerp(HERO_S, 1.3, f);
+  const s = lerp(HERO_S, GEM_ON_HILL_S, f);
   const x = lerp(GEM_ON_LAP[0], KHAO_PLOI_WAEN[0], f);
   const z = lerp(GEM_ON_LAP[1], KHAO_PLOI_WAEN[1], f);
   // an arc: it rises a little before it drops onto the hill
-  const y = lerp(yLap, KPW_TOP + 0.3, f) + Math.sin(Math.PI * f) * 8;
+  const y = lerp(yLap, KPW_TOP + 0.3, f) + Math.sin(Math.PI * f) * 4;
   return {x, y, z, s};
 };
 
@@ -151,7 +154,7 @@ export const returnerAt = (i: number, t: number) => {
   return {...along(BACK, d), fade: clamp01((NW_L - 0.1 - d) / 0.8)};
 };
 /** row house j of the waterfront goes up at its own moment in the return beat (drawn from then on) */
-export const ROW = 18;
+export const ROW = 8;
 export const rowK = (j: number, t: number, Y: number) => (Y > 1877 ? 1 : smooth((beatK('return', t) - 0.42 - (j / ROW) * 0.4) / 0.14));
 /** the row's houses: along the river's west bank, from the bridge-to-be down past the cathedral reach */
 export const rowSpots = (() => {
@@ -159,17 +162,40 @@ export const rowSpots = (() => {
   const reach: P[] = RIVER.slice(16, 21); // (4.5, 3.6) .. (7.0, 10.8) in places.ts, south of where ถ.ท่าหลวง crosses
   const L = lengthOf(reach);
   for (let j = 0; j < ROW; j++) {
-    const d = 1.2 + (j / (ROW - 1)) * (L - 2.6);
+    const d = 1.0 + (j / (ROW - 1)) * (L - 2.2);
     const p = along(reach, d);
     // the west bank: to the right of the flow when it runs south (the normal points west)
     const nx = -Math.cos(p.rot);
     const nz = Math.sin(p.rot);
-    out.push({x: p.x + nx * 1.4, z: p.z + nz * 1.4, rot: p.rot});
+    out.push({x: p.x + nx * 1.45, z: p.z + nz * 1.45, rot: p.rot});
   }
   return out;
 })();
 
 // ------------------------------------------------------------------ 2436 / 2447: the French flag and the ship
+/** small boats with people coming up the river to the waterfront in 2419 */
+const UPRIVER: P[] = [[3.0, 12.3], [5.2, 11.9], [7.0, 10.8], [7.3, 9.3], [6.5, 7.5]];
+export const ARRIVING_BOATS = 3;
+export const arrivingBoatAt = (i: number, t: number) => {
+  const k = beatK('return', t);
+  if (k < 0 || k > 1.2) return null;
+  const L = lengthOf(UPRIVER);
+  const d = lerp(0, L - 0.4, smooth(clamp01((k - 0.45 - i * 0.06) / 0.55))) - i * 1.4;
+  if (d < 0) return null;
+  return {...along(UPRIVER, d), moving: k < 0.95};
+};
+/** people walking up the bank into the row as it goes up */
+export const bankWalkerAt = (i: number, t: number) => {
+  const k = beatK('return', t);
+  if (k < 0.3 || k > 1.2) return null;
+  const s = rowSpots[i % ROW];
+  const u = smooth(clamp01((k - 0.35 - (i % ROW) * 0.04) / 0.4));
+  const nx = -Math.cos(s.rot);
+  const nz = Math.sin(s.rot);
+  // from the water's edge in front of the house toward its door, then standing there
+  const off = 0.85 - 0.45 * u + (i >= ROW ? 0.3 : 0);
+  return {x: s.x - nx * off + Math.sin(s.rot) * (i >= ROW ? 0.25 : -0.25), z: s.z - nz * off + Math.cos(s.rot) * (i >= ROW ? 0.25 : -0.25), rot: s.rot - Math.PI / 2, moving: u > 0 && u < 1};
+};
 export const frenchHouseK = (t: number, Y: number) => (Y > 1894 ? 1 : smooth(beatK('occupy', t) / 0.3));
 export const frenchFlag = (t: number, Y: number) => {
   if (Y < 1893) return 0;
@@ -209,10 +235,10 @@ export const steamerAt = (t: number) => {
 export const tuekDaengK = (t: number, Y: number) => (Y > 1894 ? 1 : smooth(beatK('occupy', t) / 0.4));
 
 // ------------------------------------------------------------------ ราว 2452: the cathedral
-export const naveK = (t: number, Y: number) => (Y > 1913 ? 1 : smooth(beatK('raise', t) / 0.4));
+export const naveK = (t: number, Y: number) => (Y > 1913 ? 1 : smooth(beatK('raise', t) / 0.3));
 /** the spires: up in the raise beat, down in the war, back up late in the grow shot (no years on screen) */
 export const spireK = (t: number, Y: number) => {
-  const up = Y > 1913 ? 1 : smooth((beatK('raise', t) - 0.3) / 0.5);
+  const up = Y > 1913 ? 1 : smooth((beatK('raise', t) - 0.2) / 0.4);
   const war = smooth((Y - 1941) / 3) * (1 - smooth((Y - 2003) / 4));
   return up * (1 - war);
 };
@@ -233,7 +259,7 @@ export const shopperAt = (i: number, t: number) => {
   const lane = ((i % 4) - 1.5) * 0.16;
   return {x: p.x, z: p.z + lane, rot: ph < 1 ? Math.PI / 2 : -Math.PI / 2};
 };
-export const GEM_BACK: [number, number, number] = [MARKET[0] + 0.2, 4.2, MARKET[1]];
+export const GEM_BACK: [number, number, number] = [MARKET[0] + 0.2, 4.8, MARKET[1]];
 export const gemBackK = (t: number) => smooth((beatK('trade', t) - 0.05) / 0.2);
 export const MARKET_ON = 2024.5;
 
@@ -242,12 +268,12 @@ export const ACTORS: Actor[] = [
     const g = gemAt(t);
     return [g.x, g.y + 0.3 * g.s, g.z];
   }},
-  {id: 'gemToKhaoPloiWaen', during: [2.5, 6.0], size: 6, at: (t) => {
+  {id: 'gemToKhaoPloiWaen', during: [2.5, 5.4], size: 3, at: (t) => {
     const g = gemAt(t);
     return [g.x, g.y + 0.3 * g.s, g.z];
   }},
   {id: 'wallRises', during: [beatAt('build', 0.02), beatAt('build', 0.55)], size: 6, at: () => [-4, 1, -8]},
-  {id: 'junksAtLanding', during: [beatAt('build', 0.2), beatAt('build', 1)], size: 1.6, at: (t) => {
+  {id: 'junksAtLanding', during: [beatAt('build', 0.7), beatAt('build', 1)], size: 1.6, at: (t) => {
     const j = landingJunkAt(0, t);
     return j ? [j.x, 0.8, j.z] : null;
   }},
@@ -272,14 +298,18 @@ export const ACTORS: Actor[] = [
     return null;
   }},
   {id: 'noenWongRises', during: [beatAt('move', 0.25), beatAt('move', 0.9)], size: 3, at: () => [NOEN_WONG[0], 1.6, NOEN_WONG[1]]},
-  {id: 'peopleReturn', during: [beatAt('return', 0.02), beatAt('return', 0.5)], size: 1.6, at: (t) => {
+  {id: 'peopleReturn', during: [beatAt('return', 0.02), beatAt('return', 0.4)], size: 1.6, at: (t) => {
     for (let i = 0; i < RETURNERS; i++) {
       const c = returnerAt(i, t);
       if (c) return [c.x, 0.8, c.z];
     }
     return null;
   }},
-  {id: 'waterfrontRow', during: [beatAt('return', 0.58), beatAt('return', 0.98)], size: 2, at: () => [rowSpots[9].x, 0.6, rowSpots[9].z]},
+  {id: 'waterfrontRow', during: [beatAt('return', 0.58), beatAt('return', 0.98)], size: 2, at: () => [rowSpots[4].x, 0.6, rowSpots[4].z]},
+  {id: 'boatsArrive', during: [beatAt('return', 0.6), beatAt('return', 0.98)], size: 1.2, at: (t) => {
+    const b = arrivingBoatAt(0, t);
+    return b ? [b.x, 0.5, b.z] : null;
+  }},
   {id: 'frenchMarchIn', during: [beatAt('occupy', 0.02), beatAt('occupy', 0.7)], size: 1.4, at: (t) => {
     const f = frenchAt(0, t);
     return f ? [f.x, 0.8, f.z] : null;

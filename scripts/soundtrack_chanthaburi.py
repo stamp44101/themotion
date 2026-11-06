@@ -224,9 +224,10 @@ for k in range(12):
 add(sfx, rise_tone(2.2, 1.0), CUT_END - 0.2, pan=0.0)
 for k, f in enumerate((1175, 1480, 1760)):
     add(sfx, chime(f, 1.2), CUT_END + 0.45 + 0.14 * k, pan=0.0)
-add(sfx, filt(whoosh(1.6, 0.6), "low", 1600), 3.9, pan=-0.4, gain=0.5)  # the gem flies west
-add(sfx, chime(880, 1.0), 5.6, pan=-0.4)
-add(sfx, thud(0.5, 70), 5.7, pan=-0.4)  # it settles on the hill
+add(sfx, filt(whoosh(1.4, 0.6), "low", 1600), 2.3, pan=-0.4, gain=0.5)  # the gem flies west
+add(sfx, thud(0.6, 70), 3.6, pan=-0.4)  # it settles on the hill
+for k in range(3):  # the glint ring pulses while it sits there
+    add(sfx, chime((880, 1175, 988)[k], 0.9), 3.6 + 1.1 * k, pan=-0.4)
 # the build: laterite blocks set one after another, the junks' oars and creaks
 t = build[0] + 0.1
 while t < at(build, 0.6):
@@ -283,6 +284,10 @@ for k in range(3):
     add(sfx, filt(drum(55, 38, 0.6, 1.0), "low", 600), at(move, 0.5 + 0.12 * k), pan=0.4, gain=0.3)
 add(sfx, filt(bell(523, 1.8, decay=2.4), "low", 2200), at(move, 0.75), pan=0.4, gain=0.08)  # the little church
 # 2419: the people coming back, hammers on the waterfront row
+t = at(ret, 0.45)
+while t < ret[1]:
+    add(sfx, oar(0.8), t, pan=0.3)
+    t += rng.uniform(0.35, 0.5)
 t = ret[0]
 while t < at(ret, 0.5):
     add(sfx, footstep(0.55), t, pan=rng.uniform(-0.3, 0.3))

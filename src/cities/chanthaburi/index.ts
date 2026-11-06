@@ -77,9 +77,9 @@ export const CHANTHABURI: CityConfig = {
       // the fields south of the wall, where the army stands in 2310
       [GATE[0], GATE[1] + 5.5, 6.5, 1660],
       ...SEA_DISCS.map(([x, z, r]) => [x, z, r + 0.6, -1e9] as [number, number, number, number]),
-      [NOEN_WONG[0], NOEN_WONG[1], 4.8, 1834.1],
-      [WEST_FORT[0], WEST_FORT[1], 1.8, 1834.1],
-      [TUEK_DAENG[0] + 0.6, TUEK_DAENG[1], 2.2, 1834.1],
+      [NOEN_WONG[0], NOEN_WONG[1], 6.4, 1680],
+      [WEST_FORT[0], WEST_FORT[1], 1.8, 1680],
+      [TUEK_DAENG[0] + 0.6, TUEK_DAENG[1], 2.2, 1680],
       // the old-town strip, and the lower river's banks (cleared while the town fills under Narai)
       [4.2, 6.4, 3.4, 1876.05],
       [6.6, 10.0, 2.8, 1876.05],
@@ -153,6 +153,12 @@ export const CHANTHABURI: CityConfig = {
     ground: [[1600, '#a6a866'], ...GROUND],
   },
   // a forest-only opening reads dark: extra sky fill until the town is up (CLAUDE.md)
-  ambient: (Y) => 0.35 * (1 - Math.min(1, Math.max(0, (Y - 1700) / 80))),
+  // plus a fill over the engine's first dusk and night (3.7-6.1 s: Y ~1659-1671), so the gem's landing and the wall rising
+  // stay in steady light (the sky still follows the engine's 6 s day cycle)
+  ambient: (Y) => {
+    const base = 0.35 * (1 - Math.min(1, Math.max(0, (Y - 1700) / 80)));
+    const d = Math.abs(Y - 1665) / 7;
+    return base + (d < 1 ? 0.55 * 0.5 * (1 + Math.cos(Math.PI * d)) : 0);
+  },
   gloom: () => 0,
 };

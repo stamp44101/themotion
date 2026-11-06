@@ -121,9 +121,11 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
   style frames `docs/briefs/chanthaburi_styleframes.jpg` (A1 blue sapphire cut on a lap, cloud's pick; A2 the same in yellow;
   B ทุบหม้อข้าว, better as the 3-9 s event). Hybrid loop like Sakon Nakhon. **Owner picked A2, the yellow sapphire (6 Nov; first A1).** PR #86 (draft). [gemini] answered (3ebcc98), [local] pinned the map (a6f89ad); cloud checked the years and proposed the
   storyline in the brief (6 Nov; dropped Gemini's unconfirmed 2511 market-fire story and the 100-ship count). **v1 built (6 Nov,
-  `src/cities/chanthaburi/`, `scripts/soundtrack_chanthaburi.py`):** `npm run check` 0 errors for the city (3 warnings: the build,
-  return and occupy beats run 2.8-3.6 s); soundtrack -16.0 LUFS, score +0.8 LU over the effects, ambience 11 dB under the
-  score. Stills: `docs/briefs/chanthaburi_v1_gate.jpg` (0-11 s) and `chanthaburi_v1_contact.jpg` (13-52 s); what is drawn for
+  `src/cities/chanthaburi/`, `scripts/soundtrack_chanthaburi.py`):** `npm run check` 0 errors for the city (2 warnings: the
+  return and occupy beats run 2.8-3.6 s); soundtrack -16.0 LUFS, score +0.9 LU over the effects, ambience 11.6 dB under the
+  score. v1b (coordinator review): the cut is done under the title with no caption (no year paired with the gem), the gem
+  lands large on Khao Ploi Waen as the wall rises, separate row-houses and arriving boats in 2419, the cathedral from the
+  waterfront side. Stills: `docs/briefs/chanthaburi_v1_gate.jpg` (0-11 s) and `chanthaburi_v1_contact.jpg` (13-52 s); what is drawn for
   the screen is in the brief's "## v1 build". No render yet. **Next: the owner passes the 0-11 s stills**, then one render.
 - A new city in a new session (one city per session).
 - **Posting time (owner, 1 Nov): 19:00-21:00 from now on**, not the morning; the next read changes the

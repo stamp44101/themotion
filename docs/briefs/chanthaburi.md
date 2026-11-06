@@ -143,9 +143,29 @@ Owner gate next: **the 0-11 s stills** before any render.
 
 ## v1 build (6 Nov; `src/cities/chanthaburi/`, `scripts/soundtrack_chanthaburi.py`)
 
-`npm run check` for the city: 0 errors (warnings: the build and return beats run 3.6 s, the occupy beat 2.8 s; the 2436/2447
-pair shares one caption, 30.2-36.0 s). Soundtrack (code only): -16.0 LUFS, score +0.8 LU over the effects, ambience 11 dB
-under the score. Stills for the owner's gate: `chanthaburi_v1_gate.jpg` (0-11 s), later beats `chanthaburi_v1_contact.jpg`.
+`npm run check` for the city: 0 errors (warnings: the return beat runs 3.6 s, the occupy beat 2.8 s; the 2436/2447 pair
+shares one caption, 30.2-36.0 s). Soundtrack (code only): -16.0 LUFS, score +0.9 LU over the effects, ambience 11.6 dB under
+the score.
+
+**v1b fixes (coordinator review, 6 Nov):**
+- **The counter never pairs the gem with a year.** The cover (the cut) now runs 0-3.0 s, under the title, with no caption;
+  the counter fades in at 3 s on the build beat (3.2-9.4 s, "กำแพงศิลาแลงบ้านลุ่ม", ราว พ.ศ. 2199-2231). Nothing on screen
+  says gems were cut in the 2190s (the trade is recorded only from ~2365); the gem is the town's symbol, named only in
+  `intro.sub` ("เมืองพลอยริมแม่น้ำจันท์").
+- **The hand-off (3-6 s):** the stone flies west at 2.3-3.8 s and lands large (girdle ~3.4 units) on Khao Ploi Waen at the
+  tile's west edge, a glint ring pulsing out from it, while the camera (from the south-west) already has the wall rising on
+  the river bend; the stone sinks into the hill at 6.6-7.6 s.
+- **Light 3-6 s:** the sky's dusk at ~4 s and night at ~4.9 s are the engine's global 6 s day cycle (`lighting()` in
+  src/lib.ts), not this city's config; the city adds a cosine ambient fill over Y 1658-1672 (3.7-6.1 s). Mean luma on frames
+  90-180 every 5 frames: largest step 2.1 luma per frame (frames 105-110, the camera turning from sky onto forest); the
+  scene darkens smoothly from 121 to 65 and recovers to 79. The orange then dark-blue sky stays (engine).
+- **2419:** 8 separate stilted wooden row-houses (decks to the water, grey or red roofs) go up one by one along the west
+  bank; people walk up from the water to their doors; three small boats with people and baskets come up the river to the
+  waterfront.
+- **The cathedral beat** is filmed from the waterfront side across the river (azimuth 244-256, elevation 22): the west front
+  with both spires and the nave read.
+- Smaller, smoother crust lumps (a pebble skin) on the cover; Noen Wong's rise cleared of trees from Narai's time (fields)
+  so the camp reads; the payoff stone drawn 1.6x larger over Si Chan road; the pots appear only in 2310. Stills for the owner's gate: `chanthaburi_v1_gate.jpg` (0-11 s), later beats `chanthaburi_v1_contact.jpg`.
 What is approximate or drawn for the screen:
 - **Scale and compression:** 100 m/unit, origin the city pillar. The town core (within 1.4 km of the pillar) is true scale.
   Everything further out is pulled in along its true bearing (`places.ts` `squeeze`: the first 1.4 km true, every km beyond
@@ -166,7 +186,7 @@ What is approximate or drawn for the screen:
 - **2377:** Noen Wong drawn true size (560 x 600 m, ONEP) on a low rise, laterite walls, a gate gap in each side, a small
   hall for Wat Yothanimit; the two mouth forts (west headland, east bank) rise off-camera in this beat and show in the grow
   shot. A small wooden church stands on the west bank from ~2254 and moves to the east bank in 2377 (positions drawn).
-- **2419:** the waterfront row is 18 wooden houses along the west bank from south of ถ.ท่าหลวง to above the market; the chedi
+- **2419:** the waterfront row is 8 wooden houses along the west bank from south of ถ.ท่าหลวง to above the market; the chedi
   on Khao Ploi Waen appears with it (built 2398; the counter skips that year).
 - **2436 / 2447:** the French building in the camp (gem's unchecked pin, drawn 50 m off the shrine) and ตึกแดง with the brick
   tower at the mouth; a French column marches in and out, a steamer leaves down the river; the Siamese flag of 2447 is the
@@ -175,10 +195,10 @@ What is approximate or drawn for the screen:
   spires come down at ~2484 and go back at ~2546-2549 inside the grow shot with no year on screen (2483/2552 not confirmed).
 - **Roads** (years approximate, all inside beats): ถ.ศรีจันทร์ ~2453, ถ.ท่าหลวง with its bridge ~2493, the road west ~2503,
   the road down to the mouth ~2513. No Sukhumvit by name. Orchards (5 patches) on the hills in the grow shot.
-- **Hero:** the A2 lap and stone moved from the style frames with a ~16-unit lap (0.62 S, so its legs stay off the river); the
+- **Hero (cut 0-3 s):** the A2 lap and stone moved from the style frames with a ~16-unit lap (0.62 S, so its legs stay off the river); the
   crust is rounded brown-black lumps with red laterite dirt that hug the stone; the ไม้ทวน is a brown stick with a dark red-brown
   shellac lump on the stone's table, its end in a notched jamb peg at the bench's right; at 2.2 s the stick lets go, the stone
-  lifts, turns, and flies west to settle on Khao Ploi Waen (5.8 s). Callback: the same stone over Si Chan road at dusk.
+  lifts, turns, and flies west to settle on Khao Ploi Waen (3.8 s). Callback: the same stone over Si Chan road at dusk.
 - **Not shown:** Mueang Phaniat, the 2254 arrival, Trat 2449/2450, the 2511 fire story, the bridge at the mouth.
-- **Still to look at on the render:** the waterfront row reads as one low brown strip from the 40-50-unit cameras; Noen Wong
-  is small behind trees in the move beat; the gem on Khao Ploi Waen at 6 s is a speck; the 2447 Siamese flag is small.
+- **Still to look at on the render:** the 2447 Siamese flag and the steamer are small; the people at the waterfront in 2419
+  are small at the 40-unit camera; the sky still goes to dusk and night at 4-5 s (engine cycle).
