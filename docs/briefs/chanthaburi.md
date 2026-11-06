@@ -57,7 +57,9 @@ changes shape.
   soldiers move on the gate (drawn by day here; the clip has it at night, with torches). It moves and is close, but at
   thumbnail size it reads as "pots and a wall", not the town's own symbol; better as the first event (3-9 s).
 
-**Owner picked A1 (6 Nov): the blue sapphire.** B's pot smashing goes to the first event after the cover (3-9 s).
+**Owner picked A2 (6 Nov): the yellow sapphire (บุษราคัม)** (first said A1, then changed to A2 the same day). B's pot
+smashing goes to the first event after the cover (3-9 s). Research to confirm: บุษราคัม is a Chanthaburi stone (Khao Ploi
+Waen) and what the rough yellow stone really looks like.
 
 What is placeholder in the frames: the lap and its stand are drawn, not modelled from a real cutter's bench; the pavilion
 is deeper than a true brilliant so its point reads; there is no hand (the stone is "being cut" by the lap alone).
