@@ -162,3 +162,4 @@ in the hero's hand (the story's link, not a claim about the iron); the 36 km pul
 
 Open for the owner (cloud decides if no answer, as in the hybrid loop): keep the dam (big and real, but 51 km off), or spend
 those 6 s on the 2501 Sila At yards and the Laplae orchards.
+- Owner (8 Nov): "เอาที่คิดว่าดี" on the dam question; cloud keeps the dam (2520).
