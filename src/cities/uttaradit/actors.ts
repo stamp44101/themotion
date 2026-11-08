@@ -113,7 +113,8 @@ export const raftAt = (i: number, t: number) => {
   const k = beatK('trade', t);
   if (k < -0.05 || k > 1.3) return null;
   const L = lengthOf(DOWNRIVER);
-  const d = lerp(-5 * i, L - 1.6 * i, smooth((k + 0.05) / 1.0));
+  // strung out along the loop, 4.2 apart, the last ones still on the water upstream of the landing
+  const d = lerp(-7 * i, L - 4.2 * i, smooth((k + 0.05) / 1.0));
   if (d < 0) return null;
   return along(DOWNRIVER, d);
 };
@@ -143,10 +144,10 @@ export const ORCHARD: [number, number] = [-31, -20];
 export const fairK = (t: number) => smooth((beatK('gather', t) - 0.02) / 0.2);
 /** the cover's sword, whole again, comes down out of the sky over the monument and turns */
 export const backK = (t: number) => smooth((beatK('gather', t) - 0.18) / 0.3);
-export const BACK_S = 10;
+export const BACK_S = 7;
 export const swordBackAt = (t: number) => {
   const k = backK(t);
-  return {x: MONUMENT[0] + 0.5, y: lerp(40, 8.5, k), z: MONUMENT[1] + 0.6, s: BACK_S, spin: (t - 46) * 0.35};
+  return {x: MONUMENT[0] + 0.6, y: lerp(36, 5.0, k), z: MONUMENT[1] - 3.2, s: BACK_S, spin: 0.25 * Math.sin((t - 46) * 0.5)};
 };
 
 export const ACTORS: Actor[] = [

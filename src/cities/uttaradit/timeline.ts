@@ -13,8 +13,8 @@ import {DAM, FIGHT_AT, HALL, HERO_AT, LANDING, MONUMENT, PARAMIN, PHICHAI} from 
 type Key = CameraKey;
 // [t, target x, y, z, distance, azimuth, elevation, fov]; azimuth from +z (south) toward +x (east)
 // the cover: the giant anvil on the tile, the whole tile round it (owner's cover rule; distance 290-335)
-const C0: Key = [0, 12, 7, 6, 300, 18, 32, 30];
-const C1: Key = [2.6, 12, 7.5, 6, 306, 22, 32, 30];
+const C0: Key = [0, 20, 10, 2, 288, 18, 34, 30];
+const C1: Key = [2.6, 20, 10.5, 2, 294, 22, 34, 30];
 // the sword rises and the camera swings south-west down the valley in one glide (2.6-5.0 s) to the fight, Phichai's
 // wall going up on the way
 // 2316: from the south-south-west, the giant in front on the west-bank field, the column coming down from the north
@@ -143,7 +143,7 @@ export const STORY = buildStory({
       kind: 'disaster',
       t: [33.6, 37.6],
       year: {hold: 1977},
-      caption: {t0: 33.6, title: 'เขื่อนสิริกิติ์', sub: 'พ.ศ. 2520 เปิดเขื่อนกั้นแม่น้ำน่าน ท่าปลาเก่าจมใต้อ่าง'},
+      caption: {t0: 33.6, title: 'เขื่อนสิริกิติ์', sub: 'พ.ศ. 2520 กั้นแม่น้ำน่าน ท่าปลาเก่าจมใต้อ่าง'},
       camera: [DM_END],
     },
     {

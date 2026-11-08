@@ -198,3 +198,26 @@ What is drawn for the screen (approximate, say so if asked):
   behind, the broken stub is hard to see after 8 s; the rafts arriving at the landing (16 s) bunch into a strip; the
   fill caption's sub wraps one word ("อ่าง") onto a second line; the returning sword shows its dark edge while it comes
   down (49-50 s) before it levels over the plaza.
+
+### v1b (cloud, 8 Nov; owner via the coordinator: "จัดการให้เรียบร้อยจนพร้อม render แล้วส่งให้เครื่อง render เลย")
+
+- **Cover:** the sword is the style frame A1's size (40 units, was 30) and the camera sits a little closer (288-294,
+  elevation 34, target on the anvil's side of the tile): the sword spans about a third of the frame at 0 s and the tile
+  and its soil edge stay in frame. The coal pit is smaller and on the camera side, clear of the Nan's loop.
+- **The 2316 hero:** a proper figure at the same legend scale (thick legs, an indigo jongkraben, a dark jacket with a red
+  sash, sleeved arms and fists, dark hair with a topknot), turned three-quarter to the camera (yaw -0.85), both swords
+  raised; the right blade now breaks three-quarters of the way up, so only a short stub stays in his hand after 7 s and
+  the rest spins away.
+- **Rafts:** strung along the river loop 4.2 apart, the last ones still on the water upstream of the landing.
+- **Dam caption:** sub shortened to "พ.ศ. 2520 กั้นแม่น้ำน่าน ท่าปลาเก่าจมใต้อ่าง" (one line); every title is one line.
+- **The returning sword:** light steel (its own material with a cool sheen), point down with its flat turned to the
+  camera, smaller (7 units) and lower, beside the monument so it stays out of the caption band and off the callout.
+- **ค.ศ. under 2316:** the overlay prints `ค.ศ. Math.round(Y)` (src/Overlay.tsx, engine-wide) and has no per-beat
+  override, so it shows 1773 while the January 2316 fight is January 1774 CE. Left as is (an engine change is outside
+  this city); the caption itself names only พ.ศ. 2316.
+- **Physical checklist on the new frames:** nothing on open water but boats and rafts; no wall across the river (Phichai
+  sits on the east bank, the river SW of it); the cover's log and coals on land; the giant and the column on the
+  west-bank field; the station beside the track; the dam across the gorge with the lake behind it; every callout points at
+  something visible. `npm run check` 0 errors (1 warning: old Phichai is 0.8% of the tile on wide shots). Timing is
+  unchanged, so the soundtrack stands (-16.0 LUFS, score +2.5 LU, ambience -10.7 dB).
+- **Render-ready:** waiting on [local] (`npm run render:uttaradit`, then `npm run encode -- uttaradit`, `check_render`).

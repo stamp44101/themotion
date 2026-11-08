@@ -79,8 +79,8 @@ export const DAM_LEN = 7.0; // the 800 m crest, drawn short across the gorge
 export const LAKE: [number, number, number][] = [[44.2, -30.4, 2.4], [45.4, -32.6, 2.6], [43.0, -32.8, 2.2], [45.6, -29.0, 1.6]];
 
 // ---- the cover: the giant anvil on the east bank, below the Nam Phi hills
-export const HERO_AT: P = [29.0, -5.0];
-export const HERO_S = 30; // the sword's length; the anvil's face is 0.42 S high
+export const HERO_AT: P = [28.0, -5.0];
+export const HERO_S = 40; // the sword's length (the style frame A1's); the anvil's face is 0.42 S high
 
 // ---- roads (OSM names, approximate years: the grow beat)
 export const BOROM_AT: P[] = [[-20, 0.4], [-8, 0.2], [-1.0, 0.0]]; // ถ.บรมอาสน์ west from the hall

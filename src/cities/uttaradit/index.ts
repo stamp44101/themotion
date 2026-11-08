@@ -78,7 +78,7 @@ export const UTTARADIT: CityConfig = {
     forestCity: 1490.2,
     clearings: [
       // the cover's clearing below the Nam Phi hills (gone with the anvil; nothing is built there before the grow shot)
-      [HERO_AT[0], HERO_AT[1], 9, -1e9],
+      [HERO_AT[0], HERO_AT[1], 10, -1e9],
       // the field of Wat Ekka where the giant stands, and the column's road down the west bank
       [FIGHT_AT[0], FIGHT_AT[1], 6.5, -1e9],
       ...[[-35.5, 8], [-35, 18], [-34, 28], [-32, 37], [-27.6, 43.6]].map(([x, z]) => [x, z, 3.2, -1e9] as [number, number, number, number]),
@@ -95,7 +95,7 @@ export const UTTARADIT: CityConfig = {
     ],
     paddies: [1836, 1880],
     sites: [
-      [HERO_AT[0], HERO_AT[1], 8],
+      [HERO_AT[0], HERO_AT[1], 9],
       [FIGHT_AT[0], FIGHT_AT[1], 3],
       [HALL[0], HALL[1], 2.6],
       [MONUMENT[0], MONUMENT[1] + 1.8, 5.2],
