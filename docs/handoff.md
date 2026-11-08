@@ -141,8 +141,7 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
   `docs/briefs/uttaradit_research_request.md`, style frames `docs/briefs/uttaradit_styleframes.jpg` (A1 the Nam Phi iron
   forged into a sword, bar to blade, cloud's pick; A2 the twin swords; B the sword breaking before Phichai's wall, better as
   the 3-9 s event). Built on §19: the cover's sword is the first event's sword, so the close event can land at 3-9 s, and the
-  hero is the province's own. Hybrid loop. Style frames redone as v2 (owner: the cover must show the whole land tile). **Owner picked A1 (8 Nov).** Next: [gemini] answers; [local] pins Phichai, Bang Pho
-  Tha It, the Nam Phi pits and the story places (`uttaradit_onep/`).
+  hero is the province's own. Hybrid loop. Style frames redone as v2 (owner: the cover must show the whole land tile). **Owner picked A1 (8 Nov).** [gemini] answered (a105b3c), [local] traced Phichai's wall and pinned 20 places (3c5fb14); cloud re-checked the years and proposed the storyline in the brief (8 Nov): forge, raise, fight (2316, inside 3-9 s), trade, arrive (2452), rename (2458), dam (2520), grow, gather (2569). Next: build v1 on [local]'s map, then the owner passes the 0-11 s stills.
 - A new city in a new session (one city per session).
 - **Posting time (owner, 1 Nov): 19:00-21:00 from now on**, not the morning; the next read changes the
   city and the hour at once (`experiments.md` §14).

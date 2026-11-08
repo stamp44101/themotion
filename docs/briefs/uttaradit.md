@@ -101,3 +101,59 @@ the broken blade is the story's image, not a wound.
 - When did the railway reach Uttaradit, and when was the Sirikit dam closed?
 - How old is Nam Phi smelting, and what does the forge there look like (bellows, hearth, the anvil)?
 - Does Phraya Phichai's sword in the story have a shape (a straight dap or a curved one)?
+
+## Research checked, storyline proposed (cloud, 8 Nov)
+
+[gemini] answered (`uttaradit_research_gemini.md`, a105b3c); [local] traced Phichai's wall from the Treasury survey and pinned
+20 places (`uttaradit_onep/`, 3c5fb14). Cloud re-checked the years that disagree on the web the same day.
+
+### Years for the screen
+
+| fact | status after checking | caption use |
+|---|---|---|
+| Phichai's wall first built, จ.ศ. 852 = **2033** (Luang Prasert chronicle; some later texts 2037); a long four-sided town on the **east** bank of the Nan, 1,345 m × 419-645 m, NNW-SSE ([local], Treasury survey) | ตามพงศาวดาร; shape ยืนยัน | sub line "ราว 2033"; the wall rises on the beat, no held year |
+| The second Burmese attack on Phichai (Po Suphla), ปีมะเส็ง จ.ศ. 1135 = **2316**; the town holds | ยืนยัน (all Thonburi chronicles) | **held 2316** |
+| Phraya Phichai fights with two swords until one breaks | **ตามพงศาวดาร** (the Phanarat / royal-autograph recensions, not Phan Chanthanumat); the right sword, Wat Ekka and 7 Jan come from Phraya Si Satchanalai's 2462 life | caption says "ตามพงศาวดาร"; no day on screen |
+| 7 Jan 2316 = **January 1774 CE** (the Thai year then began in April) | ยืนยัน (gemini §5.1; matches cloud's 8 Nov note) | the counter shows 2316 (and ค.ศ. 1774 if the ค.ศ. line is shown) |
+| The sword was Nam Phi iron | **ไม่พบ** in any contemporary source; a local belief | never captioned as fact; the cover makes no claim (the iron is the province's, the sword is the story's) |
+| Bang Pho Tha It, the head of navigation on the Nan (boats stop at the rapids above; teak and forest goods trans-shipped), Rama III-V | ยืนยัน for the role; **no start year** | sub line, no held year |
+| Bang Pho Tha It made "เมืองอุตรดิตถ์" under Phichai, 2430 | ขัดแย้ง (province site; other years mixed in) | none |
+| The seat moves from Phichai to Bang Pho Tha It | **ขัดแย้ง**: 2442 (gemini, province), **2457** (Treasury survey, [local]), 2458 (ONEP doc) | no own year; folded into the 2458 beat as "ศาลากลางย้ายขึ้นมาท่าอิฐ" |
+| The northern railway: Phitsanulok-Ban Dara 11 Nov 2451; **Ban Dara-Uttaradit-Pang Ton Phueng 15 Aug 2452**; the Paramin bridge over the Nan at Ban Dara opened Dec 2452 (some pages say 2453: the April new year) | ยืนยัน (th.wikipedia northern line table; pandinthaipost) | **held 2452** |
+| Mueang Phichai renamed **เมืองอุตรดิฐ**, gazette vol. 32, 22 Aug **2458** (the province marked 111 years in 2569); "จังหวัด" from 2459 | ยืนยัน | **held 2458** |
+| Sila At station, 1 Nov 2501 | ยืนยัน (gemini; one source) | grow shot, no held year |
+| Monument before the provincial hall, 2512 (Sanan Silakorn); the fair from 2510 | 2512 ยืนยัน (ThaiJO jdecho); 2510 **not confirmed** | payoff; no held year |
+| Sirikit dam: works 2511, foundation stone 27 Feb 2514, dam done ~2515, opened **4 Mar 2520**; old Tha Pla drowned | ยืนยัน (several news sources) | **held 2520** |
+| Highway 11 east of town, 2521-2524 | ยืนยัน (one source) | grow shot |
+| The 59th Phraya Phichai fair, 7-16 Jan **2569** | ยืนยัน | payoff, the counter lands on 2569 |
+| Not shown (storyline §3.6a): the WWII bombing of the bridge and yards, the 2508/2515 market fires, Rom Klao 2530-31, the 2549 landslides | — | none |
+
+### The tile (compressed, directions from [local]'s bearings)
+
+One tile of the Nan valley, north up the tile: **today's town (Bang Pho Tha It) in the north half on the west bank**, the Nan
+looping round its east side; **Phichai's long wall at the south edge on the east bank**, the river to its south-west; the
+**Nam Phi hills on the east** (real bearing ESE, 24 km); the **Sirikit dam in the north-east corner** (ENE, 51 km). The 36 km
+from Phichai to the town is pulled in to about a third of the tile's height, as Chanthaburi pulled in its river mouth. The
+railway runs N-S down the west of the valley and crosses the Nan at Ban Dara (the Paramin bridge) between the two towns. New
+camera keys follow the footprint (CLAUDE.md).
+
+### Storyline (60 s, v2 standard)
+
+| s | beat (one verb) | on screen | year |
+|---|---|---|---|
+| 0-3.0 | **forge** (cover, A1) | the giant anvil in a clearing in the Nam Phi hills; the glowing bar beaten into a sword; it cools, lifts | no counter |
+| 3.0-4.4 | **raise** (hand-off) | the sword rises and the camera swings south-west down the valley; Phichai's long wall rises on the east bank of the Nan | counter runs ~2033 → 2316; sub line "กำแพงเมืองพิชัย ราว 2033" |
+| 4.4-11.0 | **fight** (the close event, inside 3-9 s) | a legend-scale Phraya Phichai (Suphanburi's 8x rule) before the wall, the cover's sword in his right hand and a second in his left; a Burmese column (scaled up) comes down the river from the north; the right sword snaps at ~7 s (flash, the half spins off); the column breaks and falls back north; the gate holds | **held 2316** (≥ 1 s), caption "ศึกเมืองพิชัย" / "ตามพงศาวดาร พระยาพิชัยรบจนดาบหัก" |
+| 11.0-17.5 | **trade** | the camera travels up the Nan to Bang Pho Tha It: big boats stop below the rapids, teak rafts float down, a market row grows on the west bank | counter runs (ราว รัชกาลที่ 3-5), sub line "ท่าเหนือ: เรือใหญ่ขึ้นได้สุดที่นี่" |
+| 17.5-24.5 | **arrive** | the train crosses the Paramin bridge at Ban Dara and runs north up the west of the valley into Uttaradit station; shophouses spread from the river to the station | **held 2452** |
+| 24.5-30.5 | **rename** | the provincial hall rises in town, the flag goes up; down at Phichai the wall settles to fields (ruinStrength); the name changes on screen | **held 2458**, sub line "ศาลากลางย้ายจากพิชัยขึ้นมาท่าอิฐ" |
+| 30.5-37.0 | **dam** | in the north-east corner the dam closes the Nan's gorge and the lake fills behind it; the river below runs steady | **held 2520** |
+| 37.0-45.0 | **grow** (the grow shot, wide) | the town spreads north to Sila At and east to Highway 11; the railway yards; orchards up the Laplae hills to the west | counter runs to 2560s |
+| 45.0-56.0 | **gather** (payoff + callback) | the January fair before the hall: crowds round the monument, lights; the giant sword from the cover returns over the town, whole, and turns | lands on **2569**, caption "งานพระยาพิชัยดาบหัก ครั้งที่ 59" |
+| 56-60 | — | hold the wide shot; nothing new on screen (last 4 s) | 2569 |
+
+What is drawn for the screen, to list in the v1 notes: the hero and the column at legend scale; the sword from the cover
+in the hero's hand (the story's link, not a claim about the iron); the 36 km pulled in; the dam drawn on the tile.
+
+Open for the owner (cloud decides if no answer, as in the hybrid loop): keep the dam (big and real, but 51 km off), or spend
+those 6 s on the 2501 Sila At yards and the Laplae orchards.
