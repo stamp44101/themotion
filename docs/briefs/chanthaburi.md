@@ -215,3 +215,7 @@ What is approximate or drawn for the screen:
   dusk edge (night 0.05 at 10.0 s).
 
 **Owner passed the 0-11 s stills (6 Nov, v1c 3e96ebe).** Next: [local] renders and runs `check_render`, uploads `chanthaburi_look_social.mp4` to the `renders` release; then the owner watches, says "Merge" and posts at 19:00-21:00 (**write down the post time**).
+
+**Merged as rendered (owner, 8 Nov), not fixed:** [local]'s render pass found porters walking on the river at 28.5 s and a ~30 px
+stone column at 21-23 s (its tail on the moat edge). Both are in the posted clip; the owner chose not to fix a posted city. Fix them
+first if this city's figures or the 2419 landing are reused.
