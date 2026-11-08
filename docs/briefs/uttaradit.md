@@ -152,6 +152,11 @@ camera keys follow the footprint (CLAUDE.md).
 | 45.0-56.0 | **gather** (payoff + callback) | the January fair before the hall: crowds round the monument, lights; the giant sword from the cover returns over the town, whole, and turns | lands on **2569**, caption "งานพระยาพิชัยดาบหัก ครั้งที่ 59" |
 | 56-60 | — | hold the wide shot; nothing new on screen (last 4 s) | 2569 |
 
+Where the fight is drawn: the chronicle says outside the town; local history (Phraya Si Satchanalai, 2462) names the field
+of Wat Ekka, 1.6 km SW across the Nan on the **west bank** ([local], 87b116c). v1 draws the hero on the west-bank field
+facing the wall across the river, so the clash reads against the wall and the place follows the local story; the Burmese
+column comes down the west bank from the north.
+
 What is drawn for the screen, to list in the v1 notes: the hero and the column at legend scale; the sword from the cover
 in the hero's hand (the story's link, not a claim about the iron); the 36 km pulled in; the dam drawn on the tile.
 
