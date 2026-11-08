@@ -1,0 +1,419 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.09742,
+     17.62966
+    ]
+   },
+   "properties": {
+    "name": "ORIGIN: อนุสาวรีย์พระยาพิชัยดาบหัก หน้าศาลากลาง",
+    "role": "origin"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.0799,
+     17.30526
+    ]
+   },
+   "properties": {
+    "name": "เมืองพิชัยเก่า (กำแพงเมืองคูเมือง)",
+    "era": "สุโขทัย-อยุธยา-ธนบุรี",
+    "why": "เมืองที่พระยาพิชัยรักษาไว้ในศึก 2316 ผังสี่เหลี่ยมยาว N 645 / S 419 / ยาว 1,345 ม.",
+    "source": "กรมธนารักษ์ (ทะเบียน อต 69-2)",
+    "pin": "traced (Treasury map + imagery, ±100 m)",
+    "km": 36.12,
+    "bearing": 183,
+    "octant": "S"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.087,
+     17.2913
+    ]
+   },
+   "properties": {
+    "name": "วัดมหาธาตุ (พิชัย)",
+    "era": "อยุธยา",
+    "why": "วัดในตัวอำเภอพิชัยปัจจุบัน ใต้กำแพงเมืองเก่า ~1.5 กม.",
+    "source": "OSM",
+    "pin": "osm",
+    "km": 37.64,
+    "bearing": 182,
+    "octant": "S"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.08558,
+     17.29122
+    ]
+   },
+   "properties": {
+    "name": "ศาลเจ้าพ่อพระยาพิชัยดาบหัก (พิชัย)",
+    "era": "ปัจจุบัน",
+    "why": "ศาลในตัวอำเภอพิชัย",
+    "source": "OSM",
+    "pin": "osm",
+    "km": 37.65,
+    "bearing": 182,
+    "octant": "S"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.08825,
+     17.28903
+    ]
+   },
+   "properties": {
+    "name": "สถานีรถไฟพิชัย",
+    "era": "ร.5-ร.6",
+    "why": "รถไฟสายเหนือถึงพิชัย (ปีรอ research)",
+    "source": "OSM",
+    "pin": "osm",
+    "km": 37.89,
+    "bearing": 181,
+    "octant": "S"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.23816,
+     17.26919
+    ]
+   },
+   "properties": {
+    "name": "ศาลพระยาพิชัยดาบหัก (ตะวันออก)",
+    "era": "ปัจจุบัน",
+    "why": "ศาลอีกแห่ง ห่างพิชัยไปทางตะวันออก ~16 กม. (บ้านเกิด? รอ research)",
+    "source": "OSM",
+    "pin": "osm (role unknown)",
+    "km": 42.77,
+    "bearing": 160,
+    "octant": "SSE"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.29965,
+     17.5405
+    ]
+   },
+   "properties": {
+    "name": "บ่อเหล็กน้ำพี้ + ศาลเจ้าพ่อบ่อเหล็ก",
+    "era": "อยุธยา?-ปัจจุบัน",
+    "why": "แหล่งแร่เหล็กน้ำพี้ ต.น้ำพี้ อ.ทองแสนขัน (ภาพเปิด A1)",
+    "source": "OSM",
+    "pin": "osm",
+    "km": 23.62,
+    "bearing": 115,
+    "octant": "ESE"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.27966,
+     17.5637
+    ]
+   },
+   "properties": {
+    "name": "บ้านน้ำพี้ (ช่างตีดาบ)",
+    "era": "ปัจจุบัน",
+    "why": "หมู่บ้านน้ำพี้ เหนือบ่อเหล็ก ~2.6 กม.",
+    "source": "OSM",
+    "pin": "osm (village node)",
+    "km": 20.66,
+    "bearing": 111,
+    "octant": "ESE"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.10966,
+     17.62826
+    ]
+   },
+   "properties": {
+    "name": "ท่าอิฐ (ถ.ท่าอิฐล่าง)",
+    "era": "ร.4-ร.6",
+    "why": "ย่านท่าเรือการค้าบางโพท่าอิฐ ริมน่านฝั่งเหนือของเมือง",
+    "source": "OSM (road)",
+    "pin": "osm road; landing itself not mapped",
+    "km": 1.31,
+    "bearing": 97,
+    "octant": "E"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.11812,
+     17.64572
+    ]
+   },
+   "properties": {
+    "name": "ท่าเสา",
+    "era": "ร.5-ปัจจุบัน",
+    "why": "ชุมชนท่าเรือเหนือท่าอิฐ ~2 กม.",
+    "source": "OSM",
+    "pin": "osm",
+    "km": 2.83,
+    "bearing": 51,
+    "octant": "NE"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.09726,
+     17.62036
+    ]
+   },
+   "properties": {
+    "name": "สถานีรถไฟอุตรดิตถ์",
+    "era": "ร.5-ปัจจุบัน",
+    "why": "สถานีกลางเมือง",
+    "source": "OSM",
+    "pin": "osm",
+    "km": 1.03,
+    "bearing": 181,
+    "octant": "S"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.10104,
+     17.63927
+    ]
+   },
+   "properties": {
+    "name": "สถานีรถไฟศิลาอาสน์",
+    "era": "ร.5-ปัจจุบัน",
+    "why": "สถานีเหนือ (ปลายทางช่วงหนึ่งของสายเหนือ? รอ research)",
+    "source": "OSM",
+    "pin": "osm",
+    "km": 1.14,
+    "bearing": 20,
+    "octant": "NNE"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.09742,
+     17.62966
+    ]
+   },
+   "properties": {
+    "name": "อนุสาวรีย์พระยาพิชัยดาบหัก หน้าศาลากลาง",
+    "era": "2512-ปัจจุบัน?",
+    "why": "ORIGIN ใจกลางเมืองอุตรดิตถ์ งานพระยาพิชัยทุกมกราคม",
+    "source": "OSM",
+    "pin": "osm",
+    "km": 0.0,
+    "bearing": 0,
+    "octant": "N"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.09642,
+     17.62589
+    ]
+   },
+   "properties": {
+    "name": "ที่ว่าการอำเภอเมืองอุตรดิตถ์",
+    "era": "ปัจจุบัน",
+    "why": "",
+    "source": "OSM",
+    "pin": "osm",
+    "km": 0.43,
+    "bearing": 194,
+    "octant": "SSW"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.09833,
+     17.62083
+    ]
+   },
+   "properties": {
+    "name": "ตลาดสดเทศบาลอุตรดิตถ์",
+    "era": "ปัจจุบัน",
+    "why": "ตลาดใหญ่กลางเมือง",
+    "source": "OSM",
+    "pin": "osm",
+    "km": 0.99,
+    "bearing": 174,
+    "octant": "S"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.09862,
+     17.61948
+    ]
+   },
+   "properties": {
+    "name": "วัดท่าถนน (หลวงพ่อเพชร)",
+    "era": "อยุธยา?",
+    "why": "วัดริมน่านกลางเมือง",
+    "source": "OSM",
+    "pin": "osm",
+    "km": 1.14,
+    "bearing": 174,
+    "octant": "S"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.13246,
+     17.66085
+    ]
+   },
+   "properties": {
+    "name": "ค่ายพระยาพิชัยดาบหัก (ม.พัน 2)",
+    "era": "ปัจจุบัน",
+    "why": "ค่ายทหารม้าเหนือเมือง",
+    "source": "OSM",
+    "pin": "osm",
+    "km": 5.08,
+    "bearing": 47,
+    "octant": "NE"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.04422,
+     17.5967
+    ]
+   },
+   "properties": {
+    "name": "วัดพระแท่นศิลาอาสน์",
+    "era": "สุโขทัย-ปัจจุบัน",
+    "why": "เมืองทุ่งยั้ง ตะวันตกของเมือง",
+    "source": "OSM",
+    "pin": "osm",
+    "km": 6.72,
+    "bearing": 237,
+    "octant": "WSW"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.05561,
+     17.59984
+    ]
+   },
+   "properties": {
+    "name": "วัดพระบรมธาตุทุ่งยั้ง",
+    "era": "สุโขทัย-ปัจจุบัน",
+    "why": "ใจกลางเมืองโบราณทุ่งยั้ง",
+    "source": "OSM",
+    "pin": "osm",
+    "km": 5.53,
+    "bearing": 233,
+    "octant": "SW"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.22603,
+     17.6387
+    ]
+   },
+   "properties": {
+    "name": "วัดพระฝางสวางคบุรีมุนีนาถ",
+    "era": "ธนบุรี 2313",
+    "why": "ชุมนุมเจ้าพระฝาง ริมน่านฝั่งตะวันออก",
+    "source": "OSM",
+    "pin": "osm",
+    "km": 13.67,
+    "bearing": 86,
+    "octant": "E"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.56286,
+     17.76424
+    ]
+   },
+   "properties": {
+    "name": "เขื่อนสิริกิติ์",
+    "era": "2506-2515?",
+    "why": "เขื่อนดินกั้นน่าน อ.ท่าปลา (ปีรอ research)",
+    "source": "OSM",
+    "pin": "osm",
+    "km": 51.53,
+    "bearing": 73,
+    "octant": "ENE"
+   }
+  }
+ ]
+}
