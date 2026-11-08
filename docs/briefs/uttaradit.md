@@ -71,6 +71,10 @@ lap had no hand in Chanthaburi's frames); the blade is a straight dap drawn in 1
 eye until [local]'s map; the year counter shows 2243 because the frames borrow Korat's story; the B figure is a Nan walker
 scaled up.
 
+**Owner picked A1 (8 Nov): the Nam Phi iron forged into a giant sword on the land.** B's broken sword goes to the first
+event after the cover (3-9 s). Research to confirm: what raw Nam Phi iron and a Nam Phi forge look like, and the shape of
+Phraya Phichai's sword (straight or curved dap).
+
 ## Storyline worksheet (`docs/storyline.md` §5) — first guess, before research
 
 ```
