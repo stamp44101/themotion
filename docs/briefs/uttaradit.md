@@ -49,22 +49,27 @@ year and the Sila At station, the move of the seat and the name, the Sirikit dam
 
 ## Covers (style frames, 8 Nov; `uttaradit_styleframes.jpg`)
 
-Each measured against §17-§19 at frame 0: the symbol moves, fills ~1/3 of the frame, is half-made (no blank canvas) and
-changes shape.
-- **A1 (cloud's recommendation): the Nam Phi iron forged into a sword on the whole tile.** A giant anvil on its log, the
-  hearth's coals glowing behind; at frame 0 the tip half of the bar is already a flat blade and the hammer is on the next
-  segment; each blow flattens a segment and throws sparks; by ~2.3 s it is all blade; it cools from orange to steel, the
-  hilt goes on, and the sword lifts and turns its flat to the camera. The change is of **shape** (thick bar → flat blade)
-  and of heat, and the sound writes itself (hammer, hiss, ring).
-- **A2: the twin swords (ดาบสองมือ),** two bars forged side by side, two hammers out of step. Closer to Phraya Phichai (he
-  fought with a sword in each hand), but at thumbnail size two blades read less cleanly than one.
-- **B: ดาบหัก before Phichai's wall.** The hero with a sword in each hand between two lines of spearmen; one blade snaps at
-  ~2.2 s and its half spins away. It moves and is close, but at frame 0 nothing is half-made, and the figures read as toys;
-  better as the first event (3-9 s), where it is the payoff of A's sword.
+**v2 (owner, 8 Nov: "เลอะเทอะ"; the cover must show the whole square land tile, like Korat, Chiang Mai, Udon and
+Ratchaburi).** The first frames put a close camera on the anvil and showed no land, the mistake CLAUDE.md already names
+("The cover shows the land, with a giant on it"). v2 puts the hero at legend scale on a forest tile with the Nan down its
+west side, the soil edge in frame, camera 290-335 out at 36 degrees (B 28), as Udon's jar (~26 units) does.
 
-What is placeholder in the frames: the anvil and hearth are boxes; there is no smith (the hammer swings alone, as the lap had
-no hand in Chanthaburi's frames); the blade is a straight dap drawn in 12 segments; the year counter shows 2243 because the
-frames borrow Korat's story; the B figures are the Nan walkers scaled up.
+Each measured against §17-§19 at frame 0: the symbol moves, is half-made (no blank canvas) and changes shape.
+- **A1 (cloud's recommendation): the Nam Phi iron forged into a giant sword on the land.** An anvil ~17 units high on its
+  log in a clearing, a low pit of glowing coals beside it; the sword is ~40 units long. At frame 0 the tip half is already a
+  flat blade and the hammer is on the next segment; each blow flattens a segment and throws sparks; by ~2.3 s it is all
+  blade; it cools from orange to steel, the hilt goes on, and it lifts. The change is of **shape** (bar → blade) and heat,
+  and the sound writes itself (hammer, hiss, ring).
+- **A2: the twin swords (ดาบสองมือ),** two bars forged side by side, two hammers out of step. Closer to Phraya Phichai, but
+  from this distance two blades read as one wider slab.
+- **B: a giant Phraya Phichai (~26 units) beside the small walled Phichai,** a sword in each hand raised in a V; one blade
+  snaps at ~2.2 s and its half spins away. Nothing is half-made at frame 0, and the figure reads as a toy; better as the
+  first event (3-9 s).
+
+What is placeholder in the frames: the anvil and coals are simple solids; there is no smith (the hammer swings alone, as the
+lap had no hand in Chanthaburi's frames); the blade is a straight dap drawn in 12 segments; the Nan's course is drawn by
+eye until [local]'s map; the year counter shows 2243 because the frames borrow Korat's story; the B figure is a Nan walker
+scaled up.
 
 ## Storyline worksheet (`docs/storyline.md` §5) — first guess, before research
 

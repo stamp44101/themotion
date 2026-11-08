@@ -7,7 +7,9 @@
 // the hilt goes on and the sword lifts and turns. A1 one sword on the whole tile; A2 the twin swords
 // (ดาบสองมือ) side by side, two hammers out of step. B: ดาบหัก, the fight before Phichai's wall in 2316:
 // the hero with a sword in each hand between two lines of spearmen; one blade snaps at ~2.2 s and its half
-// spins away. Shapes are placeholders until the layout lands.
+// spins away. Owner (8 Nov): the cover shows the whole land tile with a giant on it, like Korat, Chiang Mai,
+// Udon and Ratchaburi: legend-scale hero, forest tile and its soil edge in frame, camera ~290-335 out.
+// Shapes are placeholders until the layout lands.
 import React, {useMemo} from 'react';
 import * as THREE from 'three';
 import {KORAT} from '../cities/korat';
@@ -16,7 +18,11 @@ import {buildStory} from '../engine/story';
 import type {CityConfig, LandmarkProps} from '../engine/types';
 
 type P2 = [number, number];
-const FIELD: P2 = [0, -4];
+const FIELD: P2 = [4, -2];
+// the Nan, north to south down the west of the tile (placeholder until [local]'s map)
+const NAN: P2[] = [
+  [-30, -58], [-26, -40], [-20, -26], [-19, -12], [-23, 2], [-24, 16], [-19, 30], [-14, 44], [-12, 58],
+];
 const smooth = (x: number) => x * x * (3 - 2 * x);
 const clamp01 = (x: number) => Math.max(0, Math.min(1, x));
 const hash = (i: number) => {
@@ -171,16 +177,18 @@ const Smithy: React.FC<{t: number; S: number; blades: {z: number; lag: number}[]
         <coneGeometry args={[0.07 * S, 0.22 * S, 12]} />
         <meshStandardMaterial color="#363535" metalness={0.55} roughness={0.45} />
       </mesh>
-      {/* the hearth: a low brick bed of coals behind the anvil, breathing with the bellows */}
-      <group position={[-0.1 * S, 0, -0.75 * S]}>
-        <mesh position={[0, 0.16 * S, 0]} castShadow receiveShadow>
-          <boxGeometry args={[0.9 * S, 0.32 * S, 0.45 * S]} />
-          <meshStandardMaterial color="#8a4a2e" roughness={0.95} />
+      {/* the hearth: a low pit of coals on the ground beside the anvil, breathing with the bellows */}
+      <group position={[-0.15 * S, 0, 0.55 * S]}>
+        <mesh position={[0, 0.03 * S, 0]} receiveShadow>
+          <cylinderGeometry args={[0.24 * S, 0.27 * S, 0.06 * S, 20]} />
+          <meshStandardMaterial color="#6e3a24" roughness={0.95} />
         </mesh>
-        {Array.from({length: 40}, (_, i) => {
+        {Array.from({length: 30}, (_, i) => {
           const glow = 0.6 + 0.4 * Math.sin(t * 5 + i * 1.7);
+          const a = hash(i) * Math.PI * 2;
+          const r = Math.sqrt(hash(i + 40)) * 0.2 * S;
           return (
-            <mesh key={i} position={[(hash(i) - 0.5) * 0.75 * S, 0.33 * S, (hash(i + 40) - 0.5) * 0.32 * S]} scale={S * (0.02 + hash(i + 7) * 0.015)}>
+            <mesh key={i} position={[Math.cos(a) * r, 0.07 * S, Math.sin(a) * r]} scale={S * (0.02 + hash(i + 7) * 0.015)}>
               <dodecahedronGeometry args={[1, 0]} />
               <meshStandardMaterial color="#2a1a12" emissive="#ff5a10" emissiveIntensity={glow} roughness={1} />
             </mesh>
@@ -248,57 +256,53 @@ const Hero: React.FC<{t: number}> = ({t}) => {
 const Fight: React.FC<{t: number; S: number}> = ({t, S}) => {
   const u = clamp01((t - BROKE) / 1.6);
   // the snapped half of the blade spins up and away, with a flash at the break
-  const piece: [number, number, number] = [0.7 * S + u * 1.1 * S, 2.8 * S + u * 1.3 * S - u * u * 2.6 * S, 0.3 * S + u * 0.4 * S];
+  const piece: [number, number, number] = [0.9 * S + u * 1.1 * S, 2.9 * S + u * 1.0 * S - u * u * 3.2 * S, 0.3 * S + u * 0.4 * S];
   return (
     <group position={[FIELD[0], 0, FIELD[1]]} rotation-y={A}>
-      {/* Phichai's earth wall and its gate, behind */}
-      {[-1, 1].map((s) => (
-        <mesh key={s} position={[s * 2.6 * S, 0.4 * S, -2.4 * S]} castShadow receiveShadow>
-          <boxGeometry args={[4 * S, 0.8 * S, 0.55 * S]} />
-          <meshStandardMaterial color="#8e5b3c" roughness={0.95} />
-        </mesh>
-      ))}
-      {[-1, 1].map((s) => (
-        <mesh key={s} position={[s * 0.75 * S, 0.6 * S, -2.4 * S]} castShadow>
-          <boxGeometry args={[0.45 * S, 1.2 * S, 0.65 * S]} />
-          <meshStandardMaterial color="#7a4a30" roughness={0.9} />
-        </mesh>
-      ))}
-      <mesh position={[0, 0.5 * S, -2.45 * S]}>
-        <boxGeometry args={[1.05 * S, 1 * S, 0.12 * S]} />
-        <meshStandardMaterial color="#4a2e1c" roughness={0.9} />
-      </mesh>
-      {/* the hero, big, at the front */}
-      <group position={[0, 0, 0.2 * S]} scale={1.7 * S}>
+      {/* the giant: Phraya Phichai with a sword in each hand */}
+      <group scale={S}>
         <Hero t={t} />
       </group>
       {u > 0 && u < 1 && (
         <group position={piece} rotation={[u * 9, u * 5, u * 7]} scale={S}>
-          <mesh>
+          <mesh castShadow>
             <boxGeometry args={[0.05, 0.58, 0.16]} />
             <meshStandardMaterial color="#c9d0d6" metalness={0.75} roughness={0.25} />
           </mesh>
         </group>
       )}
       {t > BROKE && t < BROKE + 0.5 && (
-        <mesh position={[0.65 * S, 2.6 * S, 0.45 * S]} scale={S * 0.35 * Math.sin(((t - BROKE) / 0.5) * Math.PI)}>
+        <mesh position={[0.95 * S, 2.75 * S, 0.3 * S]} scale={S * 0.3 * Math.sin(((t - BROKE) / 0.5) * Math.PI)}>
           <octahedronGeometry args={[1, 0]} />
           <meshBasicMaterial color="#fff1c2" toneMapped={false} />
         </mesh>
       )}
-      {/* two lines of spearmen pressing in from the sides */}
-      {Array.from({length: 16}, (_, i) => {
-        const side = i % 2 ? 1 : -1;
-        const row = Math.floor(i / 2);
-        const press = 0.25 * Math.sin(t * 2 + i);
-        const x = side * (1.1 + row * 0.42 + press) * S;
-        const z = (-0.3 + (row % 3) * 0.35) * S;
-        return (
-          <group key={i} position={[x, 0, z]} rotation-y={side > 0 ? -Math.PI / 2 : Math.PI / 2} scale={0.75 * S}>
-            <Walker step={t * 1.4 + i * 0.3} i={i} spear />
-          </group>
-        );
-      })}
+    </group>
+  );
+};
+
+/** Phichai at true scale behind the giant: a square earth wall with a gate in each side and roofs inside */
+const Phichai: React.FC = () => {
+  const c: P2 = [FIELD[0] + 2, FIELD[1] - 20];
+  const half = 9;
+  return (
+    <group position={[c[0], 0, c[1]]} rotation-y={A}>
+      {[0, 1, 2, 3].map((k) => (
+        <group key={k} rotation-y={(k * Math.PI) / 2}>
+          {[-1, 1].map((sd) => (
+            <mesh key={sd} position={[sd * half * 0.55, 0.6, half]} castShadow receiveShadow>
+              <boxGeometry args={[half * 0.8, 1.2, 0.8]} />
+              <meshStandardMaterial color="#8e5b3c" roughness={0.95} />
+            </mesh>
+          ))}
+        </group>
+      ))}
+      {Array.from({length: 14}, (_, i) => (
+        <mesh key={i} position={[(hash(i) - 0.5) * 12, 0.7, (hash(i + 20) - 0.5) * 12]} rotation-y={hash(i + 5) * 3} castShadow>
+          <coneGeometry args={[1.1, 1.4, 4]} />
+          <meshStandardMaterial color="#7b4b2b" roughness={0.9} />
+        </mesh>
+      ))}
     </group>
   );
 };
@@ -342,8 +346,8 @@ const base = (id: string, Hero: React.FC<{t: number}>, target: number, d: [numbe
     },
     layout: {
       ...KORAT.layout,
-      peaks: [[-50, -42, 8, 11], [-34, -52, 6, 9]],
-      rivers: [],
+      peaks: [],
+      rivers: [{path: NAN, width: 1.8}],
       bridges: [],
       noMoat: true,
       noWall: true,
@@ -363,16 +367,31 @@ const base = (id: string, Hero: React.FC<{t: number}>, target: number, d: [numbe
   };
 };
 
-const S_A = 80;
-export const UTTARADIT_A1 = base('uttaradit-a1', ({t}) => <Smithy t={t} S={S_A} blades={[{z: 0, lag: 0}]} />, 0.42 * S_A, [300, 310, 340], 30, 1.6 * S_A);
+// legend scale: the sword ~40 units long on an anvil ~17 high, about the size of Udon's jar
+const S_A = 40;
+const CAM: [number, number, number] = [290, 300, 335];
+export const UTTARADIT_A1 = base('uttaradit-a1', ({t}) => <Smithy t={t} S={S_A} blades={[{z: 0, lag: 0}]} />, 0.35 * S_A, CAM, 36, 30);
 // A2: the twin swords (ดาบสองมือ) side by side, the second hammer half a blow behind the first
 export const UTTARADIT_A2 = base(
   'uttaradit-a2',
   ({t}) => <Smithy t={t} S={S_A} blades={[{z: -0.14, lag: 0}, {z: 0.14, lag: 0.12}]} />,
-  0.42 * S_A,
-  [300, 310, 340],
+  0.35 * S_A,
+  CAM,
+  36,
   30,
-  1.6 * S_A,
 );
-const S_B = 12;
-export const UTTARADIT_B = base('uttaradit-b', ({t}) => <Fight t={t} S={S_B} />, 1.5 * S_B, [170, 180, 200], 14, 4.2 * S_B);
+// B: the giant ~26 units tall (Walker 1.75 x 15), his town small behind him
+const S_B = 15;
+export const UTTARADIT_B = base(
+  'uttaradit-b',
+  ({t}) => (
+    <>
+      <Fight t={t} S={S_B} />
+      <Phichai />
+    </>
+  ),
+  0.9 * S_B,
+  CAM,
+  28,
+  32,
+);
