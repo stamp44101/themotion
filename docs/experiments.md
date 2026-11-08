@@ -937,3 +937,41 @@ Reading (one post, the post time unknown, the first hybrid clip; a lean, not a r
 
 **Still to do:** write down the post time; for the next city, a frame-0 symbol that is half-made by hand and changes shape, a
 close first event at 3-9 s, and, if possible, a resident who names the symbol.
+
+## 19. Chanthaburi: a yellow sapphire half-cut on the lap at frame 0, the town that moved up the hill and back — read: the best hook of all reads, every engagement rate "lower"
+
+The cover follows §18's lesson: the symbol is half-made by hand at frame 0 (half the crust gone, facets showing) and changes
+shape (rough pebble → cut gem) in under 3 s; the owner picked it (A2, yellow over blue). The first close event (ทุบหม้อข้าว,
+the elephant at the gate) is at 10-11.4 s, later than §14 asks, because the wall had to rise first (3.2-9.8 s).
+
+### Result (owner's screenshots, 8 Nov 15:25, ~27 h after the post; **posted ~12:00 on 7 Nov**, midday, not 19:00-21:00)
+
+Skip rate **40.6% ("lower", green)**, 3,744 views from 2,770 viewers, average watch **16 s**, 1 follow. 121 likes, 2 comments,
+16 reposts, 9 shares, 0 saves: like 4.2%, share 0.3%, save 0.0%, repost 0.6%, comment 0.1%, all "lower". Views from the Reels tab
+64.7%, Feed 17.8%, Stories 9.4%, Explore 6.6%, Profile 0.8%. The views curve ran with a typical reel's for the first hours, then
+fell a little under it (~3.7K against ~4.2K). Retention (read off the chart, about +/- 3 points): ~50% at ~5 s, ~30% at ~10 s,
+~25% at ~15 s, ~20% at ~23 s, ~15% at ~32 s, ~12% at ~45 s, ~8% near the end.
+
+| | Udon Thani | Ratchaburi | Kanchanaburi | Sakon Nakhon | **Chanthaburi** |
+|---|---|---|---|---|---|
+| cover | jar painted | jar thrown | train on the bridge | cloth dyed | **gem cut** |
+| half-made by hand at 0 s, changes shape | yes | yes | no | colour only | **yes** |
+| skip rate | 41.4% | 42.0% | 58.6% | 53.1% | **40.6%** |
+| average watch | 19 s | 14 s | (25 s) | 12 s | **16 s** |
+| like / save / share | 9.8 / 0.8 / 4.7% | 5.7 / 0.2 / 4.1% | 4.2 / 0.2 / 0.1% | 5.0 / 0.4 / 0.4% | **4.2 / 0.0 / 0.3%** |
+| repost | 1.8% | 1.2% | 0.7% | 0.9% | **0.6%** |
+| views from the Reels tab | 69.7% | 60.8% | 58.9% | 55.3% | **64.7%** |
+
+Reading (one post at midday, so the hour changed too; a lean, not a rule):
+- **The cover rule works:** a symbol half-made by hand at frame 0 that changes shape gave the best skip rate of all reads
+  (40.6%, the first "lower" since Udon), 12.5 points better than Sakon's cloth. Three clips now agree (two jars, the gem).
+- **The hook does not carry engagement:** like, save and share are all "lower"; saves are zero for the first time. Udon's and
+  Ratchaburi's high shares had a resident's symbol and a story people pass on; a gem being cut is attractive but not something
+  a Chanthaburi viewer names as theirs to share (no resident named it).
+- **The middle sagged early:** ~50% at 5 s to ~30% at 10 s, through the wall rising (3.2-9.8 s, a build beat with the dusk of
+  the engine's day cycle at 4-5 s). The close event came at 10 s, after most of the drop. Next: put the big close event at 3-9 s
+  even if the order of the story has to bend (§14), and keep the cover's hand-off moving.
+- **After render, [local] found two defects that were posted:** porters on the river at 28.5 s and a ~30 px column at 21-23 s.
+
+**Still to do:** for the next city keep the half-made frame-0 symbol, move the close event into 3-9 s,
+and find a resident (or a story people pass on) for the shares.

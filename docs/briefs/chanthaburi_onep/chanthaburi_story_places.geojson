@@ -1,0 +1,463 @@
+{
+ "type": "FeatureCollection",
+ "properties": {
+  "origin": "ศาลหลักเมืองจันทบุรี 12.61616,102.11061 (OSM)",
+  "note": "distances/bearings from origin; pins checked against OSM/Nominatim where 'pin' starts with osm"
+ },
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.11061,
+     12.61616
+    ]
+   },
+   "properties": {
+    "name": "ORIGIN: ศาลหลักเมืองจันทบุรี",
+    "role": "origin"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.14455,
+     12.58575
+    ]
+   },
+   "properties": {
+    "name": "เมืองโบราณเพนียด (เมืองกาไว)",
+    "era": "พ.ศ.12-18",
+    "why": "เมืองจันทบุรียุคแรก เชิงเขาสระบาป คันดินคูน้ำ ~1x2 กม.",
+    "dist_km": 5.0,
+    "bearing": 133,
+    "octant": "SE",
+    "source": "กรมศิลปากร",
+    "pin": "osm (gem 97 m off)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.14263,
+     12.58767
+    ]
+   },
+   "properties": {
+    "name": "วัดทองทั่ว",
+    "era": "พ.ศ.12-18",
+    "why": "จารึกวัดทองทั่ว + ทับหลังถาลาบริวัตร ติดเมืองเพนียด",
+    "dist_km": 4.7,
+    "bearing": 132,
+    "octant": "SE",
+    "source": "กรมศิลปากร",
+    "pin": "osm (gem 50 m off)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.1165,
+     12.618
+    ]
+   },
+   "properties": {
+    "name": "เมืองเก่าบ้านหัววัง",
+    "era": "อยุธยาต้น-กลาง",
+    "why": "เมืองยุคที่ 2 ฝั่งตะวันออกของแม่น้ำ เหนือวัดจันทนาราม",
+    "dist_km": 0.67,
+    "bearing": 72,
+    "octant": "ENE",
+    "source": "research s.6",
+    "pin": "gem (unchecked)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.10966,
+     12.61963
+    ]
+   },
+   "properties": {
+    "name": "ค่ายตากสิน (แนวกำแพงเมืองบ้านลุ่ม)",
+    "era": "อยุธยาปลาย-ธนบุรี",
+    "why": "เมืองยุคที่ 3 ฝั่งตะวันตก กำแพงศิลาแลงสมัยพระนารายณ์ จุดที่พระยาวชิรปราการเข้าตีเมือง",
+    "dist_km": 0.4,
+    "bearing": 345,
+    "octant": "NNW",
+    "source": "กรมศิลปากร; ONEP",
+    "pin": "osm (gem centre 240 m S)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.11061,
+     12.61616
+    ]
+   },
+   "properties": {
+    "name": "ศาลหลักเมือง + ศาลพระเจ้าตาก",
+    "era": "ธนบุรี 2310",
+    "why": "ใจกลางเมืองเก่าบ้านลุ่ม หน้าค่ายตากสิน",
+    "dist_km": 0.0,
+    "bearing": 0,
+    "octant": "N",
+    "source": "จังหวัดจันทบุรี",
+    "pin": "osm (gem 18 m off)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.1102,
+     12.617
+    ]
+   },
+   "properties": {
+    "name": "ตึกฝรั่งเศสในค่ายตากสิน",
+    "era": "ร.ศ.112 (2436-2447)",
+    "why": "อาคารกองรักษาการณ์/ที่พัก/คลังกระสุนของทหารฝรั่งเศส",
+    "dist_km": 0.1,
+    "bearing": 335,
+    "octant": "NNW",
+    "source": "กรมศิลปากร",
+    "pin": "gem (unchecked)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.07646,
+     12.53138
+    ]
+   },
+   "properties": {
+    "name": "อู่ต่อเรือพระเจ้าตาก บ้านเสม็ดงาม",
+    "era": "ธนบุรี มิ.ย.-ต.ค. 2310",
+    "why": "ต่อเรือรบ 100 ลำ ก่อนยกทัพเรือไปกู้กรุง",
+    "dist_km": 10.13,
+    "bearing": 201,
+    "octant": "SSW",
+    "source": "กรมศิลปากร",
+    "pin": "osm (gem 55 m off)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.06974,
+     12.58657
+    ]
+   },
+   "properties": {
+    "name": "ค่ายเนินวง + วัดโยธานิมิต",
+    "era": "ร.3 (2377)",
+    "why": "ป้อมค่าย 500x600 ม. บนเนิน รื้อศิลาแลงจากบ้านลุ่มมาสร้าง รับศึกญวน",
+    "dist_km": 5.52,
+    "bearing": 233,
+    "octant": "SW",
+    "source": "กรมศิลปากร",
+    "pin": "osm wat (gem 270 m off)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.0575,
+     12.47687
+    ]
+   },
+   "properties": {
+    "name": "ป้อมไพรีพินาศ + เจดีย์อิสรภาพ",
+    "era": "ร.3 2377 / ร.5 2447",
+    "why": "ป้อมบนเขาแหลมสิงห์ ฝั่งตะวันตกของปากแม่น้ำ",
+    "dist_km": 16.53,
+    "bearing": 200,
+    "octant": "SSW",
+    "source": "กรมศิลปากร",
+    "pin": "osm (gem 32 m off)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.06248,
+     12.48131
+    ]
+   },
+   "properties": {
+    "name": "ตึกแดง (ที่ตั้งป้อมพิฆาตปัจจามิตร)",
+    "era": "ร.ศ.112 (2436-2447)",
+    "why": "กองบัญชาการทหารฝรั่งเศสที่ปากน้ำ ฝั่งตะวันออก",
+    "dist_km": 15.88,
+    "bearing": 199,
+    "octant": "SSW",
+    "source": "กรมศิลปากร",
+    "pin": "osm (gem 2 m off)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.06568,
+     12.48146
+    ]
+   },
+   "properties": {
+    "name": "คุกขี้ไก่",
+    "era": "ร.ศ.112 (2436-2447)",
+    "why": "หอคอยอิฐ 4.4x4.4x7 ม. (ป้อมสังเกตการณ์/ตำนานคุก)",
+    "dist_km": 15.75,
+    "bearing": 198,
+    "octant": "SSW",
+    "source": "กรมศิลปากร",
+    "pin": "osm (gem 163 m S; it is 350 m due E of ตึกแดง, not SE)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.04027,
+     12.60923
+    ]
+   },
+   "properties": {
+    "name": "เขาพลอยแหวน",
+    "era": "ร.3-ปัจจุบัน",
+    "why": "แหล่งพลอยบุษราคัมจันท์ (บุษย์น้ำทอง)",
+    "dist_km": 7.67,
+    "bearing": 264,
+    "octant": "W",
+    "source": "กรมทรัพยากรธรณี",
+    "pin": "osm wat (gem 1.3 km NE)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.075,
+     12.59
+    ]
+   },
+   "properties": {
+    "name": "ลานพลอยบางกะจะ",
+    "era": "ร.3-ปัจจุบัน",
+    "why": "แหล่งเขียวส่องบางกะจะ ยุคขุดพลอยบุกเบิก (ชาวกุหล่า)",
+    "dist_km": 4.84,
+    "bearing": 233,
+    "octant": "SW",
+    "source": "research s.6",
+    "pin": "gem (unchecked)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.11864,
+     12.60923
+    ]
+   },
+   "properties": {
+    "name": "อาสนวิหารพระนางมารีอาปฏิสนธินิรมล",
+    "era": "ร.5-ปัจจุบัน (2449-2452)",
+    "why": "ศูนย์กลางชุมชนคาทอลิกญวนฝั่งตะวันออก ยอดแหลมคู่ ~60 ม.",
+    "dist_km": 1.16,
+    "bearing": 131,
+    "octant": "SE",
+    "source": "สังฆมณฑลจันทบุรี",
+    "pin": "osm (gem 444 m NW, wrong)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.11371,
+     12.61271
+    ]
+   },
+   "properties": {
+    "name": "ชุมชนริมน้ำจันทบูร (ถ.สุขาภิบาล)",
+    "era": "ร.5-ปัจจุบัน",
+    "why": "ย่านการค้าเก่าริมฝั่งตะวันตก ยาว ~1 กม. เรือนขนมปังขิง",
+    "dist_km": 0.51,
+    "bearing": 139,
+    "octant": "SE",
+    "source": "อพท.",
+    "pin": "osm (gem 34 m off)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.11547,
+     12.6132
+    ]
+   },
+   "properties": {
+    "name": "วัดจันทนาราม",
+    "era": "อยุธยา",
+    "why": "วัดเก่าฝั่งตะวันออก ปลายเหนือของเขตเมืองเก่า",
+    "dist_km": 0.62,
+    "bearing": 122,
+    "octant": "ESE",
+    "source": "ONEP",
+    "pin": "osm"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.11311,
+     12.6138
+    ]
+   },
+   "properties": {
+    "name": "วัดโบสถ์เมือง",
+    "era": "อยุธยา",
+    "why": "พื้นที่หลักเมืองเก่า หัวสะพานท่าหลวง ฝั่งตะวันตก",
+    "dist_km": 0.38,
+    "bearing": 134,
+    "octant": "SE",
+    "source": "ONEP",
+    "pin": "osm"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.11237,
+     12.61318
+    ]
+   },
+   "properties": {
+    "name": "วัดกลาง",
+    "era": "อยุธยา",
+    "why": "สันนิษฐานว่าเป็นวัดเก่าที่สุดของเมือง (ใบเสมาหินทรายแดง 8 ใบ)",
+    "dist_km": 0.38,
+    "bearing": 150,
+    "octant": "SSE",
+    "source": "ONEP",
+    "pin": "osm"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.11095,
+     12.61496
+    ]
+   },
+   "properties": {
+    "name": "ศาลากลางหลังเก่า (หอจดหมายเหตุ)",
+    "era": "ร.5-ร.6",
+    "why": "ศาลาว่าการมณฑลจันทบุรี ถ.ท่าหลวง",
+    "dist_km": 0.14,
+    "bearing": 165,
+    "octant": "SSE",
+    "source": "กรมศิลปากร",
+    "pin": "osm (gem 56 m off)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.11517,
+     12.60679
+    ]
+   },
+   "properties": {
+    "name": "ตลาดพลอย (ถ.ศรีจันทร์-ตรอกกระจ่าง)",
+    "era": "2506-ปัจจุบัน",
+    "why": "ตั้งโต๊ะซื้อขายพลอยเสาร์-อาทิตย์ ปลายใต้ของเขตเมืองเก่า",
+    "dist_km": 1.15,
+    "bearing": 155,
+    "octant": "SSE",
+    "source": "GIT; อพท.",
+    "pin": "osm (gem 50 m W)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.10266,
+     12.6104
+    ]
+   },
+   "properties": {
+    "name": "ศาลากลางหลังใหม่",
+    "era": "2498-ปัจจุบัน",
+    "why": "ศูนย์ราชการใหม่ เมืองขยายไปทางตะวันตก",
+    "dist_km": 1.07,
+    "bearing": 233,
+    "octant": "SW",
+    "source": "จังหวัดจันทบุรี",
+    "pin": "osm (gem 90 m E)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.0625,
+     12.48319
+    ]
+   },
+   "properties": {
+    "name": "สะพานตากสินมหาราช (ปากน้ำแหลมสิงห์)",
+    "era": "ปัจจุบัน",
+    "why": "สะพานยาว 1,060 ม. ข้ามปากแม่น้ำ",
+    "dist_km": 15.68,
+    "bearing": 199,
+    "octant": "SSW",
+    "source": "research s.4",
+    "pin": "osm"
+   }
+  }
+ ]
+}

@@ -115,6 +115,25 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
   save 0.4% and repost 0.9% all "higher" (the first since the forest tiles), share 0.4%, average watch 12 s, 2,662 views. The post
   time was not written down. Lesson for the next cover: no blank canvas at frame 0; a symbol half-made by hand that changes shape. Earlier plan:
   [gemini] answers; [local] pins the lake, the old town and the story places (`sakonnakhon_onep/`).
+- **Chanthaburi v0 (6 Nov; owner: "ลุย" on cloud's pick over Yasothon and Ang Thong):** branch `city/chanthaburi`. Brief
+  `docs/briefs/chanthaburi.md` (dates checked: Taksin 2310, the French 2436-2447; not yet found: the Noen Wong move, the
+  cathedral's year, when gem cutting began), research request for [gemini] `docs/briefs/chanthaburi_research_request.md`,
+  style frames `docs/briefs/chanthaburi_styleframes.jpg` (A1 blue sapphire cut on a lap, cloud's pick; A2 the same in yellow;
+  B ทุบหม้อข้าว, better as the 3-9 s event). Hybrid loop like Sakon Nakhon. **Owner picked A2, the yellow sapphire (6 Nov; first A1).** PR #86 (draft). [gemini] answered (3ebcc98), [local] pinned the map (a6f89ad); cloud checked the years and proposed the
+  storyline in the brief (6 Nov; dropped Gemini's unconfirmed 2511 market-fire story and the 100-ship count). **v1 built (6 Nov,
+  `src/cities/chanthaburi/`, `scripts/soundtrack_chanthaburi.py`):** `npm run check` 0 errors for the city (2 warnings: the
+  return and occupy beats run 2.8-3.6 s); soundtrack -16.0 LUFS, score +0.9 LU over the effects, ambience 11.6 dB under the
+  score. v1b (coordinator review): the cut is done under the title with no caption (no year paired with the gem), the gem
+  lands large on Khao Ploi Waen as the wall rises, separate row-houses and arriving boats in 2419, the cathedral from the
+  waterfront side. v1c (owner): the smash retimed into the engine's night (pots 10.0-10.6 s, gate 10.85-11.1 s,
+  night peak 10.9 s), a big flagpole and a close camera for the 2447 flag change, a close camera on the 2419 landing. Stills: `docs/briefs/chanthaburi_v1_gate.jpg` (0-11 s) and `chanthaburi_v1_contact.jpg` (13-52 s); what is drawn for
+  the screen is in the brief's "## v1 build". No render yet. **Next: the owner passes the 0-11 s stills**, then one render.
+  **Owner passed the 0-11 s stills (6 Nov, v1c).** Next: [local] renders PR #86 (`npm run render:chanthaburi`, then
+  `npm run encode -- chanthaburi`), `check_render`, upload to the `renders` release; owner watches, says "Merge", posts 19:00-21:00 and
+  writes down the post time; the 24-h read goes in `experiments.md` §19.
+  **Rendered (ea6cd11) and posted; 24-h read (8 Nov) is `experiments.md` §19: skip 40.6%, the best of all reads; every engagement
+  rate "lower".** PR #86 is still a draft, not merged. [local]'s render pass found porters on the river at 28.5 s and a ~30 px stone
+  column at 21-23 s (in the posted clip).
 - A new city in a new session (one city per session).
 - **Posting time (owner, 1 Nov): 19:00-21:00 from now on**, not the morning; the next read changes the
   city and the hour at once (`experiments.md` §14).
