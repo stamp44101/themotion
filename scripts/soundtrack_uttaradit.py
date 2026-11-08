@@ -272,14 +272,16 @@ for k in range(8):
 add(sfx, rope(1.4), at(rename, 0.4), pan=0.3, gain=1.4)
 add(sfx, rise_tone(2.0, 1.0), at(rename, 0.45), pan=0.0)
 add(sfx, gong(88, 3.0, 0.3), at(rename, 0.62), pan=0.0)
-# the dam: earth tipped and rolled; then the water rising behind it
-t = dam[0] + 0.1
-while t < dam[1] - 0.1:
+# the dam: earth tipped and rolled while the wall rises (2511-2515, by year inside the dam beat); then the water rising
+# behind it from 2512
+wall0, wall1, water0 = tl.t_of(1968), tl.t_of(1972), tl.t_of(1969)
+t = wall0
+while t < wall1:
     add(sfx, thud(0.5, rng.uniform(60, 90)), t, pan=rng.uniform(-0.3, 0.3))
     add(sfx, filt(noise(int(0.2 * SR)), "low", 700) * env_ar(int(0.2 * SR), 0.01, 0.15) * 0.12, t + 0.05, pan=0.2)
     t += rng.uniform(0.22, 0.32)
-n = int((fill[1] - fill[0]) * SR)
-add(sfx, filt(pink(n), "band", (100, 700)) * np.linspace(0.2, 1.0, n) * env_ar(n, 0.3, 0.6) * 0.35, fill[0], pan=0.0)
+n = int((fill[1] - water0) * SR)
+add(sfx, filt(pink(n), "band", (100, 700)) * np.linspace(0.2, 1.0, n) * env_ar(n, 0.3, 0.6) * 0.35, water0, pan=0.0)
 for k in range(5):
     add(sfx, splash() * 0.5, at(fill, 0.1 + 0.18 * k), pan=rng.uniform(-0.4, 0.4))
 add(sfx, rise_tone(2.0, 0.9), at(fill, 0.4), pan=0.0)

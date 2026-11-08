@@ -133,8 +133,9 @@ export const hallK = (t: number) => smooth((beatK('rename', t) - 0.05) / 0.3);
 export const flagK = (t: number) => smooth((beatK('rename', t) - 0.4) / 0.25);
 
 // ------------------------------------------------------------------ the dam and the lake
-export const damK = (t: number) => smooth(beatK('dam', t) / 0.9);
-export const lakeK = (t: number) => smooth((beatK('fill', t) + 0.05) / 0.8);
+/** by year, inside the dam beat (counter 2498-2519): the wall rises 2511-2515, the lake fills behind it from 2512 and is full by 2517 */
+export const damK = (Y: number) => smooth((Y - 1968) / 4);
+export const lakeK = (Y: number) => smooth((Y - 1969) / 5);
 
 // ------------------------------------------------------------------ the payoff: the fair and the sword back over the town
 /** the grow shot's two events: the Sila At yards (2501) go up, then orchards climb the Laplae hills */
@@ -173,7 +174,7 @@ export const ACTORS: Actor[] = [
   },
   {
     id: 'column',
-    during: [5.6, 8.6],
+    during: [5.9, 8.1],
     size: 4,
     at: (t) => {
       const p = soldierAt(4, t);
@@ -191,8 +192,8 @@ export const ACTORS: Actor[] = [
     },
   })),
   {id: 'hall', during: [24.0, 28.6], size: 2.2, at: (t) => (hallK(t) > 0.05 ? [HALL[0], 1.2, HALL[1]] : null)},
-  {id: 'dam', during: [30.6, 33.4], size: 3, at: (t) => (damK(t) > 0.05 ? [DAM[0], 1.4, DAM[1]] : null)},
-  {id: 'lake', during: [34.0, 37.4], size: 3, at: (t) => (lakeK(t) > 0.05 ? [LAKE[0][0], 1.4, LAKE[0][1]] : null)},
+  {id: 'dam', during: [32.2, 33.4], size: 3, at: (_t, c) => (damK(c.Y) > 0.05 ? [DAM[0], 1.4, DAM[1]] : null)},
+  {id: 'lake', during: [32.4, 37.4], size: 3, at: (_t, c) => (lakeK(c.Y) > 0.05 ? [LAKE[0][0], 1.4, LAKE[0][1]] : null)},
   {id: 'silaat', during: [38.8, 41.2], size: 5, at: (t) => (silaK(t) > 0.05 ? [SILA_AT[0] + 1.6, 1, SILA_AT[1]] : null)},
   {id: 'orchards', during: [41.8, 45.2], size: 6, at: (t, c) => (orchardK(t) > 0.05 ? [ORCHARD[0], (c.ground?.(ORCHARD[0], ORCHARD[1]) ?? 4) + 1, ORCHARD[1]] : null)},
   {id: 'fair', during: [46.8, 48.4], size: 3, at: (t) => (fairK(t) > 0.05 ? [MONUMENT[0], 1, MONUMENT[1] + 2] : null)},

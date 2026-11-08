@@ -88,9 +88,9 @@ export const UTTARADIT: CityConfig = {
       ...SHOPS.map((s) => [s.x, s.z, 1.0, 1909.02] as [number, number, number, number]),
       [HALL[0], HALL[1], 3.0, 1915.02],
       [MONUMENT[0], MONUMENT[1] + 2, 4.6, 1915.02],
-      // the lake (filled in the 2520 hold)
-      ...LAKE.map(([x, z, r]) => [x, z, r + 1.4, 1977.05] as [number, number, number, number]),
-      [DAM[0], DAM[1], 4.4, 1940],
+      // the lake (filling from 2512, under water by 2513)
+      ...LAKE.map(([x, z, r]) => [x, z, r + 1.4, 1970.5] as [number, number, number, number]),
+      [DAM[0], DAM[1], 4.4, 1967.5],
       [SILA_AT[0] - 1.6, SILA_AT[1] - 0.8, 4.2, 1978.5],
     ],
     paddies: [1836, 1880],
@@ -109,7 +109,7 @@ export const UTTARADIT: CityConfig = {
       ...SHOPS.map((s, j) => ({fp: {rect: [s.x, s.z, 1.25, 1.15] as [number, number, number, number]}, from: 1909, label: `shophouse ${j}`})),
     ],
     openGround: [{x0: MONUMENT[0] - 5, x1: MONUMENT[0] + 5, z0: MONUMENT[1] - 1, z1: MONUMENT[1] + 6}],
-    urban: {from: 1972, rate: 0.6},
+    urban: {from: 1980, rate: 0.55},
     urbanBox: {x0: -30, x1: 30, z0: -32, z1: 26},
     sprawl: {height: 0.6, tall: 0.03},
     highRise: 2005,

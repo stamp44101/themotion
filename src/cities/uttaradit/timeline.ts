@@ -19,9 +19,9 @@ const C1: Key = [2.6, 20, 10.5, 2, 294, 22, 34, 30];
 // wall going up on the way
 // 2316: from the south-south-west, the giant in front on the west-bank field, the column coming down from the north
 // behind him on the left, the wall across the river on the right
-const FT_IN: Key = [5.0, -24, 5, 38, 80, -14, 24, 30];
-const FT_MID: Key = [7.4, -23.5, 5.5, 37, 76, -20, 24, 30];
-const FT_END: Key = [9.4, -24, 4, 34, 88, -28, 28, 30];
+const FT_IN: Key = [5.0, -23, 8, 38, 80, -14, 24, 30];
+const FT_MID: Key = [7.4, -22.5, 8.5, 37, 76, -20, 24, 30];
+const FT_END: Key = [9.4, -23, 7, 34, 88, -28, 28, 30];
 // up the Nan to Bang Pho Tha It, from the west over the river street: boats come up, the market row goes up
 const TR_IN: Key = [10.4, 0, 1, 18, 92, -50, 34, 30];
 const TR_MID: Key = [13.2, 1, 1, 15, 54, -62, 34, 30];
@@ -130,11 +130,12 @@ export const STORY = buildStory({
       camera: [RN_IN, RN_END],
     },
     {
-      // works from 2511: the earth dam rises across the gorge while the counter runs and the town spreads
+      // the counter runs 2498-2519; the earth dam rises across the gorge in 2511-2515 (by year, inside the beat) and the
+      // lake starts filling behind it from 2512
       id: 'dam',
       kind: 'build',
       t: [30.2, 33.4],
-      year: [1917, 1976.6],
+      year: [1955, 1976.6],
       camera: [DM_IN, DM_MID],
     },
     {

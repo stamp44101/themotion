@@ -221,3 +221,22 @@ What is drawn for the screen (approximate, say so if asked):
   something visible. `npm run check` 0 errors (1 warning: old Phichai is 0.8% of the tile on wide shots). Timing is
   unchanged, so the soundtrack stands (-16.0 LUFS, score +2.5 LU, ambience -10.7 dB).
 - **Render-ready:** waiting on [local] (`npm run render:uttaradit`, then `npm run encode -- uttaradit`, `check_render`).
+
+### v1c (cloud, 8 Nov; [local]'s check of the encoded v1b, 9144048)
+
+- **The break, 6.8-9.4 s:** the hand holding the stub was at or past the right edge. The broken sword is now the figure's
+  own right hand (local -x; he faces the camera three-quarter, so it is screen-left), the snapped piece spins out to that
+  side, and the fight camera's target sits a little right and higher (FT keys x -23/-22.5, y 7-8.5) so the break and the
+  stub stay well inside the frame and below the caption band (`uttaradit_v1c_fight.jpg`, 6.0-9.2 s). The column's check
+  window is 5.9-8.1 s (it leaves the top of the frame as it falls back north after that).
+- **The dam:** it now grows by year inside the dam beat, whose counter runs 2498-2519 (was 2460-2519): the wall rises
+  2511-2515 (31.9-32.7 s), the lake fills behind it from 2512 (visible by 32.5 s) and is full through the 2520 hold; no
+  wall before 2511 (`uttaradit_v1c_dam.jpg`, 31.0-34.0 s). The counter's jump from 2458 to 2498 (29.0-30.2 s, the camera
+  in flight) crosses no growth: the sprawl now starts from 2523 (`urban.from` 1980), the dam's clearing is 2510.5 and the
+  lake's 2513.5. The dam's earth sounds follow the wall's years and the water's sound starts in 2512.
+- **The returning sword, 49-54 s:** a real dap profile (a curved blade that widens toward its end and tapers to a narrow
+  point, a brass collar wider than the blade, a corded grip with a brass cap), light steel, hung at a diagonal with its
+  flat and so its profile turned to the camera, clear of the caption and the monument callout
+  (`uttaradit_v1c_sword.jpg`, 49.5-52.5 s). The collar stands in for a guard: research §2 says the dap has no crossguard.
+- `npm run check`: 0 errors for the city (1 warning, old Phichai 0.8% of the tile). Soundtrack rebuilt: -16.0 LUFS, true
+  peak -1.9 dBTP, score +2.8 LU over the effects, ambience 11.4 dB under the score.
