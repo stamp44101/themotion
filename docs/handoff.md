@@ -134,6 +134,15 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
   **Rendered (ea6cd11) and posted; 24-h read (8 Nov) is `experiments.md` §19: skip 40.6%, the best of all reads; every engagement
   rate "lower".** PR #86 is still a draft, not merged. [local]'s render pass found porters on the river at 28.5 s and a ~30 px stone
   column at 21-23 s (in the posted clip).
+- **Uttaradit v0 (8 Nov; cloud proposed Uttaradit / Yasothon / Samut Songkhram, owner: "อุตร"):** branch
+  `claude/youthful-sagan-wnhw9o`. Brief `docs/briefs/uttaradit.md` (checked: the fight at Phichai 2316; to check: the province's
+  7 Jan 2316 against the old April new year, Nidhi's doubt about the hero's title; not found: the seat's move to Bang Pho Tha It
+  and the name, the railway's year, when Nam Phi smelting began), research request for [gemini]
+  `docs/briefs/uttaradit_research_request.md`, style frames `docs/briefs/uttaradit_styleframes.jpg` (A1 the Nam Phi iron
+  forged into a sword, bar to blade, cloud's pick; A2 the twin swords; B the sword breaking before Phichai's wall, better as
+  the 3-9 s event). Built on §19: the cover's sword is the first event's sword, so the close event can land at 3-9 s, and the
+  hero is the province's own. Hybrid loop. Next: the owner picks the cover; [gemini] answers; [local] pins Phichai, Bang Pho
+  Tha It, the Nam Phi pits and the story places (`uttaradit_onep/`).
 - A new city in a new session (one city per session).
 - **Posting time (owner, 1 Nov): 19:00-21:00 from now on**, not the morning; the next read changes the
   city and the hour at once (`experiments.md` §14).
