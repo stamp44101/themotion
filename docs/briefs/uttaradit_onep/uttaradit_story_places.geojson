@@ -87,7 +87,7 @@
    "properties": {
     "name": "สถานีรถไฟพิชัย",
     "era": "ร.5-ร.6",
-    "why": "รถไฟสายเหนือถึงพิชัย (ปีรอ research)",
+    "why": "รถไฟสายเหนือถึงพิชัย 11 พ.ย. 2451 (research)",
     "source": "OSM",
     "pin": "osm",
     "km": 37.89,
@@ -107,7 +107,7 @@
    "properties": {
     "name": "ศาลพระยาพิชัยดาบหัก (ตะวันออก)",
     "era": "ปัจจุบัน",
-    "why": "ศาลอีกแห่ง ห่างพิชัยไปทางตะวันออก ~16 กม. (บ้านเกิด? รอ research)",
+    "why": "ศาลอีกแห่ง ห่างพิชัยไปทางตะวันออก ~16 กม. (research ไม่ได้กล่าวถึง)",
     "source": "OSM",
     "pin": "osm (role unknown)",
     "km": 42.77,
@@ -160,18 +160,198 @@
    "geometry": {
     "type": "Point",
     "coordinates": [
-     100.10966,
-     17.62826
+     100.0986,
+     17.6195
     ]
    },
    "properties": {
-    "name": "ท่าอิฐ (ถ.ท่าอิฐล่าง)",
-    "era": "ร.4-ร.6",
-    "why": "ย่านท่าเรือการค้าบางโพท่าอิฐ ริมน่านฝั่งเหนือของเมือง",
-    "source": "OSM (road)",
-    "pin": "osm road; landing itself not mapped",
-    "km": 1.31,
-    "bearing": 97,
+    "name": "ท่าเรือบางโพท่าอิฐ หน้าวัดท่าถนน",
+    "era": "ร.3-ร.5",
+    "why": "ท่าน้ำการค้า 'ท่าเหนือ' จุดสิ้นสุดเรือใหญ่ ไม้สัก-ของป่า ตลิ่งฝั่งตะวันตก",
+    "source": "research s.6 #11",
+    "pin": "gem (fits OSM วัดท่าถนน 17.61948,100.09862; OSM ถ.ท่าอิฐล่าง is across the river)",
+    "km": 1.14,
+    "bearing": 174,
+    "octant": "S"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.08987,
+     17.61875
+    ]
+   },
+   "properties": {
+    "name": "แหล่งโบราณคดีท่าเสา (กลองมโหระทึก)",
+    "era": "ก่อนประวัติศาสตร์ ~2,100-2,500 ปี",
+    "why": "กลองมโหระทึกสำริดริมน่านในเมืองปัจจุบัน",
+    "source": "research s.6 #1",
+    "pin": "osm วัดเกษมจิตตาราม (gem names it)",
+    "km": 1.45,
+    "bearing": 213,
+    "octant": "SSW"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.099,
+     17.6269
+    ]
+   },
+   "properties": {
+    "name": "จวนผู้ว่าราชการ (หลังเก่า)",
+    "era": "2442-2458",
+    "why": "ศูนย์ปกครองที่ย้ายจากพิชัยมาบางโพท่าอิฐ อาคารไม้ริมน่าน",
+    "source": "research s.6 #12",
+    "pin": "gem (unchecked)",
+    "km": 0.35,
+    "bearing": 151,
+    "octant": "SSE"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.0842,
+     17.3017
+    ]
+   },
+   "properties": {
+    "name": "วัดหน้าพระธาตุ (พิชัยเก่า)",
+    "era": "สุโขทัย-ธนบุรี",
+    "why": "วัดชิดกำแพงเมืองพิชัยเก่า",
+    "source": "research s.6 #7",
+    "pin": "gem (unchecked; sits on the traced east wall)",
+    "km": 36.49,
+    "bearing": 182,
+    "octant": "S"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.0715,
+     17.3095
+    ]
+   },
+   "properties": {
+    "name": "บ้านห้วยคา (บ้านเกิดพระยาพิชัย)",
+    "era": "2284",
+    "why": "ถิ่นกำเนิดเด็กชายจ้อย อนุสรณ์สถานท่านั่ง",
+    "source": "research s.6 #8",
+    "pin": "gem (unchecked)",
+    "km": 35.71,
+    "bearing": 184,
+    "octant": "S"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.0655,
+     17.2956
+    ]
+   },
+   "properties": {
+    "name": "ทุ่งวัดเอกา (สมรภูมิ 2316)",
+    "era": "ธนบุรี 2316",
+    "why": "จุดที่พระยาพิชัยถือดาบสองมือจนดาบหัก (ประวัติท้องถิ่น) ฝั่งตะวันตกของน่าน",
+    "source": "research s.6 #9",
+    "pin": "gem (unchecked)",
+    "km": 37.3,
+    "bearing": 185,
+    "octant": "S"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.0828,
+     17.38322
+    ]
+   },
+   "properties": {
+    "name": "สะพานปรมินทร์ + ชุมทางบ้านดารา",
+    "era": "2451-2452",
+    "why": "สะพานรถไฟ 262.4 ม. ข้ามน่าน",
+    "source": "research s.6 #13",
+    "pin": "osm station (gem 120 m off)",
+    "km": 27.45,
+    "bearing": 183,
+    "octant": "S"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.05036,
+     17.60164
+    ]
+   },
+   "properties": {
+    "name": "เวียงเจ้าเงาะ (บ่อน้ำทิพย์)",
+    "era": "พ.ศ.15-19",
+    "why": "เมืองคูน้ำคันดินทุ่งยั้ง",
+    "source": "research s.6 #2",
+    "pin": "osm (gem 165 m W)",
+    "km": 5.88,
+    "bearing": 238,
+    "octant": "WSW"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.04443,
+     17.65148
+    ]
+   },
+   "properties": {
+    "name": "ซุ้มประตูเมืองลับแล",
+    "era": "2521-ปัจจุบัน",
+    "why": "ประตูเมืองผลไม้ ทุเรียนหลง-หลิน ลางสาด",
+    "source": "research s.6 #18",
+    "pin": "osm (gem 120 m W)",
+    "km": 6.12,
+    "bearing": 293,
+    "octant": "WNW"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.56899,
+     17.65721
+    ]
+   },
+   "properties": {
+    "name": "ต้นสักใหญ่",
+    "era": "~1,500 ปี (พบ 2470)",
+    "why": "คำขวัญ 'ถิ่นสักใหญ่ของโลก'",
+    "source": "research s.6 #20",
+    "pin": "osm (gem 80 m off)",
+    "km": 50.06,
+    "bearing": 86,
     "octant": "E"
    }
   },
@@ -207,7 +387,7 @@
    "properties": {
     "name": "สถานีรถไฟอุตรดิตถ์",
     "era": "ร.5-ปัจจุบัน",
-    "why": "สถานีกลางเมือง",
+    "why": "สถานีแรกของเมือง ส.ค. 2452 (research)",
     "source": "OSM",
     "pin": "osm",
     "km": 1.03,
@@ -227,7 +407,7 @@
    "properties": {
     "name": "สถานีรถไฟศิลาอาสน์",
     "era": "ร.5-ปัจจุบัน",
-    "why": "สถานีเหนือ (ปลายทางช่วงหนึ่งของสายเหนือ? รอ research)",
+    "why": "สถานีชั้น 1 'อุตรดิตถ์ใหม่' เปิด 1 พ.ย. 2501 (research) เมืองขยายขึ้นเหนือ",
     "source": "OSM",
     "pin": "osm",
     "km": 1.14,
@@ -246,7 +426,7 @@
    },
    "properties": {
     "name": "อนุสาวรีย์พระยาพิชัยดาบหัก หน้าศาลากลาง",
-    "era": "2512-ปัจจุบัน?",
+    "era": "เปิด 20 ก.พ. 2512",
     "why": "ORIGIN ใจกลางเมืองอุตรดิตถ์ งานพระยาพิชัยทุกมกราคม",
     "source": "OSM",
     "pin": "osm",
@@ -387,9 +567,9 @@
    "properties": {
     "name": "วัดพระฝางสวางคบุรีมุนีนาถ",
     "era": "ธนบุรี 2313",
-    "why": "ชุมนุมเจ้าพระฝาง ริมน่านฝั่งตะวันออก",
-    "source": "OSM",
-    "pin": "osm",
+    "why": "ชุมนุมเจ้าพระฝาง (เมืองสวางคบุรี) ริมน่าน",
+    "source": "OSM; research s.6 #10",
+    "pin": "osm (gem 190 m off)",
     "km": 13.67,
     "bearing": 86,
     "octant": "E"
@@ -406,8 +586,8 @@
    },
    "properties": {
     "name": "เขื่อนสิริกิติ์",
-    "era": "2506-2515?",
-    "why": "เขื่อนดินกั้นน่าน อ.ท่าปลา (ปีรอ research)",
+    "era": "2511-2520",
+    "why": "เขื่อนดินสูง 113.6 ม. สันยาว ~800 ม. ท่วม อ.ท่าปลาเดิม (research)",
     "source": "OSM",
     "pin": "osm",
     "km": 51.53,
