@@ -39,6 +39,7 @@ layout + audit every hand-placed coordinate, camera keys last.
 - **Bloom can black out a whole frame.** Gate every growing mesh on its own scale (`> 0.02`); bloom only at night.
 - **A flat slab grown by its height pops in at full width.** Grow ground slabs outward (x/z) or fade them.
 - **The cover shows the land, with a giant on it (owner).** Legend-scale hero, camera ~280–330 out, whole tile in frame.
+- **A hip roof is rotated inside, scaled outside (`HipRoof`).** One mesh with both skews it; `check_roofs` fails on it.
 - **Model a named landmark's silhouette before its icon.**
 - **An exact-date beat needs a hold in the year curve.** Named พ.ศ. year on the counter ≥ 1 s; re-check year-driven motion after retiming.
 - **Coastal ambience is a sequence of places, not one surf loop.**

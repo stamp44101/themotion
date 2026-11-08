@@ -2,6 +2,7 @@ import React from 'react';
 import * as THREE from 'three';
 import type {LandmarkProps} from '../../engine/types';
 import {Walker} from '../nan/figures';
+import {HipRoof} from '../../engine/parts';
 import {
   anvilK,
   ANVIL_TOP,
@@ -70,19 +71,14 @@ const Box: React.FC<{
     <meshStandardMaterial color={c} roughness={0.85} emissive={e ?? '#000000'} emissiveIntensity={e ? ei : 0} />
   </mesh>
 );
-/** a pitched roof over a box: w across x, l along z */
+/** a hip roof over a box: w across x, l along z (the engine's HipRoof, rotated inside and scaled outside) */
 const Gable: React.FC<{
   w: number;
   l: number;
   h: number;
   y: number;
   c: string;
-}> = ({w, l, h, y, c}) => (
-  <mesh position={[0, y + h / 2, 0]} rotation-y={Math.PI / 4} scale={[w * 0.72, h, l * 0.72]} castShadow>
-    <coneGeometry args={[1, 1, 4]} />
-    <meshStandardMaterial color={c} flatShading roughness={0.8} />
-  </mesh>
-);
+}> = ({w, l, h, y, c}) => <HipRoof w={w} l={l} h={h} y={y} color={c} />;
 
 // ------------------------------------------------------------------ the sword (from the style frame A1)
 // the blade in 12 segments from the tip (k = 0, +x) to the tang; units of the sword's length L = 1
@@ -538,10 +534,7 @@ const Hall: React.FC<{t: number; Y: number}> = ({t, Y}) => {
       <group scale={[1, k, 1]}>
         <Box p={[0, 0.8, 0]} s={[4.0, 1.6, 1.6]} c="#f1ecdf" />
         <Box p={[0, 1.7, 0]} s={[4.3, 0.12, 1.9]} c="#7d5a3c" />
-        <mesh position={[0, 2.05, 0]} rotation-y={Math.PI / 4} scale={[3.1, 0.6, 1.4]} castShadow>
-          <coneGeometry args={[1, 1, 4]} />
-          <meshStandardMaterial color="#8a3b2a" flatShading roughness={0.8} />
-        </mesh>
+        <HipRoof w={4.3} l={1.95} h={0.6} y={1.75} color="#8a3b2a" />
       </group>
       {k > 0.5 && (
         <group position={[0, 0, 1.6]}>

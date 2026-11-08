@@ -240,3 +240,9 @@ What is drawn for the screen (approximate, say so if asked):
   (`uttaradit_v1c_sword.jpg`, 49.5-52.5 s). The collar stands in for a guard: research §2 says the dap has no crossguard.
 - `npm run check`: 0 errors for the city (1 warning, old Phichai 0.8% of the tile). Soundtrack rebuilt: -16.0 LUFS, true
   peak -1.9 dBTP, score +2.8 LU over the effects, ambience 11.4 dB under the score.
+
+### v1d (8 Nov): square hip roofs (owner, via [local] on PR #87)
+The owner saw the provincial hall's roof (2458, ~24 s) and the houses' roofs sitting askew. Cause: a 4-segment cone on one
+mesh with a 45-degree turn and an uneven scale (three.js scales before it rotates). Fixed with the engine's new `HipRoof`
+(rotate inside, scale outside); `scripts/check_roofs.mjs` now fails on the pattern in `npm run check`, with the 11 older
+files that have it as a warning-only baseline for their own PR. Lesson in CLAUDE.md / docs/claude-full.md.

@@ -79,6 +79,16 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   put hero-sized elephants in a close camera and showed no land; the owner has had to say this
   more than once. A vertical frame is narrow (~17 degrees across at fov 30), so seeing a ~96-unit
   tile takes a distance of ~280-330.
+- **A hip roof is rotated inside, scaled outside (`HipRoof`).** Uttaradit's provincial hall (2458,
+  ~24 s) and its houses had roofs that sat askew on their boxes; the owner saw it on the render (8 Nov)
+  and asked for a fix that later cities cannot repeat. The roofs were a 4-segment `coneGeometry` on one
+  `<mesh>` with `rotation-y={Math.PI / 4}` and `scale={[w, h, l]}`. three.js builds a mesh's matrix as
+  T·R·S, so the scale runs first: the cone's corners sit on the x and z axes, so an uneven scale stretches
+  it along its diagonals into a rhombus, and the 45-degree turn then leaves a skewed parallelogram. A
+  square roof (w = l) looks right, which is how it went unnoticed in 15 files. `HipRoof` in
+  `src/engine/parts.tsx` turns the cone on an inner mesh and stretches it on an outer group, so its base
+  is exactly w by l. `scripts/check_roofs.mjs` (part of `npm run check`) fails on the one-mesh pattern;
+  the cities that had it before are a warning-only baseline, to be fixed in their own PR.
 - **Model a named landmark's silhouette before its icon.** Chonburi's first
   Khao Sam Muk shot put a small red shrine on a round green mound; the label was
   correct, but the place was not recognisable. The useful identity was the long

@@ -153,3 +153,4 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
 - Commits as stamp44101 with no AI attribution; GitHub comments start with [cloud] and end with the
   Claude Code footer.
 - No full render until the owner passes the stills.
+- **Uttaradit v1d (8 Nov):** the owner's skewed hip roofs fixed with the engine's `HipRoof`; `check_roofs` in `npm run check` stops the pattern (11 older cities baselined as warnings: fix them in their own PR). Waiting on [local]'s re-render of PR #87.
