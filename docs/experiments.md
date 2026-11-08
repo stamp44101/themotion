@@ -944,7 +944,7 @@ The cover follows §18's lesson: the symbol is half-made by hand at frame 0 (hal
 shape (rough pebble → cut gem) in under 3 s; the owner picked it (A2, yellow over blue). The first close event (ทุบหม้อข้าว,
 the elephant at the gate) is at 10-11.4 s, later than §14 asks, because the wall had to rise first (3.2-9.8 s).
 
-### Result (owner's screenshots, 8 Nov 15:25, given as the 24-h read; the post time was not written down)
+### Result (owner's screenshots, 8 Nov 15:25, ~27 h after the post; **posted ~12:00 on 7 Nov**, midday, not 19:00-21:00)
 
 Skip rate **40.6% ("lower", green)**, 3,744 views from 2,770 viewers, average watch **16 s**, 1 follow. 121 likes, 2 comments,
 16 reposts, 9 shares, 0 saves: like 4.2%, share 0.3%, save 0.0%, repost 0.6%, comment 0.1%, all "lower". Views from the Reels tab
@@ -962,7 +962,7 @@ fell a little under it (~3.7K against ~4.2K). Retention (read off the chart, abo
 | repost | 1.8% | 1.2% | 0.7% | 0.9% | **0.6%** |
 | views from the Reels tab | 69.7% | 60.8% | 58.9% | 55.3% | **64.7%** |
 
-Reading (one post, the post time unknown; a lean, not a rule):
+Reading (one post at midday, so the hour changed too; a lean, not a rule):
 - **The cover rule works:** a symbol half-made by hand at frame 0 that changes shape gave the best skip rate of all reads
   (40.6%, the first "lower" since Udon), 12.5 points better than Sakon's cloth. Three clips now agree (two jars, the gem).
 - **The hook does not carry engagement:** like, save and share are all "lower"; saves are zero for the first time. Udon's and
@@ -973,5 +973,5 @@ Reading (one post, the post time unknown; a lean, not a rule):
   even if the order of the story has to bend (§14), and keep the cover's hand-off moving.
 - **After render, [local] found two defects that were posted:** porters on the river at 28.5 s and a ~30 px column at 21-23 s.
 
-**Still to do:** write down the post time; for the next city keep the half-made frame-0 symbol, move the close event into 3-9 s,
+**Still to do:** for the next city keep the half-made frame-0 symbol, move the close event into 3-9 s,
 and find a resident (or a story people pass on) for the shares.
