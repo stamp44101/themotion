@@ -163,3 +163,38 @@ in the hero's hand (the story's link, not a claim about the iron); the 36 km pul
 Open for the owner (cloud decides if no answer, as in the hybrid loop): keep the dam (big and real, but 51 km off), or spend
 those 6 s on the 2501 Sila At yards and the Laplae orchards.
 - Owner (8 Nov): "เอาที่คิดว่าดี" on the dam question; cloud keeps the dam (2520).
+
+## v1 build (cloud, 8 Nov)
+
+`src/cities/uttaradit/` (places, geo, timeline, actors, Landmarks, index), `scripts/soundtrack_uttaradit.py`, composition
+`Uttaradit` (`npm run render:uttaradit`, `npm run audio:uttaradit`). `npm run check`: 0 errors for the city (1 warning:
+old Phichai covers 0.8% of the tile on wide shots). Soundtrack -16.0 LUFS, true peak -1.9 dBTP, score +2.5 LU over the
+effects, ambience 10.7 dB under the score. Stills: `uttaradit_v1_gate.jpg` (0-10 s) and `uttaradit_v1_contact.jpg`
+(13-56 s). No render yet.
+
+Beats as built (s): hero 0-3.0 · raise 3.0-4.6 (counter 2033-2042, callout "กำแพงเมืองพิชัย ราว 2033") · fight 4.8-9.4
+(hold 2316, snap 7.0 s) · trade 10.0-16.6 · arrive 17.0-23.2 (hold 2452, bridge ~19.6 s) · rename 23.6-29.0 (hold 2458) ·
+dam 30.2-33.4 (counter runs 2460-2519) · fill 33.6-37.6 (hold 2520) · grow 38.4-45.6 · gather 46.2-54.0 · today 54.4-55.6
+(lands on 2569). Verbs: legend, build, fight, trade, arrive, celebrate, build, disaster (old Tha Pla drowned), grow,
+celebrate, today.
+
+What is drawn for the screen (approximate, say so if asked):
+- **The tile is two true-scale patches:** the town round the monument (OSM, 100 m/unit) and old Phichai's traced wall moved
+  north from 36 km to ~4 km, drawn ~12 degrees west of due south (true ~3). The Ban Dara reach of the Nan, where the line
+  crosses it, is drawn by hand at z ~21 (true 27.5 km S). The Nam Phi hills, the dam and its gorge are pulled in.
+- **The railway is one straight N-S line** (the engine's rail) 160 m W of the river's west-bank reach: Uttaradit station is
+  drawn 370 m W of its OSM pin, Sila At 220 m W (east of the track). The Paramin bridge is the engine's rail bridge.
+- **The cover's anvil stands on the east bank below the Nam Phi hills**, at legend scale (sword 30 units = 3 km), the whole
+  tile round it; it sinks away as the sword flies. The sword is the story's link, not a claim that the hero's sword was
+  Nam Phi iron (research §5.3: not found in any contemporary source).
+- **The fight:** the giant (~13 units) stands on the west-bank field of Wat Ekka (local history) facing the column; the
+  column (18 spearmen, 2.4x) comes down the west bank from the north and falls back; the right sword snaps at 7.0 s; he
+  rises out of the field and sinks back into it. Nobody is hurt on screen.
+- **The market row, station, shophouses, hall, Sila At yards, orchards, dam and the fair** are hand-placed and grow on
+  their beats; the monument (2512) rises at the start of the grow shot, not on its own year.
+- **Not pinned in geo.ts:** Ban Huai Kha, Wat Ekka and the Nam Phi pits (none is named on screen; the squeeze bends their
+  bearings from Ban Dara and the dam beyond 30 degrees).
+- **Known soft spots for the owner's stills pass:** the giant reads as a simple figure (white body, red sash) and, seen from
+  behind, the broken stub is hard to see after 8 s; the rafts arriving at the landing (16 s) bunch into a strip; the
+  fill caption's sub wraps one word ("อ่าง") onto a second line; the returning sword shows its dark edge while it comes
+  down (49-50 s) before it levels over the plaza.
