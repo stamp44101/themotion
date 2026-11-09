@@ -201,3 +201,27 @@ export const Elephant: React.FC<{step: number; howdah?: boolean; color?: string}
     </group>
   );
 };
+
+/**
+ * A four-sided hip roof whose base is exactly w (x) by l (z), sitting with its base at y.
+ * The 4-segment cone has its corners on the x and z axes, so it is turned 45 degrees on an INNER mesh and
+ * stretched on an OUTER group (three.js applies a mesh's scale before its rotation, so putting both on one
+ * mesh skews the roof into a rhombus whenever w != l; owner, Uttaradit 8 Nov). `npm run check` fails on
+ * the one-mesh pattern (scripts/check_roofs.mjs); use this part instead.
+ */
+export const HipRoof: React.FC<{
+  w: number;
+  l: number;
+  h: number;
+  y?: number;
+  color: string;
+  overhang?: number;
+  castShadow?: boolean;
+}> = ({w, l, h, y = 0, color, overhang = 1.02, castShadow = true}) => (
+  <group position={[0, y + h / 2, 0]} scale={[w * Math.SQRT1_2 * overhang, h, l * Math.SQRT1_2 * overhang]}>
+    <mesh rotation-y={Math.PI / 4} castShadow={castShadow}>
+      <coneGeometry args={[1, 1, 4]} />
+      <meshStandardMaterial color={color} flatShading roughness={0.8} />
+    </mesh>
+  </group>
+);
