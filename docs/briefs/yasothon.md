@@ -180,10 +180,10 @@ middle (16-29 s) must keep something close to the camera moving (the boats, the 
 | found | build | 9.2-16.0 | 2316 → 2357 | **2357 ≥ 1 s** | "ยกบ้านสิงห์ท่าเป็นเมืองยศสุนทร" / sub "รัชกาลที่ 2 · พระสุนทรราชวงศา เจ้าเมืองคนแรก" |
 | trade | trade | 16.0-23.0 | 2357 → 2470 | - | "เรือค้าขายขึ้นล่องน้ำชี" / sub "ราว 2460 ตึกแถวย่านสิงห์ท่า" |
 | road | arrive | 23.0-29.0 | 2470 → 2512 | - | "ถนนแจ้งสนิทตัดผ่านเมือง" (no year: built 2480-2482, gemini only) |
-| province | celebrate → change to `split`-like verb from §3.4 at build time | 29.0-35.0 | 2512 → 2515 | **2515 ≥ 1 s** | "ตั้งจังหวัดยโสธร" / sub "1 มี.ค. 2515 แยกจากอุบลราชธานี" |
+| province | build (the provincial hall rises on the road) | 29.0-35.0 | 2512 → 2515 | **2515 ≥ 1 s** | "ตั้งจังหวัดยโสธร" / sub "1 มี.ค. 2515 แยกจากอุบลราชธานี" |
 | grow | grow | 35.0-44.0 | 2515 → 2560 | - | sub "ทุ่งข้าวหอมมะลิรอบเมือง" (wide ≥ 160, ≥ 7 s) |
 | festival | celebrate (callback) | 44.0-54.0 | 2560 → 2569 | - | "บุญบั้งไฟเดือนหก ทุกเดือนพฤษภาคม" / sub "พิพิธภัณฑ์พญาคันคาก เปิด 2562" |
 | today | today | 54.0-60.0 | 2569 ≥ 1 s | 2569 | finale + tagline |
 
-Two `celebrate` beats must not touch; between them are build / trade / arrive / (province) / grow. The province beat's kind is
-settled against §3.4's list when `timeline.ts` is written (check_story enforces ≥ 4 kinds, no two alike in a row).
+Kinds: legend / celebrate / build / trade / arrive / build / grow / celebrate / today: 7 kinds, no two alike in a row,
+two `build` (the limit), the spectacle (`celebrate`) by 12 s.
