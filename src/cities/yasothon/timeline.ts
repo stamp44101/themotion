@@ -33,14 +33,14 @@ const PR_IN: Key = [29.8, HALL[0], 1.4, HALL[1], 60, 126, 28, 30];
 const PR_END: Key = [34.6, HALL[0], 1.4, HALL[1] + 1, 52, 148, 28, 30];
 // the grow shot: the whole town from the north, wide, swinging round
 const GR_IN: Key = [37.0, 4, 1, 4, 165, 166, 36, 30];
-const GR_END: Key = [44.0, 4, 1, 2, 215, 204, 36, 30];
-// the festival: the procession down Chaeng Sanit to the tower, the toad museum by the water; the cover's rocket back on
-// the tower and away (from the north-west, across the town to the water)
-const FE_IN: Key = [45.0, 6, 2, 3, 62, 218, 26, 30];
-const FE_MID: Key = [50.0, TOWER[0], 16, TOWER[1], 110, 232, 18, 30];
-const FE_END: Key = [54.0, TOWER[0], 26, TOWER[1], 130, 244, 14, 30];
+const GR_END: Key = [43.8, 4, 1, 2, 215, 262, 36, 30];
+// the festival: the procession down Chaeng Sanit to the tower, the toad museum behind it by the water; the cover's
+// rocket back on the tower and away (from the west-north-west: the stupa stays off to the side, not in front of the tower)
+const FE_IN: Key = [45.2, 7.5, 3, 5, 78, 312, 28, 30];
+const FE_MID: Key = [50.0, TOWER[0], 16, TOWER[1], 110, 318, 18, 30];
+const FE_END: Key = [54.0, TOWER[0], 26, TOWER[1], 130, 326, 14, 30];
 // the landing: the whole tile again at the cover's distance, now full of town, back round to the west
-const END: Key = [56.0, 4, 6, 4, 292, 276, 32, 30];
+const END: Key = [56.0, 4, 6, 4, 292, 340, 32, 30];
 
 export const STORY = buildStory({
   duration: 60,
@@ -57,7 +57,7 @@ export const STORY = buildStory({
     ...between(GR_END, FE_IN, 4, 0.1),
     ...between(FE_END, END, 5),
     END,
-    [60, 4, 6, 4, 302, 284, 32, 30],
+    [60, 4, 6, 4, 302, 346, 32, 30],
   ],
   beats: [
     {
@@ -91,7 +91,7 @@ export const STORY = buildStory({
       year: {hold: 1814},
       caption: {t0: 9.8, title: 'เมืองยศสุนทร', sub: 'พ.ศ. 2357 รัชกาลที่ 2 ยกบ้านสิงห์ท่าเป็นเมือง'},
       era: 'รัตนโกสินทร์',
-      callouts: [{label: 'พระธาตุพระอานนท์', dx: 120, dy: -170, p: [WAT_MAHATHAT[0], 7.6, WAT_MAHATHAT[1]], t0: 11.8, t1: 15.2}],
+      callouts: [{label: 'พระธาตุพระอานนท์', dx: 120, dy: -170, p: [WAT_MAHATHAT[0], 7.6, WAT_MAHATHAT[1]], t0: 11.0, t1: 15.2}],
       camera: [FO_IN, FO_END],
     },
     {

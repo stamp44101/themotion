@@ -83,8 +83,11 @@ export const crowdAt = (i: number): P => {
 export const rainK = (t: number) => smooth((t - 7.0) / 0.6) * (1 - smooth((t - 9.4) / 0.6));
 
 // ------------------------------------------------------------------ 2357: the stupa and the governor's hall
-export const stupaK = (t: number, Y: number) => (Y > 1815 ? 1 : smooth((beatK('found', t) - 0.08) / 0.45));
-export const hongK = (t: number, Y: number) => (Y > 1815 ? 1 : smooth((beatK('found', t) - 0.35) / 0.35));
+export const stupaK = (t: number, Y: number) => (Y > 1815 ? 1 : smooth((beatK('found', t) - 0.02) / 0.26));
+export const hongK = (t: number, Y: number) => (Y > 1815 ? 1 : smooth((beatK('found', t) - 0.2) / 0.3));
+/** the new town's first Lao houses on stilts round the temple and the hall, one after another through the found beat */
+export const FOUND_HOUSES: P[] = [[4.4, -2.0], [3.6, -3.8], [1.8, -4.6], [-2.9, 1.9], [-1.6, 3.0], [-0.6, 4.2]];
+export const foundHouseK = (j: number, t: number, Y: number) => (Y > 1815 ? 1 : smooth((beatK('found', t) - 0.12 - j * 0.08) / 0.18));
 
 // ------------------------------------------------------------------ the trade: boats up the Chi, the shophouse street
 // up the Chi from the tile's south edge to the landing (the drawn centreline, reversed)
@@ -128,13 +131,13 @@ export const tractorAt = (t: number) => {
 export const museumK = (t: number, Y: number) => (Y > 2021 ? 1 : smooth((beatK('grow', t) - 0.78) / 0.18));
 
 // ------------------------------------------------------------------ the payoff: the procession of decorated rockets
-const PROCESSION: P[] = [[0.9, -2.3], [3.0, -0.5], [5.6, 1.8], [8.3, 4.1], [9.6, 5.3], [9.6, 7.0]];
+const PROCESSION: P[] = [[3.0, -0.5], [5.6, 1.8], [8.3, 4.1], [9.6, 5.3], [9.6, 7.0]];
 export const FLOATS = 5;
 export const floatAt = (i: number, t: number) => {
   const k = beatK('festival', t);
   if (k < -0.02 || k > 0.62) return null;
   const L = lengthOf(PROCESSION);
-  const d = lerp(-2.4 * i + L * 0.1, L - 2.4 * i, smooth(k / 0.55));
+  const d = lerp(-1.8 * i + L * 0.25, L - 1.8 * i, smooth(k / 0.55));
   if (d < 0) return null;
   return along(PROCESSION, d);
 };

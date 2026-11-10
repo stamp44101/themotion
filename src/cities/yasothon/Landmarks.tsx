@@ -16,6 +16,8 @@ import {
   floatAt,
   FLOATS,
   flyY,
+  FOUND_HOUSES,
+  foundHouseK,
   FUSE,
   hallK,
   hongK,
@@ -301,11 +303,25 @@ const Hong: React.FC<{k: number}> = ({k}) =>
       <HipRoof w={2.4} l={1.6} h={0.7} y={1.0} color="#5a4636" />
     </group>
   );
+/** a Lao house on stilts with a steep hip roof (drawn x1.4 so it reads in the found shot) */
+const StiltHouse: React.FC<{k: number; i: number}> = ({k, i}) =>
+  k < 0.02 ? null : (
+    <group scale={[1.4, 1.4 * k, 1.4]}>
+      {[-0.3, 0.3].map((x) => [-0.3, 0.3].map((z) => <Box key={`${x}${z}`} p={[x, 0.2, z]} s={[0.08, 0.4, 0.08]} c="#5b3b22" />))}
+      <Box p={[0, 0.6, 0]} s={[0.8, 0.4, 0.8]} c={i % 2 ? '#8a6040' : '#7a5236'} />
+      <HipRoof w={0.95} l={0.95} h={0.5} y={0.8} color="#5a4636" />
+    </group>
+  );
 const OldTown: React.FC<{t: number; Y: number}> = ({t, Y}) => {
   const s = stupaK(t, Y);
   const h = hongK(t, Y);
   return (
     <group>
+      {FOUND_HOUSES.map(([x, z], j) => (
+        <group key={j} position={[x, 0, z]}>
+          <StiltHouse k={foundHouseK(j, t, Y)} i={j} />
+        </group>
+      ))}
       {/* drawn at legend scale (x2.2), as the town's other landmarks, so it reads over the trees */}
       <group position={[WAT_MAHATHAT[0], 0, WAT_MAHATHAT[1]]} scale={2.2}>
         <Stupa k={s} />

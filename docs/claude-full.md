@@ -21,6 +21,12 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
   (ElevenLabs SFX, music or voice) to a province clip. `synth.sample()` (it reads `public/sfx/<name>`, which is
   not in the repo) exists for other series. Khon Kaen's ElevenLabs test set was tried and taken out (prompts in commit 6377944).
 
+- **Fix what you flag (owner, 10 Nov 2569).** Yasothon v1's stills went to the owner with an "ยังต้องปรับ" list
+  (the town still forest at 10-11 s, the stupa in front of the launch tower at 46 s) and a question whether to pass them.
+  The owner: asking whether a known flaw should be fixed is pointless. Any defect you can name, fix before you show the
+  work; the owner reviews what is left after your own fixes. If something truly cannot be fixed in the city (an engine-wide
+  look, a fact nobody can pin), say so once as a fact with the reason, not as a question.
+
 ## Workflow that works (do it in this order)
 1. Agree the visual style first (show 2–3 quick style frames) before building anything.
 2. Write the story beats (`buildStory`: seconds, years, captions, callouts, camera keys) in

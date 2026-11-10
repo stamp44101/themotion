@@ -198,7 +198,7 @@ The city is in `src/cities/yasothon/`. It uses `places.ts` (100 m/unit, origin t
 beat table), `actors.ts`, `Landmarks.tsx`, `geo.ts` and `index.ts`. The score is `scripts/soundtrack_yasothon.py`: khaen,
 pong lang, klong yao, a sound for every ring, the launch's roar and the rain; it measures score +2.8 LU over the effects
 and -16.0 LUFS. `npm run check` passes with 0 errors and one warning: the old town is 2.0% of the tile on wide shots.
-Stills: `yasothon_v1_contact.jpg`.
+Stills: `yasothon_v1_contact.jpg` (v1b).
 
 How v1 is drawn:
 - **The rocket** lies north of the launch tower at the park's north-west corner (the payoff's launch field). Body 22 and
@@ -209,7 +209,15 @@ How v1 is drawn:
 - **The water:** the Phaya Thaen water is drawn as a wide channel along its spine. Two bridges: the west road over the Chi
   (OSM way 561113262, built 2501 in the model) and Chaeng Sanit over the water's outflow.
 
-Open (for the owner's still review):
-- Around 10-11 s the town is still mostly trees, and the stupa reads only from ~11 s.
-- The engine's day cycle puts the 4-5 s launch at dusk (orange sky).
-- In the festival shot the white stupa stands in front of the tower.
+Fixed before the owner's review (owner, 10 Nov: "fix what you flag"; v1b):
+- **The town at 10-11 s:** the old quarter's trees now go with the founding (forestCity 2356, its edge cleared in 2357). Phra
+  That Phra Anon rises by 11.2 s instead of 12.3 s, its callout from 11.0 s. Six Lao stilt houses go up one after another
+  round the temple and the hall through the found beat.
+- **The festival shot:** the camera is now from the west-north-west (az 312-326). The toad museum stands beside and behind
+  the tower, and the stupa is out of the line of sight. The procession starts on Chaeng Sanit in frame.
+
+Left as they are, with the reason:
+- **The dusk at 4-5 s** is the engine's day cycle (`lighting` in `src/lib.ts`), the same in every posted city. The launch
+  at sunset is kept.
+- **check_story warns that the old town covers 2.0% of the tile.** That is the true footprint at 100 m/unit. The early
+  beats are framed at 44-70 units, elevation 38-40 degrees (the launch looks up on purpose).

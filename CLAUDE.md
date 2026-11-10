@@ -17,6 +17,7 @@ in Kanit; picture and sound all code (the score from `scripts/synth.py`).
 - The province series is code only: no generated audio (ElevenLabs etc.) in a province clip.
 - Reply to the owner in Thai; commits as stamp44101, no AI attribution; GitHub comments signed `[cloud]`.
 - Ask before merging; no full render until the owner passes the stills; shader look only.
+- **Fix what you flag (owner).** Never hand over a "still to fix" list or ask whether to fix it: fix it first.
 
 ## Workflow (in this order)
 1. 2–3 style frames, owner picks. 2. Brief + storyline worksheet (`docs/storyline.md` §5, §7 v2), then

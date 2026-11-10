@@ -1,7 +1,7 @@
 import {GROUND} from '../../Scene';
 import type {CityConfig} from '../../engine/types';
 import {YasothonLandmarks} from './Landmarks';
-import {ACTORS, SHOPS} from './actors';
+import {ACTORS, FOUND_HOUSES, SHOPS} from './actors';
 import {
   CHAENG_SANIT, CHI, CHI_BRIDGE_AT, CHI_W, OUTFLOW_BRIDGE_AT, HALL, HONG, MUSEUM, OLD_QUARTER, PARK, PHAYA_THAEN, PHAYA_THAEN_W, PILLAR, POND, POND_W, ROCKET_AT,
   TILE, TOWER, WAT_MAHATHAT, WAT_SING_THA, WEST_ROAD,
@@ -99,7 +99,10 @@ export const YASOTHON: CityConfig = {
       [HALL[0], HALL[1], 2.6],
       [MUSEUM[0], MUSEUM[1], 2.4],
     ],
-    footprints: SHOPS.map((s, j) => ({fp: {rect: [s.x, s.z, 0.6, 0.55] as [number, number, number, number]}, from: 1815, label: `shophouse ${j}`})),
+    footprints: [
+      ...SHOPS.map((s, j) => ({fp: {rect: [s.x, s.z, 0.6, 0.55] as [number, number, number, number]}, from: 1815, label: `shophouse ${j}`})),
+      ...FOUND_HOUSES.map(([x, z], j) => ({fp: {rect: [x, z, 1.2, 1.2] as [number, number, number, number]}, from: 1814, label: `stilt house ${j}`})),
+    ],
     openGround: [{x0: PARK[0] - 4, x1: PARK[0] + 3, z0: PARK[1] - 4, z1: PARK[1] + 3}],
     urban: {from: 1975, rate: 0.5},
     urbanBox: {x0: -12, x1: 34, z0: -30, z1: 28},
