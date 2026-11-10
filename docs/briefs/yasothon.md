@@ -225,3 +225,23 @@ Left as they are, with the reason:
 **Owner passed the v1b stills and sent it to render (10 Nov, "ส่ง render").** [local] renders on the GPU
 (`npm run render:yasothon`, then `npm run encode -- yasothon`, `check_render`), uploads to the `renders` release, and posts
 QA notes in PR #89.
+
+## v1c: [local]'s render QA fixed (cloud, 10 Nov)
+
+[local] rendered v1b (2c1925b, `check_render` ok) and found four defects on the moving frames. All four are fixed in v1c:
+1. **The rocket ran through the caption and counter** (3.8-7 s and 49-54 s). The camera now rides up with the rocket at
+   175 out, its target 18.5 under the nose. The rocket goes into a rain cloud at fly 34 (base y 78) instead of climbing
+   through the band. In the payoff it comes back down out of a cloud. New `check_story` rule: an actor with `tall` keeps
+   its top out of the top 30% (the `tall` field is new in `src/engine/actors.ts`; it is a type only, with no effect on
+   rendering).
+2. **The trade boats were out of scale and on the bank.** Boats are now x0.9 and stop mid-channel off the landing; the
+   camera comes in to 30-40 out.
+3. **No trucks at 24.5-29 s.** They now start on Chaeng Sanit at the old town's north edge, x1.4, with the camera at 40-48.
+   The bamboo tower is taken down after the launch (9.0-9.6 s) and put up again for the festival (45-46 s), so it no longer
+   crosses the road shot.
+4. **The tower's legs read as piercing the toad museum.** The festival is now seen from the east, over the Phaya Thaen
+   water (az 92-72): the toad stands to the right of the tower. The grow shot swings 166 → 112 to meet it, and the landing
+   is from the south-south-west (az 30).
+
+Sounds were added for the tower coming down and going up and for the payoff's cloud. Score +2.6 LU over the effects,
+-16.0 LUFS. `npm run check`: 0 errors.

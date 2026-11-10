@@ -61,7 +61,20 @@ export const flyY = (t: number) => {
   return 9 * (t - LIFT2) ** 2;
 };
 /** whether the rocket is drawn: from frame 0 until it is far up, and again from its return */
-export const rocketShown = (t: number) => flyY(t) < 140;
+/** the rain cloud the rocket punches into (the rite asks for rain): its base height; the rocket is gone once its nose is in
+ *  it, so it never climbs through the counter and caption band; in the payoff it comes back down out of a cloud */
+export const CLOUD_Y = 78;
+export const HIDE_FLY = 34;
+export const rocketShown = (t: number) => flyY(t) < HIDE_FLY;
+export const cloudK = (t: number) =>
+  Math.max(
+    smooth((t - 5.4) / 0.8) * (1 - smooth((t - 9.0) / 0.8)),
+    smooth((t - 46.4) / 0.8) * (1 - smooth((t - 49.4) / 0.8)),
+    smooth((t - 52.0) / 0.8) * (1 - smooth((t - 54.6) / 0.6)),
+  );
+/** the launch tower is bamboo, put up for the festival and taken down after: up at the cover and the launch, down from the
+ *  founding, put up again for the payoff */
+export const towerK = (t: number) => (t < 20 ? 1 - smooth((t - 9.0) / 0.6) : smooth((t - 45.0) / 1.2));
 /** world position of the local point at height y along the rocket, at t */
 export const rocketPoint = (t: number, y: number): [number, number, number] => {
   const a = -(Math.PI / 2) * (1 - riseK(t));
@@ -91,7 +104,8 @@ export const foundHouseK = (j: number, t: number, Y: number) => (Y > 1815 ? 1 : 
 
 // ------------------------------------------------------------------ the trade: boats up the Chi, the shophouse street
 // up the Chi from the tile's south edge to the landing (the drawn centreline, reversed)
-const UPRIVER: P[] = [...CHI.filter(([, z]) => z > 2.6)].reverse().concat([[LANDING[0] - 1.0, LANDING[1] + 0.3]]);
+// the boats stop mid-channel off the landing
+const UPRIVER: P[] = [...CHI.filter(([, z]) => z > 2.6)].reverse();
 export const BOATS = 4;
 export const boatAt = (i: number, t: number) => {
   const k = beatK('trade', t);
@@ -106,13 +120,13 @@ export const SHOPS = Array.from({length: 12}, (_, j) => ({x: 0.6 + (j % 6) * 1.1
 export const shopK = (j: number, t: number, Y: number) => (Y > 1926 ? 1 : smooth((beatK('trade', t) - 0.25 - (j % 6) * 0.08) / 0.18));
 
 // ------------------------------------------------------------------ the road: trucks down Chaeng Sanit
-const ROAD_IN = CHAENG_SANIT.slice(0, 11);
+const ROAD_IN = CHAENG_SANIT.slice(4, 11);
 export const TRUCKS = 3;
 export const truckAt = (i: number, t: number) => {
   const k = beatK('road', t);
   if (k < 0.2 || k > 1.15) return null;
   const L = lengthOf(ROAD_IN);
-  const d = lerp(L * 0.15 - 4 * i, L * 0.95 - 4 * i, smooth((k - 0.2) / 0.85));
+  const d = lerp(L * 0.1 - 3 * i, L * 0.95 - 3 * i, smooth((k - 0.2) / 0.85));
   if (d < 0) return null;
   return along(ROAD_IN, d);
 };
@@ -144,13 +158,13 @@ export const floatAt = (i: number, t: number) => {
 
 export const ACTORS: Actor[] = [
   {id: 'bangfai', role: 'hero', during: [0, 3.0], size: BODY * 0.5, at: (t) => bodyMid(t)},
-  {id: 'bangfai-launch', during: [3.2, 6.6], size: 6, minInFrame: 0.6, at: (t) => bodyMid(t)},
+  {id: 'bangfai-launch', during: [3.2, 6.6], size: 6, tall: BODY / 2 + 2.6 * R, minInFrame: 0.6, at: (t) => bodyMid(t)},
   {id: 'crowd', during: [3.6, 5.2], size: 5, at: (t) => (crowdK(t) > 0.05 ? [TOWER[0] - 2, 0.6, TOWER[1]] : null)},
   {id: 'stupa', during: [10.2, 15.4], size: 4, at: (t, c) => (stupaK(t, c.Y) > 0.05 ? [WAT_MAHATHAT[0], 3.6, WAT_MAHATHAT[1]] : null)},
   ...Array.from({length: 2}, (_, i): Actor => ({
     id: `boat${i}`,
     during: [16.6, 22.6],
-    size: 1.8,
+    size: 1.0,
     minInFrame: 0.6,
     at: (t) => {
       const p = boatAt(i, t);
@@ -160,7 +174,7 @@ export const ACTORS: Actor[] = [
   {
     id: 'truck0',
     during: [24.6, 28.8],
-    size: 1.8,
+    size: 1.0,
     minInFrame: 0.6,
     at: (t) => {
       const p = truckAt(0, t);
@@ -187,5 +201,5 @@ export const ACTORS: Actor[] = [
       return p ? [p.x, 0.8, p.z] : null;
     },
   },
-  {id: 'bangfai-back', role: 'callback', during: [49.2, 53.6], size: 6, minInFrame: 0.6, at: (t) => (rocketShown(t) ? bodyMid(t) : null)},
+  {id: 'bangfai-back', role: 'callback', during: [49.2, 53.6], size: 6, tall: BODY / 2 + 2.6 * R, minInFrame: 0.6, at: (t) => (rocketShown(t) ? bodyMid(t) : null)},
 ];

@@ -9,6 +9,9 @@ import {
   BOATS,
   boatAt,
   clamp01,
+  CLOUD_Y,
+  cloudK,
+  towerK,
   CROWD,
   crowdAt,
   crowdK,
@@ -170,7 +173,7 @@ const Tower: React.FC<{h: number; w: number}> = ({h, w}) => (
 const Trail: React.FC<{t: number; lift: number}> = ({t, lift}) => {
   const u = t - lift;
   if (u < 0 || u > 6.5) return null;
-  const top = Math.min(9 * u * u, 130);
+  const top = Math.min(9 * u * u, CLOUD_Y + 4 - R - NOZZLE); // into the cloud, not through the text band
   return (
     <group position={[ROCKET_AT[0], R + NOZZLE, ROCKET_AT[1]]}>
       {Array.from({length: 22}, (_, i) => {
@@ -190,6 +193,28 @@ const Trail: React.FC<{t: number; lift: number}> = ({t, lift}) => {
         const a = (i / 10) * Math.PI * 2;
         const r = 1.5 + Math.min(u, 2) * 2.4;
         return <Smoke key={`g${i}`} p={[Math.cos(a) * r, -NOZZLE + 0.6, Math.sin(a) * r]} u={clamp01(u / 3)} s={1.6} />;
+      })}
+    </group>
+  );
+};
+
+/** the rain cloud over the launch field: the rocket climbs into it (and the rain falls from it), and in the payoff comes back
+ *  down out of it */
+const Cloud: React.FC<{t: number}> = ({t}) => {
+  const k = cloudK(t);
+  if (k < 0.02) return null;
+  return (
+    <group position={[ROCKET_AT[0], CLOUD_Y, ROCKET_AT[1]]} scale={k}>
+      {Array.from({length: 26}, (_, i) => {
+        const a = hash(i + 200) * Math.PI * 2;
+        const r = Math.sqrt(hash(i + 230)) * 16;
+        const s = 4 + hash(i + 260) * 4;
+        return (
+          <mesh key={i} position={[Math.cos(a) * r, 2 + hash(i + 290) * 5 + s * 0.4, Math.sin(a) * r]} scale={[s * 1.3, s * 0.7, s * 1.3]}>
+            <icosahedronGeometry args={[1, 1]} />
+            <meshStandardMaterial color={i % 3 ? '#b9c0c8' : '#9aa4ae'} roughness={1} />
+          </mesh>
+        );
       })}
     </group>
   );
@@ -362,7 +387,7 @@ const Boats: React.FC<{t: number}> = ({t}) => (
     {Array.from({length: BOATS}, (_, i) => {
       const p = boatAt(i, t);
       return p ? (
-        <group key={i} position={[p.x, 0.05, p.z]} rotation-y={p.rot} scale={1.8}>
+        <group key={i} position={[p.x, 0.05, p.z]} rotation-y={p.rot} scale={0.9}>
           <Boat />
         </group>
       ) : null;
@@ -396,7 +421,7 @@ const Trucks: React.FC<{t: number}> = ({t}) => (
     {Array.from({length: TRUCKS}, (_, i) => {
       const p = truckAt(i, t);
       return p ? (
-        <group key={i} position={[p.x, 0.05, p.z]} rotation-y={p.rot} scale={1.8}>
+        <group key={i} position={[p.x, 0.05, p.z]} rotation-y={p.rot} scale={1.4}>
           <Truck i={i} />
         </group>
       ) : null;
@@ -525,9 +550,12 @@ const Procession: React.FC<{t: number}> = ({t}) => (
 
 export const YasothonLandmarks: React.FC<LandmarkProps> = ({Y, t}) => (
   <group>
-    <group position={[TOWER[0], 0, TOWER[1]]}>
-      <Tower h={TAIL + 6} w={5.2} />
-    </group>
+    {towerK(t) > 0.02 && (
+      <group position={[TOWER[0], 0, TOWER[1]]} scale={[1, towerK(t), 1]}>
+        <Tower h={TAIL + 6} w={5.2} />
+      </group>
+    )}
+    <Cloud t={t} />
     <Trestles t={t} />
     <Rocket t={t} />
     <Trail t={t} lift={LIFT} />

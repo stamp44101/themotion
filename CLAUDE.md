@@ -63,7 +63,8 @@ layout + audit every hand-placed coordinate, camera keys last.
 - **A/B engine changes still vs still,** never against an encoded frame.
 - **A destroyed capital's walls read as ruins** (`city.ruinStrength`).
 - **Nothing goes on open water** except bridges, boats, houseboats; audit hand-placed parts too.
-- **Keep the top ~30% for counter + caption; respect the TikTok safe area.**
+- **Keep the top ~30% for counter + caption; respect the TikTok safe area.** A thing that rises declares `tall` (`check_story`).
+- **A boat keeps the river's scale and stops in the channel;** a tall frame never stands in front of a landmark.
 - **Nothing goes on screen during the intro title** (≥ 3 s) or the last 4 s.
 - **A caption title is one line** (820 px at 74 px Kanit).
 - **The camera has to travel, not just zoom;** wide shots come back; azimuth swings round the city.

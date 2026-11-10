@@ -49,7 +49,9 @@ Every city in `src/cities/` is merged; upload files are on the `renders` release
 - [local]'s map landed (ff931f5: the Chi is WEST of the town, the festival water EAST; no ONEP outline). **v1 built**
   (`src/cities/yasothon/`, soundtrack at -16 LUFS, `npm run check` 0 errors); stills `docs/briefs/yasothon_v1_contact.jpg`.
   v1b fixed what v1 flagged (owner's rule "fix what you flag").
-  **Owner passed the stills and sent it to render (10 Nov).** [local] renders, encodes and uploads; then QA and merge on the owner's "Merge".
+  **Owner passed the stills and sent it to render (10 Nov).** [local] rendered v1b; its QA found 4 defects (rocket in
+  the text band, boats out of scale, trucks missing, tower through the toad), all fixed in v1c with a new `tall` check.
+  Next: [local] re-renders v1c; then the owner watches it and says "Merge".
 - Disputed so far: the founding (2357 under Rama II in most sources; the province's page says Rama III), whether
   ยศสุนทร was granted or only proposed; no year yet for ยศสุนทร → ยโสธร or for the festival becoming the province's.
 - Next: [gemini] answers the request; [local] the ONEP outline and the story places; cloud checks the answer and

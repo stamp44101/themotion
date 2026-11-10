@@ -64,6 +64,9 @@ const FRAME_WAIVED = new Set([...YEAR_HOLD_WAIVED, 'watraikhing']);
 // whole-tile shot because it is drawn 8x. It must hold for LEGIBLE_SECONDS of the beat
 // (Korat's 1901 train, which reads, clears it for 0.47 s).
 const LEGIBLE_PX = 80;
+// the counter and caption sit in the top ~30% of the frame (CLAUDE.md); an actor that declares `tall` (a rocket, a tower,
+// a giant: the height of its top above its point) must keep that top under the band while the text is up
+const TEXT_BAND = 0.3 * 1920;
 const LEGIBLE_SECONDS = 0.4;
 // Compass directions between real places (src/engine/geo.ts): a pair whose model
 // bearing is off by more than this fails. Chonburi put the Gulf east of the town.
@@ -481,6 +484,9 @@ for (const city of cities) {
       let firstOut = null;
       let legible = 0;
       let maxScale = 0;
+      // the top of a tall thing (its point raised by `tall`) in the text band (top 30%: counter + caption) while the text is up
+      let underText = 0;
+      let firstUnder = null;
       for (let t = t0; t <= t1 + 1e-6; t += 2 / 30) {
         n++;
         const p = a.at(t, ctxAt(t));
@@ -492,6 +498,13 @@ for (const city of cities) {
         if (!p) continue;
         present++;
         const q = engine.projectAt(keys, t, p);
+        if (a.tall && t >= INTRO_END && t < D - FINALE_LEAD && q.y > TEXT_BAND && q.y < 1920 && q.x > 0 && q.x < 1080) {
+          const top = engine.projectAt(keys, t, [p[0], p[1] + a.tall, p[2]]);
+          if (top.y < TEXT_BAND) {
+            underText += 2 / 30;
+            firstUnder ??= t;
+          }
+        }
         if (q.x < margin || q.x > 1080 - margin || q.y < margin || q.y > 1920 - margin) {
           out++;
           firstOut ??= t;
@@ -512,6 +525,7 @@ for (const city of cities) {
       if (1 - out / present < minIn) aMsg(`actor "${a.id}" (${s(t0)}-${s(t1)}): in frame only ${Math.round(100 * (1 - out / present))}% of the time it stands (need ${Math.round(minIn * 100)}%), out from ${s(firstOut)}. Hold the camera on it or move its path.`);
       if (hid / present > 0.5) aMsg(`actor "${a.id}" (${s(t0)}-${s(t1)}): hidden behind trees ${Math.round((100 * hid) / present)}% of the time it stands.`);
       if (hill / present > 0.3) aMsg(`actor "${a.id}" (${s(t0)}-${s(t1)}): behind a hill ${Math.round((100 * hill) / present)}% of the time it stands -- the camera is on the other side. Move its path to the camera's side of the slope or swing the camera round.`);
+      if (underText > 0.3) err(`actor "${a.id}" (${s(t0)}-${s(t1)}): reaches into the counter and caption band (top 30%) for ${underText.toFixed(1)} s from ${s(firstUnder)}. Frame it lower (raise the camera's target or pull back) or end its rise out of the band (Yasothon's rocket ran through its caption).`);
       if (pops) aMsg(`actor "${a.id}" (${s(t0)}-${s(t1)}): disappears and comes back ${pops} time(s) during its beat.`);
       if (legible + 1e-6 < LEGIBLE_SECONDS) {
         const why = !maxScale ? 'never on screen unhidden' : maxScale < LEGIBLE_PX ? `${Math.round(maxScale)} px across at best (need ${LEGIBLE_PX})` : `${LEGIBLE_PX}+ px across for only ${legible.toFixed(1)} s (need ${LEGIBLE_SECONDS} s)`;
