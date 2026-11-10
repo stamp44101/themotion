@@ -37,7 +37,7 @@ Every city in `src/cities/` is merged; upload files are on the `renders` release
   7 Jan 2316 in the old April-new-year count is January 1774); the train's steam puffs are the same
   everywhere (`engine/train-steam` if wanted).
 
-## In progress: Yasothon (ยโสธร), branch `city/yasothon`, draft PR (owner picked it, 10 Nov)
+## In progress: Yasothon (ยโสธร), branch `city/yasothon`, draft PR #89 (owner picked it, 10 Nov)
 - Brief v0 `docs/briefs/yasothon.md` (dates checked on the web from search excerpts; the province's and the
   Isaan Record's pages are outside cloud's network), research request `docs/briefs/yasothon_research_request.md`
   for [gemini], style frames `docs/briefs/yasothon_styleframes.jpg` (`src/styleframes/yasothon.tsx`).
