@@ -31,7 +31,7 @@ const ride = (lift: number, t0: number, t1: number, az0: number, az1: number, el
 const LA_IN: Key = [3.6, ROCKET_AT[0] - 2, 35, ROCKET_AT[1], 200, -62, 16, 30];
 const LA_RIDE = ride(4.8, 4.5, 6.9, -60, -52, 15, 11);
 const LA_UP = LA_RIDE[LA_RIDE.length - 1];
-const LA_DOWN: Key = [8.5, 0, 2, 2, 120, -40, 30, 30];
+const LA_DOWN: Key = [8.1, 0, 2, 2, 120, -40, 30, 30];
 // 2357: the temple and the governor's hall rise in the village, from the south-south-west
 const FO_IN: Key = [9.8, WAT_MAHATHAT[0] + 1.2, 3, WAT_MAHATHAT[1] + 1.4, 58, -22, 40, 30];
 const FO_END: Key = [15.6, WAT_MAHATHAT[0] + 1.6, 3, WAT_MAHATHAT[1] + 1.6, 44, -4, 38, 30];

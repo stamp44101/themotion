@@ -270,3 +270,13 @@ subtitle. QA stills: `yasothon_v1d_qa.jpg`. `npm run check`: 0 errors. Score: -1
   8.5 s. The rain stays below the caption.
 - **25-28 s, trucks hard to pick out.** The trucks now have bright cabs and canvas (red / white, blue / yellow), and the
   road camera comes in to 34-40.
+
+## v1f: the rain under the caption ([local]'s v1e stills, 10 Nov)
+
+[local]'s v1e stills (`yasothon_v1e_local_qa.jpg`) passed the trucks, but at 8.0 s the rain's streaks ran up through
+the subtitle. Fixes:
+- The rain is now an actor with `tall`. Its top comes down from 26 to 9 as the camera comes down (7.4-8.4 s), with a
+  fixed fall pattern clipped at the top, so the streaks do not jitter.
+- The camera reaches the village by 8.1 s.
+
+`npm run check`: 0 errors.

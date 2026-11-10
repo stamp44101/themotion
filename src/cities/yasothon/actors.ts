@@ -96,6 +96,10 @@ export const crowdAt = (i: number): P => {
   return [TOWER[0] + Math.cos(a) * r, TOWER[1] + Math.sin(a) * r];
 };
 /** the rain over the paddies once the rocket is up */
+/** the rain's top: the rain is an actor with `tall`, so its streaks stay under the caption (v1e ran them up through it) */
+export const RAIN_H = 26;
+/** the rain's top at t: high while the camera is up by the cloud, low by the time it is down at the village */
+export const rainTop = (t: number) => RAIN_H - (RAIN_H - 9) * smooth((t - 7.4) / 1.0);
 export const rainK = (t: number) => smooth((t - 6.4) / 0.5) * (1 - smooth((t - 9.4) / 0.6));
 
 // ------------------------------------------------------------------ 2357: the stupa and the governor's hall
@@ -168,6 +172,7 @@ export const ACTORS: Actor[] = [
   // the bamboo tower: its top stays out of the band too (its poles crossed the subtitle at ~9 s in v1c)
   {id: 'tower', during: [3.6, 8.2], size: 5, tall: TAIL + 6, minInFrame: 0.3, at: (t) => (towerK(t) > 0.3 ? [TOWER[0], 0, TOWER[1]] : null)},
   {id: 'tower2', during: [46.4, 53.8], size: 5, tall: TAIL + 6, minInFrame: 0.3, at: (t) => (towerK(t) > 0.3 ? [TOWER[0], 0, TOWER[1]] : null)},
+  {id: 'rain', during: [6.9, 9.2], size: 10, tall: RAIN_H, minInFrame: 0.3, at: (t) => (rainK(t) > 0.3 ? [3, rainTop(t) - RAIN_H, 6] : null)},
   {id: 'crowd', during: [3.6, 5.2], size: 5, at: (t) => (crowdK(t) > 0.05 ? [TOWER[0] - 2, 0.6, TOWER[1]] : null)},
   {id: 'stupa', during: [10.2, 15.4], size: 4, at: (t, c) => (stupaK(t, c.Y) > 0.05 ? [WAT_MAHATHAT[0], 3.6, WAT_MAHATHAT[1]] : null)},
   ...Array.from({length: 2}, (_, i): Actor => ({

@@ -29,7 +29,9 @@ import {
   LIFT2,
   museumK,
   NOZZLE,
+  RAIN_H,
   rainK,
+  rainTop,
   RINGS,
   ringY,
   riseK,
@@ -283,8 +285,9 @@ const Rain: React.FC<{t: number}> = ({t}) => {
       {Array.from({length: 320}, (_, i) => {
         const x = -14 + hash(i) * 34;
         const z = -10 + hash(i + 77) * 32;
-        const H = 44;
-        const y = H - ((t * 34 + hash(i + 3) * H) % H);
+        // a fixed fall pattern (no jitter as the top comes down); drops above the current top are not drawn
+        const y = RAIN_H - ((t * 34 + hash(i + 3) * RAIN_H) % RAIN_H);
+        if (y > rainTop(t)) return null;
         return (
           <mesh key={i} position={[x, y, z]} scale={[0.12, 2.4, 0.12]}>
             <boxGeometry args={[1, 1, 1]} />
