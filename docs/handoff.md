@@ -1,150 +1,59 @@
-# Handoff: where the work stands (6 พ.ย. 2569)
+# Handoff: where the work stands (10 พ.ย. 2569)
 
 For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is the current standard),
-`docs/experiments.md` (§10–11 are the latest reads), then this file.
+`docs/experiments.md` (§19–20 are the latest reads), then this file. Each city's full story (picks,
+fixes, renders, what is approximate) is in its brief, `docs/briefs/<city>.md`; this file keeps only
+what is open.
 
-## Done and merged
-- Phetchabun (PR #72), Suphanburi v2 (PR #73), Udon Thani v1 (PR #74). Upload files are on the
-  `renders` release as `<city>_look_social.mp4`.
-- Udon Thani is the first city built to storyline v2 from the start; it has not been posted yet.
+## Done, merged and posted
+Every city in `src/cities/` is merged; upload files are on the `renders` release as
+`<city>_look_social.mp4`. The latest, each with its read in `experiments.md`:
 
-## Done
-- **Udon Thani's 24-h read** is `experiments.md` §12 (skip 41.4%, share 4.7%, the best yet).
-- **Saraburi's read** (posted 1 Nov 20:00) is `experiments.md` §15: at 24 h skip 48.9%, share 0.4%,
-  like 4.3%, 4,349 views, all rates "lower"; the deer moved but the symbol (the Footprint) did not.
-- **Nakhon Pathom's 24-h read** is `experiments.md` §13 (skip 49.2%, every rate lower; the middle held
-  best yet at ~37% at 15 s). A building growing still reads as a building.
+| city | PR | posted | read | skip |
+|---|---|---|---|---|
+| Udon Thani | #74 | morning | §12 | 41.4% |
+| Nakhon Pathom | #76 | | §13 | 49.2% |
+| Ratchaburi | #78 | morning | §14 | 42.0% |
+| Saraburi | #80 | 1 Nov 20:00 | §15 | 48.9% |
+| Surat Thani | #81 | 3 Nov evening | §16 (early read only) | 47.4% |
+| Kanchanaburi | #83 | 4 Nov | §17 | 58.6% |
+| Sakon Nakhon | #84 | 5 Nov evening | §18 | 53.1% |
+| Chanthaburi | #86 | 7 Nov ~12:00 | §19 | 40.6% |
+| Uttaradit | #87 | 8 Nov ~20:00 | §20 | **38.1%** (best) |
 
-## Was waiting
-- **Udon Thani's 24-h read.** Compare its skip rate with Phetchabun's 37.7% (the cover) and its like
-  / save / share rates with Suphanburi v2's 8.0 / 0.8 / 0.8% (the 0-to-100 spine). Record it as
-  `experiments.md` §12.
+## What the reads say for the next city (§19–20)
+- Frame 0: a symbol half-made by hand that changes shape (jar, gem, sword), on the whole land tile at
+  legend scale, filling ~1/3 of the frame. No blank canvas, no thin far strip.
+- A big, close event inside 3–9 s, ideally the cover's own object in a local hero's hand.
+- Next sag to fix: 11–17 s (Uttaradit's long travel to Bang Pho Tha It); average watch fell to 13 s.
+- Shares come from something each viewer names as theirs (the jars' 4–5%); a resident's pick helps.
+- Post 19:00–21:00 and **write down the post time**.
 
-## Nakhon Pathom v1 (PR #76, draft): rendered, waiting on the owner
-- Cover A1 (owner): the golden bell closes over the old stupa at legend scale, then settles to ~4x
-  true size as the town grows round it; beats: canal + brick boats, the July 2403 collapse in the
-  rains, the 2413 crown, the 2446 train, the Wild Tiger Corps to Sanam Chandra, the grow shot, the
-  12th-month fair. Brief: `docs/briefs/nakhonpathom.md`.
-- [local] rendered adb965c: `check_render` ok (max jump 4.7, darkest 64.4); upload copy on the
-  `renders` release as `nakhonpathom_look_social.mp4`. Open by design: the train's steam puffs are
-  engine-wide (`engine/train-steam` if wanted).
-- Next: the owner watches it, says "Merge" and posts; record its 24-h read in `experiments.md`.
-
-## Ratchaburi v1: merged (PR #78) and posted
-- 24-h read is `experiments.md` §14: skip 42.0%, share 4.1% (second best), the middle sagged on the
-  Thai Yuan column (~25% at 15 s). Lesson for the next city: the first beat after the cover must be a
-  big, close event, not a far procession.
-
-## Saraburi v1: merged (PR #80) and posted (1 Nov, 20:00)
-- Started 1 Nov: the other half of the Thai Yuan journey Ratchaburi's resident named, the Buddha's
-  Footprint legend (the hunter and the healed deer), the seat moved from Sao Hai to Pak Phriao,
-  the cement hills. Brief v0: `docs/briefs/saraburi.md` (founding 2092 is a supposition; 2112 is
-  the first record).
-- [gemini] answered (3226139); cloud checked it and proposed the storyline (05c057c): the deer at
-  the Footprint (reign of Songtham, no held year: the find is dated 2149 / 2165 / ~2166-67), the
-  mondop burned 2310 and rebuilt 2330, Thai Yuan at Sao Hai 2347, the train 2440 and the town moving
-  to Pak Phriao, the Friendship Highway 2501, flower alms as the payoff.
-- Owner picked **A1** (1 Nov). v1 built in `src/cities/saraburi/` on [local]'s map (8620269): contact
-  sheet `docs/briefs/saraburi_v1_contact.jpg`, `npm run check` passes, soundtrack -16.0 LUFS (+1.1 LU).
-  What is approximate is listed in the brief ("v1 build").
-- Owner passed the stills (1 Nov). v1 rendered; owner: "เกือบดี", the station popped in and the
-  elephants had no call. Fixed in v1c (station grown on the beat, track laid in the 2440 hold, three
-  trumpets; lesson in CLAUDE.md), plus the flare on time and the train seen down the line.
-- [local] rendered v2 (head 6607189): `check_render` ok (max jump 3.0, darkest 57.3); upload copy on the
-  `renders` release as `saraburi_look_social.mp4`. Owner posted it 1 Nov 20:00 and said merge (2 Nov).
-
-## Kanchanaburi v0 (3 Nov, owner: "ลุย" from the shortlist)
-- Picked from five candidates (Kanchanaburi, Samut Songkhram, Chiang Mai, Chanthaburi, Nong Khai). Hook:
-  the Kwai bridge with a train. Brief v0 `docs/briefs/kanchanaburi.md` (dates checked: seat moved to Pak
-  Phraek 2374, bridge opened 25 Dec 2486, bombed from Nov 2487, mended 2489 but th.wikipedia also lists 2491 and
-  2495: ขัดแย้ง). Research request `docs/briefs/kanchanaburi_research_request.md` written for [gemini].
-- **v1 built (3 Nov, PR #83):** research and [local]'s map landed (f654118, b2e66d5); cloud picked the cover A1
-  (the train on the bridge) and built v1 (`npm run check` 0 errors, -16.0 LUFS); the render goes to [local]. What is
-  approximate is in the brief ("v1 build"): no roads or cars yet, the bridge drawn 1.4x, the wall's axis guessed.
-- **Kanchanaburi rendered (v1e, e2272b9, PR #83 draft):** [local] rendered it (`check_render` ok, max jump 7.9 at 28 s, darkest 49.7);
-  upload copy on the `renders` release as `kanchanaburi_look_social.mp4`; cloud checked the frames and the dense 4.0-6.2 s strip: nothing to fix. Two
-  bugs found after v1: the map's look (v1c) and the cover train on the water (v1e, found by [local]). Next: the owner watches, says "Merge" and
-  posts at 19:00-21:00; the 24-h read goes in `experiments.md` §17. Open for a v1f: roads and cars (need engine bridges), the Saeng Chuto road,
-  the sprawl's uniform orange blocks, the cover's size (held to the title-safe box).
-- **Autoloop (owner, 3 Nov), like Surat Thani:** cloud decides in the owner's place and writes why in the
-  brief. War weight decided by cloud: no suffering shown, one beat (the bridge breaks, the Thai government
-  mends it), a short quiet memorial. Next: [gemini] answers; [local] pins the ONEP polygon and story
-  places; then cloud proposes the storyline.
-
-## Surat Thani v1 (PR #81, draft): the loop experiment, rendered, waiting on the owner
-- Owner (2 Nov): cloud and [local] loop through the PR to the render, cloud standing in for the owner's
-  picks. Cloud picked the cover **A1, the coconut monkey** (Gemini ranked it 4th; the reasons are in
-  `docs/briefs/suratthani.md`), built v1 on [local]'s map (a67d83d) and Gemini's research (df8eb1b), had a
-  second model review the contact sheet, fixed its notes and passed the stills (780e4fb, `npm run check` 0
-  errors, -16.0 LUFS, +1.7 LU).
-- [local] rendered 780e4fb (= 5902c1e in picture and sound): `check_render` ok (max jump 6.4 at 8.64 s,
-  darkest 59.5); upload copy on the `renders` release as `suratthani_look_social.mp4`; moving checks and
-  audio spectrograms in `shots/suratthani/` (f4dba7c). Cloud checked the frames: nothing to fix. The loop
-  ran from the request to the render in about 70 minutes with no owner input.
-- Open notes for the owner: the giant palm leaves the frame as it settles (its shrink is barely seen); the
-  junks overlap in perspective at ~6 s.
-- The owner asked for a detail pass; [local] found five things (hollow hulls, the monkey in the fronds at
-  both ends, overlapping junks, a slab-like rail bridge), cloud fixed them (v1b, brief), and [local]
-  re-rendered 37b2ccb: `check_render` ok (max jump 2.9, darkest 59.4), all five confirmed on the render
-  (`shots/suratthani/v1b_*`, 7fe7861). Left, optional: one junk passes under the caption at 7-8 s.
-- Next: the owner watches, says "Merge" and posts at 19:00-21:00; the 24-h read goes in `experiments.md` §16.
-
-## Surat Thani: merged (PR #81, 3 Nov 18:25) and posted that evening
-- Early read (3 Nov 22:32, a few hours in): `experiments.md` §16: skip 47.4%, share 0.5%, average watch 11 s. The 24-h read
-  was not taken (owner, 6 Nov: the moment had passed); Sakon Nakhon's read stands in (§18).
-
-## Kanchanaburi: merged (PR #83, 4 Nov) and posted
-- 24-h read (owner's screenshots, 00:44) is `experiments.md` §17: **skip 58.6%, the worst of all reads**, share 0.1% (the lowest),
-  like 4.2%, 2,999 views, all rates "lower". The train moved but was a thin strip on a far tile at frame 0; the Kwai bridge is famous,
-  not local. Lesson: the symbol that moves must fill ~1/3 of the frame at second 0 (check it on the style frame), and a resident's pick
-  for shares. v1f/v1g (bridge deck, camera over the glare) were merged after the posted render; no re-post planned.
+## Open (each in its own PR, when the owner wants it)
+- **Hip roofs in 11 older cities** are baselined as warnings by `check_roofs`; fix them with `HipRoof`
+  (mechanical pass). Not re-posted.
+- **Chanthaburi defects in the posted clip:** porters on the river at 28.5 s, a ~30 px stone column at
+  21–23 s (noted in the brief; merged as rendered).
+- **Engine-wide:** the ค.ศ. line under the พ.ศ. counter (under 2316 it reads 1773, but 7 Jan 2316 in the
+  old April-new-year count is January 1774); the train's steam puffs are the same everywhere
+  (`engine/train-steam` if wanted).
+- **Kanchanaburi v1f ideas** (no re-post planned): roads and cars (need engine bridges), the Saeng Chuto
+  road, the sprawl's uniform orange blocks.
 
 ## Next
-- **Sakon Nakhon v0 (4 Nov; owner picked it over Tak):** brief `docs/briefs/sakonnakhon.md`, research request for [gemini]
-  `docs/briefs/sakonnakhon_research_request.md`, style frames `docs/briefs/sakonnakhon_styleframes.jpg` (A1 indigo cloth on the
-  whole tile, cloud's pick; A2 closer; B the Nong Han legend). **Hybrid loop (owner, 4 Nov):** the loop runs research, map, build,
-  render and QA, but the owner picks the cover and passes the 0-6 s stills; write down the post time. **Owner picked A1 (4 Nov).** [gemini] answered (072ac04), [local] pinned the map (0d5524c); cloud checked the years and
-  proposed the storyline in the brief (5 Nov). v1 built (5 Nov): check 0 errors, -16.0 LUFS; what is approximate is in the brief ("v1 build").
-  **Owner passed the 0-11 s stills (5 Nov).** [local] rendered c04190d and found Tha Rae reading as "mushrooms" (the
-  borrowed Phetchabun relic raft); cloud fixed it (v1b 5cb698e: plain rafts, a church town; lesson in CLAUDE.md), [local]
-  re-rendered 06cc018: `check_render` ok (max jump 5.4, darkest 53.4), upload copy on the `renders` release as
-  `sakonnakhon_look_social.mp4`. **Owner said "merge" (5 Nov); merged as PR #84.** Next: post at 19:00-21:00, **write down the
-  post time**, and record the 24-h read as `experiments.md` §18 (the first hybrid-loop city: owner picked the cover and passed
-  the 0-11 s stills).
-- **Sakon Nakhon's ~24-h read (6 Nov 21:03) is `experiments.md` §18:** skip 53.1% (Kanchanaburi 58.6%, the jars 41-42%), like 5.0%,
-  save 0.4% and repost 0.9% all "higher" (the first since the forest tiles), share 0.4%, average watch 12 s, 2,662 views. The post
-  time was not written down. Lesson for the next cover: no blank canvas at frame 0; a symbol half-made by hand that changes shape. Earlier plan:
-  [gemini] answers; [local] pins the lake, the old town and the story places (`sakonnakhon_onep/`).
-- **Chanthaburi v0 (6 Nov; owner: "ลุย" on cloud's pick over Yasothon and Ang Thong):** branch `city/chanthaburi`. Brief
-  `docs/briefs/chanthaburi.md` (dates checked: Taksin 2310, the French 2436-2447; not yet found: the Noen Wong move, the
-  cathedral's year, when gem cutting began), research request for [gemini] `docs/briefs/chanthaburi_research_request.md`,
-  style frames `docs/briefs/chanthaburi_styleframes.jpg` (A1 blue sapphire cut on a lap, cloud's pick; A2 the same in yellow;
-  B ทุบหม้อข้าว, better as the 3-9 s event). Hybrid loop like Sakon Nakhon. **Owner picked A2, the yellow sapphire (6 Nov; first A1).** PR #86 (draft). [gemini] answered (3ebcc98), [local] pinned the map (a6f89ad); cloud checked the years and proposed the
-  storyline in the brief (6 Nov; dropped Gemini's unconfirmed 2511 market-fire story and the 100-ship count). **v1 built (6 Nov,
-  `src/cities/chanthaburi/`, `scripts/soundtrack_chanthaburi.py`):** `npm run check` 0 errors for the city (2 warnings: the
-  return and occupy beats run 2.8-3.6 s); soundtrack -16.0 LUFS, score +0.9 LU over the effects, ambience 11.6 dB under the
-  score. v1b (coordinator review): the cut is done under the title with no caption (no year paired with the gem), the gem
-  lands large on Khao Ploi Waen as the wall rises, separate row-houses and arriving boats in 2419, the cathedral from the
-  waterfront side. v1c (owner): the smash retimed into the engine's night (pots 10.0-10.6 s, gate 10.85-11.1 s,
-  night peak 10.9 s), a big flagpole and a close camera for the 2447 flag change, a close camera on the 2419 landing. Stills: `docs/briefs/chanthaburi_v1_gate.jpg` (0-11 s) and `chanthaburi_v1_contact.jpg` (13-52 s); what is drawn for
-  the screen is in the brief's "## v1 build". No render yet. **Next: the owner passes the 0-11 s stills**, then one render.
-  **Owner passed the 0-11 s stills (6 Nov, v1c).** Next: [local] renders PR #86 (`npm run render:chanthaburi`, then
-  `npm run encode -- chanthaburi`), `check_render`, upload to the `renders` release; owner watches, says "Merge", posts 19:00-21:00 and
-  writes down the post time; the 24-h read goes in `experiments.md` §19.
-  **Rendered (ea6cd11) and posted; 24-h read (8 Nov) is `experiments.md` §19: skip 40.6%, the best of all reads; every engagement
-  rate "lower".** PR #86 is still a draft, not merged. [local]'s render pass found porters on the river at 28.5 s and a ~30 px stone
-  column at 21-23 s (in the posted clip).
-- **Uttaradit v0 (8 Nov; cloud proposed Uttaradit / Yasothon / Samut Songkhram, owner: "อุตร"):** branch
-  `claude/youthful-sagan-wnhw9o`. Brief `docs/briefs/uttaradit.md` (checked: the fight at Phichai 2316; to check: the province's
-  7 Jan 2316 against the old April new year, Nidhi's doubt about the hero's title; not found: the seat's move to Bang Pho Tha It
-  and the name, the railway's year, when Nam Phi smelting began), research request for [gemini]
-  `docs/briefs/uttaradit_research_request.md`, style frames `docs/briefs/uttaradit_styleframes.jpg` (A1 the Nam Phi iron
-  forged into a sword, bar to blade, cloud's pick; A2 the twin swords; B the sword breaking before Phichai's wall, better as
-  the 3-9 s event). Built on §19: the cover's sword is the first event's sword, so the close event can land at 3-9 s, and the
-  hero is the province's own. Hybrid loop. Style frames redone as v2 (owner: the cover must show the whole land tile). **Owner picked A1 (8 Nov).** [gemini] answered (a105b3c), [local] traced Phichai's wall and pinned 20 places (3c5fb14); cloud re-checked the years and proposed the storyline in the brief (8 Nov): forge, raise, fight (2316, inside 3-9 s), trade, arrive (2452), rename (2458), dam (2520), grow, gather (2569). Owner (8 Nov): "เอาที่คิดว่าดี", so cloud kept the dam. **v1 built (8 Nov, `src/cities/uttaradit/`, `scripts/soundtrack_uttaradit.py`):** `npm run check` 0 errors for the city; soundtrack -16.0 LUFS, score +2.5 LU over the effects, ambience 10.7 dB under. Stills `docs/briefs/uttaradit_v1_gate.jpg` (0-10 s) and `uttaradit_v1_contact.jpg` (13-56 s); what is drawn for the screen and the soft spots are in the brief's "## v1 build". **v1b (8 Nov, owner via the coordinator: make it render-ready and send it to the render machine):** bigger cover sword (A1's size), a proper three-quarter hero with a short broken stub, rafts spaced on the water, the dam caption on one line, the returning sword in light steel below the caption band; the ค.ศ. line under 2316 still reads 1773 (engine-wide overlay, noted in the brief). `npm run check` 0 errors, -16.0 LUFS. [local] rendered v1b and found three things; **v1c (8 Nov)** fixes them: the break moved to the figure's right hand (screen-left, inside the frame), the dam grown by year inside its beat (2511-2515, lake from 2512, full for the 2520 hold), the returning sword as a real dap profile; stills `docs/briefs/uttaradit_v1c_fight.jpg`, `_dam.jpg`, `_sword.jpg`; soundtrack rebuilt (-16.0 LUFS). **Status: render-ready, waiting on [local]** (`npm run render:uttaradit`, `npm run encode -- uttaradit`, `check_render`, upload to the `renders` release).
-- A new city in a new session (one city per session).
-- **Posting time (owner, 1 Nov): 19:00-21:00 from now on**, not the morning; the next read changes the
-  city and the hour at once (`experiments.md` §14).
+- A new city in a new session (one city per session). Candidates named before: Yasothon, Samut
+  Songkhram, Ang Thong (also Tak, Chiang Mai, Nong Khai). Hybrid loop: the owner picks the cover and
+  passes the 0–11 s stills; cloud, [gemini] and [local] run research, map, build, render and QA.
+
+## Archived branches (10 Nov cleanup)
+Unmerged experiments were tagged and their branches deleted; restore one with
+`git checkout -b <name> archive/<name>`:
+- `archive/explainer`: a 60 s clip on how the videos are made (16 Oct).
+- `archive/sound-plan-v2`: Sound v2 work on Khon Kaen (18 Oct; procedural SFX, phin/pong lang, click fixes).
+- `archive/korat-hook`: Korat opens on its finale, then rewinds (15 Oct).
+- `archive/skill-pack`: the 1minutecity Skill customer pack builder (`scripts/pack_customer.mjs`, 28–31 Oct).
+Deleted with nothing lost: `city/kanchanaburi` (in main via PR #83), `exp/korat-hero` (in main),
+`claude/youthful-sagan-wnhw9o` (§20 merged here).
 
 ## Standing rules the owner gave in chat (also in CLAUDE.md / AGENTS.md)
 - Reply to the owner in Thai. Ask before merging; the owner says "Merge".
@@ -153,4 +62,3 @@ For a new session: read `CLAUDE.md`, `AGENTS.md`, `docs/storyline.md` (§7 is th
 - Commits as stamp44101 with no AI attribution; GitHub comments start with [cloud] and end with the
   Claude Code footer.
 - No full render until the owner passes the stills.
-- **Uttaradit v1d (8 Nov):** the owner's skewed hip roofs fixed with the engine's `HipRoof`; `check_roofs` in `npm run check` stops the pattern (11 older cities baselined as warnings: fix them in their own PR). [local] rendered 15d6089 (`check_render` ok, max jump 2.9, darkest 55.7; roofs square on the encoded file); upload copy on the `renders` release as `uttaradit_look_social.mp4`. **Posted ~20:00 on 8 Nov** (owner). **Owner said "merge" (9 Nov); merged as PR #87.** **24-h read (9 Nov 21:49) is `experiments.md` §20: skip 38.1%, the best of all reads; share 0.6% and like 4.4% "higher"; average watch 13 s.** Next: the 11 baselined cities' roofs in their own PR if the owner wants.
