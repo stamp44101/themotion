@@ -280,3 +280,9 @@ the subtitle. Fixes:
 - The camera reaches the village by 8.1 s.
 
 `npm run check`: 0 errors.
+
+## v1f rendered and passed (10 Nov)
+
+[local] rendered v1f (0ad6830): `check_render` ok (largest luma jump 4.3, darkest 54.4), 60.053 s, 5.80 Mbps, 43.5 MB.
+Its moving-frame QA found no defects. The file is on the `renders` release as `yasothon_look_social.mp4`. It is waiting
+for the owner to watch it and say "Merge". Post at 19:00-21:00 and write down the post time.
