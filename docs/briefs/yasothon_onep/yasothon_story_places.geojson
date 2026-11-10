@@ -1,0 +1,425 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     104.14332,
+     15.79152
+    ]
+   },
+   "properties": {
+    "name": "ศาลเจ้าพ่อหลักเมืองยโสธร",
+    "era": "2318-ปัจจุบัน",
+    "why": "หัวใจบ้านสิงห์ท่า จุดกำเนิดระยะทั้งหมด",
+    "source": "OSM way 1564102761",
+    "pin": "osm",
+    "dist_m": 0,
+    "bearing": 0,
+    "octant": "N"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     104.14245,
+     15.79106
+    ]
+   },
+   "properties": {
+    "name": "วัดสิงห์ท่า",
+    "era": "2315-",
+    "why": "ที่มาของชื่อบ้านสิงห์ท่า",
+    "source": "OSM way 936971920",
+    "pin": "osm",
+    "dist_m": 106,
+    "bearing": 241,
+    "octant": "SW"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     104.14228,
+     15.79411
+    ]
+   },
+   "properties": {
+    "name": "วัดมหาธาตุ (พระธาตุพระอานนท์)",
+    "era": "2321-",
+    "why": "พระธาตุขึ้นในช่วง 9-16 วิ",
+    "source": "OSM way 1309209374",
+    "pin": "osm",
+    "dist_m": 309,
+    "bearing": 339,
+    "octant": "N"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     104.1422,
+     15.7942
+    ]
+   },
+   "properties": {
+    "name": "หอไตรวัดมหาธาตุ",
+    "era": "ร.3-",
+    "why": "หอไตรกลางสระในวัดมหาธาตุ",
+    "source": "OSM way 1564102763",
+    "pin": "osm",
+    "dist_m": 321,
+    "bearing": 338,
+    "octant": "N"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     104.14345,
+     15.79129
+    ]
+   },
+   "properties": {
+    "name": "พิพิธภัณฑ์เมืองเก่าบ้านสิงห์ท่า",
+    "era": "2443-2480",
+    "why": "อยู่บนย่านตึกแถวการค้าเก่า",
+    "source": "OSM way 1416961267",
+    "pin": "osm",
+    "dist_m": 29,
+    "bearing": 151,
+    "octant": "SE"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     104.1442,
+     15.7914
+    ]
+   },
+   "properties": {
+    "name": "ย่านตึกแถวการค้าเก่าบ้านสิงห์ท่า",
+    "era": "2443-2480",
+    "why": "ตึกแถวชิโน-โปรตุกีส/โคโลเนียล",
+    "source": "research s.6",
+    "pin": "gem; fits the museum block (100 m E of the pillar)",
+    "dist_m": 95,
+    "bearing": 98,
+    "octant": "E"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     104.1385,
+     15.7898
+    ]
+   },
+   "properties": {
+    "name": "ท่าน้ำเก่าบ้านสิงห์ท่า (ริมชี ใต้วัดสิงห์ท่า)",
+    "era": "2314-2480",
+    "why": "จุดขึ้นฝั่งตั้งบ้าน + ท่าเรือค้าขาย",
+    "source": "imagery",
+    "pin": "estimated: the Chi bank due W of Wat Sing Tha, S end of สวนสาธารณะริมชี. gem's 15.7885,104.1475 is 1 km inland",
+    "dist_m": 550,
+    "bearing": 250,
+    "octant": "W"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     104.1392,
+     15.7916
+    ]
+   },
+   "properties": {
+    "name": "สวนสาธารณะริมชี (บุ่ง)",
+    "era": "ปัจจุบัน",
+    "why": "สระยาว (บุ่ง) ขนานแม่น้ำชี ระหว่างวัดกับแม่น้ำ",
+    "source": "OSM way 913060396",
+    "pin": "osm",
+    "dist_m": 441,
+    "bearing": 271,
+    "octant": "W"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     104.1405,
+     15.7894
+    ]
+   },
+   "properties": {
+    "name": "ลานวงกลม/อนุสาวรีย์ ปลายใต้สวนริมชี",
+    "era": "2554-",
+    "why": "น่าจะเป็นอนุสาวรีย์พระสุนทรราชวงศา (ยังไม่ยืนยัน)",
+    "source": "imagery",
+    "pin": "unverified: round plaza in imagery; gem's 15.7892,104.1462 has the right lat but is 600 m E",
+    "dist_m": 383,
+    "bearing": 232,
+    "octant": "SW"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     104.13452,
+     15.79903
+    ]
+   },
+   "properties": {
+    "name": "สะพานข้ามแม่น้ำชี (ใกล้เมืองเก่าที่สุด)",
+    "era": "ราว 2490-",
+    "why": "สะพานถนนข้ามชีด้านเหนือของสวนริมชี ไปทางตะวันตก",
+    "source": "OSM way 561113262",
+    "pin": "osm; gem's bridge 15.7825,104.1458 is a pond/field, no bridge there",
+    "dist_m": 1259,
+    "bearing": 312,
+    "octant": "NW"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     104.14519,
+     15.7927
+    ]
+   },
+   "properties": {
+    "name": "ถนนแจ้งสนิท (ทล.23) ผ่านกลางเมือง",
+    "era": "2480-",
+    "why": "แกนเมืองใหม่ แนว NW-SE",
+    "source": "OSM way 170701067",
+    "pin": "osm",
+    "dist_m": 239,
+    "bearing": 57,
+    "octant": "NE"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     104.1395,
+     15.802
+    ]
+   },
+   "properties": {
+    "name": "ศาลากลางจังหวัดยโสธร (ผู้สมัคร)",
+    "era": "2515-",
+    "why": "ถ.แจ้งสนิท (ที่อยู่ราชการ)",
+    "source": "imagery + OSM PAO node 7857167720",
+    "pin": "unverified: govt compound E of Chaeng Sanit with the PAO; Wikipedia's coarse 15°47.6'/104°08.7' lands 1 km SE in shophouses",
+    "dist_m": 1235,
+    "bearing": 341,
+    "octant": "N"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     104.14776,
+     15.79526
+    ]
+   },
+   "properties": {
+    "name": "ตลาดสด",
+    "era": "ปัจจุบัน",
+    "why": "ตลาดกลางเมือง",
+    "source": "OSM node 4912596121",
+    "pin": "osm",
+    "dist_m": 631,
+    "bearing": 49,
+    "octant": "NE"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     104.15308,
+     15.78315
+    ]
+   },
+   "properties": {
+    "name": "สวนสาธารณะพญาแถน",
+    "era": "2523-",
+    "why": "งานบุญบั้งไฟ ริมบึงพญาแถน; ตำแหน่งฮ้านบั้งไฟจริงยังไม่ได้ปักจากภาพ",
+    "source": "OSM way 737512386",
+    "pin": "osm (park); launch tower spot not identifiable in imagery",
+    "dist_m": 1399,
+    "bearing": 132,
+    "octant": "SE"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     104.15504,
+     15.79108
+    ]
+   },
+   "properties": {
+    "name": "พิพิธภัณฑ์พญาคันคาก",
+    "era": "2562-",
+    "why": "คางคกยักษ์ริมบึง ฉาก 44-54 วิ",
+    "source": "OSM way 1352434096",
+    "pin": "osm (gem 15.7918,104.1543: 100 m)",
+    "dist_m": 1255,
+    "bearing": 92,
+    "octant": "E"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     104.15516,
+     15.7891
+    ]
+   },
+   "properties": {
+    "name": "วิมานพญาแถน",
+    "era": "2562-",
+    "why": "อาคารคู่พิพิธภัณฑ์ บนเขื่อนดินริมบึง",
+    "source": "OSM way 1415321829",
+    "pin": "osm",
+    "dist_m": 1295,
+    "bearing": 102,
+    "octant": "E"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     104.159,
+     15.789
+    ]
+   },
+   "properties": {
+    "name": "บึงพญาแถน (ต่อลำทวน)",
+    "era": "-",
+    "why": "แหล่งน้ำใหญ่ตะวันออกของเมือง ไหลออกทางใต้ลอดถนนแจ้งสนิท",
+    "source": "OSM way 170933493",
+    "pin": "osm (unnamed water; name from the museum/park around it)",
+    "dist_m": 1701,
+    "bearing": 99,
+    "octant": "E"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     104.1555,
+     15.783
+    ]
+   },
+   "properties": {
+    "name": "สะพานแจ้งสนิทข้ามทางน้ำออกบึง",
+    "era": "-",
+    "why": "ถนนแจ้งสนิทข้ามน้ำ ใกล้สวนพญาแถน",
+    "source": "imagery",
+    "pin": "imagery",
+    "dist_m": 1611,
+    "bearing": 126,
+    "octant": "SE"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     104.211,
+     15.7615
+    ]
+   },
+   "properties": {
+    "name": "บ้านตาดทอง / พระธาตุก่องข้าวน้อย",
+    "era": "ทวารวดี-ล้านช้าง",
+    "why": "ไกล: sub line เท่านั้น",
+    "source": "research s.6",
+    "pin": "gem (OSM ruins node 4750438163 15.76361,104.20709 is 480 m away)",
+    "dist_m": 7974,
+    "bearing": 115,
+    "octant": "SE"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     104.2569,
+     15.6395
+    ]
+   },
+   "properties": {
+    "name": "ดงเมืองเตย",
+    "era": "เจนละ-ทวารวดี",
+    "why": "ไกล: sub line",
+    "source": "research s.6",
+    "pin": "gem (unchecked)",
+    "dist_m": 20822,
+    "bearing": 144,
+    "octant": "SE"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     104.3392,
+     15.7784
+    ]
+   },
+   "properties": {
+    "name": "บ้านศรีฐาน (หมอนขิด)",
+    "era": "-",
+    "why": "ไกล: sub line",
+    "source": "research s.6",
+    "pin": "gem (unchecked)",
+    "dist_m": 21010,
+    "bearing": 94,
+    "octant": "E"
+   }
+  }
+ ]
+}
