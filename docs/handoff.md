@@ -45,15 +45,14 @@ Every city in `src/cities/` is merged; upload files are on the `renders` release
   Songkhram, Ang Thong (also Tak, Chiang Mai, Nong Khai). Hybrid loop: the owner picks the cover and
   passes the 0–11 s stills; cloud, [gemini] and [local] run research, map, build, render and QA.
 
-## Archived branches (10 Nov cleanup)
-Unmerged experiments were tagged and their branches deleted; restore one with
-`git checkout -b <name> archive/<name>`:
-- `archive/explainer`: a 60 s clip on how the videos are made (16 Oct).
-- `archive/sound-plan-v2`: Sound v2 work on Khon Kaen (18 Oct; procedural SFX, phin/pong lang, click fixes).
-- `archive/korat-hook`: Korat opens on its finale, then rewinds (15 Oct).
-- `archive/skill-pack`: the 1minutecity Skill customer pack builder (`scripts/pack_customer.mjs`, 28–31 Oct).
-Deleted with nothing lost: `city/kanchanaburi` (in main via PR #83), `exp/korat-hero` (in main),
-`claude/youthful-sagan-wnhw9o` (§20 merged here).
+## Old branches (10 Nov review; delete in GitHub, the cloud session may not delete refs)
+Safe to delete, nothing lost: `city/kanchanaburi` (in main via PR #83), `exp/korat-hero` (in main),
+`claude/youthful-sagan-wnhw9o` (§20 is merged through `claude/wizardly-allen-njcptm`).
+Unmerged experiments, 300-400 commits behind main; keep until the owner decides (tag first if deleted):
+- `explainer`: a 60 s clip on how the videos are made (16 Oct).
+- `sound/plan-v2`: Sound v2 work on Khon Kaen (18 Oct; procedural SFX, phin/pong lang, click fixes).
+- `exp/korat-hook`: Korat opens on its finale, then rewinds (15 Oct).
+- `claude/ecstatic-fermi-01603k`: the 1minutecity Skill customer pack builder (`scripts/pack_customer.mjs`, 28-31 Oct).
 
 ## Standing rules the owner gave in chat (also in CLAUDE.md / AGENTS.md)
 - Reply to the owner in Thai. Ask before merging; the owner says "Merge".
