@@ -8,6 +8,7 @@ import {
   bindAt,
   BOATS,
   boatAt,
+  backK,
   clamp01,
   CLOUD_Y,
   cloudK,
@@ -172,7 +173,9 @@ const Tower: React.FC<{h: number; w: number}> = ({h, w}) => (
 /** a column of smoke from the tower to the climbing rocket, after a lift-off at `lift` */
 const Trail: React.FC<{t: number; lift: number}> = ({t, lift}) => {
   const u = t - lift;
-  if (u < 0 || u > 6.5) return null;
+  // the column fades fast once the rocket is in the cloud, before the camera comes down (its top puffs read in the text band)
+  if (u < 0 || u > 2.6) return null;
+  const fade = 1 - smooth((u - 2.0) / 0.5);
   const top = Math.min(9 * u * u, CLOUD_Y + 4 - R - NOZZLE); // into the cloud, not through the text band
   return (
     <group position={[ROCKET_AT[0], R + NOZZLE, ROCKET_AT[1]]}>
@@ -183,8 +186,8 @@ const Trail: React.FC<{t: number; lift: number}> = ({t, lift}) => {
           <Smoke
             key={i}
             p={[(hash(i) - 0.5) * age * 1.4, f * top - 1, (hash(i + 5) - 0.5) * age * 1.4]}
-            u={clamp01(age / 6.5)}
-            s={1.4 + age * 0.4}
+            u={clamp01(age / 3.4)}
+            s={(1.4 + age * 0.4) * fade}
           />
         );
       })}
@@ -192,7 +195,7 @@ const Trail: React.FC<{t: number; lift: number}> = ({t, lift}) => {
       {Array.from({length: 10}, (_, i) => {
         const a = (i / 10) * Math.PI * 2;
         const r = 1.5 + Math.min(u, 2) * 2.4;
-        return <Smoke key={`g${i}`} p={[Math.cos(a) * r, -NOZZLE + 0.6, Math.sin(a) * r]} u={clamp01(u / 3)} s={1.6} />;
+        return <Smoke key={`g${i}`} p={[Math.cos(a) * r, -NOZZLE + 0.6, Math.sin(a) * r]} u={clamp01(u / 3)} s={1.6 * fade} />;
       })}
     </group>
   );
@@ -210,7 +213,7 @@ const Cloud: React.FC<{t: number}> = ({t}) => {
         const r = Math.sqrt(hash(i + 230)) * 16;
         const s = 4 + hash(i + 260) * 4;
         return (
-          <mesh key={i} position={[Math.cos(a) * r, 2 + hash(i + 290) * 5 + s * 0.4, Math.sin(a) * r]} scale={[s * 1.3, s * 0.7, s * 1.3]}>
+          <mesh key={i} position={[Math.cos(a) * r, 1.2 + hash(i + 290) * 0.8, Math.sin(a) * r]} scale={[s * 1.3, 1.3 + hash(i + 320) * 0.5, s * 1.3]}>
             <icosahedronGeometry args={[1, 1]} />
             <meshStandardMaterial color={i % 3 ? '#b9c0c8' : '#9aa4ae'} roughness={1} />
           </mesh>
@@ -226,7 +229,7 @@ const Rocket: React.FC<{t: number}> = ({t}) => {
   const f = flyY(t);
   const burning = (t > FUSE + 0.3 && t < 30) || t > LIFT2 - 0.2;
   return (
-    <group position={[ROCKET_AT[0], TRESTLE * (1 - rise) + R + (Number.isFinite(f) ? f : 0), ROCKET_AT[1]]} rotation-x={-(Math.PI / 2) * (1 - rise)}>
+    <group position={[ROCKET_AT[0], TRESTLE * (1 - rise) + R + (Number.isFinite(f) ? f : 0), ROCKET_AT[1]]} rotation-x={-(Math.PI / 2) * (1 - rise)} scale={backK(t)}>
       <RocketBody t={t} burning={burning} />
     </group>
   );

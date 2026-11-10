@@ -86,7 +86,7 @@ export const YASOTHON: CityConfig = {
       ...[[-3, -3], [-1, -4.5], [1, -4], [3, -1], [5, 2], [2, 2.5], [-1, 2], [-3, 0.5], [-0.5, -1], [1.5, 0.5], [4, 4], [6, 3.4], [-1.1, -2.9]]
         .map(([x, z]) => [x, z, 2.6, 1814.2] as [number, number, number, number]),
       [HALL[0], HALL[1], 3.0, 1971.5],
-      [MUSEUM[0], MUSEUM[1], 2.6, 2014],
+      [MUSEUM[0], MUSEUM[1], 4.8, 2014],
     ],
     paddies: [1700, 1760],
     sites: [
@@ -97,7 +97,8 @@ export const YASOTHON: CityConfig = {
       [HONG[0], HONG[1], 2.2],
       [PILLAR[0], PILLAR[1], 0.6],
       [HALL[0], HALL[1], 2.6],
-      [MUSEUM[0], MUSEUM[1], 2.4],
+      // the toad is drawn ~4.5 units in radius (x6): its site covers all of it
+      [MUSEUM[0], MUSEUM[1], 4.6],
     ],
     footprints: [
       ...SHOPS.map((s, j) => ({fp: {rect: [s.x, s.z, 0.6, 0.55] as [number, number, number, number]}, from: 1815, label: `shophouse ${j}`})),

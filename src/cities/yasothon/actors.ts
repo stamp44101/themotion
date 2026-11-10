@@ -50,31 +50,34 @@ export const riseK = (t: number) => (t > 40 ? 1 : smooth((t - 2.55) / 1.25));
 export const FUSE = 4.3;
 export const LIFT = 4.8;
 export const LIFT2 = 51.8;
-/** the payoff: the rocket comes back down out of the sky onto its tower */
+/** the payoff: the cover's rocket is put up on its tower again, rising from its foot (BACK0-BACK1); it never comes down
+ *  through the counter and caption band from the sky */
 export const BACK0 = 47.2;
 export const BACK1 = 49.2;
 /** the rocket's height above its standing place at t (climbing after a launch, coming down for the payoff) */
 export const flyY = (t: number) => {
   if (t < 30) return t > LIFT ? 9 * (t - LIFT) ** 2 : 0;
   if (t < BACK0) return Infinity;
-  if (t < LIFT2) return 70 * (1 - smooth((t - BACK0) / (BACK1 - BACK0)));
+  if (t < LIFT2) return 0;
   return 9 * (t - LIFT2) ** 2;
 };
 /** whether the rocket is drawn: from frame 0 until it is far up, and again from its return */
 /** the rain cloud the rocket punches into (the rite asks for rain): its base height; the rocket is gone once its nose is in
- *  it, so it never climbs through the counter and caption band; in the payoff it comes back down out of a cloud */
-export const CLOUD_Y = 78;
-export const HIDE_FLY = 34;
-export const rocketShown = (t: number) => flyY(t) < HIDE_FLY;
+ *  it, so it never climbs through the counter and caption band; in the payoff it comes back down out of a cloud. The cloud
+ *  is a thin, flat rain-cloud layer (~3 high) so it too stays under the band (it sat on the payoff's caption in v1c) */
+export const CLOUD_Y = 77;
+export const HIDE_FLY = 32;
+export const rocketShown = (t: number) => flyY(t) < HIDE_FLY && (t < 30 || t > BACK0);
+/** the payoff rocket grows up from its foot on the tower */
+export const backK = (t: number) => (t < 30 ? 1 : smooth((t - BACK0) / (BACK1 - BACK0)));
 export const cloudK = (t: number) =>
   Math.max(
-    smooth((t - 5.4) / 0.8) * (1 - smooth((t - 9.0) / 0.8)),
-    smooth((t - 46.4) / 0.8) * (1 - smooth((t - 49.4) / 0.8)),
-    smooth((t - 52.0) / 0.8) * (1 - smooth((t - 54.6) / 0.6)),
+    smooth((t - 5.4) / 0.8) * (1 - smooth((t - 6.9) / 0.4)),
+    smooth((t - 52.0) / 0.8) * (1 - smooth((t - 53.9) / 0.4)),
   );
 /** the launch tower is bamboo, put up for the festival and taken down after: up at the cover and the launch, down from the
  *  founding, put up again for the payoff */
-export const towerK = (t: number) => (t < 20 ? 1 - smooth((t - 9.0) / 0.6) : smooth((t - 45.0) / 1.2));
+export const towerK = (t: number) => (t < 20 ? 1 - smooth((t - 7.6) / 0.7) : smooth((t - 45.0) / 1.2));
 /** world position of the local point at height y along the rocket, at t */
 export const rocketPoint = (t: number, y: number): [number, number, number] => {
   const a = -(Math.PI / 2) * (1 - riseK(t));
@@ -121,12 +124,12 @@ export const shopK = (j: number, t: number, Y: number) => (Y > 1926 ? 1 : smooth
 
 // ------------------------------------------------------------------ the road: trucks down Chaeng Sanit
 const ROAD_IN = CHAENG_SANIT.slice(4, 11);
-export const TRUCKS = 3;
+export const TRUCKS = 4;
 export const truckAt = (i: number, t: number) => {
   const k = beatK('road', t);
   if (k < 0.2 || k > 1.15) return null;
   const L = lengthOf(ROAD_IN);
-  const d = lerp(L * 0.1 - 3 * i, L * 0.95 - 3 * i, smooth((k - 0.2) / 0.85));
+  const d = lerp(L * 0.1 - 2.4 * i, L * 0.95 - 2.4 * i, smooth((k - 0.2) / 0.85));
   if (d < 0) return null;
   return along(ROAD_IN, d);
 };
@@ -159,6 +162,12 @@ export const floatAt = (i: number, t: number) => {
 export const ACTORS: Actor[] = [
   {id: 'bangfai', role: 'hero', during: [0, 3.0], size: BODY * 0.5, at: (t) => bodyMid(t)},
   {id: 'bangfai-launch', during: [3.2, 6.6], size: 6, tall: BODY / 2 + 2.6 * R, minInFrame: 0.6, at: (t) => bodyMid(t)},
+  // the rain clouds: a cloud's top must stay out of the text band too (it sat on the payoff's caption at 54 s)
+  {id: 'cloud', during: [5.8, 7.1], size: 8, tall: 3, minInFrame: 0.5, at: (t) => (cloudK(t) > 0.3 ? [ROCKET_AT[0], CLOUD_Y, ROCKET_AT[1]] : null)},
+  {id: 'cloud2', during: [52.6, 53.8], size: 8, tall: 3, minInFrame: 0.5, at: (t) => (cloudK(t) > 0.3 ? [ROCKET_AT[0], CLOUD_Y, ROCKET_AT[1]] : null)},
+  // the bamboo tower: its top stays out of the band too (its poles crossed the subtitle at ~9 s in v1c)
+  {id: 'tower', during: [3.6, 8.2], size: 5, tall: TAIL + 6, minInFrame: 0.3, at: (t) => (towerK(t) > 0.3 ? [TOWER[0], 0, TOWER[1]] : null)},
+  {id: 'tower2', during: [46.4, 53.8], size: 5, tall: TAIL + 6, minInFrame: 0.3, at: (t) => (towerK(t) > 0.3 ? [TOWER[0], 0, TOWER[1]] : null)},
   {id: 'crowd', during: [3.6, 5.2], size: 5, at: (t) => (crowdK(t) > 0.05 ? [TOWER[0] - 2, 0.6, TOWER[1]] : null)},
   {id: 'stupa', during: [10.2, 15.4], size: 4, at: (t, c) => (stupaK(t, c.Y) > 0.05 ? [WAT_MAHATHAT[0], 3.6, WAT_MAHATHAT[1]] : null)},
   ...Array.from({length: 2}, (_, i): Actor => ({

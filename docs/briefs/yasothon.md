@@ -245,3 +245,19 @@ QA notes in PR #89.
 
 Sounds were added for the tower coming down and going up and for the payoff's cloud. Score +2.6 LU over the effects,
 -16.0 LUFS. `npm run check`: 0 errors.
+
+## v1d: [local]'s v1c still QA fixed (cloud, 10 Nov)
+
+[local] checked the v1c stills before re-rendering (`yasothon_v1c_local_qa.jpg`) and found four more problems. All four are fixed in v1d:
+1. **The payoff cloud sat on the caption at 54 s.** The cloud is now a thin layer (~3 high, base y 77). The camera rides
+   at 200 out with its target 10 under the nose, so the caption's last line (~37% from the top) stays clear. The festival
+   caption ends at 51.6 s, before the second launch. The payoff rocket now rises from its foot on the tower (47.2-49.2 s)
+   instead of coming down out of the sky.
+2. **Tower poles and a smoke puff crossed the subtitle at ~9 s.** The tower now comes down at 7.6-8.3 s. The first cloud
+   fades at 6.9-7.3 s, as the camera starts down, and the smoke column fades by 7.3 s.
+3. **The tower stood over the toad on screen at 49-52 s.** The tower moved 15 units south of the museum, to (7.6, 15.6).
+   The toad's site and clearing now cover its whole drawn size (radius 4.6 / 4.8).
+4. **No truck at 26.5 s.** There are now four trucks, 2.4 apart, so one is always on Chaeng Sanit.
+
+Clouds and the tower are now actors with `tall`, and the text band in `check_story` is now 37%, the caption's two-line
+subtitle. QA stills: `yasothon_v1d_qa.jpg`. `npm run check`: 0 errors. Score: -16.0 LUFS, +2.6 LU over the effects.

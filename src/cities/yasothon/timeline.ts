@@ -16,19 +16,19 @@ const C0: Key = [0, 6, 6, -9, 292, -75, 34, 30];
 const C1: Key = [2.6, 7, 10, -6, 272, -70, 32, 30];
 // the launch: in to the tower as the rocket stands, up with it on its smoke, down to the village as the rain comes
 // The camera rides up with the rocket so its nose stays under the counter and caption band (the top 30%): the target sits
-// 18.5 under the nose (at 175 out the band starts ~19 units above the centre); the rocket is gone into the rain cloud at
-// fly 34 (actors.ts), so the camera stops at the cloud's base.
+// 10 under the nose (at 200 out the caption's lowest line, ~37% from the top, is ~14 units above the centre); the rocket is
+// gone into the thin rain cloud at fly 32 (actors.ts), so the camera stops with the cloud's top just under the text.
 const NOSE0 = R + (TAIL - 2) + BODY + 2.6 * R; // the standing rocket's nose height
 const ride = (lift: number, t0: number, t1: number, az0: number, az1: number, el0: number, el1: number): Key[] => {
   const n = Math.round((t1 - t0) / 0.3);
   return Array.from({length: n + 1}, (_, i) => {
     const t = t0 + ((t1 - t0) * i) / n;
     const u = i / n;
-    const fly = Math.min(34, t > lift ? 9 * (t - lift) ** 2 : 0);
-    return [t, ROCKET_AT[0] - 2, Math.max(29, NOSE0 + fly - 18.5), ROCKET_AT[1], 175, az0 + (az1 - az0) * u, el0 + (el1 - el0) * u, 30] as Key;
+    const fly = Math.min(32, t > lift ? 9 * (t - lift) ** 2 : 0);
+    return [t, ROCKET_AT[0] - 2, Math.max(35, NOSE0 + fly - 10), ROCKET_AT[1], 200, az0 + (az1 - az0) * u, el0 + (el1 - el0) * u, 30] as Key;
   });
 };
-const LA_IN: Key = [3.6, ROCKET_AT[0] - 2, 29, ROCKET_AT[1], 175, -62, 16, 30];
+const LA_IN: Key = [3.6, ROCKET_AT[0] - 2, 35, ROCKET_AT[1], 200, -62, 16, 30];
 const LA_RIDE = ride(4.8, 4.5, 6.9, -60, -52, 15, 11);
 const LA_UP = LA_RIDE[LA_RIDE.length - 1];
 const LA_DOWN: Key = [8.7, 0, 2, 2, 120, -40, 30, 30];
@@ -52,7 +52,7 @@ const GR_END: Key = [43.8, 4, 1, 2, 215, 112, 36, 30];
 // the tower and the stupa behind the town, neither in front of the tower)
 const FE_IN: Key = [45.2, 7.5, 3, 5, 78, 92, 28, 30];
 // the rocket comes down onto the tower (47-49 s), stands, and rides up again into the cloud (51.8 s)
-const FE_STAND: Key = [49.4, ROCKET_AT[0] - 2, 29, ROCKET_AT[1], 175, 84, 16, 30];
+const FE_STAND: Key = [49.4, ROCKET_AT[0] - 2, 35, ROCKET_AT[1], 200, 84, 16, 30];
 const FE_RIDE = ride(51.8, 51.5, 53.9, 80, 72, 15, 11);
 // the landing: the whole tile again at the cover's distance, now full of town, from the south-south-west
 const END: Key = [56.0, 4, 6, 4, 292, 30, 32, 30];
@@ -155,7 +155,7 @@ export const STORY = buildStory({
       kind: 'celebrate',
       t: [44.6, 54.0],
       year: [2023, 2025.5],
-      caption: {t0: 44.6, t1: 54.2, title: 'บุญบั้งไฟยโสธร', sub: 'ทุกเดือนพฤษภาคม ขบวนบั้งไฟเอ้ และพญาคันคากยักษ์ริมบึง'},
+      caption: {t0: 44.6, t1: 51.6, title: 'บุญบั้งไฟยโสธร', sub: 'ทุกเดือนพฤษภาคม ขบวนบั้งไฟเอ้ และพญาคันคากยักษ์ริมบึง'},
       callouts: [{label: 'พิพิธภัณฑ์พญาคันคาก', dx: 140, dy: -150, p: [MUSEUM[0], 3.0, MUSEUM[1]], t0: 45.4, t1: 49.4}],
       camera: [FE_IN, FE_STAND, ...FE_RIDE],
     },

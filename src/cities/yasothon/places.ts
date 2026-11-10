@@ -59,9 +59,10 @@ export const MARKET: P = [4.8, -4.1]; // ตลาดสด (OSM)
 
 // ---- the festival side
 /** the launch tower: [local] could not see the towers in imagery and suggests the dike between the park and the
- *  museum; drawn at the park's north-west corner, clear of the road, the ponds and the water. The cover's rocket is
+ *  museum; drawn at the park's west side, 15 units south of the toad museum so the two never meet on screen, clear of the
+ *  road and the water. The cover's rocket is
  *  bound here, launched here, and comes back here in the payoff. */
-export const TOWER: P = [9.2, 9.4];
+export const TOWER: P = [7.6, 15.6];
 export const PARK: P = [10.5, 9.3]; // สวนสาธารณะพญาแถน (OSM)
 export const MUSEUM: P = [12.4, 0.5]; // พิพิธภัณฑ์พญาคันคาก (OSM), drawn 0.2 W onto the dike
 

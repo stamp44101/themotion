@@ -202,9 +202,9 @@ launch_roar(LIFT)
 add(sfx, rain(2.8, 1.0), 6.9, pan=0.0)
 for k in range(3):
     add(sfx, filt(drum(55, 34, 1.6, 0.8), "low", 300), 7.0 + 0.5 * k, pan=rng.uniform(-0.4, 0.4), gain=0.25)  # thunder
-# the bamboo tower taken down after the launch (9.0-9.6 s)
+# the bamboo tower taken down after the launch (7.6-8.3 s)
 for k in range(5):
-    add(sfx, knock(0.6), 9.0 + 0.12 * k, pan=rng.uniform(-0.4, 0.4))
+    add(sfx, knock(0.6), 7.6 + 0.13 * k, pan=rng.uniform(-0.4, 0.4))
 # 2357: the stupa's courses, the hall's posts, a bell for the new town
 t = at(found, 0.08)
 while t < at(found, 0.8):
@@ -255,9 +255,10 @@ add(sfx, crowd(today[1] - fest[0] + 0.5), fest[0], pan=0.2, gain=0.3)
 add(sfx, babble(today[1] - fest[0], 1.0), fest[0] + 0.2, pan=0.3, gain=0.3)
 for k in range(8):
     add(sfx, knock(0.6), 45.0 + 0.15 * k, pan=rng.uniform(-0.4, 0.4))  # the tower put up again for the festival
-for k in range(2):
-    add(sfx, filt(drum(55, 34, 1.6, 0.8), "low", 300), 46.6 + 0.7 * k, pan=rng.uniform(-0.4, 0.4), gain=0.2)  # the cloud
-add(sfx, filt(whoosh(1.8, 0.6), "low", 1500), BACK0 + 0.2, pan=0.0, gain=0.45)
+# the cover's rocket put up on the tower again (BACK0-BACK1): ropes and knocks as it rises from its foot
+for k in range(8):
+    add(sfx, rope(0.25, 1.0), BACK0 + 0.25 * k, pan=rng.uniform(-0.3, 0.3))
+    add(sfx, knock(0.5), BACK0 + 0.25 * k + 0.1, pan=rng.uniform(-0.3, 0.3))
 add(sfx, thud(0.8, 70), BACK1, pan=0.0)
 for k in range(3):
     add(sfx, creak(0.6) * 0.5, BACK1 + 0.1 + 0.2 * k, pan=rng.uniform(-0.3, 0.3))
