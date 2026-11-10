@@ -299,3 +299,6 @@ The legend-scale drawings (x1.5-2.2 on their real pins) spread over the real roa
 - **New `check_story` rule:** a road segment may not pass through a landmark site or a footprint. The 16 posted cities
   that break it only warn.
 `npm run check`: 0 errors. Stills checked at 12, 14, 18, 26, 28, 32 and 40 s.
+
+**v1g rendered and passed (10 Nov).** [local] rendered v1g (0934ef7): `check_render` ok, 60.053 s, 5.9 Mbps, 44.3 MB. Its
+road-vs-building QA at 16 frames (9-35 s, 44-56 s) found no defects. Waiting for the owner to watch it and say "Merge".
