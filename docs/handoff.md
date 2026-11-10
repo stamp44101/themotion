@@ -29,30 +29,29 @@ Every city in `src/cities/` is merged; upload files are on the `renders` release
 - Shares come from something each viewer names as theirs (the jars' 4–5%); a resident's pick helps.
 - Post 19:00–21:00 and **write down the post time**.
 
-## Open (each in its own PR, when the owner wants it)
-- **Hip roofs in 11 older cities** are baselined as warnings by `check_roofs`; fix them with `HipRoof`
-  (mechanical pass). Not re-posted.
-- **Chanthaburi defects in the posted clip:** porters on the river at 28.5 s, a ~30 px stone column at
-  21–23 s (noted in the brief; merged as rendered).
-- **Engine-wide:** the ค.ศ. line under the พ.ศ. counter (under 2316 it reads 1773, but 7 Jan 2316 in the
-  old April-new-year count is January 1774); the train's steam puffs are the same everywhere
-  (`engine/train-steam` if wanted).
-- **Kanchanaburi v1f ideas** (no re-post planned): roads and cars (need engine bridges), the Saeng Chuto
-  road, the sprawl's uniform orange blocks.
+## Open
+- **Owner (10 Nov): cities already posted are not reopened.** The 11 older cities' hip roofs (baselined as
+  warnings by `check_roofs`), Chanthaburi's two defects in the posted clip and Kanchanaburi's v1f ideas stay
+  as they are. New cities must pass `check_roofs` with no baseline.
+- **Engine-wide, for the next cities:** the ค.ศ. line under the พ.ศ. counter (under 2316 it reads 1773, but
+  7 Jan 2316 in the old April-new-year count is January 1774); the train's steam puffs are the same
+  everywhere (`engine/train-steam` if wanted).
 
 ## Next
 - A new city in a new session (one city per session). Candidates named before: Yasothon, Samut
   Songkhram, Ang Thong (also Tak, Chiang Mai, Nong Khai). Hybrid loop: the owner picks the cover and
   passes the 0–11 s stills; cloud, [gemini] and [local] run research, map, build, render and QA.
 
-## Old branches (10 Nov review; delete in GitHub, the cloud session may not delete refs)
-Safe to delete, nothing lost: `city/kanchanaburi` (in main via PR #83), `exp/korat-hero` (in main),
-`claude/youthful-sagan-wnhw9o` (§20 is merged through `claude/wizardly-allen-njcptm`).
-Unmerged experiments, 300-400 commits behind main; keep until the owner decides (tag first if deleted):
-- `explainer`: a 60 s clip on how the videos are made (16 Oct).
-- `sound/plan-v2`: Sound v2 work on Khon Kaen (18 Oct; procedural SFX, phin/pong lang, click fixes).
-- `exp/korat-hook`: Korat opens on its finale, then rewinds (15 Oct).
-- `claude/ecstatic-fermi-01603k`: the 1minutecity Skill customer pack builder (`scripts/pack_customer.mjs`, 28-31 Oct).
+## Old branches (10 Nov review, owner: "จัดการตามที่เสนอ")
+- Delete, nothing lost: `city/kanchanaburi` (in main via PR #83), `exp/korat-hero` (in main),
+  `claude/youthful-sagan-wnhw9o` (§20 merged via PR #88), `explainer` (16 Oct, never posted; rebuild on the
+  current engine if wanted), `exp/korat-hook` (15 Oct; §19-20 settled the cover question).
+- **Keep `sound/plan-v2`** (18 Oct, 338 commits behind): ~20 procedural sounds main does not have
+  (`steam_train`, `diesel_train`, `ox_carts`, `phin`, `bird_call`, `fireworks`, `convoy`, `room`, ...).
+  Do not merge it whole; port one sound at a time into `scripts/synth.py` when a city needs it, and listen
+  for the owner's old notes (crackle, "แสบหู", the high sweep) before using it.
+- **`claude/ecstatic-fermi-01603k`** (the 1minutecity Skill customer pack builder): waiting on the owner,
+  keep it or drop the Skill. If kept, refresh the pack (Korat example, `check_roofs`, standard v2).
 
 ## Standing rules the owner gave in chat (also in CLAUDE.md / AGENTS.md)
 - Reply to the owner in Thai. Ask before merging; the owner says "Merge".
