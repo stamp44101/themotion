@@ -111,3 +111,61 @@ gunpowder recipe on screen. The Phra That Kong Khao Noi legend (a son kills his 
 - When did Yasothon's Bun Bang Fai become the province's big festival, and when did the giant rockets start?
 - What did a bang fai look like before steel and PVC tubes (bamboo, binding, tail length, the tower)?
 - Where exactly on the Chi did Ban Sing Tha stand, and where is the landing (ท่า) of the name?
+
+## Research checked, storyline proposed (cloud, 10 Nov)
+
+[gemini] answered (`yasothon_research_gemini.md`, 160efc6). Cloud re-checked the years a caption would lean on, from search
+excerpts (the province's, the municipality's and ONEP's pages are still outside cloud's network).
+
+### Years for the screen
+
+| fact | status after checking | caption use |
+|---|---|---|
+| Lao settlers from the Phra Wo / Phra Ta line settle **Ban Sing Tha** on the **north bank** of the Chi, named for the stone lions at the landing | gemini: ~2314-2315, ตามพงศาวดาร (ประชุมพงศาวดาร ภาค 70); cloud found only "2314, Phra Wo / Phra Ta migrate" in a blog; names (ท้าวคำสู, ท้าวคำขุย) and ดงผีสิงห์ **not found** elsewhere | sub line "ราว 2315", no held year |
+| Ban Sing Tha raised to **เมืองยศสุนทร**, Rama II, ปีจอ จ.ศ. 1176 = **2357**; Kham Sing first governor (พระสุนทรราชวงศา) | **ยืนยัน** (th.wikipedia, the provincial local-admin page, gemini's two chronicles). The province page's "Rama III" mixes it up with the third governor (ท้าวฝ่ายบุต) appointed after the Anouvong war, 2370 | **held 2357** |
+| After the Anouvong war (2369-2371), Rama III sends the crystal Buddha **พระแก้วหยดน้ำค้าง** (พระพุทธบุษยรัตน์) to Wat Mahathat | ตามพงศาวดาร (gemini); not re-checked | sub line at most; **no** executions (คุกเพลิง) on screen |
+| Phra That Phra Anon (Wat Mahathat), 25.3 m, a Lan Xang stupa of the 24th Buddhist century; legend says 1218 | legend ≠ fabric; gemini cites the Fine Arts Dept. | rises with the town; never "1218" as fact |
+| The town reduced to two districts under Ubon (2443); renamed **อำเภอยโสธร** (2456); spelling ยะโสธร → ยโสธร (2500s) | gemini only; cloud found **no** confirmation of 2456 (one wiki cites a 2460 renaming notice) | none until confirmed |
+| The Sing Tha shophouse street, Chinese merchants trading on the Chi, built **c. 2450-2480** (Vietnamese builders) | ONEP / ThaiJO papers give a 200-year trading quarter; the decades and the Vietnamese builders are gemini's | sub line "ราว 2460", no held year |
+| Chaeng Sanit road (Highway 23) built 2480-2482, named 10 Dec 2493; trade moves from the river to the road north of the old town | gemini only | the counter runs through it, no caption year |
+| **Province of Yasothon**, Revolutionary Council no. 70, 6 Feb 2515, in force **1 Mar 2515** | **ยืนยัน** | **held 2515** |
+| The festival held as a provincial event from 2515; TAT and Phaya Thaen Park from 2523 | **not confirmed** (one weak source each; English sources say TAT backed it "since 1974") | none |
+| Yasothon and Chichibu (Saitama) sister cities, rockets on both sides | ยืนยัน for the tie; the year **ขัดแย้ง** (gemini 2542; a 2015 article implies ~1991-1994) | sub line without a year, if used |
+| Phaya Khankhak museum (the toad, 19 m) and the naga museum opened **10 May 2562** for that year's festival | **ยืนยัน** (Matichon) | the payoff's landmark |
+| Festival 2569: 8-10 May, Phaya Thaen Park and Chaeng Sanit road | ยืนยัน | the landing |
+| A 120 kg rocket exploded at the 1999 festival, people died | ยืนยัน (several) | **never shown or named**: only clean launches (gemini part 5) |
+
+What the geography says (gemini's pins, to be checked by [local]): every story place in town lies within ~2 km: the
+old Sing Tha quarter and its landing on the **north bank of the Chi, which runs roughly west-east south of the town**;
+Wat Mahathat ~400 m north-west of Wat Sing Tha; the Chaeng Sanit road and the provincial hall ~1.3 km north; Phaya Thaen
+Park, the Lam Thuan reservoir and the toad museum ~1 km east. The far places (Ban Tat Thong ~7 km east, Dong Mueang Toei
+~20 km south-east, Ban Si Than ~21 km east) stay out or go to sub lines (§7 rule 3). The style frames' west-side river is
+wrong and moves to the south edge of the tile.
+
+### Storyline v1 (proposal; the owner decides the beats)
+
+```
+Hero (0-3 s): a giant bamboo bang fai bound by hand on a clearing by the Chi, swung up onto its tower (A1)
+              BIG IDENTITY MOVING SURPRISING (the swing up)
+Hero sound: rope pulled tight on each ring, bamboo knocks, a long drum; the tower creaks as it rises
+Open loop: "will it fly?" -> 3-9 s (it flies) and the payoff (the May festival, the same rocket)
+0-9 s   ราว 2315  launch    Ban Sing Tha is a handful of Lao houses at the landing; villagers round the tower, fuse,
+                            roar, the rocket climbs on its smoke, the camera follows it up and comes down as rain
+                            sweeps the paddies (the rite asks for rain). Sub: settlers from Vientiane at Sing Tha.
+9-16 s  2357 held found     the village is raised to เมืองยศสุนทร: the governor's hall, Phra That Phra Anon and the
+                            temple rise; houses fill along the bank (camera stays on the town: no far travel)
+16-23 s ราว 2460  trade     boats on the Chi at the landing, the shophouse street of Sing Tha goes up, carts
+23-29 s           arrive    the Chaeng Sanit road cuts in north of the old town, the first trucks; a bridge over the Chi
+29-35 s 2515 held split     the province of its own: the provincial hall on the road, flags (wide shot from the cover's side)
+35-44 s           grow      wide, distance >= 160: the town spreads north and east to Lam Thuan; paddies of jasmine rice
+                            turn gold round it
+44-54 s 2569      celebrate the May festival: bang fai eh in procession down Chaeng Sanit, the toad and naga museums
+                            (2562) by Lam Thuan, crowds at Phaya Thaen; the cover's giant rocket back on its tower and away
+54-60 s           today     the counter on 2569, the whole tile at the cover's distance; tagline
+Tagline: (to choose) "ยิงบั้งไฟขอฝน ตั้งแต่ยังไม่มีเมือง"
+Facts with nothing to show (sub lines): the stone lions of the name; the crystal Buddha after 2371; the name ยศสุนทร →
+  ยโสธร; the sister city Chichibu; the triangular pillow of Ban Si Than
+```
+
+Risks: the launch at 3-9 s carries "ราว 2315" only as a sub line, because the rite is older than the town and undated; the
+middle (16-29 s) must keep something close to the camera moving (the boats, the trucks) to avoid Uttaradit's 11-17 s sag.
