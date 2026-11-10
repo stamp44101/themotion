@@ -187,3 +187,29 @@ middle (16-29 s) must keep something close to the camera moving (the boats, the 
 
 Kinds: legend / celebrate / build / trade / arrive / build / grow / celebrate / today: 7 kinds, no two alike in a row,
 two `build` (the limit), the spectacle (`celebrate`) by 12 s.
+
+## v1 build (cloud, 10 Nov)
+
+[local]'s map (`yasothon_onep/`, ff931f5) corrected the geography. The Chi runs north-south along the **west** of the old
+town, with the long pond between it and the temples. Phaya Thaen park, the water and the toad museum lie 1.3-1.7 km **east**.
+There is no ONEP outline for Yasothon; the old quarter is [local]'s trace from imagery.
+
+The city is in `src/cities/yasothon/`. It uses `places.ts` (100 m/unit, origin the city pillar), `timeline.ts` (the approved
+beat table), `actors.ts`, `Landmarks.tsx`, `geo.ts` and `index.ts`. The score is `scripts/soundtrack_yasothon.py`: khaen,
+pong lang, klong yao, a sound for every ring, the launch's roar and the rain; it measures score +2.8 LU over the effects
+and -16.0 LUFS. `npm run check` passes with 0 errors and one warning: the old town is 2.0% of the tile on wide shots.
+Stills: `yasothon_v1_contact.jpg`.
+
+How v1 is drawn:
+- **The rocket** lies north of the launch tower at the park's north-west corner (the payoff's launch field). Body 22 and
+  tail 19 units: legend scale, as Uttaradit's sword was. It swings up about the foot of its tail onto the tower by 3.8 s,
+  lifts off at 4.8 s, and comes back down onto the same tower at 47-49 s for the second launch (51.8 s).
+- **Phra That Phra Anon** is drawn x2.2 (~8 units) so it reads over the trees. The toad museum is ~6 units across.
+- **The provincial hall** (unverified pin) is drawn 1.5 units east of [local]'s pin to stand clear of Chaeng Sanit.
+- **The water:** the Phaya Thaen water is drawn as a wide channel along its spine. Two bridges: the west road over the Chi
+  (OSM way 561113262, built 2501 in the model) and Chaeng Sanit over the water's outflow.
+
+Open (for the owner's still review):
+- Around 10-11 s the town is still mostly trees, and the stupa reads only from ~11 s.
+- The engine's day cycle puts the 4-5 s launch at dusk (orange sky).
+- In the festival shot the white stupa stands in front of the tower.

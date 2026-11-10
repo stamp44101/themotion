@@ -47,6 +47,8 @@
     "render:chanthaburi": "node scripts/check_story.mjs chanthaburi && remotion render Chanthaburi out/chanthaburi_look.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
     "audio:uttaradit": "node scripts/export_timeline.mjs src/cities/uttaradit/timeline.ts out/timeline_uttaradit.json && python3 scripts/soundtrack_uttaradit.py",
     "render:uttaradit": "node scripts/check_story.mjs uttaradit && remotion render Uttaradit out/uttaradit_look.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
+    "audio:yasothon": "node scripts/export_timeline.mjs src/cities/yasothon/timeline.ts out/timeline_yasothon.json && python3 scripts/soundtrack_yasothon.py",
+    "render:yasothon": "node scripts/check_story.mjs yasothon && remotion render Yasothon out/yasothon_look.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
     "audio:suratthani": "node scripts/export_timeline.mjs src/cities/suratthani/timeline.ts out/timeline_suratthani.json && python3 scripts/soundtrack_suratthani.py",
     "render:suratthani": "node scripts/check_story.mjs suratthani && remotion render SuratThani out/suratthani_look.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
     "render:phetchabun": "node scripts/check_story.mjs phetchabun && remotion render Phetchabun out/phetchabun_look.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
