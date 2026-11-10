@@ -106,7 +106,7 @@ export const STORY = buildStory({
       year: {hold: 1814},
       caption: {t0: 9.8, title: 'เมืองยศสุนทร', sub: 'พ.ศ. 2357 รัชกาลที่ 2 ยกบ้านสิงห์ท่าเป็นเมือง'},
       era: 'รัตนโกสินทร์',
-      callouts: [{label: 'พระธาตุพระอานนท์', dx: 120, dy: -170, p: [WAT_MAHATHAT[0], 7.6, WAT_MAHATHAT[1]], t0: 11.0, t1: 15.2}],
+      callouts: [{label: 'พระธาตุพระอานนท์', dx: 120, dy: -170, p: [WAT_MAHATHAT[0], 5.4, WAT_MAHATHAT[1]], t0: 11.0, t1: 15.2}],
       camera: [FO_IN, FO_END],
     },
     {

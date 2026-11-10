@@ -12,9 +12,11 @@ export const TILE = {x0: -34, x1: 38, z0: -38, z1: 40};
 // ---- the old town (OSM pins)
 export const PILLAR: P = [0, 0]; // ศาลเจ้าพ่อหลักเมือง (origin)
 export const WAT_SING_THA: P = [-0.9, 0.5]; // วัดสิงห์ท่า
-export const WAT_MAHATHAT: P = [-1.1, -2.9]; // วัดมหาธาตุ, พระธาตุพระอานนท์
-/** the governor's hall (โฮงเจ้าเมือง): not pinned; drawn on the block east of the pillar */
-export const HONG: P = [1.6, -1.2];
+/** วัดมหาธาตุ, พระธาตุพระอานนท์: OSM (-1.1, -2.9), 80 m from Chaeng Sanit; the stupa is drawn at legend scale (x1.5,
+ *  ~2.7 units across), so it is drawn 1.9 W of its pin to stand clear of the road (v1f ran the road into it) */
+export const WAT_MAHATHAT: P = [-3.0, -2.8];
+/** the governor's hall (โฮงเจ้าเมือง): not pinned; drawn on the block south-east of the pillar, clear of Chaeng Sanit */
+export const HONG: P = [1.2, 1.9];
 /** ท่าน้ำเก่าบ้านสิงห์ท่า ([local]'s estimate from imagery, due west of Wat Sing Tha), drawn 0.4 E onto the bank */
 export const LANDING: P = [-5.6, 1.9];
 /** the old quarter ([local]'s estimate from imagery and OSM, not a legal boundary): the town's houses fill it */
@@ -54,7 +56,7 @@ export const WEST_ROAD: P[] = [[-2.6, -6.2], [-6.4, -7.6], [-9.6, -8.4], [-13.0,
 export const CHI_BRIDGE_AT = 38.7;
 export const OUTFLOW_BRIDGE_AT = 2.5;
 /** the provincial hall ([local]: unverified, the government compound on the east side of Chaeng Sanit) */
-export const HALL: P = [-2.6, -11.8];
+export const HALL: P = [-1.9, -11.6];
 export const MARKET: P = [4.8, -4.1]; // ตลาดสด (OSM)
 
 // ---- the festival side

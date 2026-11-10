@@ -54,8 +54,8 @@ Every city in `src/cities/` is merged; upload files are on the `renders` release
   [local]'s v1c still QA found 4 more (cloud on the caption, tower poles in
   the text, tower over the toad, a missing truck): fixed in v1d; [local]'s
   v1d render passed, its two minor notes (empty sky at 7.6 s, small trucks) fixed in v1e. v1f (0ad6830) rendered and passed
-  [local]'s QA with no defects; `yasothon_look_social.mp4` on the `renders` release. **Waiting for the owner to watch and
-  say "Merge".** Post 19:00-21:00 and write the time down; the read goes in `experiments.md` §21.
+  [local]'s QA with no defects; `yasothon_look_social.mp4` on the `renders` release. The owner saw roads through the landmarks on v1f;
+  fixed in v1g with a new road-vs-landmark check. **Next: [local] renders v1g; the owner watches and says "Merge".** Post 19:00-21:00 and write the time down; the read goes in `experiments.md` §21.
 - Disputed so far: the founding (2357 under Rama II in most sources; the province's page says Rama III), whether
   ยศสุนทร was granted or only proposed; no year yet for ยศสุนทร → ยโสธร or for the festival becoming the province's.
 - Next: [gemini] answers the request; [local] the ONEP outline and the story places; cloud checks the answer and

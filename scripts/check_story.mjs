@@ -64,6 +64,8 @@ const FRAME_WAIVED = new Set([...YEAR_HOLD_WAIVED, 'watraikhing']);
 // whole-tile shot because it is drawn 8x. It must hold for LEGIBLE_SECONDS of the beat
 // (Korat's 1901 train, which reads, clears it for 0.47 s).
 const LEGIBLE_PX = 80;
+// cities posted before the road-through-landmark rule (owner, 10 Nov: posted cities are not reopened); warn only
+const ROAD_SITE_WAIVED = new Set(['chiangrai', 'khonkaen', 'lampang', 'nakhonpathom', 'nakhonsi', 'nan', 'phetchabun', 'phuket', 'ratchaburi', 'sakonnakhon', 'suphanburi', 'suratthani', 'surin', 'ubon', 'udonthani', 'uttaradit']);
 // the counter and caption sit in the top of the frame (CLAUDE.md: ~30%; a two-line subtitle reaches ~37%); an actor that declares `tall` (a rocket, a tower,
 // a giant: the height of its top above its point) must keep that top under the band while the text is up
 const TEXT_BAND = 0.37 * 1920;
@@ -454,6 +456,32 @@ for (const city of cities) {
       });
       if (cut) err(`the wall runs through "${f.label ?? 'a landmark'}" while both stand: draw it clear of the wall line, inside or out, or mark a part built on the wall \`onWall\` (Phetchaburi's east wall cut วัดกำแพงแลง's enclosure).`);
     }
+  }
+
+  // Roads never run through a landmark: every road segment is kept clear of every landmark site and every hand-placed
+  // footprint that stands while the road does. Yasothon v1f's Chaeng Sanit ran into the stupa, the governor's hall and the
+  // shophouse row (all drawn at legend scale over their real pins); the owner caught it on the render.
+  if (layout) {
+    const dist = ([ax, az], [bx, bz], x, z) => {
+      const dx = bx - ax;
+      const dz = bz - az;
+      const u = Math.max(0, Math.min(1, ((x - ax) * dx + (z - az) * dz) / (dx * dx + dz * dz || 1)));
+      return Math.hypot(ax + u * dx - x, az + u * dz - z);
+    };
+    const hits = [];
+    for (const r of layout.roads ?? []) {
+      const half = r.width / 2;
+      for (const [x, z, rad] of layout.sites ?? []) {
+        if (dist(r.from, r.to, x, z) < rad + half) hits.push(`site at (${x.toFixed(1)}, ${z.toFixed(1)}) r ${rad}`);
+      }
+      for (const f of layout.footprints ?? []) {
+        if ((f.to ?? Infinity) < r.year) continue;
+        const [x, z, rad] = f.fp.rect ? [f.fp.rect[0], f.fp.rect[1], Math.hypot(f.fp.rect[2], f.fp.rect[3]) / 2 * 0.85] : f.fp.disc ?? [0, 0, -1];
+        if (rad > 0 && dist(r.from, r.to, x, z) < rad + half) hits.push(`"${f.label ?? 'a footprint'}"`);
+      }
+    }
+    const uniq = [...new Set(hits)];
+    if (uniq.length) (ROAD_SITE_WAIVED.has(city) ? warn : err)(`a road runs through ${uniq.length} landmark(s): ${uniq.slice(0, 4).join(', ')}${uniq.length > 4 ? ', ...' : ''}. Move the road where it really runs and draw the landmark clear of it (a legend-scale landmark is still placed off the road), or shrink its site to what is drawn.`);
   }
 
   // Moving things (src/engine/actors.ts): each registered actor, and every train, is

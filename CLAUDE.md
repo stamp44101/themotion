@@ -54,6 +54,7 @@ layout + audit every hand-placed coordinate, camera keys last.
 - **Trace curved rivers as centrelines** (`path`), not stacked bands.
 - **A boat never passes under a deck lower than itself.**
 - **Every road bridges the water it crosses; cars drive only on built roads.** The engine bridges only its own rivers.
+- **A road never runs through a landmark (owner).** A legend-scale landmark is drawn off the road; its site covers what is drawn (`check_story`).
 - **People, stalls and animals stay on land; stations stand beside the track.**
 - **A wall never runs across open water** (water gate where a river crosses).
 - **Real city footprints are not rectangles** (`city.outline` from ONEP); a new footprint means new camera keys.

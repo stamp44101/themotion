@@ -62,9 +62,9 @@ export const YASOTHON: CityConfig = {
       built: [1815.2, 80],
       modern: [1975, 40],
       keepOut: [
-        [WAT_MAHATHAT[0] + 1, WAT_MAHATHAT[1], 4.2],
+        [WAT_MAHATHAT[0], WAT_MAHATHAT[1] + 1, 2.8],
         [WAT_SING_THA[0], WAT_SING_THA[1] + 0.4, 1.4],
-        [HONG[0], HONG[1], 2.4],
+        [HONG[0], HONG[1], 1.6],
         [PILLAR[0], PILLAR[1], 0.8],
       ],
     },
@@ -91,10 +91,10 @@ export const YASOTHON: CityConfig = {
     paddies: [1700, 1760],
     sites: [
       [TOWER[0], TOWER[1], 3.4],
-      [WAT_MAHATHAT[0], WAT_MAHATHAT[1], 2.6],
-      [WAT_MAHATHAT[0] + 2.9, WAT_MAHATHAT[1] + 0.4, 1.6],
+      [WAT_MAHATHAT[0], WAT_MAHATHAT[1], 1.6],
+      [WAT_MAHATHAT[0], WAT_MAHATHAT[1] + 2.4, 1.1],
       [WAT_SING_THA[0], WAT_SING_THA[1] + 0.4, 1.3],
-      [HONG[0], HONG[1], 2.2],
+      [HONG[0], HONG[1], 1.4],
       [PILLAR[0], PILLAR[1], 0.6],
       [HALL[0], HALL[1], 2.6],
       // the toad is drawn ~4.5 units in radius (x6): its site covers all of it

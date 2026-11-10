@@ -286,3 +286,16 @@ the subtitle. Fixes:
 [local] rendered v1f (0ad6830): `check_render` ok (largest luma jump 4.3, darkest 54.4), 60.053 s, 5.80 Mbps, 43.5 MB.
 Its moving-frame QA found no defects. The file is on the `renders` release as `yasothon_look_social.mp4`. It is waiting
 for the owner to watch it and say "Merge". Post at 19:00-21:00 and write down the post time.
+
+## v1g: the road through the landmarks (owner, 10 Nov)
+
+The owner saw, on the v1f render, Chaeng Sanit running into the stupa, the governor's hall and the shophouse row ("สิ่งปลูกสร้างขวางถนนแบบนี้เลยหรอ").
+The legend-scale drawings (x1.5-2.2 on their real pins) spread over the real road. Fixes:
+- **Phra That Phra Anon** is drawn x1.5 (was x2.2) at (-3.0, -2.8), 1.9 W of its OSM pin and 2.1 units from the road. Its sim is
+  now south of the stupa.
+- **The governor's hall** is drawn x1.1 at (1.2, 1.9), south-east of the pillar.
+- **The shophouses** are in two rows along a street parallel to Chaeng Sanit, ~3 units south-west of it.
+- **The provincial hall** is drawn 2.2 E of [local]'s pin, clear of the road.
+- **New `check_story` rule:** a road segment may not pass through a landmark site or a footprint. The 16 posted cities
+  that break it only warn.
+`npm run check`: 0 errors. Stills checked at 12, 14, 18, 26, 28, 32 and 40 s.

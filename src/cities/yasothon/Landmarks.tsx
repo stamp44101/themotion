@@ -356,17 +356,17 @@ const OldTown: React.FC<{t: number; Y: number}> = ({t, Y}) => {
           <StiltHouse k={foundHouseK(j, t, Y)} i={j} />
         </group>
       ))}
-      {/* drawn at legend scale (x2.2), as the town's other landmarks, so it reads over the trees */}
-      <group position={[WAT_MAHATHAT[0], 0, WAT_MAHATHAT[1]]} scale={2.2}>
+      {/* drawn at legend scale (x1.5) so it reads over the trees; its sim stands south of it, away from the road */}
+      <group position={[WAT_MAHATHAT[0], 0, WAT_MAHATHAT[1]]} scale={1.5}>
         <Stupa k={s} />
-        <group position={[1.3, 0, 0.2]} scale={0.8}>
-          <Sim k={s} />
-        </group>
+      </group>
+      <group position={[WAT_MAHATHAT[0], 0, WAT_MAHATHAT[1] + 2.4]} rotation-y={Math.PI / 2}>
+        <Sim k={s} />
       </group>
       <group position={[WAT_SING_THA[0], 0, WAT_SING_THA[1] + 0.4]}>
         <Sim k={h} />
       </group>
-      <group position={[HONG[0], 0, HONG[1]]} scale={1.5}>
+      <group position={[HONG[0], 0, HONG[1]]} scale={1.1}>
         <Hong k={h} />
       </group>
       {/* the city pillar's small shrine */}

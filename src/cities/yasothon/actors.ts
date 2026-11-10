@@ -123,7 +123,15 @@ export const boatAt = (i: number, t: number) => {
   return along(UPRIVER, d);
 };
 /** two rows of shophouses on the street east of the pillar, built one after another through the trade beat */
-export const SHOPS = Array.from({length: 12}, (_, j) => ({x: 0.6 + (j % 6) * 1.15, z: j < 6 ? 1.3 : 2.9}));
+/** two rows of shophouses along a street parallel to Chaeng Sanit on its south-west side (~3 units off the road), south-east
+ *  of the governor's hall */
+const ST_U: [number, number] = [0.75, 0.66];
+const ST_N: [number, number] = [-0.66, 0.75];
+export const SHOPS = Array.from({length: 12}, (_, j) => {
+  const s = (j % 6) * 1.2;
+  const o = j < 6 ? 0 : 1.3;
+  return {x: Math.round((2.9 + ST_U[0] * s + ST_N[0] * o) * 100) / 100, z: Math.round((3.2 + ST_U[1] * s + ST_N[1] * o) * 100) / 100};
+});
 export const shopK = (j: number, t: number, Y: number) => (Y > 1926 ? 1 : smooth((beatK('trade', t) - 0.25 - (j % 6) * 0.08) / 0.18));
 
 // ------------------------------------------------------------------ the road: trucks down Chaeng Sanit
@@ -174,7 +182,7 @@ export const ACTORS: Actor[] = [
   {id: 'tower2', during: [46.4, 53.8], size: 5, tall: TAIL + 6, minInFrame: 0.3, at: (t) => (towerK(t) > 0.3 ? [TOWER[0], 0, TOWER[1]] : null)},
   {id: 'rain', during: [6.9, 9.2], size: 10, tall: RAIN_H, minInFrame: 0.3, at: (t) => (rainK(t) > 0.3 ? [3, rainTop(t) - RAIN_H, 6] : null)},
   {id: 'crowd', during: [3.6, 5.2], size: 5, at: (t) => (crowdK(t) > 0.05 ? [TOWER[0] - 2, 0.6, TOWER[1]] : null)},
-  {id: 'stupa', during: [10.2, 15.4], size: 4, at: (t, c) => (stupaK(t, c.Y) > 0.05 ? [WAT_MAHATHAT[0], 3.6, WAT_MAHATHAT[1]] : null)},
+  {id: 'stupa', during: [10.2, 15.4], size: 4, at: (t, c) => (stupaK(t, c.Y) > 0.05 ? [WAT_MAHATHAT[0], 2.6, WAT_MAHATHAT[1]] : null)},
   ...Array.from({length: 2}, (_, i): Actor => ({
     id: `boat${i}`,
     during: [16.6, 22.6],

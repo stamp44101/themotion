@@ -66,20 +66,10 @@ Thai text uses Kanit. Everything is code-generated; the soundtrack is synthesize
 
 ## Look & feel lessons
 
-- **A thing that rises declares `tall`; its top stays under the text band.** Yasothon v1b's rocket (and the second rocket
-  at 49-54 s) ran through the caption and the counter (found by [local] on the encode, 10 Nov). Stills at whole seconds
-  missed it. An actor that rises (a rocket, a tower, a giant) sets `tall` (the height of its top above `at`), and
-  `check_story` fails it if that top is in the top 37% (a two-line subtitle reaches that far) for more than 0.3 s while
-  the text is up. v1c still put the payoff's cloud on the caption and the tower's poles across the subtitle (found by [local]
-  on v1c stills), so clouds and the tower are actors with `tall` too. Yasothon's fix: the camera
-  rides up with the rocket at 200 out (target 10 under the nose), the rocket disappears into a thin rain-cloud layer at
-  fly 32, the cloud fades as the camera comes down, and the payoff rocket rises from its foot on the tower instead of
-  coming down out of the sky.
-- **A boat keeps the river's scale and stops in the channel.** Yasothon v1b's trade boats were drawn x1.8 to pass the
-  80-px rule: a 360 m hull, longer than the row of houses, lying across the 180 m Chi and running onto the bank at the landing.
-  Draw the boat at the river's scale (x0.9) and bring the camera in instead (30-40 out). End its path mid-channel, not on a
-  landing point on the bank.
-- **A tall frame never stands in front of a landmark.** Yasothon v1b's bamboo launch tower stood between the camera and
-  the toad museum at 45-49 s, so its legs read as piercing the toad. It also crossed the road shot at 26 s. Take a temporary
-  structure down between its uses (`towerK`), and pick the azimuth so that the landmark is at least ~60 degrees off the line
-  from the camera to the tall frame.
+- **A road never runs through a landmark (owner, 10 Nov 2569).** Yasothon v1f passed [local]'s render QA, yet the owner
+  saw Chaeng Sanit run straight into Phra That Phra Anon, the governor's hall and the shophouse row. Each was drawn at
+  legend scale (x1.5-2.2) on its real pin, 80-200 m from the real road, so the drawn building spread over the road.
+  The occupancy audit only kept *generated* houses off roads. `check_story` now fails any road segment that passes
+  within a landmark site's radius or a footprint's half-diagonal while both stand. The cities posted before the rule only
+  warn. Fix: draw a legend-scale landmark clear of the road (Yasothon's stupa is drawn 1.9 units west of its pin, the hall
+  2.2 east), lay the shophouses along a street parallel to the road, and make each site cover the whole drawn landmark.
