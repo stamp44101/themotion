@@ -975,3 +975,48 @@ Reading (one post at midday, so the hour changed too; a lean, not a rule):
 
 **Still to do:** for the next city keep the half-made frame-0 symbol, move the close event into 3-9 s,
 and find a resident (or a story people pass on) for the shares.
+
+## 20. Uttaradit: the Nam Phi iron forged into a sword on the land, the 2316 fight inside 3-9 s — read: the best hook of all reads again, share and like back to "higher"
+
+The cover keeps §19's rule (a symbol half-made by hand at frame 0 that changes shape: a glowing bar beaten into a blade) on
+the whole land tile at legend scale (the owner sent the first close-camera style frames back). §19's two fixes were tried:
+the close event lands inside 3-9 s (the fight at Phichai 4.8-9.4 s, the right sword snapping at ~7.4 s), and it is the cover's
+own sword in the hero's hand, a hero the province owns (Phraya Phichai Dap Hak, honoured every January). Hybrid loop: the owner
+picked the cover and sent the build to render; [local] rendered four times (v1b-v1d) on its own QA and the owner's eye
+(the skewed hip roofs, now the engine's `HipRoof`).
+
+### Result (owner's screenshots, 9 Nov 21:49, ~26 h after the post; **posted ~20:00 on 8 Nov**, the first evening post with its time written down)
+
+Skip rate **38.1% ("lower", green), the best of all reads**, 3,516 views from 2,540 viewers, average watch **13 s**, 1 follow.
+118 likes, 1 comment, 10 reposts, 17 shares, 3 saves: **share 0.6% ("higher")**, **like 4.4% ("higher")**, save 0.1%, repost
+0.4%, comment 0.0% ("lower"). Views from the Reels tab 61.4%, Feed 21.2%, Stories 10.1%, Explore 5.8%, Profile 0.9%. The views
+curve ran with a typical reel's for the first hours, then a little under it (~3.5K against ~3.9K at the same age). Retention
+(read off the chart, about +/- 3 points): ~50% at ~6 s, ~30% at ~12 s, ~25% at ~15 s, ~20% at ~19 s, ~15% at ~25 s,
+~12% at ~31 s, ~10% at ~43 s, ~8% near the end.
+
+| | Udon Thani | Ratchaburi | Sakon Nakhon | Chanthaburi | **Uttaradit** |
+|---|---|---|---|---|---|
+| cover | jar painted | jar thrown | cloth dyed | gem cut | **sword forged** |
+| half-made by hand at 0 s, changes shape | yes | yes | colour only | yes | **yes** |
+| close event in 3-9 s | no | no (far procession) | no | no (10 s) | **yes (fight 4.8-9.4 s)** |
+| skip rate | 41.4% | 42.0% | 53.1% | 40.6% | **38.1%** |
+| average watch | 19 s | 14 s | 12 s | 16 s | **13 s** |
+| like / save / share | 9.8 / 0.8 / 4.7% | 5.7 / 0.2 / 4.1% | 5.0 / 0.4 / 0.4% | 4.2 / 0.0 / 0.3% | **4.4 / 0.1 / 0.6%** |
+| repost | 1.8% | 1.2% | 0.9% | 0.6% | **0.4%** |
+| views from the Reels tab | 69.7% | 60.8% | 55.3% | 64.7% | **61.4%** |
+| posted | morning | morning | evening (time not written) | ~12:00 | **~20:00** |
+
+Reading (one post; the hour moved back to the evening too, so a lean, not a rule):
+- **The cover rule holds a fourth time:** a symbol half-made by hand at frame 0 that changes shape, now on the whole tile,
+  gave the best skip rate yet (38.1%, 2.5 points under Chanthaburi). Two jars, a gem and a sword agree.
+- **The 3-9 s close event moved the early curve a little, not the average:** 50% falls at ~6 s against Chanthaburi's ~5 s,
+  and 30% at ~12 s against ~10 s; but the average watch is 13 s against 16 s, so the tail after ~15 s held less (the long
+  travel to Bang Pho Tha It at 11-17 s is the next sag to look at).
+- **Share and like came back to "higher"** for the first time since the forest tiles' run, with a hero the province owns and
+  a story people pass on (the broken sword). Shares are still far under the jars' 4-5%: a hero the province honours is not yet
+  a thing each viewer names as theirs.
+- **The roofs were caught by the owner, not by a check:** a whole class of defect (skewed hip roofs in 11 cities) had gone
+  unseen; `check_roofs` now stops it in new cities.
+
+**Still to do:** keep the half-made frame-0 symbol on the whole tile and the close event in 3-9 s; look at the 11-17 s
+travel (keep something happening close to the camera through it); keep posting at 19:00-21:00 and write the time down.
