@@ -221,3 +221,7 @@ Left as they are, with the reason:
   at sunset is kept.
 - **check_story warns that the old town covers 2.0% of the tile.** That is the true footprint at 100 m/unit. The early
   beats are framed at 44-70 units, elevation 38-40 degrees (the launch looks up on purpose).
+
+**Owner passed the v1b stills and sent it to render (10 Nov, "ส่ง render").** [local] renders on the GPU
+(`npm run render:yasothon`, then `npm run encode -- yasothon`, `check_render`), uploads to the `renders` release, and posts
+QA notes in PR #89.
