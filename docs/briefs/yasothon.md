@@ -169,3 +169,21 @@ Facts with nothing to show (sub lines): the stone lions of the name; the crystal
 
 Risks: the launch at 3-9 s carries "ราว 2315" only as a sub line, because the rite is older than the town and undated; the
 middle (16-29 s) must keep something close to the camera moving (the boats, the trucks) to avoid Uttaradit's 11-17 s sag.
+
+**Owner approved storyline v1 as written (10 Nov, "ก ใช้ตามนี้").** The beat table for `timeline.ts` (`buildStory`),
+`standard: 1`; camera keys come last, after [local]'s ONEP outline and pins (CLAUDE.md: footprint first):
+
+| id | kind | t (s) | year on the counter | held | caption / sub |
+|---|---|---|---|---|---|
+| hero | legend | 0-3.0 | ~2300 → 2312 (no counter under the title) | - | title ยโสธร, sub "เมืองบั้งไฟริมแม่น้ำชี" |
+| launch | celebrate | 3.0-9.2 | 2312 → 2316 | - | "บุญบั้งไฟขอฝน" / sub "ราว 2315 ชาวลาวตั้งบ้านสิงห์ท่าริมน้ำชี" |
+| found | build | 9.2-16.0 | 2316 → 2357 | **2357 ≥ 1 s** | "ยกบ้านสิงห์ท่าเป็นเมืองยศสุนทร" / sub "รัชกาลที่ 2 · พระสุนทรราชวงศา เจ้าเมืองคนแรก" |
+| trade | trade | 16.0-23.0 | 2357 → 2470 | - | "เรือค้าขายขึ้นล่องน้ำชี" / sub "ราว 2460 ตึกแถวย่านสิงห์ท่า" |
+| road | arrive | 23.0-29.0 | 2470 → 2512 | - | "ถนนแจ้งสนิทตัดผ่านเมือง" (no year: built 2480-2482, gemini only) |
+| province | celebrate → change to `split`-like verb from §3.4 at build time | 29.0-35.0 | 2512 → 2515 | **2515 ≥ 1 s** | "ตั้งจังหวัดยโสธร" / sub "1 มี.ค. 2515 แยกจากอุบลราชธานี" |
+| grow | grow | 35.0-44.0 | 2515 → 2560 | - | sub "ทุ่งข้าวหอมมะลิรอบเมือง" (wide ≥ 160, ≥ 7 s) |
+| festival | celebrate (callback) | 44.0-54.0 | 2560 → 2569 | - | "บุญบั้งไฟเดือนหก ทุกเดือนพฤษภาคม" / sub "พิพิธภัณฑ์พญาคันคาก เปิด 2562" |
+| today | today | 54.0-60.0 | 2569 ≥ 1 s | 2569 | finale + tagline |
+
+Two `celebrate` beats must not touch; between them are build / trade / arrive / (province) / grow. The province beat's kind is
+settled against §3.4's list when `timeline.ts` is written (check_story enforces ≥ 4 kinds, no two alike in a row).

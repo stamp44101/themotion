@@ -43,6 +43,9 @@ Every city in `src/cities/` is merged; upload files are on the `renders` release
   for [gemini], style frames `docs/briefs/yasothon_styleframes.jpg` (`src/styleframes/yasothon.tsx`).
 - Covers: **A1 a giant bang fai bound by hand, swung up onto its tower (cloud's pick)**, A2 the khit axe pillow
   stuffed section by section, B Phaya Khankhak the toad king with a rocket going up. **Owner picked A1 (10 Nov).** Cloud watches PR #89.
+- [gemini] answered (160efc6); cloud checked it (c114ab8). **Owner approved storyline v1 (10 Nov)**: launch 3-9 s,
+  2357 and 2515 held, trade / road / grow in the town, payoff at the May festival with the toad museum (opened 10 May 2562).
+  Beat table at the end of the brief. Waiting on [local]'s ONEP outline and pins before layout and camera.
 - Disputed so far: the founding (2357 under Rama II in most sources; the province's page says Rama III), whether
   ยศสุนทร was granted or only proposed; no year yet for ยศสุนทร → ยโสธร or for the festival becoming the province's.
 - Next: [gemini] answers the request; [local] the ONEP outline and the story places; cloud checks the answer and
