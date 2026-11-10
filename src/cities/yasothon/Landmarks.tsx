@@ -278,12 +278,15 @@ const Rain: React.FC<{t: number}> = ({t}) => {
   if (k < 0.02) return null;
   return (
     <group>
-      {Array.from({length: 160}, (_, i) => {
-        const x = -14 + hash(i) * 30;
-        const z = -10 + hash(i + 77) * 30;
-        const y = 22 - (((t * 30 + hash(i + 3) * 22) % 22) + 0);
+      {/* the rain falls from the cloud's height over the field and the village, so the camera's way down from the cloud
+          is through rain, never an empty sky */}
+      {Array.from({length: 320}, (_, i) => {
+        const x = -14 + hash(i) * 34;
+        const z = -10 + hash(i + 77) * 32;
+        const H = 44;
+        const y = H - ((t * 34 + hash(i + 3) * H) % H);
         return (
-          <mesh key={i} position={[x, y, z]} scale={[0.06, 1.4, 0.06]}>
+          <mesh key={i} position={[x, y, z]} scale={[0.12, 2.4, 0.12]}>
             <boxGeometry args={[1, 1, 1]} />
             <meshBasicMaterial color="#cfe3f2" transparent opacity={0.7 * k} />
           </mesh>
@@ -415,8 +418,9 @@ const Shophouses: React.FC<{t: number; Y: number}> = ({t, Y}) => (
 // ------------------------------------------------------------------ the road: trucks
 const Truck: React.FC<{i: number}> = ({i}) => (
   <group>
-    <Box p={[0, 0.35, -0.35]} s={[0.55, 0.45, 0.5]} c={i % 2 ? '#2f5d8a' : '#c7462e'} />
-    <Box p={[0, 0.4, 0.3]} s={[0.6, 0.55, 0.9]} c="#7a5a3c" />
+    {/* bright cab and canvas so the trucks read against the road and the trees */}
+    <Box p={[0, 0.35, -0.35]} s={[0.55, 0.45, 0.5]} c={i % 2 ? '#2f7bd0' : '#e0402a'} />
+    <Box p={[0, 0.4, 0.3]} s={[0.6, 0.55, 0.9]} c={i % 2 ? '#f2d24a' : '#f4f1e6'} />
   </group>
 );
 const Trucks: React.FC<{t: number}> = ({t}) => (

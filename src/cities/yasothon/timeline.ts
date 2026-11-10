@@ -31,7 +31,7 @@ const ride = (lift: number, t0: number, t1: number, az0: number, az1: number, el
 const LA_IN: Key = [3.6, ROCKET_AT[0] - 2, 35, ROCKET_AT[1], 200, -62, 16, 30];
 const LA_RIDE = ride(4.8, 4.5, 6.9, -60, -52, 15, 11);
 const LA_UP = LA_RIDE[LA_RIDE.length - 1];
-const LA_DOWN: Key = [8.7, 0, 2, 2, 120, -40, 30, 30];
+const LA_DOWN: Key = [8.5, 0, 2, 2, 120, -40, 30, 30];
 // 2357: the temple and the governor's hall rise in the village, from the south-south-west
 const FO_IN: Key = [9.8, WAT_MAHATHAT[0] + 1.2, 3, WAT_MAHATHAT[1] + 1.4, 58, -22, 40, 30];
 const FO_END: Key = [15.6, WAT_MAHATHAT[0] + 1.6, 3, WAT_MAHATHAT[1] + 1.6, 44, -4, 38, 30];
@@ -39,8 +39,8 @@ const FO_END: Key = [15.6, WAT_MAHATHAT[0] + 1.6, 3, WAT_MAHATHAT[1] + 1.6, 44, 
 const TR_IN: Key = [16.4, LANDING[0] - 0.5, 1, LANDING[1] + 4, 40, 14, 32, 30];
 const TR_END: Key = [22.6, LANDING[0] + 0.5, 1, LANDING[1] + 1, 30, 38, 32, 30];
 // the road: Chaeng Sanit cut down the town's east side, trucks in from the north-west, from the east
-const RD_IN: Key = [24.0, -3.0, 1, -8, 48, 66, 34, 30];
-const RD_END: Key = [29.0, 1.0, 1, -3, 40, 98, 34, 30];
+const RD_IN: Key = [24.0, -3.0, 1, -8, 40, 66, 36, 30];
+const RD_END: Key = [28.8, 1.0, 1, -3, 34, 98, 36, 30];
 // 2515: the provincial hall on the road, from the north-east, the old town behind it
 const PR_IN: Key = [29.8, HALL[0], 1.4, HALL[1], 60, 126, 28, 30];
 const PR_END: Key = [34.6, HALL[0], 1.4, HALL[1] + 1, 52, 148, 28, 30];
@@ -67,7 +67,7 @@ export const STORY = buildStory({
     ...between(LA_DOWN, FO_IN, 3),
     ...between(FO_END, TR_IN, 3),
     ...between(TR_END, RD_IN, 3),
-    ...between(RD_END, PR_IN, 3),
+    ...between(RD_END, PR_IN, 5),
     ...between(PR_END, GR_IN, 6, 0.1),
     ...between(GR_END, FE_IN, 4, 0.1),
     ...between(FE_RIDE[FE_RIDE.length - 1], END, 5),

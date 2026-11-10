@@ -261,3 +261,12 @@ Sounds were added for the tower coming down and going up and for the payoff's cl
 
 Clouds and the tower are now actors with `tall`, and the text band in `check_story` is now 37%, the caption's two-line
 subtitle. QA stills: `yasothon_v1d_qa.jpg`. `npm run check`: 0 errors. Score: -16.0 LUFS, +2.6 LU over the effects.
+
+## v1e: [local]'s two minor notes on the v1d render fixed (cloud, 10 Nov)
+
+[local] rendered v1d (81885c5): `check_render` ok, and all four v1c points hold. It raised two minor notes:
+- **7.6-8 s, empty sky as the camera comes down.** The rain now starts at 6.4 s and falls from ~44 units high over the
+  field and the village, so the camera comes down through rain (the rite's answer). The camera reaches the village by
+  8.5 s. The rain stays below the caption.
+- **25-28 s, trucks hard to pick out.** The trucks now have bright cabs and canvas (red / white, blue / yellow), and the
+  road camera comes in to 34-40.

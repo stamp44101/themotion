@@ -199,7 +199,7 @@ add(sfx, thud(0.6, 80), 3.85, pan=0.0)
 # the launch: the crowd gathers, the fuse, the roar; the rain on the paddies
 add(sfx, babble(LIFT - launch[0], 1.0), launch[0], pan=-0.2, gain=0.3)
 launch_roar(LIFT)
-add(sfx, rain(2.8, 1.0), 6.9, pan=0.0)
+add(sfx, rain(3.3, 1.0), 6.4, pan=0.0)
 for k in range(3):
     add(sfx, filt(drum(55, 34, 1.6, 0.8), "low", 300), 7.0 + 0.5 * k, pan=rng.uniform(-0.4, 0.4), gain=0.25)  # thunder
 # the bamboo tower taken down after the launch (7.6-8.3 s)

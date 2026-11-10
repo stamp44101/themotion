@@ -96,7 +96,7 @@ export const crowdAt = (i: number): P => {
   return [TOWER[0] + Math.cos(a) * r, TOWER[1] + Math.sin(a) * r];
 };
 /** the rain over the paddies once the rocket is up */
-export const rainK = (t: number) => smooth((t - 7.0) / 0.6) * (1 - smooth((t - 9.4) / 0.6));
+export const rainK = (t: number) => smooth((t - 6.4) / 0.5) * (1 - smooth((t - 9.4) / 0.6));
 
 // ------------------------------------------------------------------ 2357: the stupa and the governor's hall
 export const stupaK = (t: number, Y: number) => (Y > 1815 ? 1 : smooth((beatK('found', t) - 0.02) / 0.26));
