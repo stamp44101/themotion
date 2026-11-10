@@ -37,10 +37,21 @@ Every city in `src/cities/` is merged; upload files are on the `renders` release
   7 Jan 2316 in the old April-new-year count is January 1774); the train's steam puffs are the same
   everywhere (`engine/train-steam` if wanted).
 
+## In progress: Yasothon (ยโสธร), branch `city/yasothon`, draft PR (owner picked it, 10 Nov)
+- Brief v0 `docs/briefs/yasothon.md` (dates checked on the web from search excerpts; the province's and the
+  Isaan Record's pages are outside cloud's network), research request `docs/briefs/yasothon_research_request.md`
+  for [gemini], style frames `docs/briefs/yasothon_styleframes.jpg` (`src/styleframes/yasothon.tsx`).
+- Covers: **A1 a giant bang fai bound by hand, swung up onto its tower (cloud's pick)**, A2 the khit axe pillow
+  stuffed section by section, B Phaya Khankhak the toad king with a rocket going up. **Waiting for the owner's pick.**
+- Disputed so far: the founding (2357 under Rama II in most sources; the province's page says Rama III), whether
+  ยศสุนทร was granted or only proposed; no year yet for ยศสุนทร → ยโสธร or for the festival becoming the province's.
+- Next: [gemini] answers the request; [local] the ONEP outline and the story places; cloud checks the answer and
+  writes the storyline (launch at 3-9 s, the town small at the cover, at most two far places).
+
 ## Next
-- A new city in a new session (one city per session). Candidates named before: Yasothon, Samut
-  Songkhram, Ang Thong (also Tak, Chiang Mai, Nong Khai). Hybrid loop: the owner picks the cover and
-  passes the 0–11 s stills; cloud, [gemini] and [local] run research, map, build, render and QA.
+- After Yasothon, one city per session. Candidates named before: Samut Songkhram, Ang Thong (also Tak,
+  Chiang Mai, Nong Khai). Hybrid loop: the owner picks the cover and passes the 0–11 s stills; cloud,
+  [gemini] and [local] run research, map, build, render and QA.
 
 ## Old branches (10 Nov review, owner: "จัดการตามที่เสนอ")
 - Delete, nothing lost: `city/kanchanaburi` (in main via PR #83), `exp/korat-hero` (in main),
