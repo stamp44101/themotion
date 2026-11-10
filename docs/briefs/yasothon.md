@@ -76,7 +76,9 @@ decorated bang fai eh is a procession float and could come in the payoff); there
 the hammer swung alone in Uttaradit's frames); the tower is four leaning poles; the Chi's course is drawn by eye until
 [local]'s map; the counter shows 2243 because the frames borrow Korat's story; the toad is made of spheres.
 
-**Waiting for the owner's pick.**
+**Owner picked A1 (10 Nov): the giant bang fai bound by hand and swung onto its tower.** The launch is the 3-9 s
+event; the pillow and Phaya Khankhak can come back in the payoff or a sub line. Research to confirm: what a traditional
+Yasothon bang fai and its launch tower look like (material, binding, tail, size).
 
 ## Storyline worksheet (`docs/storyline.md` §5) — first guess, before research
 

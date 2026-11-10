@@ -42,7 +42,7 @@ Every city in `src/cities/` is merged; upload files are on the `renders` release
   Isaan Record's pages are outside cloud's network), research request `docs/briefs/yasothon_research_request.md`
   for [gemini], style frames `docs/briefs/yasothon_styleframes.jpg` (`src/styleframes/yasothon.tsx`).
 - Covers: **A1 a giant bang fai bound by hand, swung up onto its tower (cloud's pick)**, A2 the khit axe pillow
-  stuffed section by section, B Phaya Khankhak the toad king with a rocket going up. **Waiting for the owner's pick.**
+  stuffed section by section, B Phaya Khankhak the toad king with a rocket going up. **Owner picked A1 (10 Nov).** Cloud watches PR #89.
 - Disputed so far: the founding (2357 under Rama II in most sources; the province's page says Rama III), whether
   ยศสุนทร was granted or only proposed; no year yet for ยศสุนทร → ยโสธร or for the festival becoming the province's.
 - Next: [gemini] answers the request; [local] the ONEP outline and the story places; cloud checks the answer and
