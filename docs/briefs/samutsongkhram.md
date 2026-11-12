@@ -56,3 +56,17 @@ and Don Hoi Lot are sub lines in the grow shot.
 Tagline (to choose): "ปลาทูหน้างอ คอหัก ต้องแม่กลอง" / "เมืองเล็กที่สุด ที่รถไฟวิ่งผ่านกลางตลาด"
 Facts with nothing to show (sub lines): Rama II born at Amphawa (2311); the Siamese twins In-Chan from Laem Yai (2354);
 the smallest province (416.7 km²).
+
+**Owner approved storyline v1 as written (12 Nov, "ก"); tagline "ปลาทูหน้างอ คอหัก ต้องแม่กลอง" (cloud's pick).**
+
+## v1 build (cloud, 12 Nov)
+`src/cities/samutsongkhram/`, 100 m/unit, origin the city pillar; the far reaches drawn closer (places.ts). Score
+`scripts/soundtrack_samutsongkhram.py` (ranat, khlui, pi in the battle, klong that), -16.0 LUFS, score +2.5 LU over the
+effects, ambience -9.9 LU under the score. `npm run check`: 0 errors. Stills: `samutsongkhram_v1_contact.jpg`.
+- The engine's rail is straight along x, ~30 degrees off the real ENE line; the station is the engine's (drawn large).
+- Captions are one line; no year is named that the counter does not hold for 1 s (2307, 2479, 2544, 2547 left the subs).
+- The Chusak road was dropped: through the compression it ran in the river bed near Amphawa.
+- Fixed on the stills before showing: the tray filled the 4-6 s frame and its steam reached the caption (it fades by 5 s
+  now); the net's boats sat on the bank (the estuary is 600 m wide, boats along the channel); the train came in off frame
+  at 24 s; trucks were drawn too big; white blocks stood in the old market (no towers, the sprawl kept low).
+- Left as it is: the grandeur warning (the old town is 0.9% of the tile) is the town's true size.
