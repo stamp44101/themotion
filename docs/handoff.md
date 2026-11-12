@@ -37,7 +37,7 @@ Every city in `src/cities/` is merged; upload files are on the `renders` release
   7 Jan 2316 in the old April-new-year count is January 1774); the train's steam puffs are the same
   everywhere (`engine/train-steam` if wanted).
 
-## In progress: Yasothon (ยโสธร), branch `city/yasothon`, draft PR #89 (owner picked it, 10 Nov)
+## Done: Yasothon (ยโสธร), PR #89 merged by the owner on 12 Nov (picked 10 Nov)
 - Brief v0 `docs/briefs/yasothon.md` (dates checked on the web from search excerpts; the province's and the
   Isaan Record's pages are outside cloud's network), research request `docs/briefs/yasothon_research_request.md`
   for [gemini], style frames `docs/briefs/yasothon_styleframes.jpg` (`src/styleframes/yasothon.tsx`).
@@ -56,11 +56,11 @@ Every city in `src/cities/` is merged; upload files are on the `renders` release
   v1d render passed, its two minor notes (empty sky at 7.6 s, small trucks) fixed in v1e. v1f (0ad6830) rendered and passed
   [local]'s QA with no defects; `yasothon_look_social.mp4` on the `renders` release. The owner saw roads through the landmarks on v1f;
   fixed in v1g with a new road-vs-landmark check. v1g rendered and passed [local]'s QA (no defects).
-  **Waiting for the owner to watch v1g and say "Merge".** Post 19:00-21:00 and write the time down; the read goes in `experiments.md` §21.
+  **Merged by the owner (12 Nov, PR #89).** The owner also restored `docs/claude-full.md` (d85ccfb): cloud's 9e2839d
+  had overwritten it down to 75 lines while adding the `tall` lesson. Add lessons to the full guide with Edit, never a
+  rewrite of the file. Next: post 19:00-21:00 and write the time down; the read goes in `experiments.md` §21.
 - Disputed so far: the founding (2357 under Rama II in most sources; the province's page says Rama III), whether
   ยศสุนทร was granted or only proposed; no year yet for ยศสุนทร → ยโสธร or for the festival becoming the province's.
-- Next: [gemini] answers the request; [local] the ONEP outline and the story places; cloud checks the answer and
-  writes the storyline (launch at 3-9 s, the town small at the cover, at most two far places).
 
 ## Next
 - After Yasothon, one city per session. Candidates named before: Samut Songkhram, Ang Thong (also Tak,
