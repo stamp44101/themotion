@@ -37,10 +37,35 @@ Every city in `src/cities/` is merged; upload files are on the `renders` release
   7 Jan 2316 in the old April-new-year count is January 1774); the train's steam puffs are the same
   everywhere (`engine/train-steam` if wanted).
 
+## In progress: Yasothon (ยโสธร), branch `city/yasothon`, draft PR #89 (owner picked it, 10 Nov)
+- Brief v0 `docs/briefs/yasothon.md` (dates checked on the web from search excerpts; the province's and the
+  Isaan Record's pages are outside cloud's network), research request `docs/briefs/yasothon_research_request.md`
+  for [gemini], style frames `docs/briefs/yasothon_styleframes.jpg` (`src/styleframes/yasothon.tsx`).
+- Covers: **A1 a giant bang fai bound by hand, swung up onto its tower (cloud's pick)**, A2 the khit axe pillow
+  stuffed section by section, B Phaya Khankhak the toad king with a rocket going up. **Owner picked A1 (10 Nov).** Cloud watches PR #89.
+- [gemini] answered (160efc6); cloud checked it (c114ab8). **Owner approved storyline v1 (10 Nov)**: launch 3-9 s,
+  2357 and 2515 held, trade / road / grow in the town, payoff at the May festival with the toad museum (opened 10 May 2562).
+  Beat table at the end of the brief.
+- [local]'s map landed (ff931f5: the Chi is WEST of the town, the festival water EAST; no ONEP outline). **v1 built**
+  (`src/cities/yasothon/`, soundtrack at -16 LUFS, `npm run check` 0 errors); stills `docs/briefs/yasothon_v1_contact.jpg`.
+  v1b fixed what v1 flagged (owner's rule "fix what you flag").
+  **Owner passed the stills and sent it to render (10 Nov).** [local] rendered v1b; its QA found 4 defects (rocket in
+  the text band, boats out of scale, trucks missing, tower through the toad), all fixed in v1c with a new `tall` check.
+  [local]'s v1c still QA found 4 more (cloud on the caption, tower poles in
+  the text, tower over the toad, a missing truck): fixed in v1d; [local]'s
+  v1d render passed, its two minor notes (empty sky at 7.6 s, small trucks) fixed in v1e. v1f (0ad6830) rendered and passed
+  [local]'s QA with no defects; `yasothon_look_social.mp4` on the `renders` release. The owner saw roads through the landmarks on v1f;
+  fixed in v1g with a new road-vs-landmark check. v1g rendered and passed [local]'s QA (no defects).
+  **Waiting for the owner to watch v1g and say "Merge".** Post 19:00-21:00 and write the time down; the read goes in `experiments.md` §21.
+- Disputed so far: the founding (2357 under Rama II in most sources; the province's page says Rama III), whether
+  ยศสุนทร was granted or only proposed; no year yet for ยศสุนทร → ยโสธร or for the festival becoming the province's.
+- Next: [gemini] answers the request; [local] the ONEP outline and the story places; cloud checks the answer and
+  writes the storyline (launch at 3-9 s, the town small at the cover, at most two far places).
+
 ## Next
-- A new city in a new session (one city per session). Candidates named before: Yasothon, Samut
-  Songkhram, Ang Thong (also Tak, Chiang Mai, Nong Khai). Hybrid loop: the owner picks the cover and
-  passes the 0–11 s stills; cloud, [gemini] and [local] run research, map, build, render and QA.
+- After Yasothon, one city per session. Candidates named before: Samut Songkhram, Ang Thong (also Tak,
+  Chiang Mai, Nong Khai). Hybrid loop: the owner picks the cover and passes the 0–11 s stills; cloud,
+  [gemini] and [local] run research, map, build, render and QA.
 
 ## Old branches (10 Nov review, owner: "จัดการตามที่เสนอ")
 - Delete, nothing lost: `city/kanchanaburi` (in main via PR #83), `exp/korat-hero` (in main),

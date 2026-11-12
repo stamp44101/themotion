@@ -17,6 +17,7 @@ in Kanit; picture and sound all code (the score from `scripts/synth.py`).
 - The province series is code only: no generated audio (ElevenLabs etc.) in a province clip.
 - Reply to the owner in Thai; commits as stamp44101, no AI attribution; GitHub comments signed `[cloud]`.
 - Ask before merging; no full render until the owner passes the stills; shader look only.
+- **Fix what you flag (owner).** Never hand over a "still to fix" list or ask whether to fix it: fix it first.
 
 ## Workflow (in this order)
 1. 2–3 style frames, owner picks. 2. Brief + storyline worksheet (`docs/storyline.md` §5, §7 v2), then
@@ -53,6 +54,7 @@ layout + audit every hand-placed coordinate, camera keys last.
 - **Trace curved rivers as centrelines** (`path`), not stacked bands.
 - **A boat never passes under a deck lower than itself.**
 - **Every road bridges the water it crosses; cars drive only on built roads.** The engine bridges only its own rivers.
+- **A road never runs through a landmark (owner).** A legend-scale landmark is drawn off the road; its site covers what is drawn (`check_story`).
 - **People, stalls and animals stay on land; stations stand beside the track.**
 - **A wall never runs across open water** (water gate where a river crosses).
 - **Real city footprints are not rectangles** (`city.outline` from ONEP); a new footprint means new camera keys.
@@ -62,7 +64,8 @@ layout + audit every hand-placed coordinate, camera keys last.
 - **A/B engine changes still vs still,** never against an encoded frame.
 - **A destroyed capital's walls read as ruins** (`city.ruinStrength`).
 - **Nothing goes on open water** except bridges, boats, houseboats; audit hand-placed parts too.
-- **Keep the top ~30% for counter + caption; respect the TikTok safe area.**
+- **Keep the top ~30% for counter + caption; respect the TikTok safe area.** A thing that rises (and a cloud, a tower) declares `tall`; its top stays above the caption's last line (~37%).
+- **A boat keeps the river's scale and stops in the channel;** a tall frame never stands in front of a landmark.
 - **Nothing goes on screen during the intro title** (≥ 3 s) or the last 4 s.
 - **A caption title is one line** (820 px at 74 px Kanit).
 - **The camera has to travel, not just zoom;** wide shots come back; azimuth swings round the city.

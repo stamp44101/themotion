@@ -1,0 +1,227 @@
+// Pure position math for Yasothon's moving things (src/engine/actors.ts); Landmarks.tsx draws from the same functions.
+import type {Actor} from '../../engine/actors';
+import {lerp} from '../../lib';
+import {BODY, CHAENG_SANIT, CHI, HALL, LANDING, MUSEUM, R, ROCKET_AT, TAIL, TOWER, WAT_MAHATHAT} from './places';
+import {STORY} from './timeline';
+
+type P = [number, number];
+export const smooth = (x: number) => {
+  const c = Math.max(0, Math.min(1, x));
+  return c * c * (3 - 2 * c);
+};
+export const clamp01 = (v: number) => Math.max(0, Math.min(1, v));
+/** 0 at the beat's start, 1 at its end, unclamped */
+export const beatK = (id: string, t: number) => {
+  const [a, b] = STORY.at(id);
+  return (t - a) / (b - a);
+};
+export const along = (pts: P[], d: number) => {
+  let r = Math.max(0, d);
+  for (let i = 1; i < pts.length; i++) {
+    const [ax, az] = pts[i - 1];
+    const [bx, bz] = pts[i];
+    const len = Math.hypot(bx - ax, bz - az);
+    if (r <= len) return {x: lerp(ax, bx, r / len), z: lerp(az, bz, r / len), rot: Math.atan2(bx - ax, bz - az)};
+    r -= len;
+  }
+  const [ax, az] = pts[pts.length - 2];
+  const [bx, bz] = pts[pts.length - 1];
+  return {x: bx, z: bz, rot: Math.atan2(bx - ax, bz - az)};
+};
+export const lengthOf = (pts: P[]) => pts.slice(1).reduce((s, p, i) => s + Math.hypot(p[0] - pts[i][0], p[1] - pts[i][1]), 0);
+
+// ------------------------------------------------------------------ the rocket (the cover, the launch, the payoff)
+// Local frame: the rocket stands along +y from the foot of its tail (y = 0); the body runs from NOZZLE to NOZZLE + BODY,
+// the tail lashed alongside its lower part. Lying (the cover), it is turned down to point north (-z) on its trestles.
+export const NOZZLE = TAIL - 2;
+export const TOP = NOZZLE + BODY + 2.6 * R;
+export const TRESTLE = 1.6;
+export const RINGS = 14;
+export const BIND_END = 2.2;
+/** the time each rope ring is bound: the front half before frame 0, the rest by BIND_END */
+export const bindAt = (k: number) => (k < RINGS / 2 ? -1 + k * 0.1 : 0.15 + ((k - RINGS / 2) / (RINGS / 2 - 1)) * (BIND_END - 0.35));
+/** the ring's place along the body, from the nose (k = 0) down */
+export const ringY = (k: number) => NOZZLE + BODY * (0.94 - ((k + 0.5) / RINGS) * 0.88);
+/** the tail slides in alongside once the body is bound */
+export const tailK = (t: number) => smooth((t - BIND_END) / 0.35);
+/** the rocket swings up onto the tower (0 lying, 1 standing) */
+export const riseK = (t: number) => (t > 40 ? 1 : smooth((t - 2.55) / 1.25));
+/** the launch: the fuse at FUSE, lift-off at LIFT; the payoff's launch at LIFT2 */
+export const FUSE = 4.3;
+export const LIFT = 4.8;
+export const LIFT2 = 51.8;
+/** the payoff: the cover's rocket is put up on its tower again, rising from its foot (BACK0-BACK1); it never comes down
+ *  through the counter and caption band from the sky */
+export const BACK0 = 47.2;
+export const BACK1 = 49.2;
+/** the rocket's height above its standing place at t (climbing after a launch, coming down for the payoff) */
+export const flyY = (t: number) => {
+  if (t < 30) return t > LIFT ? 9 * (t - LIFT) ** 2 : 0;
+  if (t < BACK0) return Infinity;
+  if (t < LIFT2) return 0;
+  return 9 * (t - LIFT2) ** 2;
+};
+/** whether the rocket is drawn: from frame 0 until it is far up, and again from its return */
+/** the rain cloud the rocket punches into (the rite asks for rain): its base height; the rocket is gone once its nose is in
+ *  it, so it never climbs through the counter and caption band; in the payoff it comes back down out of a cloud. The cloud
+ *  is a thin, flat rain-cloud layer (~3 high) so it too stays under the band (it sat on the payoff's caption in v1c) */
+export const CLOUD_Y = 77;
+export const HIDE_FLY = 32;
+export const rocketShown = (t: number) => flyY(t) < HIDE_FLY && (t < 30 || t > BACK0);
+/** the payoff rocket grows up from its foot on the tower */
+export const backK = (t: number) => (t < 30 ? 1 : smooth((t - BACK0) / (BACK1 - BACK0)));
+export const cloudK = (t: number) =>
+  Math.max(
+    smooth((t - 5.4) / 0.8) * (1 - smooth((t - 6.9) / 0.4)),
+    smooth((t - 52.0) / 0.8) * (1 - smooth((t - 53.9) / 0.4)),
+  );
+/** the launch tower is bamboo, put up for the festival and taken down after: up at the cover and the launch, down from the
+ *  founding, put up again for the payoff */
+export const towerK = (t: number) => (t < 20 ? 1 - smooth((t - 7.6) / 0.7) : smooth((t - 45.0) / 1.2));
+/** world position of the local point at height y along the rocket, at t */
+export const rocketPoint = (t: number, y: number): [number, number, number] => {
+  const a = -(Math.PI / 2) * (1 - riseK(t));
+  const h0 = TRESTLE * (1 - riseK(t));
+  const f = flyY(t);
+  return [ROCKET_AT[0], h0 + R + y * Math.cos(a) + (Number.isFinite(f) ? f : 0), ROCKET_AT[1] + y * Math.sin(a)];
+};
+export const bodyMid = (t: number) => rocketPoint(t, NOZZLE + BODY / 2);
+
+// ------------------------------------------------------------------ the launch crowd and the rain
+export const CROWD = 26;
+export const crowdK = (t: number) => smooth((t - 3.2) / 0.5) * (1 - smooth((t - 9.0) / 0.5));
+export const crowdAt = (i: number): P => {
+  const a = (i / CROWD) * Math.PI * 1.6 + Math.PI * 0.7;
+  const r = 4.2 + (i % 3) * 1.0;
+  return [TOWER[0] + Math.cos(a) * r, TOWER[1] + Math.sin(a) * r];
+};
+/** the rain over the paddies once the rocket is up */
+/** the rain's top: the rain is an actor with `tall`, so its streaks stay under the caption (v1e ran them up through it) */
+export const RAIN_H = 26;
+/** the rain's top at t: high while the camera is up by the cloud, low by the time it is down at the village */
+export const rainTop = (t: number) => RAIN_H - (RAIN_H - 9) * smooth((t - 7.4) / 1.0);
+export const rainK = (t: number) => smooth((t - 6.4) / 0.5) * (1 - smooth((t - 9.4) / 0.6));
+
+// ------------------------------------------------------------------ 2357: the stupa and the governor's hall
+export const stupaK = (t: number, Y: number) => (Y > 1815 ? 1 : smooth((beatK('found', t) - 0.02) / 0.26));
+export const hongK = (t: number, Y: number) => (Y > 1815 ? 1 : smooth((beatK('found', t) - 0.2) / 0.3));
+/** the new town's first Lao houses on stilts round the temple and the hall, one after another through the found beat */
+export const FOUND_HOUSES: P[] = [[4.4, -2.0], [3.6, -3.8], [1.8, -4.6], [-2.9, 1.9], [-1.6, 3.0], [-0.6, 4.2]];
+export const foundHouseK = (j: number, t: number, Y: number) => (Y > 1815 ? 1 : smooth((beatK('found', t) - 0.12 - j * 0.08) / 0.18));
+
+// ------------------------------------------------------------------ the trade: boats up the Chi, the shophouse street
+// up the Chi from the tile's south edge to the landing (the drawn centreline, reversed)
+// the boats stop mid-channel off the landing
+const UPRIVER: P[] = [...CHI.filter(([, z]) => z > 2.6)].reverse();
+export const BOATS = 4;
+export const boatAt = (i: number, t: number) => {
+  const k = beatK('trade', t);
+  if (k < -0.05 || k > 1.2) return null;
+  const L = lengthOf(UPRIVER);
+  const d = lerp(L * 0.7 - 3 * i, L - 2.6 * i, smooth((k + 0.05) / 0.9));
+  if (d < 0) return null;
+  return along(UPRIVER, d);
+};
+/** two rows of shophouses on the street east of the pillar, built one after another through the trade beat */
+/** two rows of shophouses along a street parallel to Chaeng Sanit on its south-west side (~3 units off the road), south-east
+ *  of the governor's hall */
+const ST_U: [number, number] = [0.75, 0.66];
+const ST_N: [number, number] = [-0.66, 0.75];
+export const SHOPS = Array.from({length: 12}, (_, j) => {
+  const s = (j % 6) * 1.2;
+  const o = j < 6 ? 0 : 1.3;
+  return {x: Math.round((2.9 + ST_U[0] * s + ST_N[0] * o) * 100) / 100, z: Math.round((3.2 + ST_U[1] * s + ST_N[1] * o) * 100) / 100};
+});
+export const shopK = (j: number, t: number, Y: number) => (Y > 1926 ? 1 : smooth((beatK('trade', t) - 0.25 - (j % 6) * 0.08) / 0.18));
+
+// ------------------------------------------------------------------ the road: trucks down Chaeng Sanit
+const ROAD_IN = CHAENG_SANIT.slice(4, 11);
+export const TRUCKS = 4;
+export const truckAt = (i: number, t: number) => {
+  const k = beatK('road', t);
+  if (k < 0.2 || k > 1.15) return null;
+  const L = lengthOf(ROAD_IN);
+  const d = lerp(L * 0.1 - 2.4 * i, L * 0.95 - 2.4 * i, smooth((k - 0.2) / 0.85));
+  if (d < 0) return null;
+  return along(ROAD_IN, d);
+};
+
+// ------------------------------------------------------------------ 2515: the hall and its flag
+export const hallK = (t: number, Y: number) => (Y > 1973 ? 1 : smooth((beatK('province', t) - 0.05) / 0.3));
+export const flagK = (t: number, Y: number) => (Y > 1973 ? 1 : smooth((beatK('province', t) - 0.4) / 0.25));
+
+// ------------------------------------------------------------------ the grow shot: a tractor in the paddies, the museum
+const FIELD_RUN: P[] = [[-2, 21], [6, 23], [12, 27], [6, 31], [-2, 29]];
+export const tractorAt = (t: number) => {
+  const k = beatK('grow', t);
+  if (k < -0.02 || k > 1.05) return null;
+  return along(FIELD_RUN, lengthOf(FIELD_RUN) * clamp01(k));
+};
+export const museumK = (t: number, Y: number) => (Y > 2021 ? 1 : smooth((beatK('grow', t) - 0.78) / 0.18));
+
+// ------------------------------------------------------------------ the payoff: the procession of decorated rockets
+const PROCESSION: P[] = [[3.0, -0.5], [5.6, 1.8], [8.3, 4.1], [9.6, 5.3], [9.6, 7.0]];
+export const FLOATS = 5;
+export const floatAt = (i: number, t: number) => {
+  const k = beatK('festival', t);
+  if (k < -0.02 || k > 0.62) return null;
+  const L = lengthOf(PROCESSION);
+  const d = lerp(-1.8 * i + L * 0.25, L - 1.8 * i, smooth(k / 0.55));
+  if (d < 0) return null;
+  return along(PROCESSION, d);
+};
+
+export const ACTORS: Actor[] = [
+  {id: 'bangfai', role: 'hero', during: [0, 3.0], size: BODY * 0.5, at: (t) => bodyMid(t)},
+  {id: 'bangfai-launch', during: [3.2, 6.6], size: 6, tall: BODY / 2 + 2.6 * R, minInFrame: 0.6, at: (t) => bodyMid(t)},
+  // the rain clouds: a cloud's top must stay out of the text band too (it sat on the payoff's caption at 54 s)
+  {id: 'cloud', during: [5.8, 7.1], size: 8, tall: 3, minInFrame: 0.5, at: (t) => (cloudK(t) > 0.3 ? [ROCKET_AT[0], CLOUD_Y, ROCKET_AT[1]] : null)},
+  {id: 'cloud2', during: [52.6, 53.8], size: 8, tall: 3, minInFrame: 0.5, at: (t) => (cloudK(t) > 0.3 ? [ROCKET_AT[0], CLOUD_Y, ROCKET_AT[1]] : null)},
+  // the bamboo tower: its top stays out of the band too (its poles crossed the subtitle at ~9 s in v1c)
+  {id: 'tower', during: [3.6, 8.2], size: 5, tall: TAIL + 6, minInFrame: 0.3, at: (t) => (towerK(t) > 0.3 ? [TOWER[0], 0, TOWER[1]] : null)},
+  {id: 'tower2', during: [46.4, 53.8], size: 5, tall: TAIL + 6, minInFrame: 0.3, at: (t) => (towerK(t) > 0.3 ? [TOWER[0], 0, TOWER[1]] : null)},
+  {id: 'rain', during: [6.9, 9.2], size: 10, tall: RAIN_H, minInFrame: 0.3, at: (t) => (rainK(t) > 0.3 ? [3, rainTop(t) - RAIN_H, 6] : null)},
+  {id: 'crowd', during: [3.6, 5.2], size: 5, at: (t) => (crowdK(t) > 0.05 ? [TOWER[0] - 2, 0.6, TOWER[1]] : null)},
+  {id: 'stupa', during: [10.2, 15.4], size: 4, at: (t, c) => (stupaK(t, c.Y) > 0.05 ? [WAT_MAHATHAT[0], 2.6, WAT_MAHATHAT[1]] : null)},
+  ...Array.from({length: 2}, (_, i): Actor => ({
+    id: `boat${i}`,
+    during: [16.6, 22.6],
+    size: 1.0,
+    minInFrame: 0.6,
+    at: (t) => {
+      const p = boatAt(i, t);
+      return p ? [p.x, 0.5, p.z] : null;
+    },
+  })),
+  {
+    id: 'truck0',
+    during: [24.6, 28.8],
+    size: 1.0,
+    minInFrame: 0.6,
+    at: (t) => {
+      const p = truckAt(0, t);
+      return p ? [p.x, 0.6, p.z] : null;
+    },
+  },
+  {id: 'hall', during: [30.2, 34.8], size: 2.2, at: (t, c) => (hallK(t, c.Y) > 0.05 ? [HALL[0], 1.2, HALL[1]] : null)},
+  {
+    id: 'tractor',
+    during: [36.0, 43.6],
+    size: 4.4,
+    at: (t) => {
+      const p = tractorAt(t);
+      return p ? [p.x, 0.6, p.z] : null;
+    },
+  },
+  {id: 'museum', during: [42.8, 44.0], size: 5, at: (t, c) => (museumK(t, c.Y) > 0.05 ? [MUSEUM[0], 1.6, MUSEUM[1]] : null)},
+  {
+    id: 'procession',
+    during: [45.0, 50.0],
+    size: 3,
+    at: (t) => {
+      const p = floatAt(1, t);
+      return p ? [p.x, 0.8, p.z] : null;
+    },
+  },
+  {id: 'bangfai-back', role: 'callback', during: [49.2, 53.6], size: 6, tall: BODY / 2 + 2.6 * R, minInFrame: 0.6, at: (t) => (rocketShown(t) ? bodyMid(t) : null)},
+];

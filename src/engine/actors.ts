@@ -23,6 +23,9 @@ export type Actor = {
   at: (t: number, ctx: ActorCtx) => [number, number, number] | null;
   /** half-size in world units, for the in-frame margin (default 1) */
   size?: number;
+  /** for a thing that rises (a rocket, a tower, a giant): the height of its top above `at`; check_story keeps that top
+   *  out of the counter and caption band (the top 30%) while the text is up (Yasothon's rocket ran through its caption) */
+  tall?: number;
   /** share of its standing time it must be in frame (default 0.8; a train that crosses the
    *  whole tile only passes through the frame, 0.15) */
   minInFrame?: number;
