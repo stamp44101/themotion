@@ -57,6 +57,7 @@ import {SAKON_A1, SAKON_A2, SAKON_B} from './styleframes/sakonnakhon';
 import {CHANTHABURI_A1, CHANTHABURI_A2, CHANTHABURI_B} from './styleframes/chanthaburi';
 import {UTTARADIT_A1, UTTARADIT_A2, UTTARADIT_B} from './styleframes/uttaradit';
 import {YASOTHON_A1, YASOTHON_A2, YASOTHON_B} from './styleframes/yasothon';
+import {SAMUTSONGKHRAM_A1, SAMUTSONGKHRAM_A2, SAMUTSONGKHRAM_B} from './styleframes/samutsongkhram';
 import {WAT_RAI_KHING_FRAMES, WatRaiKhing} from './landmarks/watraikhing/WatRaiKhing';
 
 const Korat: React.FC = () => <DioramaComposition city={KORAT} />;
@@ -148,6 +149,9 @@ const UttStyleB: React.FC = () => <DioramaComposition city={UTTARADIT_B} />;
 const YasoStyleA1: React.FC = () => <DioramaComposition city={YASOTHON_A1} />;
 const YasoStyleA2: React.FC = () => <DioramaComposition city={YASOTHON_A2} />;
 const YasoStyleB: React.FC = () => <DioramaComposition city={YASOTHON_B} />;
+const SskStyleA1: React.FC = () => <DioramaComposition city={SAMUTSONGKHRAM_A1} />;
+const SskStyleA2: React.FC = () => <DioramaComposition city={SAMUTSONGKHRAM_A2} />;
+const SskStyleB: React.FC = () => <DioramaComposition city={SAMUTSONGKHRAM_B} />;
 const LopburiStyleHanuman: React.FC = () => <DioramaComposition city={LOPBURI_HANUMAN} />;
 const LampangStyleElephant: React.FC = () => <DioramaComposition city={LAMPANG_ELEPHANT} />;
 const LampangStyleChedi: React.FC = () => <DioramaComposition city={LAMPANG_CHEDI} />;
@@ -219,6 +223,9 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="YasoStyleA1" component={YasoStyleA1} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="YasoStyleA2" component={YasoStyleA2} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="YasoStyleB" component={YasoStyleB} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="SskStyleA1" component={SskStyleA1} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="SskStyleA2" component={SskStyleA2} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="SskStyleB" component={SskStyleB} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="UbonStyleElephant" component={UbonStyleElephant} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="ChiangRaiStyleFront" component={ChiangRaiStyleFront} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="ChiangRaiStyleQuarter" component={ChiangRaiStyleQuarter} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
