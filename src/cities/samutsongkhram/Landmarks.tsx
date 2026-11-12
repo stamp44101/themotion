@@ -8,7 +8,7 @@ import {
   STEAM0, THAI, TRAY_R, TRUCKS, awningOpen, basketAt, buddhaK, burmeseAt, catchBoatAt, clamp01, diggerAt, diggersK, fortK,
   gunK, marketBoatAt, netK, packAt, riverHouseK, shopK, smooth, stallK, thaiAt, trayK, truckAt, watK,
 } from './actors';
-import {BANG_KUNG, FORT, NET_AT, RAIL_Z, TRAY_AT, TRAY_S, WAT_PHET} from './places';
+import {BANG_KUNG, FORT, NET_AT, RAIL_Z, SEA, TRAY_AT, TRAY_S, WAT_PHET} from './places';
 
 const hash = (i: number) => {
   const s = Math.sin(i * 127.1 + 311.7) * 43758.5453;
@@ -431,8 +431,27 @@ const Diggers: React.FC<{t: number; Y: number}> = ({t, Y}) => {
   );
 };
 
+// ------------------------------------------------------------------ the gulf: one flat shape cut at the tile's edges
+const seaShape = (() => {
+  const sh = new THREE.Shape();
+  // the shape is drawn in x / -z (rotated flat below), so z is negated
+  SEA.forEach(([x, z], i) => (i === 0 ? sh.moveTo(x, -z) : sh.lineTo(x, -z)));
+  sh.closePath();
+  return sh;
+})();
+const Gulf: React.FC = () => (
+  <group>
+    {/* extruded upward from y = -1.3 to the rivers' surface at 0.1 */}
+    <mesh position={[0, -1.3, 0]} rotation-x={-Math.PI / 2} receiveShadow>
+      <extrudeGeometry args={[seaShape, {depth: 1.4, bevelEnabled: false}]} />
+      <meshStandardMaterial color="#3f8fc0" roughness={0.12} metalness={0.25} />
+    </mesh>
+  </group>
+);
+
 export const SamutSongkhramLandmarks: React.FC<LandmarkProps> = ({Y, t}) => (
   <group>
+    <Gulf />
     <Tray t={t} />
     <Catch t={t} />
     <Camp t={t} />

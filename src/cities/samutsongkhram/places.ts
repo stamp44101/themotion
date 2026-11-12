@@ -12,7 +12,8 @@ export const TILE = {x0: -40, x1: 36, z0: -30, z1: 44};
 // ---- the Mae Klong (OSM way 1460457504): in from the north-west past Bang Kung, the loop west of town, down the town's
 // west side, out past the Rama II bridge to the mouth
 export const MAEKLONG: P[] = [
-  [-39.9, -33.9], [-39.6, -28.7], [-37.3, -22.2], [-37.9, -13.1], [-37.6, -10.7], [-36.3, -10.4], [-33.7, -13.4],
+  // enters at the tile's north edge (drawn 1.2 E so the 2.2-wide channel stays on the tile)
+  [-38.5, -30.0], [-38.4, -28.7], [-37.3, -22.2], [-37.9, -13.1], [-37.6, -10.7], [-36.3, -10.4], [-33.7, -13.4],
   [-32.4, -10.8], [-32.2, -8.4], [-33.6, -1.8], [-33.7, 2.2], [-32.6, 4.0], [-31.0, 3.8], [-28.8, 1.1], [-27.1, 1.1],
   [-26.0, 2.3], [-25.2, 4.5], [-25.2, 12.3], [-24.4, 13.2], [-22.6, 12.9], [-20.2, 10.4], [-19.1, 8.3], [-18.7, 6.0],
   [-18.9, 1.3], [-22.8, -6.5], [-22.1, -8.1], [-20.5, -9.3], [-18.0, -9.1], [-15.6, -8.1], [-6.7, 0.1], [-6.2, 3.3],
@@ -20,12 +21,14 @@ export const MAEKLONG: P[] = [
 ];
 export const MAEKLONG_W = 2.2;
 /** the estuary: from below the Rama II bridge, widening out to the gulf */
-export const ESTUARY: P[] = [[-13.0, 32.0], [-9.4, 34.4], [-6.0, 37.6], [2.0, 41.6], [12.6, 45.8], [18, 50]];
+/** ends at the tile's south edge, beside the gulf's corner (the engine draws a path river as boxes, unclipped) */
+export const ESTUARY: P[] = [[-13.0, 32.0], [-9.4, 34.4], [-6.0, 37.6], [2.0, 41.6], [10.0, 44.0]];
 export const ESTUARY_W = 6.0;
 /** the coast (OSM coastline, way 746400327), Don Hoi Lot's flats on it; the gulf is one wide path south-east of it */
 export const COAST: P[] = [[0, 50.6], [10, 45.4], [21.0, 40.6], [25.3, 39.4], [30.1, 36.8], [34.5, 34.9], [39.1, 29.4], [44, 22]];
-export const SEA_W = 30;
-export const SEA_PATH: P[] = COAST.map(([x, z]) => [x + 7.5, z + 13] as P);
+/** the Gulf of Thailand on the tile: the corner south-east of the coast, cut at the tile's edges (drawn in Landmarks.tsx
+ *  as one flat shape, so no water hangs off the tile) */
+export const SEA: P[] = [[12.6, 44], [21.0, 40.6], [25.3, 39.4], [30.1, 36.8], [34.5, 34.9], [36, 33.1], [36, 44]];
 
 // ---- the town (OSM pins)
 export const PILLAR: P = [0, 0]; // ศาลหลักเมือง (origin; built 2517)

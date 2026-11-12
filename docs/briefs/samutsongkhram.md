@@ -70,3 +70,7 @@ effects, ambience -9.9 LU under the score. `npm run check`: 0 errors. Stills: `s
   now); the net's boats sat on the bank (the estuary is 600 m wide, boats along the channel); the train came in off frame
   at 24 s; trucks were drawn too big; white blocks stood in the old market (no towers, the sprawl kept low).
 - Left as it is: the grandeur warning (the old town is 0.9% of the tile) is the town's true size.
+- v1b (owner, 12 Nov: "the square tile shouldn't have water stuck on its side"): the gulf was a 30-wide path river, which
+  the engine draws as unclipped boxes, so it hung off the tile's south-east edge (the estuary and the river's north end
+  too). The gulf is now one flat shape cut at the tile's edges (`SEA`, Landmarks.tsx), cleared of trees; the estuary ends
+  at the south edge beside it and the river enters exactly at the north edge.

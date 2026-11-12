@@ -4,7 +4,7 @@ import {SamutSongkhramLandmarks} from './Landmarks';
 import {ACTORS, CAMP_R, RAIL_SPAN, RIVER_HOUSES, SHOPS, STALLS, TRAY_R, atAlong} from './actors';
 import {
   BANG_KUNG, DON_HOI_LOT, ESTUARY, ESTUARY_W, FORT, HALL, MAEKLONG, MAEKLONG_W, NE_ROAD, OLD_TOWN, PILLAR, RAIL_Z,
-  RAMA2, RAMA2_BRIDGE, SEA_PATH, SEA_W, TILE, TRAY_AT, WAT_PHET,
+  RAMA2, RAMA2_BRIDGE, SEA, TILE, TRAY_AT, WAT_PHET,
 } from './places';
 import {STORY, TRAINS} from './timeline';
 
@@ -36,8 +36,6 @@ export const SAMUTSONGKHRAM: CityConfig = {
     rivers: [
       {path: MAEKLONG, width: MAEKLONG_W},
       {path: ESTUARY, width: ESTUARY_W},
-      // the Gulf of Thailand: one wide path whose north-west edge is the coast
-      {path: SEA_PATH, width: SEA_W},
     ],
     bridges: [
       // สะพานสมเด็จพระพุทธเลิศหล้านภาลัย, opened with Rama II road on 1 Apr 2516
@@ -80,6 +78,8 @@ export const SAMUTSONGKHRAM: CityConfig = {
       [TRAY_AT[0], TRAY_AT[1], TRAY_R + 1.5, -1e9],
       // the estuary bank where the boats land the catch
       [-2, 34.6, 3, -1e9],
+      // the gulf (drawn in Landmarks.tsx): no trees on it
+      ...[[20, 43], [24, 42], [28, 41], [32, 39], [35, 37], [28, 43.5], [33, 42], [35, 34.5], [16, 43.8]].map(([x, z]) => [x, z, 3.2, -1e9] as [number, number, number, number]),
       // the camp at Bang Kung
       [BANG_KUNG[0], BANG_KUNG[1], CAMP_R + 1.2, -1e9],
       // the town's bank cleared with Ban Laem's settling
