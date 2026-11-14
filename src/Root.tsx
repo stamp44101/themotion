@@ -30,6 +30,7 @@ import {SAKONNAKHON} from './cities/sakonnakhon';
 import {CHANTHABURI} from './cities/chanthaburi';
 import {UTTARADIT} from './cities/uttaradit';
 import {YASOTHON} from './cities/yasothon';
+import {KALASIN} from './cities/kalasin';
 import {LOPBURI} from './cities/lopburi';
 import {PHETCHABURI} from './cities/phetchaburi';
 import {CHIANGRAI} from './cities/chiangrai';
@@ -87,6 +88,7 @@ const SakonNakhon: React.FC = () => <DioramaComposition city={SAKONNAKHON} />;
 const Chanthaburi: React.FC = () => <DioramaComposition city={CHANTHABURI} />;
 const Uttaradit: React.FC = () => <DioramaComposition city={UTTARADIT} />;
 const Yasothon: React.FC = () => <DioramaComposition city={YASOTHON} />;
+const Kalasin: React.FC = () => <DioramaComposition city={KALASIN} />;
 const Lopburi: React.FC = () => <DioramaComposition city={LOPBURI} />;
 const Phetchaburi: React.FC = () => <DioramaComposition city={PHETCHABURI} />;
 const ChiangRai: React.FC = () => <DioramaComposition city={CHIANGRAI} />;
@@ -255,6 +257,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="Chanthaburi" component={Chanthaburi} durationInFrames={(CHANTHABURI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Uttaradit" component={Uttaradit} durationInFrames={(UTTARADIT.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Yasothon" component={Yasothon} durationInFrames={(YASOTHON.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="Kalasin" component={Kalasin} durationInFrames={(KALASIN.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="SuratThani" component={SuratThani} durationInFrames={(SURATTHANI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="KhonKaen" component={KhonKaen} durationInFrames={(KHONKAEN.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Phetchaburi" component={Phetchaburi} durationInFrames={(PHETCHABURI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />

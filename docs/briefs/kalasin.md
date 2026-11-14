@@ -71,6 +71,21 @@ two `build` (the limit), the spectacle by 12 s (the procession from 8.5 s). Far 
 Phon (Phrae Wa) is named in the payoff's sub, Fa Daet Song Yang and the Thepsuda bridge are left out.
 No year is named on screen that the counter does not hold for 1 s: ราว 2325, 2335, 2370, 2505 (pong lang), 2520 (the
 royal visit), 2490 (the province restored) stay out of the subs.
-Tagline (to choose): "โปงลางเลิศล้ำ ผ้าไหมแพรวา" (from the provincial slogan) / "เมืองน้ำดำ ผ้าไหมแพรวา"
+Tagline: "โปงลางเลิศล้ำ ผ้าไหมแพรวา" (from the provincial slogan)
 Facts with nothing to show: the province abolished in 2475 and restored in 2490; Fa Daet Song Yang's sema stones (7th-11th c.);
 the 2,040 m Thepsuda bridge (2554). The 2520 attack at Huai Mek is out (§3.6a).
+
+**Owner approved storyline v1 as written (14 Nov, "เอาที่คิดว่าเหมาะเลย"); tagline "โปงลางเลิศล้ำ ผ้าไหมแพรวา" (cloud's pick).**
+
+## v1 build (cloud, 14 Nov)
+`src/cities/kalasin/`, 100 m/unit, origin the city pillar; the dam and Phu Kum Khao drawn closer at the north edge
+(places.ts). Score `scripts/soundtrack_kalasin.py` (khaen, phin, pong lang as wooden bars, klong and ching), -16.0 LUFS,
+score +0.7 LU over the effects, ambience -10.9 LU under the score. `npm run check`: 0 errors. Stills: `kalasin_v1_contact.jpg`.
+- Captions shortened to one line: "อพยพมาตั้งที่แก่งสำโรง", "ร.1 ตั้งเมืองกาฬสินธุ์", "พบไดโนเสาร์ที่ภูกุ้มข้าว".
+- Wat Klang is drawn 100 m N of its pin and Wat Nuea 35 m N, both sim turned along the street, so ถนนกาฬสินธุ์ passes them.
+- The dam and Phu Kum Khao keep their real direction to each other (34 degrees real, ~40 drawn): Phu Kum Khao on the
+  reservoir's east shore, the reservoir one flat shape in the north-west corner cut at the tile's edges.
+- Fixed on the stills before showing: the settlers' carts were hidden in the forest (a cart track cleared along the bank);
+  the first pillar stood at Kut Nam Kin while it was being carried away; trees stood in the filled reservoir and in the dig
+  pit (the clearings now fall before the held years); the close shots were crowded by foreground trees (elevation 40-42).
+- Left as it is: the grandeur warning (the old core is 1.0% of the tile) is the town's true size.
