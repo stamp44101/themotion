@@ -33,7 +33,7 @@ const LAKE_SHAPE = shapeOf(LAKE);
 const FlatWater: React.FC<{shape: THREE.Shape; color: string}> = ({shape, color}) => (
   <mesh position={[0, -1.3, 0]} rotation-x={-Math.PI / 2} receiveShadow>
     <extrudeGeometry args={[shape, {depth: 1.36, bevelEnabled: false}]} />
-    <meshStandardMaterial color={color} roughness={0.12} metalness={0.25} />
+    <meshStandardMaterial color={color} roughness={0.85} metalness={0} />
   </mesh>
 );
 export const TwoWaters: React.FC = () => (

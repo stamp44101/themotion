@@ -99,3 +99,6 @@ for songkhla. Stills: `songkhla_v1_contact.jpg` (12).
   the Bo Yang shots were too tight and the walled town empty; the station stood before the line opened (2448 -> 2456 now);
   the callback puppet's banana trunk floated over the stage (dropped for the callback).
 - Left as it is: the grandeur warning (the old walled town is 0.6% of the tile) is its true size.
+- v1b ([local]'s render note, 15 Nov): the sun's specular on the two waters blew out to white for ~0.5 s at ~8.5 s and
+  ~18.5 s. The water is now matte (roughness 0.85, metalness 0; a rougher-but-shiny 0.42 spread the glare into a washed
+  sheet). Still A/B before/after at 8.5 s and 18.5 s: `songkhla_v1b_water.jpg`.
