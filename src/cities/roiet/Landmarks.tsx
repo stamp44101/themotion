@@ -4,7 +4,7 @@ import type {LandmarkProps} from '../../engine/types';
 import {HipRoof} from '../../engine/parts';
 import {Biplane, Cart, Walker} from '../nan/figures';
 import {
-  CARTS, DIGGERS, MARCHERS, OLD_TEMPLES, PLANE_S, SPIN0, WALKERS, WOTS, W_END, buddhaK, cartAt, clamp01, clearerAt, coverK,
+  CARTS, DIGGERS, TOWN_HOUSES, townHouseK, MARCHERS, OLD_TEMPLES, PLANE_S, SPIN0, WALKERS, WOTS, W_END, buddhaK, cartAt, clamp01, clearerAt, coverK,
   diggerAt, fairK, islandK, marcherAt, marshK, planeAt, smooth, stripK, templeK, walkerAt, waterK, watBuengK, wotAt, wotBack,
 } from './actors';
 import {BUENG, ISLAND, NONG_YA_MA, PILLAR, STRIP, STRIP_W, TOWER, WAT_BUENG, WAT_BURAPHA, WOT_AT, WOT_S} from './places';
@@ -241,8 +241,23 @@ const Found: React.FC<{t: number; Y: number}> = ({t, Y}) => (
   </group>
 );
 
+/** a Lao house on stilts with a steep hip roof (drawn x1.3 so it reads) */
+const StiltHouse: React.FC<{k: number; i: number}> = ({k, i}) =>
+  k < 0.02 ? null : (
+    <group scale={[1.3, 1.3 * k, 1.3]}>
+      {[-0.3, 0.3].map((x) => [-0.3, 0.3].map((z) => <Box key={`${x}${z}`} p={[x, 0.2, z]} s={[0.08, 0.4, 0.08]} c="#5b3b22" />))}
+      <Box p={[0, 0.6, 0]} s={[0.8, 0.4, 0.8]} c={i % 2 ? '#8a6040' : '#7a5236'} />
+      <HipRoof w={0.95} l={0.95} h={0.5} y={0.8} color="#5a4636" />
+    </group>
+  );
+
 const OldTown: React.FC<{t: number; Y: number}> = ({t, Y}) => (
   <group>
+    {TOWN_HOUSES.map((h, j) => (
+      <group key={`h${j}`} position={[h.x, 0, h.z]} rotation-y={h.rot}>
+        <StiltHouse k={townHouseK(j, Y)} i={j} />
+      </group>
+    ))}
     {OLD_TEMPLES.map(([x, z], j) => (
       <group key={j} position={[x, 0, z]} rotation-y={j === 1 ? Math.PI / 2 : 0}>
         <Sim k={templeK(j, t, Y)} />

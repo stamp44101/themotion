@@ -18,7 +18,7 @@ const C1: Key = [2.8, 7, 19, 5, 214, 22, 38, 30];
 const FO_IN: Key = [4.4, CAUSEWAY[0] - 0.4, 1, CAUSEWAY[1] + 1.6, 34, 18, 42, 30];
 const FO_END: Key = [8.6, WAT_BUENG[0] + 0.2, 1, WAT_BUENG[1] + 0.6, 30, 34, 42, 30];
 // plane: the town filling inside the moat, then north to the strip as the biplane comes in
-const PL_IN: Key = [10.2, -2.6, 1, -6.0, 40, -20, 40, 30];
+const PL_IN: Key = [11.6, -3.0, 1, -3.4, 44, -12, 42, 30];
 const PL_END: Key = [15.6, STRIP[0][0] - 1.0, 1, -14.0, 40, -30, 38, 30];
 // dig: close on the bueng, from the south then the south-east
 const DG_IN: Key = [17.0, BUENG_C[0], 0.5, BUENG_C[1] + 0.4, 30, 16, 42, 30];
@@ -74,13 +74,14 @@ export const STORY = buildStory({
       camera: [FO_IN, FO_END],
     },
     {
-      // the town fills the moat; the seat of มณฑลร้อยเอ็ด (2456, no year); a biplane lands on the strip NNW of the moat
-      // (the first airfield, 2465 by one snippet: no year)
+      // between the founding and this beat (9-11 s) the counter runs on and the town fills the moat; the seat of มณฑล
+      // ร้อยเอ็ด (2456, no year); a biplane lands on the strip NNW of the moat (the first airfield, 2465 by one snippet: no
+      // year; the beat runs 2462-2465)
       id: 'plane',
       kind: 'arrive',
-      t: [9.0, 16.0],
-      year: [1800, 1922.4],
-      caption: {t0: 9.2, title: 'เครื่องบินลงนอกคูเมือง', sub: 'เมืองหลักของมณฑลร้อยเอ็ด'},
+      t: [11.0, 16.0],
+      year: [1919, 1922.4],
+      caption: {t0: 11.1, title: 'เครื่องบินลงนอกคูเมือง', sub: 'เมืองหลักของมณฑลร้อยเอ็ด'},
       era: 'รัตนโกสินทร์',
       callouts: [{label: 'สนามบินแห่งแรก', dx: 120, dy: -150, p: [STRIP[0][0] - 0.6, 0.6, -13.0], t0: 13.6, t1: 15.8}],
       camera: [PL_IN, PL_END],

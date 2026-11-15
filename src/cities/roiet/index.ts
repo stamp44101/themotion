@@ -1,7 +1,7 @@
 import {GROUND} from '../../Scene';
 import type {CityConfig} from '../../engine/types';
 import {RoietLandmarks} from './Landmarks';
-import {ACTORS, atAlong} from './actors';
+import {ACTORS, TOWN_HOUSES, atAlong} from './actors';
 import {
   BUENG_C, MAIN_ROAD, MOAT, MOAT_W, N_ROAD, PILLAR, SE_ROAD, STRIP, SW_ROAD, TILE, TOWER, TOWER_R, TOWN, WAT_BUENG,
   WAT_BURAPHA, WAT_KLANG, WAT_NUEA, WAT_SA_THONG, WOT_AT, WOT_S,
@@ -60,8 +60,8 @@ export const ROIET: CityConfig = {
     rail: undefined,
     trains: [],
     houses: {
-      // the town fills the moat through the plane beat (the counter runs 2343-2465)
-      built: [1776, 100],
+      // the old town's houses are drawn in Landmarks.tsx (TOWN_HOUSES); the engine's grid only brings the modern houses
+      built: [3000, 1],
       modern: [1950, 60],
       // the temples, the bueng's park and the tower are `sites` and `openGround`; the pillar's island is water-locked
       keepOut: [
@@ -97,6 +97,7 @@ export const ROIET: CityConfig = {
       [TOWER[0], TOWER[1], TOWER_R],
       [PILLAR[0], PILLAR[1], 0.4],
     ],
+    footprints: TOWN_HOUSES.map((h, j) => ({fp: {rect: [h.x, h.z, 1.2, 1.2] as [number, number, number, number]}, from: h.built, to: 1949.5, label: `stilt house ${j}`})),
     openGround: [
       // the bueng and its park
       {x0: -4.3, x1: 1.4, z0: -4.1, z1: 2.6},

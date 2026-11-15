@@ -23,7 +23,7 @@ bank, บึงพลาญชัย with its island, ดงกุ่ม forest 
 ## Map in one paragraph
 The town is a rounded-square Dvaravati moat ~1.75 km across, still water except the north half of its west side, with
 บึงพลาญชัย (~450 m, an island in two lobes) in the middle; the city pillar is on the island, หอโหวด ๑๐๑ on the south bank.
-Roads radiate from the moat to a ring road ~6 km across. No river: แม่น้ำชี is 13 km E. An old airstrip lies 1.5 km NNW
+Roads radiate from the moat to a ring road ~8.5-9 km across (off the tile). No river: แม่น้ำชี is 13 km E. An old airstrip lies 1.5 km NNW
 (the first airfield, 2465 per a snippet); the airport (2542) is 15 km ENE; หนองหญ้าม้า reservoir 3–5 km S. No railway yet.
 Far places: Ban Si Kaeo (khaen) 15 km NW, the airport 15 km ENE, พระมหาเจดีย์ชัยมงคล 78 km ENE.
 
@@ -72,3 +72,28 @@ Tagline: "งามน่ายลบึงพลาญชัย" (provincial sl
 Facts with nothing to show: the Dvaravati moat's age; สาเกตนคร in the Urangkhathat; the Anouvong war (Roi Et's part rests on
 the wiki alone); the municipality office on the island (2480); the airport moving to Thawat Buri (2542); jasmine rice GI.
 Out: the ผีบุญ rebellion. Approximate: the biplane is a generic 1920s biplane; the 2318 sim is a generic wooden Isan sim.
+
+**The owner delegated the remaining gates (15 Nov, relayed by the Kalasin session: "ปกติเสนออะไรทึ่สุดผมก็เอาอันนัันแหละ
+ทำแทนผมทีนะ"; in this session "ทำตามเขา"): storyline v1 approved as written; the v1 stills pass is the cloud's own review.**
+
+## v1 build (cloud, 15 Nov)
+`src/cities/roiet/`, 100 m/unit, origin the city pillar on the bueng's island, everything on the tile at true scale (no far
+places). Score `scripts/soundtrack_roiet.py` (khaen-led, phin, klong, the wot as a breathy flute), -16.0 LUFS, score +1.9 LU
+over the effects, ambience -11.0 LU under the score. `npm run check` (check_story roiet): 0 errors. Stills:
+`roiet_v1_contact.jpg` (12 stills, reviewed and passed by the cloud on the owner's behalf).
+- The moat is the first river (a closed loop, 55 m wide) from OSM's centreline; the old causeway at the south is a bridge
+  from 1700 (the founders come in over it), the modern roads' crossings are bridges from the 1930s-40s.
+- The founding beat runs 2314-2318 and lands on 2318 for ~1.2 s, so ดงกุ่ม can be cleared during it (trees fade over two
+  years); the counter shows "ราว" before 2318.
+- The town's old houses are drawn in Landmarks.tsx (`TOWN_HOUSES`, Lao houses on stilts filling the moat outward from the
+  bueng in the 2330s-2440s); the engine's grid only brings the modern houses from 1950 (its traditional houses did not show).
+- The plane beat runs 2462-2465 (no year on screen): the town fills in the run before it (9-11 s), so no aircraft shows
+  before the 1920s.
+- Captions shortened to one line: "ชาวบ้านลอกบึงพลาญชัย" (คนนับหมื่น in the sub), "หอโหวด ๑๐๑ ริมบึง", "แห่บุญผะเหวดรอบบึง";
+  grow title "เมืองล้นคูออกไปทุกทิศ" (the ring road is off the tile).
+- Drawn larger than life: the tower (~7 units, base kept off the road and out of the water), Phra Sung Yai (~4.5 units, so it
+  reads in the grow shot), the sim (x1.3). Phra Sung Yai and Wat Klang are drawn but not registered actors (too small in
+  their shots); the callout names Phra Sung Yai in the grow shot.
+- Fixed on the stills before passing: the town showed no houses (drawn by hand now); a biplane landed in the 1880s (beat
+  re-timed); the tower's podium stood in the water (narrowed); the first beat's counter skipped 2318 (re-timed).
+- Left as it is: the bueng reads as a reedy green ring before the dig (a silted marsh), and the moat's banks read pale.

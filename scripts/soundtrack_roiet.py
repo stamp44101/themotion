@@ -224,12 +224,13 @@ while t < found[1] - 0.2:
     t += rng.uniform(0.22, 0.34)
 add(sfx, filt(bell(440, 2.4, decay=1.8), "low", 2300), at(found, 0.85), pan=-0.2, gain=0.15)
 # plane: hammers and bells as the town fills, the biplane's engine coming down, the crowd at the strip
-t = at(plane, 0.05)
-while t < at(plane, 0.5):
+# (the town fills the moat in the run between the founding and the plane: hammers and the old temples' bells)
+t = found[1] + 0.1
+while t < plane[0] + 0.6:
     add(sfx, thud(0.25, rng.uniform(90, 140)), t, pan=rng.uniform(-0.4, 0.4))
-    t += rng.uniform(0.25, 0.4)
+    t += rng.uniform(0.18, 0.3)
 for j in range(3):
-    add(sfx, filt(bell(392 + 49 * j, 2.2, decay=2.0), "low", 2300), at(plane, 0.15 + j * 0.12), pan=-0.2 + 0.2 * j, gain=0.12)
+    add(sfx, filt(bell(392 + 49 * j, 2.2, decay=2.0), "low", 2300), found[1] + 0.3 + j * 0.5, pan=-0.2 + 0.2 * j, gain=0.12)
 add(sfx, engine(at(plane, 0.92) - at(plane, 0.2), 0.9), at(plane, 0.2), pan=-0.1)
 add(sfx, thud(0.5, 70), at(plane, 0.68), pan=0.0)
 add(sfx, crowd(2.2), at(plane, 0.7), pan=0.1, gain=0.3)
@@ -282,7 +283,7 @@ def bridge_gap(t0, t1):
 
 order = [found, plane, dig, grow, tower, fair]
 for a_, b_ in zip(order, order[1:]):
-    bridge_gap(a_[1] - 0.9, b_[0] + 0.05)
+    bridge_gap(max(a_[1] - 0.9, b_[0] - 1.2), b_[0] + 0.05)
     add(sfx, gong(74, 2.6, 0.2), b_[0], pan=0.05)
 for i in range(6):
     add(sfx, filt(firework_pop(), "low", 2000), DUR - 4.4 + i * 0.6 + rng.uniform(0, 0.2), pan=rng.uniform(-0.6, 0.6), gain=0.3)

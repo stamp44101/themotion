@@ -1,7 +1,8 @@
 // Pure position math for Roi Et's moving things (src/engine/actors.ts); Landmarks.tsx draws from the same functions.
 import type {Actor} from '../../engine/actors';
 import {lerp} from '../../lib';
-import {BUENG, BUENG_C, FOUND_PATH, SHORE, STRIP, TOWER, WAT_BUENG, WAT_KLANG, WAT_NUEA, WAT_SA_THONG, WOT_AT, WOT_S} from './places';
+import {inPoly, shrinkPoly} from '../../engine/poly';
+import {BUENG, BUENG_C, FOUND_PATH, MAIN_ROAD, N_ROAD, SE_ROAD, SHORE, SW_ROAD, STRIP, TOWER, TOWN, WAT_BUENG, WAT_KLANG, WAT_NUEA, WAT_SA_THONG, WOT_AT, WOT_S} from './places';
 import {STORY} from './timeline';
 
 type P = [number, number];
@@ -87,9 +88,53 @@ export const clearerAt = (i: number, t: number): P | null => {
   return [WAT_BUENG[0] + Math.cos(a) * 1.1 - 0.3, WAT_BUENG[1] + Math.sin(a) * 0.9 + 0.3];
 };
 
+// ------------------------------------------------------------------ the old town's houses (Lao houses on stilts)
+// drawn here, not by the engine's grid: they fill the moat from the bueng outward through the plane beat (2343-2465), and
+// give way to the modern town (the engine's modern houses, from 1950) in the 1940s
+const OCCUPIED: [number, number, number][] = [
+  [WAT_BUENG[0], WAT_BUENG[1], 1.7], [WAT_KLANG[0], WAT_KLANG[1], 1.7], [WAT_SA_THONG[0], WAT_SA_THONG[1], 1.7],
+  [WAT_NUEA[0], WAT_NUEA[1], 1.7], [6.4, -6.0, 1.3], [TOWER[0], TOWER[1], 1.2],
+];
+const hash = (i: number) => {
+  const v = Math.sin(i * 91.7 + 13.1) * 43758.5453;
+  return v - Math.floor(v);
+};
+const distTo = (pts: P[], p: P) => {
+  let bd = Infinity;
+  for (let i = 1; i < pts.length; i++) {
+    const [ax, az] = pts[i - 1];
+    const [bx, bz] = pts[i];
+    const len2 = (bx - ax) ** 2 + (bz - az) ** 2;
+    const u = clamp01(((p[0] - ax) * (bx - ax) + (p[1] - az) * (bz - az)) / len2);
+    bd = Math.min(bd, Math.hypot(ax + (bx - ax) * u - p[0], az + (bz - az) * u - p[1]));
+  }
+  return bd;
+};
+export const TOWN_HOUSES: {x: number; z: number; rot: number; built: number}[] = (() => {
+  const inner = shrinkPoly(TOWN, 0.9);
+  const out: {x: number; z: number; rot: number; built: number}[] = [];
+  let k = 0;
+  for (let z = -8.4; z <= 7.8; z += 1.45)
+    for (let x = -9.6; x <= 7.4; x += 1.45) {
+      k++;
+      const hx = x + (hash(k) - 0.5) * 0.5;
+      const hz = z + (hash(k + 500) - 0.5) * 0.5;
+      if (!inPoly(inner, hx, hz)) continue;
+      // the bueng and its park, the roads, the temples
+      if (hx > -4.6 && hx < 1.6 && hz > -4.2 && hz < 2.9) continue;
+      if ([MAIN_ROAD, N_ROAD, SW_ROAD, SE_ROAD].some((r) => distTo(r, [hx, hz]) < 1.25)) continue;
+      if (OCCUPIED.some(([ox, oz, r]) => Math.hypot(hx - ox, hz - oz) < r)) continue;
+      const d = Math.hypot(hx - BUENG_C[0], hz - BUENG_C[1]);
+      out.push({x: hx, z: hz, rot: hash(k + 900) < 0.5 ? 0 : Math.PI / 2, built: 1776 + d * 11 + hash(k + 77) * 18});
+    }
+  return out;
+})();
+export const townHouseK = (j: number, Y: number) => smooth((Y - TOWN_HOUSES[j].built) / 4) * (1 - smooth((Y - 1942) / 7));
+
 // ------------------------------------------------------------------ plane: the old temples, the biplane
 export const OLD_TEMPLES: P[] = [WAT_KLANG, WAT_SA_THONG, WAT_NUEA];
-export const templeK = (j: number, t: number, Y: number) => (Y > 1925 ? 1 : smooth((beatK('plane', t) - 0.05 - j * 0.12) / 0.25));
+/** the old temples rise as the town fills, in the run between the founding and the plane (the counter's 2330s-2400s) */
+export const templeK = (_j: number, _t: number, Y: number) => smooth((Y - 1790 - _j * 12) / 10);
 export const PLANE_S = 1.6;
 const STRIP_ROT = Math.atan2(STRIP[0][0] - STRIP[1][0], STRIP[0][1] - STRIP[1][1]);
 /** down from the north onto the strip, rolls south and stops by the crowd */
@@ -110,7 +155,7 @@ export const planeAt = (t: number) => {
   const pitch = k < 0.68 ? -0.12 * (1 - u) + 0.08 * u : 0.05;
   return {x: n[0] + ux * d, z: n[1] + uz * d, y, rot: STRIP_ROT, pitch, prop: t * 40};
 };
-export const stripK = (t: number, Y: number) => (Y > 1923 ? 1 : smooth((beatK('plane', t) - 0.1) / 0.2));
+export const stripK = (t: number, Y: number) => (Y > 1923 ? 1 : Y < 1918 ? 0 : smooth((beatK('plane', t) - 0.0) / 0.2));
 
 // ------------------------------------------------------------------ dig: the silted bueng dredged by hand
 /** 0 the old reedy marsh, then mud while it is dug, then the water comes back (k 0.78..1) */
@@ -185,10 +230,11 @@ export const ACTORS: Actor[] = [
     },
   })),
   {id: 'watbueng', during: [6.4, 8.8], size: 1.0, at: (t, c) => (watBuengK(t, c.Y) > 0.05 ? [WAT_BUENG[0], 0.6, WAT_BUENG[1]] : null)},
-  ...OLD_TEMPLES.map((p, j): Actor => ({id: `sim${j}`, during: [10.0 + j * 0.8, 12.0 + j * 0.6], size: 1.0, minInFrame: 0.5, at: (t, c) => (templeK(j, t, c.Y) > 0.05 ? [p[0], 0.6, p[1]] : null)})),
+  // the town filling the moat in the run between the founding and the plane (houses and the old temples rising)
+  {id: 'town', during: [9.2, 11.4], size: 4, at: () => [-4.5, 0.5, -2.5]},
   {
     id: 'plane',
-    during: [13.0, 15.6],
+    during: [14.0, 15.8],
     size: 1.4,
     minInFrame: 0.6,
     at: (t) => {

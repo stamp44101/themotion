@@ -41,6 +41,6 @@ earth wall the wiki names (east of Wat Burapha, south by Satri Suksa school); no
 **Far**: 19 airport 15.0 km ENE · 20 แม่น้ำชี 12.9 km E · 21 บ้านสีแก้ว 15.2 km NW · 22 วัดป่ากุง 18.2 km SW ·
 23 พระมหาเจดีย์ชัยมงคล 77.7 km ENE
 
-At 100 m/unit a ~90-unit tile centred on the bueng holds the whole moat town, the old airstrip, the ring road and
-หนองหญ้าม้า at true scale. The airport, the Chi, Si Kaeo and the Maha Chedi are off it: at most two may be drawn closer
+At 100 m/unit an 80-unit tile centred on the bueng holds the whole moat town, the old airstrip and the north edge of
+หนองหญ้าม้า at true scale; the ring road runs just off it. The airport, the Chi, Si Kaeo and the Maha Chedi are off it: at most two may be drawn closer
 (storyline §7).
