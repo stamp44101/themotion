@@ -5,7 +5,8 @@
 // golden mermaid); the counter lands on 2569. Dato Mogol's landing (2145 or 2153-54) and the independence (2173 or 2185) are
 // disputed; the pillar (10 Mar 2385 old count = 2386 today), the railway (1 Jan 2456 old count = 1914), the monthon seat
 // (2439), the bridge (2529) and the port (2531) are named in no sub with a year: the counter does not hold them.
-// Growth that the counter would jump over is avoided: the year runs continuously from 2373 to 2468 and from 2510 to 2569;
+// Growth that the counter would jump over is avoided: the year runs continuously from 2373 to 2468 (the track is laid
+// 2448-2457 and the station stands by 2456, not before the line opened) and from 2510 to 2569;
 // the jumps (2223 -> 2373, 2468 -> 2509) carry nothing that is built.
 import {between, type CameraKey} from '../../engine/glide';
 import {buildStory} from '../../engine/story';
@@ -111,7 +112,7 @@ export const STORY = buildStory({
       id: 'trade',
       kind: 'trade',
       t: [21.0, 27.0],
-      year: [1844, 1896],
+      year: [1844, 1904],
       caption: {t0: 21.1, title: 'เมืองท่าค้าขายริมทะเลสาบ', sub: 'ห้องแถวจีนริมถนนนครนอก นครใน'},
       callouts: [{label: 'จวนเจ้าเมือง', dx: -120, dy: -150, p: [-2.4, 1.2, -7.3], t0: 24.2, t1: 26.6}],
       camera: [TR_IN, TR_END],
@@ -121,7 +122,7 @@ export const STORY = buildStory({
       id: 'train',
       kind: 'arrive',
       t: [27.0, 33.0],
-      year: [1897, 1925],
+      year: [1905, 1925],
       caption: {t0: 27.1, title: 'รถไฟวิ่งถึงเมืองสงขลา', sub: 'ทางแยกจากหาดใหญ่ ปลายทางริมทะเลสาบ'},
       callouts: [{label: 'สถานีรถไฟสงขลา', dx: 120, dy: -150, p: [4.0, 1.2, -5.2], t0: 31.6, t1: 32.6}],
       camera: [RA_IN, RA_MID, RA_END, RA_HOLD],

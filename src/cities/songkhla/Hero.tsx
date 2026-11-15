@@ -166,7 +166,7 @@ const Part: React.FC<{s: THREE.Shape; c: string; H: number; d: number; glow?: nu
   </mesh>
 );
 
-export const AiTeng: React.FC<{t: number; H: number}> = ({t, H}) => {
+export const AiTeng: React.FC<{t: number; H: number; trunk?: boolean}> = ({t, H, trunk = true}) => {
   const cv = cutV(t);
   const d = H * 0.012;
   const live = smooth(clamp01((t - ALIVE) / 0.6));
@@ -184,10 +184,10 @@ export const AiTeng: React.FC<{t: number; H: number}> = ({t, H}) => {
   return (
     <group>
       {/* the banana trunk the rod is stuck in, lying on the sand */}
-      <mesh position={[0, H * 0.035, 0]} rotation-z={Math.PI / 2} castShadow receiveShadow>
+      {trunk && <mesh position={[0, H * 0.035, 0]} rotation-z={Math.PI / 2} castShadow receiveShadow>
         <cylinderGeometry args={[H * 0.04, H * 0.045, H * 0.75, 16]} />
         <meshStandardMaterial color="#7da046" roughness={0.8} />
-      </mesh>
+      </mesh>}
       <group position={[0, lift + bob, 0]} rotation-z={sway}>
         {/* the rod (ไม้ตับ): split bamboo from above the head down into the trunk */}
         <mesh position={[0.01 * H, (0.42 - 0.11) * H, -d * 0.6]} castShadow>

@@ -93,12 +93,12 @@ export const SONGKHLA: CityConfig = {
       ...[[-2.4, -5.0], [0.0, -4.4], [-1.2, -2.0], [0.8, -1.0], [-0.6, 1.6], [1.2, 2.6], [0.4, 4.2], [-3.4, -3.6]].map(([x, z]) => [x, z, 2.0, 1830] as [number, number, number, number]),
       // the mansion and the station
       [-2.4, -7.3, 1.6, 1870],
-      [OLD_STATION[0] + 1.2, OLD_STATION[1] + 0.2, 2.0, 1897],
+      [OLD_STATION[0] + 1.2, OLD_STATION[1] + 0.2, 2.0, 1905],
       // the railway's bed down the spit, cleared as the counter enters the train beat
       ...LINE.slice(1).flatMap((b, i) => {
         const a = LINE[i];
         const n = Math.ceil(Math.hypot(b[0] - a[0], b[1] - a[1]) / 1.5);
-        return Array.from({length: n}, (_, j) => [a[0] + ((b[0] - a[0]) * j) / n, a[1] + ((b[1] - a[1]) * j) / n, 1.2, 1897] as [number, number, number, number]);
+        return Array.from({length: n}, (_, j) => [a[0] + ((b[0] - a[0]) * j) / n, a[1] + ((b[1] - a[1]) * j) / n, 1.2, 1905] as [number, number, number, number]);
       }),
       // the bridge's landing on the Singhanakhon shore
       [BRIDGE_N[0][0], BRIDGE_N[0][1], 1.6, 1980],
@@ -124,7 +124,7 @@ export const SONGKHLA: CityConfig = {
       [TANG_KUAN[0], TANG_KUAN[1], 1.4],
     ],
     footprints: [
-      ...LINE.slice(1).map((b, i) => ({fp: {band: [LINE[i], b, 1.0] as [P, P, number]}, from: 1897, label: `railway ${i}`})),
+      ...LINE.slice(1).map((b, i) => ({fp: {band: [LINE[i], b, 1.0] as [P, P, number]}, from: 1905, label: `railway ${i}`})),
       // the shophouse rows (Landmarks.tsx shopK: row j from 1848 + 4j)
       ...SHOPHOUSES.map(([x, z], j) => ({fp: {rect: [x, z, 1.0, 1.5] as [number, number, number, number]}, from: 1848 + j * 4, label: `shophouse row ${j}`})),
     ],

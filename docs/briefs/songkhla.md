@@ -69,16 +69,33 @@ Facts with nothing to show (no held year): Dato Mogol's landing and the independ
 | id | kind | t (s) | counter | caption / sub | on screen |
 |---|---|---|---|---|---|
 | hero | legend | 0-3.0 | 2143 (under the title) | title สงขลา / sub "เมืองสองทะเล ริมปากทะเลสาบ" | Ai Teng cut free on the spit, comes alive |
-| port | arrive | 3.0-8.5 | 2146 → 2222 | "ดาโต๊ะโมกอลตั้งเมืองท่าซิงกอรา" / "เรือสำเภาจากชวา เข้าปากทะเลสาบใต้เขาแดง" | junks sail in and anchor; the walled port town and forts rise under Khao Daeng |
-| siege | fight | 8.5-15.0 | **2223 held** | "อยุธยาตีเมืองซิงกอราแตก" / "พระนารายณ์ให้รื้อเมืองทิ้ง เหลือแต่ซากป้อม" | the army comes up from the south, the fleet in the gulf; the forts and town burn; the wall falls to ruins |
+| port | arrive | 3.0-8.5 | 2146 → 2222 | "ตั้งเมืองท่าซิงกอรา" / "ดาโต๊ะโมกอลล่องเรือจากชวา มาขึ้นฝั่งใต้เขาแดง" | junks sail in and anchor; the walled port town and forts rise under Khao Daeng |
+| siege | fight | 8.5-15.0 | **2223 held** | "อยุธยาตีซิงกอราแตก" / "พระนารายณ์ให้รื้อเมือง เหลือแต่ซากป้อม" | the army comes in from the west under Khao Noi, the fleet in the gulf; the forts and town burn; the wall falls to ruins |
 | boyang | procession | 15.0-21.0 | 2373 → 2386 | "ย้ายเมืองข้ามมาฝั่งบ่อยาง" / "ร.3 ให้สร้างกำแพงหิน ฝังเสาหลักเมือง" | junks ferry stone across the lake; the wall rises on the spit's lake shore; the pillar carried in |
-| trade | trade | 21.0-27.0 | 2387 → 2439 | "เมืองท่าค้าขายริมทะเลสาบ" / "ห้องแถวจีนริมถนนนครนอก นครใน" | junks at the piers, porters carrying sacks into the shophouses; the governor's mansion (callout) |
-| train | arrive | 27.0-33.0 | 2440 → 2468 | "รถไฟวิ่งถึงเมืองสงขลา" / "ทางแยกจากหาดใหญ่ ปลายทางริมทะเลสาบ" | the track is laid down the spit, the steam train pulls in to the station; the wall pulled down |
-| mermaid | build | 33.0-38.5 | **2509 held** | "นางเงือกทองที่แหลมสมิหลา" / "ประติมากรรมริมหาด สัญลักษณ์ของเมือง" | the statue is set on the rocks and gilded; people on the beach |
-| grow | grow | 38.5-46.0 | 2510 → 2558 | "เมืองเต็มแหลม ข้ามไปฝั่งสิงหนคร" / "สะพานติณสูลานนท์ข้ามทะเลสาบไปเกาะยอ" | wide ≥ 160: the spit fills, the far shore builds up, the bridge spans grow |
-| show | celebrate | 46.0-54.4 | 2559 → 2568 | "หนังตะลุง อ้ายเท่งคนสทิงพระ" / "ตัวตลกที่ปั้นจากชาวบ้านสงขลาตัวจริง" | a nang talung stage on Samila, a crowd; the giant Ai Teng back behind it, arm waving (callback) |
+| trade | trade | 21.0-27.0 | 2387 → 2447 | "เมืองท่าค้าขายริมทะเลสาบ" / "ห้องแถวจีนริมถนนนครนอก นครใน" | junks at the piers, porters carrying sacks; rows of shophouses fill the walled town and run on south; the mansion (callout จวนเจ้าเมือง) |
+| train | arrive | 27.0-33.0 | 2448 → 2468 | "รถไฟวิ่งถึงเมืองสงขลา" / "ทางแยกจากหาดใหญ่ ปลายทางริมทะเลสาบ" | the track is laid down the spit, the steam train pulls in to the station; the wall pulled down |
+| mermaid | build | 33.0-38.5 | **2509 held** | "นางเงือกทองที่สมิหลา" / "ประติมากรรมริมหาด สัญลักษณ์ของเมือง" | the statue is set on the rocks and gilded; people on the beach |
+| grow | grow | 38.5-46.0 | 2510 → 2558 | "เมืองโตเต็มแหลม" / "ข้ามไปฝั่งสิงหนคร สะพานติณสูลานนท์ไปเกาะยอ" | wide ≥ 160: the spit fills, the far shore builds up, the bridge spans grow |
+| show | celebrate | 46.0-54.4 | 2559 → 2568 | "หนังตะลุง อ้ายเท่ง" / "ตัวตลกที่สร้างจากชาวบ้านสทิงพระ สงขลาตัวจริง" | a nang talung stage on Samila, a crowd; the giant Ai Teng back behind it, arm waving (callback) |
 | today | today | 54.6-56.4 | 2569 | finale "สมิหลาเพลินใจ เมืองใหญ่สองทะเล" | the whole tile at the cover's distance |
 
 Kinds: legend / arrive / fight / procession / trade / arrive / build / grow / celebrate / today: no two alike in a row, one
 `build`, six kinds, the spectacle from 8.5 s. No far place (Hat Yai is named in a sub only). The Japanese landing (2484) is
 left out (§3.6a: within living memory, people killed).
+
+## v1 build (cloud, 15 Nov; the stills pass taken under the owner's delegation)
+`src/cities/songkhla/`, 100 m/unit, origin the city pillar, everything at true scale (no far place). Score
+`scripts/soundtrack_songkhla.py` (thap, mong and ching, the pi low and soft, wooden bars; the mallet's tok for every strike
+of the cover's cut), -16.0 LUFS, score +1.4 LU over the effects, ambience -10.9 LU under the score. `npm run check`: 0 errors
+for songkhla. Stills: `songkhla_v1_contact.jpg` (12).
+- The two waters are flat shapes (Hero.tsx `TwoWaters`) kept clear by a 2-unit grid of clearings and sites; the engine has no
+  river here, so the generic boats are off and every boat is drawn (junks, the stone barges, the war fleet).
+- Bo Yang's wall is the engine's `city` (rises 2379-2385, pulled down to a low ruin 2437-2448), its outline from the two wall
+  stretches with ถนนรามวิถี just outside its east side. The engine fits only ~12 houses in it, so rows of shophouses are
+  drawn inside and south of the gate (footprints).
+- Singora's forts: OSM no. 8 and no. 7 plus three drawn on Khao Daeng's crest; its wall leaves out the stretches over water.
+  The army comes in from the west under Khao Noi (cleared track), the defenders meet it before the west wall.
+- Fixed on the stills before the pass: the armies stood in Singora's huts; the forts were too small and the fire too faint;
+  the Bo Yang shots were too tight and the walled town empty; the station stood before the line opened (2448 -> 2456 now);
+  the callback puppet's banana trunk floated over the stage (dropped for the callback).
+- Left as it is: the grandeur warning (the old walled town is 0.6% of the tile) is its true size.

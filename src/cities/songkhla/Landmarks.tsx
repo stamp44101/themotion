@@ -299,7 +299,7 @@ const Trade: React.FC<{t: number; Y: number}> = ({t, Y}) => {
 const TRACK_SEGS = LINE.slice(1).map((b, i) => [LINE[i], b] as const);
 const TRACK_L = TRACK_SEGS.reduce((s, [a, b]) => s + Math.hypot(b[0] - a[0], b[1] - a[1]), 0);
 const Railway: React.FC<{t: number; Y: number}> = ({t, Y}) => {
-  if (Y < 1897) return null;
+  if (Y < 1905) return null;
   const k = trackK(t, Y);
   let left = k * TRACK_L;
   const tr = trainAt(t);
@@ -421,7 +421,7 @@ const Show: React.FC<{t: number; Y: number}> = ({t, Y}) => {
         ))}
       {cb > 0.01 && (
         <group position={[PUPPET_BACK[0], (1 - cb) * -SHOW_H * 1.2, PUPPET_BACK[1]]} rotation-y={rad(200)}>
-          <AiTeng t={callbackT(t)} H={SHOW_H} />
+          <AiTeng t={callbackT(t)} H={SHOW_H} trunk={false} />
         </group>
       )}
     </group>
