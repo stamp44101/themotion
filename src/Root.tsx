@@ -56,6 +56,7 @@ import {SURAT_A1, SURAT_A2, SURAT_B} from './styleframes/suratthani';
 import {KANCH_A1, KANCH_A2, KANCH_B} from './styleframes/kanchanaburi';
 import {SAKON_A1, SAKON_A2, SAKON_B} from './styleframes/sakonnakhon';
 import {KALASIN_A1, KALASIN_A2, KALASIN_B} from './styleframes/kalasin';
+import {SONGKHLA_A1, SONGKHLA_A2} from './styleframes/songkhla';
 import {CHANTHABURI_A1, CHANTHABURI_A2, CHANTHABURI_B} from './styleframes/chanthaburi';
 import {UTTARADIT_A1, UTTARADIT_A2, UTTARADIT_B} from './styleframes/uttaradit';
 import {YASOTHON_A1, YASOTHON_A2, YASOTHON_B} from './styleframes/yasothon';
@@ -143,6 +144,8 @@ const SakonStyleA1: React.FC = () => <DioramaComposition city={SAKON_A1} />;
 const KalasinStyleA1: React.FC = () => <DioramaComposition city={KALASIN_A1} />;
 const KalasinStyleA2: React.FC = () => <DioramaComposition city={KALASIN_A2} />;
 const KalasinStyleB: React.FC = () => <DioramaComposition city={KALASIN_B} />;
+const SongkhlaStyleA1: React.FC = () => <DioramaComposition city={SONGKHLA_A1} />;
+const SongkhlaStyleA2: React.FC = () => <DioramaComposition city={SONGKHLA_A2} />;
 const SakonStyleA2: React.FC = () => <DioramaComposition city={SAKON_A2} />;
 const SakonStyleB: React.FC = () => <DioramaComposition city={SAKON_B} />;
 const ChanStyleA1: React.FC = () => <DioramaComposition city={CHANTHABURI_A1} />;
@@ -217,6 +220,8 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="KalasinStyleA1" component={KalasinStyleA1} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="KalasinStyleA2" component={KalasinStyleA2} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="KalasinStyleB" component={KalasinStyleB} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="SongkhlaStyleA1" component={SongkhlaStyleA1} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="SongkhlaStyleA2" component={SongkhlaStyleA2} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="SakonStyleA2" component={SakonStyleA2} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="SakonStyleB" component={SakonStyleB} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="ChanStyleA1" component={ChanStyleA1} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
