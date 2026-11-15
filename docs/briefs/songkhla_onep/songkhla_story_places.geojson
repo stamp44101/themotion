@@ -1,0 +1,775 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.5909966,
+     7.1965754
+    ]
+   },
+   "properties": {
+    "name": "ศาลเจ้าพ่อหลักเมืองสงขลา (origin)",
+    "pin": "osm",
+    "note": "บ่อยาง 2385",
+    "east_m": 0,
+    "north_m": 0,
+    "dist_m": 0,
+    "bearing": 0,
+    "octant": "N",
+    "x": 0.0,
+    "z": -0.0
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.58943,
+     7.20192
+    ]
+   },
+   "properties": {
+    "name": "กำแพงเมืองเก่า (ช่วงถนนจะนะ)",
+    "pin": "osm",
+    "note": "บ่อยาง 2379-2385",
+    "east_m": -173,
+    "north_m": 591,
+    "dist_m": 616,
+    "bearing": 344,
+    "octant": "N",
+    "x": -1.73,
+    "z": -5.91
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.58862,
+     7.1989
+    ]
+   },
+   "properties": {
+    "name": "กำแพงเมืองเก่า (ช่วงนครใน)",
+    "pin": "osm",
+    "note": "บ่อยาง",
+    "east_m": -262,
+    "north_m": 257,
+    "dist_m": 367,
+    "bearing": 314,
+    "octant": "NW",
+    "x": -2.62,
+    "z": -2.57
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.59016,
+     7.19302
+    ]
+   },
+   "properties": {
+    "name": "ประตูเมืองเก่า (สร้างใหม่)",
+    "pin": "osm",
+    "note": "บ่อยาง",
+    "east_m": -92,
+    "north_m": -393,
+    "dist_m": 404,
+    "bearing": 193,
+    "octant": "S",
+    "x": -0.92,
+    "z": 3.93
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.5889444,
+     7.2023972
+    ]
+   },
+   "properties": {
+    "name": "พิพิธภัณฑสถานแห่งชาติสงขลา (จวน 2421)",
+    "pin": "osm",
+    "note": "บ่อยาง",
+    "east_m": -227,
+    "north_m": 644,
+    "dist_m": 683,
+    "bearing": 341,
+    "octant": "N",
+    "x": -2.27,
+    "z": -6.44
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.58846,
+     7.1982
+    ]
+   },
+   "properties": {
+    "name": "ฮับโฮ่หิ้น โรงสีแดง",
+    "pin": "osm",
+    "note": "2457",
+    "east_m": -280,
+    "north_m": 180,
+    "dist_m": 333,
+    "bearing": 303,
+    "octant": "NW",
+    "x": -2.8,
+    "z": -1.8
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.58914,
+     7.19689
+    ]
+   },
+   "properties": {
+    "name": "บ้านอ้ายเหลียน",
+    "pin": "osm",
+    "note": "ย่านเมืองเก่า",
+    "east_m": -205,
+    "north_m": 35,
+    "dist_m": 208,
+    "bearing": 280,
+    "octant": "W",
+    "x": -2.05,
+    "z": -0.35
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.5919466,
+     7.1902555
+    ]
+   },
+   "properties": {
+    "name": "ถนนนครนอก (กลาง)",
+    "pin": "osm",
+    "note": "ย่านเมืองเก่า",
+    "east_m": 105,
+    "north_m": -699,
+    "dist_m": 707,
+    "bearing": 171,
+    "octant": "S",
+    "x": 1.05,
+    "z": 6.99
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.5936683,
+     7.2011051
+    ]
+   },
+   "properties": {
+    "name": "สถานีรถไฟสงขลาเก่า",
+    "pin": "osm",
+    "note": "2457-2521",
+    "east_m": 295,
+    "north_m": 501,
+    "dist_m": 581,
+    "bearing": 30,
+    "octant": "NE",
+    "x": 2.95,
+    "z": -5.01
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.59172,
+     7.20253
+    ]
+   },
+   "properties": {
+    "name": "หอนาฬิกาเมืองสงขลา",
+    "pin": "osm",
+    "note": "ยุคใหม่",
+    "east_m": 80,
+    "north_m": 659,
+    "dist_m": 663,
+    "bearing": 7,
+    "octant": "N",
+    "x": 0.8,
+    "z": -6.59
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.5892319,
+     7.2108027
+    ]
+   },
+   "properties": {
+    "name": "เขาตังกวน (ยอด)",
+    "pin": "osm",
+    "note": "เจดีย์ ศาลาแดง ประภาคาร",
+    "east_m": -195,
+    "north_m": 1574,
+    "dist_m": 1586,
+    "bearing": 353,
+    "octant": "N",
+    "x": -1.95,
+    "z": -15.74
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.5858383,
+     7.2080335
+    ]
+   },
+   "properties": {
+    "name": "วัดแหลมทราย",
+    "pin": "osm",
+    "note": "",
+    "east_m": -570,
+    "north_m": 1267,
+    "dist_m": 1389,
+    "bearing": 336,
+    "octant": "NW",
+    "x": -5.7,
+    "z": -12.67
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.5958091,
+     7.2154941
+    ]
+   },
+   "properties": {
+    "name": "รูปปั้นนางเงือกทอง",
+    "pin": "osm",
+    "note": "2509",
+    "east_m": 532,
+    "north_m": 2092,
+    "dist_m": 2159,
+    "bearing": 14,
+    "octant": "N",
+    "x": 5.32,
+    "z": -20.92
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.59543,
+     7.21541
+    ]
+   },
+   "properties": {
+    "name": "หาดสมิหลา",
+    "pin": "osm",
+    "note": "",
+    "east_m": 490,
+    "north_m": 2083,
+    "dist_m": 2140,
+    "bearing": 13,
+    "octant": "N",
+    "x": 4.9,
+    "z": -20.83
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.5968832,
+     7.2363094
+    ]
+   },
+   "properties": {
+    "name": "เกาะหนู",
+    "pin": "osm",
+    "note": "",
+    "east_m": 650,
+    "north_m": 4395,
+    "dist_m": 4442,
+    "bearing": 8,
+    "octant": "N",
+    "x": 6.5,
+    "z": -43.95
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.5805712,
+     7.230887
+    ]
+   },
+   "properties": {
+    "name": "ปลายแหลม (ปากทะเลสาบฝั่งตะวันออก)",
+    "pin": "osm",
+    "note": "coastline end",
+    "east_m": -1151,
+    "north_m": 3795,
+    "dist_m": 3966,
+    "bearing": 343,
+    "octant": "N",
+    "x": -11.51,
+    "z": -37.95
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.6068419,
+     7.1863834
+    ]
+   },
+   "properties": {
+    "name": "สนามบินสงขลา",
+    "pin": "osm",
+    "note": "ยุคใหม่",
+    "east_m": 1750,
+    "north_m": -1127,
+    "dist_m": 2082,
+    "bearing": 123,
+    "octant": "SE",
+    "x": 17.5,
+    "z": 11.27
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.5902227,
+     7.1864459
+    ]
+   },
+   "properties": {
+    "name": "ท่าเทียบเรือประมงสงขลา",
+    "pin": "osm",
+    "note": "",
+    "east_m": -85,
+    "north_m": -1120,
+    "dist_m": 1124,
+    "bearing": 184,
+    "octant": "S",
+    "x": -0.85,
+    "z": 11.2
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.57387,
+     7.2219
+    ]
+   },
+   "properties": {
+    "name": "ป้อมหัวเขาแดงหมายเลข 8",
+    "pin": "osm",
+    "note": "ซิงกอรา",
+    "east_m": -1892,
+    "north_m": 2801,
+    "dist_m": 3380,
+    "bearing": 326,
+    "octant": "NW",
+    "x": -18.92,
+    "z": -28.01
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.56559,
+     7.22403
+    ]
+   },
+   "properties": {
+    "name": "ป้อมหมายเลข 7",
+    "pin": "osm",
+    "note": "ซิงกอรา",
+    "east_m": -2806,
+    "north_m": 3036,
+    "dist_m": 4134,
+    "bearing": 317,
+    "octant": "NW",
+    "x": -28.06,
+    "z": -30.36
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.55705,
+     7.22
+    ]
+   },
+   "properties": {
+    "name": "ป้อมหมายเลข 9",
+    "pin": "osm",
+    "note": "ซิงกอรา",
+    "east_m": -3749,
+    "north_m": 2591,
+    "dist_m": 4557,
+    "bearing": 305,
+    "octant": "NW",
+    "x": -37.49,
+    "z": -25.91
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.56491,
+     7.22483
+    ]
+   },
+   "properties": {
+    "name": "ป้อมกับกำแพงและคูเมืองเก่า",
+    "pin": "osm",
+    "note": "ซิงกอรา",
+    "east_m": -2881,
+    "north_m": 3125,
+    "dist_m": 4250,
+    "bearing": 317,
+    "octant": "NW",
+    "x": -28.81,
+    "z": -31.25
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.56716,
+     7.22158
+    ]
+   },
+   "properties": {
+    "name": "ศูนย์ข้อมูลโบราณคดี",
+    "pin": "osm",
+    "note": "ซิงกอรา",
+    "east_m": -2633,
+    "north_m": 2766,
+    "dist_m": 3818,
+    "bearing": 316,
+    "octant": "NW",
+    "x": -26.33,
+    "z": -27.66
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.56945,
+     7.21444
+    ]
+   },
+   "properties": {
+    "name": "เขาแดง",
+    "pin": "osm",
+    "note": "ซิงกอรา",
+    "east_m": -2380,
+    "north_m": 1976,
+    "dist_m": 3093,
+    "bearing": 310,
+    "octant": "NW",
+    "x": -23.8,
+    "z": -19.76
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.5586545,
+     7.2170123
+    ]
+   },
+   "properties": {
+    "name": "เขาน้อย (เจดีย์)",
+    "pin": "osm",
+    "note": "พุทธศตวรรษ 17-18",
+    "east_m": -3572,
+    "north_m": 2260,
+    "dist_m": 4227,
+    "bearing": 302,
+    "octant": "NW",
+    "x": -35.72,
+    "z": -22.6
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.56709,
+     7.20723
+    ]
+   },
+   "properties": {
+    "name": "เขาเมือง",
+    "pin": "osm",
+    "note": "",
+    "east_m": -2640,
+    "north_m": 1178,
+    "dist_m": 2891,
+    "bearing": 294,
+    "octant": "NW",
+    "x": -26.4,
+    "z": -11.78
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.55728,
+     7.23359
+    ]
+   },
+   "properties": {
+    "name": "สุสานสุลต่านสุลัยมาน",
+    "pin": "osm",
+    "note": "2211",
+    "east_m": -3724,
+    "north_m": 4094,
+    "dist_m": 5534,
+    "bearing": 318,
+    "octant": "NW",
+    "x": -37.24,
+    "z": -40.94
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.56063,
+     7.23341
+    ]
+   },
+   "properties": {
+    "name": "สุสานดัตช์ (วิลันดา)",
+    "pin": "osm",
+    "note": "ซิงกอรา",
+    "east_m": -3354,
+    "north_m": 4074,
+    "dist_m": 5277,
+    "bearing": 321,
+    "octant": "NW",
+    "x": -33.54,
+    "z": -40.74
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.5768,
+     7.2045
+    ]
+   },
+   "properties": {
+    "name": "แหลมสน (เมืองที่สอง; ตำแหน่งประมาณ)",
+    "pin": "estimate",
+    "note": "2223-2385 (ประมาณจากชุมชนริมร่องน้ำฝั่งหัวเขา; OSM ไม่มี)",
+    "east_m": -1568,
+    "north_m": 876,
+    "dist_m": 1796,
+    "bearing": 299,
+    "octant": "NW",
+    "x": -15.68,
+    "z": -8.76
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.5477088,
+     7.1902013
+    ]
+   },
+   "properties": {
+    "name": "สะพานติณสูลานนท์ ช่วงเหนือ",
+    "pin": "osm",
+    "note": "2529",
+    "east_m": -4781,
+    "north_m": -705,
+    "dist_m": 4833,
+    "bearing": 262,
+    "octant": "W",
+    "x": -47.81,
+    "z": 7.05
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.559442,
+     7.1543774
+    ]
+   },
+   "properties": {
+    "name": "สะพานติณสูลานนท์ ช่วงใต้",
+    "pin": "osm",
+    "note": "2529",
+    "east_m": -3485,
+    "north_m": -4667,
+    "dist_m": 5825,
+    "bearing": 217,
+    "octant": "SW",
+    "x": -34.85,
+    "z": 46.67
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.54117,
+     7.16543
+    ]
+   },
+   "properties": {
+    "name": "เกาะยอ",
+    "pin": "osm",
+    "note": "ผ้าทอ",
+    "east_m": -5503,
+    "north_m": -3445,
+    "dist_m": 6492,
+    "bearing": 238,
+    "octant": "SW",
+    "x": -55.03,
+    "z": 34.45
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.5428421,
+     7.1796809
+    ]
+   },
+   "properties": {
+    "name": "สถาบันทักษิณคดีศึกษา (เกาะยอ)",
+    "pin": "osm",
+    "note": "",
+    "east_m": -5318,
+    "north_m": -1869,
+    "dist_m": 5637,
+    "bearing": 251,
+    "octant": "W",
+    "x": -53.18,
+    "z": 18.69
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.4675799,
+     7.0039414
+    ]
+   },
+   "properties": {
+    "name": "ชุมทางหาดใหญ่",
+    "pin": "osm",
+    "note": "2465 (ไกล)",
+    "east_m": -13631,
+    "north_m": -21305,
+    "dist_m": 25292,
+    "bearing": 213,
+    "octant": "SW",
+    "x": -136.31,
+    "z": 213.05
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.43,
+     7.47
+    ]
+   },
+   "properties": {
+    "name": "บ้านคูขุด อ.สทิงพระ (อ้ายเท่ง)",
+    "pin": "estimate",
+    "note": "ไกล; บ้านเกิดตัวหนังอ้ายเท่ง (ประมาณ)",
+    "east_m": -17781,
+    "north_m": 30241,
+    "dist_m": 35081,
+    "bearing": 330,
+    "octant": "NW",
+    "x": -177.81,
+    "z": -302.41
+   }
+  }
+ ]
+}
