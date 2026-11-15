@@ -23,7 +23,7 @@ earth wall the wiki names (east of Wat Burapha, south by Satri Suksa school); no
   lobes; the city pillar shrine (origin) is on the island's SE lobe, a footbridge from the SE bank. หอโหวด ๑๐๑ stands 230 m
   S of the pillar on the south bank, the provincial hall 470 m SE.
 - **The town is radial.** ถนนแจ้งสนิท (ทล.23) crosses W–E just south of the bueng; roads leave the moat to every side; the
-  ring road ทล.232 is an octagon ~6 km across (pin 18). Low flat land, paddy and tree lines; no hill, no river in town.
+  ring road ทล.232 is an octagon ~8.5-9 km across (pin 18). Low flat land, paddy and tree lines; no hill, no river in town.
 - **An old airstrip** (runway 17/35, ~950 m) lies 1.5 km NNW, just outside the moat: Roi Et's first airfield
   (ศิลปวัฒนธรรม "100 ปี สนามบินร้อยเอ็ด": since 2465, snippet only). The airport today (2542) is 15 km ENE (pin 19).
 - **หนองหญ้าม้า**, a reservoir ~3 km long, lies 3–5 km S/SE.
