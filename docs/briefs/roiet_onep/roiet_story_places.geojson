@@ -1,0 +1,534 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.6525301,
+     16.0567477
+    ]
+   },
+   "properties": {
+    "n": 1,
+    "name": "ศาลหลักเมืองร้อยเอ็ด (เกาะกลางบึงพลาญชัย)",
+    "era": "-",
+    "why": "จุดกำเนิดระยะ; อยู่บนตราจังหวัด",
+    "source": "OSM way 1444501158",
+    "pin": "osm",
+    "dist_m": 0,
+    "bearing": 0,
+    "octant": "N",
+    "east_m": 0,
+    "north_m": 0
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.6525809,
+     16.0578218
+    ]
+   },
+   "properties": {
+    "n": 2,
+    "name": "บึงพลาญชัย (กลางบึง)",
+    "era": "ทวารวดี?/2318-",
+    "why": "บึงกลางเมือง ขุดลอก 2469-70; ~2 แสน ตร.ม.",
+    "source": "OSM relation 2222833",
+    "pin": "osm",
+    "dist_m": 119,
+    "bearing": 3,
+    "octant": "N",
+    "east_m": 5,
+    "north_m": 119
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.6524378,
+     16.0546478
+    ]
+   },
+   "properties": {
+    "n": 3,
+    "name": "หอโหวด ๑๐๑ (หอชมเมืองร้อยเอ็ด)",
+    "era": "2563-",
+    "why": "หอรูปโหวด ริมบึงด้านใต้; ฉากจบ",
+    "source": "OSM node 11496203069",
+    "pin": "osm",
+    "dist_m": 232,
+    "bearing": 182,
+    "octant": "S",
+    "east_m": -10,
+    "north_m": -232
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.6492109,
+     16.0560908
+    ]
+   },
+   "properties": {
+    "n": 4,
+    "name": "วัดบึงพระลานชัย (พระอารามหลวง)",
+    "era": "2318-",
+    "why": "วัดแรกของเจ้าเมือง ถางซากเมืองร้าง; ใบเสมาทวารวดี, สระชัยมงคล",
+    "source": "OSM way 358474620",
+    "pin": "osm",
+    "dist_m": 362,
+    "bearing": 258,
+    "octant": "W",
+    "east_m": -355,
+    "north_m": -73
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.6544369,
+     16.0617203
+    ]
+   },
+   "properties": {
+    "n": 5,
+    "name": "วัดกลางมิ่งเมือง",
+    "era": "2084? (ขัดแย้ง)-",
+    "why": "พระพุทธมิ่งเมือง; อุโบสถอยุธยาตอนปลาย",
+    "source": "OSM way 358469909",
+    "pin": "osm",
+    "dist_m": 586,
+    "bearing": 20,
+    "octant": "N",
+    "east_m": 204,
+    "north_m": 550
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.6586237,
+     16.0628473
+    ]
+   },
+   "properties": {
+    "n": 6,
+    "name": "วัดบูรพาภิราม (พระพุทธรัตนมงคลมหามุนี, พระสูงใหญ่ 59.2 ม.)",
+    "era": "2516-",
+    "why": "\"เรืองนามพระสูงใหญ่\"; ใกล้แนวคูเมืองด้านตะวันออก",
+    "source": "OSM way 358480774 / node 3633967718",
+    "pin": "osm",
+    "dist_m": 938,
+    "bearing": 44,
+    "octant": "NE",
+    "east_m": 652,
+    "north_m": 674
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.6497349,
+     16.0634389
+    ]
+   },
+   "properties": {
+    "n": 7,
+    "name": "วัดสระทอง",
+    "era": "-",
+    "why": "วัดเก่าในคูเมือง (ปีสร้างไม่พบ)",
+    "source": "OSM way 358486279",
+    "pin": "osm",
+    "dist_m": 798,
+    "bearing": 338,
+    "octant": "N",
+    "east_m": -299,
+    "north_m": 740
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.6458,
+     16.0612
+    ]
+   },
+   "properties": {
+    "n": 8,
+    "name": "วัดเหนือ",
+    "era": "-",
+    "why": "วัดเก่าในคูเมืองฝั่งเหนือ-ตะวันตก",
+    "source": "OSM node 4741206410 (Wat Neua)",
+    "pin": "osm",
+    "dist_m": 872,
+    "bearing": 304,
+    "octant": "NW",
+    "east_m": -720,
+    "north_m": 492
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.6457766,
+     16.0573133
+    ]
+   },
+   "properties": {
+    "n": 9,
+    "name": "อนุสาวรีย์พระขัติยะวงษา (ทนต์)",
+    "era": "-",
+    "why": "เจ้าเมืองคนแรก 2318",
+    "source": "OSM node 13290723264",
+    "pin": "osm",
+    "dist_m": 725,
+    "bearing": 275,
+    "octant": "W",
+    "east_m": -722,
+    "north_m": 63
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.6547847,
+     16.0531355
+    ]
+   },
+   "properties": {
+    "n": 10,
+    "name": "ศาลากลางจังหวัดร้อยเอ็ด",
+    "era": "-",
+    "why": "ถนนเทวาภิบาล ใต้บึง",
+    "source": "OSM node 2648733780",
+    "pin": "osm",
+    "dist_m": 467,
+    "bearing": 149,
+    "octant": "SE",
+    "east_m": 241,
+    "north_m": -399
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.657328,
+     16.0541533
+    ]
+   },
+   "properties": {
+    "n": 11,
+    "name": "พิพิธภัณฑสถานแห่งชาติร้อยเอ็ด",
+    "era": "-",
+    "why": "",
+    "source": "OSM node 11425813288",
+    "pin": "osm",
+    "dist_m": 588,
+    "bearing": 119,
+    "octant": "SE",
+    "east_m": 513,
+    "north_m": -287
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.6491151,
+     16.0512014
+    ]
+   },
+   "properties": {
+    "n": 12,
+    "name": "ตลาดหนองแคน",
+    "era": "-",
+    "why": "ตลาดสดในคูเมืองด้านใต้",
+    "source": "OSM way 358215729",
+    "pin": "osm",
+    "dist_m": 714,
+    "bearing": 211,
+    "octant": "SW",
+    "east_m": -365,
+    "north_m": -613
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.6614,
+     16.0643
+    ]
+   },
+   "properties": {
+    "n": 13,
+    "name": "คูเมือง มุมตะวันออกเฉียงเหนือ",
+    "era": "ทวารวดี-",
+    "why": "คูน้ำคันดินเมืองเก่า (ยังเป็นน้ำรอบเมือง)",
+    "source": "OSM relation 14556044",
+    "pin": "osm",
+    "dist_m": 1264,
+    "bearing": 49,
+    "octant": "NE",
+    "east_m": 949,
+    "north_m": 835
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.6525,
+     16.0496
+    ]
+   },
+   "properties": {
+    "n": 14,
+    "name": "คูเมือง ด้านใต้ (ร.ร.สตรีศึกษา)",
+    "era": "ทวารวดี-",
+    "why": "แนวคันดินที่ wiki บอกว่ายังเห็นด้านใต้",
+    "source": "OSM relation 14556044; th.wiki",
+    "pin": "osm",
+    "dist_m": 790,
+    "bearing": 180,
+    "octant": "S",
+    "east_m": -3,
+    "north_m": -790
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.6608,
+     16.0628
+    ]
+   },
+   "properties": {
+    "n": 15,
+    "name": "คันดิน ตะวันออกวัดบูรพาภิราม",
+    "era": "ทวารวดี-",
+    "why": "wiki: ร่องรอยคันดินยังเห็น",
+    "source": "th.wiki (ไม่มีอ้างอิง); ตำแหน่งประมาณ ภาพดาวเทียมไม่เห็นคันดินชัด",
+    "pin": "estimate",
+    "dist_m": 1109,
+    "bearing": 53,
+    "octant": "NE",
+    "east_m": 885,
+    "north_m": 669
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.6467,
+     16.0695
+    ]
+   },
+   "properties": {
+    "n": 16,
+    "name": "ทางวิ่งสนามบินเก่าในเมือง (17/35)",
+    "era": "2465?-",
+    "why": "สนามบินจังหวัดแรก (ศิลปวัฒนธรรม: ตั้งแต่ 2465, ข้อความย่อ)",
+    "source": "OSM runway 17/35",
+    "pin": "osm",
+    "dist_m": 1542,
+    "bearing": 336,
+    "octant": "NW",
+    "east_m": -624,
+    "north_m": 1410
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.6576801,
+     16.02381
+    ]
+   },
+   "properties": {
+    "n": 17,
+    "name": "หนองหญ้าม้า",
+    "era": "-",
+    "why": "อ่างเก็บน้ำ 4 กม. ใต้",
+    "source": "OSM relation 18169840",
+    "pin": "osm",
+    "dist_m": 3683,
+    "bearing": 171,
+    "octant": "S",
+    "east_m": 551,
+    "north_m": -3642
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.6281,
+     16.0919
+    ]
+   },
+   "properties": {
+    "n": 18,
+    "name": "ถนนวงแหวนรอบเมือง (ทล.232)",
+    "era": "-",
+    "why": "วงแหวน ~6 กม.",
+    "source": "OSM way 783622317",
+    "pin": "osm",
+    "dist_m": 4684,
+    "bearing": 326,
+    "octant": "NW",
+    "east_m": -2613,
+    "north_m": 3887
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.7783707,
+     16.116593
+    ]
+   },
+   "properties": {
+    "n": 19,
+    "name": "ท่าอากาศยานร้อยเอ็ด (ใหม่, 2542)",
+    "era": "2542-",
+    "why": "เปิด 2 มี.ค. 1999 (en.wiki)",
+    "source": "OSM way 329991616",
+    "pin": "osm",
+    "dist_m": 15001,
+    "bearing": 64,
+    "octant": "NE",
+    "east_m": 13462,
+    "north_m": 6617
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.77,
+     16.03
+    ]
+   },
+   "properties": {
+    "n": 20,
+    "name": "แม่น้ำชี (จุดใกล้สุดทางตะวันออก)",
+    "era": "-",
+    "why": "แม่น้ำใหญ่ ~13 กม. ตะวันออก",
+    "source": "OSM แม่น้ำชี",
+    "pin": "osm",
+    "dist_m": 12910,
+    "bearing": 103,
+    "octant": "E",
+    "east_m": 12567,
+    "north_m": -2958
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.5412233,
+     16.1415035
+    ]
+   },
+   "properties": {
+    "n": 21,
+    "name": "บ้านสีแก้ว (หมู่บ้านทำแคน)",
+    "era": "-",
+    "why": "แหล่งผลิตแคนใน อ.เมือง (\"แหล่งผลิตแคนลือเลื่อง\")",
+    "source": "OSM node 2493173144; ThaiPBS (ข้อความย่อ)",
+    "pin": "osm",
+    "dist_m": 15153,
+    "bearing": 308,
+    "octant": "NW",
+    "east_m": -11907,
+    "north_m": 9372
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.4959,
+     15.9920996
+    ]
+   },
+   "properties": {
+    "n": 22,
+    "name": "วัดป่ากุง (มหาเจดีย์หินทราย) อ.ศรีสมเด็จ",
+    "era": "-",
+    "why": "วัดหลวงปู่ศรี มหาวีโร ผู้สร้างพระมหาเจดีย์",
+    "source": "OSM way 252049539",
+    "pin": "osm",
+    "dist_m": 18217,
+    "bearing": 247,
+    "octant": "SW",
+    "east_m": -16756,
+    "north_m": -7148
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     104.3205388,
+     16.3323984
+    ]
+   },
+   "properties": {
+    "n": 23,
+    "name": "พระมหาเจดีย์ชัยมงคล อ.หนองพอก",
+    "era": "2528-",
+    "why": "101×101×101 ม. บนเชิงเขาภูพาน",
+    "source": "OSM way 249119315 (สะกด พระมหาเจดีชัยมงคล)",
+    "pin": "osm",
+    "dist_m": 77690,
+    "bearing": 67,
+    "octant": "NE",
+    "east_m": 71462,
+    "north_m": 30480
+   }
+  }
+ ]
+}
