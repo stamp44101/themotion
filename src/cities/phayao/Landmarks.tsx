@@ -365,7 +365,7 @@ const People: React.FC<{t: number; Y: number}> = ({t, Y}) => (
     {Array.from({length: CIRCLERS}, (_, i) => {
       const p = circlerAt(i, t);
       return p ? (
-        <group key={`c${i}`} position={[p.x, 0, p.z]} rotation-y={p.rot} scale={0.4}>
+        <group key={`c${i}`} position={[p.x, 0, p.z]} rotation-y={p.rot} scale={0.32}>
           <Walker step={t * 1.4 + i * 0.3} i={i} />
           <group position={[0.25, 1.35, 0.25]}>
             <Flame s={0.12} />

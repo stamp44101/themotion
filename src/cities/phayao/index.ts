@@ -3,7 +3,7 @@ import type {CityConfig} from '../../engine/types';
 import {PhayaoLandmarks} from './Landmarks';
 import {ACTORS, BOAT_C, FOUND_HOUSES, atAlong} from './actors';
 import {
-  GATE, ING, ING_W, KWAN_CELLS, LEGEND_S, MOAT_ROAD, MONUMENT, NE_ROAD, OLD_ROAD, OUTLET_BRIDGE, PILLAR, SHORE_ROAD, SOUTH_TRACK,
+  GATE, ING, ING_W, KWAN_CELLS, MOAT_ROAD, MONUMENT, NE_ROAD, OLD_ROAD, OUTLET_BRIDGE, PILLAR, SHORE_ROAD, SOUTH_TRACK,
   SW_ROAD, TILE, TRUNK, VIHARA_C, VIHARA_L, VIHARA_W, WAT_RATCHAKHRUE, WAT_SI_KHOM_KHAM, WAT_SI_UMONG, WAT_TILOK, WIANG,
 } from './places';
 import {STORY} from './timeline';
@@ -96,8 +96,7 @@ export const PHAYAO: CityConfig = {
     },
     forestCity: 1300,
     clearings: [
-      // the cover's open ground round the legend Buddha on the shore
-      [WAT_SI_KHOM_KHAM[0], WAT_SI_KHOM_KHAM[1], LEGEND_S * 0.46, -1e9],
+      // the legend Buddha's pedestal hides the trees under it at the cover; only the wat's own ground is open
       // the lake bed: marsh and paddy before the gate, water after
       ...KWAN_CELLS.map(([x, z]) => [x, z, 2.2, -1e9] as [number, number, number, number]),
       // the track up from the south (the people leave on it, the settlers come back on it; the trunk later)
