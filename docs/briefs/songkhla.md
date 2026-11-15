@@ -102,3 +102,5 @@ for songkhla. Stills: `songkhla_v1_contact.jpg` (12).
 - v1b ([local]'s render note, 15 Nov): the sun's specular on the two waters blew out to white for ~0.5 s at ~8.5 s and
   ~18.5 s. The water is now matte (roughness 0.85, metalness 0; a rougher-but-shiny 0.42 spread the glare into a washed
   sheet). Still A/B before/after at 8.5 s and 18.5 s: `songkhla_v1b_water.jpg`.
+- v1c ([local], bcdd52a): the water slab's top lifted from 0.06 to 0.10 (extrude depth 1.40) so it no longer z-fights the
+  shore ground (late-clip flicker, worst at 44-56 s). Keep depth >= 1.40.

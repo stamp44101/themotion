@@ -30,6 +30,9 @@ const shapeOf = (pts: P2[], holes: P2[][] = []) => {
 };
 const GULF_SHAPE = shapeOf(GULF, [KO_NU]);
 const LAKE_SHAPE = shapeOf(LAKE);
+// The slab's top sits at -1.3 + depth = 0.10: keep depth >= 1.40. At 1.36 (top 0.06) it was coplanar with the shore ground
+// and z-fought into flickering stripes ([local], PR #93). Matte (roughness 0.85, metalness 0): a shiny top blew the sun's
+// specular out to white at ~8.5 s and ~18.5 s.
 const FlatWater: React.FC<{shape: THREE.Shape; color: string}> = ({shape, color}) => (
   <mesh position={[0, -1.3, 0]} rotation-x={-Math.PI / 2} receiveShadow>
     <extrudeGeometry args={[shape, {depth: 1.40, bevelEnabled: false}]} />
