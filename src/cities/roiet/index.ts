@@ -142,7 +142,14 @@ export const ROIET: CityConfig = {
       [1900, '#e6ecd6'],
       [2026, '#d6e8f4'],
     ],
-    ground: [[1774, '#aaa262'], ...GROUND],
+    // the dry ground of the cover turns green over the founding beat (2315-2318, ~4 s); the keys must stay in year order:
+    // [1774, sand] ahead of GROUND's 400..1700 keys snapped the whole tile in one frame at 7.07 s ([local], PR #94)
+    ground: [
+      [400, '#aaa262'],
+      [1772, '#aaa262'],
+      [1775, '#6f8650'],
+      ...GROUND.filter(([y]) => y > 1775),
+    ],
   },
   // a forest-only opening reads dark: extra sky fill until the town is up (CLAUDE.md)
   ambient: (Y) => 0.35 * (1 - Math.min(1, Math.max(0, (Y - 1774) / 60))),
