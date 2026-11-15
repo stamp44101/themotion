@@ -69,9 +69,11 @@ const Kwan: React.FC<{t: number; Y: number}> = ({t, Y}) => {
   const k = fillK(t, Y);
   if (k < 0.01) return null;
   return (
-    <mesh position={[0, -1.28 - 0.3 * (1 - k), 0]} rotation-x={-Math.PI / 2} receiveShadow>
+    // the water stays just over the flat ground and fades in over ~1.5 s (rising through the ground made the whole lake
+    // appear in one frame: [local]'s check_render flagged a luma jump of 9.8 at 30.33 s)
+    <mesh position={[0, -1.36 + 0.1 * k, 0]} rotation-x={-Math.PI / 2} receiveShadow>
       <extrudeGeometry args={[KWAN_SHAPE, {depth: 1.4, bevelEnabled: false}]} />
-      <meshStandardMaterial color={WATER} roughness={0.12} metalness={0.25} />
+      <meshStandardMaterial color={WATER} roughness={0.12} metalness={0.25} transparent={k < 0.35} opacity={smooth(k / 0.35)} />
     </mesh>
   );
 };
