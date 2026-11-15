@@ -7,7 +7,7 @@ import {
   buildFronts, cartAt, carrierAt, circlerAt, clamp01, fillK, foundHouseK, gateK, leaverAt, marcherAt, monumentK, payoffK,
   pilgrimAt, settlerAt, sinkK, smooth, vihK,
 } from './actors';
-import {FACE, GATE, KWAN, MONUMENT, VIHARA_C, VIHARA_L, VIHARA_ROT, VIHARA_W, WAT_SI_KHOM_KHAM, WAT_TILOK} from './places';
+import {FACE, GATE, ING_BED, ING_W, KWAN, MONUMENT, VIHARA_C, VIHARA_L, VIHARA_ROT, VIHARA_W, WAT_SI_KHOM_KHAM, WAT_TILOK} from './places';
 import {STORY} from './timeline';
 
 const hash = (i: number) => {
@@ -73,6 +73,27 @@ const Kwan: React.FC<{t: number; Y: number}> = ({t, Y}) => {
       <extrudeGeometry args={[KWAN_SHAPE, {depth: 1.4, bevelEnabled: false}]} />
       <meshStandardMaterial color={WATER} roughness={0.12} metalness={0.25} />
     </mesh>
+  );
+};
+
+/** the Ing's old course across the lake bed: a flat ribbon at the rivers' surface, gone under the lake once it is full */
+const OLD_ING: React.FC<{t: number; Y: number}> = ({t, Y}) => {
+  if (fillK(t, Y) > 0.95) return null;
+  return (
+    <group>
+      {ING_BED.slice(1).map((b, i) => {
+        const a = ING_BED[i];
+        const len = Math.hypot(b[0] - a[0], b[1] - a[1]);
+        return (
+          <group key={i} position={[(a[0] + b[0]) / 2, 0.06, (a[1] + b[1]) / 2]} rotation-y={Math.atan2(b[0] - a[0], b[1] - a[1])}>
+            <mesh receiveShadow>
+              <boxGeometry args={[ING_W, 0.06, len + ING_W * 0.6]} />
+              <meshStandardMaterial color={WATER} roughness={0.15} metalness={0.2} />
+            </mesh>
+          </group>
+        );
+      })}
+    </group>
   );
 };
 
@@ -266,7 +287,7 @@ const Vihara: React.FC<{k: number}> = ({k}) => {
           ].map(([dy, , halfW, len], j) => (
             <group key={j} position={[0, dy, 0]}>
               {[-1, 1].map((s) => (
-                <mesh key={s} position={[0, 0.32, (s * halfW) / 2]} rotation-x={s * 0.75} castShadow>
+                <mesh key={s} position={[0, 0.32, (s * halfW) / 2]} rotation-x={-s * 0.75} castShadow>
                   <boxGeometry args={[len, 0.07, halfW * 1.2]} />
                   <meshStandardMaterial color={TILE_ROOF} roughness={0.8} />
                 </mesh>
@@ -286,7 +307,7 @@ const Vihara: React.FC<{k: number}> = ({k}) => {
 };
 
 // ------------------------------------------------------------------ Wat Tilok Aram's chedi, drowned by the Kwan
-const TILOK_S = 1.8;
+const TILOK_S = 2.6;
 const Chedi: React.FC<{sink: number}> = ({sink}) => {
   const S = TILOK_S;
   const y = (v: number) => v * S;
@@ -498,6 +519,7 @@ export const PhayaoLandmarks: React.FC<LandmarkProps> = ({Y, t}) => {
   return (
     <group>
       <Kwan t={t} Y={Y} />
+      <OLD_ING t={t} Y={Y} />
       {/* the Buddha faces the road and the town (north-east), the lake at its back */}
       <group position={[WAT_SI_KHOM_KHAM[0], 0, WAT_SI_KHOM_KHAM[1]]} rotation-y={FACE}>
         <TonLuang t={t} S={S} />

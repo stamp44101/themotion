@@ -38,6 +38,12 @@ export const ING: P[] = [
   [22.8, 6.5], [24.2, 4.1], [26.6, 3.7], [24.5, 1.8], [27.8, 1.8], [31.6, 2.6], [34, 1.0],
 ];
 export const ING_W = 1.0;
+/** the Ing out of the lake east (the engine's river, it carries the boats): from the outlet to the tile's east edge */
+export const ING_OUT: P[] = ING.slice(ING.findIndex(([x, z]) => x === 14.6 && z === 8.2));
+/** the Ing into the lake from the north edge (the engine's second river), ending at the north shore */
+export const ING_IN: P[] = ING.slice(0, 4);
+/** its old course across the lake bed (estimate), drawn as a flat ribbon until the lake covers it */
+export const ING_BED: P[] = ING.slice(3, ING.findIndex(([x, z]) => x === 14.6 && z === 8.2) + 1);
 /** the 2482 gate across the Ing at the lake's outlet, just upstream of the Phahonyothin bridge (OSM tags no gate) */
 export const GATE: P = [11.4, 8.5];
 /** where ถนนพหลโยธิน crosses the Ing below the gate (OSM bridge ways 192211859 / 234013690) */

@@ -20,11 +20,11 @@ const C1: Key = [2.8, BX, 30, BZ, 252, 106, 31, 30];
 const PP_IN: Key = [4.6, BX, 1.0, BZ, 22, 118, 41, 30];
 const PP_END: Key = [7.8, BX, 1.0, BZ, 19, 148, 41, 30];
 // abandon: the wiang and the Buddha from the south-east as the people leave down the track
-const AB_IN: Key = [10.0, 8.0, 1, 3.0, 36, 52, 42, 30];
-const AB_END: Key = [13.6, 11.4, 1, 12.0, 34, 28, 42, 30];
+const AB_IN: Key = [10.0, 5.0, 1, 2.0, 48, 52, 42, 30];
+const AB_END: Key = [13.6, 8.6, 1, 8.0, 46, 30, 42, 30];
 // refound: the carts come up the track from the south into the wiang
-const RF_IN: Key = [15.0, 12.0, 1, 9.0, 32, 70, 41, 30];
-const RF_END: Key = [20.0, 5.0, 1, 0.8, 30, 98, 41, 30];
+const RF_IN: Key = [15.0, 11.0, 1, 7.0, 40, 70, 41, 30];
+const RF_END: Key = [20.0, 5.6, 1, 1.4, 34, 98, 41, 30];
 // vihara: back at Wat Si Khom Kham, the timber carried up from the shore and the new vihara over the Buddha
 const VI_IN: Key = [21.6, -11.6, 1.0, -10.6, 26, 112, 41, 30];
 const VI_END: Key = [26.0, BX, 1.0, BZ, 22, 150, 41, 30];

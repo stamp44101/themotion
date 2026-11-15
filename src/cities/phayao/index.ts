@@ -3,7 +3,7 @@ import type {CityConfig} from '../../engine/types';
 import {PhayaoLandmarks} from './Landmarks';
 import {ACTORS, BOAT_C, FOUND_HOUSES, atAlong} from './actors';
 import {
-  GATE, ING, ING_W, KWAN_CELLS, MOAT_ROAD, MONUMENT, NE_ROAD, OLD_ROAD, OUTLET_BRIDGE, PILLAR, SHORE_ROAD, SOUTH_TRACK,
+  GATE, ING_IN, ING_OUT, ING_W, KWAN_CELLS, MOAT_ROAD, MONUMENT, NE_ROAD, OLD_ROAD, OUTLET_BRIDGE, PILLAR, SHORE_ROAD, SOUTH_TRACK,
   SW_ROAD, TILE, TRUNK, VIHARA_C, VIHARA_L, VIHARA_W, WAT_RATCHAKHRUE, WAT_SI_KHOM_KHAM, WAT_SI_UMONG, WAT_TILOK, WIANG,
 } from './places';
 import {STORY} from './timeline';
@@ -42,7 +42,7 @@ export const PHAYAO: CityConfig = {
     beat: STORY.beat,
     beats: STORY.beats,
     intro: {kicker: 'ไทม์แลปส์ประวัติศาสตร์', title: 'พะเยา', sub: 'พระเจ้าตนหลวง ริมกว๊านพะเยา'},
-    finale: {kicker: 'ภูกามยาว – พะเยา', title: 'พะเยา', sub: 'กว๊านพะเยาแหล่งชีวิต ศักดิ์สิทธิ์พระเจ้าตนหลวง'},
+    finale: {kicker: 'ภูกามยาว – พะเยา', title: 'พะเยา', sub: 'กว๊านพะเยาแหล่งชีวิต พระเจ้าตนหลวง'},
     approxBefore: 1843,
     duration: STORY.duration,
   },
@@ -56,10 +56,13 @@ export const PHAYAO: CityConfig = {
       [-57, 34, 10, 8],
       [-14.2, -20.2, 1.0, 2.0],
     ],
-    rivers: [{path: ING, width: ING_W}],
+    rivers: [
+      {path: ING_OUT, width: ING_W},
+      {path: ING_IN, width: ING_W},
+    ],
     bridges: [
-      // ถนนพหลโยธิน over the Ing at the lake's outlet (OSM bridge)
-      {at: atAlong(ING, OUTLET_BRIDGE), year: 1935, modernYear: 1985, river: 0},
+      // the old crossing of the Ing at the outlet (the track south to Lampang), ถนนพหลโยธิน's bridge today (OSM bridge)
+      {at: atAlong(ING_OUT, OUTLET_BRIDGE), year: 1450, modernYear: 1960, river: 0},
     ],
     noMoat: true,
     noWall: true,
