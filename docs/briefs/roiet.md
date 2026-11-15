@@ -3,7 +3,7 @@
 Research and map by cloud alone (no [gemini] / [local] pass), 15 Nov 2569: `roiet_research.md` (6 parts) and
 `roiet_onep/` (23 pins, OSM moat and bueng, imagery maps; README there).
 
-## Cover: three style frames (owner picks)
+## Cover: A2 โหวด, picked by the owner (15 Nov, "ทำตามเขา": the cloud's recommendation)
 `roiet_styleframes.jpg` (0/1/2/3 s), code `src/styleframes/roiet.tsx` (`RoietStyleA1`, `A2`, `B`). All three stand on the
 whole land tile at legend scale in พ.ศ. 2318 (the founding year): the real moat ring (OSM centreline) with a broken earth
 bank, บึงพลาญชัย with its island, ดงกุ่ม forest inside the moat, paddy outside. Half made by hand at frame 0, changing shape.
@@ -44,3 +44,31 @@ Far places: Ban Si Kaeo (khaen) 15 km NW, the airport 15 km ENE, พระมห
 | หอโหวด ๑๐๑ opens | **21 ธ.ค. 2563** (th.wiki); height 101 vs 123 m disputed | held 2563, no height on screen |
 
 Do not show: the ผีบุญ rebellion (2444–45); any count of gates.
+
+## Storyline v1 (proposal; the owner decides)
+```
+Hero (0-3 s): a giant wot (โหวด) standing on the land SE of the moat; half its pipes in, the rest drop in, the wax seals it,
+  it spins and rings of sound roll out          BIG  IDENTITY  MOVING  SURPRISING (out of scale)
+Hero sound: hollow bamboo knocks as each pipe drops in, then the wot's breathy whistle as it spins
+Open loop: "why a giant flute?" -> 34-42 s: it comes back on the bueng's south bank and turns into หอโหวด ๑๐๑
+```
+| id | kind | t (s) | counter | held | caption / sub | on screen |
+|---|---|---|---|---|---|---|
+| hero | legend | 0-3.0 | 2318 (under the title) | - | title ร้อยเอ็ด / sub "สาเกตนคร เมืองกลางบึงพลาญชัย" | the wot SE of the Dvaravati moat; ดงกุ่ม forest inside the moat, the reedy bueng |
+| found | procession | 3.0-9.0 | 2318 → 2319 | **2318 ≥ 1 s** | "พ.ศ. 2318 ท้าวทนตั้งเมืองร้อยเอ็ด" / sub "ถางดงกุ่มบนซากเมืองโบราณ" | a procession with ox carts comes up from the south (Suwannaphum), crosses the moat, clears ดงกุ่ม; Wat Bueng Phra Lan Chai's first sim rises on the bueng's west bank |
+| plane | arrive | 9.0-16.0 | 2400 → 2465 | - | "เครื่องบินลงนอกคูเมือง" / sub "เมืองหลวงของมณฑลร้อยเอ็ด" | the town fills inside the moat (wooden houses, Wat Klang, Wat Sa Thong); a biplane lands on the strip 1.5 km NNW |
+| dig | build | 16.0-23.0 | 2469 → 2471 | **2469 ≥ 1 s** | "คนนับหมื่นลอกบึงพลาญชัย" / sub "ข้าหลวงชวนชาวบ้านทุกอำเภอ" | close (el 40-42): lines of people with baskets dig the silted bueng; the water comes back round the island, a sala on the island |
+| grow | grow | 23.5-33.0 | 2471 → 2556 | - | sub "เมืองล้นคูออกไปถึงถนนวงแหวน" | wide ≥ 160 from the cover's side: blocks spread past the moat along the radial roads to the ring road; Phra Sung Yai rises at Wat Burapha |
+| tower | build | 33.5-42.0 | 2556 → 2563 | **2563 ≥ 1 s** | "หอโหวด ๑๐๑ ริมบึงพลาญชัย" / sub "รูปทรงจากโหวด เครื่องดนตรีประจำจังหวัด" | callback: the giant wot drifts in over the town, sets down on the bueng's south bank and becomes the tower (callout หอโหวด ๑๐๑) |
+| fair | celebrate | 43.0-53.0 | 2563 → 2569 | - | "บุญผะเหวด แห่รอบบึงพลาญชัย" / sub "ขบวนพระเวสกับวงแคน" | the Phawet procession round the bueng and over to the island, khaen bands, crowds in the park under the tower |
+| today | today | 53.0-60 | 2569 ≥ 1 s | 2569 | finale + tagline | the whole tile at the cover's distance, the town full to the ring road |
+
+Kinds: legend / procession / arrive / build / grow / build / celebrate / today: no two alike in a row, two `build`, the
+spectacle (the founding procession) from 3 s. No far places: the airport (2542), Ban Si Kaeo's khaen makers and the Maha
+Chedi stay out (the Maha Chedi is 78 km away; the tower is the big thing at the end).
+No year on screen the counter does not hold 1 s: 2456 (มณฑล), 2465 (the airfield, one snippet), 2480 (municipality),
+2516 (Phra Sung Yai), 2542 (airport), 2549 (GI) stay out of the captions and subs.
+Tagline: "งามน่ายลบึงพลาญชัย" (provincial slogan); finale kicker "พ.ศ. 2318 – 2569".
+Facts with nothing to show: the Dvaravati moat's age; สาเกตนคร in the Urangkhathat; the Anouvong war (Roi Et's part rests on
+the wiki alone); the municipality office on the island (2480); the airport moving to Thawat Buri (2542); jasmine rice GI.
+Out: the ผีบุญ rebellion. Approximate: the biplane is a generic 1920s biplane; the 2318 sim is a generic wooden Isan sim.
