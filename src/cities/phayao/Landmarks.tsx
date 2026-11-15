@@ -287,7 +287,7 @@ const Vihara: React.FC<{k: number}> = ({k}) => {
           ].map(([dy, , halfW, len], j) => (
             <group key={j} position={[0, dy, 0]}>
               {[-1, 1].map((s) => (
-                <mesh key={s} position={[0, 0.32, (s * halfW) / 2]} rotation-x={-s * 0.75} castShadow>
+                <mesh key={s} position={[0, 0.32, (s * halfW) / 2]} rotation-x={s * 0.75} castShadow>
                   <boxGeometry args={[len, 0.07, halfW * 1.2]} />
                   <meshStandardMaterial color={TILE_ROOF} roughness={0.8} />
                 </mesh>

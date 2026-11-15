@@ -87,4 +87,10 @@ the effects, ambience -11.6 LU under the score. `npm run check`: 0 errors.
 - Wat Si Khom Kham sits on a ~3.3-unit strip between the shore and the old Phahonyothin, both running NW-SE: the open vihara
   is drawn at the pin, its front (and the Buddha's face) to the road, north-east; drawn ~10x so it reads against the people.
 - Ngam Mueang's monument is drawn 1.4 E of its OSM node so it stands clear of the shore road.
+- Fixed on the stills before passing them (cloud, under the delegation): the Ing's channel showed across the new lake (now
+  split into an inflow and an outflow river, the old course across the bed drawn as a ribbon the lake covers); the vihara
+  roof was drawn as a V; the settlers' carts crossed the Ing with no bridge (an old crossing at the outlet from the start,
+  Phahonyothin's bridge later); the cover's clearing left the wat on a bare green plain; the abandon shot was too close to
+  read the town; the finale's tagline wrapped (now "กว๊านพะเยาแหล่งชีวิต พระเจ้าตนหลวง").
+- Stills: `phayao_v1_contact.jpg` (0, 2.5, 6, 11, 17, 23.5, 29, 32.5, 36.5, 43, 51, 57.5 s); taken as passed under the delegation.
 - Left as it is: the grandeur warning (the wiang is 0.9% of the tile) is the town's true size.
