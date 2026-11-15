@@ -3,7 +3,7 @@
 Research and map by cloud alone (no [gemini] / [local] pass), 15 Nov 2569: `phayao_research.md` (6 parts) and
 `phayao_onep/` (19 pins, OSM, imagery maps; README there).
 
-## Cover: style frames for the owner to pick (15 Nov)
+## Cover: A1, cloud's pick, taken under the owner's delegation (15 Nov)
 `phayao_styleframes.jpg` (0/1/2/3 s), code `src/styleframes/phayao.tsx` (`PhayaoStyleA1`, `A2`, `B`). All three sit on the
 whole land tile (the real Kwan, the Ing, the wiang outline) at legend scale; A1 and A2 are half made by hand at frame 0 and
 change shape (experiments §17-§20).
@@ -47,4 +47,44 @@ University of Phayao 15 km S.
 | Ngam Mueang monument | 2524-2527 | sub line |
 | University of Phayao | 2553 (not verified) | no hold |
 
-Not chosen yet: the storyline waits for the owner's pick of the cover.
+**Owner delegated the gates (15 Nov, relayed by the Kalasin session):** "ปกติเสนออะไรทึ่สุดผมก็เอาอันนัันแหละ ทำแทนผมทีนะ" and
+"ให้ตอนจนเหลือแค่ส่งงานหา local พร้อมให้เรนเดอร์ แล้วเรียกผมแล้วกัน". So cloud took its own recommendation at each gate: the cover
+(A1), storyline v1 below, and the v1 stills pass (reviewed hard, fixed, then treated as passed).
+
+## Storyline v1 (cloud's recommendation, taken as approved under the delegation)
+```
+Hero (0-3 s): the giant Buddha of Wat Si Khom Kham half built in brick on the marsh shore; the head goes up, stucco, gold (A1)
+  BIG IDENTITY MOVING (made by hand, changes shape)
+Hero sound: a brick laid, the trowel, a bell as the gold goes on
+Open loop: "why is a giant Buddha being built on a marsh?" -> the payoff: Paet Peng at the same Buddha, now on a lake
+```
+| id | kind | t (s) | counter | held | caption / sub | on screen |
+|---|---|---|---|---|---|---|
+| hero | legend | 0-3.0 | ~2031-2034 (under the title) | - | title พะเยา / sub "พระเจ้าตนหลวง ริมกว๊านพะเยา" | the legend-scale Buddha built on the shore; shrinks to its site by 4.4 s |
+| paetpeng | celebrate | 3.0-8.5 | ~2035 → ~2067 | - | "พระเจ้าตนหลวงเสร็จ" / "ก่ออิฐถือปูนราว 33 ปี ฉลองวันเพ็ญเดือนแปด" | close: people with candles circle the finished Buddha |
+| abandon | disaster | 8.5-14.0 | ~2068 → ~2385 | - | "ศึกพม่า เมืองพะเยาร้าง" / "ผู้คนหนีศึก ป่ากลับคลุมเวียงอีกครั้ง" | people and carts leave south down the track; the wiang empties, forest comes back |
+| refound | arrive | 14.0-20.5 | 2386 | **2386 ≥ 1 s** | "ร.3 ตั้งเมืองพะเยาขึ้นใหม่" / "ผู้คนกลับเข้าเวียง เป็นเมืองหน้าด่านกันพม่า" | carts come up the track; Lanna houses go up in the wiang |
+| vihara | build | 20.5-26.6 | 2387 → 2468 | - | "ครูบาศรีวิชัยสร้างวิหารใหม่" / "ชาวบ้านแบกไม้ ยกวิหารครอบพระเจ้าตนหลวง" | logs carried in pairs; the open Lanna vihara rises over the Buddha (callout) |
+| lake | disaster | 26.6-33.6 | 2482 | **2482 ≥ 1 s** | "กั้นแม่อิง เกิดกว๊านพะเยา" / "กรมประมงทำประตูน้ำ น้ำท่วมทุ่ง วัดติโลกอารามจม" | the gate's doors come down (callout), the marsh floods into the Kwan, the chedi goes under (callout) |
+| province | procession | 33.6-39.4 | 2520 | **2520 ≥ 1 s** | "ตั้งจังหวัดพะเยา" / "แยกจากเชียงราย เป็นจังหวัดที่ 72" | a parade with flags on the shore road; the Ngam Mueang monument (callout; it is from 2527) |
+| grow | grow | 39.4-47.2 | 2521 → 2561 | - | "เมืองโตริมกว๊าน" / "ขยายขึ้นเหนือและตะวันออกตามถนนพหลโยธิน" | wide ≥ 175: the town spreads north and east along the trunk |
+| payoff | celebrate | 47.2-54.4 | 2562 → 2568 | - | "ประเพณีแปดเป็ง" / "นมัสการพระเจ้าตนหลวง ทุกปีช่วงวิสาขบูชา" | candles round the vihara's front, boats with candles on the lake; the cover's Buddha (callout, callback) |
+| today | today | 54.6-56.4 | 2569 ≥ 1 s | 2569 | finale + tagline | the whole tile at the cover's distance, now a town on the Kwan |
+
+Kinds: legend / celebrate / disaster / arrive / build / disaster / procession / grow / celebrate / today: no two alike in a row,
+one `build`, the close event with people at 3-9 s. No far places. No year named on screen that the counter does not hold:
+2034-2067 (the temple's history), ~1830 (the pact, legend), 2465-2466 (Khruba Sriwichai, one source) stay out of the captions.
+Tagline: "กว๊านพะเยาแหล่งชีวิต ศักดิ์สิทธิ์พระเจ้าตนหลวง" (the provincial slogan). Finale kicker "ภูกามยาว – พะเยา".
+Facts with nothing to show: the three kings' pact (~1830; its place is now under the Kwan), the fisheries station (2484),
+Wat Si Khom Kham a royal temple (2523), the University of Phayao (2553).
+
+## v1 build (cloud, 15 Nov)
+`src/cities/phayao/`, 100 m/unit, origin the city pillar, everything at true scale on one tile (no far places). Score
+`scripts/soundtrack_phayao.py` (sueng, a salo-like reed, wooden bars, klong and ching, gongs), -16.0 LUFS, score +1.2 LU over
+the effects, ambience -11.6 LU under the score. `npm run check`: 0 errors.
+- The Kwan is one flat shape (OSM outline) that rises over the marsh in the lake beat; the lake bed is open ground in every
+  era (no trees, no sprawl). The Ing crosses it before 2482 (estimate) and stays as the river in and out.
+- Wat Si Khom Kham sits on a ~3.3-unit strip between the shore and the old Phahonyothin, both running NW-SE: the open vihara
+  is drawn at the pin, its front (and the Buddha's face) to the road, north-east; drawn ~10x so it reads against the people.
+- Ngam Mueang's monument is drawn 1.4 E of its OSM node so it stands clear of the shore road.
+- Left as it is: the grandeur warning (the wiang is 0.9% of the tile) is the town's true size.
