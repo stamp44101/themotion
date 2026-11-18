@@ -1,0 +1,379 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.55701,
+     7.52393
+    ]
+   },
+   "properties": {
+    "name": "ศาลหลักเมืองตรัง (ควนธานี)",
+    "era": "2354?-",
+    "why": "หลักเมืองยังอยู่ที่เมืองเดิมควนธานี (en.wiki Kantang district); จุดกำเนิดระยะทั้งหมด",
+    "source": "OSM way 1442965281 (Trang City Pillar Shrine)",
+    "pin": "osm-site",
+    "dist_m": 0,
+    "bearing": 0,
+    "octant": "N",
+    "east_m": 0,
+    "north_m": 0
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.5584,
+     7.5249
+    ]
+   },
+   "properties": {
+    "name": "ควนธานี (ตำบล)",
+    "era": "-2433/2436",
+    "why": "เมืองตรังเดิมริมแม่น้ำตรัง ก่อนพระยารัษฎาฯ ย้ายลงกันตัง",
+    "source": "OSM node 9814344067",
+    "pin": "osm",
+    "dist_m": 187,
+    "bearing": 55,
+    "octant": "NE",
+    "east_m": 153,
+    "north_m": 107
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.51462,
+     7.4108
+    ]
+   },
+   "properties": {
+    "name": "สถานีรถไฟกันตัง (เดิม \"สถานีตรัง\")",
+    "era": "1 เม.ย. 2456-",
+    "why": "ปลายทางสายทุ่งสง-กันตัง ริมท่าเรือ",
+    "source": "OSM way 888443191",
+    "pin": "osm",
+    "dist_m": 13355,
+    "bearing": 201,
+    "octant": "S",
+    "east_m": -4678,
+    "north_m": -12509
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.50883,
+     7.4103
+    ]
+   },
+   "properties": {
+    "name": "ท่าเรือกันตัง",
+    "era": "2433-",
+    "why": "ท่าค้าขายกับปีนัง ส่งยางพารา",
+    "source": "OSM way 1365541871",
+    "pin": "osm",
+    "dist_m": 13643,
+    "bearing": 203,
+    "octant": "SW",
+    "east_m": -5317,
+    "north_m": -12565
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.52284,
+     7.40961
+    ]
+   },
+   "properties": {
+    "name": "ยางพาราต้นแรกในไทย",
+    "era": "2442 (ขัดแย้ง 2442/2444)",
+    "why": "จุดปลูกยางต้นแรก (ป้าย/ต้นที่ระลึก)",
+    "source": "OSM node 13271459613",
+    "pin": "osm",
+    "dist_m": 13191,
+    "bearing": 197,
+    "octant": "S",
+    "east_m": -3771,
+    "north_m": -12641
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.4988,
+     7.3103
+    ]
+   },
+   "properties": {
+    "name": "แม่น้ำตรัง ปากน้ำ",
+    "era": "ทุกยุค",
+    "why": "สำเภาปีนังเข้าปากน้ำ; ทะเลอันดามัน",
+    "source": "OSM way 791433088 (end)",
+    "pin": "osm",
+    "dist_m": 24480,
+    "bearing": 195,
+    "octant": "S",
+    "east_m": -6424,
+    "north_m": -23622
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.60461,
+     7.55445
+    ]
+   },
+   "properties": {
+    "name": "สถานีรถไฟตรัง (เดิม \"สถานีทับเที่ยง\")",
+    "era": "2456?-",
+    "why": "ตัวเมืองใหม่ทับเที่ยง",
+    "source": "OSM way 668543346",
+    "pin": "osm",
+    "dist_m": 6244,
+    "bearing": 57,
+    "octant": "NE",
+    "east_m": 5253,
+    "north_m": 3375
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.60989,
+     7.55677
+    ]
+   },
+   "properties": {
+    "name": "หอนาฬิกาตรัง",
+    "era": "ปีสร้างไม่พบ",
+    "why": "ใจกลางเมืองทับเที่ยง",
+    "source": "OSM node 5267704421",
+    "pin": "osm",
+    "dist_m": 6873,
+    "bearing": 58,
+    "octant": "NE",
+    "east_m": 5836,
+    "north_m": 3631
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.61143,
+     7.55822
+    ]
+   },
+   "properties": {
+    "name": "ศาลากลางจังหวัดตรัง",
+    "era": "2459-",
+    "why": "ศาลากลางหลังย้ายเมืองขึ้นทับเที่ยง",
+    "source": "OSM node 5356395221",
+    "pin": "osm",
+    "dist_m": 7103,
+    "bearing": 58,
+    "octant": "NE",
+    "east_m": 6006,
+    "north_m": 3792
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.61108,
+     7.56085
+    ]
+   },
+   "properties": {
+    "name": "สวนทับเที่ยง",
+    "era": "ปัจจุบัน",
+    "why": "ใจกลางเมือง",
+    "source": "OSM way 556676314",
+    "pin": "osm",
+    "dist_m": 7230,
+    "bearing": 56,
+    "octant": "NE",
+    "east_m": 5967,
+    "north_m": 4082
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.62281,
+     7.56509
+    ]
+   },
+   "properties": {
+    "name": "อนุสาวรีย์พระยารัษฎานุประดิษฐ์",
+    "era": "ปัจจุบัน",
+    "why": "ผู้วางรากฐานเมืองตรัง",
+    "source": "OSM node 2760165016",
+    "pin": "osm",
+    "dist_m": 8570,
+    "bearing": 58,
+    "octant": "NE",
+    "east_m": 7262,
+    "north_m": 4551
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.62439,
+     7.57632
+    ]
+   },
+   "properties": {
+    "name": "สระกะพังสุรินทร์",
+    "era": "ปัจจุบัน",
+    "why": "สวนสาธารณะเก่าแก่ของเมือง",
+    "source": "OSM relation 3992344",
+    "pin": "osm",
+    "dist_m": 9426,
+    "bearing": 52,
+    "octant": "NE",
+    "east_m": 7436,
+    "north_m": 5793
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.61523,
+     7.50826
+    ]
+   },
+   "properties": {
+    "name": "ท่าอากาศยานตรัง",
+    "era": "ปัจจุบัน",
+    "why": "สนามบิน (open ground)",
+    "source": "OSM way 662486527",
+    "pin": "osm",
+    "dist_m": 6655,
+    "bearing": 105,
+    "octant": "E",
+    "east_m": 6425,
+    "north_m": -1733
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.39641,
+     7.24357
+    ]
+   },
+   "properties": {
+    "name": "เกาะลิบง",
+    "era": "ปัจจุบัน",
+    "why": "บ้านของพะยูน (Ramsar)",
+    "source": "OSM way 23984406",
+    "pin": "osm",
+    "dist_m": 35710,
+    "bearing": 210,
+    "octant": "SW",
+    "east_m": -17724,
+    "north_m": -31001
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.28377,
+     7.36922
+    ]
+   },
+   "properties": {
+    "name": "ถ้ำมรกต เกาะมุก",
+    "era": "ปัจจุบัน",
+    "why": "ทะเลตรัง (ไม่ใช้ในเรื่อง)",
+    "source": "OSM node 2493830020",
+    "pin": "osm",
+    "dist_m": 34670,
+    "bearing": 240,
+    "octant": "SW",
+    "east_m": -30155,
+    "north_m": -17107
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.25265,
+     7.31577
+    ]
+   },
+   "properties": {
+    "name": "เกาะกระดาน",
+    "era": "ปัจจุบัน",
+    "why": "ทะเลตรัง (ไม่ใช้ในเรื่อง)",
+    "source": "OSM way 26924459",
+    "pin": "osm",
+    "dist_m": 40719,
+    "bearing": 236,
+    "octant": "SW",
+    "east_m": -33590,
+    "north_m": -23017
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.565,
+     7.55
+    ]
+   },
+   "properties": {
+    "name": "ชุมชนท่าจีน (คลองท่าจีน)",
+    "era": "ราว 2367",
+    "why": "ชาวจีนจากปีนังขึ้นค้าขายริมแม่น้ำตรัง",
+    "source": "ไม่พบพิกัดชุมชน (แม่น้ำตรังช่วงเมืองตรัง ~7.55, 99.56)",
+    "pin": "estimate",
+    "dist_m": 3015,
+    "bearing": 17,
+    "octant": "N",
+    "east_m": 882,
+    "north_m": 2883
+   }
+  }
+ ]
+}
