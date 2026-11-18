@@ -65,7 +65,7 @@ const Cover: React.FC<{t: number}> = ({t}) => {
       </group>
       {t < 2.1 && (
         <group position={[ax, BOAT_S * 0.06, az]}>
-          <Chips u={ph} seed={Math.floor(t / 0.18)} S={BOAT_S * 0.12} n={12} />
+          <Chips u={ph} seed={Math.floor(t / 0.18)} S={BOAT_S * 0.2} n={14} />
         </group>
       )}
     </group>
@@ -186,15 +186,20 @@ const Found: React.FC<{t: number}> = ({t}) => {
 
 // ------------------------------------------------------------------ Phra That Lahanong and its bank
 /** a Lao that: a square base in tiers, a tall four-sided bell drawn as a lathe, a gold spire */
-const THAT_BELL = lathe([[0.5, 0], [0.48, 0.2], [0.38, 0.5], [0.32, 0.9], [0.22, 1.35], [0.12, 1.75], [0.05, 2.1], [0, 2.3]], 4);
+const THAT_BELL = lathe([[0.62, 0], [0.66, 0.12], [0.6, 0.3], [0.5, 0.55], [0.36, 0.85], [0.3, 1.05], [0.34, 1.15], [0.24, 1.3], [0.14, 1.6], [0.06, 1.95], [0, 2.1]], 16);
 const That: React.FC = () => (
   <group>
     <Box p={[0, 0.15, 0]} s={[1.5, 0.3, 1.5]} c="#e9e2d0" />
     <Box p={[0, 0.42, 0]} s={[1.2, 0.26, 1.2]} c="#efe9da" />
-    <mesh geometry={THAT_BELL} position={[0, 0.55, 0]} rotation-y={Math.PI / 4} scale={[1.45, 1, 1.45]} castShadow>
-      <meshStandardMaterial color="#f1ebdc" flatShading roughness={0.8} />
+    <mesh geometry={THAT_BELL} position={[0, 0.55, 0]} castShadow>
+      <meshStandardMaterial color="#f1ebdc" roughness={0.8} />
     </mesh>
-    <mesh position={[0, 2.95, 0]} castShadow>
+    {/* the gold band at the lotus waist */}
+    <mesh position={[0, 1.68, 0]}>
+      <cylinderGeometry args={[0.36, 0.36, 0.08, 16]} />
+      <meshStandardMaterial color="#d9a521" metalness={0.5} roughness={0.4} />
+    </mesh>
+    <mesh position={[0, 2.85, 0]} castShadow>
       <coneGeometry args={[0.07, 0.5, 6]} />
       <meshStandardMaterial color="#d9a521" metalness={0.6} roughness={0.35} />
     </mesh>
@@ -338,7 +343,7 @@ const Haw: React.FC<{t: number; Y: number}> = ({t, Y}) => (
         const r = Math.floor(j / COLUMNS);
         const p = soldierAt(c, r, t);
         return p ? (
-          <group key={j} position={[p.x, 0, p.z]} rotation-y={p.rot} scale={0.42}>
+          <group key={j} position={[p.x, 0, p.z]} rotation-y={p.rot} scale={0.55}>
             <Walker step={t * 2 + r * 0.25} i={1} spear />
           </group>
         ) : null;

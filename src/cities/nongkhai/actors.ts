@@ -236,7 +236,11 @@ export const fireballAt = (i: number, t: number) => {
   const k0 = 0.45 + (i % 4) * 0.1 + Math.floor(i / 4) * 0.05;
   if (k < k0 || k > k0 + 0.45) return null;
   const u = (k - k0) / 0.45;
-  return {x: -6 + i * 2.4, y: 0.3 + u * 7.5, z: -9.6 - i * 0.55 - (i > 3 ? 1.2 : 0), u};
+  // over the middle of the river, between the Thai bank (-7.8,-2.4)-(12.4,-8.9) and the Lao bank (-7.8,-8.7)-(12.4,-17.1)
+  const x = -5 + i * 2.0;
+  const zs = -2.4 + ((x + 7.8) * -6.5) / 20.2;
+  const zn = -8.7 + ((x + 7.8) * -8.4) / 20.2;
+  return {x, y: 0.3 + u * 4.2, z: lerp(zs, zn, 0.45 + (i % 3) * 0.1), u};
 };
 
 export const ACTORS: Actor[] = [

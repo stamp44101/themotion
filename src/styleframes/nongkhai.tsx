@@ -7,8 +7,8 @@
 // stand, the other four are cast one by one on their rebar and the hood fans out.
 import React from 'react';
 import {NONGKHAI} from '../cities/nongkhai';
-import {LongBoat} from '../cities/nongkhai/Boat';
-import {BOAT_ROT, carveFront, headK} from '../cities/nongkhai/actors';
+import {Chips, LongBoat} from '../cities/nongkhai/Boat';
+import {BOAT_ROT, adzeAt, carveFront, headK} from '../cities/nongkhai/actors';
 import {BOAT_AT, BOAT_S, MEKONG} from '../cities/nongkhai/places';
 import {buildStory} from '../engine/story';
 import type {CityConfig, LandmarkProps} from '../engine/types';
@@ -74,11 +74,11 @@ const ConcreteNaga: React.FC<{t: number; S: number}> = ({t, S}) => {
             {k > 0.02 && (
               <group scale={[k, k, k]}>
                 <mesh position={[0, S * 0.07, 0]} castShadow>
-                  <capsuleGeometry args={[S * 0.025, S * 0.12, 4, 8]} />
+                  <capsuleGeometry args={[S * 0.035, S * 0.12, 4, 8]} />
                   <meshStandardMaterial color={k < 1 ? FRESH : CONCRETE} roughness={0.95} />
                 </mesh>
                 <mesh position={[0, S * 0.16, S * 0.025]} scale={[1, 0.75, 1.5]} castShadow>
-                  <sphereGeometry args={[S * 0.035, 10, 8]} />
+                  <sphereGeometry args={[S * 0.05, 10, 8]} />
                   <meshStandardMaterial color={k < 1 ? FRESH : CONCRETE} roughness={0.95} />
                 </mesh>
               </group>
@@ -142,8 +142,15 @@ const base = (id: string, Hero: React.FC<{t: number}>): CityConfig => {
 };
 
 export const NONGKHAI_A1 = base('nongkhai-a1', ({t}) => (
-  <group position={[BOAT_AT[0], 0, BOAT_AT[1]]} rotation-y={BOAT_ROT}>
-    <LongBoat L={BOAT_S} front={carveFront(t)} head={headK(t)} t={t} />
+  <group>
+    <group position={[BOAT_AT[0], 0, BOAT_AT[1]]} rotation-y={BOAT_ROT}>
+      <LongBoat L={BOAT_S} front={carveFront(t)} head={headK(t)} t={t} />
+    </group>
+    {t < 2.1 && (
+      <group position={[adzeAt(t)[0], BOAT_S * 0.06, adzeAt(t)[1]]}>
+        <Chips u={(t / 0.18) % 1} seed={Math.floor(t / 0.18)} S={BOAT_S * 0.2} n={14} />
+      </group>
+    )}
   </group>
 ));
 export const NONGKHAI_A2 = base('nongkhai-a2', ({t}) => (

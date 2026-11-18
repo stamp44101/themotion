@@ -28,8 +28,8 @@ const SI_END: Key = [20.2, THAT[0], 1, THAT[1] + 0.8, 24, 74, 40, 30];
 const PS_IN: Key = [21.6, WAT_PHO_CHAI[0] - 1.6, 1, WAT_PHO_CHAI[1] + 0.4, 30, 156, 42, 30];
 const PS_END: Key = [25.8, WAT_PHO_CHAI[0] - 2.2, 1, WAT_PHO_CHAI[1] + 0.6, 26, 176, 42, 30];
 // haw: the army marches from the camp to the bank and crosses, from the south-west
-const HA_IN: Key = [27.4, PRAPHO[0] - 1.0, 1, PRAPHO[1] - 2.0, 40, 214, 40, 30];
-const HA_END: Key = [31.8, PRAPHO[0] - 1.0, 1, PRAPHO[1] - 3.0, 36, 236, 40, 30];
+const HA_IN: Key = [27.4, PRAPHO[0] - 1.0, 1, PRAPHO[1] - 0.4, 33, 214, 40, 30];
+const HA_END: Key = [31.8, PRAPHO[0] - 1.6, 1, PRAPHO[1] - 4.4, 31, 236, 40, 30];
 // rail: the train comes up from the south to the old station by the river, from the east-south-east
 const RA_IN: Key = [33.4, OLD_STATION[0] - 2.0, 1, OLD_STATION[1] + 5.0, 40, 250, 40, 30];
 const RA_END: Key = [37.2, OLD_STATION[0] - 0.6, 1, OLD_STATION[1] + 2.0, 32, 270, 40, 30];
@@ -38,9 +38,9 @@ const GR_IN: Key = [39.0, 15, 1, -1, 178, 330, 37, 30];
 const GR_END: Key = [44.2, 16, 1, -2, 205, 356, 37, 30];
 // bridge: the spans across the river, from the south-east (oblique, the river and Laos behind)
 const BR_IN: Key = [45.8, (BRIDGE[0][0] + BRIDGE[1][0]) / 2, 1, (BRIDGE[0][1] + BRIDGE[1][1]) / 2, 40, 410, 34, 30];
-const BR_END: Key = [49.8, (BRIDGE[0][0] + BRIDGE[1][0]) / 2, 1, (BRIDGE[0][1] + BRIDGE[1][1]) / 2, 34, 428, 34, 30];
+const BR_END: Key = [49.4, (BRIDGE[0][0] + BRIDGE[1][0]) / 2, 1, (BRIDGE[0][1] + BRIDGE[1][1]) / 2, 34, 428, 34, 30];
 // race: the boats off Tha Sadet, from over the crowd on the bank
-const RC_IN: Key = [51.0, 2.4, 1, -7.2, 34, 360 + 14, 34, 30];
+const RC_IN: Key = [50.6, 2.4, 1, -7.2, 34, 360 + 14, 34, 30];
 const RC_END: Key = [54.4, -2.6, 1, -5.6, 30, 360 + 26, 34, 30];
 // the landing: the whole tile again at the cover's distance, now a town along the river
 const END: Key = [56.4, BC[0] + 1, 5, BC[1] - 6, 300, 360 - 4, 36, 30];

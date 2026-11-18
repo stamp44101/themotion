@@ -71,3 +71,18 @@ No year is named on screen that the counter does not hold for 1 s: 2382, 2399, 2
 Tagline: "หลวงพ่อพระใส สะพานมิตรภาพ ริมฝั่งโขง" (a line of local pride; the provincial slogan's wording was not verified)
 Facts with nothing to show: Wat Pho Chai raised in 2382; Phra Suk sank in the Mekong (เวินพระสุก); the 2492 rebuild of the
 monument; trains over the bridge from 2552 and Bangkok-Vientiane from 2567.
+
+## v1 build (cloud, 18 Nov; stills pass by cloud under the owner's delegation)
+`src/cities/nongkhai/`, 100 m/unit, origin the Prap Ho monument, everything at true scale (places.ts). Score
+`scripts/soundtrack_nongkhai.py` (khaen, phin, pong lang as wooden bars, klong and ching, the long-boat drum), -16.0 LUFS,
+score +1.4 LU over the effects, ambience -12.3 LU under the score. `npm run check`: 0 errors. Stills: `nongkhai_v1_contact.jpg`.
+- The Mekong is one flat shape (Landmarks.tsx) with a 2-unit grid of clearings and sites over it (Songkhla's pattern);
+  the Friendship Bridge, the railway and every boat are drawn by Landmarks.tsx.
+- Wat Pho Chai's sim is drawn 90 m NW of the pin, turned along the bank road, so the road passes it (a road never runs
+  through a landmark); the 2498 station stands beside the track's end on its south side.
+- Fixed on the stills before passing them: the cover boat read as a stick (beam, depth and the naga head enlarged, the hull
+  painted red with gold and green bands); the fallen stupa read as a white cone (now a Lao that with a lotus waist); the
+  Haw army was too small (camera closer, figures larger) and its boats left the frame; the naga fireballs rose over the
+  Lao bank (now mid-river, lower); the race camera arrived after the boats had started.
+- Left as it is: the grandeur warning (the old town is 2.3% of the tile) is the town's true size; the landing and finale
+  show the full town along the river.
