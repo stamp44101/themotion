@@ -166,7 +166,13 @@ export const CUT_END = 2.1;
 export const holeAt = (k: number, n: number) => (k < n / 2 ? -1 : ((k - n / 2 + 1) / (n / 2)) * CUT_END);
 
 /** the hero: the gable on its trestles, sawn into lace, then lifted onto a teak house that grows under it */
-export const Gingerbread: React.FC<{t: number; S: number; lift?: [number, number]}> = ({t, S, lift = [2.2, 3.2]}) => {
+export const Gingerbread: React.FC<{t: number; S: number; lift?: [number, number]; debris?: boolean; saw?: boolean}> = ({
+  t,
+  S,
+  lift = [2.2, 3.2],
+  debris = true,
+  saw = true,
+}) => {
   const w = S;
   const h = S * 0.36;
   const v = S * 0.1;
@@ -179,7 +185,7 @@ export const Gingerbread: React.FC<{t: number; S: number; lift?: [number, number
   const fall = cut > n / 2 ? clamp01((t - lastAt) / 0.45) : 1;
   const last = holes[Math.max(0, cut - 1)];
   const lastY = last && (last.kind === 2 ? v + Math.sin(((last.a0 ?? 0) + (last.a1 ?? 0)) / 2) * ((last.r + (last.r1 ?? last.r)) / 2) : last.kind === 3 ? v * 0.1 : last.y);
-  const sawing = cut < n;
+  const sawing = saw && cut < n;
   const stroke = Math.sin(t * 30) * S * 0.04;
   // the board stands on trestles; after the cut it rises onto the house
   const up = smooth(clamp01((t - lift[0]) / (lift[1] - lift[0])));
@@ -292,7 +298,7 @@ export const Gingerbread: React.FC<{t: number; S: number; lift?: [number, number
         )}
       </group>
       {/* the piece just cut drops out and tumbles to the ground */}
-      {fall < 1 && last && (
+      {debris && fall < 1 && last && (
         <mesh
           position={[last.x, y0 + lastY - (y0 + lastY) * fall * fall, S * 0.02 + fall * S * 0.05]}
           rotation-x={fall * 4}
@@ -304,7 +310,7 @@ export const Gingerbread: React.FC<{t: number; S: number; lift?: [number, number
         </mesh>
       )}
       {/* cut-outs already on the ground under the board, a little heap of sawdust */}
-      {Array.from({length: Math.min(24, Math.floor(cut / 3))}, (_, i) => (
+      {debris && Array.from({length: Math.min(24, Math.floor(cut / 3))}, (_, i) => (
         <mesh key={i} position={[(hash(i) - 0.5) * w * 0.8, S * 0.005, S * 0.05 + hash(i + 9) * S * 0.12]} rotation-x={-Math.PI / 2}
           rotation-z={hash(i + 3) * 6}>
           <cylinderGeometry args={[S * 0.022, S * 0.022, S * 0.008, 8]} />
