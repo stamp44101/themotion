@@ -1,0 +1,467 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.00271,
+     13.41204
+    ]
+   },
+   "properties": {
+    "name": "ศาลหลักเมืองสมุทรสงคราม",
+    "era": "2517-",
+    "why": "จุดกำเนิดระยะทั้งหมด",
+    "source": "OSM way 829998820",
+    "pin": "osm",
+    "dist_m": 0,
+    "bearing": 0,
+    "octant": "N",
+    "east_m": 0,
+    "north_m": 0
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.99843,
+     13.40749
+    ]
+   },
+   "properties": {
+    "name": "สถานีรถไฟแม่กลอง (ปลายราง)",
+    "era": "2448-",
+    "why": "รถไฟถึงแม่กลอง 10 มิ.ย. 2448",
+    "source": "OSM node 1085870067; en.wiki 13.4075,99.9984",
+    "pin": "osm",
+    "dist_m": 684,
+    "bearing": 223,
+    "octant": "SW",
+    "east_m": -463,
+    "north_m": -503
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.00028,
+     13.40763
+    ]
+   },
+   "properties": {
+    "name": "ตลาดร่มหุบ (ช่วงรางในตลาด)",
+    "era": "~2527-",
+    "why": "ร่มหุบเมื่อรถไฟผ่าน ฉากจบ",
+    "source": "OSM way 499351150 (ราง 300 ม. จากสถานีไปทางตะวันออก)",
+    "pin": "osm",
+    "dist_m": 554,
+    "bearing": 208,
+    "octant": "SW",
+    "east_m": -263,
+    "north_m": -488
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.9987,
+     13.4092
+    ]
+   },
+   "properties": {
+    "name": "วัดเพชรสมุทรวรวิหาร (วัดบ้านแหลม)",
+    "era": "~2307-",
+    "why": "หลวงพ่อบ้านแหลม พระที่ติดอวนขึ้นมา",
+    "source": "en.wiki + th.wiki; ตรงกับหลังคาแดงริมแม่น้ำในภาพดาวเทียม (OSM มีแค่ลานจอดรถ node 1183546185)",
+    "pin": "imagery",
+    "dist_m": 536,
+    "bearing": 234,
+    "octant": "SW",
+    "east_m": -434,
+    "north_m": -314
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.9975,
+     13.4089
+    ]
+   },
+   "properties": {
+    "name": "ท่าน้ำหน้าวัดเพชร (ท่าเรือข้ามฟาก)",
+    "era": "-",
+    "why": "ฉากเรือ จุดที่คนกับแม่น้ำเจอกัน",
+    "source": "ประมาณจากภาพดาวเทียม ตลิ่งตะวันตกของวัด",
+    "pin": "estimate",
+    "dist_m": 662,
+    "bearing": 238,
+    "octant": "SW",
+    "east_m": -564,
+    "north_m": -347
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.99784,
+     13.40618
+    ]
+   },
+   "properties": {
+    "name": "ป้อมพิฆาตข้าศึก (ที่ตั้งเดิม = รพ.สมเด็จพระพุทธเลิศหล้า)",
+    "era": "สมัย ร.3 - ยุบ 2425",
+    "why": "ป้อมปากน้ำกันญวน",
+    "source": "OSM way 377405321 (โรงพยาบาล); ที่ตั้งป้อมตามเทศบาล (ข้อความย่อ)",
+    "pin": "osm-site",
+    "dist_m": 835,
+    "bearing": 219,
+    "octant": "SW",
+    "east_m": -527,
+    "north_m": -648
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.99943,
+     13.40723
+    ]
+   },
+   "properties": {
+    "name": "ตลาดสดเทศบาล",
+    "era": "-",
+    "why": "ปลาทู ของสดจากปากน้ำ",
+    "source": "OSM way 205714164",
+    "pin": "osm",
+    "dist_m": 640,
+    "bearing": 214,
+    "octant": "SW",
+    "east_m": -355,
+    "north_m": -532
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.9985,
+     13.4065
+    ]
+   },
+   "properties": {
+    "name": "ย่านตึกแถวริมน้ำ / ชุมชนตลาด",
+    "era": "2479-",
+    "why": "เมืองเทศบาลริมแม่กลอง",
+    "source": "ประมาณจากภาพดาวเทียม (บล็อกหนาแน่นใต้สถานี)",
+    "pin": "estimate",
+    "dist_m": 764,
+    "bearing": 217,
+    "octant": "SW",
+    "east_m": -456,
+    "north_m": -613
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.00254,
+     13.40671
+    ]
+   },
+   "properties": {
+    "name": "วัดป้อมแก้ว",
+    "era": "-",
+    "why": "ชุมชนเก่าทางใต้ของตลาด",
+    "source": "OSM way 830631043",
+    "pin": "osm",
+    "dist_m": 590,
+    "bearing": 182,
+    "octant": "S",
+    "east_m": -18,
+    "north_m": -589
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.00164,
+     13.41304
+    ]
+   },
+   "properties": {
+    "name": "ศาลากลางจังหวัดสมุทรสงคราม",
+    "era": "-",
+    "why": "ศูนย์ราชการ",
+    "source": "OSM way 604642021",
+    "pin": "osm",
+    "dist_m": 160,
+    "bearing": 314,
+    "octant": "NW",
+    "east_m": -116,
+    "north_m": 111
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.00176,
+     13.41236
+    ]
+   },
+   "properties": {
+    "name": "อนุสาวรีย์พระบรมรูปทรงม้า (ไม่ยืนยันว่าเป็นรัชกาลใด)",
+    "era": "-",
+    "why": "ลานหน้าศาลากลาง",
+    "source": "OSM node 7746600531",
+    "pin": "osm",
+    "dist_m": 109,
+    "bearing": 289,
+    "octant": "W",
+    "east_m": -103,
+    "north_m": 35
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.9967,
+     13.4162
+    ]
+   },
+   "properties": {
+    "name": "สะพานถนนชูศักดิ์ (ทล.325) — ทางยกระดับข้ามทางน้ำแยก ไม่ใช่ลำน้ำหลัก",
+    "era": "ไม่พบปี",
+    "why": "ทางเข้าเมืองจากอัมพวา; มีน้ำใต้สะพานแค่ ~6% ของความยาว 470 ม.",
+    "source": "OSM way 93600946 / 120083440",
+    "pin": "osm",
+    "dist_m": 797,
+    "bearing": 305,
+    "octant": "NW",
+    "east_m": -651,
+    "north_m": 460
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.9937,
+     13.4216
+    ]
+   },
+   "properties": {
+    "name": "สะพานถนนเลี่ยงเมือง (ทล.3643) ข้ามแม่น้ำแม่กลอง",
+    "era": "ไม่พบปี",
+    "why": "สะพานข้ามลำน้ำหลักที่ใกล้ตัวเมืองที่สุด (140 ม. ครึ่งหนึ่งอยู่เหนือน้ำ)",
+    "source": "OSM way 189446498 / 189446500",
+    "pin": "osm",
+    "dist_m": 1439,
+    "bearing": 317,
+    "octant": "NW",
+    "east_m": -976,
+    "north_m": 1057
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.9835,
+     13.3836
+    ]
+   },
+   "properties": {
+    "name": "สะพานสมเด็จพระพุทธเลิศหล้านภาลัย (ถ.พระราม 2)",
+    "era": "2513-2516",
+    "why": "ถนนสายใต้มาถึง 1 เม.ย. 2516",
+    "source": "OSM way 40233518 (ยาว ~770 ม. รวมทางลาด)",
+    "pin": "osm",
+    "dist_m": 3770,
+    "bearing": 213,
+    "octant": "SW",
+    "east_m": -2080,
+    "north_m": -3145
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.04,
+     13.43
+    ]
+   },
+   "properties": {
+    "name": "ทางรถไฟสายแม่กลองออกจากเมือง (ไปบ้านแหลม)",
+    "era": "2448-",
+    "why": "รถไฟวิ่งผ่านสวนมะพร้าวเข้าเมือง",
+    "source": "OSM way 591357872",
+    "pin": "osm",
+    "dist_m": 4500,
+    "bearing": 64,
+    "octant": "NE",
+    "east_m": 4038,
+    "north_m": 1986
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.999,
+     13.368
+    ]
+   },
+   "properties": {
+    "name": "ปากแม่น้ำแม่กลอง",
+    "era": "ก่อนเป็นเมือง-",
+    "why": "ดินงอก แผ่นดินเกิดจากตะกอน",
+    "source": "ประมาณจากภาพดาวเทียมและเส้นชายฝั่ง OSM way 746400327",
+    "pin": "estimate",
+    "dist_m": 4886,
+    "bearing": 185,
+    "octant": "S",
+    "east_m": -402,
+    "north_m": -4870
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.0226,
+     13.3625
+    ]
+   },
+   "properties": {
+    "name": "ดอนหอยหลอด",
+    "era": "แรมซาร์ 5 ก.ค. 2544",
+    "why": "สันดอนปากแม่กลอง หอยหลอดในคำขวัญ",
+    "source": "OSM node 1197465106 (หมู่บ้าน); en.wiki ~13.367,100.033",
+    "pin": "osm",
+    "dist_m": 5886,
+    "bearing": 159,
+    "octant": "S",
+    "east_m": 2154,
+    "north_m": -5478
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.95546,
+     13.42487
+    ]
+   },
+   "properties": {
+    "name": "ตลาดน้ำอัมพวา (คลองอัมพวา)",
+    "era": "11 ส.ค. 2547-",
+    "why": "คลองกลับมามีชีวิต",
+    "source": "OSM way 538417602",
+    "pin": "osm",
+    "dist_m": 5309,
+    "bearing": 285,
+    "octant": "W",
+    "east_m": -5116,
+    "north_m": 1419
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.95233,
+     13.42487
+    ]
+   },
+   "properties": {
+    "name": "อุทยาน ร.2 (นิวาสสถานบางช้าง)",
+    "era": "2522-",
+    "why": "ที่ประสูติ ร.2",
+    "source": "OSM way 742249123",
+    "pin": "osm",
+    "dist_m": 5637,
+    "bearing": 285,
+    "octant": "W",
+    "east_m": -5455,
+    "north_m": 1419
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.95358,
+     13.42606
+    ]
+   },
+   "properties": {
+    "name": "วัดอัมพวันเจติยาราม",
+    "era": "-",
+    "why": "วัดคู่บางช้าง",
+    "source": "OSM node 1571940335",
+    "pin": "osm",
+    "dist_m": 5541,
+    "bearing": 286,
+    "octant": "W",
+    "east_m": -5320,
+    "north_m": 1550
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.94114,
+     13.44612
+    ]
+   },
+   "properties": {
+    "name": "วัดบางกุ้ง (ค่ายบางกุ้ง)",
+    "era": "2310/2311",
+    "why": "ศึกบางกุ้ง โบสถ์ในรากไม้ (นอกแผ่นดิน ใช้เป็นบรรทัดรอง)",
+    "source": "OSM way 1372919704",
+    "pin": "osm",
+    "dist_m": 7658,
+    "bearing": 299,
+    "octant": "NW",
+    "east_m": -6667,
+    "north_m": 3768
+   }
+  }
+ ]
+}
