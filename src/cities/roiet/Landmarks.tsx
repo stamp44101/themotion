@@ -69,15 +69,24 @@ const NYM_SHAPE = shapeOf(NONG_YA_MA);
 
 // ------------------------------------------------------------------ the wot (cover, callback and the tower's shape)
 /** a wot of `n` bamboo pipes round a hub, tallest first in a spiral; `inAt(k)` is when pipe k drops in (-1 = already in) */
-const WotBody: React.FC<{t: number; S: number; inAt?: (k: number) => number; seal?: number}> = ({t, S, inAt = () => -1, seal = 1}) => {
+const WotBody: React.FC<{t: number; S: number; inAt?: (k: number) => number; seal?: number; core?: string}> = ({
+  t,
+  S,
+  inAt = () => -1,
+  seal = 1,
+  core = '#8a6a34',
+}) => {
+  // as the real wot and หอโหวด ๑๐๑ (owner's photo, 18 Nov): the pipes hang from a head at the top, their tops flush, their
+  // feet stepping down round the ring; the longest reaches the ground, the core column stands in the middle
   const R = S * 0.1;
   const r = S * 0.034;
-  const lenOf = (k: number) => S * (0.95 - (k / (WOTS - 1)) * 0.5);
+  const TOP = S * 1.0;
+  const lenOf = (k: number) => S * (0.98 - (k / (WOTS - 1)) * 0.55);
   return (
     <group>
-      <mesh position={[0, S * 0.55, 0]} castShadow>
-        <cylinderGeometry args={[S * 0.012, S * 0.016, S * 1.1, 10]} />
-        <meshStandardMaterial color="#8a6a34" roughness={0.7} />
+      <mesh position={[0, TOP / 2, 0]} castShadow>
+        <cylinderGeometry args={[R * 0.75, R * 0.85, TOP, 16]} />
+        <meshStandardMaterial color={core} roughness={0.7} />
       </mesh>
       {Array.from({length: WOTS}, (_, k) => {
         const at = inAt(k);
@@ -87,30 +96,27 @@ const WotBody: React.FC<{t: number; S: number; inAt?: (k: number) => number; sea
         const L = lenOf(k);
         const drop = (1 - u) * S * 0.6;
         return (
-          <group key={k} position={[Math.cos(a) * R, S * 0.06 + L / 2 + drop, Math.sin(a) * R]}>
+          <group key={k} position={[Math.cos(a) * R, TOP - L / 2 + drop, Math.sin(a) * R]}>
             <mesh castShadow receiveShadow>
               <cylinderGeometry args={[r, r, L, 12]} />
               <meshStandardMaterial color={BAMBOO} roughness={0.5} />
             </mesh>
-            <mesh position={[0, L / 2 + 0.01, 0]} rotation-x={-Math.PI / 2}>
-              <circleGeometry args={[r * 0.75, 12]} />
-              <meshStandardMaterial color="#3a2a14" roughness={1} />
-            </mesh>
-            {[0.2, 0.55, 0.85].map((f, j) => (
+            {[0.15, 0.45, 0.8].map((f, j) => (
               <mesh key={j} position={[0, (f - 0.5) * L, 0]}>
                 <cylinderGeometry args={[r * 1.1, r * 1.1, r * 0.35, 12]} />
                 <meshStandardMaterial color={BAMBOO_DK} roughness={0.6} />
               </mesh>
             ))}
             {u < 1 && u > 0.82 && (
-              <group position={[0, -L / 2, 0]}>
+              <group position={[0, L / 2, 0]}>
                 <Puff u={(u - 0.82) / 0.18} seed={k} S={S * 0.16} color="#f6e2a8" n={6} />
               </group>
             )}
           </group>
         );
       })}
-      <mesh position={[0, S * 0.07, 0]} rotation-x={Math.PI / 2}>
+      {/* the head: the wax (ขี้สูด) round the pipes' tops, closing once the last pipe is in */}
+      <mesh position={[0, TOP, 0]} rotation-x={Math.PI / 2}>
         <torusGeometry args={[R, S * 0.045, 10, 40, Math.PI * 2 * Math.max(0.5, seal)]} />
         <meshStandardMaterial color={WAX} roughness={0.35} />
       </mesh>
@@ -148,7 +154,7 @@ const CoverWot: React.FC<{t: number}> = ({t}) => {
     </group>
   );
 };
-/** the wot coming back (callback) and standing as หอโหวด ๑๐๑: the observation deck and the shrine at the top fade in as
+/** the wot coming back (callback) and standing as หอโหวด ๑๐๑: the podium, the glass deck and the blue dome fade in as
  *  it sets down */
 const Tower: React.FC<{t: number; Y: number}> = ({t, Y}) => {
   const w = wotBack(t, Y);
@@ -157,22 +163,23 @@ const Tower: React.FC<{t: number; Y: number}> = ({t, Y}) => {
   return (
     <group position={[w.x, w.y, w.z]}>
       <group rotation-y={w.spin}>
-        <WotBody t={t} S={S} />
+        <WotBody t={t} S={S} core={w.k > 0.5 ? '#7c8088' : '#8a6a34'} />
       </group>
       {w.k > 0.02 && (
         <group scale={[1, w.k, 1]}>
-          {/* the base podium and the observation deck high on the pipes */}
+          {/* the base podium */}
           <mesh position={[0, S * 0.04, 0]} receiveShadow>
             <cylinderGeometry args={[S * 0.12, S * 0.135, S * 0.08, 24]} />
             <meshStandardMaterial color="#e9e3d6" roughness={0.8} />
           </mesh>
-          <mesh position={[0, S * 0.84, 0]} castShadow>
-            <cylinderGeometry args={[S * 0.19, S * 0.15, S * 0.07, 24]} />
-            <meshStandardMaterial color="#dfe6ea" roughness={0.3} metalness={0.3} />
+          {/* the observation deck (glass) on the head, and its blue dome */}
+          <mesh position={[0, S * 1.09, 0]} castShadow>
+            <cylinderGeometry args={[S * 0.17, S * 0.17, S * 0.14, 24]} />
+            <meshStandardMaterial color="#cfe3ec" roughness={0.2} metalness={0.4} />
           </mesh>
-          <mesh position={[0, S * 1.12, 0]}>
-            <coneGeometry args={[S * 0.03, S * 0.12, 8]} />
-            <meshStandardMaterial color="#d9a521" metalness={0.6} roughness={0.35} />
+          <mesh position={[0, S * 1.16, 0]}>
+            <sphereGeometry args={[S * 0.13, 20, 10, 0, Math.PI * 2, 0, Math.PI / 2]} />
+            <meshStandardMaterial color="#2f4f8a" roughness={0.35} metalness={0.3} />
           </mesh>
         </group>
       )}
