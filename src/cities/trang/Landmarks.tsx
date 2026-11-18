@@ -165,7 +165,7 @@ const Kantang: React.FC<{t: number; Y: number}> = ({t, Y}) => {
 // ------------------------------------------------------------------ the first rubber: seedlings in rows, planters, gardens
 const Seedling: React.FC<{k: number; i: number}> = ({k, i}) =>
   k < 0.02 ? null : (
-    <group scale={k}>
+    <group scale={k * 1.7}>
       <mesh position={[0, 0.45, 0]} castShadow>
         <cylinderGeometry args={[0.04, 0.06, 0.9, 5]} />
         <meshStandardMaterial color="#7d786c" />

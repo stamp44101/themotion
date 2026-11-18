@@ -27,7 +27,8 @@ Trang river's east bank (the origin). The river winds south 13 km to Kantang, wh
 and reaches the Andaman 11 km further on. Phraya Ratsada moved the town down to Kantang to make it a port; the railway
 (1 เม.ย. 2456) ends at Kantang station beside the wharf. The town moved again to Thap Thiang, 6.9 km NE of the pillar on
 the railway, which is today's Trang (station, clock tower, provincial hall, Sra Kaphang Surin park). 200 m/unit, true scale
-north of Kantang, the sea pulled up to the tile's south edge, Ko Libong drawn closer on the south-west edge (README §4).
+Trang town at true scale, Kantang and the sea drawn closer along their real bearings, Ko Libong drawn closer on the
+sea's south-west (README §4).
 
 ## Years for the screen
 | fact | status | use |
@@ -70,3 +71,23 @@ No year is named on screen: the counter holds 2433 and 2456 while their captions
 Tagline: "หมูย่างรสเลิศ ถิ่นกำเนิดยางพารา" (the provincial slogan). Finale kicker: พ.ศ. 2354 – 2569.
 Facts with nothing to show: the first governor (2354); Low's visit (2367); Palian merged into Trang (2434); the Emden scare.
 Out (§3.6a): the dugong deaths and the seagrass die-off (2565-2568); the Kantang fishing-labour abuses.
+
+**Storyline v1 taken as decided (owner delegated, 18 Nov).** Captions shortened to one line: "พระยารัษฎาฯ ครองตรัง",
+"น้ำท่วม ย้ายไปทับเที่ยง", "หมูย่าง ติ่มซำ มื้อเช้าตรัง"; the grow sub became "สวนยางเต็มแผ่นดินระหว่างสองเมือง".
+
+## v1 build (cloud, 18 Nov)
+`src/cities/trang/`, 200 m/unit, origin the clock tower. Score `scripts/soundtrack_trang.py` (khlui, plucked lines, gong and
+drums; the knife and latex drips under the cover, junk creaks, oars, a steam train, the flood, long-tail engines, breakfast
+cups and chatter): -16.0 LUFS, score +2.9 LU over the effects, ambience -11.5 LU under the score. `npm run check`: 0 errors.
+Stills: `trang_v1_contact.jpg` (cloud passed them; the owner delegated the pass).
+- Kantang and the sea drawn closer (README §4): the first layout at true scale left today's Trang on 3% of the tile.
+  The engine's town is the real municipality, and the modern sprawl reaches the airport and Khuan Thani's road.
+  That is generous for the suburbs, but it is what lets the clip end on a city (grandeur floor 20%).
+- Drawn off their pins so no street runs through them: the provincial hall 1.7 units N (the town's streets are
+  ~1 unit apart at this scale), the Trang station building 0.6 W of its track, the pillar shrine 1 unit SE. The
+  breakfast ground is open land west of the station (the old town's blocks are too small for the tables and the tree).
+  The clock tower stands in its real roundabout with no site.
+- Fixed on the stills before showing: the sea's islands showed the sky through holes in the water (now land caps);
+  the seedlings were too small to read; the governor's boats sailed nose to tail and read as a pier; the callback tree
+  filled a third of the breakfast frame (smaller, behind the tables, camera pulled back); the cover's tile sat low and small.
+- Left as it is: the river between Khuan Thani and Kantang is compressed by the drawing-closer, so its bends bunch up.

@@ -16,8 +16,8 @@ const BREAKFAST: [number, number] = [-6.1, 2.0];
 type Key = CameraKey;
 // [t, target x, y, z, distance, azimuth, elevation, fov]; azimuth from +z (south) toward +x (east)
 // the cover: the rubber tree on the whole tile, seen from the south, the sea and Kantang in front, Thap Thiang at the back
-const C0: Key = [0, -12, 22, 28, 330, 2, 34, 30];
-const C1: Key = [2.8, -12, 20, 28, 315, 6, 35, 30];
+const C0: Key = [0, -11, 18, 28, 290, 2, 36, 30];
+const C1: Key = [2.8, -11, 16, 28, 275, 6, 37, 30];
 // junks: down to the estuary as they sail in from the sea, from the south-south-east
 const JU_IN: Key = [4.6, -29.5, 1, 56, 50, 18, 40, 30];
 const JU_END: Key = [8.2, -30, 1, 44, 40, 34, 41, 30];
@@ -35,16 +35,16 @@ const MO_IN: Key = [27.6, -25.6, 1, 39, 36, 130, 42, 30];
 const MO_A: Key = [29.2, -25, 1, 38.6, 40, 140, 42, 30];
 const MO_END: Key = [32.8, -1.5, 1, 0.5, 50, 200, 40, 30];
 // the grow shot: the whole town from the north-west, swinging round to the west, the land down to Kantang behind it
-const GR_IN: Key = [34.6, -1, 1, 3, 160, 225, 37, 30];
-const GR_END: Key = [40.6, -2, 1, 4, 190, 268, 37, 30];
+const GR_IN: Key = [34.6, -1, 1, 2, 150, 205, 46, 30];
+const GR_END: Key = [40.6, -1.5, 1, 3, 175, 250, 44, 30];
 // sea (far place): long-tails run out of the mouth to Ko Libong; dugongs off its east shore
 const SE_IN: Key = [42.4, -29, 1, 62, 44, 300, 40, 30];
 const SE_END: Key = [45.2, -29.5, 1, 65.5, 36, 320, 40, 30];
 // breakfast: the park by the clock tower, the tree over the tables, from the south
-const BR_IN: Key = [47.4, BREAKFAST[0] - 0.2, 1.6, BREAKFAST[1] + 0.2, 30, 340, 37, 30];
-const BR_END: Key = [54.0, BREAKFAST[0] + 0.1, 2.0, BREAKFAST[1] + 0.1, 24, 375, 36, 30];
+const BR_IN: Key = [47.4, BREAKFAST[0] + 0.6, 2.2, BREAKFAST[1] + 0.6, 38, 345, 40, 30];
+const BR_END: Key = [54.0, BREAKFAST[0] + 0.6, 2.6, BREAKFAST[1] + 0.4, 32, 375, 39, 30];
 // the landing: the whole tile again at the cover's distance, now a city at the top and rubber all over the land
-const END: Key = [56.4, -12, 20, 28, 330, 362, 34, 30];
+const END: Key = [56.4, -11, 16, 28, 290, 362, 36, 30];
 
 export const STORY = buildStory({
   duration: 60,
@@ -62,7 +62,7 @@ export const STORY = buildStory({
     ...between(SE_END, BR_IN, 5, 1.2),
     ...between(BR_END, END, 4),
     END,
-    [60, -12, 20, 28, 340, 368, 34, 30],
+    [60, -11, 16, 28, 300, 368, 36, 30],
   ],
   beats: [
     {
@@ -154,7 +154,7 @@ export const STORY = buildStory({
       t: [46.4, 54.4],
       year: [2011, 2025.5],
       caption: {t0: 46.5, t1: 53.8, title: 'หมูย่าง ติ่มซำ มื้อเช้าตรัง', sub: 'ร้านอาหารเช้าเต็มเมืองทุกวัน'},
-      callouts: [{label: 'ต้นยางพารา', dx: -130, dy: -160, p: [BREAKFAST[0] - 1.3, 5.0, BREAKFAST[1] - 1.0], t0: 48.6, t1: 53.6}],
+      callouts: [{label: 'ต้นยางพารา', dx: -130, dy: -160, p: [BREAKFAST[0] - 0.6, 3.6, BREAKFAST[1] - 1.5], t0: 48.6, t1: 53.6}],
       camera: [BR_IN, BR_END],
     },
     {id: 'today', kind: 'today', t: [54.6, 56.4], year: [2025.6, 2026]},

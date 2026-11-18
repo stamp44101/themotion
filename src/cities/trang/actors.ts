@@ -61,7 +61,7 @@ export const BOATS = 5;
 export const boatAt = (i: number, t: number) => {
   const k = beatK('ratsada', t);
   if (k < -0.05 || k > 1.05) return null;
-  const d = lerp(BOAT_L * 0.15, BOAT_L - 0.1, smooth((k + 0.05) / 0.6)) - i * 1.5;
+  const d = lerp(BOAT_L * 0.15, BOAT_L - 0.1, smooth((k + 0.05) / 0.6)) - i * 2.6;
   return along(BOAT_PATH, Math.max(0, d));
 };
 /** the household walks up from the landing into the new town */
@@ -89,7 +89,7 @@ export const QUAY: [P, P] = [[-27.85, 36.1], [-28.35, 40.9]];
 export const PLOT_C: P = [FIRST_RUBBER[0] + 3.0, FIRST_RUBBER[1] + 3.5];
 export const PLOT_ROWS = 5;
 export const PLOT_COLS = 7;
-export const seedAt = (r: number, c: number): P => [PLOT_C[0] + (c - (PLOT_COLS - 1) / 2) * 0.75, PLOT_C[1] + (r - (PLOT_ROWS - 1) / 2) * 0.75];
+export const seedAt = (r: number, c: number): P => [PLOT_C[0] + (c - (PLOT_COLS - 1) / 2) * 0.8, PLOT_C[1] + (r - (PLOT_ROWS - 1) / 2) * 0.8];
 /** each seedling is planted in turn through the first half of the beat, then they all grow */
 export const seedK = (r: number, c: number, t: number, Y: number) => {
   if (Y > 1907) return 1;
@@ -206,9 +206,9 @@ export const DUGONG_AT: P = [-27.0, 62.6];
  *  200 m/unit for tables and the tree) */
 export const BREAKFAST_C: P = [-6.1, 2.0];
 export const TABLES: P[] = Array.from({length: 9}, (_, i) => [BREAKFAST_C[0] - 0.2 + (i % 3) * 0.75, BREAKFAST_C[1] + 0.2 + Math.floor(i / 3) * 0.65]);
-export const CALLBACK_AT: P = [BREAKFAST_C[0] - 1.3, BREAKFAST_C[1] - 1.0];
+export const CALLBACK_AT: P = [BREAKFAST_C[0] - 0.6, BREAKFAST_C[1] - 1.5];
 export const PORK_AT: P = [BREAKFAST_C[0] + 2.0, BREAKFAST_C[1] - 0.5];
-export const CALLBACK_S = 10;
+export const CALLBACK_S = 7;
 export const callbackK = (t: number) => smooth((beatK('breakfast', t) + 0.02) / 0.15);
 export const breakfastK = (t: number, Y: number) => (Y < 2010 ? 0 : smooth((beatK('breakfast', t) + 0.1) / 0.2));
 export const DINERS = 18;

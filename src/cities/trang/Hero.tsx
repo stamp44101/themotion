@@ -32,7 +32,9 @@ const shapeOf = (pts: P2[], holes: P2[][] = []) => {
   }
   return sh;
 };
-const SHAPES = WATERS.map((w) => shapeOf(w.outer, w.holes));
+const SHAPES = WATERS.map((w) => shapeOf(w.outer));
+// the islands (the holes) are land caps laid on the water: a hole in the slab showed the sky through the tile
+const ISLES = WATERS.flatMap((w) => w.holes.map((h) => shapeOf(h)));
 // The slab's top sits at -1.3 + depth = 0.10 (Songkhla: depth >= 1.40 or it z-fights with the shore); matte so the sun's
 // specular never blows out.
 export const Waters: React.FC = () => (
@@ -41,6 +43,12 @@ export const Waters: React.FC = () => (
       <mesh key={i} position={[0, -1.3, 0]} rotation-x={-Math.PI / 2} receiveShadow>
         <extrudeGeometry args={[s, {depth: 1.4, bevelEnabled: false}]} />
         <meshStandardMaterial color="#3a7fa6" roughness={0.85} metalness={0} />
+      </mesh>
+    ))}
+    {ISLES.map((s, i) => (
+      <mesh key={`i${i}`} position={[0, 0.115, 0]} rotation-x={-Math.PI / 2} receiveShadow>
+        <shapeGeometry args={[s]} />
+        <meshStandardMaterial color="#6c9649" roughness={0.95} />
       </mesh>
     ))}
   </group>

@@ -113,7 +113,7 @@ export const TRANG: CityConfig = {
       [HALL_AT[0], HALL_AT[1], 0.75],
       [BREAKFAST_C[0], BREAKFAST_C[1] + 0.4, 2.0],
       [PORK_AT[0], PORK_AT[1], 0.6],
-      [CALLBACK_AT[0], CALLBACK_AT[1], 1.3],
+      [CALLBACK_AT[0], CALLBACK_AT[1], 0.9],
       [KT_STATION_AT[0], KT_STATION_AT[1], 0.9],
       [TR_STATION_AT[0], TR_STATION_AT[1], 0.85],
     ],

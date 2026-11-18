@@ -41,8 +41,13 @@ See `trang_story_places.geojson`; summary:
 - Ko Libong 35.7 km SW (210°); Ko Muk 34.7 km WSW; Ko Kradan 40.7 km WSW
 - ★ ท่าจีน (the Penang Chinese landing, ~2367): not pinned; the river reach west of Trang town
 
-## 4. Layout
-200 m/unit, origin the pillar, +x east, +z south. Everything north of z = 70 (7.39 N, just south of Kantang) is at true scale;
-south of it z is drawn ×0.35, so the mouth and the sea come up to the tile's south edge (~4 km below Kantang instead of 11).
-Ko Libong is drawn closer still, on the south-west edge (bearing from Kantang 207° drawn, 215° real). Tile x −44..50,
-z −34..96 (18.8 × 26 km of the real map, with the sea pulled in).
+## 4. Layout (as built, `src/cities/trang/places.ts`)
+200 m/unit, origin the **clock tower** in Thap Thiang (the engine grows its town outward from the origin), +x east, +z south.
+Within 4.4 km of the clock tower everything is at true scale. Beyond it everything slides toward Trang along Kantang's real
+bearing (10 km in all by 18.4 km out), so Kantang, its estuary and the sea keep their own scale but sit ~9 km from Trang
+instead of 19, with the river and the railway between compressed. From 20 km out the estuary and the sea slide a further
+7.6 km toward Kantang along the river's line, so the mouth is ~4 km below Kantang instead of 11. Ko Libong is drawn closer
+still, on the sea's south-west. Tile x −37..20, z −15..66. Why: at true scale today's Trang covers ~3% of a tile that
+also holds Kantang and the sea, and the grandeur floor wants ≥20% (`docs/grandeur.md`). The engine's town is the real
+municipality (เทศบาลนครตรัง, OSM relation 20043137, 14.7 km²), and the modern sprawl reaches the airport and Khuan Thani's road.
+The pins above are real; the `geo.ts` direction check passes.

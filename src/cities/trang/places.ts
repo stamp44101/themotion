@@ -1,11 +1,14 @@
 // Real positions (cloud's map, docs/briefs/trang_onep/README.md and its geojson): world units at 200 m/unit, +x east, +z
-// south, origin the city pillar shrine at Khuan Thani (ศาลหลักเมืองตรัง, 7.52393, 99.55701, OSM way 1442965281), the first
-// town on the Trang river, which kept its pillar when the town moved to Kantang and then to Thap Thiang. Pure data shared by
-// the style frames, actors, timeline, geo and Landmarks. Everything north of z = 70 (just south of Kantang) is OSM at true
-// scale; south of it z is drawn x0.35, so the Trang mouth and the sea come up to the tile's south edge; Ko Libong is drawn
-// closer still, as an island on the south-west edge. The estuary and the sea are ONE flat shape per piece of water, cut at
-// the tile's edges (OSM relations 2030831 and 2030832 and natural=coastline, opened by 80 m and simplified to 0.3 units);
-// the river above Kantang is a path river.
+// south, origin the clock tower in Thap Thiang (หอนาฬิกาตรัง, 7.55677, 99.60989, OSM node 5267704421): the engine grows its
+// `city` and the sprawl outward from the origin, and today's Trang is the town that grows. Pure data shared by the style
+// frames, actors, timeline, geo and Landmarks. Drawn closer (the brief, "Map"): within 4.4 km of the clock tower everything is
+// OSM at true scale; beyond it everything slides toward the town along Kantang's real bearing, 10 km in all by 18.4 km out,
+// so Kantang, its estuary and the sea keep their own scale but sit ~9 km from Trang instead of 19 (the river and the railway
+// between are compressed); from 20 km out the estuary and the sea slide a further 7.6 km toward Kantang along the river's
+// line, so the mouth is ~4 km below Kantang instead of 11. Bearings from Trang to Kantang and from Kantang to the mouth are
+// kept. Ko Libong is drawn closer still, an island on the south-west of the sea. The estuary and the sea are ONE flat shape
+// cut at the tile's edges (OSM relations 2030831 and 2030832 and natural=coastline, opened by 44 m, simplified to 0.3
+// units), its islands laid on it as land caps; the river above Kantang is a path river.
 export type P = [number, number];
 export const M_PER_UNIT = 200;
 
