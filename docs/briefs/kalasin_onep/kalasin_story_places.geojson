@@ -1,0 +1,533 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.50069,
+     16.43519
+    ]
+   },
+   "properties": {
+    "name": "ศาลเจ้าพ่อหลักเมืองกาฬสินธุ์",
+    "era": "2370-",
+    "why": "จุดกำเนิดระยะทั้งหมด; หลักเมืองย้ายมาที่นี่ 2370",
+    "source": "OSM way 1534234341",
+    "pin": "osm",
+    "dist_m": 0,
+    "bearing": 0,
+    "octant": "N",
+    "east_m": 0,
+    "north_m": 0
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.49946,
+     16.43503
+    ]
+   },
+   "properties": {
+    "name": "ศาลเจ้าพ่อโสมพะมิตร",
+    "era": "-",
+    "why": "ผู้ตั้งเมือง (พระยาไชยสุนทร)",
+    "source": "OSM way 1444649565",
+    "pin": "osm",
+    "dist_m": 133,
+    "bearing": 262,
+    "octant": "W",
+    "east_m": -131,
+    "north_m": -18
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.5024,
+     16.43515
+    ]
+   },
+   "properties": {
+    "name": "วัดกลาง พระอารามหลวง",
+    "era": "2337?-",
+    "why": "วัดเก่าแถวถนนแก่งสำโรง (ปีสร้างขัดแย้ง)",
+    "source": "OSM node 12466188801",
+    "pin": "osm",
+    "dist_m": 183,
+    "bearing": 91,
+    "octant": "E",
+    "east_m": 183,
+    "north_m": -4
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.5018,
+     16.4375
+    ]
+   },
+   "properties": {
+    "name": "วัดเหนือ",
+    "era": "-",
+    "why": "วัดเก่าสามวัดเรียงริมคลองปาว",
+    "source": "nominatim (research)",
+    "pin": "osm-site",
+    "dist_m": 282,
+    "bearing": 25,
+    "octant": "NE",
+    "east_m": 119,
+    "north_m": 255
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.5011,
+     16.4326
+    ]
+   },
+   "properties": {
+    "name": "วัดใต้โพธิ์ค้ำ",
+    "era": "-",
+    "why": "วัดเก่าสามวัดเรียงริมคลองปาว",
+    "source": "OSM way 546444753",
+    "pin": "osm",
+    "dist_m": 290,
+    "bearing": 171,
+    "octant": "S",
+    "east_m": 44,
+    "north_m": -286
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.4991,
+     16.428
+    ]
+   },
+   "properties": {
+    "name": "สวนสาธารณะกุดน้ำกิน (หลักเมืองเดิม 2335)",
+    "era": "2335-2370",
+    "why": "หลักเมืองแรก ตลิ่งพังจึงย้าย",
+    "source": "OSM way 822802192",
+    "pin": "osm",
+    "dist_m": 813,
+    "bearing": 192,
+    "octant": "S",
+    "east_m": -170,
+    "north_m": -795
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.5,
+     16.436
+    ]
+   },
+   "properties": {
+    "name": "ถนนแก่งสำโรง (แนวบ้านแก่งสำโรง)",
+    "era": "2336-",
+    "why": "ชื่อบ้านเดิมก่อนเป็นเมือง; ตัวแก่งไม่ได้ปักหมุด",
+    "source": "OSM road name; rapids not found",
+    "pin": "estimate",
+    "dist_m": 116,
+    "bearing": 321,
+    "octant": "NW",
+    "east_m": -74,
+    "north_m": 90
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.499,
+     16.4352
+    ]
+   },
+   "properties": {
+    "name": "คลองปาว ช่วงหน้าเมืองเก่า",
+    "era": "-",
+    "why": "ลำน้ำที่เมืองเก่าตั้งอยู่ ห่างหลักเมือง ~190 ม.",
+    "source": "OSM way 242809647 (nearest point)",
+    "pin": "osm",
+    "dist_m": 180,
+    "bearing": 270,
+    "octant": "W",
+    "east_m": -180,
+    "north_m": 1
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.50356,
+     16.43433
+    ]
+   },
+   "properties": {
+    "name": "อนุสาวรีย์พระยาชัยสุนทร (วงเวียน)",
+    "era": "-",
+    "why": "วงเวียนกลางเมือง",
+    "source": "OSM node 6183268777",
+    "pin": "osm",
+    "dist_m": 321,
+    "bearing": 107,
+    "octant": "E",
+    "east_m": 306,
+    "north_m": -95
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.50843,
+     16.43358
+    ]
+   },
+   "properties": {
+    "name": "วงเวียนโปงลาง",
+    "era": "2505-",
+    "why": "เครื่องดนตรีประจำเมือง (ครูเปลื้อง ราว 2505)",
+    "source": "OSM node 13968369590",
+    "pin": "osm",
+    "dist_m": 845,
+    "bearing": 102,
+    "octant": "E",
+    "east_m": 826,
+    "north_m": -178
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.51015,
+     16.43385
+    ]
+   },
+   "properties": {
+    "name": "ตลาดสดกาฬสินธุ์",
+    "era": "-",
+    "why": "ตลาดกลางเมือง",
+    "source": "OSM way 822805433",
+    "pin": "osm",
+    "dist_m": 1021,
+    "bearing": 98,
+    "octant": "E",
+    "east_m": 1010,
+    "north_m": -148
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.50697,
+     16.43455
+    ]
+   },
+   "properties": {
+    "name": "โรงพยาบาลกาฬสินธุ์",
+    "era": "-",
+    "why": "",
+    "source": "OSM way 659662101",
+    "pin": "osm",
+    "dist_m": 674,
+    "bearing": 96,
+    "octant": "E",
+    "east_m": 671,
+    "north_m": -71
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.51354,
+     16.45021
+    ]
+   },
+   "properties": {
+    "name": "สวนสาธารณะแก่งดอนกลาง (หนองน้ำเหนือเมือง)",
+    "era": "-",
+    "why": "หนองใหญ่ ~1 กม. เหนือเมือง",
+    "source": "OSM way 1174014752, pond 242763546",
+    "pin": "osm",
+    "dist_m": 2154,
+    "bearing": 40,
+    "octant": "NE",
+    "east_m": 1372,
+    "north_m": 1661
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.53538,
+     16.44232
+    ]
+   },
+   "properties": {
+    "name": "ศาลากลางจังหวัดกาฬสินธุ์ (ใหม่)",
+    "era": "-",
+    "why": "เมืองขยายไปทางตะวันออก; งานโปงลาง แพรวา",
+    "source": "OSM node 10823555706",
+    "pin": "osm",
+    "dist_m": 3787,
+    "bearing": 78,
+    "octant": "E",
+    "east_m": 3704,
+    "north_m": 788
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.5321,
+     16.4485
+    ]
+   },
+   "properties": {
+    "name": "มหาวิทยาลัยกาฬสินธุ์",
+    "era": "-",
+    "why": "",
+    "source": "nominatim (research)",
+    "pin": "osm-site",
+    "dist_m": 3662,
+    "bearing": 66,
+    "octant": "NE",
+    "east_m": 3354,
+    "north_m": 1472
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.4542,
+     16.4293
+    ]
+   },
+   "properties": {
+    "name": "ลำน้ำปาว สายหลัก ตะวันตกของเมือง",
+    "era": "-",
+    "why": "แม่น้ำสายหลัก ห่าง ~5 กม. ตะวันตก",
+    "source": "OSM way 186117443",
+    "pin": "osm",
+    "dist_m": 5006,
+    "bearing": 263,
+    "octant": "W",
+    "east_m": -4964,
+    "north_m": -651
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.535,
+     16.469
+    ]
+   },
+   "properties": {
+    "name": "ทางวิ่งเก่า (เห็นในภาพดาวเทียม)",
+    "era": "-",
+    "why": "แนวทางวิ่งตรงยาว ~1.5 กม. NE ของเมือง OSM ไม่มี",
+    "source": "Esri imagery only",
+    "pin": "imagery",
+    "dist_m": 5234,
+    "bearing": 44,
+    "octant": "NE",
+    "east_m": 3663,
+    "north_m": 3739
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.4604,
+     16.6034
+    ]
+   },
+   "properties": {
+    "name": "เขื่อนลำปาว (สันเขื่อน)",
+    "era": "2511-",
+    "why": "เสร็จ/เริ่มเก็บน้ำ 2511",
+    "source": "OSM way 36900154; nominatim",
+    "pin": "osm",
+    "dist_m": 19091,
+    "bearing": 347,
+    "octant": "N",
+    "east_m": -4302,
+    "north_m": 18600
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.4587,
+     16.7128
+    ]
+   },
+   "properties": {
+    "name": "สะพานเทพสุดา",
+    "era": "2554-",
+    "why": "เปิด 22 พ.ย. 2554 ข้ามอ่างลำปาว ราวไดโนเสาร์",
+    "source": "nominatim (research)",
+    "pin": "osm-site",
+    "dist_m": 31022,
+    "bearing": 352,
+    "octant": "N",
+    "east_m": -4483,
+    "north_m": 30696
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.5243,
+     16.6932
+    ]
+   },
+   "properties": {
+    "name": "ภูกุ้มข้าว / พิพิธภัณฑ์สิรินธร",
+    "era": "2537-",
+    "why": "พบกระดูกไดโนเสาร์ 2537",
+    "source": "OSM way 659666469",
+    "pin": "osm",
+    "dist_m": 28640,
+    "bearing": 5,
+    "octant": "N",
+    "east_m": 2521,
+    "north_m": 28529
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.52427,
+     16.69584
+    ]
+   },
+   "properties": {
+    "name": "วัดสักกะวัน (ภูกุ้มข้าว)",
+    "era": "2537-",
+    "why": "เจ้าอาวาสพบกระดูก",
+    "source": "OSM node 3444966917",
+    "pin": "osm",
+    "dist_m": 28931,
+    "bearing": 5,
+    "octant": "N",
+    "east_m": 2518,
+    "north_m": 28821
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.52014,
+     16.31873
+    ]
+   },
+   "properties": {
+    "name": "เมืองฟ้าแดดสงยาง",
+    "era": "ทวารวดี",
+    "why": "คูเมืองสองชั้น ~1,000×1,800 ม. ใบเสมา 130",
+    "source": "OSM node 13255521061",
+    "pin": "osm",
+    "dist_m": 13044,
+    "bearing": 171,
+    "octant": "S",
+    "east_m": 2077,
+    "north_m": -12877
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.52028,
+     16.31915
+    ]
+   },
+   "properties": {
+    "name": "พระธาตุยาคู",
+    "era": "ทวารวดี",
+    "why": "สถูปในเมืองฟ้าแดด",
+    "source": "OSM node 2521475748",
+    "pin": "osm",
+    "dist_m": 13000,
+    "bearing": 171,
+    "octant": "S",
+    "east_m": 2092,
+    "north_m": -12831
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.61052,
+     16.85939
+    ]
+   },
+   "properties": {
+    "name": "บ้านโพน อ.คำม่วง (ผ้าไหมแพรวา)",
+    "era": "2520-",
+    "why": "ร.9 และพระราชินีเสด็จ 2520",
+    "source": "OSM node 13974628772",
+    "pin": "osm",
+    "dist_m": 48349,
+    "bearing": 14,
+    "octant": "N",
+    "east_m": 11727,
+    "north_m": 46905
+   }
+  }
+ ]
+}
