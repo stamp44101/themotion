@@ -60,6 +60,7 @@ import {SURAT_A1, SURAT_A2, SURAT_B} from './styleframes/suratthani';
 import {KANCH_A1, KANCH_A2, KANCH_B} from './styleframes/kanchanaburi';
 import {SAKON_A1, SAKON_A2, SAKON_B} from './styleframes/sakonnakhon';
 import {KALASIN_A1, KALASIN_A2, KALASIN_B} from './styleframes/kalasin';
+import {TRANG_A1, TRANG_A2, TRANG_B} from './styleframes/trang';
 import {ROIET_A1, ROIET_A2, ROIET_B} from './styleframes/roiet';
 import {SONGKHLA_A1, SONGKHLA_A2} from './styleframes/songkhla';
 import {PHAYAO_A1, PHAYAO_A2, PHAYAO_B} from './styleframes/phayao';
@@ -155,6 +156,9 @@ const SakonStyleA1: React.FC = () => <DioramaComposition city={SAKON_A1} />;
 const KalasinStyleA1: React.FC = () => <DioramaComposition city={KALASIN_A1} />;
 const KalasinStyleA2: React.FC = () => <DioramaComposition city={KALASIN_A2} />;
 const KalasinStyleB: React.FC = () => <DioramaComposition city={KALASIN_B} />;
+const TrangStyleA1: React.FC = () => <DioramaComposition city={TRANG_A1} />;
+const TrangStyleA2: React.FC = () => <DioramaComposition city={TRANG_A2} />;
+const TrangStyleB: React.FC = () => <DioramaComposition city={TRANG_B} />;
 const RoietStyleA1: React.FC = () => <DioramaComposition city={ROIET_A1} />;
 const RoietStyleA2: React.FC = () => <DioramaComposition city={ROIET_A2} />;
 const RoietStyleB: React.FC = () => <DioramaComposition city={ROIET_B} />;
@@ -240,6 +244,9 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="KalasinStyleA1" component={KalasinStyleA1} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="KalasinStyleA2" component={KalasinStyleA2} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="KalasinStyleB" component={KalasinStyleB} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="TrangStyleA1" component={TrangStyleA1} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="TrangStyleA2" component={TrangStyleA2} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="TrangStyleB" component={TrangStyleB} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="RoietStyleA1" component={RoietStyleA1} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="RoietStyleA2" component={RoietStyleA2} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="RoietStyleB" component={RoietStyleB} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
