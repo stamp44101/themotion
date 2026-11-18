@@ -1,0 +1,423 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.901947,
+     19.1664995
+    ]
+   },
+   "properties": {
+    "n": 1,
+    "name": "ศาลหลักเมืองพะเยา (origin)",
+    "group": "wiang",
+    "dist_m": 0,
+    "bearing": 0,
+    "octant": "N",
+    "east_m": 0,
+    "north_m": 0,
+    "pin": "osm",
+    "note": "OSM way 1468605644; in Wiang Phayao on ถนนดอนสนาม"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.8893094,
+     19.1765031
+    ]
+   },
+   "properties": {
+    "n": 2,
+    "name": "วัดศรีโคมคำ (พระเจ้าตนหลวง)",
+    "group": "wiang",
+    "dist_m": 1729,
+    "bearing": 310,
+    "octant": "NW",
+    "east_m": -1329,
+    "north_m": 1106,
+    "pin": "osm",
+    "note": "OSM way 210167222; on the lake shore NW of the wiang, on ถนนพหลโยธิน"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.8996461,
+     19.1585174
+    ]
+   },
+   "properties": {
+    "n": 3,
+    "name": "วัดติโลกอาราม (in the lake)",
+    "group": "lake",
+    "dist_m": 915,
+    "bearing": 195,
+    "octant": "S",
+    "east_m": -242,
+    "north_m": -883,
+    "pin": "osm+imagery",
+    "note": "OSM node 5230006780; the speck in the lake on Esri imagery"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.9007348,
+     19.1654398
+    ]
+   },
+   "properties": {
+    "n": 4,
+    "name": "วัดศรีอุโมงค์คำ",
+    "group": "wiang",
+    "dist_m": 173,
+    "bearing": 227,
+    "octant": "SW",
+    "east_m": -127,
+    "north_m": -117,
+    "pin": "osm",
+    "note": "inside the wiang"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.903516,
+     19.1670008
+    ]
+   },
+   "properties": {
+    "n": 5,
+    "name": "วัดราชคฤห์",
+    "group": "wiang",
+    "dist_m": 174,
+    "bearing": 71,
+    "octant": "E",
+    "east_m": 165,
+    "north_m": 55,
+    "pin": "osm",
+    "note": "inside the wiang"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.8960747,
+     19.1687664
+    ]
+   },
+   "properties": {
+    "n": 6,
+    "name": "อนุสาวรีย์พญางำเมือง",
+    "group": "wiang",
+    "dist_m": 666,
+    "bearing": 292,
+    "octant": "W",
+    "east_m": -617,
+    "north_m": 251,
+    "pin": "osm",
+    "note": "OSM node 6315215536, the lakeside park (built 2524-2527)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.9,
+     19.1712
+    ]
+   },
+   "properties": {
+    "n": 7,
+    "name": "คูเวียงด้านเหนือ (moat trace)",
+    "group": "wiang",
+    "dist_m": 559,
+    "bearing": 339,
+    "octant": "N",
+    "east_m": -205,
+    "north_m": 520,
+    "pin": "osm",
+    "note": "OSM water ways 1456463977-83 in a row along 19.171 N"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.9087,
+     19.1673
+    ]
+   },
+   "properties": {
+    "n": 8,
+    "name": "คูเวียงด้านตะวันออก (moat trace)",
+    "group": "wiang",
+    "dist_m": 716,
+    "bearing": 83,
+    "octant": "E",
+    "east_m": 710,
+    "north_m": 89,
+    "pin": "imagery+osm",
+    "note": "curved water strip east of the ring road"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.895,
+     19.17
+    ]
+   },
+   "properties": {
+    "n": 9,
+    "name": "ถนนรอบเวียงประตูคลอง",
+    "group": "wiang",
+    "dist_m": 827,
+    "bearing": 298,
+    "octant": "NW",
+    "east_m": -730,
+    "north_m": 387,
+    "pin": "osm",
+    "note": "the ring road round the headland (secondary)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.9135,
+     19.1605
+    ]
+   },
+   "properties": {
+    "n": 10,
+    "name": "ทางออกกว๊าน / ประตูน้ำ (weir, estimate)",
+    "group": "lake",
+    "dist_m": 1384,
+    "bearing": 119,
+    "octant": "SE",
+    "east_m": 1215,
+    "north_m": -663,
+    "pin": "estimate",
+    "note": "where the Ing leaves the lake under ถนนพหลโยธิน; the 2482 gate is not tagged in OSM"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.9152166,
+     19.1586217
+    ]
+   },
+   "properties": {
+    "n": 11,
+    "name": "สำนักงานประมงจังหวัดพะเยา",
+    "group": "lake",
+    "dist_m": 1645,
+    "bearing": 122,
+    "octant": "SE",
+    "east_m": 1395,
+    "north_m": -871,
+    "pin": "nominatim",
+    "note": "by the outlet; the fisheries station (2484) is in this area"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.8676,
+     19.2037
+    ]
+   },
+   "properties": {
+    "n": 12,
+    "name": "น้ำแม่อิงเข้ากว๊าน (north end)",
+    "group": "lake",
+    "dist_m": 5474,
+    "bearing": 319,
+    "octant": "NW",
+    "east_m": -3611,
+    "north_m": 4113,
+    "pin": "osm",
+    "note": "end of OSM way 255901636"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.8721744,
+     19.1739709
+    ]
+   },
+   "properties": {
+    "n": 13,
+    "name": "กลางกว๊านพะเยา",
+    "group": "lake",
+    "dist_m": 3238,
+    "bearing": 285,
+    "octant": "W",
+    "east_m": -3131,
+    "north_m": 826,
+    "pin": "osm",
+    "note": "OSM relation 5657979 label point"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.8886293,
+     19.1844851
+    ]
+   },
+   "properties": {
+    "n": 14,
+    "name": "ดอยจอมทอง / วัดพระธาตุจอมทอง",
+    "group": "edge",
+    "dist_m": 2432,
+    "bearing": 325,
+    "octant": "NW",
+    "east_m": -1400,
+    "north_m": 1989,
+    "pin": "osm",
+    "note": "OSM peak node 13469855017; the wat by it"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.8982347,
+     19.1727424
+    ]
+   },
+   "properties": {
+    "n": 15,
+    "name": "สถานีขนส่งพะเยา",
+    "group": "growth",
+    "dist_m": 793,
+    "bearing": 331,
+    "octant": "NW",
+    "east_m": -390,
+    "north_m": 690,
+    "pin": "osm",
+    "note": "bus station just N of the wiang"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.9160067,
+     19.1659825
+    ]
+   },
+   "properties": {
+    "n": 16,
+    "name": "วัดลี",
+    "group": "growth",
+    "dist_m": 1479,
+    "bearing": 92,
+    "octant": "E",
+    "east_m": 1478,
+    "north_m": -57,
+    "pin": "osm",
+    "note": "E of the outlet, on ถนนพหลโยธิน"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.8766073,
+     19.1906557
+    ]
+   },
+   "properties": {
+    "n": 17,
+    "name": "โรงพยาบาลพะเยา",
+    "group": "growth",
+    "dist_m": 3773,
+    "bearing": 315,
+    "octant": "NW",
+    "east_m": -2664,
+    "north_m": 2671,
+    "pin": "osm",
+    "note": "N along ถนนพหลโยธิน"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.812575,
+     19.1772152
+    ]
+   },
+   "properties": {
+    "n": 18,
+    "name": "วัดอนาลโยทิพยาราม (ดอยบุษราคัม)",
+    "group": "far",
+    "dist_m": 9472,
+    "bearing": 277,
+    "octant": "W",
+    "east_m": -9397,
+    "north_m": 1185,
+    "pin": "osm",
+    "note": "on the Phi Pan Nam range W of the lake (slogan: งามลือเลื่องดอยบุษราคัม)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.8935287,
+     19.029965
+    ]
+   },
+   "properties": {
+    "n": 19,
+    "name": "มหาวิทยาลัยพะเยา",
+    "group": "far",
+    "dist_m": 15123,
+    "bearing": 183,
+    "octant": "S",
+    "east_m": -885,
+    "north_m": -15097,
+    "pin": "osm",
+    "note": "OSM way 579088013, 15 km S"
+   }
+  }
+ ]
+}
