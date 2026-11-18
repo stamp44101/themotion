@@ -52,6 +52,8 @@
     "audio:samutsongkhram": "node scripts/export_timeline.mjs src/cities/samutsongkhram/timeline.ts out/timeline_samutsongkhram.json && python3 scripts/soundtrack_samutsongkhram.py",
     "render:samutsongkhram": "node scripts/check_story.mjs samutsongkhram && remotion render SamutSongkhram out/samutsongkhram_look.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
     "audio:kalasin": "node scripts/export_timeline.mjs src/cities/kalasin/timeline.ts out/timeline_kalasin.json && python3 scripts/soundtrack_kalasin.py",
+    "audio:roiet": "node scripts/export_timeline.mjs src/cities/roiet/timeline.ts out/timeline_roiet.json && python3 scripts/soundtrack_roiet.py",
+    "render:roiet": "node scripts/check_story.mjs roiet && remotion render Roiet out/roiet_look.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
     "render:kalasin": "node scripts/check_story.mjs kalasin && remotion render Kalasin out/kalasin_look.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
     "audio:songkhla": "node scripts/export_timeline.mjs src/cities/songkhla/timeline.ts out/timeline_songkhla.json && python3 scripts/soundtrack_songkhla.py",
     "render:songkhla": "node scripts/check_story.mjs songkhla && remotion render Songkhla out/songkhla_look.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
