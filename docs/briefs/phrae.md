@@ -77,3 +77,12 @@ west ridge drawn at the north-west edge so the finale has its mountain (grandeur
   drawn against 235 real: both far places are squeezed into the tile's south strip (28° off, inside the 30° rule).
 - ประตูชัย has no OSM node: drawn where ถนนเจริญเมือง leaves the south-east wall. The 2445 police post has no known site: drawn
   by the pillar.
+- Stills: `phrae_v1_contact.jpg` (0, 2, 5, 7.5, 12.5, 14.5, 19, 25.5, 33, 41, 50, 57 s). `npm run check`: 0 errors. Score -16.0 LUFS,
+  score +1.5 LU over the effects, ambience -12.2 LU under the score.
+- Fixed on the stills before passing them (cloud's pass, delegated): the wall drew as a tall crenellated brick wall and hid the
+  town in the gate shot (now a low worn earth rampart: decay before frame 0, ruinStrength 0.8); the Shan and the Siamese column
+  were specks (figures x1.4); the four rafts touched and read as a bridge (spaced, faster); Ban Thung Hong stood in bare concrete
+  plots outside the sprawl box (box widened); the payoff's callout pointed at Wat Luang's chedi behind Wongburi (now at the
+  craftsman's gable, labelled ลายขนมปังขิง); the fair's stalls swamped the street (fewer, moved west).
+- Left as it is: the grandeur warning (the old town is 1.2% of the tile) is the town's true size; the finale's big thing is the
+  west ridge.
