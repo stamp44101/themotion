@@ -40,7 +40,7 @@ export const Waters: React.FC = () => (
     {SHAPES.map((s, i) => (
       <mesh key={i} position={[0, -1.3, 0]} rotation-x={-Math.PI / 2} receiveShadow>
         <extrudeGeometry args={[s, {depth: 1.4, bevelEnabled: false}]} />
-        <meshStandardMaterial color={i === 0 ? '#3a7fa6' : '#4d8a92'} roughness={0.85} metalness={0} />
+        <meshStandardMaterial color="#3a7fa6" roughness={0.85} metalness={0} />
       </mesh>
     ))}
   </group>
