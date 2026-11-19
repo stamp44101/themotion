@@ -178,6 +178,16 @@ export const trainAt = (car: number, t: number) => {
   if (t > STORY.at('grow')[0] + 0.5) return null;
   return along(RAIL, d - car * CAR_LEN);
 };
+/** a car's pose from its two bogies on the rails (front and rear ends on the line, the body on the chord between them), so a
+ *  rigid car on the hairpin west of the station keeps both ends on the track instead of cutting the corner */
+export const carPose = (car: number, t: number) => {
+  const d = trainD(t);
+  if (d === null || t > STORY.at('grow')[0] + 0.5) return null;
+  const c = d - car * CAR_LEN;
+  const f = along(RAIL, c + CAR_LEN * 0.42);
+  const b = along(RAIL, Math.max(0, c - CAR_LEN * 0.42));
+  return {x: (f.x + b.x) / 2, z: (f.z + b.z) / 2, rot: Math.atan2(f.x - b.x, f.z - b.z)};
+};
 export const stationK = (t: number, Y: number) => (Y > 1956 ? 1 : Y < 1954 ? 0 : smooth((beatK('rail', t) + 0.2) / 0.3));
 export const railK = (Y: number) => (Y < 1954 ? 0 : 1);
 /** the station building beside the track's end, on its south side (between the track and the bank road) */

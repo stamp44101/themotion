@@ -9,7 +9,7 @@ import {
   KHAMYAT_LEN, RACE_BOAT_LEN, RACE_LANES, RANKS, SIM_AT, STATUES, TENTS, WALKERS, WATCHERS, adzeAt, along, bridgeCarAt,
   brokenK, carveFront, cartAt, coverK, fallK, fireballAt, foundHouseK, hawBoatAt, headK, khamyatAt, lengthOf, monumentK,
   raceAt, railK, SIM_ROT, STATION_AT, STATION_ROT, saiCarryAt, saiCartAt, saiHomeK, sermAt, simK, soldierAt, spanK, spitK, stationK, statueK, tentsK,
-  trainAt, walkerAt,
+  carPose, walkerAt,
 } from './actors';
 import {BOAT_AT, BOAT_S, BRIDGE, MEKONG, PRAPHO, RAIL, SPIT, THAT} from './places';
 
@@ -396,7 +396,7 @@ const Railway: React.FC<{t: number; Y: number}> = ({t, Y}) => {
         </group>
       )}
       {Array.from({length: CARS}, (_, c) => {
-        const p = trainAt(c, t);
+        const p = carPose(c, t);
         if (!p) return null;
         const loco = c === 0;
         return (
