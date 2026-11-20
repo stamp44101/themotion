@@ -63,6 +63,7 @@ import {SURAT_A1, SURAT_A2, SURAT_B} from './styleframes/suratthani';
 import {KANCH_A1, KANCH_A2, KANCH_B} from './styleframes/kanchanaburi';
 import {SAKON_A1, SAKON_A2, SAKON_B} from './styleframes/sakonnakhon';
 import {KALASIN_A1, KALASIN_A2, KALASIN_B} from './styleframes/kalasin';
+import {LOEI_A1, LOEI_A2} from './styleframes/loei';
 import {TRANG_A1, TRANG_A2, TRANG_B} from './styleframes/trang';
 import {NONGKHAI_A1, NONGKHAI_A2} from './styleframes/nongkhai';
 import {PHRAE_A1, PHRAE_A2} from './styleframes/phrae';
@@ -164,6 +165,8 @@ const SakonStyleA1: React.FC = () => <DioramaComposition city={SAKON_A1} />;
 const KalasinStyleA1: React.FC = () => <DioramaComposition city={KALASIN_A1} />;
 const KalasinStyleA2: React.FC = () => <DioramaComposition city={KALASIN_A2} />;
 const KalasinStyleB: React.FC = () => <DioramaComposition city={KALASIN_B} />;
+const LoeiStyleA1: React.FC = () => <DioramaComposition city={LOEI_A1} />;
+const LoeiStyleA2: React.FC = () => <DioramaComposition city={LOEI_A2} />;
 const TrangStyleA1: React.FC = () => <DioramaComposition city={TRANG_A1} />;
 const TrangStyleA2: React.FC = () => <DioramaComposition city={TRANG_A2} />;
 const TrangStyleB: React.FC = () => <DioramaComposition city={TRANG_B} />;
@@ -256,6 +259,8 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="KalasinStyleA1" component={KalasinStyleA1} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="KalasinStyleA2" component={KalasinStyleA2} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="KalasinStyleB" component={KalasinStyleB} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="LoeiStyleA1" component={LoeiStyleA1} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="LoeiStyleA2" component={LoeiStyleA2} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="TrangStyleA1" component={TrangStyleA1} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="TrangStyleA2" component={TrangStyleA2} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="TrangStyleB" component={TrangStyleB} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
