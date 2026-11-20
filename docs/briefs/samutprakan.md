@@ -71,3 +71,17 @@ two `build` (the limit), the spectacle by 12 s (the procession from 9.4 s). Far 
 the tile's edge and are named in a sub).
 Tagline: "พระสมุทรเจดีย์ ป้อมพระจุลฯ ปากน้ำเจ้าพระยา" (cloud's pick). Finale kicker "สมัย ร.2 – พ.ศ. 2569" (no disputed
 founding year).
+
+## v1 build (cloud, 20 Nov)
+`src/cities/samutprakan/`, 150 m/unit, origin the city pillar. Score `scripts/soundtrack_samutprakan.py` (ranat ek, khlui, pi,
+klong and ching; bricks, oars, barges, guns, surf, gulls, jets), -16.0 LUFS, score +0.7 LU over the effects, ambience -9.9 LU
+under the score. `npm run check`: 0 errors. Stills: `samutprakan_v1_contact.jpg` (cloud passed it: delegated).
+- Fixed on the stills before passing: the cover camera pulled back to 340 so the whole delta tile is in frame; the royal
+  barges moved to mid-channel (they ran along the island's edge); the airport's parked jets removed (they crossed the
+  terminal), the runways set 4.4 apart with the tower beside the terminal; four caption titles cut to one line; Sukhumvit
+  drawn 150 m east through Pak Nam so it clears Narai Prap Suek fort, Bang Pu's resort drawn off the road, the road to the
+  temple stopped at its gate; Phi Suea Samut fort drawn smaller so it stays on its island.
+- Positions not surveyed: Prakhon Chai and Narai Prap Suek forts (both gone) are placed from the street names; Phra Chula is
+  drawn 0.6 km east of its pin, by today's shore.
+- Left as it is: the grandeur warning (Pak Nam's Rama II town is 0.4% of the tile) is the town's true size; the landing is the
+  whole delta as a city.
