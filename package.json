@@ -57,6 +57,8 @@
     "render:roiet": "node scripts/check_story.mjs roiet && remotion render Roiet out/roiet_look.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
     "render:kalasin": "node scripts/check_story.mjs kalasin && remotion render Kalasin out/kalasin_look.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
     "render:nongkhai": "node scripts/check_story.mjs nongkhai && remotion render NongKhai out/nongkhai_look.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
+    "audio:phrae": "node scripts/export_timeline.mjs src/cities/phrae/timeline.ts out/timeline_phrae.json && python3 scripts/soundtrack_phrae.py",
+    "render:phrae": "node scripts/check_story.mjs phrae && remotion render Phrae out/phrae_look.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
     "audio:songkhla": "node scripts/export_timeline.mjs src/cities/songkhla/timeline.ts out/timeline_songkhla.json && python3 scripts/soundtrack_songkhla.py",
     "render:songkhla": "node scripts/check_story.mjs songkhla && remotion render Songkhla out/songkhla_look.mp4 --gl=angle --audio-codec=aac --audio-bitrate=256k",
     "audio:phayao": "node scripts/export_timeline.mjs src/cities/phayao/timeline.ts out/timeline_phayao.json && python3 scripts/soundtrack_phayao.py",
