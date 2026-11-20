@@ -1,0 +1,357 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.14908,
+     17.27452
+    ]
+   },
+   "properties": {
+    "name": "วัดโพนชัย (origin)",
+    "era": "-",
+    "why": "ศูนย์กลางงานบุญหลวง/ผีตาโขน; จุดกำเนิดระยะทั้งหมด",
+    "source": "OSM node 4319746818",
+    "pin": "osm",
+    "dist_m": 0,
+    "bearing": 0,
+    "octant": "N",
+    "east_m": 0,
+    "north_m": 0
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.14923,
+     17.27434
+    ]
+   },
+   "properties": {
+    "name": "พิพิธภัณฑ์ท้องถิ่นเมืองด่านซ้าย (ผีตาโขน)",
+    "era": "-",
+    "why": "พิพิธภัณฑ์ผีตาโขนในวัดโพนชัย",
+    "source": "OSM way 433057892",
+    "pin": "osm",
+    "dist_m": 26,
+    "bearing": 141,
+    "octant": "SE",
+    "east_m": 16,
+    "north_m": -20
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.14069,
+     17.27001
+    ]
+   },
+   "properties": {
+    "name": "พระธาตุศรีสองรัก",
+    "era": "2103-2106",
+    "why": "อยุธยา-ล้านช้างสร้างเป็นสักขีพยานไมตรี (beat oath)",
+    "source": "OSM way 667841411",
+    "pin": "osm",
+    "dist_m": 1022,
+    "bearing": 241,
+    "octant": "SW",
+    "east_m": -892,
+    "north_m": -499
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.14902,
+     17.27685
+    ]
+   },
+   "properties": {
+    "name": "ลำน้ำหมัน ผ่านตัวเมือง (เหนือวัดโพนชัย)",
+    "era": "-",
+    "why": "แม่น้ำของเมือง ไหลใต้ขึ้นเหนือ",
+    "source": "OSM way 310614163",
+    "pin": "osm",
+    "dist_m": 258,
+    "bearing": 359,
+    "octant": "N",
+    "east_m": -6,
+    "north_m": 258
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.14726,
+     17.27528
+    ]
+   },
+   "properties": {
+    "name": "ห้วยน้ำศอก (Huai Nam Sak) ปากห้วยบรรจบลำน้ำหมัน",
+    "era": "-",
+    "why": "พิธีเบิกพระอุปคุต 'ระหว่างลำน้ำหมันกับลำน้ำศอก'",
+    "source": "OSM way 310614172",
+    "pin": "osm",
+    "dist_m": 211,
+    "bearing": 294,
+    "octant": "NW",
+    "east_m": -193,
+    "north_m": 84
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.14718,
+     17.27762
+    ]
+   },
+   "properties": {
+    "name": "ด่านซ้าย (place=town)",
+    "era": "-",
+    "why": "ตัวเมืองด่านซ้าย",
+    "source": "OSM node 1202843508",
+    "pin": "osm",
+    "dist_m": 398,
+    "bearing": 330,
+    "octant": "NW",
+    "east_m": -202,
+    "north_m": 343
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.14637,
+     17.27999
+    ]
+   },
+   "properties": {
+    "name": "ลานงานผีตาโขน (events venue)",
+    "era": "-",
+    "why": "ลานงานบุญหลวง",
+    "source": "OSM node 13197811002",
+    "pin": "osm",
+    "dist_m": 671,
+    "bearing": 335,
+    "octant": "NW",
+    "east_m": -288,
+    "north_m": 606
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.15712,
+     17.27421
+    ]
+   },
+   "properties": {
+    "name": "โรงพยาบาลด่านซ้าย",
+    "era": "-",
+    "why": "เมืองขยายไปทางตะวันออกตาม ทล.2013",
+    "source": "OSM way 667841412",
+    "pin": "osm",
+    "dist_m": 855,
+    "bearing": 92,
+    "octant": "E",
+    "east_m": 855,
+    "north_m": -34
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.15424,
+     17.25558
+    ]
+   },
+   "properties": {
+    "name": "จุดชมวิวด่านซ้าย",
+    "era": "-",
+    "why": "เนินเขาใต้เมือง",
+    "source": "OSM node 7092539685",
+    "pin": "osm",
+    "dist_m": 2167,
+    "bearing": 165,
+    "octant": "S",
+    "east_m": 549,
+    "north_m": -2097
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.1411,
+     17.2834
+    ]
+   },
+   "properties": {
+    "name": "แยก ทล.2013/2114 ตะวันตกเฉียงเหนือของเมือง",
+    "era": "-",
+    "why": "ถนนไปนาแห้ว/ภูเรือ",
+    "source": "OSM way 318804402",
+    "pin": "osm",
+    "dist_m": 1298,
+    "bearing": 319,
+    "octant": "NW",
+    "east_m": -848,
+    "north_m": 983
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.72886,
+     17.4866
+    ]
+   },
+   "properties": {
+    "name": "ศาลหลักเมืองเลย (far place 1)",
+    "era": "2396",
+    "why": "เมืองเลยตั้งจากบ้านแฮ่ริมห้วยน้ำหมาน ใกล้แม่น้ำเลย",
+    "source": "OSM way 1427324009",
+    "pin": "osm",
+    "dist_m": 65950,
+    "bearing": 69,
+    "octant": "E",
+    "east_m": 61630,
+    "north_m": 23477
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.724,
+     17.487
+    ]
+   },
+   "properties": {
+    "name": "แม่น้ำเลย ที่ตัวเมืองเลย",
+    "era": "-",
+    "why": "แม่น้ำที่ให้ชื่อเมือง ไหลใต้ขึ้นเหนือ",
+    "source": "OSM way 40153224 (near)",
+    "pin": "osm-near",
+    "dist_m": 65484,
+    "bearing": 69,
+    "octant": "E",
+    "east_m": 61113,
+    "north_m": 23522
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.76167,
+     16.8885
+    ]
+   },
+   "properties": {
+    "name": "อุทยานแห่งชาติภูกระดึง (far place 2)",
+    "era": "2505",
+    "why": "ภูเขายอดตัด; อุทยานแห่งชาติแห่งที่ 2 (23 พ.ย. 2505)",
+    "source": "OSM relation 6011589 (centroid)",
+    "pin": "osm",
+    "dist_m": 77887,
+    "bearing": 123,
+    "octant": "SE",
+    "east_m": 65118,
+    "north_m": -42732
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.79997,
+     16.89302
+    ]
+   },
+   "properties": {
+    "name": "ผานกแอ่น ภูกระดึง",
+    "era": "-",
+    "why": "ขอบผาด้านตะวันออกของยอดภู",
+    "source": "OSM node 2378454589",
+    "pin": "osm",
+    "dist_m": 81059,
+    "bearing": 121,
+    "octant": "SE",
+    "east_m": 69189,
+    "north_m": -42232
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.65596,
+     17.89453
+    ]
+   },
+   "properties": {
+    "name": "อำเภอเชียงคาน (ริมโขง)",
+    "era": "-",
+    "why": "เมืองริมโขง (sub line เท่านั้น)",
+    "source": "nominatim node 484166139",
+    "pin": "osm",
+    "dist_m": 87258,
+    "bearing": 38,
+    "octant": "NE",
+    "east_m": 53881,
+    "north_m": 68635
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.34487,
+     17.51366
+    ]
+   },
+   "properties": {
+    "name": "อุทยานแห่งชาติภูเรือ",
+    "era": "-",
+    "why": "ทะเลภูเขา (ไม่ใช้)",
+    "source": "nominatim node 1311831587",
+    "pin": "osm",
+    "dist_m": 33674,
+    "bearing": 38,
+    "octant": "NE",
+    "east_m": 20812,
+    "north_m": 26473
+   }
+  }
+ ]
+}
