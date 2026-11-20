@@ -32,6 +32,7 @@ import {UTTARADIT} from './cities/uttaradit';
 import {YASOTHON} from './cities/yasothon';
 import {SAMUTSONGKHRAM} from './cities/samutsongkhram';
 import {KALASIN} from './cities/kalasin';
+import {LOEI_CITY} from './cities/loei';
 import {TRANG} from './cities/trang';
 import {NONGKHAI} from './cities/nongkhai';
 import {PHRAE} from './cities/phrae';
@@ -105,6 +106,7 @@ const Uttaradit: React.FC = () => <DioramaComposition city={UTTARADIT} />;
 const Yasothon: React.FC = () => <DioramaComposition city={YASOTHON} />;
 const SamutSongkhram: React.FC = () => <DioramaComposition city={SAMUTSONGKHRAM} />;
 const Kalasin: React.FC = () => <DioramaComposition city={KALASIN} />;
+const Loei: React.FC = () => <DioramaComposition city={LOEI_CITY} />;
 const Trang: React.FC = () => <DioramaComposition city={TRANG} />;
 const NongKhai: React.FC = () => <DioramaComposition city={NONGKHAI} />;
 const Phrae: React.FC = () => <DioramaComposition city={PHRAE} />;
@@ -321,6 +323,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="Yasothon" component={Yasothon} durationInFrames={(YASOTHON.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="SamutSongkhram" component={SamutSongkhram} durationInFrames={(SAMUTSONGKHRAM.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Kalasin" component={Kalasin} durationInFrames={(KALASIN.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="Loei" component={Loei} durationInFrames={(LOEI_CITY.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Trang" component={Trang} durationInFrames={(TRANG.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="NongKhai" component={NongKhai} durationInFrames={(NONGKHAI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Phrae" component={Phrae} durationInFrames={(PHRAE.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
