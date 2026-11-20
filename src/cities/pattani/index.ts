@@ -90,7 +90,7 @@ export const PATTANI: CityConfig = {
     clearings: [
       ...SEA_CLEARINGS,
       // the cover cannon's plain (it is paddy; the town never builds over it: openGround)
-      ...strip(CANNON_LINE, 3.4, -1e9, 2.0),
+      ...strip(CANNON_LINE, 3.8, -1e9, 2.0),
       // Kru Se: the palace and its stockade, the mosque, the tomb, the pits, the landing and the haul road
       [ISTANA[0] + 0.5, ISTANA[1] + 0.3, 3.2, -1e9],
       [KRUESE[0], KRUESE[1], 2.0, -1e9],
@@ -117,7 +117,7 @@ export const PATTANI: CityConfig = {
         const ring = (r: number) => [[r, 0], [-r, 0], [0, r], [0, -r], [r * 0.7, r * 0.7], [-r * 0.7, r * 0.7], [r * 0.7, -r * 0.7], [-r * 0.7, -r * 0.7]].every(([dx, dz]) => inSea(x + dx, z + dz));
         return ring(1.5) ? [[x, z, 1.45] as [number, number, number]] : ring(0.9) ? [[x, z, 0.8] as [number, number, number]] : [];
       }),
-      ...strip(CANNON_LINE, 2.4, 0, 2.0).map(([x, z, r]) => [x, z, r] as [number, number, number]),
+      ...strip(CANNON_LINE, 3.2, 0, 2.0).map(([x, z, r]) => [x, z, r] as [number, number, number]),
       [KRUESE[0], KRUESE[1], 1.7],
       [TOMB[0], TOMB[1], 0.7],
       [ISTANA[0] + 0.5, ISTANA[1] + 0.3, 2.9],
@@ -133,7 +133,7 @@ export const PATTANI: CityConfig = {
     footprints: SHOPS.map(([x, z], j) => ({fp: {rect: [x, z, 1.7, 0.8] as [number, number, number, number]}, from: 1830, label: `Anoru shophouse ${j}`})),
     openGround: [
       // the plain the cover's cannon lies on and the payoff's cannon stands on again
-      {x0: CANNON_AT[0] - 14, x1: CANNON_AT[0] + 14, z0: CANNON_AT[1] - 4.5, z1: CANNON_AT[1] + 4.5},
+      {x0: CANNON_AT[0] - 17, x1: CANNON_AT[0] + 17, z0: CANNON_AT[1] - 5.5, z1: CANNON_AT[1] + 5.5},
       // Kru Se's mosque and old palace ground (the archaeological site)
       {x0: ISTANA[0] - 2.4, x1: KRUESE[0] + 1.6, z0: ISTANA[1] - 2.4, z1: KRUESE[1] + 1.4},
     ],

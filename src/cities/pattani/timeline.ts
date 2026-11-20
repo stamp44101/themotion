@@ -22,9 +22,9 @@ const HA_IN: Key = [9.4, 41.8, 0.5, -1.0, 26, 60, 42, 30];
 const HA_END: Key = [14.2, 41.2, 0.5, -3.6, 25, 80, 42, 30];
 // port: the bay off Kru Se, the ships coming in round the spit, from the south
 const PO_IN: Key = [15.6, 32.0, 1, -16.0, 66, 8, 40, 30];
-const PO_END: Key = [20.2, 36.0, 1, -13.0, 54, 26, 40, 30];
+const PO_END: Key = [19.8, 36.0, 1, -13.0, 54, 26, 40, 30];
 // taken: the gun dragged to the landing and shipped out of the bay, from the south-east, following the ship west
-const TA_IN: Key = [21.4, LANDING[0] + 0.4, 0.5, LANDING[1] + 1.4, 27, 95, 42, 30];
+const TA_IN: Key = [21.8, LANDING[0] + 0.4, 0.5, LANDING[1] + 1.4, 27, 95, 42, 30];
 const TA_END: Key = [26.2, 31.0, 1, -17.0, 58, 40, 40, 30];
 // newtown: up the river into the new town, from the north-north-east swinging round to the south
 const NT_IN: Key = [27.8, 1.0, 1, -5.0, 48, 160, 41, 30];
@@ -39,8 +39,8 @@ const GR_END: Key = [44.4, 7, 1, -6, 178, 16, 37, 30];
 const FA_IN: Key = [47.0, 0.4, 0.5, 3.2, 22, 140, 40, 30];
 const FA_MID: Key = [49.8, -0.4, 0.5, 3.8, 20, 160, 40, 30];
 // the pull-back: the giant cannon stands again on the plain beside the grown town
-const FA_END: Key = [52.4, 25, 3, 6, 118, 4, 37, 30];
-const FA_HOLD: Key = [54.2, 26, 3, 5, 128, 2, 37, 30];
+const FA_END: Key = [52.4, 30, 3, 8, 132, 4, 37, 30];
+const FA_HOLD: Key = [54.2, 31, 3, 7, 142, 2, 37, 30];
 // the landing: the whole tile again at the cover's distance, now a city; the night comes down on the Central Mosque
 const END: Key = [56.4, 24, 4, -13, 300, -3, 36, 30];
 
@@ -78,7 +78,7 @@ export const STORY = buildStory({
       id: 'cast',
       kind: 'build',
       t: [3.0, 8.5],
-      year: [1578, 1596],
+      year: [1578, 1590],
       caption: {t0: 3.2, title: 'หล่อปืนใหญ่ถวายราชินี', sub: 'ตำนานว่าช่างคือหลิมโต๊ะเคี่ยม ชาวจีน'},
       era: 'ยุคราชินีปัตตานี',
       callouts: [{label: 'มัสยิดกรือเซะ', dx: 130, dy: -170, p: [KRUESE[0], 1.4, KRUESE[1]], t0: 5.6, t1: 8.2}],
@@ -89,7 +89,7 @@ export const STORY = buildStory({
       id: 'haul',
       kind: 'procession',
       t: [8.5, 14.5],
-      year: [1597, 1601],
+      year: [1590, 1601.4],
       caption: {t0: 8.6, title: 'ลากพญาตานีเข้าวังกรือเซะ', sub: 'ยาว 2.7 เมตร ปืนใหญ่ที่สุดที่เคยหล่อในไทย'},
       callouts: [{label: 'พญาตานี', dx: -130, dy: -160, p: [ISTANA[0] + 0.6, 0.8, ISTANA[1] + 1.6], t0: 12.0, t1: 14.3}],
       camera: [HA_IN, HA_END],
@@ -98,7 +98,7 @@ export const STORY = buildStory({
       // 2145: Van Neck's fleet sets up the Dutch factory at Patani; Chinese, Japanese and English ships trade there
       id: 'port',
       kind: 'trade',
-      t: [14.5, 20.5],
+      t: [14.5, 20.0],
       year: {hold: 1602},
       caption: {t0: 14.6, title: 'ฮอลันดามาตั้งห้างค้า', sub: 'เรือจีน ญี่ปุ่น อังกฤษ มาค้าขายในอ่าว'},
       callouts: [{label: 'อ่าวปัตตานี', dx: -120, dy: -150, p: [26, 0.6, -26], t0: 16.6, t1: 19.8}],
@@ -108,9 +108,9 @@ export const STORY = buildStory({
       // 2328 or 2329: the gun is taken to Bangkok; the second gun slips into the sea at the landing (some sources)
       id: 'taken',
       kind: 'procession',
-      t: [20.5, 26.5],
-      year: [1603, 1786],
-      caption: {t0: 20.6, title: 'พญาตานีถูกนำไปบางกอก', sub: 'อีกกระบอกว่ากันว่าจมทะเลตอนขนลงเรือ'},
+      t: [21.0, 26.5],
+      year: [1772, 1790],
+      caption: {t0: 21.1, title: 'พญาตานีถูกนำไปบางกอก', sub: 'อีกกระบอกว่ากันว่าจมทะเลตอนขนลงเรือ'},
       era: 'รัตนโกสินทร์',
       camera: [TA_IN, TA_END],
     },
@@ -119,7 +119,7 @@ export const STORY = buildStory({
       id: 'newtown',
       kind: 'arrive',
       t: [26.5, 32.5],
-      year: [1787, 1860],
+      year: [1790, 1900],
       caption: {t0: 26.6, title: 'ย้ายเมืองมาริมแม่น้ำ', sub: 'วังจะบังติกอ กับย่านจีนอาเนาะรู'},
       callouts: [
         {label: 'วังจะบังติกอ', dx: -120, dy: -150, p: [CHABANG_TIGA[0], 1.0, CHABANG_TIGA[1]], t0: 29.6, t1: 31.4},
@@ -132,7 +132,7 @@ export const STORY = buildStory({
       id: 'bridge',
       kind: 'build',
       t: [32.5, 38.0],
-      year: [1861, 1930],
+      year: [1900, 1935],
       caption: {t0: 32.6, title: 'สะพานเดชานุชิตข้ามแม่น้ำ', sub: 'เชื่อมเมืองสองฝั่ง ราวร้อยปีก่อน'},
       callouts: [{label: 'สะพานเดชานุชิต', dx: 120, dy: -150, p: [DECHA_BRIDGE[0], 1.0, DECHA_BRIDGE[1]], t0: 35.4, t1: 37.6}],
       camera: [BR_IN, BR_END],
@@ -142,21 +142,31 @@ export const STORY = buildStory({
       id: 'grow',
       kind: 'grow',
       t: [38.0, 45.5],
-      year: [1931, 1995],
+      year: [1935, 1995],
       caption: {t0: 38.1, title: 'เมืองโตสองฝั่งแม่น้ำ', sub: 'มัสยิดกลางโดมเขียวขึ้นกลางเมือง'},
       era: 'ปัจจุบัน',
       callouts: [{label: 'มัสยิดกลางปัตตานี', dx: 120, dy: -150, p: [CENTRAL_MOSQUE[0], 2.0, CENTRAL_MOSQUE[1]], t0: 42.0, t1: 45.0}],
       camera: [GR_IN, GR_END],
     },
     {
-      // the payoff: Lim Ko Niao's procession wades across the river below the bridge; the giant cannon stands again
+      // the payoff: Lim Ko Niao's procession wades across the river below the Dechanuchit bridge
       id: 'fair',
       kind: 'celebrate',
-      t: [45.5, 54.4],
-      year: [1996, 2025.5],
-      caption: {t0: 45.6, t1: 53.8, title: 'แห่เจ้าแม่ลุยข้ามแม่น้ำ', sub: 'ลิ้มกอเหนี่ยว น้องสาวช่างหล่อพญาตานี'},
-      callouts: [{label: 'พญาตานี บนตราประจำจังหวัด', dx: 130, dy: -170, p: [CANNON_AT[0] + 6, 4, CANNON_AT[1]], t0: 52.4, t1: 54.2}],
+      t: [45.5, 50.2],
+      year: [1996, 2018],
+      caption: {t0: 45.6, title: 'แห่เจ้าแม่ลุยข้ามแม่น้ำ', sub: 'ลิ้มกอเหนี่ยว น้องสาวช่างหล่อพญาตานี'},
       camera: [FA_IN, FA_MID],
+    },
+    {
+      // the callback: the cover's giant gun stands again on the plain, gilded: the province's seal (since 2482, no year on
+      // screen). The real gun stands in front of the Ministry of Defence in Bangkok.
+      id: 'seal',
+      kind: 'legend',
+      t: [50.2, 54.4],
+      year: [2018, 2025.5],
+      caption: {t0: 50.3, t1: 53.8, title: 'พญาตานีบนตราจังหวัด', sub: 'ปืนจริงตั้งอยู่หน้ากระทรวงกลาโหม กรุงเทพฯ'},
+      callouts: [{label: 'ตราประจำจังหวัด', dx: 130, dy: -170, p: [CANNON_AT[0] + 6, 4, CANNON_AT[1]], t0: 52.4, t1: 54.2}],
+      camera: [FA_END, FA_HOLD],
     },
     {id: 'today', kind: 'today', t: [54.6, 56.4], year: [2025.6, 2026]},
   ],

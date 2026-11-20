@@ -59,7 +59,7 @@ export const shellFront = (t: number) => 0.45 + 0.55 * smooth(t / 2.6);
 /** the cover cannon stands through the title and sinks away as the camera leaves for Kru Se (gone by 4.2 s) */
 export const coverK = (t: number) => 1 - smooth((t - 3.3) / 0.9);
 /** the giant cannon comes back on the plain in the payoff (the callback) and stays to the end */
-export const CALLBACK_T = 50.2;
+export const CALLBACK_T = 50.4;
 export const callbackK = (t: number) => smooth((t - CALLBACK_T) / 1.4);
 /** the cannon's centre (its barrel along x, muzzle to the east, toward Kru Se) */
 export const COVER_C: P = CANNON_AT;
@@ -70,7 +70,7 @@ export const MOULDS: P[] = [[PITS[0] - 1.6, PITS[1]], [PITS[0], PITS[1] + 0.2], 
 /** mould j is poured (glowing) then cools; the pour runs across the beat */
 export const pourK = (j: number, t: number) => smooth((beatK('cast', t) - 0.12 - j * 0.22) / 0.2);
 /** the moulds are broken off and the cannons lie bare by the end of the beat */
-export const bareK = (t: number, Y: number) => (Y > 1598 ? 1 : smooth((beatK('cast', t) - 0.82) / 0.16));
+export const bareK = (t: number, Y: number) => (Y > 1591 ? 1 : smooth((beatK('cast', t) - 0.82) / 0.16));
 export const SMITHS = 9;
 export const smithAt = (i: number, t: number): P => {
   const j = i % 3;
@@ -152,7 +152,7 @@ export const splashK = (t: number) => {
   return k > 0.46 && k < 0.66 ? (k - 0.46) / 0.2 : -1;
 };
 /** the palace guns stand at the gate from the haul until this beat takes them */
-export const gateGunsK = (t: number, Y: number) => (Y < 1597 ? 0 : Y > 1790 ? 0 : t > 20 && beatK('taken', t) > 0.12 ? 0 : 1);
+export const gateGunsK = (t: number, Y: number) => (Y < 1590 ? 0 : Y > 1790 ? 0 : t > 20 && beatK('taken', t) > 0.12 ? 0 : 1);
 export const TAKE_CREW = 10;
 
 // ------------------------------------------------------------------ newtown: boats up the river; the palace and Anoru rise
@@ -196,13 +196,13 @@ const PROC_L = lengthOf(PROC_PATH);
 /** the river's banks on the wading line (the people are in the water between these distances along PROC_PATH) */
 export const WADE: [number, number] = [atAlong(PROC_PATH, [-0.3, 4.3]), atAlong(PROC_PATH, [-1.3, 4.3])];
 export const PALANQUINS = 3;
-export const procLead = (t: number) => smooth((beatK('fair', t) + 0.1) / 0.62) * (PROC_L + 2.5);
+export const procLead = (t: number) => smooth((beatK('fair', t) + 0.1) / 1.0) * (PROC_L + 2.5);
 /** walker i of the procession: palanquin bearers first, then followers; null before they leave or after they are gone */
 export const procAt = (i: number, t: number) => {
   const d = procLead(t) - i * 0.42;
   if (d < -0.2 || d > PROC_L) return null;
   const p = along(PROC_PATH, Math.max(0, d));
-  const wet = d > WADE[0] - 0.2 && d < WADE[1] + 0.2;
+  const wet = d > WADE[0] && d < WADE[1];
   return {...p, wet, d};
 };
 export const PROC_N = 22;
@@ -273,12 +273,15 @@ export const ACTORS: Actor[] = [
   {id: 'mosque', during: [40.4, 44.6], size: 4.6, at: (t, c) => (mosqueK(t, c.Y) > 0.05 ? [CENTRAL_MOSQUE[0], 1.0, CENTRAL_MOSQUE[1]] : null)},
   {
     id: 'procession',
-    during: [46.0, 51.2],
+    during: [46.0, 50.2],
     size: 1.6,
     minInFrame: 0.5,
     at: (t) => {
-      const p = procAt(0, t);
-      return p ? [p.x, 0.5, p.z] : null;
+      for (let i = 0; i < PROC_N; i++) {
+        const p = procAt(i, t);
+        if (p) return [p.x, 0.5, p.z];
+      }
+      return null;
     },
   },
   {id: 'cannon-back', role: 'callback', during: [52.2, 54.4], size: CANNON_S * 0.8, at: () => [COVER_C[0], 2, COVER_C[1]]},

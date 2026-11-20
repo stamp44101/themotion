@@ -89,5 +89,5 @@ export const HWY43: P[] = [[39.9, 30.0], [45.2, 25.5], [62.0, 3.0]];
 
 // ---- the cover: the giant cannon on the plain south-east of ทล.42, between the town and Kru Se (legend scale), clear of
 // every road; it comes back in the payoff
-export const CANNON_AT: P = [29, 10];
-export const CANNON_S = 26; // barrel length in units (3.25 km: legend scale, about a third of the tile)
+export const CANNON_AT: P = [32.5, 11];
+export const CANNON_S = 32; // barrel length in units (4 km: legend scale, over a third of the tile's width)

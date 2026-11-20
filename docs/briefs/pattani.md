@@ -63,17 +63,18 @@ Facts with nothing to show: the four queens; the English factory's year; the sea
 | id | kind | t (s) | counter | held | caption / sub | on screen |
 |---|---|---|---|---|---|---|
 | hero | legend | 0-3.0 | ~2120 (hidden) | - | title ปัตตานี / sub "ปืนใหญ่พญาตานี เมืองท่าริมอ่าว" | the giant mould on the plain, the bay and the spit behind |
-| cast | build | 3.0-8.5 | ราว 2121 → 2139 | - | "หล่อปืนใหญ่ถวายราชินี" / "ตำนานว่าช่างคือหลิมโต๊ะเคี่ยม ชาวจีน" | three moulds poured at pits south of Krue Se, the furnace, the founder, smiths; callout มัสยิดกรือเซะ |
-| haul | procession | 8.5-14.5 | ราว 2140 → 2144 | - | "ลากพญาตานีเข้าวังกรือเซะ" / "ยาว 2.7 เมตร ปืนใหญ่ที่สุดที่เคยหล่อในไทย" | 16 haulers drag the big gun on rollers to the palace gate; a salute puff |
-| port | trade | 14.5-20.5 | **2145** | **2145 ≥ 1 s** | "ฮอลันดามาตั้งห้างค้า" / "เรือจีน ญี่ปุ่น อังกฤษ มาค้าขายในอ่าว" | ships sail in round the spit and anchor off Kru Se; porters at the landing |
-| taken | procession | 20.5-26.5 | 2146 → 2329 | - | "พญาตานีถูกนำไปบางกอก" / "อีกกระบอกว่ากันว่าจมทะเลตอนขนลงเรือ" | the gun dragged to the landing, a splash, the junk sails out of the bay |
-| newtown | arrive | 26.5-32.5 | 2330 → 2403 | - | "ย้ายเมืองมาริมแม่น้ำ" / "วังจะบังติกอ กับย่านจีนอาเนาะรู" | boats come up the river; the palace at Chabang Tiga, Anoru's shophouses and the shrine rise |
-| bridge | build | 32.5-38.0 | 2404 → 2473 | - | "สะพานเดชานุชิตข้ามแม่น้ำ" / "เชื่อมเมืองสองฝั่ง ราวร้อยปีก่อน" | the steel truss rises; walkers cross |
-| grow | grow | 38.0-45.5 | 2474 → 2538 | - | "เมืองโตสองฝั่งแม่น้ำ" / "มัสยิดกลางโดมเขียวขึ้นกลางเมือง" | wide: the town spreads, the Central Mosque rises |
-| fair | celebrate | 45.5-54.4 | 2539 → 2568 | - | "แห่เจ้าแม่ลุยข้ามแม่น้ำ" / "ลิ้มกอเหนี่ยว น้องสาวช่างหล่อพญาตานี" | palanquins and a lion dance wade across the river below the bridge; pull back to the giant gun standing gilded (callback) |
+| cast | build | 3.0-8.5 | ราว 2121 → 2133 (each year < 0.6 s) | - | "หล่อปืนใหญ่ถวายราชินี" / "ตำนานว่าช่างคือหลิมโต๊ะเคี่ยม ชาวจีน" | three moulds poured at pits south of Krue Se, the furnace, the founder, smiths; callout มัสยิดกรือเซะ |
+| haul | procession | 8.5-14.5 | ราว 2133 → 2144 (each year < 0.6 s) | - | "ลากพญาตานีเข้าวังกรือเซะ" / "ยาว 2.7 เมตร ปืนใหญ่ที่สุดที่เคยหล่อในไทย" | 16 haulers drag the big gun on rollers to the palace gate; a salute puff |
+| port | trade | 14.5-20.0 | **2145** | **2145 ≥ 1 s** | "ฮอลันดามาตั้งห้างค้า" / "เรือจีน ญี่ปุ่น อังกฤษ มาค้าขายในอ่าว" | ships sail in round the spit and anchor off Kru Se; porters at the landing |
+| taken | procession | 21.0-26.5 | 2315 → 2333, passing 2328 at 25 s | - | "พญาตานีถูกนำไปบางกอก" / "อีกกระบอกว่ากันว่าจมทะเลตอนขนลงเรือ" | the gun dragged to the landing, a splash, the junk sails out of the bay |
+| newtown | arrive | 26.5-32.5 | 2333 → 2443 | - | "ย้ายเมืองมาริมแม่น้ำ" / "วังจะบังติกอ กับย่านจีนอาเนาะรู" | boats come up the river; the palace at Chabang Tiga, Anoru's shophouses and the shrine rise |
+| bridge | build | 32.5-38.0 | 2443 → 2478, passing 2469 at 36.6 s | - | "สะพานเดชานุชิตข้ามแม่น้ำ" / "เชื่อมเมืองสองฝั่ง ราวร้อยปีก่อน" | the steel truss rises; walkers cross |
+| grow | grow | 38.0-45.5 | 2478 → 2538 | - | "เมืองโตสองฝั่งแม่น้ำ" / "มัสยิดกลางโดมเขียวขึ้นกลางเมือง" | wide: the town spreads, the Central Mosque rises |
+| fair | celebrate | 45.5-50.2 | 2539 → 2561 | - | "แห่เจ้าแม่ลุยข้ามแม่น้ำ" / "ลิ้มกอเหนี่ยว น้องสาวช่างหล่อพญาตานี" | palanquins and a lion dance wade across the river below the bridge (waist-deep only between the banks) |
+| seal | legend | 50.2-54.4 | 2561 → 2568 | - | "พญาตานีบนตราจังหวัด" / "ปืนจริงตั้งอยู่หน้ากระทรวงกลาโหม กรุงเทพฯ" | the camera pulls back to the giant gun standing gilded on the plain (callback, callout ตราประจำจังหวัด): the symbol, not a replica |
 | today | today | 54.6-60 | 2569 ≥ 1 s | 2569 | finale "เมืองงามสามวัฒนธรรม" | the whole tile at night, the Central Mosque lit, fireworks |
 
-Kinds: legend / build / procession / trade / procession / arrive / build / grow / celebrate / today: no two alike in a row, two
+Kinds: legend / build / procession / trade / procession / arrive / build / grow / celebrate / legend / today: no two alike in a row, two
 `build`, the spectacle (procession) from 8.5 s. No year named on screen that the counter does not hold for 1 s.
 
 ## v1 build (cloud, 20 Nov)
@@ -94,3 +95,7 @@ Kinds: legend / build / procession / trade / procession / arrive / build / grow 
   own config (`houses.abandon` with a year that never comes). Other cities without `abandon` likely show no engine town
   houses either.
 - The 12-still pass (`pattani_v1_contact.jpg`) is passed by cloud on the owner's delegation.
+- **Lead's review (20 Nov), all fixed:** the counter now passes 2328 under the taken caption (a 1-s gap after 2145 carries it
+  across) and 2469 under the bridge caption, neither held; the payoff is split so the gilded gun has its own caption ("seal");
+  the callout reads ตราประจำจังหวัด; the disputed years at 3-14.5 s each stay under 0.6 s; the cover's gun is 4 km long and
+  1.25x stouter (legend scale); the procession is lowered only between the banks.

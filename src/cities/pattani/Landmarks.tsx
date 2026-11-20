@@ -154,7 +154,8 @@ export const GiantCannon: React.FC<{t: number}> = ({t}) => {
   const edgeX = (front - 0.5) * S;
   return (
     <group position={[CANNON_AT[0], 0, CANNON_AT[1]]} rotation-y={0.18} scale={[k, k, k]}>
-      <group position={[0, lift, 0]}>
+      {/* legend scale: the giant is drawn 1.25x stouter than the town's guns so it reads on the whole tile */}
+      <group position={[0, lift * FAT, 0]} scale={[1, FAT, FAT]}>
         {/* the bronze under the clay: hot where it was just bared, cooling to bronze */}
         <Barrel S={S} gild={back} hotAt={back ? undefined : (u) => (u < front ? Math.max(0, 1 - (front - u) / 0.14) * 0.85 : 0)} />
         {/* the clay shell still on the muzzle end: sections from `front` to the muzzle */}
@@ -234,6 +235,7 @@ export const GiantCannon: React.FC<{t: number}> = ({t}) => {
   );
 };
 const clamp = (v: number, a: number, b: number) => Math.max(a, Math.min(b, v));
+const FAT = 1.25;
 
 // ------------------------------------------------------------------ Kru Se: the mosque, the tomb, the palace
 /** Krue Se mosque: red brick, pointed arches along its sides, no dome (only the drum it never got) */
@@ -389,13 +391,13 @@ const Cast: React.FC<{t: number; Y: number}> = ({t, Y}) => {
 const Guns: React.FC<{t: number; Y: number}> = ({t, Y}) => {
   const h = haulAt(t, Y);
   const tk = takeAt(t);
-  const big = Y < 1597 ? null : tk ? tk : gateGunsK(t, Y) > 0 ? h : null;
+  const big = Y < 1590 ? null : tk ? tk : gateGunsK(t, Y) > 0 ? h : null;
   const sal = salute(t);
   const rot = (p: {rot: number}) => p.rot - Math.PI / 2;
   return (
     <group>
       {/* the big gun on its rollers */}
-      {Y >= 1596.5 && Y < 1602 && t > 8 && t < 15 && (
+      {Y >= 1589.5 && Y < 1602 && t > 8 && t < 15 && (
         <group position={[h.x, 0.25, h.z]} rotation-y={rot(h)}>
           <Barrel S={3.2} />
           {[-1.0, 0, 1.0].map((u) => (
@@ -410,7 +412,7 @@ const Guns: React.FC<{t: number; Y: number}> = ({t, Y}) => {
         </group>
       )}
       {/* the ropes and the haulers */}
-      {Y >= 1596.5 && Y < 1602 && t > 8 && t < 15 &&
+      {Y >= 1589.5 && Y < 1602 && t > 8 && t < 15 &&
         Array.from({length: HAULERS}, (_, i) => {
           const p = haulerAt(i, t, Y);
           return (
@@ -426,7 +428,7 @@ const Guns: React.FC<{t: number; Y: number}> = ({t, Y}) => {
         </group>
       )}
       {gateGunsK(t, Y) > 0 &&
-        Y >= 1597 &&
+        Y >= 1590 &&
         [-1, 1].map((s) => (
           <group key={s} position={[h.x + s * 0.9, 0.2, h.z + 0.5]} rotation-y={rot(h)}>
             <Barrel S={1.6} />
@@ -764,7 +766,7 @@ const Fair: React.FC<{t: number; Y: number}> = ({t, Y}) => {
       {Array.from({length: PROC_N}, (_, i) => {
         const p = procAt(i, t);
         if (!p) return null;
-        const wet = p.wet ? 0.28 : 0;
+        const wet = p.wet ? 0.18 : 0;
         const bearer = i >= 2 && i < 2 + PALANQUINS * 4;
         const pal = bearer && (i - 2) % 4 === 0 ? Math.floor((i - 2) / 4) : -1;
         return (
