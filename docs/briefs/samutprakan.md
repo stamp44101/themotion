@@ -85,3 +85,9 @@ under the score. `npm run check`: 0 errors. Stills: `samutprakan_v1_contact.jpg`
   drawn 0.6 km east of its pin, by today's shore.
 - Left as it is: the grandeur warning (Pak Nam's Rama II town is 0.4% of the tile) is the town's true size; the landing is the
   whole delta as a city.
+- Lead's review of the v1 sheet (20 Nov, the owner's delegate), fixed: the royal barges and the red-cloth barges spaced out
+  with slimmer gold rails so each reads as a boat, not a strip on the water; Phra Chula's sea face grassed and the fort set
+  0.6 units inland; the festival parasols by the chedi removed (engine stalls are drawn at house scale; the stalls stay on
+  the Pak Nam bank); the Bhumibol bridges' pylons drawn taller and called out on the landing's wide shot (54.8-56 s).
+- The build beat (3.0-9.4 s) is one beat with one caption: the counter runs ราว 2362 → 2370 through it and holds no year.
+  Those years are **disputed** (2362 / 2365 / 2366 by source), which is why they run under "ราว" and none is named or held.

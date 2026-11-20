@@ -7,7 +7,7 @@
 // in no caption: the counter does not hold them, and Rama II's years run under "ราว".
 import {between, type CameraKey} from '../../engine/glide';
 import {buildStory} from '../../engine/story';
-import {AIRPORT, BANGPU, CHEDI, CHULA, HERO_S, PILLAR} from './places';
+import {AIRPORT, BANGPU, BRIDGES, CHEDI, CHULA, HERO_S, PILLAR} from './places';
 
 type Key = CameraKey;
 // [t, target x, y, z, distance, azimuth, elevation, fov]; azimuth from +z (south) toward +x (east)
@@ -152,7 +152,14 @@ export const STORY = buildStory({
       callouts: [{label: 'พระสมุทรเจดีย์', dx: -130, dy: -170, p: [CHEDI[0], 3.6, CHEDI[1]], t0: 51.4, t1: 54.2}],
       camera: [FA_IN, FA_END],
     },
-    {id: 'today', kind: 'today', t: [54.6, 56.4], year: [2025.6, 2026]},
+    {
+      id: 'today',
+      kind: 'today',
+      t: [54.6, 56.4],
+      year: [2025.6, 2026],
+      // the twin bridges of 2549 on the landing's wide shot (the river's entry, north-west)
+      callouts: [{label: 'สะพานภูมิพล', dx: -110, dy: -140, p: [BRIDGES[0][0] + 3, 4.0, BRIDGES[0][1] + 2.5], t0: 54.8, t1: 55.95}],
+    },
   ],
 });
 

@@ -166,9 +166,9 @@ const Barge: React.FC<{t: number; i: number; red?: boolean}> = ({t, i, red}) => 
   <group>
     <mesh position={[0, 0.12, 0]} scale={[0.32, 0.18, 1.9]} castShadow>
       <sphereGeometry args={[1, 16, 8, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2]} />
-      <meshStandardMaterial color={i === 0 ? '#7a1a14' : '#3b2a20'} roughness={0.6} side={2} />
+      <meshStandardMaterial color={i === 0 ? '#7a1a14' : '#4a2618'} roughness={0.6} side={2} />
     </mesh>
-    <Box p={[0, 0.15, 0]} s={[0.5, 0.06, 3.3]} c={GOLD} />
+    <Box p={[0, 0.2, 0]} s={[0.12, 0.05, 2.6]} c={GOLD} />
     {/* the prow rising at the bow */}
     <mesh position={[0, 0.45, 1.8]} rotation-x={-0.4}>
       <coneGeometry args={[0.1, 0.8, 6]} />
@@ -250,7 +250,7 @@ const Chula: React.FC<{t: number; Y: number}> = ({t, Y}) => {
       <group position={[CHULA[0], 0, CHULA[1]]} scale={[1, k, 1]}>
         {/* the ramparts: a grassy bank round a parade ground, faced in brick toward the sea */}
         {[[1.4, 0, 0.5, 4.6], [-1.6, 0, 0.5, 4.2], [0, -2.2, 3.4, 0.5], [0, 2.2, 3.4, 0.5]].map(([x, z, w, l], i) => (
-          <Box key={i} p={[x, 0.24, z]} s={[w, 0.48, l]} c={i === 0 ? '#c9b48a' : '#6f8a4a'} />
+          <Box key={i} p={[x, 0.24, z]} s={[w, 0.48, l]} c="#6f8a4a" />
         ))}
         <Box p={[0, 0.04, 0]} s={[3.0, 0.08, 4.0]} c="#b7aa86" />
         {/* the flag: red with the white elephant (the flag of 2436) */}
@@ -459,8 +459,8 @@ const Bridges: React.FC<{Y: number}> = ({Y}) => {
               <group key={j} position={[0, 0, z]}>
                 {/* an A-shaped pylon */}
                 {[-1, 1].map((s) => (
-                  <mesh key={s} position={[s * 0.3, 1.9, 0]} rotation-z={s * -0.1} castShadow>
-                    <boxGeometry args={[0.16, 3.8, 0.2]} />
+                  <mesh key={s} position={[s * 0.3, 2.6, 0]} rotation-z={s * -0.08} castShadow>
+                    <boxGeometry args={[0.22, 5.2, 0.26]} />
                     <meshStandardMaterial color="#e9e6df" roughness={0.6} />
                   </mesh>
                 ))}
@@ -468,7 +468,7 @@ const Bridges: React.FC<{Y: number}> = ({Y}) => {
                 {Array.from({length: 5}, (_, c) =>
                   [-1, 1].map((d) => {
                     const dz = d * (0.5 + c * 0.55);
-                    const h = 3.6 - 0.9;
+                    const h = 4.9 - 0.9;
                     const L = Math.hypot(dz, h);
                     return (
                       <mesh key={`${c}${d}`} position={[0, 0.95 + h / 2, dz / 2]} rotation-x={Math.atan2(dz, h)}>

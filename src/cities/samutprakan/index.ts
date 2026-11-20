@@ -144,7 +144,6 @@ export const SAMUTPRAKAN: CityConfig = {
         {x: BANGPU[0], z: BANGPU[1] + 1.4, r: 1.6, count: 14, from: 1937, to: 2027},
       ],
       stalls: [
-        {x: CHEDI[0] + 0.4, z: CHEDI[1] + 2.4, r: 1.2, count: 8, from: 2007, to: 2027},
         {x: 0.6, z: -2.0, r: 1.0, count: 8, from: 2007, to: 2027},
       ],
     },

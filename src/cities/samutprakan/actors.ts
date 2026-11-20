@@ -99,7 +99,7 @@ export const BARGES = 3;
 export const bargeAt = (i: number, t: number) => {
   const k = beatK('raise', t);
   if (k < -0.12 || k > 1.1) return null;
-  const d = lerp(BARGE_L * 0.2, BARGE_L, smooth((k + 0.1) / 0.55)) - i * 2.4;
+  const d = lerp(BARGE_L * 0.2, BARGE_L, smooth((k + 0.1) / 0.55)) - i * 3.6;
   return along(BARGE_PATH, d);
 };
 /** the relic is carried up from the landing to the chedi */
@@ -217,7 +217,7 @@ const CLOTH_L = lengthOf(CLOTH_PATH);
 export const clothBoatAt = (i: number, t: number) => {
   const k = beatK('fair', t);
   if (k < -0.1 || k > 1.1) return null;
-  const d = lerp(0, CLOTH_L, smooth((k + 0.05) / 0.45)) - i * 1.2;
+  const d = lerp(0, CLOTH_L, smooth((k + 0.05) / 0.45)) - i * 2.2;
   return d < -0.3 ? null : along(CLOTH_PATH, Math.max(0, d));
 };
 /** the cloth carried from the landing to the chedi, then wound round the bell's neck */

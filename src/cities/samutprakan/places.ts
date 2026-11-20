@@ -101,7 +101,7 @@ export const LANDING: P = [-6.0, -5.4];
 
 // ---- the mouth: ป้อมพระจุลจอมเกล้า (OSM way 1010188105 at -13.4, 41.5) drawn 3.9 E, near today's shore: the mud has
 // built the shore out ~1 km since 2436, and the fort faced the channel then
-export const CHULA: P = [-9.5, 41.6];
+export const CHULA: P = [-10.1, 41.4];
 /** the channel the French ships took: up the mouth past the fort and on toward Pak Nam */
 export const CHANNEL: P[] = [[4.0, 64.0], [2.6, 54.0], [0.0, 45.0], [-2.6, 39.4], [-6.6, 35.0], [-10.6, 31.9], [-13.0, 28.6], [-14.4, 24.5]];
 
