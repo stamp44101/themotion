@@ -1,0 +1,185 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.74057,
+     17.87962
+    ]
+   },
+   "properties": {
+    "n": 1,
+    "name": "อนุสาวรีย์ปราบฮ่อ (origin)",
+    "era": "2429/2492",
+    "dist_m": 0,
+    "bearing": 0,
+    "pin_source": "OSM node 13017978186"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.74751,
+     17.8854
+    ]
+   },
+   "properties": {
+    "n": 2,
+    "name": "ตลาดท่าเสด็จ (ย่านบ้านไผ่)",
+    "era": "2370",
+    "dist_m": 975,
+    "bearing": 49,
+    "pin_source": "OSM way 1415105521"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.7575,
+     17.88453
+    ]
+   },
+   "properties": {
+    "n": 3,
+    "name": "วัดโพธิ์ชัย (หลวงพ่อพระใส)",
+    "era": "2382/2399",
+    "dist_m": 1874,
+    "bearing": 73,
+    "pin_source": "OSM way 334828532"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.76693,
+     17.89976
+    ]
+   },
+   "properties": {
+    "n": 4,
+    "name": "พระธาตุหล้าหนอง (กลางน้ำ)",
+    "era": "2390",
+    "dist_m": 3573,
+    "bearing": 51,
+    "pin_source": "OSM node 13288480852"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.72837,
+     17.87946
+    ]
+   },
+   "properties": {
+    "n": 5,
+    "name": "สถานีรถไฟเดิม (ปลายรางร้าง)",
+    "era": "2498",
+    "dist_m": 1293,
+    "bearing": 269,
+    "pin_source": "OSM way 40271689 end (สันนิษฐาน)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.73122,
+     17.86442
+    ]
+   },
+   "properties": {
+    "n": 6,
+    "name": "สถานีรถไฟหนองคาย 2545",
+    "era": "2545",
+    "dist_m": 1953,
+    "bearing": 210,
+    "pin_source": "OSM way 32233676"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.71599,
+     17.87481
+    ]
+   },
+   "properties": {
+    "n": 7,
+    "name": "สะพานมิตรภาพ ฝั่งไทย",
+    "era": "2537",
+    "dist_m": 2658,
+    "bearing": 258,
+    "pin_source": "OSM way 78373187"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.71428,
+     17.88544
+    ]
+   },
+   "properties": {
+    "n": 8,
+    "name": "สะพานมิตรภาพ ฝั่งลาว",
+    "era": "2537",
+    "dist_m": 2859,
+    "bearing": 283,
+    "pin_source": "OSM way 1449697859"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.78254,
+     17.88737
+    ]
+   },
+   "properties": {
+    "n": 9,
+    "name": "ศาลาแก้วกู่",
+    "era": "ราว 2521",
+    "dist_m": 4528,
+    "bearing": 79,
+    "pin_source": "OSM node 919885420"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.74606,
+     17.86692
+    ]
+   },
+   "properties": {
+    "n": 10,
+    "name": "ศาลหลักเมือง",
+    "era": "-",
+    "dist_m": 1521,
+    "bearing": 158,
+    "pin_source": "OSM way 1123535893"
+   }
+  }
+ ]
+}
