@@ -33,7 +33,7 @@ Man. Hills all round (Esri hillshade): ridges NW and W, a long ridge NE, rolling
 ## Years for the screen
 | fact | status | use |
 |---|---|---|
-| Ayutthaya and Lan Xang build Phra That Si Song Rak | **ยืนยัน 2103 → 2106** (จารึก จ.ศ. 922-925; en.wiki "c. 1560") | counter 2103 → 2106, each year ≥ 1 s |
+| Ayutthaya and Lan Xang build Phra That Si Song Rak | **ยืนยัน 2103 → 2106** (จารึก จ.ศ. 922-925; en.wiki "c. 1560") | counter passes 2099 → 2109 (~0.6 s a year), no year held; end card starts 2103 |
 | the pact itself | c. 1556 per en.wiki only | no year |
 | "boundary marker" (the seal's wording) vs a pact of friendship | **ขัดแย้ง** | caption says friendship, not boundary |
 | Ban Hae raised to เมืองเลย by Rama IV | **ยืนยัน 2396** (th.wiki twice, gotoknow) | **held 2396** |
@@ -67,12 +67,12 @@ Facts with nothing to show: Rama IX's climb (2498), the 2478 registration, Mouho
 | id | kind | t (s) | counter | held | caption / sub | on screen |
 |---|---|---|---|---|---|---|
 | hero | legend | 0-3.0 | ~2098 (under the title) | - | title เลย / sub "ผีตาโขน ด่านซ้าย" | the giant on the valley floor NE of town, forest and hills |
-| oath | procession | 3.0-9.5 | 2103 → 2106 | each ≥ 1 s | "อยุธยา–ล้านช้าง สาบานเป็นไมตรี" / "ร่วมสร้างพระธาตุศรีสองรัก ริมลำน้ำหมัน" | two columns (Ayutthaya from the W, Lan Xang from the N) meet at the Man's bend; the stupa rises tier by tier |
-| frontier | trade | 9.5-15.5 | 2107 → 2383 | - | "ด่านซ้าย ด่านกลางหุบเขา" / "กองวัวต่างเดินทางผ่านลำน้ำหมัน" | ox caravans come down the valley from the north past the stupa; houses go up round Wat Phon Chai |
+| oath | procession | 3.0-9.5 | 2099 → 2109 (passing) | - | "อยุธยา–ล้านช้าง สาบานเป็นไมตรี" / "ร่วมสร้างพระธาตุศรีสองรัก ริมลำน้ำหมัน" | two columns (Ayutthaya from the W, Lan Xang from the N) meet at the Man's bend; the stupa rises tier by tier |
+| frontier | trade | 9.5-15.5 | 2110 → 2383 | - | "ด่านซ้าย ด่านกลางหุบเขา" / "กองวัวต่างเดินทางผ่านลำน้ำหมัน" | ox caravans come down the valley from the north past the stupa; houses go up round Wat Phon Chai |
 | loei | build | 15.5-21.5 | 2396 | **2396 ≥ 1 s** | "ร.4 ตั้งเมืองเลย" / "ยกบ้านแฮ่ริมห้วยน้ำหมานเป็นเมือง" | far place 1 (NE edge): Ban Hae's houses on both banks, the pillar raised, the smiths' furnaces glowing |
 | wax | procession | 21.5-27.5 | 2397 → 2497 | - | "แห่ต้นผึ้งถวายพระธาตุ" / "ขึ้น 15 ค่ำ เดือน 6 ทุกปี" | people in white carry wax castles from Wat Phon Chai over the Man to the stupa |
 | kradueng | arrive | 27.5-34.0 | 2505 | **2505 ≥ 1 s** | "ภูกระดึง อุทยานแห่งชาติแห่งที่ 2" / "ยอดภูราบกว้างราว 60 ตร.กม." | far place 2 (SE edge): climbers and porters up the west face to the pine-topped plateau |
-| grow | grow | 34.0-44.0 | 2506 → 2559 | - | "ด่านซ้ายโตตามถนน" / "ออกจากหุบน้ำหมาน ไปทางเมืองเลย" | wide ≥ 160: the town spreads east along ทล.2013 and north up the valley |
+| grow | grow | 34.0-44.0 | 2506 → 2559 | - | "ด่านซ้ายโตตามถนน" / "ออกจากหุบลำน้ำหมัน ไปทางเมืองเลย" | wide ≥ 160: the town spreads east along ทล.2013 and north up the valley |
 | fest | celebrate | 44.2-54.2 | 2560 → 2568 | - | "บุญหลวง ผีตาโขนเต็มเมือง" / "ผีป่าออกมาส่งพระเวสกลับเมือง" | Phi Ta Khon fill the streets from Wat Phon Chai to the festival ground; the giant is back, dancing (callout ผีตาโขน) |
 | today | today | 54.4-56.4 | 2569 ≥ 1 s | 2569 | finale + tagline | the whole tile at the cover's distance |
 
@@ -97,3 +97,13 @@ Stills: `loei_v1_contact.jpg`. **The v1 stills pass is cloud's own (delegated by
   climbers were specks and the trail floated off the cliff (camera on the west face, climbers drawn larger, trail on the face).
 - Left as it is: the engine's bridge decks read large on the close shots (engine size, not touched); the hills read softly
   under the forest from the cover's height.
+
+## Lead review (20 Nov) and what changed
+- 18.5 s, เมืองเลย: Ban Hae is Loei town, 66 km ENE of Dan Sai (OSM city pillar way 1427324009; Huai Nam Man is not in OSM).
+  It is drawn on purpose as far place 1 at the tile's NE edge (bearing ~60 drawn, 69 real; geo.ts checks it), on its own
+  stream and the Loei river, not as Dan Sai growing; the camera goes there and comes back. Kept as a beat.
+- Names: ลำน้ำหมัน is Dan Sai's river; ห้วยน้ำหมาน (ห้วยหมาน) is Ban Hae's stream in Loei (th.wiki). Both are right where they
+  are used; the grow sub wrongly said "หุบน้ำหมาน" and now says "หุบลำน้ำหมัน".
+- 6 s: the counter no longer sits on 2103-2106; it passes 2099 -> 2109 at ~0.6 s a year. The end card keeps "พ.ศ. 2103 –".
+- 25 s: 2455 is a passing year; the wax beat runs 2397 -> 2497 linearly (~17 years a second), no year held.
+- 37/42 s are one beat (grow, 34-44 s) and 48/52 s one beat (fest, 44.2-54.2 s).

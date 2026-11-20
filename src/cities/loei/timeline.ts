@@ -1,8 +1,8 @@
 // Pure data (no React/three) so scripts/export_timeline.mjs can import it for the soundtrack.
 // Beats own their seconds (src/engine/story.ts); the beats, verbs, held years and what is approximate are the brief's
 // storyline v1 table (docs/briefs/loei.md; the owner delegated the call, 20 Nov 2569): hero / oath / frontier / loei / wax /
-// kradueng / grow / fest / today. On the counter: 2103 -> 2106 (Phra That Si Song Rak, the inscription's จ.ศ. 922-925; each
-// year about 1.6 s), 2396 held (Ban Hae raised to เมืองเลย), 2505 held (Phu Kradueng national park); it lands on 2569. The
+// kradueng / grow / fest / today. On the counter: 2099 -> 2109 passing (~0.6 s a year) through the oath (Phra That Si Song
+// Rak, the inscription's จ.ศ. 922-925 = 2103-2106; no year held), 2396 held (Ban Hae raised to เมืองเลย), 2505 held (Phu Kradueng national park); it lands on 2569. The
 // pact's c. 1556 (en.wiki only), Mouhot's 2404, Rama IX's climb of 2498 and the 2478 registration are named in no sub.
 import {between, type CameraKey} from '../../engine/glide';
 import {buildStory} from '../../engine/story';
@@ -70,7 +70,8 @@ export const STORY = buildStory({
       id: 'oath',
       kind: 'procession',
       t: [3.0, 9.5],
-      year: [1560, 1563.45],
+      // the counter only passes through the years (~0.6 s each): the pact is c. 2099 by one source, the building 2103-2106
+      year: [1556, 1566],
       caption: {t0: 3.2, title: 'อยุธยา–ล้านช้างผูกไมตรี', sub: 'ร่วมสร้างพระธาตุศรีสองรัก ริมลำน้ำหมัน'},
       era: 'อยุธยา',
       callouts: [{label: 'พระธาตุศรีสองรัก', dx: 120, dy: -170, p: [STUPA[0], 2.4, STUPA[1]], t0: 6.6, t1: 9.2}],
@@ -81,7 +82,7 @@ export const STORY = buildStory({
       id: 'frontier',
       kind: 'trade',
       t: [9.5, 15.5],
-      year: [1564, 1840],
+      year: [1567, 1840],
       caption: {t0: 9.6, title: 'ด่านซ้าย ด่านกลางหุบเขา', sub: 'กองวัวต่างเดินทางผ่านลำน้ำหมัน'},
       camera: [FR_IN, FR_END],
     },
@@ -122,7 +123,7 @@ export const STORY = buildStory({
       kind: 'grow',
       t: [34.0, 44.0],
       year: [1963, 2016],
-      caption: {t0: 34.1, title: 'ด่านซ้ายโตตามถนน', sub: 'ออกจากหุบน้ำหมาน ไปทางเมืองเลย'},
+      caption: {t0: 34.1, title: 'ด่านซ้ายโตตามถนน', sub: 'ออกจากหุบลำน้ำหมัน ไปทางเมืองเลย'},
       camera: [GR_IN, GR_END],
     },
     {
