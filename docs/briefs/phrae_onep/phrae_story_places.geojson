@@ -1,0 +1,445 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.1385,
+     18.14318
+    ]
+   },
+   "properties": {
+    "name": "ศาลหลักเมืองแพร่",
+    "era": "-",
+    "why": "จุดกำเนิดระยะทั้งหมด กลางเวียงเก่า",
+    "source": "OSM node 3961429157",
+    "pin": "osm",
+    "dist_m": 0,
+    "bearing": 0,
+    "octant": "N",
+    "east_m": 0,
+    "north_m": 0
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.13703,
+     18.14514
+    ]
+   },
+   "properties": {
+    "name": "วัดหลวง",
+    "era": "ตำนาน ~1371?",
+    "why": "วัดที่ตำนานว่าสร้างพร้อมเมือง (วิหารพญาพล)",
+    "source": "OSM node 11410724034",
+    "pin": "osm",
+    "dist_m": 267,
+    "bearing": 324,
+    "octant": "NW",
+    "east_m": -156,
+    "north_m": 217
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.13873,
+     18.14424
+    ]
+   },
+   "properties": {
+    "name": "คุ้มเจ้าหลวงเมืองแพร่",
+    "era": "ราว 2435-",
+    "why": "คุ้มของเจ้าพิริยเทพวงษ์ เจ้าหลวงองค์สุดท้าย",
+    "source": "OSM way 433838558",
+    "pin": "osm",
+    "dist_m": 120,
+    "bearing": 12,
+    "octant": "N",
+    "east_m": 24,
+    "north_m": 117
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.13628,
+     18.14341
+    ]
+   },
+   "properties": {
+    "name": "คุ้มวงศ์บุรี",
+    "era": "2440-2443",
+    "why": "เรือนไม้สักลายขนมปังขิง สีชมพูอ่อน (ถนนคำลือ)",
+    "source": "OSM way 1418653926",
+    "pin": "osm",
+    "dist_m": 236,
+    "bearing": 276,
+    "octant": "W",
+    "east_m": -235,
+    "north_m": 25
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.13482,
+     18.14391
+    ]
+   },
+   "properties": {
+    "name": "วัดพระนอน",
+    "era": "-",
+    "why": "วัดเก่าในเวียงฝั่งตะวันตก",
+    "source": "OSM way 1224666864",
+    "pin": "osm",
+    "dist_m": 398,
+    "bearing": 282,
+    "octant": "W",
+    "east_m": -389,
+    "north_m": 81
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.14036,
+     18.1437
+    ]
+   },
+   "properties": {
+    "name": "วัดพระบาทมิ่งเมืองวรวิหาร",
+    "era": "-",
+    "why": "วัดกลางเมือง",
+    "source": "OSM way 1197000356",
+    "pin": "osm",
+    "dist_m": 205,
+    "bearing": 74,
+    "octant": "E",
+    "east_m": 197,
+    "north_m": 58
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.13842,
+     18.14609
+    ]
+   },
+   "properties": {
+    "name": "วัดศรีชุม",
+    "era": "-",
+    "why": "วัดในเวียงฝั่งเหนือ",
+    "source": "OSM node 11410724035",
+    "pin": "osm",
+    "dist_m": 322,
+    "bearing": 358,
+    "octant": "N",
+    "east_m": -8,
+    "north_m": 322
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.14349,
+     18.14921
+    ]
+   },
+   "properties": {
+    "name": "ประตูยั้งม้า",
+    "era": "-",
+    "why": "ประตูเล็กด้านเหนือ (ปล่อยสัตว์ออกนอกเมือง)",
+    "source": "OSM node 13678622649",
+    "pin": "osm",
+    "dist_m": 851,
+    "bearing": 38,
+    "octant": "NE",
+    "east_m": 528,
+    "north_m": 667
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.14429,
+     18.14838
+    ]
+   },
+   "properties": {
+    "name": "ประตูใหม่",
+    "era": "-",
+    "why": "ประตูมุมตะวันออกเฉียงเหนือ",
+    "source": "OSM way 1492687070",
+    "pin": "osm",
+    "dist_m": 840,
+    "bearing": 47,
+    "octant": "NE",
+    "east_m": 613,
+    "north_m": 575
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.14192,
+     18.14226
+    ]
+   },
+   "properties": {
+    "name": "ประตูชัย (ประมาณ)",
+    "era": "-",
+    "why": "ประตูที่เงี้ยวบุกเข้าเมือง 2445 (ศิลปวัฒนธรรม ข้อความย่อ); ตำแหน่งประมาณตรงที่ถนนเจริญเมืองผ่านแนวกำแพงด้านตะวันออกเฉียงใต้",
+    "source": "estimate (TripNiceDay: ซอยแจ้งเมือง)",
+    "pin": "estimate",
+    "dist_m": 376,
+    "bearing": 106,
+    "octant": "E",
+    "east_m": 362,
+    "north_m": -102
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.1353,
+     18.14053
+    ]
+   },
+   "properties": {
+    "name": "โรงเรียนป่าไม้ (เก่า)",
+    "era": "ราว 2500-2536",
+    "why": "โรงเรียนป่าไม้แพร่ในเวียงเก่า",
+    "source": "OSM way 766133178",
+    "pin": "osm",
+    "dist_m": 448,
+    "bearing": 229,
+    "octant": "SW",
+    "east_m": -339,
+    "north_m": -293
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.14611,
+     18.14668
+    ]
+   },
+   "properties": {
+    "name": "วัดสระบ่อแก้ว",
+    "era": "-",
+    "why": "วัดไทใหญ่ (เงี้ยว) นอกคูเมืองด้านตะวันออก",
+    "source": "OSM way 438290064",
+    "pin": "osm",
+    "dist_m": 893,
+    "bearing": 64,
+    "octant": "NE",
+    "east_m": 805,
+    "north_m": 387
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.15073,
+     18.15053
+    ]
+   },
+   "properties": {
+    "name": "วัดจอมสวรรค์",
+    "era": "-",
+    "why": "วัดไทใหญ่ทรงพม่า",
+    "source": "OSM way 1226068525",
+    "pin": "osm",
+    "dist_m": 1528,
+    "bearing": 58,
+    "octant": "NE",
+    "east_m": 1294,
+    "north_m": 813
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.1398,
+     18.1501
+    ]
+   },
+   "properties": {
+    "name": "แม่น้ำยม (โค้งเหนือเวียง)",
+    "era": "-",
+    "why": "แม่น้ำยมโค้งผ่านเหนือและตะวันตกของเวียง ~0.3-1.4 กม.",
+    "source": "OSM way 1304426787",
+    "pin": "osm",
+    "dist_m": 778,
+    "bearing": 10,
+    "octant": "N",
+    "east_m": 138,
+    "north_m": 765
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.16421,
+     18.13111
+    ]
+   },
+   "properties": {
+    "name": "ท่าอากาศยานแพร่",
+    "era": "-",
+    "why": "สนามบินตะวันออกเฉียงใต้ของเมือง",
+    "source": "OSM way 424308784",
+    "pin": "osm",
+    "dist_m": 3030,
+    "bearing": 116,
+    "octant": "SE",
+    "east_m": 2720,
+    "north_m": -1335
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.17165,
+     18.16931
+    ]
+   },
+   "properties": {
+    "name": "ทุ่งโฮ้ง (ผ้าม่อฮ่อม)",
+    "era": "-",
+    "why": "หมู่บ้านผ้าม่อฮ่อม",
+    "source": "OSM node 4242476619",
+    "pin": "osm",
+    "dist_m": 4545,
+    "bearing": 51,
+    "octant": "NE",
+    "east_m": 3507,
+    "north_m": 2890
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.20438,
+     18.08624
+    ]
+   },
+   "properties": {
+    "name": "พระธาตุช่อแฮ",
+    "era": "1879-1881 (พงศาวดาร); บูรณะ 2467",
+    "why": "พระธาตุบนดอยโกสัย ฉากจบ",
+    "source": "OSM way 540201653",
+    "pin": "osm",
+    "dist_m": 9394,
+    "bearing": 132,
+    "octant": "SE",
+    "east_m": 6970,
+    "north_m": -6298
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.04635,
+     17.98073
+    ]
+   },
+   "properties": {
+    "name": "สถานีรถไฟเด่นชัย",
+    "era": "15 พ.ย. 2455",
+    "why": "สถานีรถไฟของจังหวัดแพร่ (ตัวเมืองไม่มีรถไฟ)",
+    "source": "OSM way 895625052",
+    "pin": "osm",
+    "dist_m": 20442,
+    "bearing": 208,
+    "octant": "SW",
+    "east_m": -9749,
+    "north_m": -17967
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.20916,
+     18.18381
+    ]
+   },
+   "properties": {
+    "name": "แพะเมืองผี",
+    "era": "-",
+    "why": "เสาดินกัดเซาะ (ในคำขวัญ) ไม่ใช้ในคลิป",
+    "source": "OSM way 350858994",
+    "pin": "osm",
+    "dist_m": 8722,
+    "bearing": 59,
+    "octant": "NE",
+    "east_m": 7476,
+    "north_m": 4494
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.16591,
+     18.12295
+    ]
+   },
+   "properties": {
+    "name": "แยกช่อแฮ",
+    "era": "-",
+    "why": "ทางแยกถนนช่อแฮ ทางไปพระธาตุ",
+    "source": "OSM way 1414081293",
+    "pin": "osm",
+    "dist_m": 3663,
+    "bearing": 128,
+    "octant": "SE",
+    "east_m": 2900,
+    "north_m": -2237
+   }
+  }
+ ]
+}
