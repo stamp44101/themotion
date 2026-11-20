@@ -66,6 +66,9 @@ export const PATTANI: CityConfig = {
     houses: {
       // the town fills through the newtown and bridge beats (the counter runs 1787-1930)
       built: [1795, 70],
+      // engine work-around: a house never abandoned gets gone = Infinity and its fade-out ramp turns NaN, which hides it
+      // (Diorama.tsx trad: ramp(Y, Infinity, Infinity + 10)). Every house is 'abandoned' in a year that never comes.
+      abandon: {prob: 1, from: 1e8, spread: 1, rebuild: 1e9, rebuildSpread: 1},
       modern: [1955, 45],
       keepOut: [
         [PILLAR[0], PILLAR[1], 0.7],

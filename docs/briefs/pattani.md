@@ -89,3 +89,8 @@ Kinds: legend / build / procession / trade / procession / arrive / build / grow 
 - Fixed on the stills before passing them (owner delegated): the hauled gun was unreadable (drawn 3.2 units, the haul road
   and the ground east of the palace cleared, the camera brought round to the east); the port's ships stayed into the next
   beat; the new town was empty (the town's outline widened to the real two banks: 76 houses); the gilded gun read olive.
+- **Engine bug found (left for the engine branch):** a town house that is never abandoned gets `gone = Infinity`, and
+  `Diorama.tsx` fades it with `ramp(Y, Infinity, Infinity + 10)` = NaN, so it is never drawn. Pattani works round it in its
+  own config (`houses.abandon` with a year that never comes). Other cities without `abandon` likely show no engine town
+  houses either.
+- The 12-still pass (`pattani_v1_contact.jpg`) is passed by cloud on the owner's delegation.
