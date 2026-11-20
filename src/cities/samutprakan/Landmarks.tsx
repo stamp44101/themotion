@@ -407,12 +407,16 @@ const BangPu: React.FC<{t: number; Y: number}> = ({t, Y}) => {
         </group>
       )}
       {/* the resort's houses on the shore */}
-      {[[-1.4, 0.4], [0.2, -0.6], [1.6, 0.3]].map(([x, z], i) => (
-        <group key={i} position={[BANGPU[0] + x, 0, BANGPU[1] + z]} scale={[0.75, 0.75 * clamp01(k * 2 - i * 0.3), 0.75]}>
+      {[[-1.4, 0.4], [0.2, -0.6], [1.6, 0.3]].map(([x, z], i) => {
+        // a growing mesh is gated on its own scale: a zero scale blacked out the whole frame under bloom ([local], 28.2 s)
+        const hk = clamp01(k * 2 - i * 0.3);
+        return hk < 0.02 ? null : (
+        <group key={i} position={[BANGPU[0] + x, 0, BANGPU[1] + z]} scale={[0.75, 0.75 * hk, 0.75]}>
           <Box p={[0, 0.3, 0]} s={[1.2, 0.6, 0.9]} c="#f1ece0" />
           <HipRoof w={1.4} l={1.1} h={0.45} y={0.6} color="#9a3a24" />
         </group>
-      ))}
+        );
+      })}
       {Array.from({length: STROLLERS}, (_, i) => {
         const p = strollerAt(i, t);
         return p ? (
@@ -516,11 +520,11 @@ const Airport: React.FC<{t: number; Y: number}> = ({t, Y}) => {
     <group>
       {/* the swamp, then the sand fill over it */}
       <FlatWater shape={SWAMP_SHAPE} color={f > 0.5 ? '#9fae6e' : '#5f8a76'} y={-0.03} />
-      {f > 0.6 &&
+      {f > 0.62 &&
         [-1, 1].map((r) => {
           const [x, z] = [AIRPORT[0] + Math.cos(RUNWAY_ROT) * r * RUNWAY_GAP, AIRPORT[1] + Math.sin(RUNWAY_ROT) * r * RUNWAY_GAP];
           return (
-            <group key={r} position={[x, 0.12, z]} rotation-y={-RUNWAY_ROT} scale={[1, 1, smooth((f - 0.6) / 0.4)]}>
+            <group key={r} position={[x, 0.12, z]} rotation-y={-RUNWAY_ROT} scale={[1, 1, Math.max(0.03, smooth((f - 0.6) / 0.4))]}>
               <Box p={[0, 0, 0]} s={[0.9, 0.04, RUNWAY_L]} c="#4a4d52" />
               {Array.from({length: 12}, (_, i) => (
                 <Box key={i} p={[0, 0.03, -RUNWAY_L / 2 + 0.8 + i * 1.45]} s={[0.08, 0.02, 0.6]} c="#f2f2f2" />

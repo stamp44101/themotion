@@ -193,7 +193,7 @@ export const Chedi: React.FC<{H: number; built: number; wash: number; spire: num
 
 /** a hod of bricks thrown in at each course: a puff of brick dust, self-lit */
 export const Dust: React.FC<{u: number; seed: number; S: number; color?: string; n?: number}> = ({u, seed, S, color = '#e0a07a', n = 8}) => {
-  if (u < 0 || u > 1) return null;
+  if (u < 0 || u > 0.97) return null;
   return (
     <group>
       {Array.from({length: n}, (_, i) => {
