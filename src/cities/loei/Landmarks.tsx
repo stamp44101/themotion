@@ -334,7 +334,7 @@ const Kradueng: React.FC<{t: number; Y: number}> = ({t, Y}) => {
           const p = climberAt(i, t);
           if (!p) return null;
           return (
-            <group key={i} position={[p.x - cx, p.y, p.z - cz]} rotation-y={p.rot} scale={0.42}>
+            <group key={i} position={[p.x - cx, p.y, p.z - cz]} rotation-y={p.rot} scale={0.6}>
               <Walker step={t * 1.3 + i * 0.4} i={i % 2 ? 1 : 0} load={i % 3 === 0} />
             </group>
           );

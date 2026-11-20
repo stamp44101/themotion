@@ -79,3 +79,21 @@ Facts with nothing to show: Rama IX's climb (2498), the 2478 registration, Mouho
 Kinds: legend / procession / trade / build / procession / arrive / grow / celebrate / today: no two alike in a row, one
 `build`, the spectacle from 3 s. Far places: Loei town and Phu Kradueng only.
 No year is named on screen that the counter does not hold for 1 s; 2498, 2404, 2478 and the pact's c. 1556 stay out.
+
+## v1 build (cloud, 20 Nov)
+`src/cities/loei/`, 100 m/unit, origin Wat Phon Chai; Loei town and Phu Kradueng drawn closer at the NE and SE edges
+(places.ts, geo.ts). Score `scripts/soundtrack_loei.py` (khaen, phin, wooden bars, klong and ching; the basket's strip, the
+ghost's bells, ox bells, the smiths' hammers, the parade), -16.0 LUFS, score +1.1 LU over the effects, ambience -10.9 LU under
+the score. `npm run check`: 0 errors (one grandeur warning: the old town is 2.2% of the tile, Dan Sai's true size).
+Stills: `loei_v1_contact.jpg`. **The v1 stills pass is cloud's own (delegated by the owner).**
+- Captions shortened to one line: "อยุธยา–ล้านช้างผูกไมตรี", "ภูกระดึง อุทยานแห่งชาติ" (sub "แห่งที่ 2 ของไทย ..."),
+  "ผีตาโขนเต็มเมือง" (sub "งานบุญหลวง ...").
+- Roads nudged off the Man where OSM's simplified ways touch it; the town street from Wat Phon Chai crosses the Man's bend
+  square to its arm; the hills by ทล.2113 and the viewpoint hill widened so no road climbs > 35 degrees.
+- Wat Phon Chai's sim drawn 30 m east and at 0.85 scale, between the Sok and the street.
+- The festival giant (the callback) is 8 units tall on the festival ground, west of where OSM puts the venue (the venue node is
+  ~100 m from the Man's bend), so it stands on land; the camera looks from the NW so Phu Kradueng's plateau is behind it.
+- Fixed on the stills before passing: the caravans were small and behind trees (closer, higher camera); Phu Kradueng's
+  climbers were specks and the trail floated off the cliff (camera on the west face, climbers drawn larger, trail on the face).
+- Left as it is: the engine's bridge decks read large on the close shots (engine size, not touched); the hills read softly
+  under the forest from the cover's height.

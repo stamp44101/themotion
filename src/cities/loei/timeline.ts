@@ -28,7 +28,7 @@ const WA_IN: Key = [22.8, -3.6, 1, 3.6, 34, 14, 42, 30];
 const WA_END: Key = [27.2, -7.4, 1, 5.4, 28, -14, 42, 30];
 // kradueng (far place): the west face and the climb, from the west-south-west, then up to the rim
 const KR_IN: Key = [28.8, KRADUENG[0] - 6, 2.5, KRADUENG[1], 40, -62, 34, 30];
-const KR_END: Key = [33.6, KRADUENG[0] - 4, KRADUENG_H * 0.8, KRADUENG[1], 34, -40, 36, 30];
+const KR_END: Key = [33.6, KRADUENG[0] - 6.5, KRADUENG_H * 0.5, KRADUENG[1] - 0.4, 30, -48, 34, 30];
 // the grow shot: the whole valley from the south, swinging round to the south-east
 const GR_IN: Key = [35.4, 4, 1, -2, 175, 8, 37, 30];
 const GR_END: Key = [43.6, 6, 1, -4, 205, 36, 37, 30];
