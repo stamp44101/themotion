@@ -90,10 +90,11 @@ Kinds: legend / build / procession / trade / procession / arrive / build / grow 
 - Fixed on the stills before passing them (owner delegated): the hauled gun was unreadable (drawn 3.2 units, the haul road
   and the ground east of the palace cleared, the camera brought round to the east); the port's ships stayed into the next
   beat; the new town was empty (the town's outline widened to the real two banks: 76 houses); the gilded gun read olive.
-- **Engine bug found (left for the engine branch):** a town house that is never abandoned gets `gone = Infinity`, and
-  `Diorama.tsx` fades it with `ramp(Y, Infinity, Infinity + 10)` = NaN, so it is never drawn. Pattani works round it in its
-  own config (`houses.abandon` with a year that never comes). Other cities without `abandon` likely show no engine town
-  houses either.
+- **Engine finding (narrower than first thought; no engine change this round, per the lead):** a never-abandoned house has
+  `gone = Infinity`, and `ramp(Y, Infinity, Infinity + 10)` is NaN in `Diorama.tsx`. The lead's A/B on Kalasin shows main
+  still draws its town houses, and the NaN fix only adds an odd extra house. On Pattani's first stills the town showed no
+  houses; with `houses.abandon` set to a year that never comes, they draw. Checked up close at 29.5 s and 42 s: no house
+  inside another house or a landmark, and check_story's occupancy check passes.
 - The 12-still pass (`pattani_v1_contact.jpg`) is passed by cloud on the owner's delegation.
 - **Lead's review (20 Nov), all fixed:** the counter now passes 2328 under the taken caption (a 1-s gap after 2145 carries it
   across) and 2469 under the bridge caption, neither held; the payoff is split so the gilded gun has its own caption ("seal");
