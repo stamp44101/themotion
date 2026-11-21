@@ -1,0 +1,278 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.59755,
+     13.59349
+    ]
+   },
+   "properties": {
+    "name": "ศาลหลักเมืองสมุทรปราการ (origin)",
+    "name_en": "City pillar shrine",
+    "era": "ร.2 (2365)",
+    "why": "the pillar of the new town (2365, one source)",
+    "dist_m": 0,
+    "bearing": 0,
+    "east_m": 0,
+    "north_m": 0,
+    "pin": "nominatim node 5214164522"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.59737,
+     13.59879
+    ]
+   },
+   "properties": {
+    "name": "ศาลากลางจังหวัด",
+    "name_en": "Provincial hall",
+    "era": "ปัจจุบัน",
+    "why": "heart of Pak Nam on the east bank",
+    "dist_m": 586,
+    "bearing": 358,
+    "east_m": -19,
+    "north_m": 586,
+    "pin": "nominatim node 5215769222"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.5994,
+     13.59234
+    ]
+   },
+   "properties": {
+    "name": "วัดกลางวรวิหาร",
+    "name_en": "Wat Klang Worawihan",
+    "era": "ร.2-ร.3",
+    "why": "old temple of Pak Nam town",
+    "dist_m": 237,
+    "bearing": 122,
+    "east_m": 200,
+    "north_m": -127,
+    "pin": "OSM way 1229700134"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.58683,
+     13.60027
+    ]
+   },
+   "properties": {
+    "name": "องค์พระสมุทรเจดีย์",
+    "name_en": "Phra Samut Chedi",
+    "era": "ร.2-ร.4",
+    "why": "the hero: the chedi on its island, now on the west bank",
+    "dist_m": 1381,
+    "bearing": 303,
+    "east_m": -1160,
+    "north_m": 750,
+    "pin": "OSM way 29976964"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.58754,
+     13.59529
+    ]
+   },
+   "properties": {
+    "name": "ป้อมผีเสื้อสมุทร",
+    "name_en": "Phi Suea Samut fort",
+    "era": "ร.2 (2362-2365)",
+    "why": "the surviving Rama II fort, on its own island once",
+    "dist_m": 1101,
+    "bearing": 280,
+    "east_m": -1083,
+    "north_m": 199,
+    "pin": "OSM way 1224439620"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.59663,
+     13.59494
+    ]
+   },
+   "properties": {
+    "name": "อนุสรณ์รถไฟสายแรก (สถานีปากน้ำเดิม)",
+    "name_en": "Paknam railway monument",
+    "era": "ร.5 (2436-2503)",
+    "why": "end of Siam's first railway",
+    "dist_m": 189,
+    "bearing": 328,
+    "east_m": -100,
+    "north_m": 160,
+    "pin": "OSM way 1228796793"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.57901,
+     13.53722
+    ]
+   },
+   "properties": {
+    "name": "ป้อมพระจุลจอมเกล้า",
+    "name_en": "Phra Chulachomklao fort",
+    "era": "ร.5 (2427-2436)",
+    "why": "the Paknam incident, 13 Jul 2436",
+    "dist_m": 6537,
+    "bearing": 198,
+    "east_m": -2006,
+    "north_m": -6222,
+    "pin": "OSM way 1010188105"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.585,
+     13.53818
+    ]
+   },
+   "properties": {
+    "name": "เรือหลวงแม่กลอง",
+    "name_en": "HTMS Maeklong (museum ship)",
+    "era": "2480-2539",
+    "why": "museum ship at the fort",
+    "dist_m": 6265,
+    "bearing": 193,
+    "east_m": -1358,
+    "north_m": -6116,
+    "pin": "OSM way 1148281220"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.65091,
+     13.51989
+    ]
+   },
+   "properties": {
+    "name": "สถานตากอากาศบางปู",
+    "name_en": "Bang Pu seaside resort",
+    "era": "2480",
+    "why": "the seaside resort, the pier into the sea",
+    "dist_m": 9979,
+    "bearing": 145,
+    "east_m": 5775,
+    "north_m": -8138,
+    "pin": "OSM way 543819719"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.74858,
+     13.68188
+    ]
+   },
+   "properties": {
+    "name": "ท่าอากาศยานสุวรรณภูมิ",
+    "name_en": "Suvarnabhumi airport",
+    "era": "2549",
+    "why": "the finale: jets over the old cobra swamp",
+    "dist_m": 19039,
+    "bearing": 59,
+    "east_m": 16339,
+    "north_m": 9774,
+    "pin": "OSM relation 6641648"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.53901,
+     13.67429
+    ]
+   },
+   "properties": {
+    "name": "สะพานภูมิพล 1",
+    "name_en": "Bhumibol bridge 1",
+    "era": "2549",
+    "why": "twin cable-stayed bridges over the Chao Phraya",
+    "dist_m": 10951,
+    "bearing": 325,
+    "east_m": -6333,
+    "north_m": 8934,
+    "pin": "OSM way 956029042"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.54044,
+     13.65673
+    ]
+   },
+   "properties": {
+    "name": "สะพานภูมิพล 2",
+    "name_en": "Bhumibol bridge 2",
+    "era": "2549",
+    "why": "",
+    "dist_m": 9331,
+    "bearing": 319,
+    "east_m": -6179,
+    "north_m": 6993,
+    "pin": "OSM way 956029041"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.53287,
+     13.65698
+    ]
+   },
+   "properties": {
+    "name": "ป้อมแผลงไฟฟ้า (พระประแดง)",
+    "name_en": "Phlaeng Fai Fa fort, Phra Pradaeng",
+    "era": "ร.2 (2358)",
+    "why": "the Mon town of Nakhon Khuean Khan",
+    "dist_m": 9912,
+    "bearing": 315,
+    "east_m": -6998,
+    "north_m": 7020,
+    "pin": "OSM way 312888447"
+   }
+  }
+ ]
+}

@@ -32,6 +32,7 @@ import {UTTARADIT} from './cities/uttaradit';
 import {YASOTHON} from './cities/yasothon';
 import {SAMUTSONGKHRAM} from './cities/samutsongkhram';
 import {KALASIN} from './cities/kalasin';
+import {SAMUTPRAKAN} from './cities/samutprakan';
 import {TRANG} from './cities/trang';
 import {NONGKHAI} from './cities/nongkhai';
 import {PHRAE} from './cities/phrae';
@@ -63,6 +64,7 @@ import {SURAT_A1, SURAT_A2, SURAT_B} from './styleframes/suratthani';
 import {KANCH_A1, KANCH_A2, KANCH_B} from './styleframes/kanchanaburi';
 import {SAKON_A1, SAKON_A2, SAKON_B} from './styleframes/sakonnakhon';
 import {KALASIN_A1, KALASIN_A2, KALASIN_B} from './styleframes/kalasin';
+import {SAMUTPRAKAN_A, SAMUTPRAKAN_B} from './styleframes/samutprakan';
 import {TRANG_A1, TRANG_A2, TRANG_B} from './styleframes/trang';
 import {NONGKHAI_A1, NONGKHAI_A2} from './styleframes/nongkhai';
 import {PHRAE_A1, PHRAE_A2} from './styleframes/phrae';
@@ -104,6 +106,7 @@ const Uttaradit: React.FC = () => <DioramaComposition city={UTTARADIT} />;
 const Yasothon: React.FC = () => <DioramaComposition city={YASOTHON} />;
 const SamutSongkhram: React.FC = () => <DioramaComposition city={SAMUTSONGKHRAM} />;
 const Kalasin: React.FC = () => <DioramaComposition city={KALASIN} />;
+const SamutPrakan: React.FC = () => <DioramaComposition city={SAMUTPRAKAN} />;
 const Trang: React.FC = () => <DioramaComposition city={TRANG} />;
 const NongKhai: React.FC = () => <DioramaComposition city={NONGKHAI} />;
 const Phrae: React.FC = () => <DioramaComposition city={PHRAE} />;
@@ -164,6 +167,8 @@ const SakonStyleA1: React.FC = () => <DioramaComposition city={SAKON_A1} />;
 const KalasinStyleA1: React.FC = () => <DioramaComposition city={KALASIN_A1} />;
 const KalasinStyleA2: React.FC = () => <DioramaComposition city={KALASIN_A2} />;
 const KalasinStyleB: React.FC = () => <DioramaComposition city={KALASIN_B} />;
+const SamutPrakanStyleA: React.FC = () => <DioramaComposition city={SAMUTPRAKAN_A} />;
+const SamutPrakanStyleB: React.FC = () => <DioramaComposition city={SAMUTPRAKAN_B} />;
 const TrangStyleA1: React.FC = () => <DioramaComposition city={TRANG_A1} />;
 const TrangStyleA2: React.FC = () => <DioramaComposition city={TRANG_A2} />;
 const TrangStyleB: React.FC = () => <DioramaComposition city={TRANG_B} />;
@@ -256,6 +261,8 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="KalasinStyleA1" component={KalasinStyleA1} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="KalasinStyleA2" component={KalasinStyleA2} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="KalasinStyleB" component={KalasinStyleB} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="SamutPrakanStyleA" component={SamutPrakanStyleA} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="SamutPrakanStyleB" component={SamutPrakanStyleB} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="TrangStyleA1" component={TrangStyleA1} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="TrangStyleA2" component={TrangStyleA2} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
     <Composition id="TrangStyleB" component={TrangStyleB} durationInFrames={10 * FPS} fps={FPS} width={W} height={H} />
@@ -316,6 +323,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="Yasothon" component={Yasothon} durationInFrames={(YASOTHON.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="SamutSongkhram" component={SamutSongkhram} durationInFrames={(SAMUTSONGKHRAM.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Kalasin" component={Kalasin} durationInFrames={(KALASIN.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
+    <Composition id="SamutPrakan" component={SamutPrakan} durationInFrames={(SAMUTPRAKAN.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Trang" component={Trang} durationInFrames={(TRANG.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="NongKhai" component={NongKhai} durationInFrames={(NONGKHAI.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
     <Composition id="Phrae" component={Phrae} durationInFrames={(PHRAE.story.duration ?? SECONDS) * FPS} fps={FPS} width={W} height={H} />
