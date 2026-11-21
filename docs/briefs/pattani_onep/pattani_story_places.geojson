@@ -1,0 +1,350 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.25252,
+     6.86878
+    ]
+   },
+   "properties": {
+    "name": "ศาลหลักเมืองปัตตานี (origin)",
+    "group": "old town",
+    "dist_m": 0,
+    "bearing": 0,
+    "octant": "N",
+    "east_m": 0,
+    "north_m": 0,
+    "unit_x": 0.0,
+    "unit_z": -0.0,
+    "pin": "osm",
+    "source": "OSM way 1337146202"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.25214,
+     6.86595
+    ]
+   },
+   "properties": {
+    "name": "สะพานเดชานุชิต",
+    "group": "old town",
+    "dist_m": 316,
+    "bearing": 188,
+    "octant": "S",
+    "east_m": -42,
+    "north_m": -313,
+    "unit_x": -0.3,
+    "unit_z": 2.5,
+    "pin": "osm",
+    "source": "OSM way 1508045127"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.2582,
+     6.87154
+    ]
+   },
+   "properties": {
+    "name": "ศาลเจ้าแม่ลิ้มกอเหนี่ยว (ศาลเจ้าเล่งจูเกียง)",
+    "group": "old town",
+    "dist_m": 698,
+    "bearing": 64,
+    "octant": "NE",
+    "east_m": 628,
+    "north_m": 305,
+    "unit_x": 5.0,
+    "unit_z": -2.4,
+    "pin": "osm",
+    "source": "OSM way 1337111627"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.25507,
+     6.86211
+    ]
+   },
+   "properties": {
+    "name": "มัสยิดกลางปัตตานี",
+    "group": "old town",
+    "dist_m": 790,
+    "bearing": 159,
+    "octant": "S",
+    "east_m": 282,
+    "north_m": -738,
+    "unit_x": 2.3,
+    "unit_z": 5.9,
+    "pin": "osm",
+    "source": "OSM way 1337106151"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.2485,
+     6.85592
+    ]
+   },
+   "properties": {
+    "name": "วังเจ้าเมืองปัตตานี (วังจะบังติกอ)",
+    "group": "old town",
+    "dist_m": 1490,
+    "bearing": 197,
+    "octant": "S",
+    "east_m": -444,
+    "north_m": -1422,
+    "unit_x": -3.6,
+    "unit_z": 11.4,
+    "pin": "nominatim",
+    "source": "nominatim"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.24998,
+     6.86767
+    ]
+   },
+   "properties": {
+    "name": "ศาลากลางจังหวัดปัตตานี",
+    "group": "old town",
+    "dist_m": 306,
+    "bearing": 246,
+    "octant": "SW",
+    "east_m": -281,
+    "north_m": -123,
+    "unit_x": -2.2,
+    "unit_z": 1.0,
+    "pin": "osm",
+    "source": "OSM relation 18320468"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.24412,
+     6.87668
+    ]
+   },
+   "properties": {
+    "name": "วัดหลักเมือง",
+    "group": "old town",
+    "dist_m": 1275,
+    "bearing": 313,
+    "octant": "NW",
+    "east_m": -928,
+    "north_m": 874,
+    "unit_x": -7.4,
+    "unit_z": -7.0,
+    "pin": "osm",
+    "source": "OSM way 1337235717"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.23608,
+     6.88151
+    ]
+   },
+   "properties": {
+    "name": "มหาวิทยาลัยสงขลานครินทร์ วิทยาเขตปัตตานี",
+    "group": "growth",
+    "dist_m": 2298,
+    "bearing": 308,
+    "octant": "NW",
+    "east_m": -1817,
+    "north_m": 1408,
+    "unit_x": -14.5,
+    "unit_z": -11.3,
+    "pin": "osm",
+    "source": "OSM way 475509862"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.2442,
+     6.9041
+    ]
+   },
+   "properties": {
+    "name": "ปากแม่น้ำปัตตานี",
+    "group": "water",
+    "dist_m": 4012,
+    "bearing": 347,
+    "octant": "N",
+    "east_m": -920,
+    "north_m": 3905,
+    "unit_x": -7.4,
+    "unit_z": -31.2,
+    "pin": "osm",
+    "source": "OSM way 37273146 meets the coastline"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.30305,
+     6.87295
+    ]
+   },
+   "properties": {
+    "name": "มัสยิดกรือเซะ",
+    "group": "Kru Se",
+    "dist_m": 5604,
+    "bearing": 85,
+    "octant": "E",
+    "east_m": 5585,
+    "north_m": 461,
+    "unit_x": 44.7,
+    "unit_z": -3.7,
+    "pin": "osm",
+    "source": "OSM node 14231572759"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.3021,
+     6.87321
+    ]
+   },
+   "properties": {
+    "name": "ฮวงซุ้ยเจ้าแม่ลิ้มกอเหนี่ยว",
+    "group": "Kru Se",
+    "dist_m": 5501,
+    "bearing": 85,
+    "octant": "E",
+    "east_m": 5480,
+    "north_m": 490,
+    "unit_x": 43.8,
+    "unit_z": -3.9,
+    "pin": "osm",
+    "source": "OSM node 8231022818"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.29676,
+     6.87126
+    ]
+   },
+   "properties": {
+    "name": "บ้านกรือเซะ",
+    "group": "Kru Se",
+    "dist_m": 4897,
+    "bearing": 87,
+    "octant": "E",
+    "east_m": 4889,
+    "north_m": 274,
+    "unit_x": 39.1,
+    "unit_z": -2.2,
+    "pin": "osm",
+    "source": "OSM node 4742694300"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.3,
+     6.885
+    ]
+   },
+   "properties": {
+    "name": "ท่าเรือเก่าหน้ากรือเซะ (ที่ทอดสมอในอ่าว)",
+    "group": "water",
+    "dist_m": 5546,
+    "bearing": 71,
+    "octant": "E",
+    "east_m": 5248,
+    "north_m": 1794,
+    "unit_x": 42.0,
+    "unit_z": -14.3,
+    "pin": "estimate",
+    "source": "estimate: the bay off Kru Se"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.24,
+     6.933
+    ]
+   },
+   "properties": {
+    "name": "แหลมตาชี (ปลายสันทราย)",
+    "group": "water",
+    "dist_m": 7235,
+    "bearing": 349,
+    "octant": "N",
+    "east_m": -1384,
+    "north_m": 7101,
+    "unit_x": -11.1,
+    "unit_z": -56.8,
+    "pin": "imagery",
+    "source": "coastline way 727304479"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.27,
+     6.915
+    ]
+   },
+   "properties": {
+    "name": "อ่าวปัตตานี (กลางอ่าว)",
+    "group": "water",
+    "dist_m": 5464,
+    "bearing": 21,
+    "octant": "N",
+    "east_m": 1932,
+    "north_m": 5111,
+    "unit_x": 15.5,
+    "unit_z": -40.9,
+    "pin": "imagery",
+    "source": "Esri imagery"
+   }
+  }
+ ]
+}
